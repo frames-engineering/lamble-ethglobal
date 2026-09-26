@@ -9,6 +9,7 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useActiveSection } from "@/hooks/use-active-section";
+import { useEntered } from "@/hooks/use-entered";
 import { useScrolled } from "@/hooks/use-scrolled";
 import { cn } from "@/lib/utils";
 
@@ -25,9 +26,10 @@ export function Navbar() {
   const scrolled = useScrolled(8);
   const active = useActiveSection(IDS);
   const [open, setOpen] = useState(false);
+  const entered = useEntered();
 
   return (
-    <header className="hero-enter fixed inset-x-0 top-3 z-50 md:top-4">
+    <header data-entered={entered ? "" : undefined} className="hero-enter fixed inset-x-0 top-3 z-50 md:top-4">
       {/* Desktop: the bar is pushed to the hero's right edge; from xl it shares the top line with the title card,
           so both are capped at half the width. */}
       <Container className="lg:max-w-none">

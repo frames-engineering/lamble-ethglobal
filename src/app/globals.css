@@ -170,40 +170,75 @@
   mask-image: linear-gradient(to bottom, #000 82%, transparent);
 }
 
-/* Frosted panel floating over the hero video: navbar, title card, stat tiles. Owns the shared radius. */
+/*
+ * Frosted panel floating over the hero video: navbar, title card, stat tiles. Owns the shared radius.
+ * The video stays dark in both themes, so light mode needs a denser panel for its dark text to read.
+ */
 @utility glass {
-  @apply rounded-lg border border-divider bg-surface-1/45 backdrop-blur-xl backdrop-saturate-150;
+  @apply rounded-lg border border-divider bg-surface-1/45 backdrop-blur-xl backdrop-saturate-150 light:bg-surface-1/85;
 }
 
 /*
- * Hero entrance. Pure CSS from first paint, so it runs before hydration and off the main thread:
- * opacity + transform only, the codebase's ease-out, staggered through --enter-delay.
- * Reduced motion keeps the fade and drops the rise.
+ * Hero panel entrance. Panels start hidden; once their stage (or the element itself) carries
+ * data-entered, set by useEntered two frames after hydration, keyframes slide them up 32px while
+ * fading in, staggered through --enter-delay. Keyframes rather than a transition because a
+ * transition needs a previously painted style, and in dev hydration can finish before the first
+ * paint, leaving nothing to transition from. Reduced motion keeps the fade and drops the rise.
  */
-@utility hero-enter {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.6s var(--ease-decelerate),
-    transform 0.6s var(--ease-decelerate);
-  transition-delay: var(--enter-delay, 0s);
-  @starting-style {
+@layer components {
+  .hero-enter {
     opacity: 0;
-    transform: translateY(10px);
+  }
+  [data-entered] .hero-enter,
+  .hero-enter[data-entered] {
+    animation: hero-enter 0.9s var(--ease-glide) both;
+    animation-delay: var(--enter-delay, 0s);
+  }
+  @keyframes hero-enter {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    transition-property: opacity;
-    @starting-style {
-      transform: none;
+    [data-entered] .hero-enter,
+    .hero-enter[data-entered] {
+      animation-name: hero-fade;
     }
   }
 }
 
-/* The media surface: a longer, opacity-only fade that starts when the canvas (or fallback video) mounts. */
+/*
+ * The media surface blurs in: heavily blurred and transparent when the canvas (or fallback video)
+ * mounts, sharpening as it fades. The blur also hides the first video frame landing mid-entrance.
+ * Rest state is filter: none so the full-screen canvas carries no filter afterwards.
+ */
 @utility hero-media-enter {
   opacity: 1;
-  transition: opacity 1s var(--ease-decelerate);
+  filter: none;
+  transition:
+    opacity 1.2s var(--ease-glide),
+    filter 1.6s var(--ease-glide);
   @starting-style {
     opacity: 0;
+    filter: blur(24px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: opacity;
+    @starting-style {
+      filter: none;
+    }
   }
 }

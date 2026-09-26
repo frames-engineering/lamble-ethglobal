@@ -40,13 +40,13 @@ export function StatTiles({ stats, className }: { stats: Aggregates; className?:
         className,
       )}
     >
-      <Tile label="Launchpads tracked" value={int(stats.launchpadCount)} className="hero-enter [--enter-delay:200ms]">
+      <Tile label="Launchpads tracked" value={int(stats.launchpadCount)} className="hero-enter [--enter-delay:240ms]">
         <div className="flex flex-col items-end gap-1.5">
           <ChainStack chains={stats.chains} max={5} size={16} />
           <span className="text-2xs text-med">{stats.chainCount} chains</span>
         </div>
       </Tile>
-      <Tile label="Fees 24h · all launchpads" value={compactUsd(stats.fees24h)} className="hero-enter [--enter-delay:260ms]">
+      <Tile label="Fees 24h · all launchpads" value={compactUsd(stats.fees24h)} className="hero-enter [--enter-delay:300ms]">
         <div className="flex flex-col items-end gap-1">
           <span className="text-xs">
             <Delta value={stats.feesChange30d} /> <span className="text-2xs text-med">30d</span>
@@ -60,13 +60,13 @@ export function StatTiles({ stats, className }: { stats: Aggregates; className?:
           />
         </div>
       </Tile>
-      <Tile label="Tokens launched 24h" value={compactNumber(stats.launched24h)} className="hero-enter [--enter-delay:320ms]">
+      <Tile label="Tokens launched 24h" value={compactNumber(stats.launched24h)} className="hero-enter [--enter-delay:360ms]">
         <div className="flex flex-col items-end gap-1">
           <span className="text-xs tabular-nums text-high">{stats.launchesPerMinute.toFixed(1)}</span>
           <span className="text-2xs text-med">per minute</span>
         </div>
       </Tile>
-      <Tile label="Graduated 24h" value={int(stats.graduated24h)} className="hero-enter [--enter-delay:380ms]">
+      <Tile label="Graduated 24h" value={int(stats.graduated24h)} className="hero-enter [--enter-delay:420ms]">
         <div className="flex flex-col items-end gap-1">
           <span className="text-xs tabular-nums text-high">{percent(gradRate, { digits: 2 })}</span>
           <span className="text-2xs text-med">of launches</span>

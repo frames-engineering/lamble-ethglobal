@@ -170,11 +170,6 @@ export function LaunchpadsTable({ launchpads }: { launchpads: Launchpad[] }) {
             </TableBody>
           </Table>
         </div>
-
-        <p className="mt-3 text-xs text-low">
-          Fees and revenue: DefiLlama snapshot, Sep 26, 2026 · launch counts and fee models are illustrative. Click a row for
-          the full profile.
-        </p>
       </div>
 
       <LaunchpadDetailSheet launchpad={selected} onClose={() => setOpenSlug(null)} />
