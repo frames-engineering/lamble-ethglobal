@@ -222,23 +222,34 @@
 
 /*
  * The media surface blurs in: heavily blurred and transparent when the canvas (or fallback video)
- * mounts, sharpening as it fades. The blur also hides the first video frame landing mid-entrance.
- * Rest state is filter: none so the full-screen canvas carries no filter afterwards.
+ * mounts, sharpening as it fades; opacity lands at 75% of the way (1.2s), the blur at 1.6s. Keyframes
+ * so it plays on every mount, including the theme crossfade, and the blur hides the first video frame
+ * landing mid-entrance. Ends on filter: none so the full-screen canvas carries no filter afterwards.
  */
 @utility hero-media-enter {
-  opacity: 1;
-  filter: none;
-  transition:
-    opacity 1.2s var(--ease-glide),
-    filter 1.6s var(--ease-glide);
-  @starting-style {
+  animation: hero-media-enter 1.6s var(--ease-glide) both;
+  @media (prefers-reduced-motion: reduce) {
+    animation-name: hero-media-fade;
+  }
+}
+@keyframes hero-media-enter {
+  from {
     opacity: 0;
     filter: blur(24px);
   }
-  @media (prefers-reduced-motion: reduce) {
-    transition-property: opacity;
-    @starting-style {
-      filter: none;
-    }
+  75% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    filter: none;
+  }
+}
+@keyframes hero-media-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

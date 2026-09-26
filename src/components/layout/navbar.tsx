@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useEntered } from "@/hooks/use-entered";
 import { useScrolled } from "@/hooks/use-scrolled";
+import { LAUNCH_BOT_URL } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
@@ -66,7 +67,12 @@ export function Navbar() {
 
           <div className="flex items-center gap-1.5">
             <ThemeToggle className="hidden sm:inline-flex" />
-            <Button type="button" size="sm" className="hidden sm:inline-flex">
+            <Button
+              size="sm"
+              className="hidden sm:inline-flex"
+              nativeButton={false}
+              render={<a href={LAUNCH_BOT_URL} target="_blank" rel="noopener noreferrer" />}
+            >
               Launch Token
             </Button>
             <Button
@@ -109,7 +115,11 @@ export function Navbar() {
           </ul>
           <div className="flex items-center justify-between gap-3 border-t border-divider px-5 py-4">
             <ThemeToggle />
-            <Button type="button" size="default">
+            <Button
+              size="default"
+              nativeButton={false}
+              render={<a href={LAUNCH_BOT_URL} target="_blank" rel="noopener noreferrer" />}
+            >
               Launch Token
             </Button>
           </div>
