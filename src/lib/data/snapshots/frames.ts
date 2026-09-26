@@ -22,6 +22,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "brandColor": "#00c278",
+    "logoSrc": "/launchpads/pump.fun.png",
     "bestFor": [],
     "graduatesTo": "PumpSwap",
     "feeModel": {
@@ -841,6 +842,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "brandColor": "#3ddbd9",
+    "logoSrc": "/launchpads/launchlab.webp",
     "bestFor": [],
     "graduatesTo": "Raydium CPMM",
     "feeModel": {
@@ -1245,6 +1247,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "brandColor": "#6b7280",
+    "logoSrc": "/launchpads/graphite-protocol.webp",
     "bestFor": [],
     "graduatesTo": null,
     "feeModel": {
@@ -1636,6 +1639,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "arc"
     ],
     "brandColor": "#1f6feb",
+    "logoSrc": "/launchpads/argus-world.webp",
     "bestFor": [],
     "graduatesTo": null,
     "feeModel": {
@@ -2245,6 +2249,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "robinhood"
     ],
     "brandColor": "#38bdf8",
+    "logoSrc": "/launchpads/o1-launchpad.ico",
     "bestFor": [],
     "graduatesTo": null,
     "feeModel": {
@@ -3448,6 +3453,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "bsc"
     ],
     "brandColor": "#eab308",
+    "logoSrc": "/launchpads/four.meme.svg",
     "bestFor": [],
     "graduatesTo": null,
     "feeModel": {

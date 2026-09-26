@@ -30,7 +30,11 @@ Narrative coin percentages use the explicitly labelled selected-pool volume shar
 the legacy attention and launch-share fields remain unknown.
 
 Current metadata overlay: `research/lamble/20260926T175634Z/launchpad-enrichment.json`.
-It fills all 19 chain records and references 13 locally stored official logos.
+It fills all 19 chain records. `docs/data/launchpad-logos.json` overrides logo paths
+with reviewed local assets for all 19 venues, preserving them across imports.
+Sixteen use official site assets (o1 uses its parent brand); LaunchLab, Graphite
+and Argus use DefiLlama's explicitly mapped protocol icons. The registry records
+source URLs, fetch times and SHA-256 hashes. These assets are served locally.
 Some support sets are partial. Stable and Ink are supplemental metadata because
 they are outside the current ChainId contract. Metadata collection is explicit;
 the snapshot importer is entirely offline.

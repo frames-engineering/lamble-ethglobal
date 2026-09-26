@@ -13,6 +13,9 @@ const knownChains = new Set(['solana','base','bsc','ethereum','arbitrum','monad'
 const enrichmentPath = process.argv[3] ?? 'research/lamble/20260926T175634Z/launchpad-enrichment.json';
 const enrichment = JSON.parse(await readFile(enrichmentPath, 'utf8'));
 const enrichments = new Map(enrichment.records.map((r) => [r.slug, r]));
+// Keep reviewed brand assets across market-data refreshes.
+const logoRegistry = JSON.parse(await readFile('docs/data/launchpad-logos.json', 'utf8'));
+const logos = new Map(logoRegistry.map((r) => [r.slug, r.logoSrc]));
 const activityPath = process.argv[4] ?? 'research/lamble/20260926T182058Z/landing-metrics.json';
 const narrativeRun = process.argv[5] ?? 'research/lamble/20260926T184109Z';
 const landingMetrics = JSON.parse(await readFile(activityPath, 'utf8'));
@@ -30,6 +33,7 @@ const launchpads = rawLaunchpads.map(({ _meta: m, ...row }) => {
   assert(enriched, `Missing enrichment for ${row.slug}`);
   row.chains = enriched.chains;
   if (enriched.logo) row.logoSrc = enriched.logo.logoSrc;
+  if (logos.has(row.slug)) row.logoSrc = logos.get(row.slug);
   if (enriched.fields.graduatesTo) row.graduatesTo = enriched.fields.graduatesTo;
   if (enriched.fields.feeNote) row.feeModel = { ...row.feeModel, note: enriched.fields.feeNote };
   assert.equal(row.metrics.history30d.length, 30);

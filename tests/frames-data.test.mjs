@@ -37,15 +37,17 @@ test('covered totals preserve exclusions, provider observations and matched deno
 
 test('enrichment retains source evidence, supported networks and verified local assets', () => {
   const enriched = JSON.parse(readFileSync(new URL('../research/lamble/20260926T175634Z/launchpad-enrichment.json', import.meta.url)));
+  const logos = JSON.parse(readFileSync(new URL('../docs/data/launchpad-logos.json', import.meta.url)));
+  assert.equal(new Set(logos.map((r) => r.slug)).size, LAUNCHPADS.length);
   for (const row of LAUNCHPADS) {
     const metadata = enriched.records.find((r) => r.slug === row.slug);
     assert(row.chains.length > 0);
     assert.deepEqual(row.chains, metadata.chains);
     assert(metadata.chainEvidence.url || metadata.chainEvidence.raw);
-    if (metadata.logo) {
-      const file = readFileSync(new URL(`../public${row.logoSrc}`, import.meta.url));
-      assert.equal(createHash('sha256').update(file).digest('hex'), metadata.logo.sha256);
-    }
+    const logo = logos.find((r) => r.slug === row.slug);
+    assert.equal(row.logoSrc, logo.logoSrc);
+    const file = readFileSync(new URL(`../public${row.logoSrc}`, import.meta.url));
+    assert.equal(createHash('sha256').update(file).digest('hex'), logo.sha256);
   }
   const rapid = LAUNCHPADS.find((r) => r.slug === 'rapid-launch');
   assert.equal(rapid.chains.length, 7);

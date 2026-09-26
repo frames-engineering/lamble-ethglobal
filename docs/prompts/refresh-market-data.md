@@ -35,6 +35,7 @@ Find the latest successful manifests, not merely the newest directory by name.
 Starting references (paths relative to repo root):
 
 - `docs/prompts/refresh-market-data.sources.json`: source registry and mappings.
+- `docs/data/launchpad-logos.json`: reviewed local icons for all 19 venues, source URLs and hashes. The importer preserves these; update this registry when branding changes. Three icons come from DefiLlama protocol mappings, so prefer official replacements when available.
 - `research/lamble/20260926T172434Z/`: financial and narrative acquisition, exact requests, evidence, tokens, memberships, recipes and validation.
 - `research/lamble/20260926T175634Z/`: official chains/configuration, 13 local logo assets, metadata overlay and receipts.
 - `research/lamble/20260926T182058Z/`: indexed launchpad activity, fee-subtotal exclusions, exact query and remaining gaps.
