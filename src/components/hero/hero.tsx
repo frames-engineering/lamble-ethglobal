@@ -29,7 +29,7 @@ export function Hero({ stats }: { stats: Aggregates }) {
               Intelligence for optimizing your launch before it hits the market.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Button type="button" size="lg">
+              <Button nativeButton={false} render={<a href="#launchpads" />} size="lg">
                 Launch Token
               </Button>
               <OnboardAgentButton />

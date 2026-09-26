@@ -1,7 +1,7 @@
 /**
  * Core data model for the LAMBLE landing page.
  *
- * Everything here is served by the fixture provider today (frontend only).
+ * The landing page serves a dated Frames research snapshot.
  * The shapes are deliberately backend-friendly so a real API can replace the
  * provider without touching components.
  */
@@ -21,41 +21,41 @@ export type ChainId =
 /** One sample in a time series. `time` is unix seconds (UTC midnight for daily data). */
 export interface Point {
   time: number;
-  value: number;
+  value: number | null;
 }
 
 export type Timeframe = "h24" | "d7" | "d30";
 
 export interface PeriodMetrics {
   /** Trading + graduation fees paid by users, USD. */
-  fees: number;
+  fees: number | null;
   /** Share of fees kept by the launchpad, USD. */
-  revenue: number;
+  revenue: number | null;
   /** Change vs the previous period, in percent (e.g. -12.5). */
-  change: number;
+  change: number | null;
 }
 
 export interface FeeModel {
   /** Swap fee on the bonding curve, in basis points. */
-  tradingFeeBps: number;
+  tradingFeeBps: number | null;
   /** Portion of the swap fee routed to the token creator, in basis points of the fee. */
-  creatorShareBps: number;
+  creatorShareBps: number | null;
   /** Cost to create a token, USD (0 = free). */
-  launchCostUsd: number;
+  launchCostUsd: number | null;
   /** Market cap at which the token graduates to a DEX, USD. */
-  graduationTargetUsd: number;
-  note?: string;
+  graduationTargetUsd: number | null;
+  note?: string | null;
 }
 
 export interface LaunchpadMetrics {
   h24: PeriodMetrics;
   d7: PeriodMetrics;
   d30: PeriodMetrics;
-  launched24h: number;
-  launched7dAvg: number;
-  graduated24h: number;
+  launched24h: number | null;
+  launched7dAvg: number | null;
+  graduated24h: number | null;
   /** Graduations / launches over the last 7 days, percent. */
-  graduationRate7d: number;
+  graduationRate7d: number | null;
   /** 30 daily points of fees, oldest first. */
   history30d: Point[];
 }
@@ -74,11 +74,37 @@ export interface Launchpad {
   logoSrc?: string;
   bestFor: string[];
   /** Where graduated tokens end up trading. */
-  graduatesTo: string;
+  graduatesTo: string | null;
   feeModel: FeeModel;
   /** Short reasons the router would pick this venue. */
   routingNotes: string[];
   metrics: LaunchpadMetrics;
+  hasBondingCurve?: boolean | null;
+  /** Financial coverage is distinct from verified supported chains above. */
+  metricChains?: ChainId[];
+  /** Beta indexed observations; not independently verified complete event counts. */
+  activityObservation?: {
+    sourceAsOf: number;
+    providerIds: string[];
+    indexedCreated24: number;
+    indexedCompleted24: number | null;
+    indexed7dAvg: number;
+    indexed7dCompletionRate: number | null;
+    coverage: string;
+  };
+  provenance?: {
+    financialAnchor: string;
+    scope: string;
+    additionalMetricChains: string[];
+    supportedChainCoverage?: string;
+    additionalSupportedChains?: string[];
+    metadataSourceUrls?: string[];
+    metadataFetchedAt?: string;
+    sourceUrl: string | null;
+    methodology: Record<string, string>;
+    deliveryDisputed: boolean;
+    configurationVariants: string[];
+  };
 }
 
 export type NarrativeStatus = "heating" | "peak" | "cooling";
@@ -96,20 +122,23 @@ export interface Contender {
   name: string;
   symbol?: string;
   /** Share of the narrative's launch attention, percent. */
-  share: number;
+  share: number | null;
   /** Change in share over 24h, percentage points. */
-  change24h: number;
+  change24h: number | null;
   color: string;
   launchpadSlug?: string;
+  address?: string;
+  explorerUrl?: string;
+  measuredVolumeShare?: number;
 }
 
 /** A launchpad's slice of the launches in one narrative. */
 export interface NarrativeLaunchpad {
   slug: string;
   /** Share of the narrative's launches on this venue, percent. */
-  share: number;
+  share: number | null;
   /** Change in share over 24h, percentage points. */
-  change24h: number;
+  change24h: number | null;
 }
 
 export type SignalSource = "onchain" | "x" | "launchpad" | "newswire";
@@ -122,6 +151,7 @@ export interface Signal {
   title: string;
   /** ISO timestamp. */
   at: string;
+  url?: string;
 }
 
 export interface ExampleToken {
@@ -129,8 +159,9 @@ export interface ExampleToken {
   name: string;
   launchpadSlug: string;
   chain: ChainId;
-  mcapUsd: number;
-  change24h: number;
+  address?: string;
+  mcapUsd: number | null;
+  change24h: number | null;
 }
 
 export interface NarrativeSeries {
@@ -147,24 +178,33 @@ export interface Narrative {
   title: string;
   category: NarrativeCategory;
   summary: string;
-  status: NarrativeStatus;
+  status: NarrativeStatus | null;
   /** Share of all launch attention right now, percent. */
-  mindshare: number;
+  mindshare: number | null;
   /** Change in mindshare over 24h, percentage points. */
-  change24h: number;
-  volume24hUsd: number;
-  volume7dUsd: number;
-  launches24h: number;
-  launches7d: number;
+  change24h: number | null;
+  volume24hUsd: number | null;
+  volume7dUsd: number | null;
+  launches24h: number | null;
+  launches7d: number | null;
   /** ISO timestamp of when the narrative started trending. */
-  startedAt: string;
+  startedAt: string | null;
   series: NarrativeSeries[];
+  /** Optional seven-day hourly volume, same explicit constituent universe. */
+  extendedSeries?: NarrativeSeries[];
+  /** Percent change in sampled volume versus prior 24h; not mindshare. */
+  volumeChange24h?: number | null;
   contenders: Contender[];
   /** Venues carrying the most launches in this narrative, largest first. */
-  topLaunchpads: NarrativeLaunchpad[];
+  topLaunchpads: NarrativeLaunchpad[] | null;
   signals: Signal[];
   exampleTokens: ExampleToken[];
   suggestedLaunchpads: { slug: string; reason: string }[];
+  provenance?: {
+    chartAnchor: string;
+    volumeScope: string;
+    sources: { label: string; url: string }[];
+  };
 }
 
 export interface DataProvider {

@@ -54,13 +54,13 @@ export interface Column {
   sortable: boolean;
   /** Order on phones, decided once at mount (design-system/components/table.md). */
   mobileRank: number;
-  sortValue?: (row: Launchpad, ctx: CellContext) => number | string;
+  sortValue?: (row: Launchpad, ctx: CellContext) => number | string | null;
   cell: (row: Launchpad, ctx: CellContext) => ReactNode;
   className?: string;
 }
 
-export function hasCurve(row: Launchpad): boolean {
-  return row.feeModel.graduationTargetUsd > 0;
+export function hasCurve(row: Launchpad): boolean | null {
+  return row.hasBondingCurve ?? null;
 }
 
 function Stack({
@@ -99,7 +99,7 @@ export const COLUMNS: Column[] = [
         <div className="min-w-0 max-w-[168px]">
           <div className="flex items-center gap-2">
             <span className="text-sm whitespace-nowrap text-link">{row.name}</span>
-            {row.metrics.d7.change >= TRENDING_BADGE_THRESHOLD && (
+            {row.metrics.d7.change !== null && row.metrics.d7.change >= TRENDING_BADGE_THRESHOLD && (
               <Badge variant="positive" className="h-[18px] gap-1 px-1.5 text-2xs">
                 <FlameIcon />
                 Trending
@@ -129,9 +129,9 @@ export const COLUMNS: Column[] = [
     cell: (row) => (
       <Tooltip>
         <TooltipTrigger render={<span className="inline-flex cursor-help" />}>
-          <ChainStack chains={row.chains} max={4} size={16} />
+          {row.chains.length ? <ChainStack chains={row.chains} max={4} size={16} /> : <span className="text-med">—</span>}
         </TooltipTrigger>
-        <TooltipContent>{row.chains.map((c) => chainInfo(c).name).join(" · ")}</TooltipContent>
+        <TooltipContent>{row.chains.map((c) => chainInfo(c).name).join(" · ") || "Supported chains not verified; see financial coverage in details"}</TooltipContent>
       </Tooltip>
     ),
   },
@@ -151,48 +151,48 @@ export const COLUMNS: Column[] = [
   {
     id: "revenue",
     header: (ctx) => `Revenue ${TF_LABEL[ctx.tf]}`,
-    hint: "The share of fees the venue keeps. The rest goes to creators, buybacks or liquidity.",
+    hint: "Revenue under the source methodology; may include tokenholder flows. See details.",
     align: "right",
     sortable: true,
     mobileRank: 5,
     sortValue: (row, ctx) => row.metrics[ctx.tf].revenue,
     cell: (row, ctx) => {
       const m = row.metrics[ctx.tf];
-      const take = m.fees > 0 ? (m.revenue / m.fees) * 100 : 0;
-      return <Stack primary={compactUsd(m.revenue)} secondary={`${percent(Math.min(100, take), { digits: 0 })} of fees`} />;
+      const take = m.fees !== null && m.fees > 0 && m.revenue !== null ? (m.revenue / m.fees) * 100 : null;
+      return <Stack primary={compactUsd(m.revenue)} secondary={`${percent(take, { digits: 0 })} of fees`} />;
     },
   },
   {
     id: "launched",
     header: () => "Launched 24h",
-    hint: "New tokens created in the last 24 hours. High numbers mean reach, but also competition.",
+    hint: "New tokens created in 24 hours. ≈ denotes Codex beta indexed observations; event completeness and exact cutoffs are not independently verified.",
     align: "right",
     sortable: true,
     mobileRank: 3,
-    sortValue: (row) => row.metrics.launched24h,
+    sortValue: (row) => row.metrics.launched24h ?? row.activityObservation?.indexedCreated24 ?? null,
     cell: (row) => (
       <Stack
-        primary={int(row.metrics.launched24h)}
-        secondary={`7d avg ${compactNumber(row.metrics.launched7dAvg)}`}
+        primary={row.metrics.launched24h !== null ? int(row.metrics.launched24h) : row.activityObservation ? `≈ ${int(row.activityObservation.indexedCreated24)}` : '—'}
+        secondary={`7d avg ${compactNumber(row.metrics.launched7dAvg ?? row.activityObservation?.indexed7dAvg ?? null)}`}
       />
     ),
   },
   {
     id: "graduated",
     header: () => "Graduated 24h",
-    hint: "Tokens that completed the bonding curve and moved to a DEX. Rate is graduations over launches, 7 days.",
+    hint: "Bonding-curve completions, separate from migration. ≈ denotes Codex beta indexed observations. Rate uses completions / launches over 7 days, not a cohort success rate.",
     align: "right",
     sortable: true,
     mobileRank: 2,
-    sortValue: (row) => (hasCurve(row) ? row.metrics.graduationRate7d : -1),
+    sortValue: (row) => (hasCurve(row) === false ? null : row.metrics.graduationRate7d ?? row.activityObservation?.indexed7dCompletionRate ?? null),
     cell: (row, ctx) => {
-      if (!hasCurve(row)) return <Stack primary="—" secondary="no curve" />;
-      const rate = row.metrics.graduationRate7d;
+      if (hasCurve(row) === false) return <Stack primary="—" secondary="no curve" />;
+      const rate = row.metrics.graduationRate7d ?? row.activityObservation?.indexed7dCompletionRate ?? null;
       return (
         <Stack
-          primary={int(row.metrics.graduated24h)}
+          primary={row.metrics.graduated24h !== null ? int(row.metrics.graduated24h) : row.activityObservation?.indexedCompleted24 != null ? `≈ ${int(row.activityObservation.indexedCompleted24)}` : '—'}
           secondary={
-            <span className={rate >= ctx.medianGradRate ? "text-positive" : undefined}>
+            <span className={rate !== null && rate >= ctx.medianGradRate ? "text-positive" : undefined}>
               {percent(rate)} grad rate
             </span>
           }
@@ -208,14 +208,15 @@ export const COLUMNS: Column[] = [
     mobileRank: 6,
     sortValue: (row) => row.metrics.d30.change,
     cell: (row) => {
-      const up = row.metrics.d30.change >= 0;
+      const change = row.metrics.d30.change;
+      const up = change !== null && change >= 0;
       return (
         <div className="flex justify-end">
           <Sparkline
             points={row.metrics.history30d}
             width={80}
             height={26}
-            className={cn("h-[26px] w-20", up ? "text-positive" : "text-negative")}
+            className={cn("h-[26px] w-20", change === null ? "text-med" : up ? "text-positive" : "text-negative")}
             id={row.slug}
           />
         </div>

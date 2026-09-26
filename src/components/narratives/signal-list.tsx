@@ -1,6 +1,6 @@
 import { SOURCE_GLYPH } from "@/components/narratives/labels";
 import type { Signal } from "@/lib/data/types";
-import { relativeTime } from "@/lib/format";
+import { shortDateTime } from "@/lib/format";
 
 export function SignalList({ signals }: { signals: Signal[] }) {
   return (
@@ -15,9 +15,9 @@ export function SignalList({ signals }: { signals: Signal[] }) {
           </span>
           <div className="min-w-0">
             <p className="text-xs text-med">
-              {s.label} · {relativeTime(s.at)}
+              {s.label} · {shortDateTime(Date.parse(s.at) / 1000)}
             </p>
-            <p className="mt-0.5 line-clamp-2 text-sm leading-snug text-high">{s.title}</p>
+            <p className="mt-0.5 line-clamp-2 text-sm leading-snug text-high">{s.url ? <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-link underline">{s.title}</a> : s.title}</p>
           </div>
         </li>
       ))}

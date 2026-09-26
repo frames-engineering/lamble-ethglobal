@@ -1,0 +1,34 @@
+{
+  "version": "lamble-activity-v1",
+  "automated": false,
+  "recipes": [
+    {
+      "request": "raw/launchstats-request.json",
+      "result": "raw/launchstats.json",
+      "lastSuccessRunId": "run_93fc39161faa4449977b6c044bc32bd2",
+      "watermark": 1790446927,
+      "pagination": {
+        "limit": 200,
+        "offset": 0,
+        "count": 80,
+        "exhausted": true
+      },
+      "refresh": "one bounded call per explicitly run hourly refresh; cache unchanged responses",
+      "status": "validated execution; beta metric semantics remain qualified"
+    }
+  ],
+  "offline": [
+    "python3 research/lamble/20260926T182058Z/normalize.py",
+    "node scripts/import-frames-snapshot.mjs"
+  ],
+  "failedRoutes": [
+    {
+      "request": "raw/schema-request.json",
+      "reason": "Dune payment challenge unparsed"
+    },
+    {
+      "request": "raw/allium-request.json",
+      "reason": "Async accepted; result retrieval requires API-key auth"
+    }
+  ]
+}

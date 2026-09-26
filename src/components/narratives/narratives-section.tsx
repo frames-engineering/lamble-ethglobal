@@ -23,7 +23,7 @@ export function NarrativesSection({ narratives, launchpads }: NarrativesSectionP
     window.history.replaceState(null, "", `?narrative=${encodeURIComponent(next)}#narratives`);
   }, []);
 
-  // Top three by rank; the selected card is the one shown in the featured slot.
+  // Provider order is a curated selection, not a market-wide ranking.
   const visible = narratives.slice(0, 3);
   const slug = picked ?? urlSlug ?? visible[0]?.slug;
   const featured = visible.find((n) => n.slug === slug) ?? visible[0];
@@ -38,7 +38,7 @@ export function NarrativesSection({ narratives, launchpads }: NarrativesSectionP
         </div>
       )}
 
-      <div className="mt-3 -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 scrollbar-none md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
+      <div className="mt-3 -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 scrollbar-none md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0">
         {visible.map((n) => (
           <div key={n.id} className="w-[260px] shrink-0 md:w-auto">
             <NarrativeCard narrative={n} selected={n.slug === featured?.slug} onSelect={select} />

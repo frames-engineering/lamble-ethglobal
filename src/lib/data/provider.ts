@@ -1,8 +1,8 @@
-import { fixtureProvider } from "@/lib/data/providers/fixture";
+import { framesProvider } from "@/lib/data/providers/frames";
 import type { DataProvider } from "@/lib/data/types";
 
-/** The only swap point: replace `fixtureProvider` with a backend client later. */
-export const dataProvider: DataProvider = fixtureProvider;
+/** The landing serves the validated Frames snapshot. */
+export const dataProvider: DataProvider = framesProvider;
 
 export const getLaunchpads = () => dataProvider.getLaunchpads();
 export const getNarratives = () => dataProvider.getNarratives();

@@ -1,0 +1,1078 @@
+{
+  "version": 1,
+  "referenceDate": "2026-09-26",
+  "automaticRefresh": false,
+  "financialTool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+  "marketAndActivityTool": "mpp.codex.post.graphql",
+  "venues": [
+    {
+      "slug": "pump.fun",
+      "providerSlug": "pump.fun",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "Bonding-curve trade fees paid by users (pump's slice + creator/cashback slice), graduation fees, and Mayhem-mode fees.",
+        "Revenue": "Pump's slice of the bonding-curve trade fee plus graduation fees and Mayhem-mode fees.",
+        "ProtocolRevenue": "Pump's slice kept by the protocol after the buyback share, plus 100% of graduation and Mayhem fees. Era-based split: 100% pre-2025-07-14, 0% from 2025-07-14, 50% from 2026-04-28.",
+        "HoldersRevenue": "PUMP token buyback (sourced from onchain burns; aggregates buybacks across all pump products, so it won't sum exactly with ProtocolRevenue here).",
+        "SupplySideRevenue": "Creator fees paid out to coin creators and cashback returned to traders/holders of the coin."
+      },
+      "metadata": {
+        "raw": "../20260926T172434Z/launchpads.json",
+        "extraction": "pump.fun._meta",
+        "note": "Retained previously verified support"
+      },
+      "indexedProviderIds": [
+        "pump.fun:0",
+        "pump-mayhem:0"
+      ]
+    },
+    {
+      "slug": "stonkfun",
+      "providerSlug": "stonkfun",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "StonkFun's share of trading fees only. Three sources: the 1% platform fee on every trade against the Raydium LaunchLab bonding curves it configures; the creator fee on every swap in the Raydium CPMM pools those launches graduate into, which StonkFun claims as pool creator; and its share of trading fees harvested from the permanently locked liquidity behind each launch. Raydium's protocol fee and third-party creator fees are excluded. All amounts are in each pool's quote token.",
+        "Revenue": "Same as fees. Platform fees accrue on the curve, creator fees and locked-position fees are claimed into the treasury.",
+        "HoldersRevenue": "Quote assets spent buying STONK on Jupiter, identified on-chain as swaps that returned STONK to the operator wallet. Measured at the amount spent, not the value of the tokens later burned."
+      },
+      "metadata": {
+        "url": "https://www.stonkfun.xyz/",
+        "run_id": "run_332c24e5f1dc4501927d19684323d1c6",
+        "seq": 6,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:59:33.889580+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "stonkfun:0"
+      ]
+    },
+    {
+      "slug": "pons",
+      "providerSlug": "pons-v2",
+      "scope": "Pons V2 ONLY; Pons V1 separately retained in provider-financials.json",
+      "methodology": {
+        "Volume": "Volume of all swaps on Pons' launch curve, external uniswap v4 swaps are excluded",
+        "Fees": "Includes launch fees, curve swap fees and swap fees post graduation (uniswap v4 : realised through fee swept events)",
+        "Revenue": "Includes all the launch fees and part of swap fees",
+        "SupplySideRevenue": "Includes swap fees to creators, taxes (optional) to creators and buybacks (if enabled by creators) of meme tokens"
+      },
+      "metadata": {
+        "url": "https://www.ponsfamily.com/launchpad",
+        "run_id": "run_332c24e5f1dc4501927d19684323d1c6",
+        "seq": 8,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:59:33.889580+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "pons:0"
+      ]
+    },
+    {
+      "slug": "flap-sh",
+      "providerSlug": "flap-sh",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Volume": "Buy and sell volume on Flap bonding curves before tokens move to a DEX.",
+        "Fees": "Protocol revenue (quote tokens received by the Flap fee Safe, including wrapped-native transfers such as WBNB) plus token-tax amounts routed to marketing/vault recipients and token-holder dividends.",
+        "UserFees": "Same as Fees \u2014 all fees paid by traders and token-tax participants.",
+        "Revenue": "All quote tokens received by the Flap fee Safe, from any sender. Includes native SafeReceived and configured ERC20 quote transfers, plus wrapped-native (e.g. WBNB) transfers from TaxProcessor fee settlement.",
+        "ProtocolRevenue": "Same as Revenue \u2014 all quote inflows to the Flap fee Safe.",
+        "SupplySideRevenue": "Token tax routed outside the protocol Safe: V1 TaxSplitter beneficiary payouts, plus V2/V3 TaxProcessor market and dividend buckets."
+      },
+      "metadata": {
+        "url": "https://docs.flap.sh/flap/developers/deployed-contract-addresses.md",
+        "raw": "raw/flap-addresses.md",
+        "extraction": "Mainnet chain headings and Portal deployments",
+        "transport": "public HTTPS outside Frames",
+        "fetched_at": "2026-09-26T18:08:25.287936+00:00",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "flap:0"
+      ]
+    },
+    {
+      "slug": "launchlab",
+      "providerSlug": "launchlab",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "All fees deducted from trades on the bonding curves: Raydium's protocol fee, the launch platform's fee and the token creator's fee, denominated in each pool's quote token.",
+        "Revenue": "Raydium's protocol fee only. Platform and creator fees are passed on to the third parties that launched the token.",
+        "ProtocolRevenue": "75% of the protocol fee.",
+        "HoldersRevenue": "25% of the protocol fee is used to buy back and burn RAY.",
+        "SupplySideRevenue": "Fees paid out to the launch platform (e.g. StonkFun, LetsBonk) and to the token creator."
+      },
+      "metadata": {
+        "url": "https://docs.raydium.io/llms.txt",
+        "run_id": "run_b013e76a7e394ef5970c69adb9d3bd96",
+        "seq": 3,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T18:07:09.290204+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "launchlab:0"
+      ]
+    },
+    {
+      "slug": "bonk.fun",
+      "providerSlug": "bonk.fun-launchpad",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "Fees are collected from users and distributed to holders and protocol.",
+        "Revenue": "Total Letsbonk Protocol Revenue and Holders Revenue",
+        "SupplySideRevenue": "Fees for coin creators.",
+        "ProtocolRevenue": "2% of total fees for marketing.",
+        "HoldersRevenue": "Before 10th jun 2025: 43% of total fees (Buy/burn 35% + SBR 4% + BonkRewards 4%). After 10th jun 2025: 58% of total fees (Buy/burn 50% + SBR 4% + BonkRewards 4%)."
+      },
+      "metadata": {
+        "url": "https://api.llama.fi/summary/fees/bonk.fun-launchpad",
+        "raw": "../20260926T170103Z/raw/llama-bonk.fun-launchpad-dailyFees.json",
+        "extraction": "description and chains, corroborated with official ecosystem page where available",
+        "tool": "DefiLlama summary; prior Frames fee-summary corroboration",
+        "fetched_at": "2026-09-26T17:24:34Z",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "bonk:0"
+      ]
+    },
+    {
+      "slug": "graphite-protocol",
+      "providerSlug": "graphite-protocol",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "Graphite Protocol's portion of joint venture fees with Letsbonk. Before 10th jun 2025: 57.68% of total fees. After 10th jun 2025: 40% of total fees.",
+        "Revenue": "Total Graphite Protocol Revenue and Holders Revenue",
+        "ProtocolRevenue": "Before 10th jun 2025: 50% of total fees (BONKsol Staking 30% + Hiring/Growth 7.67% + Development/Integration 7.67% + Marketing 4%). After 10th jun 2025: 32.33% of total fees (BONKsol Staking 15% + Hiring/Growth 7.67% + Development/Integration 7.67% + Marketing 2%).",
+        "HoldersRevenue": "GP Reserve: 7.67% of total fees across both periods. Before 10th jun 2025: 43% of total fees."
+      },
+      "metadata": {
+        "url": "https://api.llama.fi/summary/fees/graphite-protocol",
+        "raw": "../20260926T170103Z/raw/llama-graphite-protocol-dailyFees.json",
+        "extraction": "description and chains, corroborated with official ecosystem page where available",
+        "tool": "DefiLlama summary; prior Frames fee-summary corroboration",
+        "fetched_at": "2026-09-26T17:24:34Z",
+        "source_as_of": null
+      },
+      "indexedProviderIds": []
+    },
+    {
+      "slug": "genius.fun",
+      "providerSlug": "genius.fun",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "Token creation, bonding-curve trading (including any launch-window surcharge), Genius hook trading and paid Alpha promotion fees. Fees accrue at launch/trade/promotion; settlements are excluded. Meme-denominated hook fees use the same swap\u2019s quote/meme execution-price ratio, rounded down to quote base units.",
+        "Revenue": "The Genius platform share of trading fees under each launch\u2019s immutable policy, plus separately labeled creation and Alpha promotion fees. The creator-selected destination allocation (Foundation or creator), creator share and launched-meme buyback allocations are excluded.",
+        "ProtocolRevenue": "The same protocol-retained portion as Revenue. Genius.fun has no protocol token receiving these fees.",
+        "SupplySideRevenue": "Creator-selected destination allocations (Foundation or creator), creator shares and accrued funding for buybacks of individual launched meme tokens, calculated from immutable per-launch policies with contract integer rounding."
+      },
+      "metadata": {
+        "url": "https://genius.fun",
+        "run_id": "run_4535b137a5f746a1be09ad6af0b82a38",
+        "seq": 4,
+        "extraction": "body.data.markdown network icons; corroborated by DefiLlama description",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:58:56.479887+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "genius:0"
+      ]
+    },
+    {
+      "slug": "argus-world",
+      "providerSlug": "argus-world",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "The tax ArgusPad's per-launch hook charges on every buy and sell, the trading fee each launch's pool charges (on Portals 3-7 the 1% pool fee earned by the permanently locked launch position; on Portal 8 a 1% base fee the hook charges in the quote asset in its place), and the extra tax charged on buys in a launch's first seconds. Counted in the asset the fee is charged in, at the moment it is charged, so the protocol's later sale of the launched tokens it was paid is not counted a second time. Fees charged in the launched token itself (Portals 3-7 only; Portal 8 takes every fee in the quote asset) are reported in that token's own units and are priced only if DefiLlama has a price for it; it has none for these tokens today, because a launched token's only market is the pool ArgusPad seeded, and pricing it there overstates by about 40% against what ArgusPad's own sales of them actually realise.",
+        "Revenue": "The share of fees reaching the ArgusPad treasury at the rate each launch fixes at creation - 10% of every fee on Portals 3-7 and 30% on Portal 8 - plus the whole of the early-buy snipe tax, which is paid straight to the treasury.",
+        "ProtocolRevenue": "The share of fees reaching the ArgusPad treasury at the rate each launch fixes at creation - 10% of every fee on Portals 3-7 and 30% on Portal 8 - plus the whole of the early-buy snipe tax, which is paid straight to the treasury.",
+        "SupplySideRevenue": "The rest of the fees, which leave the protocol divided at the weights each launch fixed at creation: the token creator's share, the dividends paid to holders of that launched token, the share added back into the launch's permanently locked liquidity, the share used to buy and burn the launched token, and on Portal 8 the share used to buy the launched token and lock it permanently."
+      },
+      "metadata": {
+        "url": "https://api.llama.fi/summary/fees/argus-world",
+        "raw": "../20260926T170103Z/raw/llama-argus-world-dailyFees.json",
+        "extraction": "description and chains, corroborated with official ecosystem page where available",
+        "tool": "DefiLlama summary; prior Frames fee-summary corroboration",
+        "fetched_at": "2026-09-26T17:24:34Z",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "argus:0"
+      ]
+    },
+    {
+      "slug": "meteora-dbc",
+      "providerSlug": "meteora-dynamic-bonding-curve",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "Trading fees paid by users.",
+        "Revenue": "Protocol fees collected by Meteora DBC protocol.",
+        "ProtocolRevenue": "Protocol fees collected by Meteora DBC protocol.",
+        "HoldersRevenue": "Part of revenue going to MET token buybacks.",
+        "SupplySideRevenue": "The portion of the trading fees paid to LPs and referrals."
+      },
+      "metadata": {
+        "url": "https://docs.meteora.ag/",
+        "run_id": "run_13a9fe75fe8e484c91c6f2bbea20aabf",
+        "seq": 0,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T18:04:55.184665+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "meteoradbc:0"
+      ]
+    },
+    {
+      "slug": "binance-alpha",
+      "providerSlug": "binance-alpha",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "Fees paid by users while trading via Binance Alpha app.",
+        "UserFees": "Fees paid by users while trading via Binance Alpha app.",
+        "Revenue": "All fees are collected by Binance."
+      },
+      "metadata": {
+        "url": "https://www.binance.com/en/square/post/23401087104449",
+        "run_id": "run_13a9fe75fe8e484c91c6f2bbea20aabf",
+        "seq": 5,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T18:04:55.184665+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": "2025-04-25"
+      },
+      "indexedProviderIds": []
+    },
+    {
+      "slug": "o1-launchpad",
+      "providerSlug": "o1-launchpad",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "Quote-denominated swap fees from Hook Trade events plus token-launch payment events across configured suites. Legacy launch-token-denominated swap fees are excluded because reliable historical USD valuation is unavailable. Crypto uses token balances; Stocks use the event-time factory tick reference price under the documented $4,000 opening-cap convention, with historical DefiLlama prices only when that reference is unavailable.",
+        "Revenue": "Actual platform and protocol-owned fixed-component swap credits, plus token-launch fees. Includes anti-snipe surcharges, referral fallback and rounding retained by the protocol. Claims do not count again.",
+        "ProtocolRevenue": "Swap and launch fees retained by the protocol treasury.",
+        "SupplySideRevenue": "Actual swap credits allocated to creators and referrers, including amounts still unclaimed."
+      },
+      "metadata": {
+        "url": "https://launch.o1.exchange",
+        "run_id": "run_4535b137a5f746a1be09ad6af0b82a38",
+        "seq": 8,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:58:56.479887+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "o1.exchange:0"
+      ]
+    },
+    {
+      "slug": "clanker",
+      "providerSlug": "clanker",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "Total swap fees paid by traders in Clanker-deployed Uniswap v4 pools (creator fee + Clanker's 20% of creator fee).",
+        "Revenue": "Clanker protocol's cut: 20% of the creator LP fee charged on top of each swap.",
+        "ProtocolRevenue": "Clanker protocol's cut: 20% of the creator LP fee charged on top of each swap.",
+        "HoldersRevenue": "CLANKER tokens bought back and distributed to holders.",
+        "SupplySideRevenue": "Token creator's LP rewards, claimable from the initial single-sided Uniswap v4 position."
+      },
+      "metadata": {
+        "url": "https://www.clanker.world/",
+        "run_id": "run_332c24e5f1dc4501927d19684323d1c6",
+        "seq": 0,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:59:33.889580+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "clanker:0",
+        "clanker-v4:0"
+      ]
+    },
+    {
+      "slug": "stonkbrokers",
+      "providerSlug": "stonkbrokers-nightshades",
+      "scope": "Nightshades ONLY; not all StonkBrokers products. Matches baseline 7d fee figure and faction-token description.",
+      "methodology": {
+        "Volume": "Civilization anti-snipe pad PadBuy.quoteIn (WETH, Nightshades faction launches) + post-bond faction pool swaps (WETH-side notional of every user swap in the hooked Uniswap v4 faction pools; reopen-window buys grossed up by the same-tx SnipeTaxCollected; the vault's own night rebalances excluded).",
+        "Fees": "The Civilization anti-snipe pad snipe tax on Nightshades faction curve buys (PadTaxCollected \u2014 50% next-night boost pot / 10% faction pool / 13.33% StockBooster / 13.33% protocol / 13.34% game creator, WETH); the sunrise reopen snipe tax levied by the game hook on hooked v4 pool trades after each night (SnipeTaxCollected, same five-way split); the 1% LP fee on every user swap in the hooked faction pools (100% protocol-owned game liquidity \u2014 the vault is the pools' only permitted LP); and Nightshades faction NFT royalties (ERC-2981 10% of secondary sales) as flushed from the immutable FactionRoyaltySplitter (75% game vault survivor liquidity / 25% team).",
+        "Revenue": "The 13.33% protocol treasury leg of the pad + sunrise reopen snipe taxes, and the 1% LP fee accruing to the protocol-owned faction pool liquidity.",
+        "ProtocolRevenue": "13.33% of the pad + sunrise reopen snipe taxes \u2192 protocol treasury; the faction pools' 1% LP fee \u2192 the vault's protocol-owned game liquidity position (compounds into game LP, not distributed).",
+        "SupplySideRevenue": "Pad + sunrise reopen tax legs to the next-night boost pot (50%), the faction's own locked pool (10%), StockBooster (13.33%) and the game creator (13.34%), plus both legs of the flushed NFT royalties."
+      },
+      "metadata": {
+        "url": "https://www.stonkbrokers.cash",
+        "run_id": "run_332c24e5f1dc4501927d19684323d1c6",
+        "seq": 7,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:59:33.889580+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": []
+    },
+    {
+      "slug": "bags",
+      "providerSlug": "bags",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "On Solana: total trading fees paid by users when swapping against Bags DBC pools (pre-migration) and DAMMv2 pools (post-migration), excluding the underlying Meteora protocol fee, DAMMv2 LP fees and any referral fees. On Robinhood Chain: token creation fees plus gross trading fees charged on Bags bonding-curve swaps (pre-migration) and Uniswap v4 hook swaps (post-migration) across the V1 and V2 deployments.",
+        "SupplySideRevenue": "Creator fees paid to token creators, plus (on Robinhood Chain V2) the partner/referrer share carved out of the protocol half of trading fees.",
+        "Revenue": "Bags' net share: on Solana, trading-fee revenue from DBC (pre-migration) and DAMMv2 (post-migration); on Robinhood Chain, token creation fees plus the protocol share of trading fees (50% of gross, minus the partner cut on V2 pools with a partner).",
+        "ProtocolRevenue": "Net revenue earned by the Bags protocol from trading and token-creation activity."
+      },
+      "metadata": {
+        "url": "https://docs.bags.fm/",
+        "run_id": "run_2089a68af9a745e9bc91c7bc8467fde0",
+        "seq": 2,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T18:05:45.136565+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "bags:0"
+      ]
+    },
+    {
+      "slug": "rapid-launch",
+      "providerSlug": "rapid-launch",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "SOL fees paid by users for Rapid Launch token deployment and trading tools.",
+        "Revenue": "Fees collected by Rapid Launch after referral distributions are paid to referrers.",
+        "ProtocolRevenue": "Fees collected by Rapid Launch after referral distributions are paid to referrers..",
+        "SupplySideRevenue": "SOL distributed from Rapid Launch's fee collectors to referral recipients."
+      },
+      "metadata": {
+        "url": "https://rapidlaunch.io/",
+        "run_id": "run_332c24e5f1dc4501927d19684323d1c6",
+        "seq": 2,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:59:33.889580+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": []
+    },
+    {
+      "slug": "basestonk",
+      "providerSlug": "basestonk",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "The tax BaseStonk's Uniswap v4 hook takes on every swap in a launched token's pool, from the hook's FeeTaken event. Each launch sets its own buy and sell rate. A buy pays the tax in the launch token and a sell in the pair; token-denominated amounts are converted into the pair at the pool price the same transaction's Swap reports.",
+        "Revenue": "The platform's cut of the tax plus what reaches BSTONK holders: half the tax capped at 1% of the trade to the treasury, any part of the creator's cut the payee list left unplaced and the hook swept to the treasury, and the share of the creator's cut paid to BSTONK's dividend distributor, to the BSTONK basket vault, or burnt as BSTONK.",
+        "ProtocolRevenue": "The treasury's take: half the tax capped at 1% of the trade, plus unplaced creator fees swept to it.",
+        "HoldersRevenue": "Value to BSTONK holders, paid by the hook in the transaction the fee was taken: BSTONK's own pool pays its creator cut to BSTONK's dividend distributor and burns half of it, and launches carry the BSTONK basket vault as a payee; the vault pays BSTONK holders in rounds. Base only - BSTONK lives on Base.",
+        "SupplySideRevenue": "The creator's cut of the tax less what the treasury swept and what reached BSTONK holders: the creator's wallets, the launch token's own holders through its dividend distributor, the burn of the launch token and the hook-owned liquidity wedge, as each launch configured them.",
+        "Volume": "The pair side of every swap in a taxed pool, including the creator's dev buy at launch and excluding the hook's own buyback and liquidity swaps. Counted under Uniswap v4 as well."
+      },
+      "metadata": {
+        "url": "https://basestonk.io",
+        "run_id": "run_332c24e5f1dc4501927d19684323d1c6",
+        "seq": 3,
+        "extraction": "body.data.metadata.description",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:59:33.889580+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": []
+    },
+    {
+      "slug": "four.meme",
+      "providerSlug": "four.meme",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "All fees paid by users for launching, trading tokens.",
+        "Revenue": "Fees collected by four.meme protocol."
+      },
+      "metadata": {
+        "url": "https://four-meme.gitbook.io/four.meme",
+        "run_id": "run_2089a68af9a745e9bc91c7bc8467fde0",
+        "seq": 1,
+        "extraction": "body.data.markdown",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T18:05:45.136565+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "four.meme:0",
+        "four.meme-fair:0"
+      ]
+    },
+    {
+      "slug": "foci",
+      "providerSlug": "foci",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "methodology": {
+        "Fees": "All trading fees settled into FociFeeEscrow during the day (curve fees, creator tax, converted post-graduation hook fees, curve referral fees), plus hook referral fees claimed that day. Recognised when swept by the keeper, not when traded.",
+        "UserFees": "Same as Fees: every fee is paid by traders on buys and sells.",
+        "Revenue": "Protocol fee recipient's share plus the share paid to holder-reward distributors.",
+        "ProtocolRevenue": "Escrow credits to the protocol fee recipient (the protocol's frozen share of each launch's trading fee).",
+        "HoldersRevenue": "Escrow credits to FociRewardsDistributor contracts \u2014 launches that elected to pay their creator share to token holders.",
+        "SupplySideRevenue": "Escrow credits to creators (their fee share and the creator tax) and to referrers, plus hook referral claims."
+      },
+      "metadata": {
+        "url": "https://foci.family/",
+        "run_id": "run_332c24e5f1dc4501927d19684323d1c6",
+        "seq": 5,
+        "extraction": "body.data.metadata.description",
+        "tool": "mpp.firecrawl.post.v1-scrape",
+        "upstream": "Firecrawl / official public page",
+        "fetched_at": "2026-09-26T17:59:33.889580+00:00",
+        "timestampMeaning": "response saved at; source event time unknown",
+        "source_as_of": null
+      },
+      "indexedProviderIds": [
+        "foci:0"
+      ]
+    }
+  ],
+  "poolUniverse": [
+    {
+      "tokenId": "solana:8k4sBtEeK4pf26noKqApv8NBTnuSJcbdwpKYknk5PbAA",
+      "name": "CALI",
+      "symbol": "CALI",
+      "chain": "solana",
+      "address": "8k4sBtEeK4pf26noKqApv8NBTnuSJcbdwpKYknk5PbAA",
+      "originLaunchpadSlug": "pump.fun",
+      "originStatus": "source-reported; creation transaction not independently decoded",
+      "pool": "2i2iULr7UwK1SDRB17T5FUtiMnFQL7fyy7rh69brZihc",
+      "networkId": 1399811149,
+      "narrativeId": "n-x-money"
+    },
+    {
+      "tokenId": "solana:GY9mZfyPpxXxBXBxS2hB2XjhP3kfUsywTvgveozxpump",
+      "name": "Elon Coin",
+      "symbol": "ELON",
+      "chain": "solana",
+      "address": "GY9mZfyPpxXxBXBxS2hB2XjhP3kfUsywTvgveozxpump",
+      "originLaunchpadSlug": "pump.fun",
+      "originStatus": "source-reported; creation transaction not independently decoded",
+      "pool": "6tuhHpYSinf41V39KW3JmpVUaxehcabCbHZqqFnwR6xf",
+      "networkId": 1399811149,
+      "narrativeId": "n-x-money"
+    },
+    {
+      "tokenId": "solana:HcRLc9VDgjLeK154xDawfb1dmVJ98DoSqcwTHGqiDeJR",
+      "name": "Anonymous Cat",
+      "symbol": "ZCAT",
+      "chain": "solana",
+      "address": "HcRLc9VDgjLeK154xDawfb1dmVJ98DoSqcwTHGqiDeJR",
+      "originLaunchpadSlug": "stonkfun",
+      "originStatus": "source-reported; creation transaction not independently decoded",
+      "pool": "BTccxxTFi7a9xJTE1exKn38Jgie35s6gNeRxd8DM61Rc",
+      "networkId": 1399811149,
+      "narrativeId": "n-pair-rewards"
+    },
+    {
+      "tokenId": "solana:8RVBk8vxLiUHueLUW1f4izFVqN3nWippLhkohKg6EGkS",
+      "name": "KNOTS",
+      "symbol": "KNOTS",
+      "chain": "solana",
+      "address": "8RVBk8vxLiUHueLUW1f4izFVqN3nWippLhkohKg6EGkS",
+      "originLaunchpadSlug": "stonkfun",
+      "originStatus": "source-reported; creation transaction not independently decoded",
+      "pool": "BUVzsLLLG7GWoyJVoU31pXiBveazA6GXTavZ9VD3CwS9",
+      "networkId": 1399811149,
+      "narrativeId": "n-pair-rewards"
+    },
+    {
+      "tokenId": "solana:CbcyNo7m1amFWqEQm2m4PLv1UNvpcL3C1Ujm6AkzpKoU",
+      "name": "Effective Accelerationism",
+      "symbol": "e/acc",
+      "chain": "solana",
+      "address": "CbcyNo7m1amFWqEQm2m4PLv1UNvpcL3C1Ujm6AkzpKoU",
+      "originLaunchpadSlug": "pump.fun",
+      "originStatus": "Official registry reports Pump; creation transaction not independently decoded",
+      "pool": "4JAnKFddd5fFTk5PxDj3PpTWJuTEfSWQEjZJcgKQ9KwW",
+      "networkId": 1399811149,
+      "narrativeId": "n-x-money"
+    },
+    {
+      "tokenId": "solana:5wW9mhbwq1HTFh341iimpmrqBB4mfxdXiYhdYBL7hUnp",
+      "name": "Kardashev Research",
+      "symbol": "KARDASHEV",
+      "chain": "solana",
+      "address": "5wW9mhbwq1HTFh341iimpmrqBB4mfxdXiYhdYBL7hUnp",
+      "originLaunchpadSlug": "pump.fun",
+      "originStatus": "Official registry reports Pump; creation transaction not independently decoded",
+      "pool": "3QaH1ifhQgUXHQdX3DHi9oMrWzTQfKLcomoCyeRRLMh6",
+      "networkId": 1399811149,
+      "narrativeId": "n-x-money"
+    },
+    {
+      "tokenId": "solana:FYM6PhwAS3QwTBwvgLj8JYeMgpNfKsWtW3hGxPM9eFkt",
+      "name": "DEBT COIN",
+      "symbol": "DEBT",
+      "chain": "solana",
+      "address": "FYM6PhwAS3QwTBwvgLj8JYeMgpNfKsWtW3hGxPM9eFkt",
+      "originLaunchpadSlug": "pump.fun",
+      "originStatus": "Official registry reports Pump; creation transaction not independently decoded",
+      "pool": "EP88Ktqm6491WEm1ZJsEryXYYjuoLh5cEyz5exyxr1Cb",
+      "networkId": 1399811149,
+      "narrativeId": "n-x-money"
+    },
+    {
+      "tokenId": "solana:HSnCtWsw5YmfAkJo9S3eetWtGHPMrc2pAxvCu24AnQEa",
+      "name": "dropping dollars on strangers",
+      "symbol": "DDOS",
+      "chain": "solana",
+      "address": "HSnCtWsw5YmfAkJo9S3eetWtGHPMrc2pAxvCu24AnQEa",
+      "originLaunchpadSlug": "pump.fun",
+      "originStatus": "Official registry reports Pump; creation transaction not independently decoded",
+      "pool": "FEGPrAa4aFNeYaXycKh45GBKVYAJMFuDEyronAceRLgV",
+      "networkId": 1399811149,
+      "narrativeId": "n-x-money"
+    },
+    {
+      "tokenId": "solana:CMuvWQ6qQbSt7NUQdPGcVKCoDgETieuqS68qu6BaeVgR",
+      "name": "Cream",
+      "symbol": "Cream",
+      "chain": "solana",
+      "address": "CMuvWQ6qQbSt7NUQdPGcVKCoDgETieuqS68qu6BaeVgR",
+      "originLaunchpadSlug": "pump.fun",
+      "originStatus": "Official registry reports Pump; creation transaction not independently decoded",
+      "pool": "CPRoWXCgq3ELsnqsGDMLmAVRnNSmyN4k1ddc6efGdd91",
+      "networkId": 1399811149,
+      "narrativeId": "n-x-money"
+    }
+  ],
+  "evidenceRequests": [
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://usepaid.app/docs",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T172434Z/raw/e1-request.json",
+      "seq": 2
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.knotsonstonk.com/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T172434Z/raw/e1-request.json",
+      "seq": 3
+    },
+    {
+      "tool": "bazaar.twitter-use-x402atlas-com-search",
+      "args": {
+        "words": "\"usepaid\""
+      },
+      "request": "research/lamble/20260926T172434Z/raw/e1-request.json",
+      "seq": 4
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://usepaid.app/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T172434Z/raw/e2-request.json",
+      "seq": 0
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.mexc.co/en-NG/learn/article/what-is-anonymous-cat-zcat-the-solana-meme-coin-paying-zec/1",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T172434Z/raw/e2-request.json",
+      "seq": 1
+    },
+    {
+      "tool": "bazaar.twitter-use-x402atlas-com-search",
+      "args": {
+        "words": "\"KNOTS\" \"STONK\""
+      },
+      "request": "research/lamble/20260926T172434Z/raw/e2-request.json",
+      "seq": 2
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://pump.fun/docs/fees",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T172434Z/raw/e2-request.json",
+      "seq": 3
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://flap.sh/board",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 0
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://raydium.io/launchpad/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 1
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://bonk.fun/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 2
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://taiyorobotics.com/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 3
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://genius.fun",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 4
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://arguspad.io",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 5
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.meteora.ag/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 6
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.binance.com/en/alpha/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 7
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://launch.o1.exchange",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich1-request.json",
+      "seq": 8
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.clanker.world/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 0
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://bags.fm/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 1
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://rapidlaunch.io/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 2
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://basestonk.io",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 3
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://four.meme",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 4
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://foci.family/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 5
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.stonkfun.xyz/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 6
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.stonkbrokers.cash",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 7
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.ponsfamily.com/launchpad",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich2-request.json",
+      "seq": 8
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.meteora.ag/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich3-request.json",
+      "seq": 0
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.raydium.io/raydium/protocol/protocol-fees",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich3-request.json",
+      "seq": 1
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://solport.gitbook.io/graphite-whitepaper/nfts/taiyo-robotics",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich3-request.json",
+      "seq": 2
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://clanker.world/docs/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich3-request.json",
+      "seq": 3
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://rapidlaunch.io/docs?page=quick-start",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich3-request.json",
+      "seq": 4
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://www.binance.com/en/square/post/23401087104449",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich3-request.json",
+      "seq": 5
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.flap.sh/flap",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich4-request.json",
+      "seq": 0
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://four-meme.gitbook.io/four.meme",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich4-request.json",
+      "seq": 1
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.bags.fm/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich4-request.json",
+      "seq": 2
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.bitquery.io/docs/blockchain/arc-mainnet/argus-launchpad-api/",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich4-request.json",
+      "seq": 3
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.meteora.ag/core-products/dbc",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich5-request.json",
+      "seq": 0
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.bags.fm/principles/token-launch-workflow",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich5-request.json",
+      "seq": 1
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://argus.world/docs",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich5-request.json",
+      "seq": 2
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.raydium.io/llms.txt",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich5-request.json",
+      "seq": 3
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.flap.sh/flap/llms.txt",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich5-request.json",
+      "seq": 4
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://four-meme.gitbook.io/four.meme/llms.txt",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich5-request.json",
+      "seq": 5
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.raydium.io/user-flows/launchlab-overview.md",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich6-request.json",
+      "seq": 0
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.flap.sh/flap/developers/basic-and-mechanism/bonding-curve.md",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich6-request.json",
+      "seq": 1
+    },
+    {
+      "tool": "mpp.firecrawl.post.v1-scrape",
+      "args": {
+        "url": "https://docs.flap.sh/flap/developers/token-launcher-developers/robinhood-integration-guide.md",
+        "formats": [
+          "markdown"
+        ]
+      },
+      "request": "research/lamble/20260926T175634Z/raw/enrich6-request.json",
+      "seq": 2
+    }
+  ],
+  "feeExclusions": {
+    "stonkfun": "Contains LaunchLab platform fees; post-migration component not separated",
+    "bonk.fun": "Shares LaunchLab curve fees; post-migration component not separated",
+    "graphite-protocol": "Share of BONK joint-venture fees",
+    "bags": "Solana DBC overlap; Robinhood and post-migration components not separated",
+    "binance-alpha": "Execution-route fees may overlap underlying venues; no component partition"
+  },
+  "references": {
+    "financialRecipes": "research/lamble/20260926T172434Z/acquisition-recipes.json",
+    "financialManifest": "research/lamble/20260926T172434Z/refresh-manifest.json",
+    "tokenEvidence": "research/lamble/20260926T172434Z/evidence.json",
+    "memberships": "research/lamble/20260926T172434Z/memberships.json",
+    "metadata": "research/lamble/20260926T175634Z/launchpad-enrichment.json",
+    "logos": "research/lamble/20260926T175634Z/logo-assets.json",
+    "activityRequest": "research/lamble/20260926T182058Z/raw/launchstats-request.json",
+    "activityMappings": "research/lamble/20260926T182058Z/landing-metrics.json",
+    "narrativeRun": "research/lamble/20260926T184109Z",
+    "narrativeBarsRequest": "research/lamble/20260926T184109Z/raw/bars-request.json",
+    "narrativeTokens": "research/lamble/20260926T184109Z/tokens.json",
+    "narrativeMemberships": "research/lamble/20260926T184109Z/memberships.json"
+  }
+}

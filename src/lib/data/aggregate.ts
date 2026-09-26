@@ -1,72 +1,48 @@
-import type { ChainId, Launchpad, Point } from "@/lib/data/types";
+import type { ChainId, Launchpad, Narrative, Point } from './types';
 
 export interface Aggregates {
   launchpadCount: number;
   chainCount: number;
-  chains: ChainId[];
-  fees24h: number;
-  fees7d: number;
-  /** Fee-weighted 24h change across venues, percent. */
-  feesChange24h: number;
-  /** Fee-weighted 7d change across venues, percent. */
-  feesChange7d: number;
-  /** Fee-weighted 30d change across venues, percent. */
-  feesChange30d: number;
-  launched24h: number;
-  launched7dAvg: number;
-  graduated24h: number;
-  /** Total daily fees across venues, 30 points. */
+  fees24h: number | null;
+  feesChange30d: number | null;
   feesHistory30d: Point[];
-  /** Approximate launches per minute across venues right now. */
-  launchesPerMinute: number;
+  launched24h: number | null;
+  graduated24h: number | null;
+  launchesPerMinute: number | null;
+  chains: ChainId[];
+  completeHistories: number;
+  narrativeCount: number;
+  constituentCount: number;
+  feeSubtotal: number | null;
+  feeScope: string;
+  indexedCreated24: number | null;
+  indexedCompleted24: number | null;
+  indexedCompletionRate: number | null;
+  creationCoverage: number;
+  completionCoverage: number;
 }
 
-function weightedChange(rows: { value: number; change: number }[]): number {
-  let now = 0;
-  let before = 0;
-  for (const r of rows) {
-    now += r.value;
-    before += r.value / (1 + r.change / 100);
-  }
-  return before > 0 ? ((now - before) / before) * 100 : 0;
-}
-
-export function aggregate(launchpads: Launchpad[]): Aggregates {
-  const chains = Array.from(new Set(launchpads.flatMap((l) => l.chains)));
-  const fees24h = launchpads.reduce((a, l) => a + l.metrics.h24.fees, 0);
-  const fees7d = launchpads.reduce((a, l) => a + l.metrics.d7.fees, 0);
-  const launched24h = launchpads.reduce((a, l) => a + l.metrics.launched24h, 0);
-  const launched7dAvg = launchpads.reduce((a, l) => a + l.metrics.launched7dAvg, 0);
-  const graduated24h = launchpads.reduce((a, l) => a + l.metrics.graduated24h, 0);
-
-  const len = launchpads[0]?.metrics.history30d.length ?? 0;
-  const feesHistory30d: Point[] = [];
-  for (let i = 0; i < len; i++) {
-    let value = 0;
-    let time = 0;
-    for (const l of launchpads) {
-      const p = l.metrics.history30d[i];
-      if (p) {
-        value += p.value;
-        time = p.time;
-      }
-    }
-    feesHistory30d.push({ time, value });
-  }
-
+/** Coverage counts only: engine/frontend fee flows are not disjoint. */
+export function aggregate(launchpads: Launchpad[], narratives: Narrative[] = [], fees?: { value: number; scope: string }): Aggregates {
+  const chains = [...new Set(launchpads.flatMap((l) => l.chains))];
+  const observed = launchpads.flatMap((l) => l.activityObservation ? [l.activityObservation] : []);
+  const completions = observed.filter((a) => a.indexedCompleted24 !== null);
+  const matchedLaunches = completions.reduce((sum, a) => sum + a.indexedCreated24, 0);
+  const completed = completions.reduce((sum, a) => sum + (a.indexedCompleted24 ?? 0), 0);
   return {
-    launchpadCount: launchpads.length,
+    feeSubtotal: fees?.value ?? null, feeScope: fees?.scope ?? '',
+    indexedCreated24: observed.length ? observed.reduce((sum, a) => sum + a.indexedCreated24, 0) : null,
+    indexedCompleted24: completions.length ? completed : null,
+    indexedCompletionRate: matchedLaunches > 0 ? 100 * completed / matchedLaunches : null,
+    creationCoverage: observed.length, completionCoverage: completions.length,
     chainCount: chains.length,
+    // All-venue totals remain unknown until overlapping flows are partitioned.
+    fees24h: null, feesChange30d: null, feesHistory30d: [],
+    launched24h: null, graduated24h: null, launchesPerMinute: null,
+    launchpadCount: launchpads.length,
     chains,
-    fees24h,
-    fees7d,
-    feesChange24h: weightedChange(launchpads.map((l) => ({ value: l.metrics.h24.fees, change: l.metrics.h24.change }))),
-    feesChange7d: weightedChange(launchpads.map((l) => ({ value: l.metrics.d7.fees, change: l.metrics.d7.change }))),
-    feesChange30d: weightedChange(launchpads.map((l) => ({ value: l.metrics.d30.fees, change: l.metrics.d30.change }))),
-    launched24h,
-    launched7dAvg,
-    graduated24h,
-    feesHistory30d,
-    launchesPerMinute: launched24h / 1440,
+    completeHistories: launchpads.filter((l) => l.metrics.history30d.length === 30 && l.metrics.history30d.every((p) => p.value !== null)).length,
+    narrativeCount: narratives.length,
+    constituentCount: new Set(narratives.flatMap((n) => n.contenders.map((c) => c.id))).size,
   };
 }

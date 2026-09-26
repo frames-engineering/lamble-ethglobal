@@ -33,7 +33,7 @@ export function LaunchpadsTable({ launchpads }: { launchpads: Launchpad[] }) {
 
   const onOpen = useCallback((slug: string) => setOpenSlug(slug), []);
   const medianGradRate = useMemo(
-    () => median(launchpads.filter(hasCurve).map((l) => l.metrics.graduationRate7d)),
+    () => median(launchpads.filter(hasCurve).map((l) => l.metrics.graduationRate7d).filter((v): v is number => v !== null)),
     [launchpads],
   );
   const ctx = useMemo<CellContext>(() => ({ tf, medianGradRate, onOpen }), [tf, medianGradRate, onOpen]);
@@ -59,6 +59,8 @@ export function LaunchpadsTable({ launchpads }: { launchpads: Launchpad[] }) {
     return [...filtered].sort((a, b) => {
       const av = sv(a, ctx);
       const bv = sv(b, ctx);
+      if (av === null) return bv === null ? 0 : 1;
+      if (bv === null) return -1;
       const cmp = typeof av === "number" && typeof bv === "number" ? av - bv : String(av).localeCompare(String(bv));
       return sort.dir === "asc" ? cmp : -cmp;
     });

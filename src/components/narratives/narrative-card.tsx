@@ -14,7 +14,9 @@ interface NarrativeCardProps {
 export function NarrativeCard({ narrative: n, selected, onSelect }: NarrativeCardProps) {
   const points = n.series[0]?.points ?? [];
   // Tone follows the 24h volume line the sparkline draws.
-  const up = (points[points.length - 1]?.value ?? 0) >= (points[0]?.value ?? 0);
+  const first = points[0]?.value;
+  const last = points[points.length - 1]?.value;
+  const up = first != null && last != null ? last >= first : null;
 
   return (
     <button
@@ -30,12 +32,12 @@ export function NarrativeCard({ narrative: n, selected, onSelect }: NarrativeCar
       <div className="mt-3 flex items-end justify-between gap-3">
         <div className="flex gap-5">
           <div>
-            <p className="text-lg font-medium tabular-nums text-high">{compactNumber(n.launches24h)}</p>
-            <p className="text-2xs text-med">launches 24h</p>
+            <p className="text-lg font-medium tabular-nums text-high">{compactNumber(n.launches24h ?? n.contenders.length)}</p>
+            <p className="text-2xs text-med">{n.launches24h === null ? 'tracked coins' : 'launches 24h'}</p>
           </div>
           <div>
             <p className="text-lg font-medium tabular-nums text-high">{compactUsd(n.volume24hUsd)}</p>
-            <p className="text-2xs text-med">volume 24h</p>
+            <p className="text-2xs text-med" title={n.provenance?.volumeScope}>volume 24h</p>
           </div>
         </div>
         {points.length > 1 && (
@@ -43,7 +45,7 @@ export function NarrativeCard({ narrative: n, selected, onSelect }: NarrativeCar
             points={points}
             width={80}
             height={26}
-            className={cn("h-[26px] w-20", up ? "text-positive" : "text-negative")}
+            className={cn("h-[26px] w-20", up === null ? "text-med" : up ? "text-positive" : "text-negative")}
             id={n.slug}
           />
         )}

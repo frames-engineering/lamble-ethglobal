@@ -276,7 +276,9 @@ export function HistoryChart({
               });
         map.set(s.id, api);
       }
-      api.setData(s.points.map((p) => ({ time: p.time as UTCTimestamp, value: p.value })));
+      api.setData(s.points.map((p) => p.value === null
+        ? { time: p.time as UTCTimestamp }
+        : { time: p.time as UTCTimestamp, value: p.value }));
       const last = s.points[s.points.length - 1];
       if (last && last.time > lastTime) lastTime = last.time;
     }

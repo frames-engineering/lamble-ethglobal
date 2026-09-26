@@ -1,5 +1,3 @@
-import { SNAPSHOT_AT } from "@/lib/data/seeded";
-
 /** Fixed locale so server and client render identical strings. */
 const LOCALE = "en-US";
 
@@ -24,25 +22,25 @@ const intFmt = new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 0 });
 const compactInt = new Intl.NumberFormat(LOCALE, { notation: "compact", maximumFractionDigits: 1 });
 
 /** $1.2M, $860K, $12 — compact currency. */
-export function compactUsd(n: number, digits: 1 | 2 = 1): string {
-  if (!Number.isFinite(n)) return "—";
+export function compactUsd(n: number | null, digits: 1 | 2 = 1): string {
+  if (n === null || !Number.isFinite(n)) return "—";
   if (Math.abs(n) < 1000) return fullUsd.format(n);
   return (digits === 2 ? compactUsd2 : compactUsd1).format(n);
 }
 
-export function usd(n: number): string {
-  if (!Number.isFinite(n)) return "—";
+export function usd(n: number | null): string {
+  if (n === null || !Number.isFinite(n)) return "—";
   return fullUsd.format(n);
 }
 
-export function int(n: number): string {
-  if (!Number.isFinite(n)) return "—";
+export function int(n: number | null): string {
+  if (n === null || !Number.isFinite(n)) return "—";
   return intFmt.format(n);
 }
 
 /** 41.2K, 1.3M — compact plain number. */
-export function compactNumber(n: number): string {
-  if (!Number.isFinite(n)) return "—";
+export function compactNumber(n: number | null): string {
+  if (n === null || !Number.isFinite(n)) return "—";
   if (Math.abs(n) < 1000) return intFmt.format(n);
   return compactInt.format(n);
 }
@@ -53,8 +51,8 @@ export interface PercentOptions {
 }
 
 /** Percent with a real minus sign: +4.5%, −12.8%, 21.6%. */
-export function percent(n: number, opts: PercentOptions = {}): string {
-  if (!Number.isFinite(n)) return "—";
+export function percent(n: number | null, opts: PercentOptions = {}): string {
+  if (n === null || !Number.isFinite(n)) return "—";
   const digits = opts.digits ?? 1;
   const abs = Math.abs(n).toFixed(digits);
   if (n < 0) return `−${abs}%`;
@@ -63,14 +61,12 @@ export function percent(n: number, opts: PercentOptions = {}): string {
 }
 
 /** Basis points → "1.0%". */
-export function bps(n: number, digits = 1): string {
-  return `${(n / 100).toFixed(digits)}%`;
+export function bps(n: number | null, digits = 1): string {
+  return n === null || !Number.isFinite(n) ? "—" : `${(n / 100).toFixed(digits)}%`;
 }
 
-const SNAPSHOT_MS = Date.parse(SNAPSHOT_AT);
-
-/** "2h ago", "1d ago" — relative to the fixture snapshot, so output is stable. */
-export function relativeTime(iso: string, now: number = SNAPSHOT_MS): string {
+/** Explicit reference time keeps server/client output deterministic. */
+export function relativeTime(iso: string, now: number): string {
   const diff = Math.max(0, now - Date.parse(iso));
   const minutes = Math.round(diff / 60_000);
   if (minutes < 1) return "just now";

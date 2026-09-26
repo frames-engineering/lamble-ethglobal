@@ -115,11 +115,11 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
                   <Stat
                     label="Revenue 7d"
                     value={compactUsd(lp.metrics.d7.revenue)}
-                    sub={`${percent(lp.metrics.d7.fees > 0 ? Math.min(100, (lp.metrics.d7.revenue / lp.metrics.d7.fees) * 100) : 0, { digits: 0 })} take`}
+                    sub={`${percent(lp.metrics.d7.fees !== null && lp.metrics.d7.fees > 0 && lp.metrics.d7.revenue !== null ? (lp.metrics.d7.revenue / lp.metrics.d7.fees) * 100 : null, { digits: 0 })} of fees`}
                   />
-                  <Stat label="Launched 24h" value={int(lp.metrics.launched24h)} sub={`7d avg ${compactNumber(lp.metrics.launched7dAvg)}`} />
-                  {hasCurve(lp) ? (
-                    <Stat label="Graduated 24h" value={int(lp.metrics.graduated24h)} sub={`${percent(lp.metrics.graduationRate7d)} rate`} />
+                  <Stat label={lp.activityObservation ? 'Indexed launches 24h' : 'Launched 24h'} value={int(lp.metrics.launched24h ?? lp.activityObservation?.indexedCreated24 ?? null)} sub={`7d avg ${compactNumber(lp.metrics.launched7dAvg ?? lp.activityObservation?.indexed7dAvg ?? null)}`} />
+                  {hasCurve(lp) !== false ? (
+                    <Stat label={lp.activityObservation ? 'Indexed completions 24h' : 'Graduated 24h'} value={int(lp.metrics.graduated24h ?? lp.activityObservation?.indexedCompleted24 ?? null)} sub={`${percent(lp.metrics.graduationRate7d ?? lp.activityObservation?.indexed7dCompletionRate ?? null)} rate`} />
                   ) : (
                     <Stat label="Graduated 24h" value="—" sub="no bonding curve" />
                   )}
@@ -129,16 +129,17 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
               <div>
                 <Label>Fee model</Label>
                 <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
+                  <Stat label="Bonding curve" value={hasCurve(lp) === null ? "Unknown / version dependent" : hasCurve(lp) ? "Yes" : "No"} />
                   <Stat label="Swap fee" value={bps(fm.tradingFeeBps)} />
-                  <Stat label="Creator share" value={percent(fm.creatorShareBps / 100, { digits: 0 })} sub="of fees" />
+                  <Stat label="Creator share" value={percent(fm.creatorShareBps === null ? null : fm.creatorShareBps / 100, { digits: 0 })} sub="of fees" />
                   <Stat label="Launch cost" value={fm.launchCostUsd === 0 ? "Free" : usd(fm.launchCostUsd)} />
-                  <Stat label="Graduation" value={hasCurve(lp) ? usd(fm.graduationTargetUsd) : "None"} sub={hasCurve(lp) ? "mcap" : undefined} />
-                  <Stat label="Graduates to" value={<span className="normal-nums">{lp.graduatesTo}</span>} />
+                  <Stat label="Graduation" value={hasCurve(lp) === false ? "Not applicable" : usd(fm.graduationTargetUsd)} sub={hasCurve(lp) ? "mcap" : undefined} />
+                  <Stat label="Graduates to" value={<span className="normal-nums">{lp.graduatesTo ?? "Unknown"}</span>} />
                 </dl>
                 {fm.note && <p className="mt-3 text-xs leading-relaxed text-med">{fm.note}</p>}
               </div>
 
-              <div>
+              {lp.routingNotes.length > 0 && <div>
                 <Label>Why LAMBLE would route here</Label>
                 <ul className="flex flex-col gap-1.5 text-sm leading-snug text-med">
                   {lp.routingNotes.map((n) => (
@@ -148,13 +149,11 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div>}
             </div>
 
             <SheetFooter className="flex-row">
-              <Button type="button" className="flex-1">
-                Launch here
-              </Button>
+              <Button type="button" disabled className="flex-1">Launch here</Button>
               <Button variant="secondary" nativeButton={false} render={<a href={lp.url} target="_blank" rel="noopener noreferrer" />}>
                 Website
                 <ArrowUpRightIcon data-icon="inline-end" />

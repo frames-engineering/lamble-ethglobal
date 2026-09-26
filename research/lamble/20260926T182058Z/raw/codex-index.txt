@@ -1,0 +1,257 @@
+# Codex API Documentation
+
+> Codex is a unified GraphQL API for token prices, trades, liquidity pools, OHLCV bars, holders, wallet analytics, prediction markets, and launchpad data across 100+ EVM and non-EVM networks. Used by trading bots, portfolio trackers, analytics dashboards, DeFi apps, and AI agents. GraphQL endpoint: `https://graph.codex.io/graphql` · WebSocket: `wss://graph.codex.io/graphql` · Auth: `Authorization: <API_KEY>`.
+
+## Key Information
+
+- **Full docs**: /
+- **llms-full.txt**: /llms-full.txt
+- **AI Agents**: Install the Codex skill for your AI coding agent to write Codex API queries directly: /agents/codex-skills.md
+- **URL pattern**: API pages follow `/api-reference/<section>/<lowercase-name>.md` (sections: `queries`, `mutations`, `subscriptions`, `types`, `enums`, `input-objects`, `unions-and-interfaces`)
+
+## Instructions for AI Agents
+
+- **Endpoint & transport**: Send queries and mutations as HTTP `POST` to `https://graph.codex.io/graphql`. Subscriptions stream over WebSocket (`graphql-ws` protocol) at `wss://graph.codex.io/graphql`.
+- **Auth**: Pass your API key in the `Authorization` header with **no** `Bearer` prefix (`Authorization: <API_KEY>`). The one exception is short-lived JWTs minted by `createApiTokens`, which *do* use `Authorization: Bearer <token>` — see /concepts/authentication.md.
+- **`networkId` is usually required**: a token address alone is ambiguous across chains, so most token/pair queries take a `networkId`. Common ones: Ethereum `1`, BNB Chain `56`, Solana `1399811149`. See /networks.md for a full list.
+- **Batch instead of looping**: endpoints like `getTokenPrices` and `tokens` accept arrays, so fetch many tokens in one request rather than one-per-call — cheaper and faster.
+- **Find the right fields**: every operation page above lists the exact types it returns and accepts. Fetch any reference page as markdown via the URL pattern (`/api-reference/<section>/<lowercase-name>.md`), then follow its type links on demand.
+- **Language support**: a first-party TypeScript SDK ships as `@codex-data/sdk` (/sdk.md). There is no SDK for other languages — call the GraphQL API directly; the wire format is identical.
+- **Coding agents**: install the Codex skill (/agents/codex-skills.md) or the docs MCP server (/agents/docs-mcp.md) to author and validate queries in your editor.
+- **No API key?** Agents can pay per request over HTTP 402 via the Machine Payments Protocol (/agents/mpp.md).
+
+## Getting Started
+- [Intro to Codex](/index.md): The fastest, most reliable enhanced data API for real-time token, pair, wallet, and prediction market data across 80+ blockchain networks.
+- [Get Started](/get-started.md): Get an API key and make your first Codex API request for real-time token data in minutes.
+- [Add Codex to Your App](/build.md): Two ways to integrate the Codex crypto data API into your app: the TypeScript SDK or direct GraphQL over HTTP and WebSockets.
+- [Using the SDK](/sdk.md): Install the Codex TypeScript SDK to query real-time token data and subscribe to live updates over WebSockets.
+- [Using the GraphQL API](/learn-graphql.md): GraphQL basics for the Codex API: queries, subscriptions, and the terminology you need to fetch on-chain data.
+
+## Core Concepts
+- [Authentication](/concepts/authentication.md): Authenticate Codex API requests with your API key, or short-lived JWTs for browser apps.
+- [Errors & Retries](/concepts/errors.md): How Codex reports errors, which ones are safe to retry, and how long to wait
+- [Global Fees Paid](/concepts/global-fees-paid.md): Understand how Codex measures and surfaces fee data across the API.
+- [Optimization](/concepts/optimization.md): Best practices for reducing API usage, improving performance, and architecting efficient integrations
+- [Queries](/concepts/queries.md): On-demand data requests — the basic building block of the Codex API
+- [Rate Limits & Connection Limits](/concepts/rate-limits.md): Understand how requests are counted, connection limits, and how to optimize your usage
+- [Subscriptions](/concepts/subscriptions.md): Stream real-time token prices, trades, and chart updates with GraphQL subscriptions over WebSockets.
+- [Token Risk](/concepts/token-risk.md): Read Codex's risk verdict, score, coverage and reason codes for a token or pair, and filter or rank by them.
+- [Wallet PnL](/concepts/wallet-pnl.md): Understand how Codex calculates wallet profit and loss, including cost basis methodology, fee handling, and data freshness.
+- [Webhooks](/concepts/webhooks.md): Receive token price alerts and pair event notifications at your own HTTP endpoints with Codex webhooks.
+
+## Recipes & Use Cases
+- [Charts](/recipes/charts.md): Render OHLCV candlestick token charts with the Codex API, with real-time updates over WebSockets.
+- [Detailed Token Page](/recipes/detailed-token-page.md): Learn how to build a comprehensive token detail page with price, holders, safety, trades, and real-time updates
+- [Discover Tokens](/recipes/discover-tokens.md): Learn how to build token dashboards with trending data, advanced filters, and token search
+- [Events](/recipes/events.md): Fetch on-chain token events like swaps, mints, and burns with the Codex API.
+- [Launchpad Lifecycle](/recipes/launchpad-lifecycle.md): Understand how tokens progress through launchpad stages — from creation to bonding curve to graduation and migration.
+- [Launchpads](/recipes/launchpads.md): Track launchpad tokens like pump.fun in real time: filter new launches, bonding curve progress, and graduations.
+- [Prediction Charts](/recipes/predictions/charts.md): Learn how to render prediction market charts with outcome probabilities, event activity, and multi-market comparisons
+- [Discover Prediction Markets](/recipes/predictions/discover-markets.md): Learn how to build prediction market discovery pages with filtering, ranking, and search
+- [Prediction Event Dashboard](/recipes/predictions/event-dashboard.md): Learn how to build a comprehensive prediction event detail page with markets, charts, trades, and real-time pricing
+- [Prediction Traders](/recipes/predictions/traders.md): Learn how to build trader leaderboards, profiles, and portfolio analytics for prediction market traders
+- [Discover Traders](/recipes/wallets/discover-traders.md): Understand how to find and filter high-performing wallets with the Codex API
+- [Trader Dashboard](/recipes/wallets/trader-dashboard.md): Understand how to build a complete single-wallet view with the Codex API
+
+## Agents & AI Integration
+- [Codex Skills](/agents/codex-skills.md): Install the Codex skills to give your AI coding agent the ability to write Codex API queries.
+- [Codex Docs MCP](/agents/docs-mcp.md): Add the Codex documentation MCP server to your AI coding tools for instant access to API docs.
+- [MPP](/agents/mpp.md): Enable AI agents to pay for Codex API access using the Machine Payments Protocol (MPP) over HTTP 402.
+
+## Resources
+- [Frequently Asked Questions](/extra/faq.md): Find answers to commonly asked questions about Codex
+- [Queries vs Subscriptions](/extra/queries-vs-subscriptions.md): Understand when to use queries vs subscriptions, and which endpoints map to each other
+- [Troubleshooting](/extra/troubleshooting.md): Solutions for common errors and issues with the Codex API
+
+## Migration Guides
+- [Migration Guides](/migrations.md): Move from another onchain data provider to Codex without rewriting your product
+- [Birdeye to Codex](/migrations/birdeye.md): Move your Birdeye Data Services integration to Codex
+- [Bitquery to Codex](/migrations/bitquery.md): Move your Bitquery integration to Codex for curated DEX data, first-class safety and PnL signals, and simpler queries
+- [CoinGecko to Codex](/migrations/coingecko.md): Move your CoinGecko integration to Codex for deeper onchain data, real-time events, and wallet analytics
+- [Dune Sim to Codex](/migrations/dune-sim.md): Move from Dune's now-discontinued Sim API to Codex
+- [Mobula to Codex](/migrations/mobula.md): Move your Mobula integration to Codex
+- [Serialized to Codex](/migrations/serialized.md): Move your Serialized Data API integration to Codex
+
+## Tools
+- [Explore](/explore.md): Run live GraphQL queries against the Codex API in your browser.
+
+## Supported Networks
+- [Supported Networks](/networks.md)
+- [Aptos API](/networks/aptos.md)
+- [Arbitrum API](/networks/arbitrum.md)
+- [Arc API](/networks/arc.md)
+- [Avalanche API](/networks/avalanche.md)
+- [Base API](/networks/base.md)
+- [BNB Chain API](/networks/bsc.md)
+- [Ethereum API](/networks/ethereum.md)
+- [Linea API](/networks/linea.md)
+- [MegaETH API](/networks/megaeth.md)
+- [Monad API](/networks/monad.md)
+- [Optimism API](/networks/optimism.md)
+- [Plasma API](/networks/plasma.md)
+- [Polygon API](/networks/polygon.md)
+- [Robinhood Chain API](/networks/robinhood.md)
+- [Solana API](/networks/solana.md)
+- [StarkNet API](/networks/starknet.md)
+- [Sui API](/networks/sui.md)
+- [Tempo API](/networks/tempo.md)
+- [Unichain API](/networks/unichain.md)
+
+## Supported Launchpads
+- [Supported Launchpads](/launchpads.md)
+- [Baseapp API](/launchpads/baseapp.md)
+- [Clanker API](/launchpads/clanker.md)
+- [Four.meme API](/launchpads/four-meme.md)
+- [LaunchLab API](/launchpads/launchlab.md)
+- [Meteora API](/launchpads/meteora.md)
+- [Pump.fun API](/launchpads/pump-fun.md)
+- [Virtuals API](/launchpads/virtuals.md)
+- [Zora Solana API](/launchpads/zora-solana.md)
+- [Zora API](/launchpads/zora.md)
+
+## Prediction Markets
+- [Supported Prediction Markets](/prediction-markets.md)
+- [kalshi](/prediction-markets/kalshi.md)
+- [Polymarket API](/prediction-markets/polymarket.md)
+
+## API Queries
+- [apiToken](/api-reference/queries/apitoken.md): Get the active short-lived api token for this api key by the short-lived token
+- [apiTokens](/api-reference/queries/apitokens.md): Get all active short-lived api tokens for this api key
+- [balances](/api-reference/queries/balances.md): Returns list of token balances that a wallet has.
+- [blocks](/api-reference/queries/blocks.md): Returns block data for the input blockNumbers or timestamps, maximum 25 inputs.
+- [categories](/api-reference/queries/categories.md): Returns the list of token categories, optionally filtered by kind (canonical or narrative) and lifecycle status.
+- [category](/api-reference/queries/category.md): Returns a single token category by its slug, or null if none matches.
+- [categoryTokens](/api-reference/queries/categorytokens.md): Returns the tokens assigned to a category (including its subcategories), with optional `filterTokens`-style filters and rankings applied.
+- [chartUrls](/api-reference/queries/charturls.md): Returns a URL for a pair chart.
+- [detailedPredictionEventStats](/api-reference/queries/detailedpredictioneventstats.md): Returns windowed and all-time stats for a prediction event.
+- [detailedPredictionMarketStats](/api-reference/queries/detailedpredictionmarketstats.md): Returns windowed and all-time stats for a prediction market.
+- [detailedPredictionTraderStats](/api-reference/queries/detailedpredictiontraderstats.md): Returns windowed and all-time stats for a prediction trader.
+- [detailedWalletStats](/api-reference/queries/detailedwalletstats.md): Returns detailed stats for a wallet.
+- [eventScopedFilterPredictionMarkets](/api-reference/queries/eventscopedfilterpredictionmarkets.md): Filters prediction markets within a single event and returns structured classification metadata for each market.
+- [filterExchanges](/api-reference/queries/filterexchanges.md): Returns a list of exchanges based on a variety of filters.
+- [filterLaunchpads](/api-reference/queries/filterlaunchpads.md): Returns a list of launchpads based on a variety of filters.
+- [filterNetworks](/api-reference/queries/filternetworks.md): Returns a list of networks based on a variety of filters.
+- [filterPairs](/api-reference/queries/filterpairs.md): Returns a list of pairs based on a variety of filters.
+- [filterPredictionEvents](/api-reference/queries/filterpredictionevents.md): Filters prediction events using optional text, IDs, and ranking criteria.
+- [filterPredictionMarkets](/api-reference/queries/filterpredictionmarkets.md): Filters prediction markets using optional text, IDs, event constraints, and ranking criteria.
+- [filterPredictionTraderMarkets](/api-reference/queries/filterpredictiontradermarkets.md): Filters trader-market records using trader, market, event, and ranking criteria.
+- [filterPredictionTraders](/api-reference/queries/filterpredictiontraders.md): Filters prediction traders using optional text, IDs, and ranking criteria.
+- [filterTokens](/api-reference/queries/filtertokens.md): Discover, screen, and rank tokens across every supported network using 100+ on-chain signals: trading activity, liquidity, holder behavior, fee economics, and launchpad lifecycle.
+- [filterTokenWallets](/api-reference/queries/filtertokenwallets.md): Returns a list of wallets with stats narrowed down to a specific token.
+- [filterWallets](/api-reference/queries/filterwallets.md): Returns a list of wallets based on a variety of filters.
+- [getBars](/api-reference/queries/getbars.md): Returns bar chart data to track price changes over time.
+- [getCommunityNotes](/api-reference/queries/getcommunitynotes.md): Returns community gathered notes.
+- [getDetailedPairsStats](/api-reference/queries/getdetailedpairsstats.md): Returns bucketed stats for a given token within a list of pairs.
+- [getDetailedPairStats](/api-reference/queries/getdetailedpairstats.md): Returns bucketed stats for a given token within a pair.
+- [getDetailedTokenStats](/api-reference/queries/getdetailedtokenstats.md): Returns bucketed stats for a given token.
+- [getEventLabels](/api-reference/queries/geteventlabels.md): Returns a list of event labels for a pair.
+- [getExchanges](/api-reference/queries/getexchanges.md): Returns a list of decentralized exchange metadata.
+- [getNetworkConfigs](/api-reference/queries/getnetworkconfigs.md): Returns a list of network configurations.
+- [getNetworks](/api-reference/queries/getnetworks.md): Returns a list of all networks supported on Codex.
+- [getNetworkStats](/api-reference/queries/getnetworkstats.md): Returns metadata for a given network supported on Codex.
+- [getNetworkStatus](/api-reference/queries/getnetworkstatus.md): Returns the status of a list of networks supported on Codex.
+- [getSimulateTokenContractResults](/api-reference/queries/getsimulatetokencontractresults.md): Returns recorded token analyses, including pending and failed requests.
+- [getSymbol](/api-reference/queries/getsymbol.md): Returns charting metadata for a given pair.
+- [getTokenBars](/api-reference/queries/gettokenbars.md): Returns aggregated bar chart data to track price changes over time.
+- [getTokenEvents](/api-reference/queries/gettokenevents.md): Returns transactions for a pair.
+- [getTokenEventsForMaker](/api-reference/queries/gettokeneventsformaker.md): Returns a list of token events for a given maker (wallet address).
+- [getTokenPrices](/api-reference/queries/gettokenprices.md): Returns real-time or historical prices for a list of tokens, fetched in batches.
+- [getWebhooks](/api-reference/queries/getwebhooks.md): Returns a user's list of webhooks.
+- [holders](/api-reference/queries/holders.md): Returns list of wallets that hold a given token, ordered by holdings descending.
+- [liquidityLocksV2](/api-reference/queries/liquiditylocksv2.md): Returns locked liquidity for a pair or token, read from current on-chain state.
+- [liquidityMetadata](/api-reference/queries/liquiditymetadata.md): Returns liquidity metadata for a given pair.
+- [liquidityMetadataByToken](/api-reference/queries/liquiditymetadatabytoken.md): Returns liquidity metadata for a given token.
+- [listPairsForToken](/api-reference/queries/listpairsfortoken.md): Returns a list of pairs containing a given token.
+- [listPairsWithMetadataForToken](/api-reference/queries/listpairswithmetadatafortoken.md): Returns a list of pair metadata for a token.
+- [pairMetadata](/api-reference/queries/pairmetadata.md): Returns metadata for a pair of tokens.
+- [predictionCategories](/api-reference/queries/predictioncategories.md): Returns available prediction categories and nested subcategories.
+- [predictionEventBars](/api-reference/queries/predictioneventbars.md): Returns bar data for a prediction event.
+- [predictionEventTopMarketsBars](/api-reference/queries/predictioneventtopmarketsbars.md): Returns bar data for top markets inside a prediction event.
+- [predictionMarketBars](/api-reference/queries/predictionmarketbars.md): Returns OHLC-style bar data for a prediction market.
+- [predictionMarketPrice](/api-reference/queries/predictionmarketprice.md): Returns price data for a prediction market at a specific timestamp or latest.
+- [predictionMarkets](/api-reference/queries/predictionmarkets.md): Returns prediction markets by ID.
+- [predictionOutcomeOrderBooks](/api-reference/queries/predictionoutcomeorderbooks.md): Returns live order books for a set of prediction outcomes, fetched from the venue's CLOB.
+- [predictionTokenHolders](/api-reference/queries/predictiontokenholders.md): Returns token holder balances for a prediction market.
+- [predictionTraderBars](/api-reference/queries/predictiontraderbars.md): Returns bar data for a prediction trader over a time range.
+- [predictionTraderHoldings](/api-reference/queries/predictiontraderholdings.md): Returns all prediction token holdings for a specific trader.
+- [predictionTraderMarketsStats](/api-reference/queries/predictiontradermarketsstats.md): Returns per-market performance stats for a specific trader.
+- [predictionTraders](/api-reference/queries/predictiontraders.md): Returns prediction traders by ID.
+- [predictionTrades](/api-reference/queries/predictiontrades.md): Returns prediction trades with cursor-based pagination.
+- [token](/api-reference/queries/token.md): Returns a single token by its address & network id.
+- [tokens](/api-reference/queries/tokens.md): Returns a list of tokens by their addresses & network id, with pagination.
+- [tokenSparklines](/api-reference/queries/tokensparklines.md): Returns a list of token simple chart data (sparklines) for the given tokens.
+- [tokenTopTraders](/api-reference/queries/tokentoptraders.md): Returns a list of top traders for a given token.
+- [tokenWalletStats](/api-reference/queries/tokenwalletstats.md): Returns the sniper, bundler and insider wallets that still hold a token, and how much of the supply they hold.
+- [top10HoldersPercent](/api-reference/queries/top10holderspercent.md): Returns the percentage of a token's total supply held collectively by its top 10 holders.
+- [walletAggregateBackfillState](/api-reference/queries/walletaggregatebackfillstate.md): Once a wallet backfill has been triggered, this query can be used to check the status of the backfill.
+- [walletChart](/api-reference/queries/walletchart.md): Returns a chart of a wallet's activity.
+- [walletLabelTypes](/api-reference/queries/walletlabeltypes.md): Returns the full vocabulary of wallet label types and their metadata.
+
+## API Mutations
+- [backfillWalletAggregates](/api-reference/mutations/backfillwalletaggregates.md): Backfill wallet aggregates (trading stats) for a given wallet.
+- [createApiTokens](/api-reference/mutations/createapitokens.md): Create a new set of short-lived api access tokens
+- [createWebhooks](/api-reference/mutations/createwebhooks.md): Create event webhooks for price, token/pair, transfer, market cap, and prediction market trades.
+- [deleteApiToken](/api-reference/mutations/deleteapitoken.md): Delete a single short-lived api access token by id
+- [deleteWebhooks](/api-reference/mutations/deletewebhooks.md): Delete multiple webhooks.
+- [refreshBalances](/api-reference/mutations/refreshbalances.md): Force refreshes the balance for a token in a wallet, persisting the result so subsequent `balances` queries reflect it.
+- [simulateTokenContract](/api-reference/mutations/simulatetokencontract.md): Queues asynchronous token analysis.
+
+## API Subscriptions
+- [onBalanceUpdated](/api-reference/subscriptions/onbalanceupdated.md): Live-streamed balance updates for a given wallet.
+- [onBarsUpdated](/api-reference/subscriptions/onbarsupdated.md): Live-streamed bar chart data to track price changes over time.
+- [onDetailedPredictionEventStatsUpdated](/api-reference/subscriptions/ondetailedpredictioneventstatsupdated.md): Streams updated detailed stats for a specific prediction event.
+- [onDetailedPredictionMarketStatsUpdated](/api-reference/subscriptions/ondetailedpredictionmarketstatsupdated.md): Streams updated detailed stats for a specific prediction market.
+- [onDetailedStatsUpdated](/api-reference/subscriptions/ondetailedstatsupdated.md): Live-streamed bucketed stats for a given token within a pair.
+- [onDetailedTokenStatsUpdated](/api-reference/subscriptions/ondetailedtokenstatsupdated.md): Live-streamed bucketed stats for a given token.
+- [onEventLabelCreated](/api-reference/subscriptions/oneventlabelcreated.md): Live-streamed event labels for a token.
+- [onEventsCreated](/api-reference/subscriptions/oneventscreated.md): Live-streamed transactions for a pair.
+- [onEventsCreatedByMaker](/api-reference/subscriptions/oneventscreatedbymaker.md): Live-streamed transactions for a maker.
+- [onFilterTokensUpdated](/api-reference/subscriptions/onfiltertokensupdated.md): Live-streamed filter token updates for the current `filterTokens` result set.
+- [onHoldersUpdated](/api-reference/subscriptions/onholdersupdated.md): Live-streamed list of wallets that hold a given token.
+- [onLaunchpadTokenEvent](/api-reference/subscriptions/onlaunchpadtokenevent.md): Live-streamed launchpad token event.
+- [onLaunchpadTokenEventBatch](/api-reference/subscriptions/onlaunchpadtokeneventbatch.md): Live-streamed launchpad token events batched (more efficient).
+- [onPairMetadataUpdated](/api-reference/subscriptions/onpairmetadataupdated.md): Live-streamed stat updates for a given token within a pair.
+- [onPredictionEventBarsUpdated](/api-reference/subscriptions/onpredictioneventbarsupdated.md): Live-streamed bar chart data to track price changes over time for a prediction event.
+- [onPredictionMarketBarsUpdated](/api-reference/subscriptions/onpredictionmarketbarsupdated.md): Live-streamed bar chart data to track price changes over time for a prediction market.
+- [onPredictionTradesCreated](/api-reference/subscriptions/onpredictiontradescreated.md): Streams new prediction trades as they are ingested.
+- [onPricesUpdated](/api-reference/subscriptions/onpricesupdated.md): Live-streamed price updates for multiple tokens.
+- [onPriceUpdated](/api-reference/subscriptions/onpriceupdated.md): Live-streamed price updates for a token.
+- [onSimulateTokenContract](/api-reference/subscriptions/onsimulatetokencontract.md): Live-streamed published analysis results for a token, across all simulation IDs.
+- [onTokenBarsUpdated](/api-reference/subscriptions/ontokenbarsupdated.md): Live-streamed aggregate bar chart data to track price changes over time for a token.
+- [onTokenEventsCreated](/api-reference/subscriptions/ontokeneventscreated.md): Live-streamed events for a given token across all it's pools
+
+## API Types, Enums, Input Objects, and Unions
+
+Individual type pages aren't enumerated here. They're lookup-after-you-know-the-query references, and every operation page above already links the types it returns or accepts. Resolve them on demand at `/api-reference/<section>/<lowercase-name>.md` where `<section>` is one of `types`, `enums`, `input-objects`, or `unions-and-interfaces`. Examples: `/api-reference/input-objects/tokenfilters.md`, `/api-reference/types/tokeninfo.md`, `/api-reference/enums/eventtype.md`.
+
+## Common Query Patterns
+
+### Search tokens by name
+```graphql
+{ filterTokens(phrase: "$PEPE", rankings: {attribute: trendingScore24, direction: DESC}) { results { token { name symbol address } priceUSD liquidity volume24 } } }
+```
+
+### Get token price
+```graphql
+{ getTokenPrices(inputs: [{ address: "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c", networkId: 56 }]) { priceUsd address } }
+```
+
+### Get OHLCV bars
+```graphql
+{ getBars(symbol: "0x6982508145454ce325ddbe47a25d4ec3d2311933:1", from: 1700000000, to: 1700086400, resolution: "60") { t o h l c v } }
+```
+
+### Subscribe to live prices
+```graphql
+subscription { onPriceUpdated(address: "0x6982508145454ce325ddbe47a25d4ec3d2311933", networkId: 1) { priceUsd timestamp } }
+```
+
+### Get trending tokens
+```graphql
+{ filterTokens(filters: {network: 1, liquidity: {gt: 10000}}, rankings: {attribute: trendingScore24, direction: DESC}, limit: 25) { results { token { name symbol address } priceUSD volume24 trendingScore24 } } }
+```
+
+### List supported networks
+```graphql
+{ getNetworks { name id } }
+```

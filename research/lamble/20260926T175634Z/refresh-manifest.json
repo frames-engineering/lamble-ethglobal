@@ -1,0 +1,75 @@
+{
+  "version": "lamble-enrichment-v1",
+  "run_id": "20260926T175634Z",
+  "automated": false,
+  "recipes": [
+    {
+      "request_file": "raw/enrich1-request.json",
+      "response_file": "raw/enrich1.json",
+      "run_id": "run_4535b137a5f746a1be09ad6af0b82a38",
+      "status": "completed",
+      "requested": 9,
+      "delivered": 8,
+      "charged_credits": 19
+    },
+    {
+      "request_file": "raw/enrich2-request.json",
+      "response_file": "raw/enrich2.json",
+      "run_id": "run_332c24e5f1dc4501927d19684323d1c6",
+      "status": "completed",
+      "requested": 9,
+      "delivered": 8,
+      "charged_credits": 19
+    },
+    {
+      "request_file": "raw/enrich3-request.json",
+      "response_file": "raw/enrich3.json",
+      "run_id": "run_13a9fe75fe8e484c91c6f2bbea20aabf",
+      "status": "completed",
+      "requested": 6,
+      "delivered": 5,
+      "charged_credits": 12
+    },
+    {
+      "request_file": "raw/enrich4-request.json",
+      "response_file": "raw/enrich4.json",
+      "run_id": "run_2089a68af9a745e9bc91c7bc8467fde0",
+      "status": "completed",
+      "requested": 4,
+      "delivered": 4,
+      "charged_credits": 10
+    },
+    {
+      "request_file": "raw/enrich5-request.json",
+      "response_file": "raw/enrich5.json",
+      "run_id": "run_b013e76a7e394ef5970c69adb9d3bd96",
+      "status": "completed",
+      "requested": 6,
+      "delivered": 4,
+      "charged_credits": 10
+    },
+    {
+      "request_file": "raw/enrich6-request.json",
+      "response_file": "raw/enrich6.json",
+      "run_id": "run_9fe63d73dadd4880a37c0517343643e5",
+      "status": "completed",
+      "requested": 3,
+      "delivered": 3,
+      "charged_credits": 7
+    }
+  ],
+  "offline_normalize": "python3 research/lamble/20260926T175634Z/normalize_enrichment.py",
+  "offline_import": "node scripts/import-frames-snapshot.mjs",
+  "refresh": {
+    "configurations": "weekly or material release; at most 37 exact page requests, reuse unchanged responses",
+    "branding": "monthly; reuse hashes; at most 14 public asset requests",
+    "financials": "daily after upstream day close; existing mapped financial recipes",
+    "narrative_bars": "hourly; existing pool mapping and completed-hour overlap"
+  },
+  "pagination": "None; bounded individual documentation pages",
+  "fallback": "Keep previous timestamped evidence; never turn failures into missing-chain removals or numeric zero",
+  "billing": {
+    "charged_credits": 77,
+    "percent_remaining": 84
+  }
+}

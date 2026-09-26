@@ -1,0 +1,86 @@
+{
+  "runId": "20260926T172434Z",
+  "version": "lamble-frames-1.1.0",
+  "runtimeStartedAt": "2026-09-26T17:24:34Z",
+  "packagedAt": "2026-09-26T17:41:21.620516+00:00",
+  "repositoryCommit": "d98c8a73d78de4f008db032bc51659812d710bf3",
+  "status": "Frames executed; partial market coverage preserved",
+  "authorization": "User explicitly removed overall ceiling for this research run. Lower per-batch caps retained.",
+  "recurringTaskCreated": false,
+  "providerMappings": "entity-mapping.json",
+  "watermarks": {
+    "financialExclusiveEnd": "2026-09-26T00:00:00Z",
+    "narrativeExclusiveEnd": "2026-09-26T16:00:00Z",
+    "creationFinalizedBlock": null
+  },
+  "checkpoints": {
+    "launchFeed": 1790443270.765,
+    "launchFeedUsable": false,
+    "socialUsepaidCursor": "DAACCgACHTKNzkIAJxAKAAMdMo3OQf_Y8AgABAAAAAILAAUAAAEcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJnZE1sUXVPOXBSU3gweWVPSXAxbEdPSFRLSHlESlhNQ2tkTWNkZkgxcVFaaDB4d0RaYW1zRWxIVEtKNnVvVzRjb2RNb25xSDlkaHZSMHhZSmx1bWxHd0hUS0dHL3ZhQWR3ZE1vdDFqSnR4R0IweWdralJsaEVySFRKMU9RRWFBTjhkTWRQbDJoYXdpeDB4cjlTbjIyR2xIVEtFOXJ6V0VSd2RNb2Zkd0ZvUlVCMHlBVkU2R3VFbEhUR3dmaG1iVUlrZE1jZkhZZHJCalIweHc2OWpXbkRlSFRHd01WZVcwUlVkTW9PVmlwZkJxQjB4N0p5M0c5RFBIVEgyenN3YUFUdz0IAAYAAAAACAAHAAAAAAwACAoAAR0xYJlumlGwAAAA",
+    "socialKnotsCursor": "DAACCgACHTKOm8FAJxAKAAMdMo6bwT_Y8AgABAAAAAILAAUAAADwRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJRZEthTmp0ZFpnRHgwcWRDMFdsbkY4SFNsam1OL2FvTEVkS2wybExCY3creDB1cHFSK0c5RWlIU3ZhVUV1YWtRUWRLTjhHWDVaeDhCMHJ1ZXB6bG5EMUhTdkZlb25YRU9jZEtzVm83QmV4ZHgwcU9iWUkyN0ZCSFNNR1JpaVdzRHNkSzJZQUZKZVJKaDBxUDdHUm1ySGlIU2piYjJVYWdlMGRLdGxqRDFlaDF4MHFuZW5wMjZFNEhTcmNGSFpXY0FjZE1sVzhxSnR4TlIwcit0T3psbUcwCAAGAAAAAAgABwAAAAAMAAgKAAEdIwZGKJawOwAAAA"
+  },
+  "cadence": [
+    {
+      "task": "Hourly market aggregation",
+      "schedule": "hourly after one complete-hour safety margin",
+      "boundedCalls": 1,
+      "recipe": "e1 call 0",
+      "policy": "Four fixed pools; reread last 3 hours for revisions, merge by chain:pool:bucket, preserve old versions."
+    },
+    {
+      "task": "Daily financials",
+      "schedule": "daily after upstream updates",
+      "boundedCalls": 38,
+      "recipe": "seed call 1 plus f1..f4",
+      "policy": "Cache full histories; replace overlapping last 7 complete days, retain revisions; API supplies full chart, no invented date filter."
+    },
+    {
+      "task": "Social evidence",
+      "schedule": "30–60 minutes",
+      "boundedCalls": 2,
+      "recipe": "e1 call 4 and e2 call 2",
+      "policy": "Deduplicate post IDs. Top mode is a sample. Reclassify only meaningful new evidence."
+    },
+    {
+      "task": "Discovery",
+      "schedule": "30 minutes after launch-route repair",
+      "boundedCalls": 2,
+      "policy": "Current launch route fails since contract. Do not advance finalized watermark or count launches from it."
+    },
+    {
+      "task": "Configuration/branding",
+      "schedule": "weekly or official update",
+      "boundedCalls": 19,
+      "policy": "Cache official sources; retain version and chain variants."
+    }
+  ],
+  "costs": {
+    "charged_credits": 230,
+    "percent_remaining": 84,
+    "run_ids": [
+      "run_7dddde0929d94615a655542512af3822",
+      "run_94f26ac546c7464584d56d2e97b7d3ef",
+      "run_2448ee328866465d8daf54740c4c7941",
+      "run_95d2e39691604dcb8dc6dcd4edb2641c",
+      "run_6a32f6388763421c92847a7118343f17",
+      "run_8df45e4eb25c404a960595d09cd57d8c",
+      "run_cfe3f54df0a84425afa37c79a8866960",
+      "run_5a50b71e900f4dd5a2f77fdde2a5af27"
+    ],
+    "deduplication": "Unique run_id only; sum billing.charged_credits. Quotes and per-call charged_usd are not billed credit totals."
+  },
+  "fallback": "Earlier public DefiLlama/GeckoTerminal routes are documented in previous run. Never silently merge semantically different volume scopes.",
+  "lastSuccessByRecipe": {
+    "seed": "2026-09-26T17:27:57.483671Z",
+    "f1": "2026-09-26T17:32:38.912097Z",
+    "f2": "2026-09-26T17:32:40.192888Z",
+    "f3": "2026-09-26T17:32:41.644828Z",
+    "f4": "2026-09-26T17:34:13.905210Z",
+    "e1": "2026-09-26T17:31:39.391749Z",
+    "e2": "2026-09-26T17:34:16.554173Z",
+    "v1": "2026-09-26T17:35:32.418327Z"
+  },
+  "collectionPolicyChanges": [
+    "Hourly source changed from GeckoTerminal to Codex for the same four fixed pools. Prior observations retained; provider differences recorded, not blended."
+  ]
+}

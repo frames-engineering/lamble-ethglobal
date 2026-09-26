@@ -62,7 +62,7 @@ export interface RandomWalkOptions {
  * at `end` and drifts from `start`. Multiplicative noise keeps values
  * positive and scale-free.
  */
-export function randomWalk(opts: RandomWalkOptions): Point[] {
+export function randomWalk(opts: RandomWalkOptions): (Point & { value: number })[] {
   const { n, end, vol } = opts;
   const step = opts.step ?? DAY;
   const start = opts.start ?? end;
@@ -83,7 +83,7 @@ export function randomWalk(opts: RandomWalkOptions): Point[] {
   }
   const last = raw[n - 1] ?? 1;
 
-  const points: Point[] = [];
+  const points: (Point & { value: number })[] = [];
   for (let i = 0; i < n; i++) {
     const t = n === 1 ? 1 : i / (n - 1);
     const drift =

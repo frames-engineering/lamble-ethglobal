@@ -15,23 +15,27 @@ interface SparklineProps {
   id?: string;
 }
 
-function buildPath(values: number[], w: number, h: number, pad: number): string {
+function buildPath(values: (number | null)[], w: number, h: number, pad: number): string {
   const n = values.length;
   if (n === 0) return "";
   let min = Number.POSITIVE_INFINITY;
   let max = Number.NEGATIVE_INFINITY;
   for (const v of values) {
+    if (v === null) continue;
     if (v < min) min = v;
     if (v > max) max = v;
   }
   const span = max - min || 1;
   const stepX = n > 1 ? w / (n - 1) : 0;
   let d = "";
+  let penDown = false;
   for (let i = 0; i < n; i++) {
-    const v = values[i] ?? min;
+    const v = values[i];
+    if (v == null) { penDown = false; continue; }
     const x = i * stepX;
     const y = pad + (1 - (v - min) / span) * (h - pad * 2);
-    d += `${i === 0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`;
+    d += `${penDown ? "L" : "M"}${x.toFixed(2)},${y.toFixed(2)}`;
+    penDown = true;
   }
   return d;
 }
@@ -66,7 +70,7 @@ export function Sparkline({
       aria-hidden
       focusable="false"
     >
-      {fill && path && (
+      {fill && path && values.every((v) => v !== null) && (
         <>
           <defs>
             <linearGradient id={gradId} x1="0" x2="0" y1="0" y2="1">

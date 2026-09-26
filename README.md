@@ -25,10 +25,22 @@ The lockfile is `package-lock.json` because bun could not resolve packages throu
 
 ## Data
 
-There is no network access at runtime. `src/lib/data/provider.ts` exposes `getLaunchpads()` and `getNarratives()` backed by `src/lib/data/providers/fixture.ts`. Swap that one export for a backend client when the API is ready.
+The landing page uses an offline, generated Frames data snapshot through
+`src/lib/data/providers/frames.ts`. Rendering and builds make no paid data calls.
 
-- Launchpad fees, revenue, chains, websites and descriptions come from a one-time DefiLlama "Launchpad" category snapshot (2026-09-26). Launch/graduation counts and fee-model details are illustrative.
-- Narratives are hand-written fixtures. Their hourly volume series (last 24h, summing to the narrative's 24h volume) are generated deterministically (`src/lib/data/seeded.ts`) so server and client render the same chart.
+- Financials use verified complete UTC-day observations and explicit fee-subtotal exclusions.
+- Launch/completion observations are labelled indexed because provider coverage is beta.
+- Two evidence-backed narratives cover nine identified coins, with real 24-hour and seven-day hourly volume. The volume universe is a selected pool sample, not the entire market.
+- Unknown fields remain null; fixtures are not the active provider.
+
+### Refresh the data
+
+Ask the agent: **“Follow [the daily refresh prompt](docs/prompts/refresh-market-data.md) to refresh the landing data.”**
+
+The prompt includes daily work, exact validated tool recipes, timing and validation
+rules, known blockers, and the [source registry](docs/prompts/refresh-market-data.sources.json).
+See [snapshot integration notes](src/lib/data/snapshots/README.md) for offline import
+commands. No recurring refresh or paid background job is installed.
 
 ## Structure
 

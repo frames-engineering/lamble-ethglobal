@@ -1,0 +1,48 @@
+# Frames landing snapshot
+
+The production provider serves `frames.ts`, generated from research run
+`20260926T172434Z`. The page performs no metered calls and does not refresh automatically.
+
+After a new research acquisition has been normalized and validated:
+
+```sh
+node scripts/import-frames-snapshot.mjs research/lamble/<financial-run> research/lamble/<metadata-run>/launchpad-enrichment.json research/lamble/<activity-run>/landing-metrics.json research/lamble/<narrative-run>
+npx tsc --noEmit
+npm run lint
+npm run build
+```
+
+The importer checks venue identity coverage, known chain IDs, narrative time grids,
+volume reconciliation and signal evidence. It includes only presentation data and
+source links; raw requests, billing receipts and research evidence stay outside the
+application bundle. Preserve the research directory for auditing and offline tests.
+
+Run the current snapshot regression checks with Node 24:
+
+```sh
+node --experimental-strip-types --test tests/frames-data.test.mjs
+```
+
+Unknown numeric values remain null. Supported chains and financial chain coverage
+are separate. Hero chain badges use supported chains. Overlapping financial totals
+remain unknown. The original landing copy is retained; research provenance stays in data.
+Narrative coin percentages use the explicitly labelled selected-pool volume share;
+the legacy attention and launch-share fields remain unknown.
+
+Current metadata overlay: `research/lamble/20260926T175634Z/launchpad-enrichment.json`.
+It fills all 19 chain records and references 13 locally stored official logos.
+Some support sets are partial. Stable and Ink are supplemental metadata because
+they are outside the current ChainId contract. Metadata collection is explicit;
+the snapshot importer is entirely offline.
+
+Activity overlay: `research/lamble/20260926T182058Z/landing-metrics.json`.
+Run its `normalize.py` before importing an updated activity acquisition. The app
+keeps beta indexed observations in `activityObservation`; verified event-count
+fields remain null. `coverage.ts` contains the separately labelled fee subtotal
+and the explicit list of excluded overlapping venues. Narrative launch origins
+are shown without inventing a launch-share ranking.
+
+Daily agent prompt: [refresh-market-data.md](../../../../docs/prompts/refresh-market-data.md).
+Current narrative overlay: `research/lamble/20260926T184109Z/`, with nine identified
+coins and complete 24h/7d hourly series. Pre-creation zeros apply only to buckets
+fully before the independently queried pool creation time, not token-wide trading.

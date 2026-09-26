@@ -6,9 +6,11 @@ import type { Narrative } from "@/lib/data/types";
  * summing to `volume24hUsd`.
  * Signal sources are neutral labels; nothing here quotes a real outlet.
  */
-export type NarrativeFixture = Omit<Narrative, "series"> & {
+export type NarrativeFixture = Omit<Narrative, "series" | "status" | "volume24hUsd"> & {
   /** Relative hour-to-hour volatility of the generated volume series. */
   volumeVol?: number;
+  status: NonNullable<Narrative["status"]>;
+  volume24hUsd: number;
 };
 
 export const NARRATIVE_FIXTURES: NarrativeFixture[] = [

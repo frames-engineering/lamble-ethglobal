@@ -1,0 +1,514 @@
+{
+  "launchpads": [
+    {
+      "slug": "pump.fun",
+      "providerSlug": "pump.fun",
+      "defillamaId": "4449",
+      "module": "pumpdotfun",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Solana"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-c0c6666d19f2",
+        "e-09bbe0bb0fe2"
+      ],
+      "methodology": {
+        "Fees": "Bonding-curve trade fees paid by users (pump's slice + creator/cashback slice), graduation fees, and Mayhem-mode fees.",
+        "Revenue": "Pump's slice of the bonding-curve trade fee plus graduation fees and Mayhem-mode fees.",
+        "ProtocolRevenue": "Pump's slice kept by the protocol after the buyback share, plus 100% of graduation and Mayhem fees. Era-based split: 100% pre-2025-07-14, 0% from 2025-07-14, 50% from 2026-04-28.",
+        "HoldersRevenue": "PUMP token buyback (sourced from onchain burns; aggregates buybacks across all pump products, so it won't sum exactly with ProtocolRevenue here).",
+        "SupplySideRevenue": "Creator fees paid out to coin creators and cashback returned to traders/holders of the coin."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "stonkfun",
+      "providerSlug": "stonkfun",
+      "defillamaId": "8450",
+      "module": "stonkfun",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Solana"
+      ],
+      "role": "branded frontend / venue",
+      "sourceRefs": [
+        "e-98c56b956191",
+        "e-0414659b70b5"
+      ],
+      "methodology": {
+        "Fees": "StonkFun's share of trading fees only. Three sources: the 1% platform fee on every trade against the Raydium LaunchLab bonding curves it configures; the creator fee on every swap in the Raydium CPMM pools those launches graduate into, which StonkFun claims as pool creator; and its share of trading fees harvested from the permanently locked liquidity behind each launch. Raydium's protocol fee and third-party creator fees are excluded. All amounts are in each pool's quote token.",
+        "Revenue": "Same as fees. Platform fees accrue on the curve, creator fees and locked-position fees are claimed into the treasury.",
+        "HoldersRevenue": "Quote assets spent buying STONK on Jupiter, identified on-chain as swaps that returned STONK to the operator wallet. Measured at the amount spent, not the value of the tokens later burned."
+      },
+      "providerMarkedDoublecounted": true
+    },
+    {
+      "slug": "pons",
+      "providerSlug": "pons-v2",
+      "defillamaId": "8369",
+      "module": "ponsdotfamily-v2",
+      "scope": "Pons V2 ONLY; Pons V1 separately retained in provider-financials.json",
+      "chainsCovered": [
+        "Robinhood Chain"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-136ffd05e3be",
+        "e-acbcce5ae9e2"
+      ],
+      "methodology": {
+        "Volume": "Volume of all swaps on Pons' launch curve, external uniswap v4 swaps are excluded",
+        "Fees": "Includes launch fees, curve swap fees and swap fees post graduation (uniswap v4 : realised through fee swept events)",
+        "Revenue": "Includes all the launch fees and part of swap fees",
+        "SupplySideRevenue": "Includes swap fees to creators, taxes (optional) to creators and buybacks (if enabled by creators) of meme tokens"
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "flap-sh",
+      "providerSlug": "flap-sh",
+      "defillamaId": "4983",
+      "module": "flap",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "BSC",
+        "X Layer",
+        "Monad",
+        "Robinhood Chain"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-7212b4d3bd9f",
+        "e-8c966c05d4ad"
+      ],
+      "methodology": {
+        "Volume": "Buy and sell volume on Flap bonding curves before tokens move to a DEX.",
+        "Fees": "Protocol revenue (quote tokens received by the Flap fee Safe, including wrapped-native transfers such as WBNB) plus token-tax amounts routed to marketing/vault recipients and token-holder dividends.",
+        "UserFees": "Same as Fees — all fees paid by traders and token-tax participants.",
+        "Revenue": "All quote tokens received by the Flap fee Safe, from any sender. Includes native SafeReceived and configured ERC20 quote transfers, plus wrapped-native (e.g. WBNB) transfers from TaxProcessor fee settlement.",
+        "ProtocolRevenue": "Same as Revenue — all quote inflows to the Flap fee Safe.",
+        "SupplySideRevenue": "Token tax routed outside the protocol Safe: V1 TaxSplitter beneficiary payouts, plus V2/V3 TaxProcessor market and dividend buckets."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "launchlab",
+      "providerSlug": "launchlab",
+      "defillamaId": "6074",
+      "module": "launchlab",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Solana"
+      ],
+      "role": "engine",
+      "sourceRefs": [
+        "e-15fcdb557f54",
+        "e-be7a912f157e"
+      ],
+      "methodology": {
+        "Fees": "All fees deducted from trades on the bonding curves: Raydium's protocol fee, the launch platform's fee and the token creator's fee, denominated in each pool's quote token.",
+        "Revenue": "Raydium's protocol fee only. Platform and creator fees are passed on to the third parties that launched the token.",
+        "ProtocolRevenue": "75% of the protocol fee.",
+        "HoldersRevenue": "25% of the protocol fee is used to buy back and burn RAY.",
+        "SupplySideRevenue": "Fees paid out to the launch platform (e.g. StonkFun, LetsBonk) and to the token creator."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "bonk.fun",
+      "providerSlug": "bonk.fun-launchpad",
+      "defillamaId": "6282",
+      "module": "letsbonk",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Solana"
+      ],
+      "role": "branded frontend",
+      "sourceRefs": [
+        "e-e780a8ef01c1",
+        "e-7e9fd877ca03"
+      ],
+      "methodology": {
+        "Fees": "Fees are collected from users and distributed to holders and protocol.",
+        "Revenue": "Total Letsbonk Protocol Revenue and Holders Revenue",
+        "SupplySideRevenue": "Fees for coin creators.",
+        "ProtocolRevenue": "2% of total fees for marketing.",
+        "HoldersRevenue": "Before 10th jun 2025: 43% of total fees (Buy/burn 35% + SBR 4% + BonkRewards 4%). After 10th jun 2025: 58% of total fees (Buy/burn 50% + SBR 4% + BonkRewards 4%)."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "graphite-protocol",
+      "providerSlug": "graphite-protocol",
+      "defillamaId": "6478",
+      "module": "graphite-protocol",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Solana"
+      ],
+      "role": "infrastructure / fee participant",
+      "sourceRefs": [
+        "e-b8f11ac831b2",
+        "e-5e637824db18"
+      ],
+      "methodology": {
+        "Fees": "Graphite Protocol's portion of joint venture fees with Letsbonk. Before 10th jun 2025: 57.68% of total fees. After 10th jun 2025: 40% of total fees.",
+        "Revenue": "Total Graphite Protocol Revenue and Holders Revenue",
+        "ProtocolRevenue": "Before 10th jun 2025: 50% of total fees (BONKsol Staking 30% + Hiring/Growth 7.67% + Development/Integration 7.67% + Marketing 4%). After 10th jun 2025: 32.33% of total fees (BONKsol Staking 15% + Hiring/Growth 7.67% + Development/Integration 7.67% + Marketing 2%).",
+        "HoldersRevenue": "GP Reserve: 7.67% of total fees across both periods. Before 10th jun 2025: 43% of total fees."
+      },
+      "providerMarkedDoublecounted": true
+    },
+    {
+      "slug": "genius.fun",
+      "providerSlug": "genius.fun",
+      "defillamaId": "8722",
+      "module": "genius-fun",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "BSC"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-31719e62a606",
+        "e-60aab90ae077"
+      ],
+      "methodology": {
+        "Fees": "Token creation, bonding-curve trading (including any launch-window surcharge), Genius hook trading and paid Alpha promotion fees. Fees accrue at launch/trade/promotion; settlements are excluded. Meme-denominated hook fees use the same swap’s quote/meme execution-price ratio, rounded down to quote base units.",
+        "Revenue": "The Genius platform share of trading fees under each launch’s immutable policy, plus separately labeled creation and Alpha promotion fees. The creator-selected destination allocation (Foundation or creator), creator share and launched-meme buyback allocations are excluded.",
+        "ProtocolRevenue": "The same protocol-retained portion as Revenue. Genius.fun has no protocol token receiving these fees.",
+        "SupplySideRevenue": "Creator-selected destination allocations (Foundation or creator), creator shares and accrued funding for buybacks of individual launched meme tokens, calculated from immutable per-launch policies with contract integer rounding."
+      },
+      "providerMarkedDoublecounted": true
+    },
+    {
+      "slug": "argus-world",
+      "providerSlug": "argus-world",
+      "defillamaId": "8704",
+      "module": "arguspad",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Arc"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-1ea354a9abb9",
+        "e-936ae75625d8"
+      ],
+      "methodology": {
+        "Fees": "The tax ArgusPad's per-launch hook charges on every buy and sell, the trading fee each launch's pool charges (on Portals 3-7 the 1% pool fee earned by the permanently locked launch position; on Portal 8 a 1% base fee the hook charges in the quote asset in its place), and the extra tax charged on buys in a launch's first seconds. Counted in the asset the fee is charged in, at the moment it is charged, so the protocol's later sale of the launched tokens it was paid is not counted a second time. Fees charged in the launched token itself (Portals 3-7 only; Portal 8 takes every fee in the quote asset) are reported in that token's own units and are priced only if DefiLlama has a price for it; it has none for these tokens today, because a launched token's only market is the pool ArgusPad seeded, and pricing it there overstates by about 40% against what ArgusPad's own sales of them actually realise.",
+        "Revenue": "The share of fees reaching the ArgusPad treasury at the rate each launch fixes at creation - 10% of every fee on Portals 3-7 and 30% on Portal 8 - plus the whole of the early-buy snipe tax, which is paid straight to the treasury.",
+        "ProtocolRevenue": "The share of fees reaching the ArgusPad treasury at the rate each launch fixes at creation - 10% of every fee on Portals 3-7 and 30% on Portal 8 - plus the whole of the early-buy snipe tax, which is paid straight to the treasury.",
+        "SupplySideRevenue": "The rest of the fees, which leave the protocol divided at the weights each launch fixed at creation: the token creator's share, the dividends paid to holders of that launched token, the share added back into the launch's permanently locked liquidity, the share used to buy and burn the launched token, and on Portal 8 the share used to buy the launched token and lock it permanently."
+      },
+      "providerMarkedDoublecounted": true
+    },
+    {
+      "slug": "meteora-dbc",
+      "providerSlug": "meteora-dynamic-bonding-curve",
+      "defillamaId": "6290",
+      "module": "meteora-dbc",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Solana"
+      ],
+      "role": "engine",
+      "sourceRefs": [
+        "e-d86e5dcda235",
+        "e-ba35602d49e2"
+      ],
+      "methodology": {
+        "Fees": "Trading fees paid by users.",
+        "Revenue": "Protocol fees collected by Meteora DBC protocol.",
+        "ProtocolRevenue": "Protocol fees collected by Meteora DBC protocol.",
+        "HoldersRevenue": "Part of revenue going to MET token buybacks.",
+        "SupplySideRevenue": "The portion of the trading fees paid to LPs and referrals."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "binance-alpha",
+      "providerSlug": "binance-alpha",
+      "defillamaId": "6599",
+      "module": "binance-alpha",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Ethereum",
+        "Base",
+        "BSC",
+        "Plasma",
+        "Sonic",
+        "Linea",
+        "Avalanche",
+        "Arbitrum",
+        "Polygon",
+        "ZKsync Era",
+        "OP Mainnet"
+      ],
+      "role": "broader discovery and trading platform",
+      "sourceRefs": [
+        "e-f41230808df5",
+        "e-1d29e308d83b"
+      ],
+      "methodology": {
+        "Fees": "Fees paid by users while trading via Binance Alpha app.",
+        "UserFees": "Fees paid by users while trading via Binance Alpha app.",
+        "Revenue": "All fees are collected by Binance."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "o1-launchpad",
+      "providerSlug": "o1-launchpad",
+      "defillamaId": "8296",
+      "module": "o1-launchpad",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Base",
+        "Robinhood Chain",
+        "Monad",
+        "Arc",
+        "BSC",
+        "X Layer"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-4277c3c7401b",
+        "e-c48195ba50d8"
+      ],
+      "methodology": {
+        "Fees": "Quote-denominated swap fees from Hook Trade events plus token-launch payment events across configured suites. Legacy launch-token-denominated swap fees are excluded because reliable historical USD valuation is unavailable. Crypto uses token balances; Stocks use the event-time factory tick reference price under the documented $4,000 opening-cap convention, with historical DefiLlama prices only when that reference is unavailable.",
+        "Revenue": "Actual platform and protocol-owned fixed-component swap credits, plus token-launch fees. Includes anti-snipe surcharges, referral fallback and rounding retained by the protocol. Claims do not count again.",
+        "ProtocolRevenue": "Swap and launch fees retained by the protocol treasury.",
+        "SupplySideRevenue": "Actual swap credits allocated to creators and referrers, including amounts still unclaimed."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "clanker",
+      "providerSlug": "clanker",
+      "defillamaId": "5446",
+      "module": "clanker",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Base",
+        "Arbitrum",
+        "Unichain",
+        "Ethereum",
+        "Monad",
+        "Robinhood Chain"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-924387d1de9c",
+        "e-36d1423f1153"
+      ],
+      "methodology": {
+        "Fees": "Total swap fees paid by traders in Clanker-deployed Uniswap v4 pools (creator fee + Clanker's 20% of creator fee).",
+        "Revenue": "Clanker protocol's cut: 20% of the creator LP fee charged on top of each swap.",
+        "ProtocolRevenue": "Clanker protocol's cut: 20% of the creator LP fee charged on top of each swap.",
+        "HoldersRevenue": "CLANKER tokens bought back and distributed to holders.",
+        "SupplySideRevenue": "Token creator's LP rewards, claimable from the initial single-sided Uniswap v4 position."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "stonkbrokers",
+      "providerSlug": "stonkbrokers-nightshades",
+      "defillamaId": "8717",
+      "module": "stonkbrokers-nightshades",
+      "scope": "Nightshades ONLY; not all StonkBrokers products. Matches baseline 7d fee figure and faction-token description.",
+      "chainsCovered": [
+        "Robinhood Chain"
+      ],
+      "role": "broader platform; financial scope Nightshades",
+      "sourceRefs": [
+        "e-368da107bc0b",
+        "e-714cce88bbdc"
+      ],
+      "methodology": {
+        "Volume": "Civilization anti-snipe pad PadBuy.quoteIn (WETH, Nightshades faction launches) + post-bond faction pool swaps (WETH-side notional of every user swap in the hooked Uniswap v4 faction pools; reopen-window buys grossed up by the same-tx SnipeTaxCollected; the vault's own night rebalances excluded).",
+        "Fees": "The Civilization anti-snipe pad snipe tax on Nightshades faction curve buys (PadTaxCollected — 50% next-night boost pot / 10% faction pool / 13.33% StockBooster / 13.33% protocol / 13.34% game creator, WETH); the sunrise reopen snipe tax levied by the game hook on hooked v4 pool trades after each night (SnipeTaxCollected, same five-way split); the 1% LP fee on every user swap in the hooked faction pools (100% protocol-owned game liquidity — the vault is the pools' only permitted LP); and Nightshades faction NFT royalties (ERC-2981 10% of secondary sales) as flushed from the immutable FactionRoyaltySplitter (75% game vault survivor liquidity / 25% team).",
+        "Revenue": "The 13.33% protocol treasury leg of the pad + sunrise reopen snipe taxes, and the 1% LP fee accruing to the protocol-owned faction pool liquidity.",
+        "ProtocolRevenue": "13.33% of the pad + sunrise reopen snipe taxes → protocol treasury; the faction pools' 1% LP fee → the vault's protocol-owned game liquidity position (compounds into game LP, not distributed).",
+        "SupplySideRevenue": "Pad + sunrise reopen tax legs to the next-night boost pot (50%), the faction's own locked pool (10%), StockBooster (13.33%) and the game creator (13.34%), plus both legs of the flushed NFT royalties."
+      },
+      "providerMarkedDoublecounted": true
+    },
+    {
+      "slug": "bags",
+      "providerSlug": "bags",
+      "defillamaId": "6332",
+      "module": "launch-on-bags",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Solana",
+        "Robinhood Chain"
+      ],
+      "role": "branded frontend / venue",
+      "sourceRefs": [
+        "e-f327834643f2",
+        "e-ec386e9b3545"
+      ],
+      "methodology": {
+        "Fees": "On Solana: total trading fees paid by users when swapping against Bags DBC pools (pre-migration) and DAMMv2 pools (post-migration), excluding the underlying Meteora protocol fee, DAMMv2 LP fees and any referral fees. On Robinhood Chain: token creation fees plus gross trading fees charged on Bags bonding-curve swaps (pre-migration) and Uniswap v4 hook swaps (post-migration) across the V1 and V2 deployments.",
+        "SupplySideRevenue": "Creator fees paid to token creators, plus (on Robinhood Chain V2) the partner/referrer share carved out of the protocol half of trading fees.",
+        "Revenue": "Bags' net share: on Solana, trading-fee revenue from DBC (pre-migration) and DAMMv2 (post-migration); on Robinhood Chain, token creation fees plus the protocol share of trading fees (50% of gross, minus the partner cut on V2 pools with a partner).",
+        "ProtocolRevenue": "Net revenue earned by the Bags protocol from trading and token-creation activity."
+      },
+      "providerMarkedDoublecounted": true
+    },
+    {
+      "slug": "rapid-launch",
+      "providerSlug": "rapid-launch",
+      "defillamaId": "8550",
+      "module": "rapid-launch",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Solana"
+      ],
+      "role": "deployment/trading toolkit",
+      "sourceRefs": [
+        "e-7da44295937a",
+        "e-8f383ca3f745"
+      ],
+      "methodology": {
+        "Fees": "SOL fees paid by users for Rapid Launch token deployment and trading tools.",
+        "Revenue": "Fees collected by Rapid Launch after referral distributions are paid to referrers.",
+        "ProtocolRevenue": "Fees collected by Rapid Launch after referral distributions are paid to referrers..",
+        "SupplySideRevenue": "SOL distributed from Rapid Launch's fee collectors to referral recipients."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "basestonk",
+      "providerSlug": "basestonk",
+      "defillamaId": "8621",
+      "module": "basestonk",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Base",
+        "Robinhood Chain"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-c13d2b40a142",
+        "e-e8efb3b21c6c"
+      ],
+      "methodology": {
+        "Fees": "The tax BaseStonk's Uniswap v4 hook takes on every swap in a launched token's pool, from the hook's FeeTaken event. Each launch sets its own buy and sell rate. A buy pays the tax in the launch token and a sell in the pair; token-denominated amounts are converted into the pair at the pool price the same transaction's Swap reports.",
+        "Revenue": "The platform's cut of the tax plus what reaches BSTONK holders: half the tax capped at 1% of the trade to the treasury, any part of the creator's cut the payee list left unplaced and the hook swept to the treasury, and the share of the creator's cut paid to BSTONK's dividend distributor, to the BSTONK basket vault, or burnt as BSTONK.",
+        "ProtocolRevenue": "The treasury's take: half the tax capped at 1% of the trade, plus unplaced creator fees swept to it.",
+        "HoldersRevenue": "Value to BSTONK holders, paid by the hook in the transaction the fee was taken: BSTONK's own pool pays its creator cut to BSTONK's dividend distributor and burns half of it, and launches carry the BSTONK basket vault as a payee; the vault pays BSTONK holders in rounds. Base only - BSTONK lives on Base.",
+        "SupplySideRevenue": "The creator's cut of the tax less what the treasury swept and what reached BSTONK holders: the creator's wallets, the launch token's own holders through its dividend distributor, the burn of the launch token and the hook-owned liquidity wedge, as each launch configured them.",
+        "Volume": "The pair side of every swap in a taxed pool, including the creator's dev buy at launch and excluding the hook's own buyback and liquidity swaps. Counted under Uniswap v4 as well."
+      },
+      "providerMarkedDoublecounted": true
+    },
+    {
+      "slug": "four.meme",
+      "providerSlug": "four.meme",
+      "defillamaId": "5174",
+      "module": "four-meme",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "BSC"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-fc4f1b1cf158",
+        "e-b82660c762c4"
+      ],
+      "methodology": {
+        "Fees": "All fees paid by users for launching, trading tokens.",
+        "Revenue": "Fees collected by four.meme protocol."
+      },
+      "providerMarkedDoublecounted": false
+    },
+    {
+      "slug": "foci",
+      "providerSlug": "foci",
+      "defillamaId": "8701",
+      "module": "foci",
+      "scope": "all activity captured by mapped DefiLlama adapter",
+      "chainsCovered": [
+        "Arc"
+      ],
+      "role": "launch venue; precise role not fully verified",
+      "sourceRefs": [
+        "e-a954a7450fd7",
+        "e-cd2ce2cbd216"
+      ],
+      "methodology": {
+        "Fees": "All trading fees settled into FociFeeEscrow during the day (curve fees, creator tax, converted post-graduation hook fees, curve referral fees), plus hook referral fees claimed that day. Recognised when swept by the keeper, not when traded.",
+        "UserFees": "Same as Fees: every fee is paid by traders on buys and sells.",
+        "Revenue": "Protocol fee recipient's share plus the share paid to holder-reward distributors.",
+        "ProtocolRevenue": "Escrow credits to the protocol fee recipient (the protocol's frozen share of each launch's trading fee).",
+        "HoldersRevenue": "Escrow credits to FociRewardsDistributor contracts — launches that elected to pay their creator share to token holders.",
+        "SupplySideRevenue": "Escrow credits to creators (their fee share and the creator tax) and to referrers, plus hook referral claims."
+      },
+      "providerMarkedDoublecounted": true
+    }
+  ],
+  "overlapRelationships": [
+    {
+      "entities": [
+        "launchlab",
+        "stonkfun",
+        "bonk.fun",
+        "graphite-protocol"
+      ],
+      "metrics": [
+        "fees",
+        "launches",
+        "graduations"
+      ],
+      "relationship": "LaunchLab includes platform/creator fee flows; branded frontend events must be attributed once. Graphite participates in BONK fees.",
+      "status": "verified_direct",
+      "source": "DefiLlama methodology and Graphite official bio"
+    },
+    {
+      "entities": [
+        "meteora-dbc",
+        "bags"
+      ],
+      "metrics": [
+        "fees",
+        "launches",
+        "graduations"
+      ],
+      "relationship": "Bags uses DBC pre-migration on Solana; adapter definitions overlap and post-migration activity differs.",
+      "status": "verified_direct",
+      "source": "DefiLlama methodology"
+    },
+    {
+      "entities": [
+        "pons",
+        "stonkbrokers",
+        "basestonk",
+        "foci"
+      ],
+      "metrics": [
+        "fees"
+      ],
+      "relationship": "Several adapters include Uniswap pool/hook flows. Broader DEX totals must not be added without flow-level partitioning.",
+      "status": "candidate_unverified",
+      "source": "adapter methodology; no event-level deduplication performed"
+    }
+  ],
+  "additionalProviderProducts": [
+    "pons-v1",
+    "stonkbrokers-safe-launch"
+  ],
+  "additionalSupportedChains": [
+    {
+      "venue": "clanker",
+      "chain": "bsc",
+      "evidence": "official homepage names BNB Chain; absent from fixture chain list"
+    }
+  ],
+  "additionalVenues": [],
+  "aggregatePolicy": "Do not sum roster rows. Establish disjoint fees/events first."
+}
