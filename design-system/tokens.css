@@ -1,0 +1,384 @@
+/*
+ * Backpack Exchange — design tokens
+ * Extracted 2026-09-26 from https://backpack.exchange/markets and /trade/SOL_USD
+ *
+ * Source of truth: the site's own Tailwind v4 `@theme` block and its
+ * `[data-theme="dark"]` / `[data-theme="light"]` custom properties, read
+ * directly from the live stylesheets (not sampled from pixels).
+ *
+ * Dark is the default theme (the site ships dark in `@theme` and applies
+ * light via `[data-theme="light"]` on <html>).
+ *
+ * Font: Inter (variable). The site loads it from
+ *   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+ *
+ * Not included: react-toastify variables, onboarding/stocks-landing page
+ * one-offs, and Tailwind's default gray-* palette (defined but rarely used).
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* ── Primitives: neutrals ─────────────────────────────────────────── */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-base-50: #f4f4f6;
+  --color-base-100: #eeeff1;
+  --color-base-200: #e3e4e8;
+  --color-base-400: #969faf;
+  --color-base-500: #75798a;
+  --color-base-600: #5d606f;
+  --color-base-700: #383a45;
+  --color-base-800: #202127;
+  --color-base-900: #14151b;
+  --color-base-950: #0e0f14;
+  --color-neutral-400: #dfe0e5;
+
+  /* ── Primitives: hues ─────────────────────────────────────────────── */
+  --color-green-100: #cceee1;
+  --color-green-400: #05df72;
+  --color-green-500: #00c278;
+  --color-green-600: #009e63;
+  --color-green-700: #00794b;
+  --color-green-900: #003a24;
+
+  --color-red-100: #f9dddd;
+  --color-red-400: #ff6568;
+  --color-red-500: #fd4b4e;
+  --color-red-600: #ea383b;
+  --color-red-700: #d20024;
+
+  --color-blue-200: #b5e2ff;
+  --color-blue-400: #54a2ff;
+  --color-blue-500: #4c94ff;
+  --color-blue-600: #0673ff;
+  --color-blue-700: #0057eb;
+
+  --color-yellow-400: #f8c840;
+  --color-yellow-500: #eab308;
+  --color-orange-300: #ffb96d;
+  --color-orange-500: #fe6e00;
+  --color-amber-600: #dd7400;
+  --color-purple-500: #ac4bff;
+  --color-pink-500: #f6339a;
+  --color-brand-red: #eb4646;
+  --color-rose-gold: #bcaaa4;
+
+  /* Rank tiers (theme-independent) */
+  --color-rank-bronze: #74695e;
+  --color-rank-silver: #7e8399;
+  --color-rank-gold: #a6865c;
+  --color-rank-platinum: #5769b7;
+  --color-rank-diamond: #965da9;
+  --color-rank-challenger: #7c62f2;
+
+  /* ── Semantic: surfaces (dark) ────────────────────────────────────── */
+  --color-base-background-l0: #0e0f14; /* page */
+  --color-base-background-l1: #14151b; /* panels, cards */
+  --color-base-background-l2: #191a20; /* insets, tab tracks */
+  --color-base-background-l3: #202127; /* inputs, active tabs, secondary buttons */
+  --color-base-background-l4: #383a45;
+  --color-card-bg: #14151b;
+  --color-card-border: #14151b;
+  --color-card-inset-bg: var(--color-base-background-l2);
+  --color-card-nested-1: var(--color-base-background-l3);
+  --color-card-nested-2: var(--color-base-background-l2);
+  --color-row-hover: #202127;
+  --color-overlay-background: #20212766;
+  --color-overlay-border: #ffffff05;
+  --color-base-shadow: #0e0f14;
+
+  /* ── Semantic: text & icons (dark) ────────────────────────────────── */
+  --color-high-emphasis: #f4f4f6;
+  --color-med-emphasis: #969faf;
+  --color-low-emphasis: #75798a;
+  --color-base-icon: #75798a;
+  --color-base-icon-hover: #969faf;
+  --color-ivory: #f4f4f6;
+  --color-slate-foam: #75798a;
+  --color-mint-foam: #7accc7;
+  --color-soft-red: #f88484;
+
+  /* ── Semantic: borders (dark) ─────────────────────────────────────── */
+  --color-base-divider: #ffffff1a;
+  --color-base-border-extra-light: #ffffff0d;
+  --color-base-border-light: #202127;
+  --color-base-border-med: #ffffff26;
+  --color-base-border-focus: #c8c9d0;
+
+  /* ── Semantic: accents (dark) ─────────────────────────────────────── */
+  --color-accent-blue: #4c94ff;
+  --color-accent-blue-background: #0057eb33;
+  --color-accent-green: var(--color-green-500);
+  --color-accent-purple: #e17aff;
+  --color-accent-purple-background: #2c243c;
+  --color-switch-knob: var(--color-base-400);
+
+  /* ── Semantic: buy / positive (dark) ──────────────────────────────── */
+  --color-green-text: #00c278;
+  --color-green-icon: #00c278;
+  --color-green-border: #00c27866;
+  --color-green-background-transparent: #00c27814;
+  --color-green-background-solid: #122322;
+  --color-green-depth: #18372c; /* order-book depth bars */
+  --color-green-primary-button-background: var(--color-green-500);
+  --color-green-primary-button-text: #14151b;
+  --color-green-secondary-button-background: #142d25;
+  --color-green-secondary-button-text: #00c278;
+
+  /* ── Semantic: sell / negative (dark) ─────────────────────────────── */
+  --color-red-text: #fd4b4e;
+  --color-red-border: #ea383b80;
+  --color-red-background-transparent: #ea383b1f;
+  --color-red-background-solid: #351a1f;
+  --color-red-depth: #422024;
+  --color-red-primary-button-background: var(--color-red-500);
+  --color-red-primary-button-text: #14151b;
+  --color-red-secondary-button-background: #351a1f;
+
+  /* ── Semantic: warning (dark) ─────────────────────────────────────── */
+  --color-yellow-text: #efa411;
+  --color-yellow-background-transparent: #efa41114;
+  --color-yellow-background-solid: #26201a;
+  --color-yellow-primary-button-background: #eab308;
+  --color-yellow-primary-button-text: #14151b;
+  --color-yellow-secondary-button-background: #efa4111f;
+  --color-yellow-secondary-button-text: #efa411;
+
+  /* ── Semantic: buttons & controls (dark) ──────────────────────────── */
+  --color-button-primary-background: #fff;
+  --color-button-primary-text: #14151b;
+  --color-button-secondary-background: #202127;
+  --color-button-secondary-text: #f4f4f6;
+  --color-segmented-button-active: #2a2b32;
+  --color-binary-tab-track-bg: var(--color-base-background-l2);
+
+  /* Weekend-market promo gradient (dark) */
+  --color-weekend-gradient-end: #edbafd;
+  --color-weekend-button-gradient-from: #e798ff;
+  --color-weekend-button-gradient-to: var(--color-accent-purple);
+  --color-weekend-button-text: #14151b;
+
+  /* Avatar palette (dark): bg / text / dot, indices 0–13 */
+  --color-avatar-bg-0: #33181d;   --color-avatar-text-0: #f88484;  --color-avatar-dot-0: #b46365;
+  --color-avatar-bg-1: #301729;   --color-avatar-text-1: #e57ab0;  --color-avatar-dot-1: #a65c83;
+  --color-avatar-bg-2: #281933;   --color-avatar-text-2: #da8be7;  --color-avatar-dot-2: #5b9593;
+  --color-avatar-bg-3: #1f1a32;   --color-avatar-text-3: #c2a6f4;  --color-avatar-dot-3: #5596f6;
+  --color-avatar-bg-4: #1a1d31;   --color-avatar-text-4: #97a4f4;
+  --color-avatar-bg-5: #112338;   --color-avatar-text-5: #57aeff;
+  --color-avatar-bg-6: #152a3a;   --color-avatar-text-6: #5596f6;
+  --color-avatar-bg-7: #152a2b;   --color-avatar-text-7: #7accc7;
+  --color-avatar-bg-8: #1a2b1f;   --color-avatar-text-8: #75dd7a;
+  --color-avatar-bg-9: #1f2b1f;   --color-avatar-text-9: #bee05a;
+  --color-avatar-bg-10: #2e2418;  --color-avatar-text-10: #ffd080;
+  --color-avatar-bg-11: #331a18;  --color-avatar-text-11: #fa9476;
+  --color-avatar-bg-12: #2a2523;  --color-avatar-text-12: #bcaaa4;
+  --color-avatar-bg-13: #1f252b;  --color-avatar-text-13: #a3b5cf;
+
+  /* ── Typography ───────────────────────────────────────────────────── */
+  --font-sans: InterVariable, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-feature-settings: "calt", "cv01", "cv03", "cv04", "cv09", "liga";
+
+  /* Backpack shifts Tailwind's weight scale down one step, and differs per theme */
+  --font-weight-thin: 50;
+  --font-weight-light: 200;
+  --font-weight-normal: 300;   /* light theme: 400 */
+  --font-weight-medium: 400;   /* light theme: 450 */
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 700;
+
+  --text-3xs: 0.5625rem;                                     /*  9px */
+  --text-2xs: 0.6875rem;                                     /* 11px */
+  --text-xs: 0.75rem;    --text-xs--line-height: 1rem;       /* 12 / 16 */
+  --text-sm: 0.875rem;   --text-sm--line-height: 1.25rem;    /* 14 / 20 */
+  --text-base: 1rem;     --text-base--line-height: 1.5rem;   /* 16 / 24 */
+  --text-lg: 1.125rem;   --text-lg--line-height: 1.75rem;    /* 18 / 28 */
+  --text-xl: 1.25rem;    --text-xl--line-height: 1.75rem;    /* 20 / 28 */
+  --text-2xl: 1.5rem;    --text-2xl--line-height: 2rem;      /* 24 / 32 */
+  --text-3xl: 1.875rem;  --text-3xl--line-height: 2.25rem;   /* 30 / 36 */
+  --text-4xl: 2.25rem;   --text-4xl--line-height: 2.5rem;    /* 36 / 40 */
+  --text-5xl: 3rem;      --text-5xl--line-height: 1;
+  --text-6xl: 3.75rem;   --text-6xl--line-height: 1;
+  --text-7xl: 4.5rem;    --text-7xl--line-height: 1;
+
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* ── Spacing (Tailwind: multiples of 4px) ─────────────────────────── */
+  --spacing: 0.25rem;
+
+  /* ── Radius ───────────────────────────────────────────────────────── */
+  --radius-xs: 0.125rem;  /*  2px */
+  --radius-sm: 0.25rem;   /*  4px  checkboxes */
+  --radius-md: 0.375rem;  /*  6px  chip tabs */
+  --radius-lg: 0.5rem;    /*  8px  buttons, inputs, nav items — most used */
+  --radius-xl: 0.75rem;   /* 12px  large buttons, buy/sell toggle, compact cards */
+  --radius-2xl: 1rem;     /* 16px  hero cards */
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;  /* pills, avatars — second most used */
+
+  /* ── Shadows (heavier than Tailwind defaults, tuned for dark UI) ──── */
+  --shadow-sm: 0 1px 2px 0 #0000004d;
+  --shadow: 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
+  --shadow-md: 0 2px 4px -1px #0000004d, 0 4px 8px -2px #00000059;
+  --shadow-lg: 0 4px 8px -2px #00000059, 0 8px 20px -4px #00000073;
+  --shadow-xl: 0 8px 20px -4px #0006, 0 16px 40px -8px #0000008c;
+  --shadow-2xl: 0 25px 50px -12px #00000040;
+
+  /* ── Blur ─────────────────────────────────────────────────────────── */
+  --blur-sm: 8px;
+  --blur-md: 12px;
+  --blur-xl: 24px;
+  --blur-2xl: 40px;
+  --blur-3xl: 64px;
+
+  /* ── Motion ───────────────────────────────────────────────────────── */
+  --default-transition-duration: 150ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-glide: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-stocks-control: cubic-bezier(0.6, 0, 0.15, 1);
+  --ease-stocks-overshoot: cubic-bezier(0.34, 1.2, 0.64, 1);
+  --ease-spring-out: linear(0, 0.32 22%, 0.85 46%, 1.02 68%, 1.005 84%, 1);
+
+  /* ── Breakpoints (from the site's media queries) ──────────────────── */
+  --breakpoint-xs: 540px;
+  --breakpoint-sm: 40rem;  /*  640px */
+  --breakpoint-md: 48rem;  /*  768px */
+  --breakpoint-lg: 64rem;  /* 1024px */
+  --breakpoint-xl: 80rem;  /* 1280px */
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 450;
+
+  --color-base-950: #f8f8f9;
+  --color-yellow-500: #d97706;
+
+  /* Surfaces */
+  --color-base-background-l0: #f8f8f9;
+  --color-base-background-l1: #eeeff1;
+  --color-base-background-l2: #eaecf4;
+  --color-base-background-l3: #e6e7ed;
+  --color-base-background-l4: #cacfd9;
+  --color-card-bg: #fff;
+  --color-card-border: #0f172a14;
+  --color-card-inset-bg: var(--color-base-background-l0);
+  --color-card-nested-1: var(--color-base-background-l0);
+  --color-card-nested-2: var(--color-base-background-l1);
+  --color-row-hover: var(--color-base-background-l1);
+  --color-overlay-background: #0000004d;
+  --color-overlay-border: #0f172a08;
+  --color-base-shadow: #00000026;
+
+  /* Text & icons */
+  --color-high-emphasis: #14151b;
+  --color-med-emphasis: #5d606f;
+  --color-low-emphasis: #75798a;
+  --color-base-icon: #383a45;
+  --color-base-icon-hover: #202127;
+  --color-ivory: #030712;
+  --color-slate-foam: #383a45;
+  --color-mint-foam: #059669;
+  --color-soft-red: #ef4444;
+
+  /* Borders */
+  --color-base-divider: #0f172a14;
+  --color-base-border-extra-light: #0f172a0a;
+  --color-base-border-light: #e6e7ed;
+  --color-base-border-med: #0f172a24;
+  --color-base-border-focus: #383a45;
+
+  /* Accents */
+  --color-accent-blue: var(--color-blue-600);
+  --color-accent-blue-background: #0057eb1a;
+  --color-accent-green: var(--color-green-600);
+  --color-accent-purple: #9b34ef;
+  --color-accent-purple-background: #ede9fe;
+  --color-switch-knob: var(--color-base-50);
+
+  /* Buy / positive */
+  --color-green-text: #00794b;
+  --color-green-icon: #10b981;
+  --color-green-border: #05966973;
+  --color-green-background-transparent: #0596691f;
+  --color-green-background-solid: var(--color-green-100);
+  --color-green-depth: #b7e8d8;
+  --color-green-primary-button-background: var(--color-green-600);
+  --color-green-primary-button-text: #fff;
+  --color-green-secondary-button-background: var(--color-green-100);
+  --color-green-secondary-button-text: #00794b;
+
+  /* Sell / negative */
+  --color-red-text: #d20032;
+  --color-red-border: #dc262680;
+  --color-red-background-transparent: #dc26261f;
+  --color-red-background-solid: var(--color-red-100);
+  --color-red-depth: #f5c7cb;
+  --color-red-primary-button-background: var(--color-red-600);
+  --color-red-primary-button-text: #fff;
+  --color-red-secondary-button-background: var(--color-red-100);
+
+  /* Warning */
+  --color-yellow-text: #b15700;
+  --color-yellow-background-transparent: #b157001f;
+  --color-yellow-background-solid: #fef9c3;
+  --color-yellow-primary-button-background: #d97706;
+  --color-yellow-primary-button-text: #fff;
+  --color-yellow-secondary-button-background: #b157001a;
+  --color-yellow-secondary-button-text: #b15700;
+
+  /* Buttons & controls */
+  --color-button-primary-background: #14151b;
+  --color-button-primary-text: #f8f8f9;
+  --color-button-secondary-background: #e6e7ed;
+  --color-button-secondary-text: #14151b;
+  --color-segmented-button-active: #cacfd9;
+  --color-binary-tab-track-bg: var(--color-base-background-l1);
+
+  /* Weekend-market promo gradient */
+  --color-weekend-gradient-end: #e8a2fe;
+  --color-weekend-button-gradient-from: #e798ff;
+  --color-weekend-button-text: #fff;
+
+  /* Avatar palette */
+  --color-avatar-bg-0: #fceaec;   --color-avatar-text-0: #c44444;  --color-avatar-dot-0: #c47072;
+  --color-avatar-bg-1: #f8e4f0;   --color-avatar-text-1: #a63e74;  --color-avatar-dot-1: #b86a90;
+  --color-avatar-bg-2: #f0e4f8;   --color-avatar-text-2: #9648a8;  --color-avatar-dot-2: #4a8280;
+  --color-avatar-bg-3: #e8e5f6;   --color-avatar-text-3: #6e42b8;  --color-avatar-dot-3: #3a7ce0;
+  --color-avatar-bg-4: #e4e7f5;   --color-avatar-text-4: #4858b8;
+  --color-avatar-bg-5: #dde8f6;   --color-avatar-text-5: #0e6fcc;
+  --color-avatar-bg-6: #deecf5;   --color-avatar-text-6: #1858bd;
+  --color-avatar-bg-7: #deecee;   --color-avatar-text-7: #2e8c87;
+  --color-avatar-bg-8: #e0ede3;   --color-avatar-text-8: #2e9432;
+  --color-avatar-bg-9: #e3ede3;   --color-avatar-text-9: #6f9010;
+  --color-avatar-bg-10: #f4ebdd;  --color-avatar-text-10: #b87d18;
+  --color-avatar-bg-11: #f6e2e0;  --color-avatar-text-11: #b84c2e;
+  --color-avatar-bg-12: #eeebe9;  --color-avatar-text-12: #6e5e58;
+  --color-avatar-bg-13: #e4e9ee;  --color-avatar-text-13: #4a6c90;
+}
+
+/* Base, as the site applies it */
+body {
+  background-color: var(--color-base-background-l0);
+  color: var(--color-high-emphasis);
+  font-family: var(--font-sans);
+  font-feature-settings: var(--font-feature-settings);
+}
