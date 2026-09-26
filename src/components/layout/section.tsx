@@ -18,16 +18,16 @@ interface SectionProps {
 export function Section({ id, eyebrow, title, description, aside, children, className, bleed }: SectionProps) {
   const hasHeader = eyebrow || title || description || aside;
   return (
-    <section id={id} className={cn("scroll-mt-24 py-16 md:py-24", className)}>
+    <section id={id} className={cn("scroll-mt-24 py-5 md:py-7", className)}>
       <Container>
         {hasHeader && (
-          <div className="mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-end md:justify-between">
+          <div className="mb-4 flex flex-col gap-6 md:mb-5 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               {eyebrow && (
                 <p className="mb-3 text-2xs font-medium uppercase tracking-widest text-med">{eyebrow}</p>
               )}
               {title && (
-                <h2 className="text-2xl font-bold leading-tight tracking-tight text-high md:text-3xl">{title}</h2>
+                <h2 className="text-base font-bold leading-tight tracking-tight text-high">{title}</h2>
               )}
               {description && <p className="mt-3 text-sm leading-relaxed text-med md:text-base">{description}</p>}
             </div>

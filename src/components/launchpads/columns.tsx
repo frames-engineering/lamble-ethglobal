@@ -98,7 +98,7 @@ export const COLUMNS: Column[] = [
         <LetterMark name={row.name} color={row.brandColor} size={34} src={row.logoSrc} />
         <div className="min-w-0 max-w-[168px]">
           <div className="flex items-center gap-2">
-            <span className="text-sm whitespace-nowrap text-link">{row.name}</span>
+            <span className="text-sm whitespace-nowrap text-high">{row.name}</span>
             {row.metrics.d7.change >= TRENDING_BADGE_THRESHOLD && (
               <Badge variant="positive" className="h-[18px] gap-1 px-1.5 text-2xs">
                 <FlameIcon />

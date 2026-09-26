@@ -167,7 +167,7 @@
 
 /* Dissolves the hero video into the page before the next section. */
 @utility mask-fade-b {
-  mask-image: linear-gradient(to bottom, #000 82%, transparent);
+  mask-image: linear-gradient(to bottom, #000 68%, transparent 94%);
 }
 
 /*
@@ -251,5 +251,24 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+/*
+ * Chart draw-in: a wipe from the left over the finished chart, clip-path so it runs on the
+ * compositor and never touches the chart's own layout. Plays on mount; reduced motion skips it.
+ */
+@utility chart-reveal {
+  animation: chart-reveal 0.7s var(--ease-glide) both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@keyframes chart-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }

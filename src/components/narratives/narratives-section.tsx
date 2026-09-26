@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Section } from "@/components/layout/section";
 import { FeaturedNarrative } from "@/components/narratives/featured-narrative";
@@ -18,21 +18,22 @@ export function NarrativesSection({ narratives, launchpads }: NarrativesSectionP
   const urlSlug = useSearchParamValue("narrative");
   const [picked, setPicked] = useState<string | null>(null);
 
-  const select = useCallback((next: string) => {
-    setPicked(next);
-    window.history.replaceState(null, "", `?narrative=${encodeURIComponent(next)}#narratives`);
-  }, []);
-
   // Top three by rank; the selected card is the one shown in the featured slot.
   const visible = narratives.slice(0, 3);
   const slug = picked ?? urlSlug ?? visible[0]?.slug;
   const featured = visible.find((n) => n.slug === slug) ?? visible[0];
   const launchpadMap = useMemo(() => Object.fromEntries(launchpads.map((l) => [l.slug, l])), [launchpads]);
 
+  const select = (next: string) => {
+    setPicked(next);
+    window.history.replaceState(null, "", `?narrative=${encodeURIComponent(next)}#narratives`);
+  };
+
   return (
     <Section id="narratives" title="Trending narratives">
       {featured && (
         // Keyed remount + CSS fade keeps the swap instant; AnimatePresence's exit handshake made it lag.
+        // The chart draws itself on mount (HistoryChart drawIn), which is the transition.
         <div key={featured.id} className="animate-in fade-in duration-200 motion-reduce:animate-none">
           <FeaturedNarrative narrative={featured} launchpads={launchpadMap} />
         </div>

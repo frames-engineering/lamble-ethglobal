@@ -32,16 +32,17 @@ export function FeaturedNarrative({ narrative: n, launchpads }: FeaturedNarrativ
       <div className="grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
         {/* Info column */}
         <div className="flex min-w-0 flex-col">
-          <h3 className="text-2xl leading-tight font-bold tracking-tight text-high md:text-3xl">{n.title}</h3>
+          <h3 className="text-lg leading-tight font-bold tracking-tight text-high md:text-xl">{n.title}</h3>
           <p className="mt-3 text-sm leading-relaxed text-med">{n.summary}</p>
 
+          {/* List headers match the screener's column headers (TableHead). */}
           <div className="mt-5">
-            <p className="text-2xs font-medium tracking-widest text-med uppercase">Top coins</p>
+            <p className="border-b border-line pb-1 text-2xs text-med">Top coins</p>
             <ShareList items={n.contenders} />
           </div>
 
           <div className="mt-5">
-            <p className="text-2xs font-medium tracking-widest text-med uppercase">Top launchpads</p>
+            <p className="border-b border-line pb-1 text-2xs text-med">Top launchpads</p>
             <ShareList items={venues} />
           </div>
         </div>
@@ -58,6 +59,7 @@ export function FeaturedNarrative({ narrative: n, launchpads }: FeaturedNarrativ
               tickFormat="hour"
               floorZero
               tooltip
+              drawIn
             />
           </div>
         </div>

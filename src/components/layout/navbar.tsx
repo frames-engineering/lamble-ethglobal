@@ -38,7 +38,8 @@ export function Navbar() {
           aria-label="Primary"
           className={cn(
             "glass flex items-center justify-between pr-2 pl-4 transition-[height,box-shadow] duration-200 ease-[var(--ease-decelerate)] lg:ml-auto lg:max-w-2xl xl:max-w-[min(42rem,calc(50%-0.75rem))]",
-            scrolled ? "h-12 shadow-md" : "h-14",
+            // Light mode: same shadow shape, 8% black instead of the dark theme's 30–35%.
+            scrolled ? "h-12 shadow-md light:shadow-black/8" : "h-14",
           )}
         >
           <a href="#about" className="flex items-center rounded-lg focus-visible:ring-1 focus-visible:ring-focus focus-visible:outline-none">
