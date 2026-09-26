@@ -70,8 +70,8 @@ export function TableToolbar({ query, onQuery, chains, onChains, availableChains
           className="flex-nowrap md:flex-wrap"
         >
           {availableChains.map((c) => (
-            <ToggleGroupItem key={c} value={c} className="pl-1.5">
-              <ChainMark chain={c} size={16} title={false} />
+            <ToggleGroupItem key={c} value={c} className="pl-1">
+              <ChainMark chain={c} size={20} title={false} />
               {chainInfo(c).name}
             </ToggleGroupItem>
           ))}

@@ -129,7 +129,7 @@ export const COLUMNS: Column[] = [
     cell: (row) => (
       <Tooltip>
         <TooltipTrigger render={<span className="inline-flex cursor-help" />}>
-          <ChainStack chains={row.chains} max={4} size={16} />
+          <ChainStack chains={row.chains} max={4} size={20} />
         </TooltipTrigger>
         <TooltipContent>{row.chains.map((c) => chainInfo(c).name).join(" · ")}</TooltipContent>
       </Tooltip>
