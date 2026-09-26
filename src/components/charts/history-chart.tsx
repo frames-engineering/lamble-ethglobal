@@ -54,6 +54,8 @@ interface HistoryChartProps {
   tooltip?: boolean;
   /** Called with hovered values per series id, or null when the cursor leaves. */
   onHover?: (values: HoverValues | null) => void;
+  /** Wipe the chart in from the left on mount (chart-reveal). The library has no series entrance of its own. */
+  drawIn?: boolean;
   className?: string;
 }
 
@@ -98,6 +100,7 @@ export function HistoryChart({
   floorZero = false,
   tooltip = false,
   onHover,
+  drawIn = false,
   className,
 }: HistoryChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -295,7 +298,7 @@ export function HistoryChart({
   }, [series, kind, range, floorZero]);
 
   return (
-    <div style={{ height }} className={cn("relative", className)}>
+    <div style={{ height }} className={cn("relative", drawIn && "chart-reveal", className)}>
       <div ref={containerRef} className="absolute inset-0" />
       {tooltip && tip && (
         <div

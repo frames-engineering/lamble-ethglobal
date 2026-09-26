@@ -7,6 +7,7 @@ import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { useEntered } from "@/hooks/use-entered";
 import type { Aggregates } from "@/lib/data/aggregate";
+import { LAUNCH_BOT_URL } from "@/lib/links";
 
 /** Full-bleed video hero: glass panels float over the composition, title top-left and stats along the bottom. */
 export function Hero({ stats }: { stats: Aggregates }) {
@@ -29,7 +30,11 @@ export function Hero({ stats }: { stats: Aggregates }) {
               Intelligence for optimizing your launch before it hits the market.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Button nativeButton={false} render={<a href="#launchpads" />} size="lg">
+              <Button
+                size="lg"
+                nativeButton={false}
+                render={<a href={LAUNCH_BOT_URL} target="_blank" rel="noopener noreferrer" />}
+              >
                 Launch Token
               </Button>
               <OnboardAgentButton />

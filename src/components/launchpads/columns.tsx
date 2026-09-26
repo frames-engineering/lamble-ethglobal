@@ -98,7 +98,7 @@ export const COLUMNS: Column[] = [
         <LetterMark name={row.name} color={row.brandColor} size={34} src={row.logoSrc} />
         <div className="min-w-0 max-w-[168px]">
           <div className="flex items-center gap-2">
-            <span className="text-sm whitespace-nowrap text-link">{row.name}</span>
+            <span className="text-sm whitespace-nowrap text-high">{row.name}</span>
             {row.metrics.d7.change !== null && row.metrics.d7.change >= TRENDING_BADGE_THRESHOLD && (
               <Badge variant="positive" className="h-[18px] gap-1 px-1.5 text-2xs">
                 <FlameIcon />
@@ -129,7 +129,7 @@ export const COLUMNS: Column[] = [
     cell: (row) => (
       <Tooltip>
         <TooltipTrigger render={<span className="inline-flex cursor-help" />}>
-          {row.chains.length ? <ChainStack chains={row.chains} max={4} size={16} /> : <span className="text-med">—</span>}
+          {row.chains.length ? <ChainStack chains={row.chains} max={4} size={20} /> : <span className="text-med">—</span>}
         </TooltipTrigger>
         <TooltipContent>{row.chains.map((c) => chainInfo(c).name).join(" · ") || "Supported chains not verified; see financial coverage in details"}</TooltipContent>
       </Tooltip>

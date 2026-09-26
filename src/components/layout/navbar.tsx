@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useEntered } from "@/hooks/use-entered";
 import { useScrolled } from "@/hooks/use-scrolled";
+import { LAUNCH_BOT_URL } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
@@ -37,7 +38,8 @@ export function Navbar() {
           aria-label="Primary"
           className={cn(
             "glass flex items-center justify-between pr-2 pl-4 transition-[height,box-shadow] duration-200 ease-[var(--ease-decelerate)] lg:ml-auto lg:max-w-2xl xl:max-w-[min(42rem,calc(50%-0.75rem))]",
-            scrolled ? "h-12 shadow-md" : "h-14",
+            // Light mode: same shadow shape, 8% black instead of the dark theme's 30–35%.
+            scrolled ? "h-12 shadow-md light:shadow-black/8" : "h-14",
           )}
         >
           <a href="#about" className="flex items-center rounded-lg focus-visible:ring-1 focus-visible:ring-focus focus-visible:outline-none">
@@ -66,7 +68,12 @@ export function Navbar() {
 
           <div className="flex items-center gap-1.5">
             <ThemeToggle className="hidden sm:inline-flex" />
-            <Button type="button" size="sm" className="hidden sm:inline-flex">
+            <Button
+              size="sm"
+              className="hidden sm:inline-flex"
+              nativeButton={false}
+              render={<a href={LAUNCH_BOT_URL} target="_blank" rel="noopener noreferrer" />}
+            >
               Launch Token
             </Button>
             <Button
@@ -109,7 +116,11 @@ export function Navbar() {
           </ul>
           <div className="flex items-center justify-between gap-3 border-t border-divider px-5 py-4">
             <ThemeToggle />
-            <Button type="button" size="default">
+            <Button
+              size="default"
+              nativeButton={false}
+              render={<a href={LAUNCH_BOT_URL} target="_blank" rel="noopener noreferrer" />}
+            >
               Launch Token
             </Button>
           </div>

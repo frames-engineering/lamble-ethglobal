@@ -85,7 +85,7 @@ export function LaunchpadsTable({ launchpads }: { launchpads: Launchpad[] }) {
 
   return (
     <>
-      <div className="border-y border-card-line bg-card p-4 shadow-sm xs:rounded-xl xs:border">
+      <div className="border-y border-card-line bg-card p-4 shadow-sm light:shadow-black/8 xs:rounded-xl xs:border">
         <TableToolbar
           query={query}
           onQuery={setQuery}

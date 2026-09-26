@@ -13,15 +13,18 @@ export interface ShareItem {
   shareLabel?: string;
 }
 
-/** Ranked rows: avatar, name, share. Used for top coins and top launchpads. */
+/**
+ * Ranked rows: avatar, name, share. Used for top coins and top launchpads, sized like the
+ * screener's rows: 57px with 1px dividers, 34px avatar, 14px name, 13px tabular value.
+ */
 export function ShareList({ items }: { items: ShareItem[] }) {
   return (
     <ol className="flex flex-col">
       {items.map((item) => (
-        <li key={item.id} className="flex items-center gap-3 border-b border-line py-3 last:border-0">
-          <LetterMark name={item.name} color={item.color} size={28} src={item.src} />
+        <li key={item.id} className="flex h-[57px] items-center gap-3 border-b border-line last:border-0">
+          <LetterMark name={item.name} color={item.color} size={34} src={item.src} />
           {item.explorerUrl ? <a href={item.explorerUrl} target="_blank" rel="noopener noreferrer" className="min-w-0 flex-1 truncate text-sm text-link underline">{item.name}</a> : <span className="min-w-0 flex-1 truncate text-sm text-high">{item.name}</span>}
-          <span title={item.shareLabel} className="text-sm font-medium tabular-nums text-high">{percent(item.share, { digits: 0 })}</span>
+          <span title={item.shareLabel} className="text-[13px] tabular-nums text-high">{percent(item.share, { digits: 0 })}</span>
         </li>
       ))}
     </ol>
