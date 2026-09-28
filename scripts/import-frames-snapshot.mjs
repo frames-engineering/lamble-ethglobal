@@ -80,9 +80,11 @@ const narratives = rawNarratives.map(({ _meta: m, ...row }) => {
     }),
     exampleTokens: row.exampleTokens.map(({ _tokenId, ...token }) => ({ ...token, address: _tokenId.split(':')[1] })),
     provenance: { chartAnchor: m.chartAnchor, volumeScope: m.volumeScope,
-      sources: row.id === 'n-x-money'
-        ? [{ label: 'UsePaid documentation', url: 'https://usepaid.app/docs' }, { label: 'Token registry', url: 'https://usepaid.app/' }]
-        : [{ label: 'KNOTS mechanism', url: 'https://www.knotsonstonk.com/' }, { label: 'ZCAT identity and rewards', url: 'https://www.mexc.co/en-NG/learn/article/what-is-anonymous-cat-zcat-the-solana-meme-coin-paying-zec/1' }],
+      sources: (() => {
+        assert(m.provenanceSources?.length, `Missing provenance sources: ${row.id}`);
+        for (const s of m.provenanceSources) assert(new URL(s.url).protocol === 'https:' && s.label);
+        return m.provenanceSources;
+      })(),
     },
   };
 }).sort((a,b) => b.volume24hUsd - a.volume24hUsd || a.id.localeCompare(b.id));

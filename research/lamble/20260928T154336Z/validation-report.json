@@ -2,9 +2,9 @@
   "as_of": "2026-09-28T15:43:36Z",
   "passed": true,
   "billing": {
-    "charged_credits": 240,
+    "charged_credits": 268,
     "percent_remaining": 84,
-    "balance_credits_after": 75267,
+    "balance_credits_after": 75242,
     "run_ids": {
       "f1": "run_21c4fa8d117845679d168d8629f5a17c",
       "f2": "run_ecf9104d5d2e4c22bc86acc4ef246235",
@@ -12,7 +12,11 @@
       "f4": "run_d8ad9ccd728d4ed5802a8838df44ed33",
       "c1": "run_71df35219ba644419d4507efef5c68c2",
       "e1": "run_59ccb98c8b7b4483b1e15bb9ad120d03",
-      "u1": "run_8377815e51c54995a9b0264cb7ded0e5"
+      "u1": "run_8377815e51c54995a9b0264cb7ded0e5",
+      "d1": "run_bcac032e95214667a48f35100d01b135",
+      "d2": "run_7a90399541f540b6b149844873c39086",
+      "d3": "run_38603ea7353243bc96460dad5180d7de",
+      "d4": "run_394ff4e2cedc4f65ba74daa740f18d27"
     },
     "per_run": {
       "f1": 58,
@@ -21,12 +25,16 @@
       "f4": 41,
       "c1": 4,
       "e1": 19,
-      "u1": 2
+      "u1": 2,
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 22
     },
     "deduplication": "Unique run_id only; sum billing.charged_credits. Quotes and per-call charged_usd are not billed credit totals."
   },
-  "callsRequested": 46,
-  "callsDelivered": 45,
+  "callsRequested": 54,
+  "callsDelivered": 52,
   "outcomes": [
     {
       "run_id": "run_21c4fa8d117845679d168d8629f5a17c",
@@ -440,6 +448,78 @@
       "delivered": true,
       "outcome": "delivered",
       "charged_usd": 0.001,
+      "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    {
+      "run_id": "run_bcac032e95214667a48f35100d01b135",
+      "seq": 0,
+      "tool_id": "mpp.codex.post.graphql",
+      "delivered": false,
+      "outcome": "caller_error",
+      "charged_usd": 0,
+      "reason": "upstream error: errors[] present"
+    },
+    {
+      "run_id": "run_bcac032e95214667a48f35100d01b135",
+      "seq": 1,
+      "tool_id": "mpp.codex.post.graphql",
+      "delivered": true,
+      "outcome": "delivered",
+      "charged_usd": 0.001,
+      "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    {
+      "run_id": "run_7a90399541f540b6b149844873c39086",
+      "seq": 0,
+      "tool_id": "mpp.codex.post.graphql",
+      "delivered": true,
+      "outcome": "delivered_with_caveats",
+      "charged_usd": 0.001,
+      "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The data for the 'recent' token query was entirely omitted from the response."
+    },
+    {
+      "run_id": "run_38603ea7353243bc96460dad5180d7de",
+      "seq": 0,
+      "tool_id": "mpp.codex.post.graphql",
+      "delivered": true,
+      "outcome": "delivered",
+      "charged_usd": 0.001,
+      "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    {
+      "run_id": "run_394ff4e2cedc4f65ba74daa740f18d27",
+      "seq": 0,
+      "tool_id": "mpp.codex.post.graphql",
+      "delivered": true,
+      "outcome": "delivered",
+      "charged_usd": 0.001,
+      "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    {
+      "run_id": "run_394ff4e2cedc4f65ba74daa740f18d27",
+      "seq": 1,
+      "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+      "delivered": true,
+      "outcome": "delivered_with_caveats",
+      "charged_usd": 0.006,
+      "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: One of the returned tweets did not contain the queried phrase \"insta.fan\"."
+    },
+    {
+      "run_id": "run_394ff4e2cedc4f65ba74daa740f18d27",
+      "seq": 2,
+      "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+      "delivered": true,
+      "outcome": "delivered_with_caveats",
+      "charged_usd": 0.006,
+      "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The search results include variations like '$XPP' and 'Xpad', and instances where 'XPAD' is only present in the author's name or a URL, despite the request specifying an exact phrase match for 'XPAD'."
+    },
+    {
+      "run_id": "run_394ff4e2cedc4f65ba74daa740f18d27",
+      "seq": 3,
+      "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+      "delivered": true,
+      "outcome": "delivered",
+      "charged_usd": 0.006,
       "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
     }
   ],
@@ -972,6 +1052,7 @@
       "tokenId": "solana:8k4sBtEeK4pf26noKqApv8NBTnuSJcbdwpKYknk5PbAA",
       "buckets": 168,
       "returnedBuckets": 168,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 0,
       "poolCreatedAt": 1789647179
     },
@@ -980,6 +1061,7 @@
       "tokenId": "solana:GY9mZfyPpxXxBXBxS2hB2XjhP3kfUsywTvgveozxpump",
       "buckets": 168,
       "returnedBuckets": 168,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 0,
       "poolCreatedAt": 1789500364
     },
@@ -988,6 +1070,7 @@
       "tokenId": "solana:HcRLc9VDgjLeK154xDawfb1dmVJ98DoSqcwTHGqiDeJR",
       "buckets": 168,
       "returnedBuckets": 168,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 0,
       "poolCreatedAt": null
     },
@@ -996,6 +1079,7 @@
       "tokenId": "solana:8RVBk8vxLiUHueLUW1f4izFVqN3nWippLhkohKg6EGkS",
       "buckets": 168,
       "returnedBuckets": 168,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 0,
       "poolCreatedAt": 1788674285
     },
@@ -1004,6 +1088,7 @@
       "tokenId": "solana:CbcyNo7m1amFWqEQm2m4PLv1UNvpcL3C1Ujm6AkzpKoU",
       "buckets": 168,
       "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 102,
       "poolCreatedAt": 1790370915
     },
@@ -1012,6 +1097,7 @@
       "tokenId": "solana:5wW9mhbwq1HTFh341iimpmrqBB4mfxdXiYhdYBL7hUnp",
       "buckets": 168,
       "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 112,
       "poolCreatedAt": 1790407564
     },
@@ -1020,6 +1106,7 @@
       "tokenId": "solana:FYM6PhwAS3QwTBwvgLj8JYeMgpNfKsWtW3hGxPM9eFkt",
       "buckets": 168,
       "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 117,
       "poolCreatedAt": 1790424156
     },
@@ -1028,6 +1115,7 @@
       "tokenId": "solana:HSnCtWsw5YmfAkJo9S3eetWtGHPMrc2pAxvCu24AnQEa",
       "buckets": 168,
       "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 109,
       "poolCreatedAt": 1790397348
     },
@@ -1036,23 +1124,150 @@
       "tokenId": "solana:CMuvWQ6qQbSt7NUQdPGcVKCoDgETieuqS68qu6BaeVgR",
       "buckets": 168,
       "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-c1-1",
       "precreationZeroBuckets": 105,
       "poolCreatedAt": 1790381948
+    },
+    {
+      "pool": "FdL11Uu5YRNCybePTpa3T2vqjUqi4Qo1uzj4pvKUqj4d",
+      "tokenId": "solana:HgoScXAo4zFv5kDb6axGrwuz95FaVEcLskyDVZfo297z",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 135,
+      "poolCreatedAt": 1790491919
+    },
+    {
+      "pool": "8VHKSU5pij3V5DVKFQv1WceEzwKeZQpSZiCh9rja2G6N",
+      "tokenId": "solana:CvUX4G2tzq7J3ECmNvWZLayZYV6KpgQp6SJ5K8Uvsu5g",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 56,
+      "poolCreatedAt": 1790207810
+    },
+    {
+      "pool": "4aE7RyYHugztSy3rdKq51bvNkaRj2E7NJU7jPWxzhC3Q",
+      "tokenId": "solana:7cXWSNTq71PZREBmGCBvZirkNwoGokWBQz9fWferViiV",
+      "buckets": 168,
+      "returnedBuckets": 168,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 0,
+      "poolCreatedAt": 1789509427
+    },
+    {
+      "pool": "FGXMnchTt8tQc8mEHgWiWhrUHHUHcMAzCvgaYuaCmghz",
+      "tokenId": "solana:CC5D6puFmcsnGaJh7kNXeAcRpL2SZzQfoQezvx45uKjt",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 134,
+      "poolCreatedAt": 1790485934
+    },
+    {
+      "pool": "7rZ5eyRfGRavGTFG9jSoG77MNnVkQRr6DNeGpxiFk2ca",
+      "tokenId": "solana:DAemPFNc3RtibBDKkUA4eL2Ns11q9VRdbpptmqm8DGqN",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 129,
+      "poolCreatedAt": 1790468726
+    },
+    {
+      "pool": "GZwsYYmc2a54HhX9ZGYTzo7LBChq1SSRDiV6RvvCBXzx",
+      "tokenId": "solana:92BVgXufGjaMUyANA97dvg8LqNb5VMg2wgRfve9tPdCG",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 142,
+      "poolCreatedAt": 1790515531
+    },
+    {
+      "pool": "9Hr6NXw5WSffxNQnqxwZyhRw81uz3PpB7RF9J3i9nMt1",
+      "tokenId": "solana:9U1f18idDeySFnYrurxqT1f5n5nE4g4Uk5LLzP69bh1",
+      "buckets": 168,
+      "returnedBuckets": 168,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 0,
+      "poolCreatedAt": 1789672541
+    },
+    {
+      "pool": "HEvXUg2aX6C8pLWxsycb9pMjG7U8QwVsywo3PMPxHQXS",
+      "tokenId": "solana:A7iQ8N5jKDrg1YUxJ7v8aN5AtkwJaUTNhq1jZ8YLFrAJ",
+      "buckets": 168,
+      "returnedBuckets": 168,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 0,
+      "poolCreatedAt": 1789620612
+    },
+    {
+      "pool": "tv16dBftigYeN75Y8z9PSGDUs1mfZvkwnwrQDLkMk8M",
+      "tokenId": "solana:FFzTy32bZbPA8zRLbbiWoNzW2emGv86tUxaoqhz1pump",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 154,
+      "poolCreatedAt": 1790559685
+    },
+    {
+      "pool": "Drj5Z8kC33nTjqqf2Q2UoQ6qad26Wzc9aREFhAq4R6Qz",
+      "tokenId": "solana:6UhUkSBc9RBB9gVJcjCWtcQv4t771rQF7bdn2qK7pump",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 152,
+      "poolCreatedAt": 1790550255
+    },
+    {
+      "pool": "6UNreUfUuNwX9EorTRcLgmJ29nH6gCVuQsJogsq569eN",
+      "tokenId": "solana:8HnLRKJ6XkeGq1tpmKPqn3yB5ruqbSR5LR5nVCNAshop",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 141,
+      "poolCreatedAt": 1790513572
+    },
+    {
+      "pool": "8N2XJYyVBMrd4B5LUTd5pFe3uWwp5h4cWib9AxTxbHxv",
+      "tokenId": "solana:6uPEdkU2xPg1iyfLzV1ssUwvve8nndA2sd6nBFrb1n58",
+      "buckets": 168,
+      "returnedBuckets": 167,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 141,
+      "poolCreatedAt": 1790511060
+    },
+    {
+      "pool": "5tb9fNLKr2wdJRSTNYRu39kGTjnYVseWo2bGyNgxnLHS",
+      "tokenId": "solana:5dvXTZ5qwgafnHtwu3Ls3QrWx1U4LQsFeCuJgkk4QEC6",
+      "buckets": 168,
+      "returnedBuckets": 168,
+      "evidenceId": "frames-20260928T154336Z-d4-0",
+      "precreationZeroBuckets": 0,
+      "poolCreatedAt": 1789174605
     }
   ],
-  "precreationZeroBuckets": 545,
+  "precreationZeroBuckets": 1729,
   "hourlyOverlapWithPriorRun": [
     {
       "narrativeId": "n-x-money",
       "overlappingHours": 123,
+      "revisedHours": 123,
+      "maxAbsRevisionUsd": 1216260.6708914079,
+      "note": null
+    },
+    {
+      "narrativeId": "n-launchpad-coins",
+      "overlappingHours": 0,
       "revisedHours": 0,
-      "maxAbsRevisionUsd": 0
+      "maxAbsRevisionUsd": 0,
+      "note": "New narrative; no prior run to reconcile."
     },
     {
       "narrativeId": "n-pair-rewards",
       "overlappingHours": 123,
       "revisedHours": 0,
-      "maxAbsRevisionUsd": 0
+      "maxAbsRevisionUsd": 0,
+      "note": null
     }
   ],
   "registryRecheck": [
@@ -1083,10 +1298,42 @@
     {
       "tokenId": "solana:CMuvWQ6qQbSt7NUQdPGcVKCoDgETieuqS68qu6BaeVgR",
       "listedOnHomepage": false
+    },
+    {
+      "tokenId": "solana:HgoScXAo4zFv5kDb6axGrwuz95FaVEcLskyDVZfo297z",
+      "listedOnHomepage": true
+    },
+    {
+      "tokenId": "solana:CvUX4G2tzq7J3ECmNvWZLayZYV6KpgQp6SJ5K8Uvsu5g",
+      "listedOnHomepage": true
+    },
+    {
+      "tokenId": "solana:7cXWSNTq71PZREBmGCBvZirkNwoGokWBQz9fWferViiV",
+      "listedOnHomepage": true
+    },
+    {
+      "tokenId": "solana:CC5D6puFmcsnGaJh7kNXeAcRpL2SZzQfoQezvx45uKjt",
+      "listedOnHomepage": true
+    },
+    {
+      "tokenId": "solana:DAemPFNc3RtibBDKkUA4eL2Ns11q9VRdbpptmqm8DGqN",
+      "listedOnHomepage": true
+    },
+    {
+      "tokenId": "solana:92BVgXufGjaMUyANA97dvg8LqNb5VMg2wgRfve9tPdCG",
+      "listedOnHomepage": true
+    },
+    {
+      "tokenId": "solana:9U1f18idDeySFnYrurxqT1f5n5nE4g4Uk5LLzP69bh1",
+      "listedOnHomepage": true
+    },
+    {
+      "tokenId": "solana:A7iQ8N5jKDrg1YUxJ7v8aN5AtkwJaUTNhq1jZ8YLFrAJ",
+      "listedOnHomepage": true
     }
   ],
-  "narrativeCount": 2,
-  "constituentCount": 9,
+  "narrativeCount": 3,
+  "constituentCount": 22,
   "change24Unit": "ratio; verified against hourly closes in raw/u1.json (CALI -0.650 derived vs -0.644 reported; KARDASHEV 1.98 vs 1.956)",
   "limitations": [
     "Independent date validation does not overturn Frames billing/delivery receipts.",

@@ -47,8 +47,10 @@ and the explicit list of excluded overlapping venues. Narrative launch origins
 are shown without inventing a launch-share ranking.
 
 Daily agent prompt: [refresh-market-data.md](../../../../docs/prompts/refresh-market-data.md).
-Current narrative overlay: `research/lamble/20260928T154336Z/`, with nine identified
-coins and complete 24h/7d hourly series. Pre-creation zeros apply only to buckets
+Current narrative overlay: `research/lamble/20260928T154336Z/`, with three narratives,
+22 identified coins and complete 24h/7d hourly series. Discovery candidates, including
+rejected, deferred and quarantined tokens, are in that run's `candidates.json`. Each
+narrative carries its own source links in `_meta.provenanceSources`. Pre-creation zeros apply only to buckets
 fully before the independently queried pool creation time, not token-wide trading.
 Example-token `change24h` is a percent: Codex `filterTokens.change24` is a ratio
 (verified against hourly closes in the 2026-09-28 run) and is multiplied by 100.
