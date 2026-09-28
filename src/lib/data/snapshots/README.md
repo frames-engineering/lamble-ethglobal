@@ -1,7 +1,7 @@
 # Frames landing snapshot
 
 The production provider serves `frames.ts`, generated from research run
-`20260926T172434Z`. The page performs no metered calls and does not refresh automatically.
+`20260928T154336Z` (financials, indexed activity and narratives; metadata from `20260926T175634Z`). The page performs no metered calls and does not refresh automatically.
 
 After a new research acquisition has been normalized and validated:
 
@@ -39,14 +39,16 @@ Some support sets are partial. Stable and Ink are supplemental metadata because
 they are outside the current ChainId contract. Metadata collection is explicit;
 the snapshot importer is entirely offline.
 
-Activity overlay: `research/lamble/20260926T182058Z/landing-metrics.json`.
-Run its `normalize.py` before importing an updated activity acquisition. The app
+Activity overlay: `research/lamble/20260928T154336Z/landing-metrics.json`.
+Each refresh run carries its own `normalize.py`; run it before importing. The app
 keeps beta indexed observations in `activityObservation`; verified event-count
 fields remain null. `coverage.ts` contains the separately labelled fee subtotal
 and the explicit list of excluded overlapping venues. Narrative launch origins
 are shown without inventing a launch-share ranking.
 
 Daily agent prompt: [refresh-market-data.md](../../../../docs/prompts/refresh-market-data.md).
-Current narrative overlay: `research/lamble/20260926T184109Z/`, with nine identified
+Current narrative overlay: `research/lamble/20260928T154336Z/`, with nine identified
 coins and complete 24h/7d hourly series. Pre-creation zeros apply only to buckets
 fully before the independently queried pool creation time, not token-wide trading.
+Example-token `change24h` is a percent: Codex `filterTokens.change24` is a ratio
+(verified against hourly closes in the 2026-09-28 run) and is multiplied by 100.
