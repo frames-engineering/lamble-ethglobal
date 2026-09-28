@@ -17,7 +17,7 @@ const enrichments = new Map(enrichment.records.map((r) => [r.slug, r]));
 const logoRegistry = JSON.parse(await readFile('docs/data/launchpad-logos.json', 'utf8'));
 const logos = new Map(logoRegistry.map((r) => [r.slug, r.logoSrc]));
 const activityPath = process.argv[4] ?? 'research/lamble/20260928T154336Z/landing-metrics.json';
-const narrativeRun = process.argv[5] ?? 'research/lamble/20260928T154336Z';
+const narrativeRun = process.argv[5] ?? 'research/lamble/20260928T182411Z';
 const landingMetrics = JSON.parse(await readFile(activityPath, 'utf8'));
 const rawNarratives = JSON.parse(await readFile(path.join(narrativeRun, 'narratives.json'), 'utf8'));
 assert.equal(JSON.parse(await readFile(path.join(narrativeRun, 'validation-report.json'), 'utf8')).passed, true);
@@ -55,7 +55,8 @@ const launchpads = rawLaunchpads.map(({ _meta: m, ...row }) => {
   };
 });
 const slugs = new Set(launchpads.map((l) => l.slug));
-const sources = new Map(evidence.map((e) => [e.id, e]));
+const narrativeEvidence = JSON.parse(await readFile(path.join(narrativeRun, 'evidence.json'), 'utf8'));
+const sources = new Map([...evidence, ...narrativeEvidence].map((e) => [e.id, e]));
 const narratives = rawNarratives.map(({ _meta: m, ...row }) => {
   const points = row.series[0].points;
   assert.equal(points.length, 24);
@@ -65,8 +66,10 @@ const narratives = rawNarratives.map(({ _meta: m, ...row }) => {
   const contenders = row.contenders.map((c) => {
     assert(slugs.has(c.launchpadSlug));
     const [chain, address] = c.id.split(':');
-    assert.equal(chain, 'solana'); assert(address);
-    return { ...c, address, explorerUrl: `https://solscan.io/token/${address}`,
+    assert(knownChains.has(chain), `Unknown chain ${chain}`); assert(address);
+    // Only explorers verified for these chains; others render as plain text.
+    const explorer = { solana: 'https://solscan.io/token/', bsc: 'https://bscscan.com/token/' }[chain];
+    return { ...c, address, explorerUrl: explorer ? explorer + address : undefined,
       measuredVolumeShare: m.contenderVolumeShares.find((s) => s.tokenId === c.id)?.share };
   });
   return { ...row, contenders,
@@ -78,7 +81,10 @@ const narratives = rawNarratives.map(({ _meta: m, ...row }) => {
       assert(url, `Missing signal evidence: ${signal.id}`);
       return { ...signal, url };
     }),
-    exampleTokens: row.exampleTokens.map(({ _tokenId, ...token }) => ({ ...token, address: _tokenId.split(':')[1] })),
+    exampleTokens: row.exampleTokens.map(({ _tokenId, ...token }) => {
+      assert.equal(token.chain, _tokenId.split(':')[0]);
+      return { ...token, address: _tokenId.split(':')[1] };
+    }),
     provenance: { chartAnchor: m.chartAnchor, volumeScope: m.volumeScope,
       sources: (() => {
         assert(m.provenanceSources?.length, `Missing provenance sources: ${row.id}`);
