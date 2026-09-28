@@ -115,21 +115,27 @@ test('coverage counts do not add overlapping financial flows', () => {
   const stats = aggregate(LAUNCHPADS, NARRATIVES);
   assert.equal(stats.launchpadCount, 19);
   assert.equal(stats.completeHistories, raw.filter((r) => r.metrics.history30d.every((p) => p.value !== null)).length);
-  assert.equal(stats.constituentCount, 9);
-  assert.equal(stats.narrativeCount, 2);
+  assert.equal(stats.constituentCount, registry.poolUniverse.length);
+  assert.equal(stats.narrativeCount, new Set(registry.poolUniverse.map((p) => p.narrativeId)).size);
   assert.equal(stats.fees24h, null);
 });
 
 test('charts reconcile to sample volume and preserve evidence-backed token identity', () => {
   const slugs = new Set(LAUNCHPADS.map((l) => l.slug));
-  const bars = readJson(run('raw/c1.json')).result.calls[1].body.data;
+  // Every getBars alias in this run's raw requests, keyed by pool address.
+  const bars = new Map();
+  for (const [batch, seq] of [['c1', 1], ['d4', 0]]) {
+    const query = readJson(run(`raw/${batch}-request.json`)).calls[seq].args.query;
+    const data = readJson(run(`raw/${batch}.json`)).result.calls[seq].body.data;
+    for (const [, alias, pool] of query.matchAll(/(p\d+):getBars\(symbol:"(\w+):1399811149"/g)) bars.set(pool, data[alias]);
+  }
   const zeros = new Set(readJson(run('precreation-zero-provenance.json')).map((z) => `${z.pool}:${z.time}`));
   const hourly = (tokenId, time) => {
-    const index = registry.poolUniverse.findIndex((p) => p.tokenId === tokenId);
-    const b = bars[`p${index}`];
+    const { pool } = registry.poolUniverse.find((p) => p.tokenId === tokenId);
+    const b = bars.get(pool);
     const at = b.t.indexOf(time);
     const value = at === -1 ? null : b.volume[at];
-    if (value === null) { assert(zeros.has(`${registry.poolUniverse[index].pool}:${time}`)); return 0; }
+    if (value === null) { assert(zeros.has(`${pool}:${time}`)); return 0; }
     return Number(value);
   };
   for (const n of NARRATIVES) {
@@ -157,11 +163,26 @@ test('charts reconcile to sample volume and preserve evidence-backed token ident
 });
 
 test('example token changes use percent units from the ratio-valued provider field', () => {
-  const snapshot = readJson(run('raw/c1.json')).result.calls[2].body.data.filterTokens.results;
+  const discovery = readJson(run('raw/d2.json')).result.calls[0].body.data;
+  const snapshot = [
+    ...readJson(run('raw/c1.json')).result.calls[2].body.data.filterTokens.results,
+    ...readJson(run('raw/d1.json')).result.calls[1].body.data.mk.results,
+    ...discovery.active.results, ...discovery.recent.results,
+  ];
   for (const n of NARRATIVES) for (const token of n.exampleTokens) {
     const row = snapshot.find((r) => r.pair.token0 === token.address || r.pair.token1 === token.address);
     assert(row, token.symbol);
     assert.equal(token.change24h, 100 * Number(row.change24));
     assert.equal(token.mcapUsd, Number(row.circulatingMarketCap));
+  }
+});
+
+test('discovery keeps rejected and quarantined candidates out of narratives', () => {
+  const { candidates } = readJson(run('candidates.json'));
+  const members = new Set(NARRATIVES.flatMap((n) => n.contenders.map((c) => c.address)));
+  for (const c of candidates) assert(!members.has(c.address), `${c.symbol} is ${c.status}`);
+  for (const n of NARRATIVES) {
+    assert(n.provenance.sources.length > 0);
+    for (const s of n.provenance.sources) assert(s.url.startsWith('https://'));
   }
 });

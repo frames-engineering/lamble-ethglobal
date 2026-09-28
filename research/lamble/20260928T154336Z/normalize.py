@@ -29,7 +29,7 @@ def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 registry = read('docs/prompts/refresh-market-data.sources.json', ROOT)
-batches = ['f1', 'f2', 'f3', 'f4', 'c1', 'e1', 'u1']
+batches = ['f1', 'f2', 'f3', 'f4', 'c1', 'e1', 'u1', 'd1', 'd2', 'd3', 'd4']
 runs = {k: read(f'raw/{k}.json') for k in batches}
 requests = {k: read(f'raw/{k}-request.json') for k in batches}
 assert all(r['status'] == 'completed' for r in runs.values())
@@ -159,16 +159,23 @@ landing = dict(methodologyVersion='lamble-activity-v1', run=P.name, activity=obs
                                   scope=f'Provider-indexed counts, mapped launchpad names. {len(observations)} venue creation records, {sum(o["indexedCompleted24"] is not None for o in observations)} completion records. Beta coverage; omitted venues are unknown, not zero. Not a complete roster total.'))
 
 # ---------------------------------------------------------------- narrative bars
-bar_req = requests['c1']['calls'][1]['args']['query']
-pools = re.findall(r'symbol:"(\w+):%d"' % NETWORK, bar_req)
-universe = registry['poolUniverse']; assert pools == [p['pool'] for p in universe]
-ranges = re.findall(r'from:(\d+),to:(\d+)', bar_req); assert set(ranges) == {(str(T - 7 * 86400), str(T - 1))}
-bars = runs['c1']['result']['calls'][1]['body']['data']
+bars, bar_eid = {}, {}
+for name, seq in [('c1', 1), ('d4', 0)]:
+    q = requests[name]['calls'][seq]['args']['query']; data = runs[name]['result']['calls'][seq]['body']['data']
+    for alias, pool, frm, to in re.findall(r'(p\d+):getBars\(symbol:"(\w+):%d",from:(\d+),to:(\d+)' % NETWORK, q):
+        assert (int(frm), int(to)) == (T - 7 * 86400, T - 1) and pool not in bars
+        bars[pool] = data[alias]; bar_eid[pool] = eid[(name, seq)]
+universe = registry['poolUniverse']; pools = [p['pool'] for p in universe]
+assert len(set(pools)) == len(pools) and all(p in bars for p in pools)
+# Market snapshots: daily refresh first, then discovery rows for newly accepted constituents.
 snapshot = runs['c1']['result']['calls'][2]['body']['data']['filterTokens']['results']
-created = {p['pool']: None for p in universe}
+disc = runs['d2']['result']['calls'][0]['body']['data']
+snap_rows = [(r, eid[('c1', 2)]) for r in snapshot] + [(r, eid[('d1', 1)]) for r in runs['d1']['result']['calls'][1]['body']['data']['mk']['results']] \
+    + [(r, eid[('d2', 0)]) for r in disc['active']['results'] + disc['recent']['results']]
+created = {p: None for p in pools}
 for r in read('raw/pools.json', NAR_BASE)['result']['calls'][0]['body']['data']['filterTokens']['results']:
     created[r['pair']['address']] = r['pair']['createdAt']
-for r in snapshot:
+for r, _ in snap_rows:
     if r['pair']['address'] in created: created[r['pair']['address']] = r['pair']['createdAt']
 grid = list(range(T - 7 * 86400, T, 3600))
 series, precreation, barchecks = {}, [], []
@@ -176,7 +183,7 @@ prev_ext = {}
 for n in read('narratives.json', NAR_BASE):
     for p in n['_meta']['extendedSeries'][0]['points']: prev_ext.setdefault(n['id'], {})[p['time']] = p['value']
 for i, pool in enumerate(pools):
-    b = bars[f'p{i}']; assert len(b['t']) == len(set(b['t']))
+    b = bars[pool]; assert len(b['t']) == len(set(b['t']))
     assert all(t % 3600 == 0 and T - 7 * 86400 <= t < T for t in b['t'])
     vals = dict(zip(b['t'], b['volume'])); out = []
     for t in grid:
@@ -187,23 +194,53 @@ for i, pool in enumerate(pools):
         assert v is not None, (i, t, 'unexpected missing live-pool bucket')
         v = float(v); assert v >= 0; out.append(dict(time=t, value=v))
     series[i] = out
-    barchecks.append(dict(pool=pool, tokenId=universe[i]['tokenId'], buckets=len(out), returnedBuckets=len(b['t']),
+    barchecks.append(dict(pool=pool, tokenId=universe[i]['tokenId'], buckets=len(out), returnedBuckets=len(b['t']), evidenceId=bar_eid[pool],
                           precreationZeroBuckets=sum(1 for z in precreation if z['poolIndex'] == i), poolCreatedAt=created[pool]))
 
+# ---------------------------------------------------------------- discovery: accepted constituents
+DISCOVERED_AT = '2026-09-28T16:20:00Z'
+names = {}
+for alias in ('ids',):
+    for x in runs['d1']['result']['calls'][1]['body']['data'][alias]: names[x['address']] = (x, eid[('d1', 1)])
+for alias in ('t0', 't1'):
+    for x in runs['d3']['result']['calls'][0]['body']['data'][alias]: names.setdefault(x['address'], (x, eid[('d3', 0)]))
 tokens = read('tokens.json', NAR_BASE); members = read('memberships.json', NAR_BASE)
+registry_md = runs['e1']['result']['calls'][0]['body']['data']['markdown']
+known = {t['id'] for t in tokens}
+new_tokens = []
+for u in universe:
+    if u['tokenId'] in known: continue
+    meta, name_eid = names[u['address']]
+    assert (meta['name'], meta['symbol']) == (u['name'], u['symbol']) and meta['networkId'] == NETWORK
+    if u['narrativeId'] == 'n-x-money':
+        assert f"https://usepaid.app/token/{u['address']}" in registry_md, 'UsePaid addition must be in the official registry'
+        evid = [eid[('e1', 0)], name_eid]
+        rationale = 'Official UsePaid homepage lists this exact mint under Top Tokens with a named X recipient and Pump origin; pool token0 matches the mint.'
+    else:
+        desc = (meta.get('info') or {}).get('description') or ''
+        assert re.search(r'(?i)launch|market|handle', desc), 'launch-tool membership needs a self-description'
+        evid = [name_eid, eid[('d2', 0)]]
+        rationale = f'Token metadata describes a launch tool: "{desc[:160]}". Pool token0 matches the mint.'
+    new_tokens.append(u)
+    tokens.append(dict(id=u['tokenId'], chain='solana', address=u['address'], name=u['name'], symbol=u['symbol'], originLaunchpadSlug=u['originLaunchpadSlug'],
+                       originStatus=u['originStatus'], evidenceIds=evid, firstObservedAt=DISCOVERED_AT, pool=u['pool'], poolCreatedAt=created[u['pool']],
+                       description=(meta.get('info') or {}).get('description')))
+    members.append(dict(id=f"{u['narrativeId']}:{u['tokenId']}", narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
+                        rationale=rationale, evidenceIds=evid, effectiveFrom=DISCOVERED_AT, effectiveTo=None, firstObservedAt=DISCOVERED_AT,
+                        historicalMembershipBasis='reconstructed_today', confidence='source-supported; not calibrated'))
+
 by_token = {}
-for r in snapshot:
+for r, e in snap_rows:
     for a in (r['pair']['token0'], r['pair']['token1']):
-        if f'solana:{a}' in {t['id'] for t in tokens}: by_token.setdefault(f'solana:{a}', r)
+        if f'solana:{a}' in {t['id'] for t in tokens}: by_token.setdefault(f'solana:{a}', (r, e))
 assert set(by_token) == {t['id'] for t in tokens}, 'token snapshot missing an identity'
-snap_eid = eid[('c1', 2)]; snap_at = iso(act_run['result']['calls'][0]['body']['data']['filterLaunchpads']['results'][0]['timestamp'])
+snap_at = iso(act_run['result']['calls'][0]['body']['data']['filterLaunchpads']['results'][0]['timestamp'])
 for t in tokens:
-    r = by_token[t['id']]
+    r, e = by_token[t['id']]
     t.update(mcapUsd=float(r['circulatingMarketCap']), change24h=100 * float(r['change24']), marketSnapshotPair=r['pair']['address'],
-             priceUsd=float(r['priceUSD']), marketSnapshotEvidenceId=snap_eid, marketSnapshotFetchedAt=snap_at,
+             priceUsd=float(r['priceUSD']) if r.get('priceUSD') else None, marketSnapshotEvidenceId=e, marketSnapshotFetchedAt=snap_at if e == eid[('c1', 2)] else DISCOVERED_AT,
              priceChangeScope='Codex filterTokens rolling 24h token price change; ratio converted to percent (unit verified in raw/u1.json). Distinct from chart window.')
 
-registry_md = runs['e1']['result']['calls'][0]['body']['data']['markdown']
 pause = re.search(r'X Money payouts are paused until further notice\.[^\n]*', registry_md)
 assert pause, 'expected pause notice'
 registry_check = []
@@ -220,21 +257,63 @@ signals = {
                   ('e1', 2, '2103931647976727023', 'UsePaid reports $1.54M fees claimed in 24h and temporarily caps payouts')],
     'n-pair-rewards': [('e1', 3, '2104592221521547519', 'KNOTS account announces a meme contest paid in STONK'),
                        ('e1', 3, '2102801301449199906', 'KNOTS account reports a social-reward campaign distribution')],
+    'n-launchpad-coins': [('d4', 3, '2104598191681237311', 'Froink announced as a Solana launchpad routing creator fees to X accounts'),
+                          ('d4', 1, '2104400972923707821', 'Trader frames insta.fan as an Instagram version of UsePaid')],
 }
 social = []
 for nid, picks in signals.items():
-    for name, seq, _, _ in picks[:1]:
+    for name, seq in sorted({(p[0], p[1]) for p in picks}):
         body = runs[name]['result']['calls'][seq]['body']
         for tw in body['tweets']:
             social.append(dict(narrativeId=nid, postId=tw['id'], url=f"https://x.com/{tw['author']['screen_name']}/status/{tw['id']}", at=tw['created_at'],
-                               text=tw['text'], author=tw['author']['screen_name'], evidenceId=eid[(name, seq)],
+                               text=tw['text'], author=tw['author']['screen_name'], evidenceId=eid[(name, seq)], query=requests[name]['calls'][seq]['args']['words'],
                                attentionInterpretation='Top-results convenience sample; no mention total or historical mindshare.'))
 
+def tweet_url(name, seq, pid):
+    tw = next(x for x in runs[name]['result']['calls'][seq]['body']['tweets'] if x['id'] == pid)
+    return f"https://x.com/{tw['author']['screen_name']}/status/{pid}", tw
+
 narratives = read('narratives.json', NAR_BASE)
-colors = {t['id']: None for t in tokens}
+PALETTE = ['#4895ef', '#7c83ff', '#a78bfa', '#f59e0b', '#22c55e', '#ef6f6c', '#2dd4bf', '#e879f9']
+launch_ids = [u['tokenId'] for u in universe if u['narrativeId'] == 'n-launchpad-coins']
+narratives.append(dict(id='n-launchpad-coins', slug='launchpad-coins', title='Launchpads launched as coins', category='infra',
+    summary='Pump.fun and Meteora coins for new launch tools, several copying the UsePaid model for other platforms. Measured sample covers one pool per coin; it does not measure platform usage.',
+    status=None, mindshare=None, change24h=None, volume24hUsd=None, volume7dUsd=None, launches24h=None, launches7d=None, startedAt=None,
+    series=[dict(id='volume', label='Selected pools: hourly USD volume', color='#f59e0b', points=[])], contenders=[], topLaunchpads=None, signals=[],
+    exampleTokens=[], suggestedLaunchpads=[],
+    _meta=dict(selection='curated evidence-backed sample; not a market-wide top ranking', constituentTokenIds=launch_ids,
+               poolIds=['solana_' + u['pool'] for u in universe if u['narrativeId'] == 'n-launchpad-coins'],
+               ingestionLagPolicy='1 complete hour safety margin, not a provider lag guarantee', membershipBasis='reconstructed_today',
+               originAttribution='Codex launchpad attribution; creation transactions not independently decoded',
+               deduplication='Each selected chain:pool appears once; pools are disjoint; no constituent-to-constituent pair.', cexCoverage=False,
+               legacyAttentionBasis=None, firstObservedAt=DISCOVERED_AT, startedAtRule='Unknown: no historical detection threshold established',
+               statusRule='Unknown: no agreed trend thresholds', aliases=['launchpad tokens', 'UsePaid clones'], facet='launch infrastructure',
+               storyEvidenceIds=[eid[('d3', 0)], eid[('d4', 1)], eid[('d4', 3)]], fullNarrativeCoverage=False, marketDataProvider='Codex via Frames',
+               omittedCandidates='See candidates.json: FROINK (pool created after chart anchor), BNB and Robinhood Chain variants outside the Solana chart universe.')))
+for n in narratives:
+    if n['id'] == 'n-launchpad-coins': continue
+    for u in new_tokens:
+        if u['narrativeId'] != n['id']: continue
+        n['contenders'].append(dict(id=u['tokenId'], name=u['name'], symbol=u['symbol'], share=None, change24h=None, color=None, launchpadSlug=u['originLaunchpadSlug']))
+        n['exampleTokens'].append(dict(_tokenId=u['tokenId'], symbol=u['symbol'], name=u['name'], launchpadSlug=u['originLaunchpadSlug'], chain='solana', mcapUsd=None, change24h=None))
+        n['_meta']['constituentTokenIds'].append(u['tokenId']); n['_meta']['poolIds'].append('solana_' + u['pool'])
+lc = next(n for n in narratives if n['id'] == 'n-launchpad-coins')
+for u in new_tokens:
+    if u['narrativeId'] == 'n-launchpad-coins':
+        lc['contenders'].append(dict(id=u['tokenId'], name=u['name'], symbol=u['symbol'], share=None, change24h=None, color=None, launchpadSlug=u['originLaunchpadSlug']))
+        lc['exampleTokens'].append(dict(_tokenId=u['tokenId'], symbol=u['symbol'], name=u['name'], launchpadSlug=u['originLaunchpadSlug'], chain='solana', mcapUsd=None, change24h=None))
+
+SOURCES = {
+    'n-x-money': [dict(label='UsePaid documentation', url='https://usepaid.app/docs'), dict(label='Token registry', url='https://usepaid.app/')],
+    'n-pair-rewards': [dict(label='KNOTS mechanism', url='https://www.knotsonstonk.com/'), dict(label='ZCAT identity and rewards', url='https://www.mexc.co/en-NG/learn/article/what-is-anonymous-cat-zcat-the-solana-meme-coin-paying-zec/1')],
+    'n-launchpad-coins': [dict(label=label, url=tweet_url(name, seq, pid)[0]) for (name, seq, pid, _), label in zip(signals['n-launchpad-coins'], ['Froink launch announcement', 'insta.fan framed as UsePaid for Instagram'])],
+}
+tok = {t['id']: t for t in tokens}
 for n in narratives:
     ids = [c['id'] for c in n['contenders']]
+    n['_meta']['constituentTokenIds'] = ids; n['_meta']['poolIds'] = ['solana_' + next(p['pool'] for p in universe if p['tokenId'] == tid) for tid in ids]
     idx = [next(i for i, p in enumerate(universe) if p['tokenId'] == tid) for tid in ids]
+    assert all(universe[i]['narrativeId'] == n['id'] for i in idx)
     ext = [dict(time=grid[j], value=math.fsum(series[i][j]['value'] for i in idx)) for j in range(168)]
     v24 = math.fsum(p['value'] for p in ext[-24:]); prev = math.fsum(p['value'] for p in ext[-48:-24])
     n['series'][0]['points'] = ext[-24:]; n['volume24hUsd'] = v24; n['volume7dUsd'] = math.fsum(p['value'] for p in ext)
@@ -242,31 +321,38 @@ for n in narratives:
     shares = [dict(tokenId=tid, share=100 * math.fsum(p['value'] for p in series[i][-24:]) / v24) for tid, i in zip(ids, idx)]
     m.update(chartAnchor=iso(T).replace('Z', '+00:00'), extendedSeries=[dict(id='volume', label='Volume', color=n['series'][0]['color'], points=ext)],
              volumeChange24h=percent(v24, prev), contenderVolumeShares=shares, constituentCount=len(ids), marketDataRun=P.name,
-             marketEvidenceIds=[eid[('c1', 1)]], exampleTokenMarketSnapshot=f'Codex filterTokens snapshot {snap_at}; evidence {snap_eid}.',
+             marketEvidenceIds=sorted({bar_eid[universe[i]['pool']] for i in idx}), provenanceSources=SOURCES[n['id']],
+             exampleTokenMarketSnapshot='Codex filterTokens snapshots; per-token evidence in tokens.json.',
              volumeScope=f'Sum of {len(ids)} selected Solana pool volumes for identified constituents, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.')
     share = {s['tokenId']: s['share'] for s in shares}
     n['contenders'].sort(key=lambda c: -share[c['id']])
-    tok = {t['id']: t for t in tokens}
+    for k, c in enumerate(n['contenders']):
+        c['color'] = PALETTE[k % len(PALETTE)]  # rank order, so the displayed top five never repeat
     for ex in n['exampleTokens']:
         ex.update(mcapUsd=tok[ex['_tokenId']]['mcapUsd'], change24h=tok[ex['_tokenId']]['change24h'])
+    n['exampleTokens'].sort(key=lambda e: -share[e['_tokenId']])
     n['signals'] = []
     for name, seq, pid, title in signals[n['id']]:
-        tw = next(x for x in runs[name]['result']['calls'][seq]['body']['tweets'] if x['id'] == pid)
-        url = f"https://x.com/{tw['author']['screen_name']}/status/{pid}"
-        n['signals'].append(dict(id='x-' + pid, source='x', label='Public post; claim not payout verification', title=title, at=tw['created_at']))
+        url, tw = tweet_url(name, seq, pid)
+        label = 'Public post; claim not payout verification' if n['id'] != 'n-launchpad-coins' else 'Public post; not usage verification'
+        n['signals'].append(dict(id='x-' + pid, source='x', label=label, title=title, at=tw['created_at']))
         evidence.append(dict(id='x-' + pid, route='frames', tool=requests[name]['calls'][seq]['id'], url=url, post_id=pid, source_event_time=tw['created_at'],
                              source_as_of=tw['created_at'], fetched_at=runs[name]['result']['calls'][seq]['body']['queried_at'], response_ref=f'raw/{name}.json',
                              sha256=sha(P / f'raw/{name}.json'), run_id=runs[name]['run_id'], seq=seq, extraction_path=f'body.tweets[id={pid}]',
-                             limitations=['Paraphrases a public claim; not independent proof of payouts.']))
+                             limitations=['Paraphrases a public claim; not independent proof of payouts or usage.']))
     if n['id'] == 'n-x-money':
         m['presentationSummary'] = 'Coins routing creator fees to named X accounts through UsePaid, including e/acc, CALI and Elon Coin. UsePaid now says X Money payouts are paused.'
         m['storyEvidenceIds'] = m['storyEvidenceIds'] + [eid[('e1', 0)], eid[('e1', 2)]]
         m['storyStatus'] = dict(observedAt=RUNTIME, evidenceId=eid[('e1', 0)], notice=pause.group(0).strip(),
                                 interpretation='Official homepage notice. Fee routing is the story; paused payouts are reported, not independently verified.')
-    else:
+        m['sourcePolicyChange'] = f'Expanded from 7 to {len(ids)} constituents from the official registry on {DISCOVERED_AT[:10]}; do not compare totals across the expansion as growth.'
+    elif n['id'] == 'n-pair-rewards':
         m['storyEvidenceIds'] = m['storyEvidenceIds'] + [eid[('e1', 1)], eid[('e1', 3)]]
         m['storyStatus'] = dict(observedAt=RUNTIME, evidenceId=eid[('e1', 1)],
                                 interpretation='Official KNOTS page still reports holder distributions in STONK; figures are self-reported, not payout verification.')
+    else:
+        m['presentationSummary'] = 'Pump.fun coins for new launch tools, several copying UsePaid for other platforms: XPAD for X handles, insta.fan for Instagram, REGULARS for shops.'
+        m['storyStatus'] = dict(observedAt=DISCOVERED_AT, interpretation='Self-described tools; product usage and fee routing not verified. High volume relative to market cap on some pools may include wash or bot trading.')
 narratives.sort(key=lambda n: (-n['volume24hUsd'], n['id']))
 
 for n in narratives:
@@ -282,8 +368,9 @@ for n in narratives:
     old = prev_ext.get(n['id'], {}); new = {p['time']: p['value'] for p in n['_meta']['extendedSeries'][0]['points']}
     common = sorted(set(old) & set(new))
     diffs = [dict(time=t, previous=old[t], current=new[t]) for t in common if abs(old[t] - new[t]) > .01]
-    overlap.append(dict(narrativeId=n['id'], overlappingHours=len(common), revisedHours=len(diffs), maxAbsRevisionUsd=max((abs(d['current'] - d['previous']) for d in diffs), default=0), revisions=diffs))
-    assert len(common) >= 3
+    overlap.append(dict(narrativeId=n['id'], overlappingHours=len(common), revisedHours=len(diffs), maxAbsRevisionUsd=max((abs(d['current'] - d['previous']) for d in diffs), default=0), revisions=diffs,
+                        note=None if old else 'New narrative; no prior run to reconcile.'))
+    assert len(common) >= 3 or not old
 
 # ---------------------------------------------------------------- validation and outputs
 assert len(launchpads) == 19 and len({x['slug'] for x in launchpads}) == 19
@@ -317,13 +404,43 @@ manifest = dict(runId=P.name, version=VERSION, runtimeStartedAt=RUNTIME, reposit
                 watermarks=dict(financialExclusiveEnd=iso(F), narrativeExclusiveEnd=iso(T), activitySourceAsOf=iso(observations[0]['sourceAsOf'])),
                 requests=[f'raw/{k}-request.json' for k in batches], costs=billing, refreshPrompt='docs/prompts/refresh-market-data.md',
                 sourceVersions={'financial': registry['financialTool'], 'marketAndActivity': registry['marketAndActivityTool'], 'sourceRegistryVersion': registry['version']})
-for name, obj in [('launchpads.json', launchpads), ('narratives.json', narratives), ('tokens.json', tokens), ('memberships.json', members),
+def disc_row(addr):
+    for r in disc['active']['results'] + disc['recent']['results']:
+        if addr in (r['pair']['token0'], r['pair']['token1']): return r
+def nm(addr): return names[addr][0] if addr in names else {}
+CANDIDATES = [
+    ('2yu92oYzBWLAdVpu8BoaLzmM1oxPsHoboay2BXmeDDZr', 'n-launchpad-coins', 'deferred', 'Accepted story (official launch announcement), but its pool was created after the chart anchor; add on the next refresh.'),
+    ('zVbJ3eRjhRbvKWAxP8xrXZAeAcSqk3vtTjCzzVAAphi', 'n-launchpad-coins', 'rejected', 'Perpetuals product for graduated coins, not a launch tool.'),
+    ('BM2k8mJUbMthHoioykyUm2NjMrXvLBYhoXruwYLpump', 'n-launchpad-coins', 'candidate_unverified', 'Name implies a launchpad; metadata has no description to support membership.'),
+    ('0x55db4b1f497b1d7aa93354701883efc758367777', 'n-launchpad-coins', 'omitted_chain', 'BNB Chain (Flap) social fee-routing launch token; outside the Solana chart universe.'),
+    ('0x68353dea233cf2ed0f4ab795430962cc50e5d325', 'n-launchpad-coins', 'omitted_chain', 'Robinhood Chain (Pons) nested-launchpad token; outside the Solana chart universe.'),
+    ('AmaM7N43JBicpcHDbVKyGeuTjtnNhJ2yZTdWqoZpCX8b', 'n-x-money', 'rejected', 'Second KARDASHEV mint with the same name; the tracked constituent is the registry Top Tokens mint.'),
+    ('B2kipu1WYBPBDQrCX5yv9p7dhjhG1FwwnxBjUDhSkbdG', 'n-x-money', 'candidate_unverified', 'Metadata claims UsePaid routing but the mint is absent from the registry snapshot.'),
+    ('Cgi54CNpHaYn4smqLH5tW8X5QxssMvi592My3tRoiHfX', 'n-x-money', 'candidate_unverified', 'Metadata claims UsePaid routing but the mint is absent from the registry snapshot.'),
+    ('98kfF7rmsg1QDUEoCqNE7g7M1FdrTt92TEp2CLzypump', 'n-x-money', 'candidate_unverified', 'Named Paid; no source links it to UsePaid.'),
+    ('3CA4RGSFWAu7ePYr2rmCndNqgoYuMj97m5vAn6Zqpump', None, 'quarantined', 'Fund-style ticker with implausible market cap and >5,000x 24h change; likely manipulated supply or price.'),
+    ('wQK5ZserCHkhUCJQJxLL7NKg4N3o3R9VTEqJFqfpump', None, 'quarantined', 'Fund-style ticker with implausible market cap and >2x 24h change on a new pool; likely manipulated.'),
+    ('XU438yQcHEf5bGAZ3pHqXhbZPqotoapdanjnhj1pump', None, 'quarantined', 'Fund-style ticker with implausible market cap and >5,000x 24h change; likely manipulated supply or price.'),
+    ('Y49yTFUyBiim3HQEiVnVKiiRPqTY2nNrJyvxsi4pump', None, 'quarantined', 'Fund-style ticker with implausible market cap on a new pool; likely manipulated.'),
+    ('6E1ZANX18QzRNmz4CszNgPqonQ38nkCGhpRqpwwEpump', None, 'quarantined', 'Implausible market cap and >5,000x 24h change; likely manipulated supply or price.'),
+]
+candidates = []
+for addr, nid, status, reason in CANDIDATES:
+    r = disc_row(addr); meta = nm(addr)
+    candidates.append(dict(address=addr, name=meta.get('name'), symbol=meta.get('symbol'), networkId=meta.get('networkId'),
+                           launchpad=(meta.get('launchpad') or {}).get('launchpadName'), description=(meta.get('info') or {}).get('description'),
+                           narrativeId=nid, status=status, reason=reason, volume24=r and r['volume24'], circulatingMarketCap=r and r['circulatingMarketCap'],
+                           change24=r and r['change24'], pairCreatedAt=r and r['pair']['createdAt'], evidenceIds=[eid[('d2', 0)], eid[('d3', 0)]]))
+discovery = dict(discoveredAt=DISCOVERED_AT, method='Token-first: Codex filterTokens top-50 by 24h volume and top-50 created in the last 72h (liquidity > $10K, volume > $250K) across 14 covered launchpad names; names resolved with Codex tokens(ids). Registry-first: UsePaid Top Tokens. Story-first: three X searches.',
+                 limitations=['One 100-row sample by volume; not a market census.', 'foci is not a Codex launchpad name and is not covered by the sweep.', 'The XPAD search returned only unrelated older XPAD projects; XPAD membership rests on its token metadata.'],
+                 accepted=[dict(tokenId=u['tokenId'], symbol=u['symbol'], narrativeId=u['narrativeId']) for u in new_tokens], candidates=candidates)
+for name, obj in [('candidates.json', discovery), ('launchpads.json', launchpads), ('narratives.json', narratives), ('tokens.json', tokens), ('memberships.json', members),
                   ('evidence.json', evidence), ('landing-metrics.json', landing), ('precreation-zero-provenance.json', precreation),
                   ('financial-revisions.json', dict(priorRun=FIN_BASE.name, priorAnchor=iso(OLD_F), revisions=revisions, methodologyChanges=method_changes)),
                   ('hourly-revisions.json', overlap), ('social-evidence.json', social), ('validation-report.json', validation), ('refresh-manifest.json', manifest)]:
     write(name, obj)
 with (P / 'chart-data.csv').open('w', newline='') as f:
-    w = csv.writer(f); w.writerow(['narrative_id', 'bucket_start_unix', 'bucket_start_utc', 'volume_usd'])
+    w = csv.writer(f, lineterminator='\n'); w.writerow(['narrative_id', 'bucket_start_unix', 'bucket_start_utc', 'volume_usd'])
     for n in narratives:
         for p in n['_meta']['extendedSeries'][0]['points']: w.writerow([n['id'], p['time'], iso(p['time']), p['value']])
 print(json.dumps(dict(financialAnchor=iso(F), chartAnchor=iso(T), billing=billing['charged_credits'], feeSubtotal=landing['fees']['value'],
