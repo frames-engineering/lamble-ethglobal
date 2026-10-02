@@ -2,7 +2,7 @@
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import path from 'node:path';
-const run = process.argv[2] ?? 'research/lamble/20260928T154336Z';
+const run = process.argv[2] ?? 'research/lamble/20261002T003446Z';
 const read = async (file) => JSON.parse(await readFile(path.join(run, file), 'utf8'));
 const [rawLaunchpads, , evidence, manifest, validation] = await Promise.all(
   ['launchpads.json', 'narratives.json', 'evidence.json', 'refresh-manifest.json', 'validation-report.json'].map(read),
@@ -16,8 +16,8 @@ const enrichments = new Map(enrichment.records.map((r) => [r.slug, r]));
 // Keep reviewed brand assets across market-data refreshes.
 const logoRegistry = JSON.parse(await readFile('docs/data/launchpad-logos.json', 'utf8'));
 const logos = new Map(logoRegistry.map((r) => [r.slug, r.logoSrc]));
-const activityPath = process.argv[4] ?? 'research/lamble/20260928T154336Z/landing-metrics.json';
-const narrativeRun = process.argv[5] ?? 'research/lamble/20260928T182411Z';
+const activityPath = process.argv[4] ?? 'research/lamble/20261002T003446Z/landing-metrics.json';
+const narrativeRun = process.argv[5] ?? 'research/lamble/20261002T003446Z';
 const landingMetrics = JSON.parse(await readFile(activityPath, 'utf8'));
 const rawNarratives = JSON.parse(await readFile(path.join(narrativeRun, 'narratives.json'), 'utf8'));
 assert.equal(JSON.parse(await readFile(path.join(narrativeRun, 'validation-report.json'), 'utf8')).passed, true);
@@ -76,6 +76,7 @@ const narratives = rawNarratives.map(({ _meta: m, ...row }) => {
     summary: m.presentationSummary ?? row.summary,
     extendedSeries: m.extendedSeries,
     volumeChange24h: m.volumeChange24h,
+    volumeCaveat: m.volumeCaveat ? { text: m.volumeCaveat.text, flaggedShare: m.volumeCaveat.flaggedShare, threshold: m.volumeCaveat.threshold } : null,
     signals: row.signals.map((signal) => {
       const url = sources.get(signal.id)?.url;
       assert(url, `Missing signal evidence: ${signal.id}`);

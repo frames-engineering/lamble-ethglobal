@@ -39,6 +39,12 @@ export function FeaturedNarrative({ narrative: n, launchpads }: FeaturedNarrativ
         <div className="flex min-w-0 flex-col">
           <h3 className="text-lg leading-tight font-bold tracking-tight text-high md:text-xl">{n.title}</h3>
           <p className="mt-3 text-sm leading-relaxed text-med">{n.summary}</p>
+          {n.volumeCaveat && (
+            <p role="note" title={`Flagged when a coin's 24h pool volume exceeds ${n.volumeCaveat.threshold}× its market cap.`} className="mt-3 flex gap-2 rounded-lg bg-warning-soft px-3 py-2 text-xs leading-relaxed text-med">
+              <span aria-hidden="true" className="font-semibold text-warning">!</span>
+              <span><span className="font-medium text-warning">Volume caveat:</span> {n.volumeCaveat.text}</span>
+            </p>
+          )}
 
           {/* List headers match the screener's column headers (TableHead). */}
           <div className="mt-5">

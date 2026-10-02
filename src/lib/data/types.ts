@@ -194,6 +194,8 @@ export interface Narrative {
   extendedSeries?: NarrativeSeries[];
   /** Percent change in sampled volume versus prior 24h; not mindshare. */
   volumeChange24h?: number | null;
+  /** Set when constituents traded far above their market cap; the volume may include wash or bot trading. */
+  volumeCaveat?: { text: string; flaggedShare: number; threshold: number } | null;
   contenders: Contender[];
   /** Venues carrying the most launches in this narrative, largest first. */
   topLaunchpads: NarrativeLaunchpad[] | null;
