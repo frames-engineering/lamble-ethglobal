@@ -23,7 +23,8 @@ const narrativeCalls = readJson(narrativeRun('refresh-manifest.json')).requests.
 const registry = readJson(new URL('../docs/prompts/refresh-market-data.sources.json', import.meta.url));
 const F = Date.parse(SNAPSHOT.financialEnd) / 1000;
 const feeBodies = new Map();
-for (const batch of ['f1', 'f2', 'f3', 'f4']) {
+const finBatches = readJson(run('refresh-manifest.json')).requests.map((r) => r.match(/raw\/(f\d+)-request/)?.[1]).filter(Boolean);
+for (const batch of finBatches) {
   const request = readJson(run(`raw/${batch}-request.json`));
   for (const call of readJson(run(`raw/${batch}.json`)).result.calls) {
     const { protocol, dataType } = request.calls[call.seq].args;
@@ -209,4 +210,74 @@ test('volume caveats are computed from pool volume and market cap and shown only
     const share = flagged.reduce((s, t) => s + n.contenders.find((c) => c.id === t.tokenId).measuredVolumeShare, 0);
     assert(Math.abs(share - n.volumeCaveat.flaggedShare) < 1e-6);
   }
+});
+
+test('creator earnings are recomputed from raw supply-side bodies and stay unknown where undefined', () => {
+  const supply = (slug, day) => {
+    const body = feeBodies.get(`${registry.venues.find((v) => v.slug === slug).providerSlug}:dailySupplySideRevenue`);
+    return body ? body.get(day) ?? null : undefined;
+  };
+  let measured = 0;
+  for (const row of LAUNCHPADS) {
+    const defined = Boolean(row.provenance.methodology?.SupplySideRevenue);
+    for (const [key, days] of [['h24', 1], ['d7', 7], ['d30', 30]]) {
+      const values = Array.from({ length: days }, (_, i) => supply(row.slug, F - (days - i) * 86400));
+      const expected = !defined || values.includes(null) || values.includes(undefined) ? null : values.reduce((a, b) => a + b, 0);
+      assert.equal(row.metrics[key].supplySide, expected, `${row.slug} ${key}`);
+      if (expected !== null && key === 'd7') measured += 1;
+    }
+  }
+  assert(measured >= 10, 'most venues define supply-side revenue');
+  // A venue whose adapter defines no supply side reports zeros that must not render as $0.
+  assert.equal(compactUsd(LAUNCHPADS.find((r) => !r.provenance.methodology?.SupplySideRevenue).metrics.d7.supplySide ?? null), '—');
+});
+
+test('30-day narrative charts sum raw daily all-pool bars and reconcile with hourly sums', () => {
+  const dailyCalls = readJson(narrativeRun('raw/c2-request.json')).calls;
+  const bars = new Map();
+  for (const call of readJson(narrativeRun('raw/c2.json')).result.calls) {
+    for (const [, alias, address, network] of dailyCalls[call.seq].args.query.matchAll(/(q\d+):getTokenBars\(symbol:"(\w+):(\d+)"/g)) {
+      const member = registry.poolUniverse.find((p) => p.address === address && p.networkId === Number(network));
+      if (member) bars.set(member.tokenId, call.body.data[alias]);
+    }
+  }
+  const zeros = new Set(readJson(narrativeRun('precreation-zero-provenance.json')).filter((z) => z.resolution === '1D').map((z) => `${z.tokenId}:${z.time}`));
+  const tokens = new Map(readJson(narrativeRun('tokens.json')).map((t) => [t.id, t]));
+  const daily = (tokenId, day) => {
+    const b = bars.get(tokenId), at = b.t.indexOf(day), value = at === -1 ? null : b.volume[at];
+    if (value === null) {
+      assert(zeros.has(`${tokenId}:${day}`) && day + 86400 <= tokens.get(tokenId).tokenCreatedAt, `${tokenId} ${day}`);
+      return 0;
+    }
+    return Number(value);
+  };
+  for (const n of NARRATIVES) {
+    const points = n.dailySeries[0].points, end = Date.parse(n.provenance.dailyEnd) / 1000;
+    assert.equal(end % 86400, 0);
+    assert(end <= Date.parse(SNAPSHOT.chartEnd) / 1000);
+    assert.deepEqual(points.map((p) => p.time), Array.from({ length: 30 }, (_, i) => end - (30 - i) * 86400));
+    for (const p of points) assert(Math.abs(n.contenders.reduce((sum, c) => sum + daily(c.id, p.time), 0) - p.value) < .01);
+    assert(Math.abs(points.reduce((sum, p) => sum + p.value, 0) - n.volume30dUsd) < .01);
+    // Days fully inside the hourly window match the hourly chart.
+    for (const p of points.filter((d) => d.time >= n.extendedSeries[0].points[0].time)) {
+      const h = n.extendedSeries[0].points.filter((x) => x.time >= p.time && x.time < p.time + 86400).reduce((sum, x) => sum + x.value, 0);
+      assert(Math.abs(h - p.value) <= Math.max(1, 0.02 * Math.max(h, p.value)), `${n.id} ${p.time}`);
+    }
+  }
+});
+
+test('every discovered theme cluster ends in a recorded decision', () => {
+  const discovery = readJson(narrativeRun('discovery.json'));
+  const decisions = readJson(narrativeRun('curation.json')).clusterDecisions;
+  const ids = new Set(NARRATIVES.map((n) => n.id));
+  assert(discovery.clusters.length > 0);
+  for (const k of discovery.clusters) {
+    const d = decisions[k.id];
+    assert(d?.reason, `${k.id} has no decision`);
+    assert(['created', 'assigned', 'rejected', 'deferred'].includes(d.decision));
+    if (d.decision === 'created' || d.decision === 'assigned') assert(ids.has(d.narrativeId), `${k.id} -> ${d.narrativeId}`);
+    // A cluster meets the new-narrative bar on the snapshot it was found in.
+    assert(k.size >= registry.narrativeRules.newNarrative.minConstituents && k.combinedVolume24Usd >= registry.narrativeRules.newNarrative.minCombinedVolume24Usd);
+  }
+  assert(NARRATIVES.length <= registry.narrativeRules.newNarrative.maxActive);
 });

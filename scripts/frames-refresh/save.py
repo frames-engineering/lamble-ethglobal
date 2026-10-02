@@ -21,11 +21,19 @@ def completed(text):
     return r if isinstance(r, dict) and r.get('run_id') == run_id and r.get('status') == 'completed' else None
 
 
+def parts(text):  # persisted results are either the raw text or a JSON list of {"type": "text", "text": ...} parts
+    try:
+        v = json.loads(text)
+    except ValueError:
+        return text
+    return ''.join(x.get('text', '') for x in v) if isinstance(v, list) else text
+
+
 found = None
-for f in sorted(glob.glob(f'{home}/*/*/tool-results/*.txt'), key=os.path.getmtime, reverse=True):
+for f in sorted(glob.glob(f'{home}/*/*/tool-results/*.txt') + glob.glob(f'{home}/*/*/tool-results/*.json'), key=os.path.getmtime, reverse=True):
     with open(f) as fh:
         text = fh.read()
-    if run_id in text[:400] and (found := completed(text)):
+    if run_id in text[:600] and (found := completed(parts(text))):
         break
 if not found:
     for f in sorted(glob.glob(f'{home}/*/*.jsonl'), key=os.path.getmtime, reverse=True):

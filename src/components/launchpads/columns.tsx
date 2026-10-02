@@ -35,6 +35,7 @@ export type ColumnId =
   | "chains"
   | "fees"
   | "revenue"
+  | "creators"
   | "launched"
   | "graduated"
   | "trend"
@@ -163,6 +164,20 @@ export const COLUMNS: Column[] = [
     },
   },
   {
+    id: "creators",
+    header: (ctx) => `Creators ${TF_LABEL[ctx.tf]}`,
+    hint: "Fees paid out to coin creators under the source methodology (DefiLlama supply-side revenue). Some venues also count holder, referrer or trader payouts; see details.",
+    align: "right",
+    sortable: true,
+    mobileRank: 6,
+    sortValue: (row, ctx) => row.metrics[ctx.tf].supplySide ?? null,
+    cell: (row, ctx) => {
+      const m = row.metrics[ctx.tf];
+      const share = m.fees !== null && m.fees > 0 && m.supplySide != null ? (m.supplySide / m.fees) * 100 : null;
+      return <Stack primary={compactUsd(m.supplySide ?? null)} secondary={`${percent(share, { digits: 0 })} of fees`} />;
+    },
+  },
+  {
     id: "launched",
     header: () => "Launched 24h",
     hint: "New tokens created in 24 hours. ≈ denotes Codex beta indexed observations; event completeness and exact cutoffs are not independently verified.",
@@ -205,7 +220,7 @@ export const COLUMNS: Column[] = [
     header: () => "30d trend",
     align: "right",
     sortable: true,
-    mobileRank: 6,
+    mobileRank: 7,
     sortValue: (row) => row.metrics.d30.change,
     cell: (row) => {
       const change = row.metrics.d30.change;
@@ -228,7 +243,7 @@ export const COLUMNS: Column[] = [
     header: () => "",
     align: "right",
     sortable: false,
-    mobileRank: 7,
+    mobileRank: 8,
     cell: (row, ctx) => (
       <div className="flex items-center justify-end gap-2" onClick={stop} onKeyDown={stop}>
         <DropdownMenu>

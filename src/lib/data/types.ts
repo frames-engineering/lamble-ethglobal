@@ -33,6 +33,8 @@ export interface PeriodMetrics {
   revenue: number | null;
   /** Change vs the previous period, in percent (e.g. -12.5). */
   change: number | null;
+  /** Fees paid out to coin creators and, depending on the venue, holders, referrers or traders (DefiLlama supply-side revenue), USD. */
+  supplySide?: number | null;
 }
 
 export interface FeeModel {
@@ -192,6 +194,9 @@ export interface Narrative {
   series: NarrativeSeries[];
   /** Optional seven-day hourly volume, same explicit constituent universe. */
   extendedSeries?: NarrativeSeries[];
+  /** 30 complete UTC days of daily volume, oldest first. */
+  dailySeries?: NarrativeSeries[];
+  volume30dUsd?: number | null;
   /** Percent change in sampled volume versus prior 24h; not mindshare. */
   volumeChange24h?: number | null;
   /** Set when constituents traded far above their market cap; the volume may include wash or bot trading. */
@@ -205,6 +210,8 @@ export interface Narrative {
   provenance?: {
     chartAnchor: string;
     volumeScope: string;
+    dailyEnd?: string;
+    dailyScope?: string;
     sources: { label: string; url: string }[];
   };
 }
