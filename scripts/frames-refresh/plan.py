@@ -11,7 +11,8 @@ discover (run first) writes:
   e1  Narrative evidence pages and targeted X searches from the registry
 collect (run after narrative decisions are applied to the registry) writes:
   f1..f4  DefiLlama dailyFees + dailyRevenue for every venue (38 calls, <=10 per batch)
-  c1      Codex: filterLaunchpads, hourly bars per network, token market snapshot
+  c1      Codex: filterLaunchpads, all-pool hourly token bars per network, token market
+          snapshot, token creation times
 Each batch gets a stable idempotency key derived from the run id.
 """
 import datetime as dt, json, pathlib, sys
@@ -69,11 +70,14 @@ else:
                   'launchpadUrl launchpadProtocol isThirdParty networkIds timestamp tokensCreated24 tokensCreated1w tokensCompleted24 tokensCompleted1w '
                   'tokensMigrated24 totalFees24 pre { totalFees24 } post { totalFees24 } } } }')
     calls = [dict(id=CODEX, args=dict(query=launchpads))]
+    # Token-level bars aggregate every pool a coin trades in (Codex getTokenBars; currencyCode is an enum here).
     for network in sorted({u['networkId'] for u in universe}, key=lambda n: (n != 1399811149, n)):
-        bars = ' '.join(f'p{universe.index(u)}:getBars(symbol:"{u["pool"]}:{network}",from:{T - 7 * 86400},to:{T - 1},resolution:"60",'
-                        f'currencyCode:"USD",removeEmptyBars:false){{t volume}}' for u in universe if u['networkId'] == network)
+        bars = ' '.join(f'p{universe.index(u)}:getTokenBars(symbol:"{u["address"]}:{network}",from:{T - 7 * 86400},to:{T - 1},resolution:"60",'
+                        f'currencyCode:USD,removeEmptyBars:false){{t volume}}' for u in universe if u['networkId'] == network)
         calls.append(dict(id=CODEX, args=dict(query='{ ' + bars + ' }')))
     calls.append(snapshot(universe))
+    ids = ','.join(f'{{address:"{u["address"]}",networkId:{u["networkId"]}}}' for u in universe)
+    calls.append(dict(id=CODEX, args=dict(query=f'{{ created:tokens(ids:[{ids}]){{address networkId createdAt}} }}')))  # zero-fill boundary
     assert len(calls) <= 10, 'too many networks for one Codex batch; split c1'
     write('c1', calls, [SEARCH['codex']], 0.03)
     print(json.dumps(dict(run=run.name, stage=stage, chartAnchor=dt.datetime.fromtimestamp(T, dt.timezone.utc).isoformat(),

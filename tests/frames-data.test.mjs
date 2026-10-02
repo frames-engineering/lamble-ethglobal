@@ -131,21 +131,25 @@ test('coverage counts do not add overlapping financial flows', () => {
 
 test('charts reconcile to sample volume and preserve evidence-backed token identity', () => {
   const slugs = new Set(LAUNCHPADS.map((l) => l.slug));
-  // Every getBars alias in this run's raw requests, keyed by pool address.
+  // Bars keyed by token id: all-pool getTokenBars for current runs, single-pool getBars for runs before the switch.
+  const method = readJson(narrativeRun('narratives.json'))[0]._meta.volumeMethod ?? 'single-pool';
   const bars = new Map();
   for (const { query, data } of narrativeCalls) {
-    for (const [, alias, pool, network] of query.matchAll(/(p\d+):getBars\(symbol:"(\w+):(\d+)"/g)) {
-      assert.equal(Number(network), registry.poolUniverse.find((p) => p.pool === pool).networkId);
-      bars.set(pool, data[alias]);
+    const pattern = method === 'token-all-pools' ? /(p\d+):getTokenBars\(symbol:"(\w+):(\d+)"/g : /(p\d+):getBars\(symbol:"(\w+):(\d+)"/g;
+    for (const [, alias, id, network] of query.matchAll(pattern)) {
+      const member = registry.poolUniverse.find((p) => (method === 'token-all-pools' ? p.address : p.pool) === id && p.networkId === Number(network));
+      if (member) bars.set(member.tokenId, data[alias]);
     }
   }
-  const zeros = new Set(readJson(narrativeRun('precreation-zero-provenance.json')).map((z) => `${z.pool}:${z.time}`));
+  const zeros = new Set(readJson(narrativeRun('precreation-zero-provenance.json')).map((z) => {
+    const id = z.tokenId ?? registry.poolUniverse.find((p) => p.pool === z.pool)?.tokenId;
+    return `${id}:${z.time}`;
+  }));
   const hourly = (tokenId, time) => {
-    const { pool } = registry.poolUniverse.find((p) => p.tokenId === tokenId);
-    const b = bars.get(pool);
+    const b = bars.get(tokenId);
     const at = b.t.indexOf(time);
     const value = at === -1 ? null : b.volume[at];
-    if (value === null) { assert(zeros.has(`${pool}:${time}`)); return 0; }
+    if (value === null) { assert(zeros.has(`${tokenId}:${time}`)); return 0; }
     return Number(value);
   };
   for (const n of NARRATIVES) {

@@ -153,29 +153,32 @@ landing = dict(methodologyVersion='lamble-activity-v1', run=P.name, activity=obs
 
 # ---------------------------------------------------------------- narrative bars and snapshot
 universe = registry['poolUniverse']
-bars, bar_eid, snapshot = {}, {}, []
+# Volume is token-level: Codex getTokenBars aggregates every pool a coin trades in.
+VOLUME_METHOD = 'token-all-pools'
+tid_of = {(u['address'], u['networkId']): u['tokenId'] for u in universe}
+bars, bar_eid, snapshot, created = {}, {}, [], {}
 for c in runs['c1']['result']['calls'][1:]:
     q = requests['c1']['calls'][c['seq']]['args']['query']; data = c['body']['data']
-    for alias, pool, net, frm, to in re.findall(r'(p\d+):getBars\(symbol:"(\w+):(\d+)",from:(\d+),to:(\d+)', q):
-        assert (int(frm), int(to)) == (T - 7 * 86400, T - 1) and pool not in bars
-        bars[pool] = data[alias]; bar_eid[pool] = eid[('c1', c['seq'])]
+    for alias, addr, net, frm, to in re.findall(r'(p\d+):getTokenBars\(symbol:"(\w+):(\d+)",from:(\d+),to:(\d+)', q):
+        assert (int(frm), int(to)) == (T - 7 * 86400, T - 1)
+        tid = tid_of.get((addr, int(net)))
+        if tid is None: continue  # a coin removed after collect
+        assert tid not in bars; bars[tid] = data[alias]; bar_eid[tid] = eid[('c1', c['seq'])]
     if 'filterTokens' in (data or {}):
         snapshot += data['filterTokens']['results']; snap_eid = eid[('c1', c['seq'])]
-assert {u['pool'] for u in universe} <= set(bars), 'every universe pool needs bars'  # extra bars (a pool removed after collect) are ignored
-created = {}
-for r in snapshot: created[r['pair']['address']] = r['pair']['createdAt']
-for t in read('tokens.json', PRIOR_N):
-    if t.get('pool') and t.get('poolCreatedAt'): created.setdefault(t['pool'], t['poolCreatedAt'])
+    for x in (data or {}).get('created') or []:
+        if (x['address'], x['networkId']) in tid_of and x.get('createdAt'): created[tid_of[(x['address'], x['networkId'])]] = x['createdAt']
+assert {u['tokenId'] for u in universe} <= set(bars), 'every constituent needs token bars'
 grid = list(range(T - 7 * 86400, T, 3600))
 series, precreation = {}, []
 for u in universe:
-    b = bars[u['pool']]; assert b is not None and len(b['t']) == len(set(b['t'])) and all(T - 7 * 86400 <= t < T and t % 3600 == 0 for t in b['t'])
+    b = bars[u['tokenId']]; assert b is not None and len(b['t']) == len(set(b['t'])) and all(T - 7 * 86400 <= t < T and t % 3600 == 0 for t in b['t'])
     vals = dict(zip(b['t'], b['volume'])); out = []
     for t in grid:
-        v = vals.get(t); c = created.get(u['pool'])
+        v = vals.get(t); c = created.get(u['tokenId'])
         if v is None and c is not None and t + 3600 <= c:
-            v = 0; precreation.append(dict(pool=u['pool'], chain=u['chain'], time=t, poolCreatedAt=c,
-                                           basis='Entire bucket precedes provider pool creation time; no pool existed. Not a token-wide inactivity claim.'))
+            v = 0; precreation.append(dict(tokenId=u['tokenId'], chain=u['chain'], time=t, tokenCreatedAt=c,
+                                           basis='Entire bucket precedes the token creation time; the token did not exist.'))
         assert v is not None, (u['symbol'], t, 'unexpected missing live-pool bucket')
         v = float(v); assert v >= 0; out.append(dict(time=t, value=v))
     series[u['tokenId']] = out
@@ -187,7 +190,7 @@ for u in universe:
     c = curation['newMembers'][u['tokenId']]  # every new constituent needs a written rationale and evidence
     evid = [ev_ref(x) if ':' in x and x.split(':')[0] in BATCHES else x for x in c['evidence']]
     tokens.append(dict(id=u['tokenId'], chain=u['chain'], address=u['address'], name=u['name'], symbol=u['symbol'], originLaunchpadSlug=u['originLaunchpadSlug'],
-                       originStatus=u['originStatus'], evidenceIds=evid, firstObservedAt=RUNTIME, pool=u['pool'], poolCreatedAt=created.get(u['pool'])))
+                       originStatus=u['originStatus'], evidenceIds=evid, firstObservedAt=RUNTIME, pool=u['pool'], tokenCreatedAt=created.get(u['tokenId'])))
     members.append(dict(id=f"{u['narrativeId']}:{u['tokenId']}", narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
                         rationale=c['rationale'], evidenceIds=evid, effectiveFrom=RUNTIME, effectiveTo=None, firstObservedAt=RUNTIME,
                         historicalMembershipBasis='reconstructed_today', confidence='source-supported; not calibrated'))
@@ -212,6 +215,7 @@ for r in snapshot:
 for t in tokens:
     if t['id'] not in pool_of: continue
     t['pool'] = pool_of[t['id']]
+    if created.get(t['id']): t['tokenCreatedAt'] = created[t['id']]
     r = by_token.get(t['id'])
     if r is None:  # keep the old observation, but say it is stale
         t['marketSnapshotStale'] = True; continue
@@ -236,6 +240,7 @@ retired_records = [dict(narrativeId=n['id'], title=n['title'], retiredAt=RUNTIME
                         lastVolume24hUsd=n['volume24hUsd'], lastChartAnchor=n['_meta']['chartAnchor']) for n in narratives if n['id'] in retired]
 narratives = [n for n in narratives if n['id'] not in retired]
 prev_ext = {n['id']: {p['time']: p['value'] for p in n['_meta']['extendedSeries'][0]['points']} for n in narratives}
+prior_method = {n['_meta'].get('volumeMethod', 'single-pool') for n in narratives}
 for nid, spec in curation.get('newNarratives', {}).items():
     assert nid not in {n['id'] for n in narratives}, f'{nid} already exists'
     assert curation.get('provenanceSources', {}).get(nid) and curation['signals'].get(nid), f'new narrative {nid} needs provenanceSources and signals'
@@ -266,16 +271,17 @@ for n in narratives:
     flagged_share = math.fsum(100 * pool24[i] / v24 for i in flagged)
     chains = sorted({tok[i]['chain'] for i in ids})
     m = n['_meta']
-    m.update(chartAnchor=iso(T).replace('Z', '+00:00'), extendedSeries=[dict(id='volume', label='Volume', color=n['series'][0]['color'], points=ext)],
+    n['series'][0]['label'] = 'All pools: hourly USD volume'
+    m.update(volumeMethod=VOLUME_METHOD, chartAnchor=iso(T).replace('Z', '+00:00'), extendedSeries=[dict(id='volume', label='Volume', color=n['series'][0]['color'], points=ext)],
              volumeChange24h=percent(v24, prev), contenderVolumeShares=shares, constituentCount=len(ids), constituentTokenIds=ids,
-             poolIds=[f"{tok[i]['chain']}_{tok[i]['pool']}" for i in ids], marketDataRun=P.name, marketEvidenceIds=sorted({bar_eid[tok[i]['pool']] for i in ids}),
+             poolIds=[f"{tok[i]['chain']}_{tok[i]['pool']}" for i in ids], marketDataRun=P.name, marketEvidenceIds=sorted({bar_eid[i] for i in ids}),
              turnover=[dict(tokenId=i, volume24hUsd=pool24[i], mcapUsd=tok[i].get('mcapUsd'), ratio=turnover[i]) for i in ids],
              volumeCaveat=(dict(threshold=TURNOVER_FLAG, flaggedTokenIds=flagged, flaggedShare=flagged_share,
                                 text=f"{', '.join(tok[i]['name'] for i in flagged[:3])}{' and others' if len(flagged) > 3 else ''} traded over {TURNOVER_FLAG}× "
                                      f"{'its' if len(flagged) == 1 else 'their'} market cap in 24h ({flagged_share:.0f}% of this volume); it may include wash or bot trading.")
                            if flagged else None),
              provenanceSources=curation.get('provenanceSources', {}).get(n['id'], m.get('provenanceSources')),
-             volumeScope=f"Sum of {len(ids)} selected {', '.join(CHAIN_NAME[c] for c in chains)} pool volumes for identified constituents, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.")
+             volumeScope=f"Sum of {len(ids)} identified coins' trading volume across all their indexed pools on {', '.join(CHAIN_NAME[c] for c in chains)}, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.")
     share = {s['tokenId']: s['share'] for s in shares}
     n['contenders'].sort(key=lambda c: -share[c['id']])
     for k, c in enumerate(n['contenders']): c['color'] = PALETTE[k % len(PALETTE)]
@@ -314,7 +320,7 @@ for n in narratives:
     common = sorted(set(old) & set(new))
     diffs = [t for t in common if abs(old[t] - new[t]) > .01]
     overlap.append(dict(narrativeId=n['id'], overlappingHours=len(common), differingHours=len(diffs),
-                        note='Differences can come from membership changes as well as provider revisions.'))
+                        note='Differences can come from membership or volume-method changes as well as provider revisions.'))
     pts = n['series'][0]['points']
     assert [p['time'] for p in pts] == grid[-24:]
     assert math.isclose(math.fsum(p['value'] for p in pts), n['volume24hUsd'], abs_tol=.01)
@@ -336,7 +342,8 @@ validation = dict(as_of=RUNTIME, passed=True, financialAnchor=iso(F), chartAncho
                   financialChecks=checks, deliveryDisputes=disputes, financialRevisionsProviders=len(revisions),
                   financialComplete30dRows=sum(all(p['value'] is not None for p in x['metrics']['history30d']) for x in launchpads),
                   indexedLaunchpadRows=fl['count'], activityVenues=len(observations), pools=len(universe), precreationZeroBuckets=len(precreation),
-                  hourlyOverlapWithPriorRun=overlap, narrativeCount=len(narratives), constituentCount=len(universe),
+                  hourlyOverlapWithPriorRun=overlap, volumeMethod=VOLUME_METHOD,
+                  volumeMethodChanged=sorted(prior_method - {VOLUME_METHOD}) or None, narrativeCount=len(narratives), constituentCount=len(universe),
                   staleMarketSnapshots=[t['id'] for t in tokens if t.get('marketSnapshotStale')])
 manifest = dict(runId=P.name, version=VERSION, runtimeStartedAt=RUNTIME, priorRun=PRIOR.name, priorNarrativeRun=PRIOR_N.name,
                 watermarks=dict(financialExclusiveEnd=iso(F), narrativeExclusiveEnd=iso(T), activitySourceAsOf=iso(observations[0]['sourceAsOf'])),

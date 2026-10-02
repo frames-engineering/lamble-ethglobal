@@ -26,7 +26,7 @@ node --experimental-strip-types --test tests/frames-data.test.mjs
 Unknown numeric values remain null. Supported chains and financial chain coverage
 are separate. Hero chain badges use supported chains. Overlapping financial totals
 remain unknown. The original landing copy is retained; research provenance stays in data.
-Narrative coin percentages use the explicitly labelled selected-pool volume share;
+Narrative coin percentages use the explicitly labelled measured-volume share;
 the legacy attention and launch-share fields remain unknown.
 
 Current metadata overlay: `research/lamble/20260926T175634Z/launchpad-enrichment.json`.
@@ -51,7 +51,9 @@ Current overlay: `research/lamble/20261002T003446Z/` (financials, activity and n
 produced by `scripts/frames-refresh/` as described in the daily routine section of the
 refresh prompt. Three narratives, 25 identified coins on Solana, BNB Chain and Robinhood
 Chain. Discovery candidates are in that run's `candidates.json`. A narrative card shows a
-volume caveat when a constituent's 24h pool volume exceeds 10× its market cap.
+volume caveat when a constituent's 24h volume exceeds 10× its market cap. From the first
+run after 2026-10-02T01:30Z, narrative volume is each coin's token-level volume across all
+its indexed pools (Codex `getTokenBars`), not one selected pool; earlier runs used one pool.
 Contender explorer links exist only for Solana (Solscan) and BNB Chain (BscScan). Each
 narrative carries its own source links in `_meta.provenanceSources`. Pre-creation zeros apply only to buckets
 fully before the independently queried pool creation time, not token-wide trading.

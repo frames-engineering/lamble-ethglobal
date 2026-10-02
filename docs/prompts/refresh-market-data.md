@@ -53,7 +53,8 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
    payouts or usage are verified, and paraphrase posts faithfully.
 3. **Collect.** `python3 scripts/frames-refresh/plan.py $RUN collect`; call and save
    `f1`…`f4` (DefiLlama fees and revenue, 38 calls) and `c1` (Codex launchpad activity,
-   hourly bars for every pool in the updated universe, market snapshot).
+   all-pool hourly token bars for every constituent via `getTokenBars`, market snapshot,
+   token creation times used for the pre-launch zero rule).
 4. **Normalize.** `python3 scripts/frames-refresh/normalize.py $RUN --prior <latestRefreshRun>`.
    It computes every metric, the turnover-based volume caveat and the validation report,
    enforces the narrative rules and registry/curation consistency, and fails loudly on gaps,
