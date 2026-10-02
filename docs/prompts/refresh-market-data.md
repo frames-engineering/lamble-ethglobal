@@ -12,38 +12,56 @@ open a pull request and merge. Without such an instruction, the boundaries below
 ## Daily routine: scripted path
 
 Run from the repository root on a fresh branch from the default branch. Every paid call
-goes through the Frames MCP; scripts never spend.
+goes through the Frames MCP; scripts never spend. A normal day costs about 260 credits.
 
-1. `python3 scripts/frames-refresh/plan.py research/lamble/$(date -u +%Y%m%dT%H%M%SZ)`.
-   This writes `raw/{f1..f4,c1,e1}-request.json` from the registry: 38 DefiLlama
-   fee/revenue calls, Codex launchpad activity, hourly bars for every pool, a token
-   market snapshot, and the evidence pages and X searches in `dailyEvidence`.
-2. Call `frames_get_usage`, then invoke each batch with `frames_invoke_tools`, passing the
-   file's `calls`, `idempotency_key`, `max_usd` and `search_ids` exactly. Poll
-   `frames_get_run` until each run is `completed`.
-3. Save each run with `python3 scripts/frames-refresh/save.py <run_id> <run>/raw/<batch>.json`.
-   Never transcribe bodies by hand. If calls fail with `amount_exceeds_cap` (a seller
-   price change), re-quote with `frames_probe_tools` (free) and retry only those calls
-   as `e2` (`e3`…) with a new idempotency key; the normalizer reads every `e*` batch.
-4. Review the evidence pages and posts, then write `<run>/curation.json`. It holds only
-   judgment: `signals` (per narrative: `postId`, `title`, optional `label`; omit a
-   narrative to keep its previous signals), `summaries`, `storyStatus`
-   (`evidence: "e1:<seq>"`, `notice`, `interpretation`), `newMembers` (rationale and
-   evidence for every registry pool not seen before), `removedMembers`, `newNarratives`,
-   `provenanceSources` and `candidates`. Add or retire constituents in the registry's
-   `poolUniverse` first; never remove a constituent without recording why.
-5. `python3 scripts/frames-refresh/normalize.py <run> --prior <previous full run>`.
+**Calling and saving Frames batches.** Invoke each `raw/<batch>-request.json` with
+`frames_invoke_tools`, passing its `calls`, `idempotency_key`, `max_usd` and `search_ids`
+exactly; poll `frames_get_run` until `completed`; save with
+`python3 scripts/frames-refresh/save.py <run_id> <run>/raw/<batch>.json`. Never transcribe
+bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_probe_tools`
+(free) and retry only those calls as the next `e2`, `e3`… batch with a new key.
+
+1. **Discover.** `RUN=research/lamble/$(date -u +%Y%m%dT%H%M%SZ)` then
+   `python3 scripts/frames-refresh/plan.py $RUN discover`; call and save `d1` (Codex sweep
+   of top-volume and newly created tokens on the covered launchpads, plus a snapshot of
+   every constituent) and `e1` (evidence pages and X searches from `dailyEvidence`).
+   Then `python3 scripts/frames-refresh/discover.py $RUN names`; call and save `d2`
+   (token names and descriptions). Then
+   `python3 scripts/frames-refresh/discover.py $RUN summary --prior <latestRefreshRun>`.
+2. **Update the narratives.** Read the summary, `discovery.json`, the evidence pages and
+   posts. Apply `narrativeRules` in the registry; the script's suggestions are inputs, not
+   decisions. For each candidate above the member bar, decide: add it to an existing
+   narrative, group it with others into a new narrative, or record it as unrelated,
+   rejected or quarantined. Check stories with up to four targeted X searches as an `e2`
+   batch when a new narrative or member needs an independent source. Then:
+   - Add or remove constituents in the registry's `poolUniverse` (exact chain, address,
+     Codex network id, pool, origin launchpad slug, narrative id).
+   - Retire narratives that meet the retirement rule or lost their defining source, and
+     remove their pools from `poolUniverse`.
+   - Point `dailyEvidence` at the sources the current narratives need (pages and X searches).
+   - Write `$RUN/curation.json`: `signals` (per narrative: `postId`, `title`, optional
+     `label`; omit a narrative to keep its previous signals), `summaries`, `storyStatus`
+     (`evidence: "<batch>:<seq>"`, `notice`, `interpretation`), `newMembers` (tokenId →
+     rationale and evidence refs, required for every pool not seen before),
+     `removedMembers` and `retiredNarratives` (id → reason), `newNarratives` (id → slug,
+     title, category, summary, color), `provenanceSources` (required for new narratives) and
+     `candidates` (every token you looked at and did not add, with status and reason).
+   Keep two to four narratives. Narrative copy describes what sources say; never claim
+   payouts or usage are verified, and paraphrase posts faithfully.
+3. **Collect.** `python3 scripts/frames-refresh/plan.py $RUN collect`; call and save
+   `f1`…`f4` (DefiLlama fees and revenue, 38 calls) and `c1` (Codex launchpad activity,
+   hourly bars for every pool in the updated universe, market snapshot).
+4. **Normalize.** `python3 scripts/frames-refresh/normalize.py $RUN --prior <latestRefreshRun>`.
    It computes every metric, the turnover-based volume caveat and the validation report,
-   and fails loudly on gaps, contradictions or identity mismatches. Fix the cause; never
-   weaken an assertion to get a run through.
-6. `node scripts/import-frames-snapshot.mjs <run> research/lamble/20260926T175634Z/launchpad-enrichment.json <run>/landing-metrics.json <run>`,
-   then update the importer's default paths to the new run.
-7. Run the checks in section 8 and inspect the page. Write `<run>/report.md` with changes,
-   anchors, story changes, failures and billed credits.
+   enforces the narrative rules and registry/curation consistency, and fails loudly on gaps,
+   contradictions or identity mismatches. Fix the cause; never weaken an assertion.
+5. **Import.** `node scripts/import-frames-snapshot.mjs $RUN research/lamble/20260926T175634Z/launchpad-enrichment.json $RUN/landing-metrics.json $RUN`,
+   then point the importer's default paths and the registry's `references` at the new run.
+6. **Check and report.** Run the checks in section 8 and inspect the page. Write
+   `$RUN/report.md`: changes, anchors, narrative decisions with reasons, story changes,
+   failures and billed credits.
 
-Weekly or when discovery is due, run the token-, registry- and story-first sweep from
-`research/lamble/20260928T154336Z/report.md` before step 4. Reference observations in
-the registry are starting points, not current market claims.
+Reference observations in the registry are starting points, not current market claims.
 
 ## Mission and boundaries
 

@@ -1282,5 +1282,78 @@
       "\"Froink\""
     ],
     "note": "Story checks for the current narratives. Add or retire entries when the narrative set changes; each entry is one paid call."
+  },
+  "discovery": {
+    "codexLaunchpadNames": [
+      "Pump.fun",
+      "Pump Mayhem",
+      "Flap",
+      "pons",
+      "MeteoraDBC",
+      "StonkFun",
+      "Argus",
+      "Four.meme",
+      "Four.meme Fair",
+      "LaunchLab",
+      "BAGS",
+      "Clanker",
+      "Clanker V4",
+      "Bonk",
+      "o1.exchange",
+      "Genius"
+    ],
+    "codexLaunchpadSlug": {
+      "Pump.fun": "pump.fun",
+      "Pump Mayhem": "pump.fun",
+      "Flap": "flap-sh",
+      "pons": "pons",
+      "MeteoraDBC": "meteora-dbc",
+      "StonkFun": "stonkfun",
+      "Argus": "argus-world",
+      "Four.meme": "four.meme",
+      "Four.meme Fair": "four.meme",
+      "LaunchLab": "launchlab",
+      "BAGS": "bags",
+      "Clanker": "clanker",
+      "Clanker V4": "clanker",
+      "Bonk": "bonk.fun",
+      "o1.exchange": "o1-launchpad",
+      "Genius": "genius.fun"
+    },
+    "minLiquidityUsd": 10000,
+    "sweepLimit": 50,
+    "recentMinVolumeUsd": 250000,
+    "recentWindowHours": 72,
+    "note": "Codex launchpad names validated 2026-09-28 against its error message listing valid names. foci, Graphite, Binance Alpha, StonkBrokers, RapidLaunch and BaseStonk have no Codex launchpad name and are not swept."
+  },
+  "narrativeRules": {
+    "newNarrative": {
+      "minConstituents": 3,
+      "minCombinedVolume24Usd": 500000,
+      "maxNewPerRun": 1,
+      "minActive": 2,
+      "maxActive": 4,
+      "evidence": "Each constituent: exact chain + address, covered launchpad, and token metadata or an official source describing the shared mechanism or story. The story: at least one independent public source (official page or X post) beyond token metadata."
+    },
+    "addMember": {
+      "minVolume24Usd": 50000,
+      "minMcapUsd": 100000,
+      "evidence": "Same evidence bar as a new narrative constituent."
+    },
+    "removeMember": {
+      "maxPoolVolume24Usd": 1000,
+      "evidence": "Below the threshold on two consecutive observations, or evidence that contradicts membership (for example removal from an official registry). Close the membership interval; never delete the record."
+    },
+    "retireNarrative": {
+      "maxVolume24Usd": 100000,
+      "evidence": "Below the threshold on two consecutive observations, or the defining source is gone. Record the reason; keep memberships as closed intervals."
+    },
+    "quarantine": {
+      "maxMcapUsdForNewPool": 100000000,
+      "newPoolHours": 168,
+      "maxChange24Ratio": 50,
+      "maxTurnover": 100,
+      "evidence": "Flagged tokens are never constituents; record them as quarantined candidates."
+    }
   }
 }

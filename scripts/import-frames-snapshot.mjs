@@ -9,6 +9,8 @@ const [rawLaunchpads, , evidence, manifest, validation] = await Promise.all(
 );
 assert.equal(validation.passed, true);
 assert.equal(rawLaunchpads.length, 19);
+// Token explorers verified per chain; chains without one render plain names.
+const EXPLORERS = { solana: 'https://solscan.io/token/', bsc: 'https://bscscan.com/token/', base: 'https://basescan.org/token/', ethereum: 'https://etherscan.io/token/' };
 const knownChains = new Set(['solana','base','bsc','ethereum','arbitrum','monad','robinhood','arc','xlayer','unichain']);
 const enrichmentPath = process.argv[3] ?? 'research/lamble/20260926T175634Z/launchpad-enrichment.json';
 const enrichment = JSON.parse(await readFile(enrichmentPath, 'utf8'));
@@ -68,7 +70,7 @@ const narratives = rawNarratives.map(({ _meta: m, ...row }) => {
     const [chain, address] = c.id.split(':');
     assert(knownChains.has(chain), `Unknown chain ${chain}`); assert(address);
     // Only explorers verified for these chains; others render as plain text.
-    const explorer = { solana: 'https://solscan.io/token/', bsc: 'https://bscscan.com/token/' }[chain];
+    const explorer = EXPLORERS[chain];
     return { ...c, address, explorerUrl: explorer ? explorer + address : undefined,
       measuredVolumeShare: m.contenderVolumeShares.find((s) => s.tokenId === c.id)?.share };
   });

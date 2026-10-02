@@ -167,7 +167,7 @@ test('charts reconcile to sample volume and preserve evidence-backed token ident
       assert.equal(c.share, null);
       const member = registry.poolUniverse.find((p) => p.tokenId === c.id);
       assert.equal(c.id, `${member.chain}:${c.address}`);
-      assert.equal(Boolean(c.explorerUrl), member.chain === 'solana' || member.chain === 'bsc');
+      assert.equal(Boolean(c.explorerUrl), ['solana', 'bsc', 'base', 'ethereum'].includes(member.chain));
       assert(slugs.has(c.launchpadSlug));
     }
     assert(n.signals.every((s) => s.url.startsWith('https://x.com/') && Number.isFinite(Date.parse(s.at))));
