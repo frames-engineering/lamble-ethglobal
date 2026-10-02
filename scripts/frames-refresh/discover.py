@@ -19,7 +19,7 @@ args = ap.parse_args()
 P = pathlib.Path(args.run).resolve()
 NOW = int(dt.datetime.strptime(P.name, '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc).timestamp())
 reg = json.loads((ROOT / 'docs/prompts/refresh-market-data.sources.json').read_text())
-NETWORK_CHAIN = {1399811149: 'solana', 56: 'bsc', 4663: 'robinhood', 8453: 'base', 1: 'ethereum', 42161: 'arbitrum', 143: 'monad'}
+NETWORK_CHAIN = {1399811149: 'solana', 56: 'bsc', 4663: 'robinhood', 8453: 'base', 1: 'ethereum', 42161: 'arbitrum', 143: 'monad', 5042: 'arc', 196: 'xlayer', 130: 'unichain'}
 CODEX = reg['marketAndActivityTool']
 
 
@@ -27,8 +27,16 @@ def read(p): return json.loads(pathlib.Path(p).read_text())
 
 
 d1 = read(P / 'raw/d1.json'); assert d1['status'] == 'completed'
-sweep = d1['result']['calls'][0]['body']['data']; assert sweep and sweep.get('active'), 'discovery sweep failed; see raw/d1.json'
-rows = sweep['active']['results'] + sweep['recent']['results']
+rows, snap, refunded = [], None, []
+for c in d1['result']['calls']:  # every alias except the constituent snapshot ("filterTokens") is a sweep
+    body = c.get('body') or {}; data = body.get('data') or {}
+    # A refunded call with a valid body (for example an empty "recent" list flagged by the cross-check) is still an observation.
+    assert not body.get('errors') and data and all(v is not None for v in data.values()), f'discovery call {c["seq"]} failed; see raw/d1.json'
+    if not c['delivered']: refunded.append(dict(seq=c['seq'], outcome=c.get('outcome'), reason=(c.get('receipt') or {}).get('reason')))
+    for alias, v in data.items():
+        if alias == 'filterTokens': snap = v['results']
+        else: rows += v['results']
+assert rows and snap is not None
 tracked = {(u['address'], u['networkId']) for u in reg['poolUniverse']}
 sides = []
 for r in rows:
@@ -77,7 +85,6 @@ for (a, n), r in best.items():
 candidates.sort(key=lambda c: -c['volume24Usd'])
 
 # Narrative health: today's token-level snapshot plus yesterday's pool-level chart volumes.
-snap = d1['result']['calls'][1]['body']['data']['filterTokens']['results']
 tok_vol = {}
 for r in snap:
     for a in (r['pair']['token0'], r['pair']['token1']):
@@ -106,15 +113,16 @@ eligible = [c for c in candidates if c['meetsMemberBar'] and c['priorStatus'] no
 if eligible:
     suggestions.append(dict(action='classify-candidates', count=len(eligible),
                             why='candidates above the member bar; assign to an existing narrative, cluster into a new one, or record as unrelated'))
-out = dict(run=P.name, rules=rules, candidates=candidates, narrativeHealth=health, suggestions=suggestions,
+out = dict(run=P.name, rules=rules, refundedButUsed=refunded, candidates=candidates, narrativeHealth=health, suggestions=suggestions,
            note='Token-level volumes here are not the pool-level sample volumes shown on the site.')
 (P / 'discovery.json').write_text(json.dumps(out, indent=2, ensure_ascii=False) + '\n')
 
+if refunded: print('== refunded discovery calls used as observations:', json.dumps(refunded)[:300])
 print(f'== narrative health ({active} active)')
 for h in health:
     print(f"{h['narrativeId']:22} {h['constituents']:>2} coins  token vol now ${h['tokenVolume24UsdNow']:>12,.0f}  prior sample ${h['priorSampleVolume24Usd'] or 0:>12,.0f}")
 print('== suggestions'); [print(' -', json.dumps(s)) for s in suggestions]
 print(f'== candidates ({len(candidates)}; * = meets member bar)')
-for c in candidates[:60]:
+for c in candidates[:90]:
     print(f"{'*' if c['meetsMemberBar'] else ' '} {c['chain']:9} {c['launchpadSlug']:12} {c['symbol'][:14]:14} vol ${c['volume24Usd']:>11,.0f} cap ${c['mcapUsd'] or 0:>12,.0f} "
           f"age {c['ageHours'] or 0:>6.0f}h {','.join(c['flags']) or '-':28} {c['priorStatus'] or '':12} {c['description'][:110]!r}")

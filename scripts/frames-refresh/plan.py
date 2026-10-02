@@ -6,8 +6,8 @@ Usage:
   python3 scripts/frames-refresh/plan.py research/lamble/<same run> collect
 
 discover (run first) writes:
-  d1  Codex: top tokens by 24h volume and newly created tokens across the covered
-      launchpads, plus a market snapshot of every current constituent
+  d1  Codex: per chain group, top tokens by 24h volume and newly created tokens on the
+      covered launchpads; a trending ranking; a market snapshot of every constituent
   e1  Narrative evidence pages and targeted X searches from the registry
 collect (run after narrative decisions are applied to the registry) writes:
   f1..f4  DefiLlama dailyFees + dailyRevenue for every venue (38 calls, <=10 per batch)
@@ -43,16 +43,23 @@ def snapshot(universe):
 
 universe = reg['poolUniverse']
 if stage == 'discover':
-    d = reg['discovery']; names = json.dumps(d['codexLaunchpadNames'])
-    sweep = (f'{{ active:filterTokens(filters:{{launchpadName:{names},liquidity:{{gt:{d["minLiquidityUsd"]}}}}},'
-             f'rankings:[{{attribute:volume24,direction:DESC}}],limit:{d["sweepLimit"]}){{{SNAPSHOT_FIELDS}}} '
-             f'recent:filterTokens(filters:{{launchpadName:{names},liquidity:{{gt:{d["minLiquidityUsd"]}}},volume24:{{gt:{d["recentMinVolumeUsd"]}}},'
-             f'createdAt:{{gt:{NOW - d["recentWindowHours"] * 3600}}}}},rankings:[{{attribute:volume24,direction:DESC}}],limit:{d["sweepLimit"]}){{{SNAPSHOT_FIELDS}}} }}')
-    write('d1', [dict(id=CODEX, args=dict(query=sweep)), snapshot(universe)], [SEARCH['codex']], 0.02)
+    d = reg['discovery']; calls = []
+    for group, names in d['sweepGroups'].items():  # one call per chain group so busy chains do not crowd out the rest
+        n = json.dumps(names)
+        calls.append(dict(id=CODEX, args=dict(query=(
+            f'{{ {group}_active:filterTokens(filters:{{launchpadName:{n},liquidity:{{gt:{d["minLiquidityUsd"]}}}}},'
+            f'rankings:[{{attribute:volume24,direction:DESC}}],limit:{d["sweepLimit"]}){{{SNAPSHOT_FIELDS}}} '
+            f'{group}_recent:filterTokens(filters:{{launchpadName:{n},liquidity:{{gt:{d["minLiquidityUsd"]}}},volume24:{{gt:{d["recentMinVolumeUsd"]}}},'
+            f'createdAt:{{gt:{NOW - d["recentWindowHours"] * 3600}}}}},rankings:[{{attribute:volume24,direction:DESC}}],limit:{d["sweepLimit"]}){{{SNAPSHOT_FIELDS}}} }}'))))
+    every = json.dumps(d['codexLaunchpadNames'])
+    calls.append(dict(id=CODEX, args=dict(query=f'{{ trending:filterTokens(filters:{{launchpadName:{every},liquidity:{{gt:{d["minLiquidityUsd"]}}}}},'
+                                                 f'rankings:[{{attribute:trendingScore24,direction:DESC}}],limit:{d["trendingLimit"]}){{{SNAPSHOT_FIELDS}}} }}')))
+    calls.append(snapshot(universe))
+    write('d1', calls, [SEARCH['codex']], 0.03)
     ev = [dict(id='mpp.firecrawl.post.v1-scrape', args=dict(url=u, formats=['markdown'])) for u in reg['dailyEvidence']['pages']]
     ev += [dict(id='bazaar.twitter-use-x402atlas-com-search', args=dict(words=w)) for w in reg['dailyEvidence']['xSearches']]
     write('e1', ev, [SEARCH['scrape'], SEARCH['x']], 0.1)
-    print(json.dumps(dict(run=run.name, stage=stage, batches=['d1', 'e1'], calls=2 + len(ev))))
+    print(json.dumps(dict(run=run.name, stage=stage, batches=['d1', 'e1'], calls=len(calls) + len(ev))))
 else:
     fin = [dict(id=FIN, args=dict(protocol=v['providerSlug'], dataType=k, excludeTotalDataChart='false', excludeTotalDataChartBreakdown='true'))
            for v in reg['venues'] for k in ('dailyFees', 'dailyRevenue')]

@@ -23,8 +23,8 @@ RUNTIME = RUNTIME_DT.isoformat().replace('+00:00', 'Z'); RUNTIME_TS = int(RUNTIM
 SETTLE_HOURS = 4          # a UTC day counts as complete only this long after it closes
 F = (RUNTIME_TS - SETTLE_HOURS * 3600) // 86400 * 86400   # financial exclusive end
 T = RUNTIME_TS // 3600 * 3600 - 3600       # chart exclusive end: one complete-hour margin
-NETWORK_CHAIN = {1399811149: 'solana', 56: 'bsc', 4663: 'robinhood', 8453: 'base', 1: 'ethereum', 42161: 'arbitrum', 143: 'monad'}
-CHAIN_NAME = {'solana': 'Solana', 'bsc': 'BNB Chain', 'robinhood': 'Robinhood Chain', 'base': 'Base', 'ethereum': 'Ethereum', 'arbitrum': 'Arbitrum', 'monad': 'Monad'}
+NETWORK_CHAIN = {1399811149: 'solana', 56: 'bsc', 4663: 'robinhood', 8453: 'base', 1: 'ethereum', 42161: 'arbitrum', 143: 'monad', 5042: 'arc', 196: 'xlayer', 130: 'unichain'}
+CHAIN_NAME = {'solana': 'Solana', 'bsc': 'BNB Chain', 'robinhood': 'Robinhood Chain', 'base': 'Base', 'ethereum': 'Ethereum', 'arbitrum': 'Arbitrum', 'monad': 'Monad', 'arc': 'Arc', 'xlayer': 'X Layer', 'unichain': 'Unichain'}
 PALETTE = ['#4895ef', '#7c83ff', '#a78bfa', '#f59e0b', '#22c55e', '#ef6f6c', '#2dd4bf', '#e879f9']
 TURNOVER_FLAG = 10        # 24h pool volume above this multiple of circulating market cap is flagged
 NO_CURVE_COMPLETION = {'argus-world', 'clanker', 'o1-launchpad'}
