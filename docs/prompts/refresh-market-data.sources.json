@@ -1321,10 +1321,33 @@
       "Genius": "genius.fun"
     },
     "minLiquidityUsd": 10000,
-    "sweepLimit": 50,
+    "sweepLimit": 100,
     "recentMinVolumeUsd": 250000,
     "recentWindowHours": 72,
-    "note": "Codex launchpad names validated 2026-09-28 against its error message listing valid names. foci, Graphite, Binance Alpha, StonkBrokers, RapidLaunch and BaseStonk have no Codex launchpad name and are not swept."
+    "note": "Codex launchpad names validated 2026-09-28 against its error message listing valid names. foci, Graphite, Binance Alpha, StonkBrokers, RapidLaunch and BaseStonk have no Codex launchpad name and are not swept. Sweeps run per chain group so busy Solana tokens do not crowd out EVM launchpads (validated 2026-10-02: EVM rows 33 -> 140). trendingScore24 ranking validated 2026-10-02.",
+    "sweepGroups": {
+      "solana": [
+        "Pump.fun",
+        "Pump Mayhem",
+        "MeteoraDBC",
+        "StonkFun",
+        "LaunchLab",
+        "BAGS",
+        "Bonk"
+      ],
+      "evm": [
+        "Flap",
+        "pons",
+        "Argus",
+        "Four.meme",
+        "Four.meme Fair",
+        "Clanker",
+        "Clanker V4",
+        "o1.exchange",
+        "Genius"
+      ]
+    },
+    "trendingLimit": 25
   },
   "narrativeRules": {
     "newNarrative": {
@@ -1354,6 +1377,11 @@
       "maxChange24Ratio": 50,
       "maxTurnover": 100,
       "evidence": "Flagged tokens are never constituents; record them as quarantined candidates."
+    },
+    "storyChecks": {
+      "maxXSearchesPerRun": 12,
+      "maxPageScrapesPerRun": 6,
+      "note": "Targeted checks for new narratives and members, run as e2/e3 batches after discovery. Each X search is about 6 credits; each page scrape about 5."
     }
   }
 }

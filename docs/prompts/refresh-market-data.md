@@ -12,7 +12,8 @@ open a pull request and merge. Without such an instruction, the boundaries below
 ## Daily routine: scripted path
 
 Run from the repository root on a fresh branch from the default branch. Every paid call
-goes through the Frames MCP; scripts never spend. A normal day costs about 260 credits.
+goes through the Frames MCP; scripts never spend. A normal day costs about 260–350 credits,
+mostly the 38 DefiLlama calls; discovery and story checks add the rest.
 
 **Calling and saving Frames batches.** Invoke each `raw/<batch>-request.json` with
 `frames_invoke_tools`, passing its `calls`, `idempotency_key`, `max_usd` and `search_ids`
@@ -32,8 +33,10 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
    posts. Apply `narrativeRules` in the registry; the script's suggestions are inputs, not
    decisions. For each candidate above the member bar, decide: add it to an existing
    narrative, group it with others into a new narrative, or record it as unrelated,
-   rejected or quarantined. Check stories with up to four targeted X searches as an `e2`
-   batch when a new narrative or member needs an independent source. Then:
+   rejected or quarantined. Check stories with targeted X searches and official-page
+   scrapes as `e2`/`e3` batches when a narrative, member or story change needs an
+   independent source (limits in `narrativeRules.storyChecks`). Spend these on decisions,
+   not on re-confirming what yesterday's evidence already settled. Then:
    - Add or remove constituents in the registry's `poolUniverse` (exact chain, address,
      Codex network id, pool, origin launchpad slug, narrative id).
    - Retire narratives that meet the retirement rule or lost their defining source, and
