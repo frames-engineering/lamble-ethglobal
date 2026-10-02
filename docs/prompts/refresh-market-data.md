@@ -4,9 +4,46 @@ Use this file as an agent prompt from the repository root:
 
 > Follow `docs/prompts/refresh-market-data.md` to refresh LAMBLE's data now. Use the connected Frames MCP, save evidence, update the local landing snapshot, and run the validation checks. Do not commit or deploy. Paid calls must follow the budget authorization for this invocation.
 
-This is a manual runbook and prompt, not an installed schedule. The source registry
-beside this file records the known routes and mappings. Its reference observations
-are dated **2026-09-26**; they are starting points, not current market claims.
+The source registry beside this file records the known routes, mappings, pool universe
+and daily evidence checks. A scheduled Claude Code routine runs the scripted path below
+once a day; the routine's own prompt states its budget and whether it may commit,
+open a pull request and merge. Without such an instruction, the boundaries below apply.
+
+## Daily routine: scripted path
+
+Run from the repository root on a fresh branch from the default branch. Every paid call
+goes through the Frames MCP; scripts never spend.
+
+1. `python3 scripts/frames-refresh/plan.py research/lamble/$(date -u +%Y%m%dT%H%M%SZ)`.
+   This writes `raw/{f1..f4,c1,e1}-request.json` from the registry: 38 DefiLlama
+   fee/revenue calls, Codex launchpad activity, hourly bars for every pool, a token
+   market snapshot, and the evidence pages and X searches in `dailyEvidence`.
+2. Call `frames_get_usage`, then invoke each batch with `frames_invoke_tools`, passing the
+   file's `calls`, `idempotency_key`, `max_usd` and `search_ids` exactly. Poll
+   `frames_get_run` until each run is `completed`.
+3. Save each run with `python3 scripts/frames-refresh/save.py <run_id> <run>/raw/<batch>.json`.
+   Never transcribe bodies by hand. If calls fail with `amount_exceeds_cap` (a seller
+   price change), re-quote with `frames_probe_tools` (free) and retry only those calls
+   as `e2` (`e3`…) with a new idempotency key; the normalizer reads every `e*` batch.
+4. Review the evidence pages and posts, then write `<run>/curation.json`. It holds only
+   judgment: `signals` (per narrative: `postId`, `title`, optional `label`; omit a
+   narrative to keep its previous signals), `summaries`, `storyStatus`
+   (`evidence: "e1:<seq>"`, `notice`, `interpretation`), `newMembers` (rationale and
+   evidence for every registry pool not seen before), `removedMembers`, `newNarratives`,
+   `provenanceSources` and `candidates`. Add or retire constituents in the registry's
+   `poolUniverse` first; never remove a constituent without recording why.
+5. `python3 scripts/frames-refresh/normalize.py <run> --prior <previous full run>`.
+   It computes every metric, the turnover-based volume caveat and the validation report,
+   and fails loudly on gaps, contradictions or identity mismatches. Fix the cause; never
+   weaken an assertion to get a run through.
+6. `node scripts/import-frames-snapshot.mjs <run> research/lamble/20260926T175634Z/launchpad-enrichment.json <run>/landing-metrics.json <run>`,
+   then update the importer's default paths to the new run.
+7. Run the checks in section 8 and inspect the page. Write `<run>/report.md` with changes,
+   anchors, story changes, failures and billed credits.
+
+Weekly or when discovery is due, run the token-, registry- and story-first sweep from
+`research/lamble/20260928T154336Z/report.md` before step 4. Reference observations in
+the registry are starting points, not current market claims.
 
 ## Mission and boundaries
 
@@ -16,7 +53,8 @@ where a metric's scope requires a qualifier. Do not add snapshot/research banner
 Do not fabricate numbers, replace unknowns with zero, or regenerate fixture walks.
 
 External work is read-only. Do not create accounts or wallets, launch tokens, trade,
-move funds, send messages, commit, deploy, or install a recurring task. Authorized
+move funds or send messages. Commit, open pull requests, merge or install a recurring
+task only when the invoking prompt (for example the scheduled routine) says so. Authorized
 Frames data charges are allowed; inspect usage first. An old run's “no ceiling”
 entry, a plan limit, or an account balance is not fresh spending authorization.
 Use the authorization supplied for this invocation; if none exists, complete free

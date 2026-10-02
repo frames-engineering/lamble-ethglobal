@@ -16,7 +16,9 @@ const raw = readJson(run('launchpads.json'));
 // Every raw Codex response the narrative run declares, paired with its exact request.
 const narrativeCalls = readJson(narrativeRun('refresh-manifest.json')).requests.flatMap((request) => {
   const calls = readJson(narrativeRun(request)).calls;
-  return readJson(narrativeRun(request.replace('-request', ''))).result.calls.map((c) => ({ query: calls[c.seq].args.query, data: c.body.data }));
+  return readJson(narrativeRun(request.replace('-request', ''))).result.calls
+    .filter((c) => typeof calls[c.seq].args.query === 'string' && c.body?.data)
+    .map((c) => ({ query: calls[c.seq].args.query, data: c.body.data }));
 });
 const registry = readJson(new URL('../docs/prompts/refresh-market-data.sources.json', import.meta.url));
 const F = Date.parse(SNAPSHOT.financialEnd) / 1000;
@@ -190,5 +192,17 @@ test('discovery keeps rejected and quarantined candidates out of narratives', ()
   for (const n of NARRATIVES) {
     assert(n.provenance.sources.length > 0);
     for (const s of n.provenance.sources) assert(s.url.startsWith('https://'));
+  }
+});
+
+test('volume caveats are computed from pool volume and market cap and shown only when flagged', () => {
+  for (const n of NARRATIVES) {
+    const raw = readJson(narrativeRun('narratives.json')).find((r) => r.id === n.id)._meta;
+    const flagged = raw.turnover.filter((t) => t.ratio !== null && t.ratio > raw.volumeCaveat?.threshold);
+    if (!n.volumeCaveat) { assert(raw.turnover.every((t) => t.ratio === null || t.ratio <= 10)); continue; }
+    assert.deepEqual(raw.volumeCaveat.flaggedTokenIds.toSorted(), flagged.map((t) => t.tokenId).toSorted());
+    for (const t of raw.turnover) if (t.ratio !== null) assert(Math.abs(t.ratio - t.volume24hUsd / t.mcapUsd) < 1e-9);
+    const share = flagged.reduce((s, t) => s + n.contenders.find((c) => c.id === t.tokenId).measuredVolumeShare, 0);
+    assert(Math.abs(share - n.volumeCaveat.flaggedShare) < 1e-6);
   }
 });
