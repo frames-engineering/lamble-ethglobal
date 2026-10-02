@@ -12,6 +12,22 @@ const run = (file) => new URL(`../research/lamble/${SNAPSHOT.runId}/${file}`, im
 const narrativeRun = (file) => new URL(`../${SNAPSHOT.narrativeRun}/${file}`, import.meta.url);
 const activityRun = (file) => new URL(`../${SNAPSHOT.activityPath.replace(/[^/]+$/, '')}${file}`, import.meta.url);
 const readJson = (url) => JSON.parse(readFileSync(url));
+// Exactly rounded sum (Shewchuk), the same result as Python's math.fsum that the normalizer uses for supply-side totals.
+const exactSum = (values) => {
+  const partials = [];
+  for (let x of values) {
+    let i = 0;
+    for (let y of partials) {
+      if (Math.abs(x) < Math.abs(y)) [x, y] = [y, x];
+      const hi = x + y, lo = y - (hi - x);
+      if (lo) partials[i++] = lo;
+      x = hi;
+    }
+    partials.length = i;
+    partials.push(x);
+  }
+  return partials.reduce((a, b) => a + b, 0);
+};
 const raw = readJson(run('launchpads.json'));
 // Every raw Codex response the narrative run declares, paired with its exact request.
 const narrativeCalls = readJson(narrativeRun('refresh-manifest.json')).requests.flatMap((request) => {
@@ -222,7 +238,7 @@ test('creator earnings are recomputed from raw supply-side bodies and stay unkno
     const defined = Boolean(row.provenance.methodology?.SupplySideRevenue);
     for (const [key, days] of [['h24', 1], ['d7', 7], ['d30', 30]]) {
       const values = Array.from({ length: days }, (_, i) => supply(row.slug, F - (days - i) * 86400));
-      const expected = !defined || values.includes(null) || values.includes(undefined) ? null : values.reduce((a, b) => a + b, 0);
+      const expected = !defined || values.includes(null) || values.includes(undefined) ? null : exactSum(values);
       assert.equal(row.metrics[key].supplySide, expected, `${row.slug} ${key}`);
       if (expected !== null && key === 'd7') measured += 1;
     }
