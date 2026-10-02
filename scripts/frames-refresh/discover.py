@@ -114,7 +114,7 @@ if eligible:
     suggestions.append(dict(action='classify-candidates', count=len(eligible),
                             why='candidates above the member bar; assign to an existing narrative, cluster into a new one, or record as unrelated'))
 out = dict(run=P.name, rules=rules, refundedButUsed=refunded, candidates=candidates, narrativeHealth=health, suggestions=suggestions,
-           note='Token-level volumes here are not the pool-level sample volumes shown on the site.')
+           note='Snapshot volumes are Codex rolling 24h token volumes; site volumes are hourly all-pool sums over the chart window.')
 (P / 'discovery.json').write_text(json.dumps(out, indent=2, ensure_ascii=False) + '\n')
 
 if refunded: print('== refunded discovery calls used as observations:', json.dumps(refunded)[:300])

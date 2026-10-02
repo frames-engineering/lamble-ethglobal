@@ -49,7 +49,7 @@ export function FeaturedNarrative({ narrative: n, launchpads }: FeaturedNarrativ
           {/* List headers match the screener's column headers (TableHead). */}
           <div className="mt-5">
             <p className="border-b border-line pb-1 text-2xs text-med">Top coins</p>
-            <ShareList items={n.contenders.slice(0, 5).map((c) => ({ ...c, share: c.measuredVolumeShare ?? null, shareLabel: "Share of measured 24h pool volume" }))} />
+            <ShareList items={n.contenders.slice(0, 5).map((c) => ({ ...c, share: c.measuredVolumeShare ?? null, shareLabel: "Share of measured 24h volume across all pools" }))} />
           </div>
 
           <div className="mt-5">
