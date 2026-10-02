@@ -20,9 +20,9 @@ const HistoryChart = dynamic(() => import("@/components/charts/history-chart").t
   loading: () => <ChartSkeleton height={180} />,
 });
 
-function Stat({ label, value, sub }: { label: string; value: ReactNode; sub?: ReactNode }) {
+function Stat({ label, value, sub, title }: { label: string; value: ReactNode; sub?: ReactNode; title?: string }) {
   return (
-    <div>
+    <div title={title}>
       <dt className="text-2xs text-med">{label}</dt>
       <dd className="mt-0.5 flex items-baseline gap-2 text-sm tabular-nums text-high">
         {value}
@@ -117,6 +117,18 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
                     value={compactUsd(lp.metrics.d7.revenue)}
                     sub={`${percent(lp.metrics.d7.fees !== null && lp.metrics.d7.fees > 0 && lp.metrics.d7.revenue !== null ? (lp.metrics.d7.revenue / lp.metrics.d7.fees) * 100 : null, { digits: 0 })} of fees`}
                   />
+                  {(['d7', 'd30'] as const).map((tf) => {
+                    const m = lp.metrics[tf];
+                    return (
+                      <Stat
+                        key={tf}
+                        label={`Creator earnings ${tf === 'd7' ? '7d' : '30d'}`}
+                        title={lp.provenance?.methodology?.SupplySideRevenue ?? 'Supply-side revenue under the source methodology.'}
+                        value={compactUsd(m.supplySide ?? null)}
+                        sub={`${percent(m.fees !== null && m.fees > 0 && m.supplySide != null ? (m.supplySide / m.fees) * 100 : null, { digits: 0 })} of fees`}
+                      />
+                    );
+                  })}
                   <Stat label={lp.activityObservation ? 'Indexed launches 24h' : 'Launched 24h'} value={int(lp.metrics.launched24h ?? lp.activityObservation?.indexedCreated24 ?? null)} sub={`7d avg ${compactNumber(lp.metrics.launched7dAvg ?? lp.activityObservation?.indexed7dAvg ?? null)}`} />
                   {hasCurve(lp) !== false ? (
                     <Stat label={lp.activityObservation ? 'Indexed completions 24h' : 'Graduated 24h'} value={int(lp.metrics.graduated24h ?? lp.activityObservation?.indexedCompleted24 ?? null)} sub={`${percent(lp.metrics.graduationRate7d ?? lp.activityObservation?.indexed7dCompletionRate ?? null)} rate`} />
@@ -124,6 +136,9 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
                     <Stat label="Graduated 24h" value="—" sub="no bonding curve" />
                   )}
                 </dl>
+                {lp.provenance?.methodology?.SupplySideRevenue && (
+                  <p className="mt-3 text-xs leading-relaxed text-med"><span className="text-high">Creator earnings</span> (source definition): {lp.provenance.methodology.SupplySideRevenue}</p>
+                )}
               </div>
 
               <div>

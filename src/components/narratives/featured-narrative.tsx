@@ -19,10 +19,14 @@ interface FeaturedNarrativeProps {
 }
 
 const formatVolume = (v: number) => compactUsd(v);
+type Range = '24h' | '7d' | '30d';
+const RANGE_NOTE: Record<Range, string> = { '24h': 'Hourly volume, last 24h', '7d': 'Hourly volume, last 7 days', '30d': 'Daily volume, last 30 complete UTC days; current coins applied to past days' };
 
 export function FeaturedNarrative({ narrative: n, launchpads }: FeaturedNarrativeProps) {
-  const [range, setRange] = useState<'24h' | '7d'>('24h');
-  const chartSeries = range === '7d' && n.extendedSeries ? n.extendedSeries : n.series;
+  const [range, setRange] = useState<Range>('24h');
+  const ranges = (['24h', '7d', '30d'] as const).filter((r) => r === '24h' || (r === '7d' ? n.extendedSeries : n.dailySeries));
+  const chartSeries = (range === '30d' && n.dailySeries) || (range === '7d' && n.extendedSeries) || n.series;
+  const total = range === '30d' ? n.volume30dUsd : range === '7d' ? n.volume7dUsd : n.volume24hUsd;
   const venues: ShareItem[] = (n.topLaunchpads ?? [])
     .flatMap((t) => {
       const lp = launchpads[t.slug];
@@ -61,8 +65,8 @@ export function FeaturedNarrative({ narrative: n, launchpads }: FeaturedNarrativ
         {/* Chart column: hourly volume across the coins in this narrative, last 24h */}
         <div className="flex min-w-0 flex-col">
           <div className="flex items-center justify-between gap-3">
-            <div title={n.provenance?.volumeScope}><p className="text-xs text-med">Total volume</p><p className="mt-1 text-xl font-semibold tabular-nums text-high">{compactUsd(range === '7d' ? n.volume7dUsd : n.volume24hUsd)}</p></div>
-            {n.extendedSeries && <div className="flex gap-1" role="group" aria-label="Narrative chart period">{(['24h', '7d'] as const).map((period) => <button key={period} type="button" aria-pressed={range === period} onClick={() => setRange(period)} className={`rounded-md px-3 py-1 text-xs ${range === period ? 'bg-surface-2 text-high' : 'text-med'}`}>{period}</button>)}</div>}
+            <div title={`${RANGE_NOTE[range]}. ${n.provenance?.volumeScope ?? ''}`}><p className="text-xs text-med">Total volume</p><p className="mt-1 text-xl font-semibold tabular-nums text-high">{compactUsd(total ?? null)}</p></div>
+            {ranges.length > 1 && <div className="flex gap-1" role="group" aria-label="Narrative chart period">{ranges.map((period) => <button key={period} type="button" aria-pressed={range === period} onClick={() => setRange(period)} className={`rounded-md px-3 py-1 text-xs ${range === period ? 'bg-surface-2 text-high' : 'text-med'}`}>{period}</button>)}</div>}
           </div>
           <div className="mt-6 h-[240px] md:min-h-[300px] md:flex-1">
             <HistoryChart
@@ -70,7 +74,7 @@ export function FeaturedNarrative({ narrative: n, launchpads }: FeaturedNarrativ
               kind="line"
               height="100%"
               format={formatVolume}
-              tickFormat={range === '7d' ? 'day' : 'hour'}
+              tickFormat={range === '24h' ? 'hour' : 'day'}
               floorZero
               tooltip
               drawIn

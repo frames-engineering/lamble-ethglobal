@@ -12,8 +12,9 @@ open a pull request and merge. Without such an instruction, the boundaries below
 ## Daily routine: scripted path
 
 Run from the repository root on a fresh branch from the default branch. Every paid call
-goes through the Frames MCP; scripts never spend. A normal day costs about 260–350 credits,
-mostly the 38 DefiLlama calls; discovery and story checks add the rest.
+goes through the Frames MCP; scripts never spend. A normal day costs about 450–550 credits:
+57 DefiLlama calls (~320), discovery and the 30-day Codex bars (~20), and evidence and
+story checks (~150).
 
 **Calling and saving Frames batches.** Invoke each `raw/<batch>-request.json` with
 `frames_invoke_tools`, passing its `calls`, `idempotency_key`, `max_usd` and `search_ids`
@@ -28,15 +29,30 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
    every constituent) and `e1` (evidence pages and X searches from `dailyEvidence`).
    Then `python3 scripts/frames-refresh/discover.py $RUN names`; call and save `d2`
    (token names and descriptions). Then
-   `python3 scripts/frames-refresh/discover.py $RUN summary --prior <latestRefreshRun>`.
-2. **Update the narratives.** Read the summary, `discovery.json`, the evidence pages and
-   posts. Apply `narrativeRules` in the registry; the script's suggestions are inputs, not
-   decisions. For each candidate above the member bar, decide: add it to an existing
-   narrative, group it with others into a new narrative, or record it as unrelated,
-   rejected or quarantined. Check stories with targeted X searches and official-page
-   scrapes as `e2`/`e3` batches when a narrative, member or story change needs an
-   independent source (limits in `narrativeRules.storyChecks`). Spend these on decisions,
-   not on re-confirming what yesterday's evidence already settled. Then:
+   `python3 scripts/frames-refresh/discover.py $RUN summary --prior <latestRefreshRun>`:
+   it prints narrative health, candidates and **theme clusters** (candidates sharing a
+   ticker or a word in name/description that together meet the new-narrative bar).
+   Then `python3 scripts/frames-refresh/discover.py $RUN stories`; call and save the batch
+   it writes (X searches for each cluster's theme word and leading ticker).
+2. **Discover and update the narratives.** Finding new narratives is the main job of this
+   step, not an option. Read the summary, `discovery.json`, the evidence pages, the posts
+   from the broad `trendQueries` and the story searches. Apply `narrativeRules`; the
+   script's clusters and suggestions are leads, not decisions.
+   - **Every cluster gets a decision** in `curation.json` `clusterDecisions`
+     (`created`, `assigned`, `rejected` or `deferred`, with a reason and, for created or
+     assigned, the `narrativeId`). `normalize.py` fails without one.
+   - **Create a narrative whenever a story meets the bar** (`newNarrative`): three or more
+     constituents with metadata naming the story, $500K+ combined 24h volume, and one
+     independent public source (news or official page/post). Up to `maxNewPerRun` per day
+     and `maxActive` in total; at the cap, replace the weakest narrative only when the new
+     one is larger and current. Also look past the clusters: a story in the posts with
+     coins the word match missed counts the same.
+   - For each candidate above the member bar, decide: add it to an existing narrative, use
+     it in a new one, or record it as unrelated, rejected or quarantined.
+   - Run targeted follow-ups (X searches, official-page scrapes) as the next `e` batch when
+     a decision needs an independent source (limits in `narrativeRules.storyChecks`).
+     Spend them on decisions, not on re-confirming what yesterday settled.
+   Then:
    - Add or remove constituents in the registry's `poolUniverse` (exact chain, address,
      Codex network id, pool, origin launchpad slug, narrative id).
    - Retire narratives that meet the retirement rule or lost their defining source, and
@@ -48,22 +64,34 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
      rationale and evidence refs, required for every pool not seen before),
      `removedMembers` and `retiredNarratives` (id → reason), `newNarratives` (id → slug,
      title, category, summary, color), `provenanceSources` (required for new narratives) and
-     `candidates` (every token you looked at and did not add, with status and reason).
-   Keep two to four narratives. Narrative copy describes what sources say; never claim
-   payouts or usage are verified, and paraphrase posts faithfully.
+     `candidates` (every token you looked at and did not add, with status and reason) and
+   `clusterDecisions`. Keep `minActive`–`maxActive` narratives (2–6); the page shows every
+   active one. Narrative copy describes what sources say; check dates against the daily bars
+   (a coin that predates its story did not "launch on" it), never claim payouts or usage are
+   verified, and paraphrase posts faithfully.
 3. **Collect.** `python3 scripts/frames-refresh/plan.py $RUN collect`; call and save
-   `f1`…`f4` (DefiLlama fees and revenue, 38 calls) and `c1` (Codex launchpad activity,
-   all-pool hourly token bars for every constituent via `getTokenBars`, market snapshot,
-   token creation times used for the pre-launch zero rule).
+   `f1`…`f6` (DefiLlama fees, revenue and supply-side revenue, 57 calls), `c1` (Codex
+   launchpad activity, all-pool hourly token bars for every constituent via `getTokenBars`,
+   market snapshot, token creation times used for the pre-launch zero rule) and `c2` (30
+   complete UTC days of all-pool daily token bars).
 4. **Normalize.** `python3 scripts/frames-refresh/normalize.py $RUN --prior <latestRefreshRun>`.
-   It computes every metric, the turnover-based volume caveat and the validation report,
-   enforces the narrative rules and registry/curation consistency, and fails loudly on gaps,
-   contradictions or identity mismatches. Fix the cause; never weaken an assertion.
+   It computes every metric (including creator earnings and the 30-day narrative series),
+   the turnover-based volume caveat and the validation report, reconciles daily bars with
+   hourly sums, enforces the narrative rules, cluster decisions and registry/curation
+   consistency, and fails loudly on gaps, contradictions or identity mismatches. Fix the
+   cause; never weaken an assertion. If the prior run has the same financial anchor (two
+   runs on one day), pass the last run with an earlier anchor as `--prior` and the latest
+   run as `--prior-narrative`.
 5. **Import.** `node scripts/import-frames-snapshot.mjs $RUN research/lamble/20260926T175634Z/launchpad-enrichment.json $RUN/landing-metrics.json $RUN`,
    then point the importer's default paths and the registry's `references` at the new run.
 6. **Check and report.** Run the checks in section 8 and inspect the page. Write
-   `$RUN/report.md`: changes, anchors, narrative decisions with reasons, story changes,
-   failures and billed credits.
+   `$RUN/report.md`: changes, anchors, new narratives and every cluster decision with
+   reasons, member changes, story changes, failures and billed credits.
+
+**Creator earnings** are DefiLlama `dailySupplySideRevenue`: fees paid out to coin creators
+and, depending on the venue's own definition, holders, referrers or traders. A venue whose
+adapter defines no `SupplySideRevenue` methodology stays null (its zeros mean "not
+measured"). The page shows each venue's definition.
 
 Reference observations in the registry are starting points, not current market claims.
 
@@ -156,7 +184,7 @@ For each provider mapping in the source registry, request both:
 {"protocol":"<mapped provider slug>","dataType":"dailyFees","excludeTotalDataChart":"false","excludeTotalDataChartBreakdown":"true"}
 ```
 
-Use `dailyRevenue` for the second request. This is **38 calls**, batched at most ten.
+Use `dailyRevenue` and `dailySupplySideRevenue` for the second and third requests. This is **57 calls**, batched at most ten.
 Exact reference requests are in `raw/seed-request.json` and `raw/f1-request.json`
 through `raw/f4-request.json` in the financial run. Select only the financial calls;
 do not blindly replay mixed batches containing failed or irrelevant providers.

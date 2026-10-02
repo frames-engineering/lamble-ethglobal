@@ -10,9 +10,12 @@ discover (run first) writes:
       covered launchpads; a trending ranking; a market snapshot of every constituent
   e1  Narrative evidence pages and targeted X searches from the registry
 collect (run after narrative decisions are applied to the registry) writes:
-  f1..f4  DefiLlama dailyFees + dailyRevenue for every venue (38 calls, <=10 per batch)
+  f1..f6  DefiLlama dailyFees, dailyRevenue and dailySupplySideRevenue for every venue
+          (57 calls, <=10 per batch); supply side is what creators (and, per venue, holders
+          or traders) earn
   c1      Codex: filterLaunchpads, all-pool hourly token bars per network, token market
           snapshot, token creation times
+  c2      Codex: 30 complete UTC days of all-pool daily token bars per network
 Each batch gets a stable idempotency key derived from the run id.
 """
 import datetime as dt, json, pathlib, sys
@@ -58,12 +61,13 @@ if stage == 'discover':
     calls.append(snapshot(universe))
     write('d1', calls, [SEARCH['codex']], 0.03)
     ev = [dict(id='mpp.firecrawl.post.v1-scrape', args=dict(url=u, formats=['markdown'])) for u in reg['dailyEvidence']['pages']]
-    ev += [dict(id='bazaar.twitter-use-x402atlas-com-search', args=dict(words=w)) for w in reg['dailyEvidence']['xSearches']]
+    ev += [dict(id='bazaar.twitter-use-x402atlas-com-search', args=dict(words=w)) for w in reg['dailyEvidence']['xSearches'] + d.get('trendQueries', [])]
+    assert len(ev) <= 10, 'dailyEvidence pages + xSearches + discovery.trendQueries exceed one batch of 10; trim the registry'
     write('e1', ev, [SEARCH['scrape'], SEARCH['x']], 0.1)
     print(json.dumps(dict(run=run.name, stage=stage, batches=['d1', 'e1'], calls=len(calls) + len(ev))))
 else:
     fin = [dict(id=FIN, args=dict(protocol=v['providerSlug'], dataType=k, excludeTotalDataChart='false', excludeTotalDataChartBreakdown='true'))
-           for v in reg['venues'] for k in ('dailyFees', 'dailyRevenue')]
+           for v in reg['venues'] for k in ('dailyFees', 'dailyRevenue', 'dailySupplySideRevenue')]
     for i in range(0, len(fin), 10):
         write(f'f{i // 10 + 1}', fin[i:i + 10], [SEARCH['fin']], 0.1)
     launchpads = ('{ filterLaunchpads(scope: global, filters: {isTestnet: false}, limit: 200, offset: 0) { count offset results { id launchpadName displayName '
@@ -80,5 +84,16 @@ else:
     calls.append(dict(id=CODEX, args=dict(query=f'{{ created:tokens(ids:[{ids}]){{address networkId createdAt}} }}')))  # zero-fill boundary
     assert len(calls) <= 10, 'too many networks for one Codex batch; split c1'
     write('c1', calls, [SEARCH['codex']], 0.03)
+    # 30 complete UTC days of all-pool daily bars ending at the last midnight on or before the chart anchor.
+    # Codex omits the bucket that starts exactly at `from`, so ask from one day earlier; normalize.py keeps exactly 30 days.
+    D = T // 86400 * 86400; daily = []
+    for network in sorted({u['networkId'] for u in universe}, key=lambda n: (n != 1399811149, n)):
+        bars = ' '.join(f'q{universe.index(u)}:getTokenBars(symbol:"{u["address"]}:{network}",from:{D - 31 * 86400},to:{D - 1},resolution:"1D",'
+                        f'currencyCode:USD,removeEmptyBars:false){{t volume}}' for u in universe if u['networkId'] == network)
+        daily.append(dict(id=CODEX, args=dict(query='{ ' + bars + ' }')))
+    assert len(daily) <= 10
+    write('c2', daily, [SEARCH['codex']], 0.02)
+    fb = [f'f{i // 10 + 1}' for i in range(0, len(fin), 10)]
     print(json.dumps(dict(run=run.name, stage=stage, chartAnchor=dt.datetime.fromtimestamp(T, dt.timezone.utc).isoformat(),
-                          batches=['f1', 'f2', 'f3', 'f4', 'c1'], calls=len(fin) + len(calls), pools=len(universe))))
+                          dailyEnd=dt.datetime.fromtimestamp(D, dt.timezone.utc).isoformat(),
+                          batches=fb + ['c1', 'c2'], calls=len(fin) + len(calls) + len(daily), pools=len(universe))))

@@ -4,7 +4,7 @@
 Usage: python3 scripts/frames-refresh/normalize.py research/lamble/<run> --prior research/lamble/<previous full run>
                                                    [--prior-narrative research/lamble/<previous narrative run>]
 
-Inputs: raw/{f1..f4,c1,e1}.json and their requests (see plan.py), the source registry,
+Inputs: raw/{f1..f6,c1,c2,d*,e*}.json and their requests (see plan.py), the source registry,
 the prior run (structure, identities, memberships, revision baseline) and curation.json.
 curation.json holds the only judgment calls: which posts are signals, narrative copy,
 story notes, and rationales for new members. Everything else is computed here.
@@ -29,7 +29,9 @@ PALETTE = ['#4895ef', '#7c83ff', '#a78bfa', '#f59e0b', '#22c55e', '#ef6f6c', '#2
 TURNOVER_FLAG = 10        # 24h pool volume above this multiple of circulating market cap is flagged
 NO_CURVE_COMPLETION = {'argus-world', 'clanker', 'o1-launchpad'}
 # d* = discovery, e* = evidence (e2+ are retries or story checks for candidates); all are citable as "<batch>:<seq>".
-BATCHES = ['f1', 'f2', 'f3', 'f4', 'c1'] + sorted(f.name[:-13] for f in (P / 'raw').glob('[de]*-request.json'))
+FIN_BATCHES = sorted((f.name[:-13] for f in (P / 'raw').glob('f*-request.json')), key=lambda b: int(b[1:]))
+BATCHES = FIN_BATCHES + ['c1'] + sorted(f.name[:-13] for f in (P / 'raw').glob('[cde]*-request.json') if f.name != 'c1-request.json')
+DAILY = (P / 'raw/c2-request.json').exists()  # 30 daily all-pool bars per constituent (plan.py collect writes c2)
 
 
 def read(name, root=P): return json.loads((root / name).read_text())
@@ -67,14 +69,15 @@ prior_lp = read('launchpads.json', PRIOR)
 OLD_F = int(dt.datetime.fromisoformat(prior_lp[0]['_meta']['financialAnchor'].replace('Z', '+00:00')).timestamp())
 assert OLD_F < F, 'financial anchor did not advance'
 old_bodies = {}
-for name in ['f1', 'f2', 'f3', 'f4']:
+for name in sorted({f.name[:-13] for f in (PRIOR / 'raw').glob('f*-request.json')}):
     if not (PRIOR / f'raw/{name}.json').exists(): continue
     oreq = read(f'raw/{name}-request.json', PRIOR)
     for c in read(f'raw/{name}.json', PRIOR)['result']['calls']:
         a = oreq['calls'][c['seq']]['args']
         old_bodies[(a['protocol'], a['dataType'])] = dict(c['body']['data']['totalDataChart'])
 fin, checks, disputes, revisions = {}, [], [], []
-for name in ['f1', 'f2', 'f3', 'f4']:
+SUPPLY = any(c['args'].get('dataType') == 'dailySupplySideRevenue' for b in FIN_BATCHES for c in requests[b]['calls'])
+for name in FIN_BATCHES:
     for c in runs[name]['result']['calls']:
         a = requests[name]['calls'][c['seq']]['args']; provider, kind = a['protocol'], a['dataType']
         d = c['body']['data']; pairs = d['totalDataChart']
@@ -98,20 +101,29 @@ launchpads = prior_lp
 assert [x['slug'] for x in launchpads] == list(venues)
 for lp in launchpads:
     provider = venues[lp['slug']]['providerSlug']; data, refs = {}, []
-    for kind, label in [('dailyFees', 'fees'), ('dailyRevenue', 'revenue')]:
+    for kind, label in [('dailyFees', 'fees'), ('dailyRevenue', 'revenue'), ('dailySupplySideRevenue', 'supplySide')]:
+        if (provider, kind) not in fin: continue  # supply side is collected from this version on
         d, e = fin[(provider, kind)]; data[label] = {t: v for t, v in d['totalDataChart'] if t < F}; refs.append(e)
     metrics = {}
     for label, days in [('h24', 1), ('d7', 7), ('d30', 30)]:
+        # A missing day leaves the window unknown; a venue without a supply-side adapter stays null, never zero.
         vals = {k: total([v.get(t) for t in range(F - days * 86400, F, 86400)]) for k, v in data.items()}
+        if 'supplySide' not in vals and SUPPLY: vals['supplySide'] = None
         prev = total([data['fees'].get(t) for t in range(F - 2 * days * 86400, F - days * 86400, 86400)])
         metrics[label] = {**vals, 'change': percent(vals['fees'], prev)}
+    d = fin[(provider, 'dailyFees')][0]
+    defined = 'SupplySideRevenue' in (d.get('methodology') or {})
+    if SUPPLY and not defined:  # an adapter without a supply-side definition reports zeros that mean "not measured"
+        for label in ('h24', 'd7', 'd30'): metrics[label]['supplySide'] = None
     metrics.update({k: None for k in ['launched24h', 'launched7dAvg', 'graduated24h', 'graduationRate7d']})
     metrics['history30d'] = [dict(time=t, value=data['fees'].get(t)) for t in range(F - 30 * 86400, F, 86400)]
     d = fin[(provider, 'dailyFees')][0]
     lp['metrics'] = metrics
     lp['_meta'].update(financialAnchor=iso(F), source_as_of=iso(F), financialEvidenceIds=refs, fetched_at_reference=refs, financialRun=P.name,
                        financialDeliveryDisputes=[x for x in disputes if x['provider'] == provider],
-                       methodology=d.get('methodology') or lp['_meta'].get('methodology'), methodologyURL=d.get('methodologyURL') or lp['_meta'].get('methodologyURL'))
+                       methodology=d.get('methodology') or lp['_meta'].get('methodology'), methodologyURL=d.get('methodologyURL') or lp['_meta'].get('methodologyURL'),
+                       supplySide=dict(defined=defined, definition=(d.get('methodology') or {}).get('SupplySideRevenue'),
+                                       scope='DefiLlama dailySupplySideRevenue: fees paid out to coin creators and, per the venue definition, holders, referrers or traders. Null when the adapter defines no supply side.') if SUPPLY else None)
 
 # ---------------------------------------------------------------- indexed activity
 fl = runs['c1']['result']['calls'][0]['body']['data']['filterLaunchpads']
@@ -167,7 +179,9 @@ for c in runs['c1']['result']['calls'][1:]:
     if 'filterTokens' in (data or {}):
         snapshot += data['filterTokens']['results']; snap_eid = eid[('c1', c['seq'])]
     for x in (data or {}).get('created') or []:
-        if (x['address'], x['networkId']) in tid_of and x.get('createdAt'): created[tid_of[(x['address'], x['networkId'])]] = x['createdAt']
+        if (x['address'], x['networkId']) in tid_of and x.get('createdAt'):
+            assert x['createdAt'] <= RUNTIME_TS, f'{x["address"]} created after the run started'  # refunds often cite "future" dates; check them
+            created[tid_of[(x['address'], x['networkId'])]] = x['createdAt']
 assert {u['tokenId'] for u in universe} <= set(bars), 'every constituent needs token bars'
 grid = list(range(T - 7 * 86400, T, 3600))
 series, precreation = {}, []
@@ -182,6 +196,36 @@ for u in universe:
         assert v is not None, (u['symbol'], t, 'unexpected missing live-pool bucket')
         v = float(v); assert v >= 0; out.append(dict(time=t, value=v))
     series[u['tokenId']] = out
+
+# 30 complete UTC days of all-pool daily bars, same zero rule; reconciled with the hourly sums on fully overlapping days.
+D = T // 86400 * 86400; DAYS = list(range(D - 30 * 86400, D, 86400)); daily, daily_eid, reconcile = {}, {}, []
+RECONCILE_TOLERANCE = 0.02  # daily bars and hourly sums come from the same index seconds apart; larger gaps mean a broken window
+if DAILY:
+    for c in runs['c2']['result']['calls']:
+        q = requests['c2']['calls'][c['seq']]['args']['query']; data = c['body']['data']
+        for alias, addr, net, frm, to in re.findall(r'(q\d+):getTokenBars\(symbol:"(\w+):(\d+)",from:(\d+),to:(\d+)', q):
+            assert (int(frm), int(to)) == (D - 31 * 86400, D - 1)
+            tid = tid_of.get((addr, int(net)))
+            if tid is None: continue
+            b = data[alias]; assert b is not None and len(b['t']) == len(set(b['t'])) and all(t % 86400 == 0 and t < D for t in b['t'])
+            vals = dict(zip(b['t'], b['volume'])); out = []
+            for t in DAYS:
+                v = vals.get(t); cr = created.get(tid)
+                if v is None and cr is not None and t + 86400 <= cr:
+                    v = 0; precreation.append(dict(tokenId=tid, chain=NETWORK_CHAIN[int(net)], time=t, resolution='1D', tokenCreatedAt=cr,
+                                                   basis='Entire day precedes the token creation time; the token did not exist.'))
+                assert v is not None, (tid, iso(t), 'unexpected missing daily bucket')
+                v = float(v); assert v >= 0; out.append(dict(time=t, value=v))
+            assert tid not in daily; daily[tid] = out; daily_eid[tid] = eid[('c2', c['seq'])]
+    assert set(daily) == {u['tokenId'] for u in universe}, 'every constituent needs daily bars'
+    for tid, pts in daily.items():
+        hourly = {p['time']: p['value'] for p in series[tid]}
+        for p in pts:
+            if p['time'] < grid[0]: continue  # only days fully inside the hourly window
+            h = math.fsum(hourly[t] for t in range(p['time'], p['time'] + 86400, 3600))
+            gap = abs(h - p['value']); rel = gap / max(h, p['value']) if max(h, p['value']) else 0
+            reconcile.append(dict(tokenId=tid, day=iso(p['time']), daily=p['value'], hourlySum=h, relativeGap=rel))
+            assert gap <= 1 or rel <= RECONCILE_TOLERANCE, f'{tid} {iso(p["time"])}: daily {p["value"]} vs hourly {h}'
 
 tokens = read('tokens.json', PRIOR_N); members = read('memberships.json', PRIOR_N)
 known = {t['id'] for t in tokens}
@@ -263,6 +307,12 @@ for n in narratives:
     ext = [dict(time=grid[j], value=math.fsum(series[i][j]['value'] for i in ids)) for j in range(168)]
     v24 = math.fsum(p['value'] for p in ext[-24:]); prev = math.fsum(p['value'] for p in ext[-48:-24])
     n['series'][0]['points'] = ext[-24:]; n['volume24hUsd'] = v24; n['volume7dUsd'] = math.fsum(p['value'] for p in ext)
+    if DAILY:
+        dpts = [dict(time=t, value=math.fsum(daily[i][j]['value'] for i in ids)) for j, t in enumerate(DAYS)]
+        n['_meta'].update(dailySeries=[dict(id='volume', label='Daily volume', color=n['series'][0]['color'], points=dpts)],
+                          volume30dUsd=math.fsum(p['value'] for p in dpts), dailyEnd=iso(D).replace('Z', '+00:00'),
+                          dailyEvidenceIds=sorted({daily_eid[i] for i in ids}),
+                          dailyScope='30 complete UTC days of the current constituents\' all-pool volume (Codex daily token bars). Membership is today\'s, applied to past days.')
     pool24 = {i: math.fsum(p['value'] for p in series[i][-24:]) for i in ids}
     shares = [dict(tokenId=i, share=100 * pool24[i] / v24) for i in ids]
     # Turnover flag: pool volume far above the token's market cap usually means wash, bot or launch-day churn.
@@ -312,6 +362,14 @@ assert 1 <= len(narratives) <= rules['newNarrative']['maxActive'], f'{len(narrat
 assert len(curation.get('newNarratives', {})) <= rules['newNarrative']['maxNewPerRun']
 for nid in curation.get('newNarratives', {}):
     assert sum(1 for u in universe if u['narrativeId'] == nid) >= rules['newNarrative']['minConstituents'], f'{nid} has too few constituents'
+# Discovery must end in decisions: every theme cluster discover.py reported gets one, with a reason.
+clusters = read('discovery.json')['clusters'] if (P / 'discovery.json').exists() else []
+decisions = curation.get('clusterDecisions', {})
+for k in clusters:
+    dcs = decisions.get(k['id']); assert dcs and dcs.get('reason'), f'cluster {k["id"]} needs a decision in curation.clusterDecisions'
+    assert dcs['decision'] in ('created', 'assigned', 'rejected', 'deferred'), dcs
+    if dcs['decision'] == 'created': assert dcs.get('narrativeId') in curation.get('newNarratives', {}), f'{k["id"]} says created but names no new narrative'
+    if dcs['decision'] == 'assigned': assert dcs.get('narrativeId') in {n['id'] for n in narratives}, f'{k["id"]} assigned to an unknown narrative'
 
 # ---------------------------------------------------------------- validation and outputs
 overlap = []
@@ -344,7 +402,12 @@ validation = dict(as_of=RUNTIME, passed=True, financialAnchor=iso(F), chartAncho
                   indexedLaunchpadRows=fl['count'], activityVenues=len(observations), pools=len(universe), precreationZeroBuckets=len(precreation),
                   hourlyOverlapWithPriorRun=overlap, volumeMethod=VOLUME_METHOD,
                   volumeMethodChanged=sorted(prior_method - {VOLUME_METHOD}) or None, narrativeCount=len(narratives), constituentCount=len(universe),
-                  staleMarketSnapshots=[t['id'] for t in tokens if t.get('marketSnapshotStale')])
+                  staleMarketSnapshots=[t['id'] for t in tokens if t.get('marketSnapshotStale')],
+                  dailyBars=dict(end=iso(D), days=30, reconciledDays=len(reconcile), maxRelativeGap=max((r['relativeGap'] for r in reconcile), default=None),
+                                 tolerance=RECONCILE_TOLERANCE) if DAILY else None,
+                  supplySideVenues=sum(x['metrics']['h24'].get('supplySide') is not None for x in launchpads) if SUPPLY else None,
+                  discovery=dict(clusters=len(clusters), decisions={k['id']: decisions[k['id']]['decision'] for k in clusters},
+                                 newNarratives=sorted(curation.get('newNarratives', {}))))
 manifest = dict(runId=P.name, version=VERSION, runtimeStartedAt=RUNTIME, priorRun=PRIOR.name, priorNarrativeRun=PRIOR_N.name,
                 watermarks=dict(financialExclusiveEnd=iso(F), narrativeExclusiveEnd=iso(T), activitySourceAsOf=iso(observations[0]['sourceAsOf'])),
                 requests=[f'raw/{k}-request.json' for k in BATCHES], costs=billing, refreshPrompt='docs/prompts/refresh-market-data.md',
@@ -365,7 +428,8 @@ candidates.setdefault('retiredNarratives', []).extend(retired_records)
 for name, obj in [('launchpads.json', launchpads), ('landing-metrics.json', landing), ('narratives.json', narratives), ('tokens.json', tokens),
                   ('memberships.json', members), ('evidence.json', evidence), ('precreation-zero-provenance.json', precreation), ('social-evidence.json', social),
                   ('financial-revisions.json', dict(priorRun=PRIOR.name, revisions=revisions)), ('hourly-revisions.json', overlap), ('candidates.json', candidates),
-                  ('validation-report.json', validation), ('refresh-manifest.json', manifest)]:
+                  ('validation-report.json', validation), ('refresh-manifest.json', manifest),
+                  ('discovery-decisions.json', dict(clusters=clusters, decisions=decisions))]:
     write(name, obj)
 with (P / 'chart-data.csv').open('w', newline='') as f:
     w = csv.writer(f, lineterminator='\n'); w.writerow(['narrative_id', 'bucket_start_unix', 'bucket_start_utc', 'volume_usd'])
