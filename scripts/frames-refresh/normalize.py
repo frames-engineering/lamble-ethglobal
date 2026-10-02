@@ -28,7 +28,8 @@ CHAIN_NAME = {'solana': 'Solana', 'bsc': 'BNB Chain', 'robinhood': 'Robinhood Ch
 PALETTE = ['#4895ef', '#7c83ff', '#a78bfa', '#f59e0b', '#22c55e', '#ef6f6c', '#2dd4bf', '#e879f9']
 TURNOVER_FLAG = 10        # 24h pool volume above this multiple of circulating market cap is flagged
 NO_CURVE_COMPLETION = {'argus-world', 'clanker', 'o1-launchpad'}
-BATCHES = ['f1', 'f2', 'f3', 'f4', 'c1'] + sorted(f.name[:-13] for f in (P / 'raw').glob('e*-request.json'))  # e2+ are evidence retries
+# d* = discovery, e* = evidence (e2+ are retries or story checks for candidates); all are citable as "<batch>:<seq>".
+BATCHES = ['f1', 'f2', 'f3', 'f4', 'c1'] + sorted(f.name[:-13] for f in (P / 'raw').glob('[de]*-request.json'))
 
 
 def read(name, root=P): return json.loads((root / name).read_text())
@@ -160,7 +161,7 @@ for c in runs['c1']['result']['calls'][1:]:
         bars[pool] = data[alias]; bar_eid[pool] = eid[('c1', c['seq'])]
     if 'filterTokens' in (data or {}):
         snapshot += data['filterTokens']['results']; snap_eid = eid[('c1', c['seq'])]
-assert {u['pool'] for u in universe} == set(bars), 'every universe pool needs bars'
+assert {u['pool'] for u in universe} <= set(bars), 'every universe pool needs bars'  # extra bars (a pool removed after collect) are ignored
 created = {}
 for r in snapshot: created[r['pair']['address']] = r['pair']['createdAt']
 for t in read('tokens.json', PRIOR_N):
@@ -190,9 +191,18 @@ for u in universe:
     members.append(dict(id=f"{u['narrativeId']}:{u['tokenId']}", narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
                         rationale=c['rationale'], evidenceIds=evid, effectiveFrom=RUNTIME, effectiveTo=None, firstObservedAt=RUNTIME,
                         historicalMembershipBasis='reconstructed_today', confidence='source-supported; not calibrated'))
+in_universe = {u['tokenId'] for u in universe}
+retired = curation.get('retiredNarratives', {})
 for tid, c in curation.get('removedMembers', {}).items():  # close the interval, keep the record
+    assert tid not in in_universe, f'{tid} is marked removed but still in the registry poolUniverse'
     for m in members:
         if m['tokenId'] == tid and m['effectiveTo'] is None: m.update(effectiveTo=RUNTIME, closedReason=c['reason'])
+for nid, c in retired.items():
+    assert not any(u['narrativeId'] == nid for u in universe), f'retired narrative {nid} still has pools in the registry'
+    for m in members:
+        if m['narrativeId'] == nid and m['effectiveTo'] is None: m.update(effectiveTo=RUNTIME, closedReason=f'narrative retired: {c["reason"]}')
+for m in members:  # every open membership must still be charted
+    assert m['effectiveTo'] is not None or m['tokenId'] in in_universe, f'{m["tokenId"]} left the registry without a removedMembers entry'
 assert {t['id'] for t in tokens} >= {u['tokenId'] for u in universe}
 pool_of = {u['tokenId']: u['pool'] for u in universe}
 by_token = {}
@@ -222,8 +232,13 @@ social = [dict(postId=tw['id'], url=f"https://x.com/{tw['author']['screen_name']
                attentionInterpretation='Top-results convenience sample; no mention total or historical mindshare.') for tw, src in tweets.values()]
 prior_evidence = {e['id']: e for e in read('evidence.json', PRIOR_N)}
 narratives = read('narratives.json', PRIOR_N)
+retired_records = [dict(narrativeId=n['id'], title=n['title'], retiredAt=RUNTIME, reason=retired[n['id']]['reason'],
+                        lastVolume24hUsd=n['volume24hUsd'], lastChartAnchor=n['_meta']['chartAnchor']) for n in narratives if n['id'] in retired]
+narratives = [n for n in narratives if n['id'] not in retired]
 prev_ext = {n['id']: {p['time']: p['value'] for p in n['_meta']['extendedSeries'][0]['points']} for n in narratives}
 for nid, spec in curation.get('newNarratives', {}).items():
+    assert nid not in {n['id'] for n in narratives}, f'{nid} already exists'
+    assert curation.get('provenanceSources', {}).get(nid) and curation['signals'].get(nid), f'new narrative {nid} needs provenanceSources and signals'
     narratives.append(dict(id=nid, slug=spec['slug'], title=spec['title'], category=spec['category'], summary=spec['summary'], status=None, mindshare=None,
                            change24h=None, volume24hUsd=None, volume7dUsd=None, launches24h=None, launches7d=None, startedAt=None,
                            series=[dict(id='volume', label='Selected pools: hourly USD volume', color=spec.get('color', '#f59e0b'), points=[])],
@@ -286,6 +301,11 @@ for n in narratives:
     else:
         evidence.extend(prior_evidence[s['id']] for s in n['signals'] if s['id'] not in {e['id'] for e in evidence})
 narratives.sort(key=lambda n: (-n['volume24hUsd'], n['id']))
+rules = registry['narrativeRules']
+assert 1 <= len(narratives) <= rules['newNarrative']['maxActive'], f'{len(narratives)} narratives; allowed 1-{rules["newNarrative"]["maxActive"]}'
+assert len(curation.get('newNarratives', {})) <= rules['newNarrative']['maxNewPerRun']
+for nid in curation.get('newNarratives', {}):
+    assert sum(1 for u in universe if u['narrativeId'] == nid) >= rules['newNarrative']['minConstituents'], f'{nid} has too few constituents'
 
 # ---------------------------------------------------------------- validation and outputs
 overlap = []
@@ -324,6 +344,17 @@ manifest = dict(runId=P.name, version=VERSION, runtimeStartedAt=RUNTIME, priorRu
                 normalizer='scripts/frames-refresh/normalize.py', recurringTaskCreated=curation.get('recurring', False))
 candidates = read('candidates.json', PRIOR_N) if (PRIOR_N / 'candidates.json').exists() else dict(candidates=[], accepted=[])
 for c in curation.get('candidates', []): candidates['candidates'].append(dict(c, observedAt=RUNTIME))
+addr_universe = {u['address'] for u in universe}
+removed_addr = {t.split(':', 1)[1]: c['reason'] for t, c in curation.get('removedMembers', {}).items()}
+for c in candidates['candidates']:  # statuses follow the registry, so a token is a member exactly when it is "accepted"
+    a = c.get('address')
+    if a in addr_universe and c['status'] != 'accepted': c.update(status='accepted', acceptedIn=P.name)
+    elif a in removed_addr: c.update(status='removed', removedIn=P.name, reason=removed_addr[a])
+known_c = {c.get('address') for c in candidates['candidates']}
+for tid, c in curation.get('removedMembers', {}).items():
+    if tid.split(':', 1)[1] not in known_c:
+        candidates['candidates'].append(dict(address=tid.split(':', 1)[1], tokenId=tid, status='removed', removedIn=P.name, reason=c['reason']))
+candidates.setdefault('retiredNarratives', []).extend(retired_records)
 for name, obj in [('launchpads.json', launchpads), ('landing-metrics.json', landing), ('narratives.json', narratives), ('tokens.json', tokens),
                   ('memberships.json', members), ('evidence.json', evidence), ('precreation-zero-provenance.json', precreation), ('social-evidence.json', social),
                   ('financial-revisions.json', dict(priorRun=PRIOR.name, revisions=revisions)), ('hourly-revisions.json', overlap), ('candidates.json', candidates),
