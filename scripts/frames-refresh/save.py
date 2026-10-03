@@ -31,13 +31,13 @@ def parts(text):  # persisted results are either the raw text or a JSON list of 
 
 found = None
 for f in sorted(glob.glob(f'{home}/*/*/tool-results/*.txt') + glob.glob(f'{home}/*/*/tool-results/*.json'), key=os.path.getmtime, reverse=True):
-    with open(f) as fh:
+    with open(f, errors='replace') as fh:  # unrelated persisted results can hold a truncated multi-byte character
         text = fh.read()
     if run_id in text[:600] and (found := completed(parts(text))):
         break
 if not found:
     for f in sorted(glob.glob(f'{home}/*/*.jsonl'), key=os.path.getmtime, reverse=True):
-        for line in open(f):
+        for line in open(f, errors='replace'):
             if run_id not in line:
                 continue
             content = json.loads(line).get('message', {}).get('content')

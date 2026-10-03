@@ -229,10 +229,16 @@ if DAILY:
 
 tokens = read('tokens.json', PRIOR_N); members = read('memberships.json', PRIOR_N)
 known = {t['id'] for t in tokens}
+open_pairs = {(m['narrativeId'], m['tokenId']) for m in members if m['effectiveTo'] is None}
 for u in universe:
-    if u['tokenId'] in known: continue
-    c = curation['newMembers'][u['tokenId']]  # every new constituent needs a written rationale and evidence
+    if u['tokenId'] in known and (u['narrativeId'], u['tokenId']) in open_pairs: continue
+    c = curation['newMembers'][u['tokenId']]  # every new constituent, or known token joining a narrative again, needs a written rationale and evidence
     evid = [ev_ref(x) if ':' in x and x.split(':')[0] in BATCHES else x for x in c['evidence']]
+    if u['tokenId'] in known:  # a token seen before gets a new membership interval; its token record stays
+        members.append(dict(id=f"{u['narrativeId']}:{u['tokenId']}", narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
+                            rationale=c['rationale'], evidenceIds=evid, effectiveFrom=RUNTIME, effectiveTo=None, firstObservedAt=RUNTIME,
+                            historicalMembershipBasis='reconstructed_today', confidence='source-supported; not calibrated'))
+        continue
     tokens.append(dict(id=u['tokenId'], chain=u['chain'], address=u['address'], name=u['name'], symbol=u['symbol'], originLaunchpadSlug=u['originLaunchpadSlug'],
                        originStatus=u['originStatus'], evidenceIds=evid, firstObservedAt=RUNTIME, pool=u['pool'], tokenCreatedAt=created.get(u['tokenId'])))
     members.append(dict(id=f"{u['narrativeId']}:{u['tokenId']}", narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
