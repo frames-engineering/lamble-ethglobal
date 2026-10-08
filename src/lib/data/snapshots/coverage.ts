@@ -1,8 +1,8 @@
 // Generated offline by import-frames-snapshot.mjs.
 export const FEE_COVERAGE = {
-  "value": 5173673,
+  "value": 4311814,
   "kind": "covered subtotal",
-  "financialAnchor": "2026-10-07T00:00:00Z",
+  "financialAnchor": "2026-10-08T00:00:00Z",
   "includedSlugs": [
     "pump.fun",
     "pons",
@@ -27,10 +27,6 @@ export const FEE_COVERAGE = {
     "binance-alpha": "Execution-route fees may overlap underlying venues; no component partition"
   },
   "history30d": [
-    {
-      "time": 1788739200,
-      "value": null
-    },
     {
       "time": 1788825600,
       "value": null
@@ -69,83 +65,87 @@ export const FEE_COVERAGE = {
     },
     {
       "time": 1789603200,
-      "value": 7464439
+      "value": 7464456
     },
     {
       "time": 1789689600,
-      "value": 7570235
+      "value": 7570327
     },
     {
       "time": 1789776000,
-      "value": 6439400
+      "value": 6441247
     },
     {
       "time": 1789862400,
-      "value": 5969787.4
+      "value": 5969981.4
     },
     {
       "time": 1789948800,
-      "value": 7788802
+      "value": 7788834
     },
     {
       "time": 1790035200,
-      "value": 6659106
+      "value": 6659244
     },
     {
       "time": 1790121600,
-      "value": 6021613
+      "value": 6022026
     },
     {
       "time": 1790208000,
-      "value": 5414866
+      "value": 5414374
     },
     {
       "time": 1790294400,
-      "value": 4889133
+      "value": 4889121
     },
     {
       "time": 1790380800,
-      "value": 5998849
+      "value": 5998729
     },
     {
       "time": 1790467200,
-      "value": 5069407
+      "value": 5069381
     },
     {
       "time": 1790553600,
-      "value": 5345206
+      "value": 5345318
     },
     {
       "time": 1790640000,
-      "value": 6152696
+      "value": 6152687
     },
     {
       "time": 1790726400,
-      "value": 5991185
+      "value": 5991222
     },
     {
       "time": 1790812800,
-      "value": 6439000
+      "value": 6438720
     },
     {
       "time": 1790899200,
-      "value": 6104432
+      "value": 6104301
     },
     {
       "time": 1790985600,
-      "value": 5369033
+      "value": 5369049
     },
     {
       "time": 1791072000,
-      "value": 5382610
+      "value": 5383419
     },
     {
       "time": 1791158400,
-      "value": 5474550
+      "value": 5473799
     },
     {
       "time": 1791244800,
-      "value": 5173673
+      "value": 5165760
+    },
+    {
+      "time": 1791331200,
+      "value": 4311814
     }
   ],
   "change30d": null,
