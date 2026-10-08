@@ -76,9 +76,13 @@ for name in sorted({f.name[:-13] for f in (PRIOR / 'raw').glob('f*-request.json'
         a = oreq['calls'][c['seq']]['args']
         old_bodies[(a['protocol'], a['dataType'])] = dict(c['body']['data']['totalDataChart'])
 fin, checks, disputes, revisions = {}, [], [], []
+# A refunded call that a later financial batch (f7, f8...) re-requested and got delivered is superseded: its body is not used.
+SUPERSEDED = {(n, c['seq']) for i, n in enumerate(FIN_BATCHES) for c in runs[n]['result']['calls'] if not c['delivered'] and any(
+    l['delivered'] and requests[m]['calls'][l['seq']]['args'] == requests[n]['calls'][c['seq']]['args'] for m in FIN_BATCHES[i + 1:] for l in runs[m]['result']['calls'])}
 SUPPLY = any(c['args'].get('dataType') == 'dailySupplySideRevenue' for b in FIN_BATCHES for c in requests[b]['calls'])
 for name in FIN_BATCHES:
     for c in runs[name]['result']['calls']:
+        if (name, c['seq']) in SUPERSEDED: continue
         a = requests[name]['calls'][c['seq']]['args']; provider, kind = a['protocol'], a['dataType']
         d = c['body']['data']; pairs = d['totalDataChart']
         assert d['slug'] == provider and len({t for t, _ in pairs}) == len(pairs)
