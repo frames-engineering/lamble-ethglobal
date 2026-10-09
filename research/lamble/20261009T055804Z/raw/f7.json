@@ -1,0 +1,313 @@
+{
+ "run_id": "run_357891d743a1470f8e73558a726dfc61",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 6,
+  "budget_credits": 100,
+  "balance_credits": 69551,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 77,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 1,
+  "delivered": 1,
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 6326,
+     "stored_chars": 6326,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+     "amount": "0.005",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x1cb64bb81c030bfb28d2fe7216d5611984b60b7987de6d91f61a1c2e87854b63",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-09T06:13:38.677694884Z",
+     "data": {
+      "id": "8722",
+      "name": "Genius.fun",
+      "address": "bsc:0x1F12B85aAC097E43Aa1555b2881E98a51090e9A6",
+      "symbol": "GENIUS",
+      "url": "https://genius.fun",
+      "description": "A permissionless token launchpad on BNB Smart Chain with bonding-curve trading, multiple quote assets, creator fee distributions, and graduation into permanently locked PancakeSwap Infinity liquidity",
+      "chain": "Binance",
+      "logo": "https://icons.llamao.fi/icons/protocols/genius.fun",
+      "audits": "0",
+      "gecko_id": null,
+      "cmcId": null,
+      "category": "Launchpad",
+      "chains": [
+       "BSC"
+      ],
+      "module": "genius-fun",
+      "twitter": "GeniusTerminal",
+      "forkedFromIds": [
+       "8369"
+      ],
+      "parentProtocol": "parent#genius-terminal",
+      "listedAt": 1790097839,
+      "dimensions": {
+       "fees": "genius-fun",
+       "dexs": "genius-fun"
+      },
+      "methodology": {
+       "Fees": "Token creation, bonding-curve trading (including any launch-window surcharge), Genius hook trading and paid Alpha promotion fees. Fees accrue at launch/trade/promotion; settlements are excluded. Meme-denominated hook fees use the same swap\u2019s quote/meme execution-price ratio, rounded down to quote base units.",
+       "Revenue": "The Genius platform share of trading fees under each launch\u2019s immutable policy, plus separately labeled creation and Alpha promotion fees. The creator-selected destination allocation (Foundation or creator), creator share and launched-meme buyback allocations are excluded.",
+       "ProtocolRevenue": "The same protocol-retained portion as Revenue. Genius.fun has no protocol token receiving these fees.",
+       "SupplySideRevenue": "Creator-selected destination allocations (Foundation or creator), creator shares and accrued funding for buybacks of individual launched meme tokens, calculated from immutable per-launch policies with contract integer rounding."
+      },
+      "misrepresentedTokens": false,
+      "doublecounted": true,
+      "tvlCodePath": "https://github.com/DefiLlama/DefiLlama-Adapters/blob/main/projects/genius-fun/index.js",
+      "defillamaId": "8722",
+      "displayName": "Genius.fun",
+      "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/genius-fun.ts",
+      "forkedFrom": null,
+      "audit_links": null,
+      "github": null,
+      "governanceID": null,
+      "treasury": null,
+      "previousNames": null,
+      "hallmarks": null,
+      "defaultChartView": null,
+      "breakdownMethodology": {
+       "Fees": {
+        "Curve Trading Fees": "CurveBuy and CurveSell fee + tax; CurveBuy.fee already contains any snipe surcharge.",
+        "Hook Trading Fees": "HookFeeCollected feeAmount + taxAmount, valued in the pool\u2019s paired quote asset at the originating trade\u2019s execution price when needed.",
+        "Token Creation Fees": "One historical factory launchFee per TokenLaunched, replaying same-period fee changes in log order.",
+        "Alpha Promotion Fees": "Actual BNB paid in AlphaPromoted events, including zero-cost grants."
+       },
+       "Revenue": {
+        "Curve Fees To Genius": "The platform share of bonding-curve fees under each launch\u2019s immutable fee policy.",
+        "Hook Fees To Genius": "The platform share of accrued Genius hook fees; meme-denominated fees are valued at the originating swap\u2019s execution price.",
+        "Token Creation Fees To Genius": "Token creation fees retained by Genius, using the historical factory fee and intraperiod LaunchFeeUpdated events.",
+        "Alpha Promotion Fees To Genius": "Actual paidWei in AlphaPromoted events; free grants contribute zero."
+       },
+       "ProtocolRevenue": {
+        "Curve Fees To Genius": "The platform share of bonding-curve fees under each launch\u2019s immutable fee policy.",
+        "Hook Fees To Genius": "The platform share of accrued Genius hook fees; meme-denominated fees are valued at the originating swap\u2019s execution price.",
+        "Token Creation Fees To Genius": "Token creation fees retained by Genius, using the historical factory fee and intraperiod LaunchFeeUpdated events.",
+        "Alpha Promotion Fees To Genius": "Actual paidWei in AlphaPromoted events; free grants contribute zero."
+       },
+       "SupplySideRevenue": {
+        "Curve Fees To Foundation": "Creator-selected destination allocation from curve fees routed to the shared Foundation vault; excluded from Genius platform revenue.",
+        "Hook Fees To Foundation": "Creator-selected destination allocation from hook fees routed to the shared Foundation vault; excluded from Genius platform revenue.",
+        "Curve Fees To Creators": "Creator share, any destination share selected for the creator, and separate creator tax on curve trades.",
+        "Curve Fees For Meme Buybacks": "Accrued curve-fee allocation reserved to buy back and burn that launch\u2019s meme token.",
+        "Hook Fees To Creators": "Creator share, any destination share selected for the creator, and separate creator tax on hook trades.",
+        "Hook Fees For Meme Buybacks": "Accrued hook-fee allocation reserved to buy back and burn that launch\u2019s meme token."
+       }
+      },
+      "slug": "genius.fun",
+      "protocolType": "protocol",
+      "linkedProtocols": [
+       "Genius Terminal",
+       "Genius.fun"
+      ],
+      "hasLabelBreakdown": true,
+      "total24h": 1205,
+      "total48hto24h": 2309,
+      "total7d": 38926,
+      "total30d": 975819,
+      "total1y": 975819,
+      "annualized1y": 16189724.318181816,
+      "totalAllTime": 977024,
+      "totalDataChart": [
+       [
+        1789603200,
+        234947
+       ],
+       [
+        1789689600,
+        269287
+       ],
+       [
+        1789776000,
+        43168
+       ],
+       [
+        1789862400,
+        124547
+       ],
+       [
+        1789948800,
+        103350
+       ],
+       [
+        1790035200,
+        36041
+       ],
+       [
+        1790121600,
+        20681
+       ],
+       [
+        1790208000,
+        14592
+       ],
+       [
+        1790294400,
+        11440
+       ],
+       [
+        1790380800,
+        12918
+       ],
+       [
+        1790467200,
+        10711
+       ],
+       [
+        1790553600,
+        7090
+       ],
+       [
+        1790640000,
+        30056
+       ],
+       [
+        1790726400,
+        10277
+       ],
+       [
+        1790812800,
+        7788
+       ],
+       [
+        1790899200,
+        11940
+       ],
+       [
+        1790985600,
+        11556
+       ],
+       [
+        1791072000,
+        3738
+       ],
+       [
+        1791158400,
+        3580
+       ],
+       [
+        1791244800,
+        4552
+       ],
+       [
+        1791331200,
+        2309
+       ],
+       [
+        1791417600,
+        1251
+       ],
+       [
+        1791504000,
+        1205
+       ]
+      ],
+      "totalDataChartBreakdown": [],
+      "change_1d": -47.81,
+      "chainBreakdown": {
+       "BSC": {
+        "total24h": 1205,
+        "total48hto24h": 2309,
+        "total7d": 38926,
+        "total14dto7d": 90280,
+        "total30d": 975819,
+        "total1y": 975819,
+        "total7DaysAgo": 7788,
+        "totalAllTime": 977024,
+        "average1y": 44355.40909090909,
+        "change_1d": -47.81,
+        "change_7d": -84.53,
+        "change_7dover7d": -56.88
+       }
+      }
+     },
+     "_atlas": {
+      "docs": "https://defillama.use.x402atlas.com/llms.txt",
+      "related": [
+       {
+        "bridge": "coingecko",
+        "url": "https://coingecko.use.x402atlas.com/price?ref=defillama",
+        "docs": "https://coingecko.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Crypto prices & market data"
+       },
+       {
+        "bridge": "marketdata",
+        "url": "https://marketdata.use.x402atlas.com/ticker?ref=defillama",
+        "docs": "https://marketdata.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Stocks, ETFs & indices data"
+       },
+       {
+        "bridge": "perpsignals",
+        "url": "https://perpsignals.use.x402atlas.com/funding-rates?ref=defillama",
+        "docs": "https://perpsignals.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Perp funding & fear/greed"
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_357891d743a1470f8e73558a726dfc61/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.000838,
+  "tool_cost_usd": 0.005,
+  "frames_fee_usd": 0.000876,
+  "total_cost_usd": 0.006713,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 2392,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 48,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.000838,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "title": "Fees & revenue summary by DefiLlama \u2014 fee and revenue history for one protocol b",
+   "capability": "fee-summary",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "amount": "0.005",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x1cb64bb81c030bfb28d2fe7216d5611984b60b7987de6d91f61a1c2e87854b63",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
