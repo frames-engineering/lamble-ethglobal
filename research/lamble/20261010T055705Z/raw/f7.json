@@ -1,0 +1,5712 @@
+{
+ "run_id": "run_d792f62850a6429da4abb14c041c5660",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 43,
+  "budget_credits": 60,
+  "balance_credits": 67431,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 75,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 4,
+  "delivered": 4,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 4846,
+     "stored_chars": 4846,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+     "amount": "0.005",
+     "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x6bfeb329172ec38ebdc7a75bb70b35dc8df3ff21783fdf38819f1f8cecdf5c86",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-10T06:16:08.794985408Z",
+     "data": {
+      "id": "8450",
+      "name": "StonkFun",
+      "address": "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
+      "symbol": "STONK",
+      "url": "https://www.stonkfun.xyz/",
+      "description": "A Solana launchpad to launch coins paired with anything.",
+      "chain": "Solana",
+      "logo": "https://icons.llamao.fi/icons/protocols/stonkfun",
+      "audits": "0",
+      "gecko_id": "stonk-3",
+      "cmcId": "42022",
+      "category": "Launchpad",
+      "chains": [
+       "Solana"
+      ],
+      "module": "stonkfun",
+      "twitter": "LaunchOnSF",
+      "dimensions": {
+       "dexs": "stonkfun",
+       "fees": {
+        "adapter": "stonkfun",
+        "genuineSpikes": [
+         [
+          "2026-09-06",
+          "Large Raydium Burn & Earn harvest day paid to the operator wallet"
+         ]
+        ]
+       }
+      },
+      "methodology": {
+       "Fees": "StonkFun's share of trading fees only. Three sources: the 1% platform fee on every trade against the Raydium LaunchLab bonding curves it configures; the creator fee on every swap in the Raydium CPMM pools those launches graduate into, which StonkFun claims as pool creator; and its share of trading fees harvested from the permanently locked liquidity behind each launch. Raydium's protocol fee and third-party creator fees are excluded. All amounts are in each pool's quote token.",
+       "Revenue": "Same as fees. Platform fees accrue on the curve, creator fees and locked-position fees are claimed into the treasury.",
+       "HoldersRevenue": "Quote assets spent buying STONK on Jupiter, identified on-chain as swaps that returned STONK to the operator wallet. Measured at the amount spent, not the value of the tokens later burned."
+      },
+      "misrepresentedTokens": false,
+      "doublecounted": true,
+      "tvlCodePath": null,
+      "defillamaId": "8450",
+      "displayName": "StonkFun",
+      "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/stonkfun.ts",
+      "forkedFrom": null,
+      "audit_links": null,
+      "github": null,
+      "governanceID": null,
+      "treasury": null,
+      "parentProtocol": null,
+      "previousNames": null,
+      "hallmarks": null,
+      "defaultChartView": null,
+      "breakdownMethodology": {
+       "Fees": {
+        "Launch Curve Platform Fee": "1% of every LaunchLab bonding curve trade, charged in the pool's quote token and claimable by StonkFun's fee wallet.",
+        "Graduated Pool Creator Fee": "Creator fee on swaps in the CPMM pools graduated launches migrate into, claimed by StonkFun as pool creator; quote side only.",
+        "Locked LP Trading Fees": "Quote-token fees harvested from the permanently locked launch positions."
+       },
+       "Revenue": {
+        "Launch Curve Platform Fee": "Platform fee accrued to StonkFun.",
+        "Graduated Pool Creator Fee": "Creator fee claimed from graduated pools.",
+        "Locked LP Trading Fees": "Quote-token fees retained by the protocol."
+       },
+       "HoldersRevenue": {
+        "STONK Buyback And Burn": "Revenue spent buying the platform token back and burning it."
+       }
+      },
+      "slug": "stonkfun",
+      "protocolType": "protocol",
+      "total24h": 0,
+      "total48hto24h": 0,
+      "total7d": 0,
+      "total30d": 0,
+      "total1y": 0,
+      "annualized1y": null,
+      "totalAllTime": 0,
+      "totalDataChart": [
+       [
+        1785024000,
+        0
+       ],
+       [
+        1785110400,
+        0
+       ],
+       [
+        1785196800,
+        0
+       ],
+       [
+        1785283200,
+        0
+       ],
+       [
+        1785369600,
+        0
+       ],
+       [
+        1785456000,
+        0
+       ],
+       [
+        1785542400,
+        0
+       ],
+       [
+        1785628800,
+        0
+       ],
+       [
+        1785715200,
+        0
+       ],
+       [
+        1785801600,
+        0
+       ],
+       [
+        1785888000,
+        0
+       ],
+       [
+        1785974400,
+        0
+       ],
+       [
+        1786060800,
+        0
+       ],
+       [
+        1786147200,
+        0
+       ],
+       [
+        1786233600,
+        0
+       ],
+       [
+        1786320000,
+        0
+       ],
+       [
+        1786406400,
+        0
+       ],
+       [
+        1786492800,
+        0
+       ],
+       [
+        1786579200,
+        0
+       ],
+       [
+        1786665600,
+        0
+       ],
+       [
+        1786752000,
+        0
+       ],
+       [
+        1786838400,
+        0
+       ],
+       [
+        1786924800,
+        0
+       ],
+       [
+        1787011200,
+        0
+       ],
+       [
+        1787097600,
+        0
+       ],
+       [
+        1787184000,
+        0
+       ],
+       [
+        1787270400,
+        0
+       ],
+       [
+        1787356800,
+        0
+       ],
+       [
+        1787443200,
+        0
+       ],
+       [
+        1787529600,
+        0
+       ],
+       [
+        1787616000,
+        0
+       ],
+       [
+        1787702400,
+        0
+       ],
+       [
+        1787788800,
+        0
+       ],
+       [
+        1787875200,
+        0
+       ],
+       [
+        1787961600,
+        0
+       ],
+       [
+        1788048000,
+        0
+       ],
+       [
+        1788134400,
+        0
+       ],
+       [
+        1788220800,
+        0
+       ],
+       [
+        1788307200,
+        0
+       ],
+       [
+        1788393600,
+        0
+       ],
+       [
+        1788480000,
+        0
+       ],
+       [
+        1788566400,
+        0
+       ],
+       [
+        1788652800,
+        0
+       ],
+       [
+        1788739200,
+        0
+       ],
+       [
+        1788825600,
+        0
+       ],
+       [
+        1788912000,
+        0
+       ],
+       [
+        1788998400,
+        0
+       ],
+       [
+        1789084800,
+        0
+       ],
+       [
+        1789171200,
+        0
+       ],
+       [
+        1789257600,
+        0
+       ],
+       [
+        1789344000,
+        0
+       ],
+       [
+        1789430400,
+        0
+       ],
+       [
+        1789516800,
+        0
+       ],
+       [
+        1789603200,
+        0
+       ],
+       [
+        1789689600,
+        0
+       ],
+       [
+        1789776000,
+        0
+       ],
+       [
+        1789862400,
+        0
+       ],
+       [
+        1789948800,
+        0
+       ],
+       [
+        1790035200,
+        0
+       ],
+       [
+        1790121600,
+        0
+       ],
+       [
+        1790208000,
+        0
+       ],
+       [
+        1790294400,
+        0
+       ],
+       [
+        1790380800,
+        0
+       ],
+       [
+        1790467200,
+        0
+       ],
+       [
+        1790553600,
+        0
+       ],
+       [
+        1790640000,
+        0
+       ],
+       [
+        1790726400,
+        0
+       ],
+       [
+        1790812800,
+        0
+       ],
+       [
+        1790899200,
+        0
+       ],
+       [
+        1790985600,
+        0
+       ],
+       [
+        1791072000,
+        0
+       ],
+       [
+        1791158400,
+        0
+       ],
+       [
+        1791244800,
+        0
+       ],
+       [
+        1791331200,
+        0
+       ],
+       [
+        1791417600,
+        0
+       ]
+      ],
+      "totalDataChartBreakdown": [],
+      "hasLabelBreakdown": false,
+      "chainBreakdown": {
+       "Solana": {
+        "total24h": 0,
+        "total48hto24h": 0,
+        "total7d": 0,
+        "total14dto7d": 0,
+        "total30d": 0,
+        "total60dto30d": 0,
+        "total1y": 0,
+        "total7DaysAgo": 0,
+        "total30DaysAgo": 0,
+        "totalAllTime": 0
+       }
+      }
+     },
+     "_atlas": {
+      "docs": "https://defillama.use.x402atlas.com/llms.txt",
+      "related": [
+       {
+        "bridge": "coingecko",
+        "url": "https://coingecko.use.x402atlas.com/price?ref=defillama",
+        "docs": "https://coingecko.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Crypto prices & market data"
+       },
+       {
+        "bridge": "marketdata",
+        "url": "https://marketdata.use.x402atlas.com/ticker?ref=defillama",
+        "docs": "https://marketdata.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Stocks, ETFs & indices data"
+       },
+       {
+        "bridge": "perpsignals",
+        "url": "https://perpsignals.use.x402atlas.com/funding-rates?ref=defillama",
+        "docs": "https://perpsignals.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Perp funding & fear/greed"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 11497,
+     "stored_chars": 11497,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+     "amount": "0.005",
+     "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x4a92f14fe77671b6ec2a176b85365b9bdb08f6494e277b72843708931320a9dc",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The returned data includes fee entries dated in the future relative to the query date.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-10T06:16:18.667378756Z",
+     "data": {
+      "id": "6478",
+      "name": "Graphite Protocol",
+      "address": "solana:31k88G5Mq7ptbRDf3AM13HAq6wRQHXHikR8hik7wPygk",
+      "symbol": "GP",
+      "url": "https://taiyorobotics.com/#/",
+      "description": "Graphite Protocol - We build smart contracts  and tech currently powering LiveBONK & bonk_fun.",
+      "chain": "Solana",
+      "logo": "https://icons.llamao.fi/icons/protocols/graphite-protocol",
+      "audits": "0",
+      "gecko_id": "graphite-protocol",
+      "cmcId": "25241",
+      "category": "Launchpad",
+      "chains": [
+       "Solana"
+      ],
+      "module": "graphite-protocol",
+      "twitter": "GraphiteProto",
+      "hallmarks": [
+       [
+        1749513600,
+        "Graphite Protocol share reduced from 57.68% to 40% of total fees, BONKsol staking reduced from 30% to 15%"
+       ]
+      ],
+      "dimensions": {
+       "fees": "graphite-protocol"
+      },
+      "methodology": {
+       "Fees": "Graphite Protocol's portion of joint venture fees with Letsbonk. Before 10th jun 2025: 57.68% of total fees. After 10th jun 2025: 40% of total fees.",
+       "Revenue": "All of Graphite Protocol's portion of the joint venture fees with Letsbonk.fun.",
+       "ProtocolRevenue": "Graphite Protocol's portion of the joint venture fees with Letsbonk.fun minus the GP bought back and burned. Negative on burn days, as one burn covers weeks of buybacks.",
+       "HoldersRevenue": "GP that Graphite bought back on Jupiter and burned, valued at the GP price when burned. Buybacks are counted on the day of the burn, which can be weeks after the purchase."
+      },
+      "misrepresentedTokens": false,
+      "doublecounted": true,
+      "tvlCodePath": null,
+      "defillamaId": "6478",
+      "displayName": "Graphite Protocol",
+      "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/graphite-protocol",
+      "forkedFrom": null,
+      "audit_links": null,
+      "github": null,
+      "governanceID": null,
+      "treasury": null,
+      "parentProtocol": null,
+      "previousNames": null,
+      "defaultChartView": null,
+      "breakdownMethodology": {
+       "Fees": {
+        "BonkFun Trading Fees": "Graphite Protocol's portion of the platform trading fees collected by LetsBONK.fun."
+       },
+       "Revenue": {
+        "BonkFun Trading Fees": "Graphite Protocol's portion of the platform trading fees collected by LetsBONK.fun."
+       },
+       "ProtocolRevenue": {
+        "BonkFun Trading Fees To Treasury": "Graphite Protocol's whole portion of the trading fees: GP Reserve, BONKsol staking, hiring/growth, development/integration and marketing minus the GP bought back and burned."
+       },
+       "HoldersRevenue": {
+        "Token Buy Back": "GP bought back on Jupiter by Graphite's buyback wallets and burned."
+       }
+      },
+      "slug": "graphite-protocol",
+      "protocolType": "protocol",
+      "total24h": 22755,
+      "total48hto24h": 30786,
+      "total7d": 400867,
+      "total30d": 3662333,
+      "total1y": 9176900,
+      "annualized1y": 9176900,
+      "totalAllTime": 11416461,
+      "totalDataChart": [
+       [
+        1755475200,
+        12090
+       ],
+       [
+        1755561600,
+        13666
+       ],
+       [
+        1755648000,
+        25671
+       ],
+       [
+        1755734400,
+        16398
+       ],
+       [
+        1755820800,
+        27468
+       ],
+       [
+        1755907200,
+        11150
+       ],
+       [
+        1755993600,
+        11443
+       ],
+       [
+        1756080000,
+        12178
+       ],
+       [
+        1756166400,
+        20214
+       ],
+       [
+        1756252800,
+        15408
+       ],
+       [
+        1756339200,
+        26577
+       ],
+       [
+        1756425600,
+        87122
+       ],
+       [
+        1756512000,
+        80974
+       ],
+       [
+        1756598400,
+        35653
+       ],
+       [
+        1756684800,
+        136825
+       ],
+       [
+        1756771200,
+        137190
+       ],
+       [
+        1756857600,
+        36167
+       ],
+       [
+        1756944000,
+        29967
+       ],
+       [
+        1757030400,
+        20149
+       ],
+       [
+        1757116800,
+        16819
+       ],
+       [
+        1757203200,
+        21911
+       ],
+       [
+        1757289600,
+        19028
+       ],
+       [
+        1757376000,
+        26399
+       ],
+       [
+        1757462400,
+        35947
+       ],
+       [
+        1757548800,
+        42486
+       ],
+       [
+        1757635200,
+        28356
+       ],
+       [
+        1757721600,
+        24171
+       ],
+       [
+        1757808000,
+        9538
+       ],
+       [
+        1757894400,
+        39025
+       ],
+       [
+        1757980800,
+        18905
+       ],
+       [
+        1758067200,
+        31602
+       ],
+       [
+        1758153600,
+        193620
+       ],
+       [
+        1758240000,
+        73236
+       ],
+       [
+        1758326400,
+        30609
+       ],
+       [
+        1758412800,
+        22702
+       ],
+       [
+        1758499200,
+        27927
+       ],
+       [
+        1758585600,
+        78167
+       ],
+       [
+        1758672000,
+        95147
+       ],
+       [
+        1758758400,
+        95329
+       ],
+       [
+        1758844800,
+        55146
+       ],
+       [
+        1758931200,
+        54652
+       ],
+       [
+        1759017600,
+        29017
+       ],
+       [
+        1759104000,
+        50206
+       ],
+       [
+        1759190400,
+        58350
+       ],
+       [
+        1759276800,
+        90255
+       ],
+       [
+        1759363200,
+        52655
+       ],
+       [
+        1759449600,
+        38891
+       ],
+       [
+        1759536000,
+        20767
+       ],
+       [
+        1759622400,
+        17413
+       ],
+       [
+        1759708800,
+        28026
+       ],
+       [
+        1759795200,
+        12927
+       ],
+       [
+        1759881600,
+        9574
+       ],
+       [
+        1759968000,
+        11693
+       ],
+       [
+        1760054400,
+        11022
+       ],
+       [
+        1760140800,
+        4178
+       ],
+       [
+        1760227200,
+        4528
+       ],
+       [
+        1760313600,
+        10446
+       ],
+       [
+        1760400000,
+        8555
+       ],
+       [
+        1760486400,
+        15973
+       ],
+       [
+        1760572800,
+        12578
+       ],
+       [
+        1760659200,
+        5845
+       ],
+       [
+        1760745600,
+        10113
+       ],
+       [
+        1760832000,
+        8978
+       ],
+       [
+        1760918400,
+        7276
+       ],
+       [
+        1761004800,
+        10297
+       ],
+       [
+        1761091200,
+        10466
+       ],
+       [
+        1761177600,
+        12850
+       ],
+       [
+        1761264000,
+        12048
+       ],
+       [
+        1761350400,
+        5564
+       ],
+       [
+        1761436800,
+        7707
+       ],
+       [
+        1761523200,
+        12951
+       ],
+       [
+        1761609600,
+        10496
+       ],
+       [
+        1761696000,
+        6175
+       ],
+       [
+        1761782400,
+        10805
+       ],
+       [
+        1761868800,
+        7865
+       ],
+       [
+        1761955200,
+        6268
+       ],
+       [
+        1762041600,
+        2528
+       ],
+       [
+        1762128000,
+        4600
+       ],
+       [
+        1762214400,
+        1654
+       ],
+       [
+        1762300800,
+        51539
+       ],
+       [
+        1762387200,
+        25553
+       ],
+       [
+        1762473600,
+        15467
+       ],
+       [
+        1762560000,
+        11613
+       ],
+       [
+        1762646400,
+        7699
+       ],
+       [
+        1762732800,
+        31030
+       ],
+       [
+        1762819200,
+        15787
+       ],
+       [
+        1762905600,
+        11377
+       ],
+       [
+        1762992000,
+        5606
+       ],
+       [
+        1763078400,
+        4309
+       ],
+       [
+        1763164800,
+        2692
+       ],
+       [
+        1763251200,
+        1543
+       ],
+       [
+        1763337600,
+        4104
+       ],
+       [
+        1763424000,
+        2991
+       ],
+       [
+        1763510400,
+        4319
+       ],
+       [
+        1763596800,
+        4856
+       ],
+       [
+        1763683200,
+        4634
+       ],
+       [
+        1763769600,
+        1458
+       ],
+       [
+        1763856000,
+        1967
+       ],
+       [
+        1763942400,
+        14782
+       ],
+       [
+        1764028800,
+        11948
+       ],
+       [
+        1764115200,
+        7952
+       ],
+       [
+        1764201600,
+        5441
+       ],
+       [
+        1764288000,
+        8923
+       ],
+       [
+        1764374400,
+        13105
+       ],
+       [
+        1764460800,
+        13242
+       ],
+       [
+        1764547200,
+        12427
+       ],
+       [
+        1764633600,
+        20689
+       ],
+       [
+        1764720000,
+        13155
+       ],
+       [
+        1764806400,
+        12724
+       ],
+       [
+        1764892800,
+        12021
+       ],
+       [
+        1764979200,
+        37910
+       ],
+       [
+        1765065600,
+        52188
+       ],
+       [
+        1765152000,
+        29953
+       ],
+       [
+        1765238400,
+        54540
+       ],
+       [
+        1765324800,
+        46633
+       ],
+       [
+        1765411200,
+        67886
+       ],
+       [
+        1765497600,
+        62488
+       ],
+       [
+        1765584000,
+        61258
+       ],
+       [
+        1765670400,
+        29403
+       ],
+       [
+        1765756800,
+        56152
+       ],
+       [
+        1765843200,
+        32206
+       ],
+       [
+        1765929600,
+        43054
+       ],
+       [
+        1766016000,
+        31952
+       ],
+       [
+        1766102400,
+        48941
+       ],
+       [
+        1766188800,
+        16707
+       ],
+       [
+        1766275200,
+        16161
+       ],
+       [
+        1766361600,
+        22497
+       ],
+       [
+        1766448000,
+        20717
+       ],
+       [
+        1766534400,
+        8548
+       ],
+       [
+        1766620800,
+        11850
+       ],
+       [
+        1766707200,
+        17870
+       ],
+       [
+        1766793600,
+        23438
+       ],
+       [
+        1766880000,
+        17200
+       ],
+       [
+        1766966400,
+        30757
+       ],
+       [
+        1767052800,
+        35087
+       ],
+       [
+        1767139200,
+        31928
+       ],
+       [
+        1767225600,
+        29639
+       ],
+       [
+        1767312000,
+        170961
+       ],
+       [
+        1767398400,
+        235016
+       ],
+       [
+        1767484800,
+        166726
+       ],
+       [
+        1767571200,
+        129548
+       ],
+       [
+        1767657600,
+        120572
+       ],
+       [
+        1767744000,
+        66958
+       ],
+       [
+        1767830400,
+        77062
+       ],
+       [
+        1767916800,
+        56551
+       ],
+       [
+        1768003200,
+        30892
+       ],
+       [
+        1768089600,
+        23558
+       ],
+       [
+        1768176000,
+        51833
+       ],
+       [
+        1768262400,
+        36716
+       ],
+       [
+        1768348800,
+        62210
+       ],
+       [
+        1768435200,
+        24823
+       ],
+       [
+        1768521600,
+        7066
+       ],
+       [
+        1768608000,
+        8973
+       ],
+       [
+        1768694400,
+        12559
+       ],
+       [
+        1768780800,
+        60611
+       ],
+       [
+        1768867200,
+        39185
+       ],
+       [
+        1768953600,
+        52523
+       ],
+       [
+        1769040000,
+        53976
+       ],
+       [
+        1769126400,
+        71363
+       ],
+       [
+        1769212800,
+        46824
+       ],
+       [
+        1769299200,
+        37081
+       ],
+       [
+        1769385600,
+        55557
+       ],
+       [
+        1769472000,
+        72242
+       ],
+       [
+        1769558400,
+        65296
+       ],
+       [
+        1769644800,
+        41756
+       ],
+       [
+        1769731200,
+        27177
+       ],
+       [
+        1769817600,
+        5708
+       ],
+       [
+        1769904000,
+        8895
+       ],
+       [
+        1769990400,
+        26044
+       ],
+       [
+        1770076800,
+        22950
+       ],
+       [
+        1770163200,
+        16700
+       ],
+       [
+        1770249600,
+        20008
+       ],
+       [
+        1770336000,
+        27021
+       ],
+       [
+        1770422400,
+        10005
+       ],
+       [
+        1770508800,
+        10638
+       ],
+       [
+        1770595200,
+        38500
+       ],
+       [
+        1770681600,
+        19809
+       ],
+       [
+        1770768000,
+        18758
+       ],
+       [
+        1770854400,
+        11106
+       ],
+       [
+        1770940800,
+        11137
+       ],
+       [
+        1771027200,
+        5338
+       ],
+       [
+        1771113600,
+        6084
+       ],
+       [
+        1771200000,
+        8989
+       ],
+       [
+        1771286400,
+        8813
+       ],
+       [
+        1771372800,
+        15423
+       ],
+       [
+        1771459200,
+        9040
+       ],
+       [
+        1771545600,
+        18536
+       ],
+       [
+        1771632000,
+        6790
+       ],
+       [
+        1771718400,
+        14270
+       ],
+       [
+        1771804800,
+        14412
+       ],
+       [
+        1771891200,
+        21272
+       ],
+       [
+        1771977600,
+        10238
+       ],
+       [
+        1772064000,
+        21164
+       ],
+       [
+        1772150400,
+        8928
+       ],
+       [
+        1772236800,
+        7707
+       ],
+       [
+        1772323200,
+        5405
+       ],
+       [
+        1772409600,
+        7876
+       ],
+       [
+        1772496000,
+        5037
+       ],
+       [
+        1772582400,
+        5999
+       ],
+       [
+        1772668800,
+        3973
+       ],
+       [
+        1772755200,
+        2213
+       ],
+       [
+        1772841600,
+        1368
+       ],
+       [
+        1772928000,
+        814
+       ],
+       [
+        1773014400,
+        3126
+       ],
+       [
+        1773100800,
+        2783
+       ],
+       [
+        1773187200,
+        3583
+       ],
+       [
+        1773273600,
+        1366
+       ],
+       [
+        1773360000,
+        1501
+       ],
+       [
+        1773446400,
+        811
+       ],
+       [
+        1773532800,
+        1979
+       ],
+       [
+        1773619200,
+        833
+       ],
+       [
+        1773705600,
+        2210
+       ],
+       [
+        1773792000,
+        1096
+       ],
+       [
+        1773878400,
+        700
+       ],
+       [
+        1773964800,
+        19565
+       ],
+       [
+        1774051200,
+        169217
+       ],
+       [
+        1774137600,
+        106662
+       ],
+       [
+        1774224000,
+        85810
+       ],
+       [
+        1774310400,
+        70665
+       ],
+       [
+        1774396800,
+        51609
+       ],
+       [
+        1774483200,
+        39223
+       ],
+       [
+        1774569600,
+        30532
+       ],
+       [
+        1774656000,
+        15711
+       ],
+       [
+        1774742400,
+        13386
+       ],
+       [
+        1774828800,
+        37649
+       ],
+       [
+        1774915200,
+        14383
+       ],
+       [
+        1775001600,
+        14999
+       ],
+       [
+        1775088000,
+        11560
+       ],
+       [
+        1775174400,
+        12953
+       ],
+       [
+        1775260800,
+        10762
+       ],
+       [
+        1775347200,
+        6148
+       ],
+       [
+        1775433600,
+        12164
+       ],
+       [
+        1775520000,
+        7070
+       ],
+       [
+        1775606400,
+        4486
+       ],
+       [
+        1775692800,
+        4928
+       ],
+       [
+        1775779200,
+        4144
+       ],
+       [
+        1775865600,
+        2358
+       ],
+       [
+        1775952000,
+        9347
+       ],
+       [
+        1776038400,
+        7287
+       ],
+       [
+        1776124800,
+        2397
+       ],
+       [
+        1776211200,
+        2246
+       ],
+       [
+        1776297600,
+        2235
+       ],
+       [
+        1776384000,
+        3655
+       ],
+       [
+        1776470400,
+        2983
+       ],
+       [
+        1776556800,
+        3193
+       ],
+       [
+        1776643200,
+        4956
+       ],
+       [
+        1776729600,
+        2631
+       ],
+       [
+        1776816000,
+        3980
+       ],
+       [
+        1776902400,
+        3870
+       ],
+       [
+        1776988800,
+        5949
+       ],
+       [
+        1777075200,
+        4060
+       ],
+       [
+        1777161600,
+        11776
+       ],
+       [
+        1777248000,
+        9643
+       ],
+       [
+        1777334400,
+        32093
+       ],
+       [
+        1777420800,
+        3708
+       ],
+       [
+        1777507200,
+        1935
+       ],
+       [
+        1777593600,
+        2940
+       ],
+       [
+        1777680000,
+        2265
+       ],
+       [
+        1777766400,
+        2716
+       ],
+       [
+        1777852800,
+        4064
+       ],
+       [
+        1777939200,
+        4096
+       ],
+       [
+        1778025600,
+        3596
+       ],
+       [
+        1778112000,
+        3760
+       ],
+       [
+        1778198400,
+        6628
+       ],
+       [
+        1778284800,
+        1599
+       ],
+       [
+        1778371200,
+        11868
+       ],
+       [
+        1778457600,
+        4376
+       ],
+       [
+        1778544000,
+        6839
+       ],
+       [
+        1778630400,
+        7307
+       ],
+       [
+        1778716800,
+        7416
+       ],
+       [
+        1778803200,
+        5300
+       ],
+       [
+        1778889600,
+        1060
+       ],
+       [
+        1778976000,
+        5949
+       ],
+       [
+        1779062400,
+        8387
+       ],
+       [
+        1779148800,
+        4878
+       ],
+       [
+        1779235200,
+        3051
+       ],
+       [
+        1779321600,
+        5004
+       ],
+       [
+        1779408000,
+        1768
+       ],
+       [
+        1779494400,
+        733
+       ],
+       [
+        1779580800,
+        491
+       ],
+       [
+        1779667200,
+        5198
+       ],
+       [
+        1779753600,
+        3478
+       ],
+       [
+        1779840000,
+        5155
+       ],
+       [
+        1779926400,
+        3494
+       ],
+       [
+        1780012800,
+        1460
+       ],
+       [
+        1780099200,
+        1791
+       ],
+       [
+        1780185600,
+        287
+       ],
+       [
+        1780272000,
+        1155
+       ],
+       [
+        1780358400,
+        1829
+       ],
+       [
+        1780444800,
+        553
+       ],
+       [
+        1780531200,
+        1674
+       ],
+       [
+        1780617600,
+        662
+       ],
+       [
+        1780704000,
+        344
+       ],
+       [
+        1780790400,
+        699
+       ],
+       [
+        1780876800,
+        2067
+       ],
+       [
+        1780963200,
+        793
+       ],
+       [
+        1781049600,
+        693
+       ],
+       [
+        1781136000,
+        731
+       ],
+       [
+        1781222400,
+        1436
+       ],
+       [
+        1781308800,
+        648
+       ],
+       [
+        1781395200,
+        7796
+       ],
+       [
+        1781481600,
+        2056
+       ],
+       [
+        1781568000,
+        3087
+       ],
+       [
+        1781654400,
+        1658
+       ],
+       [
+        1781740800,
+        1144
+       ],
+       [
+        1781827200,
+        1935
+       ],
+       [
+        1781913600,
+        796
+       ],
+       [
+        1782000000,
+        997
+       ],
+       [
+        1782086400,
+        2319
+       ],
+       [
+        1782172800,
+        1165
+       ],
+       [
+        1782259200,
+        1175
+       ],
+       [
+        1782345600,
+        867
+       ],
+       [
+        1782432000,
+        2661
+       ],
+       [
+        1782518400,
+        13003
+       ],
+       [
+        1782604800,
+        4420
+       ],
+       [
+        1782691200,
+        4248
+       ],
+       [
+        1782777600,
+        7745
+       ],
+       [
+        1782864000,
+        12253
+       ],
+       [
+        1782950400,
+        13096
+       ],
+       [
+        1783036800,
+        8565
+       ],
+       [
+        1783123200,
+        3492
+       ],
+       [
+        1783209600,
+        3256
+       ],
+       [
+        1783296000,
+        5605
+       ],
+       [
+        1783382400,
+        2540
+       ],
+       [
+        1783468800,
+        1070
+       ],
+       [
+        1783555200,
+        3281
+       ],
+       [
+        1783641600,
+        1412
+       ],
+       [
+        1783728000,
+        469
+       ],
+       [
+        1783814400,
+        757
+       ],
+       [
+        1783900800,
+        1193
+       ],
+       [
+        1783987200,
+        4307
+       ],
+       [
+        1784073600,
+        1384
+       ],
+       [
+        1784160000,
+        3842
+       ],
+       [
+        1784246400,
+        2094
+       ],
+       [
+        1784332800,
+        975
+       ],
+       [
+        1784419200,
+        1175
+       ],
+       [
+        1784505600,
+        3663
+       ],
+       [
+        1784592000,
+        1283
+       ],
+       [
+        1784678400,
+        1108
+       ],
+       [
+        1784764800,
+        2074
+       ],
+       [
+        1784851200,
+        1240
+       ],
+       [
+        1784937600,
+        1359
+       ],
+       [
+        1785024000,
+        1423
+       ],
+       [
+        1785110400,
+        2475
+       ],
+       [
+        1785196800,
+        3212
+       ],
+       [
+        1785283200,
+        2428
+       ],
+       [
+        1785369600,
+        2199
+       ],
+       [
+        1785456000,
+        2829
+       ],
+       [
+        1785542400,
+        1038
+       ],
+       [
+        1785628800,
+        1101
+       ],
+       [
+        1785715200,
+        2789
+       ],
+       [
+        1785801600,
+        1489
+       ],
+       [
+        1785888000,
+        2465
+       ],
+       [
+        1785974400,
+        1557
+       ],
+       [
+        1786060800,
+        1869
+       ],
+       [
+        1786147200,
+        2603
+       ],
+       [
+        1786233600,
+        3777
+       ],
+       [
+        1786320000,
+        2318
+       ],
+       [
+        1786406400,
+        1052
+       ],
+       [
+        1786492800,
+        1228
+       ],
+       [
+        1786579200,
+        1360
+       ],
+       [
+        1786665600,
+        2969
+       ],
+       [
+        1786752000,
+        379
+       ],
+       [
+        1786838400,
+        490
+       ],
+       [
+        1786924800,
+        2881
+       ],
+       [
+        1787011200,
+        660
+       ],
+       [
+        1787097600,
+        2745
+       ],
+       [
+        1787184000,
+        2402
+       ],
+       [
+        1787270400,
+        5142
+       ],
+       [
+        1787356800,
+        2858
+       ],
+       [
+        1787443200,
+        678
+       ],
+       [
+        1787529600,
+        6332
+       ],
+       [
+        1787616000,
+        3193
+       ],
+       [
+        1787702400,
+        3753
+       ],
+       [
+        1787788800,
+        2895
+       ],
+       [
+        1787875200,
+        2234
+       ],
+       [
+        1787961600,
+        1170
+       ],
+       [
+        1788048000,
+        1219
+       ],
+       [
+        1788134400,
+        3508
+       ],
+       [
+        1788220800,
+        1694
+       ],
+       [
+        1788307200,
+        846
+       ],
+       [
+        1788393600,
+        1102
+       ],
+       [
+        1788480000,
+        1061
+       ],
+       [
+        1788566400,
+        7548
+       ],
+       [
+        1788652800,
+        103692
+       ],
+       [
+        1788739200,
+        86292
+       ],
+       [
+        1788825600,
+        90349
+       ],
+       [
+        1788912000,
+        98279
+       ],
+       [
+        1788998400,
+        117154
+       ],
+       [
+        1789084800,
+        158767
+       ],
+       [
+        1789171200,
+        104664
+       ],
+       [
+        1789257600,
+        79542
+       ],
+       [
+        1789344000,
+        89675
+       ],
+       [
+        1789430400,
+        65874
+       ],
+       [
+        1789516800,
+        63258
+       ],
+       [
+        1789603200,
+        114222
+       ],
+       [
+        1789689600,
+        189348
+       ],
+       [
+        1789776000,
+        167226
+       ],
+       [
+        1789862400,
+        166474
+       ],
+       [
+        1789948800,
+        267370
+       ],
+       [
+        1790035200,
+        244341
+       ],
+       [
+        1790121600,
+        232196
+       ],
+       [
+        1790208000,
+        207990
+       ],
+       [
+        1790294400,
+        183509
+       ],
+       [
+        1790380800,
+        57074
+       ],
+       [
+        1790467200,
+        79768
+       ],
+       [
+        1790553600,
+        107800
+       ],
+       [
+        1790640000,
+        170732
+       ],
+       [
+        1790726400,
+        143844
+       ],
+       [
+        1790812800,
+        146867
+       ],
+       [
+        1790899200,
+        103771
+       ],
+       [
+        1790985600,
+        62648
+       ],
+       [
+        1791072000,
+        79858
+       ],
+       [
+        1791158400,
+        75204
+       ],
+       [
+        1791244800,
+        83794
+       ],
+       [
+        1791331200,
+        44977
+       ],
+       [
+        1791417600,
+        30786
+       ],
+       [
+        1791504000,
+        23600
+       ],
+       [
+        1791590400,
+        22755
+       ]
+      ],
+      "totalDataChartBreakdown": [],
+      "hasLabelBreakdown": true,
+      "change_1d": -26.09,
+      "chainBreakdown": {
+       "Solana": {
+        "total24h": 22755,
+        "total48hto24h": 30786,
+        "total7d": 400867,
+        "total14dto7d": 809856,
+        "total30d": 3662333,
+        "total60dto30d": 440011,
+        "total1y": 9176900,
+        "total7DaysAgo": 103771,
+        "total30DaysAgo": 98279,
+        "totalAllTime": 11416461,
+        "average1y": 25142.19178082192,
+        "monthlyAverage1y": 765328.3178082192,
+        "change_1d": -26.09,
+        "change_7d": -78.07,
+        "change_1m": -76.85,
+        "change_7dover7d": -50.5,
+        "change_30dover30d": 732.33
+       }
+      }
+     },
+     "_atlas": {
+      "docs": "https://defillama.use.x402atlas.com/llms.txt",
+      "related": [
+       {
+        "bridge": "coingecko",
+        "url": "https://coingecko.use.x402atlas.com/price?ref=defillama",
+        "docs": "https://coingecko.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Crypto prices & market data"
+       },
+       {
+        "bridge": "marketdata",
+        "url": "https://marketdata.use.x402atlas.com/ticker?ref=defillama",
+        "docs": "https://marketdata.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Stocks, ETFs & indices data"
+       },
+       {
+        "bridge": "perpsignals",
+        "url": "https://perpsignals.use.x402atlas.com/funding-rates?ref=defillama",
+        "docs": "https://perpsignals.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Perp funding & fear/greed"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 8445,
+     "stored_chars": 8445,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+     "amount": "0.005",
+     "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x45326c12a6606deb9272784c387210dca3ab6aed8911d915a0e08ce185db575a",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-10T06:16:14.636020859Z",
+     "data": {
+      "id": "8704",
+      "name": "Argus World",
+      "previousNames": [
+       "ArgusPad"
+      ],
+      "address": "arc:0xeCe5cA8bf9220718E5727754026757512212cb3c",
+      "symbol": "ARGUS",
+      "url": "https://arguspad.io",
+      "description": "Tax-token launchpad on Arc. Each launch mints its whole supply into a single-sided Uniswap v4 position held by a locker with no withdrawal path, so there is no bonding curve and no migration \u2014 the token trades in a real v4 pool from block one, and a per-launch hook charges a buy/sell tax on every swap.",
+      "chain": "Arc",
+      "logo": "https://icons.llamao.fi/icons/protocols/argus-world",
+      "audits": "0",
+      "gecko_id": null,
+      "cmcId": null,
+      "category": "Launchpad",
+      "chains": [
+       "Arc"
+      ],
+      "module": "arguspad",
+      "twitter": "arguspad",
+      "listedAt": 1789931884,
+      "dimensions": {
+       "fees": "arguspad"
+      },
+      "methodology": {
+       "Fees": "The tax ArgusPad's per-launch hook charges on every buy and sell, the trading fee each launch's pool charges (on Portals 3-7 the 1% pool fee earned by the permanently locked launch position; on Portal 8 a 1% base fee the hook charges in the quote asset in its place), and the extra tax charged on buys in a launch's first seconds. Counted in the asset the fee is charged in, at the moment it is charged, so the protocol's later sale of the launched tokens it was paid is not counted a second time. Fees charged in the launched token itself (Portals 3-7 only; Portal 8 takes every fee in the quote asset) are reported in that token's own units and are priced only if DefiLlama has a price for it; it has none for these tokens today, because a launched token's only market is the pool ArgusPad seeded, and pricing it there overstates by about 40% against what ArgusPad's own sales of them actually realise.",
+       "Revenue": "The share of fees reaching the ArgusPad treasury at the rate each launch fixes at creation - 10% of every fee on Portals 3-7 and 30% on Portal 8 - plus the whole of the early-buy snipe tax, which is paid straight to the treasury.",
+       "ProtocolRevenue": "The share of fees reaching the ArgusPad treasury at the rate each launch fixes at creation - 10% of every fee on Portals 3-7 and 30% on Portal 8 - plus the whole of the early-buy snipe tax, which is paid straight to the treasury.",
+       "SupplySideRevenue": "The rest of the fees, which leave the protocol divided at the weights each launch fixed at creation: the token creator's share, the dividends paid to holders of that launched token, the share added back into the launch's permanently locked liquidity, the share used to buy and burn the launched token, and on Portal 8 the share used to buy the launched token and lock it permanently."
+      },
+      "misrepresentedTokens": false,
+      "doublecounted": true,
+      "tvlCodePath": "https://github.com/DefiLlama/DefiLlama-Adapters/blob/main/projects/arguspad/index.js",
+      "defillamaId": "8704",
+      "displayName": "Argus World",
+      "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/arguspad",
+      "forkedFrom": null,
+      "audit_links": null,
+      "github": null,
+      "governanceID": null,
+      "treasury": null,
+      "parentProtocol": null,
+      "hallmarks": null,
+      "defaultChartView": null,
+      "breakdownMethodology": {
+       "Fees": {
+        "Swap Tax": "The launch's own buy and sell tax, chosen per launch (1-10%), taken by its hook on each swap: on Portals 3-7 read from that swap's TaxTaken, net of the tax the splitter pays itself when it sells launched tokens through the launch's own pool, which is not paid by any user; on Portal 8 the tax part of QuoteFeeTaken's bucketFee. The hook charges it outside the pool fee, so it is not inside Uniswap's fee reporting for Arc.",
+        "LP Fees": "Portals 3-7: the 1% Uniswap v4 pool fee earned by the launch's permanently locked position, read as what the locker forwarded to the splitter, net of the position principal that comes back through the same call. These fees are also inside Uniswap's fee reporting for Arc.",
+        "Token Swap Fees": "Portal 8: the 1% base fee the hook adds to every buy and sell and takes in the quote asset. Portal 8 pools are dynamic-fee pools whose pool fee is set to zero on every swap, so this replaces the LP fee and goes to the same split; it is not inside Uniswap's fee reporting for Arc. It is the base's proportional part of QuoteFeeTaken's bucketFee, which prices tax and base as one rate.",
+        "Snipe Tax": "An extra, time-decaying tax on buys in the seconds after a launch opens, charged by the same hook and paid directly to the treasury (Portal 8: QuoteFeeTaken's surcharge)."
+       },
+       "Revenue": {
+        "Swap Fees to Treasury": "treasuryBps of each launch's accrued fee, read from that launch's own splitter or escrow (1000 on every Portal 3-7 launch, 3000 on every Portal 8 launch), plus the whole snipe tax, which the hook pays straight to the treasury without passing through a splitter, plus on Portal 8 any holders' share accrued while no holder was eligible, which the hook also pays straight to the treasury."
+       },
+       "ProtocolRevenue": {
+        "Swap Fees to Treasury": "treasuryBps of each launch's accrued fee, read from that launch's own splitter or escrow (1000 on every Portal 3-7 launch, 3000 on every Portal 8 launch), plus the whole snipe tax, which the hook pays straight to the treasury without passing through a splitter, plus on Portal 8 any holders' share accrued while no holder was eligible, which the hook also pays straight to the treasury."
+       },
+       "SupplySideRevenue": {
+        "Creator Fees": "The token creator's share, at that launch's configured creatorBps, credited to the creator to claim. Takes the remainder of the supply side, so fees equal revenue plus supply-side revenue exactly.",
+        "Launched Token Holder Dividends": "Dividends paid out to holders of the launched token, at that launch's configured dividendBps. These are not ARGUS holders, so they are a supply-side cost rather than holders revenue.",
+        "Fees Compounded Into Locked Liquidity": "The share added straight back into the launch's permanently locked position instead of being paid to anyone, at that launch's configured liquidityBps.",
+        "Launched Token Buy and Burn": "The share used to buy and burn the launched token, at that launch's configured burnBps. It buys the launched token, not ARGUS, so it is a cost carried by that launch's supply side rather than a protocol buyback or a payment to holders.",
+        "Launched Token Buy and Lock": "Portal 8: the share used to buy the launched token and lock it permanently in the line's lock vault, at that launch's configured lockBps. Like the burn it buys the launched token, not ARGUS, so it is supply side."
+       }
+      },
+      "slug": "argus-world",
+      "protocolType": "protocol",
+      "total24h": 10848,
+      "total48hto24h": 25911,
+      "total7d": 169950,
+      "total30d": 4312431.59,
+      "total1y": 4313360.59,
+      "annualized1y": 49199269.2296875,
+      "totalAllTime": 4324208.59,
+      "totalDataChart": [
+       [
+        1788825600,
+        714
+       ],
+       [
+        1788912000,
+        215
+       ],
+       [
+        1788998400,
+        70.59
+       ],
+       [
+        1789084800,
+        2087
+       ],
+       [
+        1789171200,
+        2001
+       ],
+       [
+        1789257600,
+        3727
+       ],
+       [
+        1789344000,
+        2332
+       ],
+       [
+        1789430400,
+        54279
+       ],
+       [
+        1789516800,
+        2097112
+       ],
+       [
+        1789603200,
+        333072
+       ],
+       [
+        1789689600,
+        159046
+       ],
+       [
+        1789776000,
+        118775
+       ],
+       [
+        1789862400,
+        81195
+       ],
+       [
+        1789948800,
+        80495
+       ],
+       [
+        1790035200,
+        76676
+       ],
+       [
+        1790121600,
+        79627
+       ],
+       [
+        1790208000,
+        82590
+       ],
+       [
+        1790294400,
+        122420
+       ],
+       [
+        1790380800,
+        119035
+       ],
+       [
+        1790467200,
+        386266
+       ],
+       [
+        1790553600,
+        90556
+       ],
+       [
+        1790640000,
+        106297
+       ],
+       [
+        1790726400,
+        50330
+       ],
+       [
+        1790812800,
+        49011
+       ],
+       [
+        1790899200,
+        45482
+       ],
+       [
+        1790985600,
+        26041
+       ],
+       [
+        1791072000,
+        25537
+       ],
+       [
+        1791158400,
+        25173
+       ],
+       [
+        1791244800,
+        22803
+       ],
+       [
+        1791331200,
+        32747
+       ],
+       [
+        1791417600,
+        25911
+       ],
+       [
+        1791504000,
+        11738
+       ],
+       [
+        1791590400,
+        10848
+       ]
+      ],
+      "totalDataChartBreakdown": [],
+      "hasLabelBreakdown": true,
+      "change_1d": -58.13,
+      "chainBreakdown": {
+       "Arc": {
+        "total24h": 10848,
+        "total48hto24h": 25911,
+        "total7d": 169950,
+        "total14dto7d": 846977,
+        "total30d": 4312431.59,
+        "total60dto30d": 929,
+        "total1y": 4313360.59,
+        "total7DaysAgo": 45482,
+        "total30DaysAgo": 215,
+        "totalAllTime": 4324208.59,
+        "average1y": 134792.5184375,
+        "monthlyAverage1y": 4103084.2612375002,
+        "change_1d": -58.13,
+        "change_7d": -76.15,
+        "change_1m": 4945.58,
+        "change_7dover7d": -79.93,
+        "change_30dover30d": 464101.46
+       }
+      }
+     },
+     "_atlas": {
+      "docs": "https://defillama.use.x402atlas.com/llms.txt",
+      "related": [
+       {
+        "bridge": "coingecko",
+        "url": "https://coingecko.use.x402atlas.com/price?ref=defillama",
+        "docs": "https://coingecko.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Crypto prices & market data"
+       },
+       {
+        "bridge": "marketdata",
+        "url": "https://marketdata.use.x402atlas.com/ticker?ref=defillama",
+        "docs": "https://marketdata.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Stocks, ETFs & indices data"
+       },
+       {
+        "bridge": "perpsignals",
+        "url": "https://perpsignals.use.x402atlas.com/funding-rates?ref=defillama",
+        "docs": "https://perpsignals.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Perp funding & fear/greed"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 18740,
+     "stored_chars": 18740,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+     "amount": "0.005",
+     "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x54665673c7bffb986d8a8266ebea7dd27100997a137d2730bfac3ff431747f8b",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-10T06:16:23.862832888Z",
+     "data": {
+      "id": "5446",
+      "name": "clanker",
+      "address": null,
+      "symbol": "-",
+      "url": "https://www.clanker.world/",
+      "description": "AI agent designed to automatically deploy tokens, specifically focusing on creating meme tokens on the Base",
+      "chain": "Base",
+      "logo": "https://icons.llamao.fi/icons/protocols/clanker",
+      "audits": "0",
+      "gecko_id": null,
+      "cmcId": null,
+      "category": "Launchpad",
+      "chains": [
+       "Base",
+       "Arbitrum",
+       "Unichain",
+       "Ethereum",
+       "Monad",
+       "Robinhood Chain"
+      ],
+      "module": "clanker",
+      "twitter": "_proxystudio",
+      "parentProtocol": "parent#farcaster",
+      "dimensions": {
+       "fees": "clanker"
+      },
+      "methodology": {
+       "Fees": "Total swap fees paid by traders in Clanker-deployed Uniswap v4 pools (creator fee + Clanker's 20% of creator fee).",
+       "Revenue": "Clanker protocol's cut: 20% of the creator LP fee charged on top of each swap.",
+       "ProtocolRevenue": "Clanker protocol's cut of swap fees, minus the amount spent buying back CLANKER (negative when a buyback exceeds the period's revenue).",
+       "HoldersRevenue": "CLANKER tokens bought back and distributed to holders.",
+       "SupplySideRevenue": "Token creator's LP rewards, claimable from the initial single-sided Uniswap v4 position."
+      },
+      "misrepresentedTokens": false,
+      "doublecounted": false,
+      "tvlCodePath": null,
+      "defillamaId": "5446",
+      "displayName": "clanker",
+      "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/clanker.ts",
+      "forkedFrom": null,
+      "audit_links": null,
+      "github": null,
+      "governanceID": null,
+      "treasury": null,
+      "previousNames": null,
+      "hallmarks": null,
+      "defaultChartView": null,
+      "breakdownMethodology": {
+       "Fees": {
+        "Swap Fees": "Total trading fees accrued in Clanker-deployed Uniswap v4 pools."
+       },
+       "Revenue": {
+        "Swap Fees To Protocol": "Clanker protocol's 20% cut of LP fees, tracked via WETH received by Clanker fee wallets."
+       },
+       "ProtocolRevenue": {
+        "Swap Fees To Protocol": "Clanker protocol's 20% cut of LP fees, tracked via WETH received by Clanker fee wallets."
+       },
+       "HoldersRevenue": {
+        "Token Buy Back": "CLANKER tokens bought back and sent to the buyback wallet."
+       },
+       "SupplySideRevenue": {
+        "Swap Fees To Creators": "Token creator's LP rewards, claimable from the initial single-sided Uniswap v4 position."
+       }
+      },
+      "slug": "clanker",
+      "protocolType": "protocol",
+      "linkedProtocols": [
+       "Farcaster",
+       "Farcaster SoFi",
+       "clanker"
+      ],
+      "hasLabelBreakdown": true,
+      "total24h": 416026,
+      "total48hto24h": 4455,
+      "total7d": 479652,
+      "total30d": 1028634,
+      "total1y": 43373044,
+      "annualized1y": 43373044,
+      "totalAllTime": 77282315,
+      "totalDataChart": [
+       [
+        1731110400,
+        0
+       ],
+       [
+        1731196800,
+        0
+       ],
+       [
+        1731283200,
+        0
+       ],
+       [
+        1731369600,
+        308972
+       ],
+       [
+        1731456000,
+        72473
+       ],
+       [
+        1731542400,
+        115782
+       ],
+       [
+        1731628800,
+        286392
+       ],
+       [
+        1731715200,
+        0
+       ],
+       [
+        1731801600,
+        459576
+       ],
+       [
+        1731888000,
+        244216
+       ],
+       [
+        1731974400,
+        824000
+       ],
+       [
+        1732060800,
+        46245
+       ],
+       [
+        1732147200,
+        345167
+       ],
+       [
+        1732233600,
+        0
+       ],
+       [
+        1732320000,
+        0
+       ],
+       [
+        1732406400,
+        0
+       ],
+       [
+        1732492800,
+        0
+       ],
+       [
+        1732579200,
+        11
+       ],
+       [
+        1732665600,
+        13995
+       ],
+       [
+        1732752000,
+        0
+       ],
+       [
+        1732838400,
+        385
+       ],
+       [
+        1732924800,
+        4090
+       ],
+       [
+        1733011200,
+        302722
+       ],
+       [
+        1733097600,
+        2680825
+       ],
+       [
+        1733184000,
+        3992285
+       ],
+       [
+        1733270400,
+        178910
+       ],
+       [
+        1733356800,
+        76932
+       ],
+       [
+        1733443200,
+        86029
+       ],
+       [
+        1733529600,
+        70207
+       ],
+       [
+        1733616000,
+        323556
+       ],
+       [
+        1733702400,
+        245112
+       ],
+       [
+        1733788800,
+        255319
+       ],
+       [
+        1733875200,
+        234983
+       ],
+       [
+        1733961600,
+        503222
+       ],
+       [
+        1734048000,
+        231324
+       ],
+       [
+        1734134400,
+        216395
+       ],
+       [
+        1734220800,
+        164963
+       ],
+       [
+        1734307200,
+        273898
+       ],
+       [
+        1734393600,
+        131192
+       ],
+       [
+        1734480000,
+        136632
+       ],
+       [
+        1734566400,
+        85029
+       ],
+       [
+        1734652800,
+        131304
+       ],
+       [
+        1734739200,
+        228751
+       ],
+       [
+        1734825600,
+        19864
+       ],
+       [
+        1734912000,
+        35999
+       ],
+       [
+        1734998400,
+        64322
+       ],
+       [
+        1735084800,
+        48709
+       ],
+       [
+        1735171200,
+        77090
+       ],
+       [
+        1735257600,
+        253346
+       ],
+       [
+        1735344000,
+        54652
+       ],
+       [
+        1735430400,
+        72103
+       ],
+       [
+        1735516800,
+        161026
+       ],
+       [
+        1735603200,
+        131308
+       ],
+       [
+        1735689600,
+        65678
+       ],
+       [
+        1735776000,
+        96209
+       ],
+       [
+        1735862400,
+        101770
+       ],
+       [
+        1735948800,
+        199393
+       ],
+       [
+        1736035200,
+        191117
+       ],
+       [
+        1736121600,
+        218705
+       ],
+       [
+        1736208000,
+        226591
+       ],
+       [
+        1736294400,
+        104330
+       ],
+       [
+        1736380800,
+        145157
+       ],
+       [
+        1736467200,
+        164067
+       ],
+       [
+        1736553600,
+        202632
+       ],
+       [
+        1736640000,
+        161720
+       ],
+       [
+        1736726400,
+        159030
+       ],
+       [
+        1736812800,
+        158605
+       ],
+       [
+        1736899200,
+        191341
+       ],
+       [
+        1736985600,
+        169652
+       ],
+       [
+        1737072000,
+        223828
+       ],
+       [
+        1737158400,
+        140625
+       ],
+       [
+        1737244800,
+        132672
+       ],
+       [
+        1737331200,
+        192916
+       ],
+       [
+        1737417600,
+        138600
+       ],
+       [
+        1737504000,
+        98572
+       ],
+       [
+        1737590400,
+        61544
+       ],
+       [
+        1737676800,
+        746436
+       ],
+       [
+        1737763200,
+        144583
+       ],
+       [
+        1737849600,
+        52170
+       ],
+       [
+        1737936000,
+        82207
+       ],
+       [
+        1738022400,
+        84148
+       ],
+       [
+        1738108800,
+        48281
+       ],
+       [
+        1738195200,
+        118321
+       ],
+       [
+        1738281600,
+        69531
+       ],
+       [
+        1738368000,
+        18815
+       ],
+       [
+        1738454400,
+        20062
+       ],
+       [
+        1738540800,
+        9098
+       ],
+       [
+        1738627200,
+        10974
+       ],
+       [
+        1738713600,
+        168895
+       ],
+       [
+        1738800000,
+        59162
+       ],
+       [
+        1738886400,
+        15789
+       ],
+       [
+        1738972800,
+        52106
+       ],
+       [
+        1739059200,
+        56239
+       ],
+       [
+        1739145600,
+        41290
+       ],
+       [
+        1739232000,
+        10276
+       ],
+       [
+        1739318400,
+        18606
+       ],
+       [
+        1739404800,
+        42684
+       ],
+       [
+        1739491200,
+        9139
+       ],
+       [
+        1739577600,
+        8310
+       ],
+       [
+        1739664000,
+        39874
+       ],
+       [
+        1739750400,
+        10553
+       ],
+       [
+        1739836800,
+        452252
+       ],
+       [
+        1739923200,
+        365943
+       ],
+       [
+        1740009600,
+        175491
+       ],
+       [
+        1740096000,
+        151602
+       ],
+       [
+        1740182400,
+        149867
+       ],
+       [
+        1740268800,
+        55707
+       ],
+       [
+        1740355200,
+        117605
+       ],
+       [
+        1740441600,
+        195749
+       ],
+       [
+        1740528000,
+        78553
+       ],
+       [
+        1740614400,
+        67668
+       ],
+       [
+        1740700800,
+        462604
+       ],
+       [
+        1740787200,
+        36710
+       ],
+       [
+        1740873600,
+        60421
+       ],
+       [
+        1740960000,
+        127670
+       ],
+       [
+        1741046400,
+        78824
+       ],
+       [
+        1741132800,
+        19353
+       ],
+       [
+        1741219200,
+        32870
+       ],
+       [
+        1741305600,
+        63063
+       ],
+       [
+        1741392000,
+        60537
+       ],
+       [
+        1741478400,
+        163383
+       ],
+       [
+        1741564800,
+        202051
+       ],
+       [
+        1741651200,
+        197191
+       ],
+       [
+        1741737600,
+        258213
+       ],
+       [
+        1741824000,
+        161614
+       ],
+       [
+        1741910400,
+        57029
+       ],
+       [
+        1741996800,
+        105717
+       ],
+       [
+        1742083200,
+        42098
+       ],
+       [
+        1742169600,
+        23132
+       ],
+       [
+        1742256000,
+        64170
+       ],
+       [
+        1742342400,
+        247168
+       ],
+       [
+        1742428800,
+        112308
+       ],
+       [
+        1742515200,
+        22594
+       ],
+       [
+        1742601600,
+        66349
+       ],
+       [
+        1742688000,
+        79997
+       ],
+       [
+        1742774400,
+        34921
+       ],
+       [
+        1742860800,
+        54992
+       ],
+       [
+        1742947200,
+        88539
+       ],
+       [
+        1743033600,
+        127062
+       ],
+       [
+        1743120000,
+        46690
+       ],
+       [
+        1743206400,
+        13372
+       ],
+       [
+        1743292800,
+        29527
+       ],
+       [
+        1743379200,
+        121978
+       ],
+       [
+        1743465600,
+        21066
+       ],
+       [
+        1743552000,
+        26775
+       ],
+       [
+        1743638400,
+        23374
+       ],
+       [
+        1743724800,
+        17174
+       ],
+       [
+        1743811200,
+        1617
+       ],
+       [
+        1743897600,
+        50000
+       ],
+       [
+        1743984000,
+        26661
+       ],
+       [
+        1744070400,
+        20864
+       ],
+       [
+        1744156800,
+        17934
+       ],
+       [
+        1744243200,
+        34189
+       ],
+       [
+        1744329600,
+        41168
+       ],
+       [
+        1744416000,
+        47867
+       ],
+       [
+        1744502400,
+        5752
+       ],
+       [
+        1744588800,
+        11639
+       ],
+       [
+        1744675200,
+        6570
+       ],
+       [
+        1744761600,
+        28728
+       ],
+       [
+        1744848000,
+        21712
+       ],
+       [
+        1744934400,
+        15355
+       ],
+       [
+        1745020800,
+        2226
+       ],
+       [
+        1745107200,
+        2861
+       ],
+       [
+        1745193600,
+        21633
+       ],
+       [
+        1745280000,
+        13920
+       ],
+       [
+        1745366400,
+        25993
+       ],
+       [
+        1745452800,
+        20933
+       ],
+       [
+        1745539200,
+        141298
+       ],
+       [
+        1745625600,
+        5262
+       ],
+       [
+        1745712000,
+        16020
+       ],
+       [
+        1745798400,
+        20553
+       ],
+       [
+        1745884800,
+        18852
+       ],
+       [
+        1745971200,
+        40669
+       ],
+       [
+        1746057600,
+        13797
+       ],
+       [
+        1746144000,
+        5272
+       ],
+       [
+        1746230400,
+        5864
+       ],
+       [
+        1746316800,
+        19893
+       ],
+       [
+        1746403200,
+        71496
+       ],
+       [
+        1746489600,
+        6113
+       ],
+       [
+        1746576000,
+        12820
+       ],
+       [
+        1746662400,
+        19698
+       ],
+       [
+        1746748800,
+        27666
+       ],
+       [
+        1746835200,
+        2287
+       ],
+       [
+        1746921600,
+        11151
+       ],
+       [
+        1747008000,
+        33875
+       ],
+       [
+        1747094400,
+        44862
+       ],
+       [
+        1747180800,
+        36947
+       ],
+       [
+        1747267200,
+        70446
+       ],
+       [
+        1747353600,
+        37677
+       ],
+       [
+        1747440000,
+        5056
+       ],
+       [
+        1747526400,
+        30461
+       ],
+       [
+        1747612800,
+        8099
+       ],
+       [
+        1747699200,
+        30390
+       ],
+       [
+        1747785600,
+        34631
+       ],
+       [
+        1747872000,
+        55176
+       ],
+       [
+        1747958400,
+        71022
+       ],
+       [
+        1748044800,
+        35639
+       ],
+       [
+        1748131200,
+        49137
+       ],
+       [
+        1748217600,
+        52597
+       ],
+       [
+        1748304000,
+        42360
+       ],
+       [
+        1748390400,
+        23831
+       ],
+       [
+        1748476800,
+        43417
+       ],
+       [
+        1748563200,
+        17145
+       ],
+       [
+        1748649600,
+        22132
+       ],
+       [
+        1748736000,
+        12826
+       ],
+       [
+        1748822400,
+        10403
+       ],
+       [
+        1748908800,
+        10286
+       ],
+       [
+        1748995200,
+        32715
+       ],
+       [
+        1749081600,
+        7545
+       ],
+       [
+        1749168000,
+        14450
+       ],
+       [
+        1749254400,
+        27400
+       ],
+       [
+        1749340800,
+        77736
+       ],
+       [
+        1749427200,
+        25183
+       ],
+       [
+        1749513600,
+        67719
+       ],
+       [
+        1749600000,
+        21857
+       ],
+       [
+        1749686400,
+        58356
+       ],
+       [
+        1749772800,
+        19328
+       ],
+       [
+        1749859200,
+        18178
+       ],
+       [
+        1749945600,
+        11786
+       ],
+       [
+        1750032000,
+        30711
+       ],
+       [
+        1750118400,
+        55781
+       ],
+       [
+        1750204800,
+        125259
+       ],
+       [
+        1750291200,
+        120573
+       ],
+       [
+        1750377600,
+        88492
+       ],
+       [
+        1750464000,
+        12655
+       ],
+       [
+        1750550400,
+        8307
+       ],
+       [
+        1750636800,
+        30046
+       ],
+       [
+        1750723200,
+        17352
+       ],
+       [
+        1750809600,
+        26107
+       ],
+       [
+        1750896000,
+        26227
+       ],
+       [
+        1750982400,
+        29933
+       ],
+       [
+        1751068800,
+        12100
+       ],
+       [
+        1751155200,
+        18369
+       ],
+       [
+        1751241600,
+        33048
+       ],
+       [
+        1751328000,
+        56643
+       ],
+       [
+        1751414400,
+        66187
+       ],
+       [
+        1751500800,
+        27186
+       ],
+       [
+        1751587200,
+        9080
+       ],
+       [
+        1751673600,
+        16576
+       ],
+       [
+        1751760000,
+        10695
+       ],
+       [
+        1751846400,
+        20051
+       ],
+       [
+        1751932800,
+        23581
+       ],
+       [
+        1752019200,
+        37488
+       ],
+       [
+        1752105600,
+        38004
+       ],
+       [
+        1752192000,
+        30955
+       ],
+       [
+        1752278400,
+        16566
+       ],
+       [
+        1752364800,
+        16379
+       ],
+       [
+        1752451200,
+        48123
+       ],
+       [
+        1752537600,
+        25945
+       ],
+       [
+        1752624000,
+        67877
+       ],
+       [
+        1752710400,
+        50166
+       ],
+       [
+        1752796800,
+        18119
+       ],
+       [
+        1752883200,
+        31501
+       ],
+       [
+        1752969600,
+        32136
+       ],
+       [
+        1753056000,
+        18431
+       ],
+       [
+        1753142400,
+        45830
+       ],
+       [
+        1753228800,
+        12394
+       ],
+       [
+        1753315200,
+        71860
+       ],
+       [
+        1753401600,
+        123403
+       ],
+       [
+        1753488000,
+        14234
+       ],
+       [
+        1753574400,
+        26314
+       ],
+       [
+        1753660800,
+        23844
+       ],
+       [
+        1753747200,
+        26123
+       ],
+       [
+        1753833600,
+        20424
+       ],
+       [
+        1753920000,
+        126533
+       ],
+       [
+        1754006400,
+        37462
+       ],
+       [
+        1754092800,
+        48656
+       ],
+       [
+        1754179200,
+        163013
+       ],
+       [
+        1754265600,
+        43843
+       ],
+       [
+        1754352000,
+        42415
+       ],
+       [
+        1754438400,
+        26107
+       ],
+       [
+        1754524800,
+        83740
+       ],
+       [
+        1754611200,
+        134658
+       ],
+       [
+        1754697600,
+        74670
+       ],
+       [
+        1754784000,
+        92896
+       ],
+       [
+        1754870400,
+        130061
+       ],
+       [
+        1754956800,
+        141419
+       ],
+       [
+        1755043200,
+        107274
+       ],
+       [
+        1755129600,
+        88242
+       ],
+       [
+        1755216000,
+        64399
+       ],
+       [
+        1755302400,
+        66078
+       ],
+       [
+        1755388800,
+        54637
+       ],
+       [
+        1755475200,
+        56750
+       ],
+       [
+        1755561600,
+        56181
+       ],
+       [
+        1755648000,
+        37750
+       ],
+       [
+        1755734400,
+        20340
+       ],
+       [
+        1755820800,
+        76258
+       ],
+       [
+        1755907200,
+        51025
+       ],
+       [
+        1755993600,
+        25309
+       ],
+       [
+        1756080000,
+        150050
+       ],
+       [
+        1756166400,
+        46528
+       ],
+       [
+        1756252800,
+        40764
+       ],
+       [
+        1756339200,
+        289709
+       ],
+       [
+        1756425600,
+        12180
+       ],
+       [
+        1756512000,
+        19235
+       ],
+       [
+        1756598400,
+        86037
+       ],
+       [
+        1756684800,
+        19430
+       ],
+       [
+        1756771200,
+        61238
+       ],
+       [
+        1756857600,
+        63786
+       ],
+       [
+        1756944000,
+        33185
+       ],
+       [
+        1757030400,
+        39696
+       ],
+       [
+        1757116800,
+        76335
+       ],
+       [
+        1757203200,
+        31778
+       ],
+       [
+        1757289600,
+        42027
+       ],
+       [
+        1757376000,
+        58630
+       ],
+       [
+        1757462400,
+        53313
+       ],
+       [
+        1757548800,
+        97482
+       ],
+       [
+        1757635200,
+        156778
+       ],
+       [
+        1757721600,
+        34153
+       ],
+       [
+        1757808000,
+        23287
+       ],
+       [
+        1757894400,
+        151618
+       ],
+       [
+        1757980800,
+        79686
+       ],
+       [
+        1758067200,
+        90957
+       ],
+       [
+        1758153600,
+        32119
+       ],
+       [
+        1758240000,
+        98342
+       ],
+       [
+        1758326400,
+        42946
+       ],
+       [
+        1758412800,
+        29088
+       ],
+       [
+        1758499200,
+        25797
+       ],
+       [
+        1758585600,
+        62375
+       ],
+       [
+        1758672000,
+        91651
+       ],
+       [
+        1758758400,
+        103157
+       ],
+       [
+        1758844800,
+        11926
+       ],
+       [
+        1758931200,
+        28980
+       ],
+       [
+        1759017600,
+        13241
+       ],
+       [
+        1759104000,
+        153053
+       ],
+       [
+        1759190400,
+        50645
+       ],
+       [
+        1759276800,
+        94870
+       ],
+       [
+        1759363200,
+        97133
+       ],
+       [
+        1759449600,
+        60111
+       ],
+       [
+        1759536000,
+        43803
+       ],
+       [
+        1759622400,
+        32747
+       ],
+       [
+        1759708800,
+        147435
+       ],
+       [
+        1759795200,
+        48243
+       ],
+       [
+        1759881600,
+        53560
+       ],
+       [
+        1759968000,
+        53760
+       ],
+       [
+        1760054400,
+        115531
+       ],
+       [
+        1760140800,
+        43654
+       ],
+       [
+        1760227200,
+        40520
+       ],
+       [
+        1760313600,
+        74706
+       ],
+       [
+        1760400000,
+        71032
+       ],
+       [
+        1760486400,
+        32030
+       ],
+       [
+        1760572800,
+        49424
+       ],
+       [
+        1760659200,
+        63493
+       ],
+       [
+        1760745600,
+        22431
+       ],
+       [
+        1760832000,
+        15874
+       ],
+       [
+        1760918400,
+        188841
+       ],
+       [
+        1761004800,
+        224238
+       ],
+       [
+        1761091200,
+        59107
+       ],
+       [
+        1761177600,
+        100891
+       ],
+       [
+        1761264000,
+        477269
+       ],
+       [
+        1761350400,
+        323440
+       ],
+       [
+        1761436800,
+        1067409
+       ],
+       [
+        1761523200,
+        322897
+       ],
+       [
+        1761609600,
+        234245
+       ],
+       [
+        1761696000,
+        118077
+       ],
+       [
+        1761782400,
+        635625
+       ],
+       [
+        1761868800,
+        128000
+       ],
+       [
+        1761955200,
+        131039
+       ],
+       [
+        1762041600,
+        148418
+       ],
+       [
+        1762128000,
+        352262
+       ],
+       [
+        1762214400,
+        48910
+       ],
+       [
+        1762300800,
+        208623
+       ],
+       [
+        1762387200,
+        280657
+       ],
+       [
+        1762473600,
+        446668
+       ],
+       [
+        1762560000,
+        60886
+       ],
+       [
+        1762646400,
+        60442
+       ],
+       [
+        1762732800,
+        69256
+       ],
+       [
+        1762819200,
+        117496
+       ],
+       [
+        1762905600,
+        122395
+       ],
+       [
+        1762992000,
+        338172
+       ],
+       [
+        1763078400,
+        170267
+       ],
+       [
+        1763164800,
+        54335
+       ],
+       [
+        1763251200,
+        41524
+       ],
+       [
+        1763337600,
+        27698
+       ],
+       [
+        1763424000,
+        33819
+       ],
+       [
+        1763510400,
+        243704
+       ],
+       [
+        1763596800,
+        56483
+       ],
+       [
+        1763683200,
+        27121
+       ],
+       [
+        1763769600,
+        22037
+       ],
+       [
+        1763856000,
+        14798
+       ],
+       [
+        1763942400,
+        22095
+       ],
+       [
+        1764028800,
+        24150
+       ],
+       [
+        1764115200,
+        106704
+       ],
+       [
+        1764201600,
+        24137
+       ],
+       [
+        1764288000,
+        19004
+       ],
+       [
+        1764374400,
+        16351
+       ],
+       [
+        1764460800,
+        21823
+       ],
+       [
+        1764547200,
+        35170
+       ],
+       [
+        1764633600,
+        42573
+       ],
+       [
+        1764720000,
+        23913
+       ],
+       [
+        1764806400,
+        143758
+       ],
+       [
+        1764892800,
+        23923
+       ],
+       [
+        1764979200,
+        26437
+       ],
+       [
+        1765065600,
+        8688
+       ],
+       [
+        1765152000,
+        103186
+       ],
+       [
+        1765238400,
+        19050
+       ],
+       [
+        1765324800,
+        14952
+       ],
+       [
+        1765411200,
+        21986
+       ],
+       [
+        1765497600,
+        10469
+       ],
+       [
+        1765584000,
+        5835
+       ],
+       [
+        1765670400,
+        12788
+       ],
+       [
+        1765756800,
+        13467
+       ],
+       [
+        1765843200,
+        24939
+       ],
+       [
+        1765929600,
+        17117
+       ],
+       [
+        1766016000,
+        22735
+       ],
+       [
+        1766102400,
+        20466
+       ],
+       [
+        1766188800,
+        4968
+       ],
+       [
+        1766275200,
+        9616
+       ],
+       [
+        1766361600,
+        22744
+       ],
+       [
+        1766448000,
+        45155
+       ],
+       [
+        1766534400,
+        22249
+       ],
+       [
+        1766620800,
+        20469
+       ],
+       [
+        1766707200,
+        11022
+       ],
+       [
+        1766793600,
+        4794
+       ],
+       [
+        1766880000,
+        14238
+       ],
+       [
+        1766966400,
+        35018
+       ],
+       [
+        1767052800,
+        12527
+       ],
+       [
+        1767139200,
+        10157
+       ],
+       [
+        1767225600,
+        10446
+       ],
+       [
+        1767312000,
+        20502
+       ],
+       [
+        1767398400,
+        22601
+       ],
+       [
+        1767484800,
+        28742
+       ],
+       [
+        1767571200,
+        33711
+       ],
+       [
+        1767657600,
+        65758
+       ],
+       [
+        1767744000,
+        22325
+       ],
+       [
+        1767830400,
+        38800
+       ],
+       [
+        1767916800,
+        41501
+       ],
+       [
+        1768003200,
+        14989
+       ],
+       [
+        1768089600,
+        19395
+       ],
+       [
+        1768176000,
+        32939
+       ],
+       [
+        1768262400,
+        55489
+       ],
+       [
+        1768348800,
+        24350
+       ],
+       [
+        1768435200,
+        60873
+       ],
+       [
+        1768521600,
+        27705
+       ],
+       [
+        1768608000,
+        87458
+       ],
+       [
+        1768694400,
+        20502
+       ],
+       [
+        1768780800,
+        25228
+       ],
+       [
+        1768867200,
+        26124
+       ],
+       [
+        1768953600,
+        173461
+       ],
+       [
+        1769040000,
+        45437
+       ],
+       [
+        1769126400,
+        75117
+       ],
+       [
+        1769212800,
+        84653
+       ],
+       [
+        1769299200,
+        72738
+       ],
+       [
+        1769385600,
+        86350
+       ],
+       [
+        1769472000,
+        467757
+       ],
+       [
+        1769558400,
+        974058
+       ],
+       [
+        1769644800,
+        560705
+       ],
+       [
+        1769731200,
+        3053819
+       ],
+       [
+        1769817600,
+        3132013
+       ],
+       [
+        1769904000,
+        3233907
+       ],
+       [
+        1769990400,
+        1993094
+       ],
+       [
+        1770076800,
+        1555554
+       ],
+       [
+        1770163200,
+        1794479
+       ],
+       [
+        1770249600,
+        693693
+       ],
+       [
+        1770336000,
+        969824
+       ],
+       [
+        1770422400,
+        858602
+       ],
+       [
+        1770508800,
+        771258
+       ],
+       [
+        1770595200,
+        615137
+       ],
+       [
+        1770681600,
+        589630
+       ],
+       [
+        1770768000,
+        522931
+       ],
+       [
+        1770854400,
+        394375
+       ],
+       [
+        1770940800,
+        604789
+       ],
+       [
+        1771027200,
+        322900
+       ],
+       [
+        1771113600,
+        194181
+       ],
+       [
+        1771200000,
+        172158
+       ],
+       [
+        1771286400,
+        375956
+       ],
+       [
+        1771372800,
+        498200
+       ],
+       [
+        1771459200,
+        539121
+       ],
+       [
+        1771545600,
+        280210
+       ],
+       [
+        1771632000,
+        273060
+       ],
+       [
+        1771718400,
+        291267
+       ],
+       [
+        1771804800,
+        202902
+       ],
+       [
+        1771891200,
+        244171
+       ],
+       [
+        1771977600,
+        256297
+       ],
+       [
+        1772064000,
+        183087
+       ],
+       [
+        1772150400,
+        137071
+       ],
+       [
+        1772236800,
+        94352
+       ],
+       [
+        1772323200,
+        66053
+       ],
+       [
+        1772409600,
+        94556
+       ],
+       [
+        1772496000,
+        62592
+       ],
+       [
+        1772582400,
+        114649
+       ],
+       [
+        1772668800,
+        41289
+       ],
+       [
+        1772755200,
+        39583
+       ],
+       [
+        1772841600,
+        23684
+       ],
+       [
+        1772928000,
+        31470
+       ],
+       [
+        1773014400,
+        37275
+       ],
+       [
+        1773100800,
+        166482
+       ],
+       [
+        1773187200,
+        55163
+       ],
+       [
+        1773273600,
+        38834
+       ],
+       [
+        1773360000,
+        40287
+       ],
+       [
+        1773446400,
+        33359
+       ],
+       [
+        1773532800,
+        30433
+       ],
+       [
+        1773619200,
+        31899
+       ],
+       [
+        1773705600,
+        40581
+       ],
+       [
+        1773792000,
+        31835
+       ],
+       [
+        1773878400,
+        25546
+       ],
+       [
+        1773964800,
+        21162
+       ],
+       [
+        1774051200,
+        14266
+       ],
+       [
+        1774137600,
+        17943
+       ],
+       [
+        1774224000,
+        21663
+       ],
+       [
+        1774310400,
+        17297
+       ],
+       [
+        1774396800,
+        30573
+       ],
+       [
+        1774483200,
+        18499
+       ],
+       [
+        1774569600,
+        13644
+       ],
+       [
+        1774656000,
+        7722
+       ],
+       [
+        1774742400,
+        9230
+       ],
+       [
+        1774828800,
+        20545
+       ],
+       [
+        1774915200,
+        22107
+       ],
+       [
+        1775001600,
+        15612
+       ],
+       [
+        1775088000,
+        14216
+       ],
+       [
+        1775174400,
+        10074
+       ],
+       [
+        1775260800,
+        7062
+       ],
+       [
+        1775347200,
+        11070
+       ],
+       [
+        1775433600,
+        15645
+       ],
+       [
+        1775520000,
+        23124
+       ],
+       [
+        1775606400,
+        35230
+       ],
+       [
+        1775692800,
+        15540
+       ],
+       [
+        1775779200,
+        23321
+       ],
+       [
+        1775865600,
+        12323
+       ],
+       [
+        1775952000,
+        15860
+       ],
+       [
+        1776038400,
+        30128
+       ],
+       [
+        1776124800,
+        50389
+       ],
+       [
+        1776211200,
+        40225
+       ],
+       [
+        1776297600,
+        38317
+       ],
+       [
+        1776384000,
+        24633
+       ],
+       [
+        1776470400,
+        15622
+       ],
+       [
+        1776556800,
+        23816
+       ],
+       [
+        1776643200,
+        20266
+       ],
+       [
+        1776729600,
+        38645
+       ],
+       [
+        1776816000,
+        12056
+       ],
+       [
+        1776902400,
+        22669
+       ],
+       [
+        1776988800,
+        35451
+       ],
+       [
+        1777075200,
+        8141
+       ],
+       [
+        1777161600,
+        8088
+       ],
+       [
+        1777248000,
+        15038
+       ],
+       [
+        1777334400,
+        11969
+       ],
+       [
+        1777420800,
+        12797
+       ],
+       [
+        1777507200,
+        54624
+       ],
+       [
+        1777593600,
+        21839
+       ],
+       [
+        1777680000,
+        20398
+       ],
+       [
+        1777766400,
+        17203
+       ],
+       [
+        1777852800,
+        80612
+       ],
+       [
+        1777939200,
+        110028
+       ],
+       [
+        1778025600,
+        110667
+       ],
+       [
+        1778112000,
+        70328
+       ],
+       [
+        1778198400,
+        33375
+       ],
+       [
+        1778284800,
+        37244
+       ],
+       [
+        1778371200,
+        29481
+       ],
+       [
+        1778457600,
+        30815
+       ],
+       [
+        1778544000,
+        75433
+       ],
+       [
+        1778630400,
+        57925
+       ],
+       [
+        1778716800,
+        40289
+       ],
+       [
+        1778803200,
+        52566
+       ],
+       [
+        1778889600,
+        53665
+       ],
+       [
+        1778976000,
+        83259
+       ],
+       [
+        1779062400,
+        261740
+       ],
+       [
+        1779148800,
+        229032
+       ],
+       [
+        1779235200,
+        214313
+       ],
+       [
+        1779321600,
+        330204
+       ],
+       [
+        1779408000,
+        179460
+       ],
+       [
+        1779494400,
+        87092
+       ],
+       [
+        1779580800,
+        105348
+       ],
+       [
+        1779667200,
+        102235
+       ],
+       [
+        1779753600,
+        146578
+       ],
+       [
+        1779840000,
+        65715
+       ],
+       [
+        1779926400,
+        32514
+       ],
+       [
+        1780012800,
+        44859
+       ],
+       [
+        1780099200,
+        24472
+       ],
+       [
+        1780185600,
+        21486
+       ],
+       [
+        1780272000,
+        31413
+       ],
+       [
+        1780358400,
+        46249
+       ],
+       [
+        1780444800,
+        21018
+       ],
+       [
+        1780531200,
+        15912
+       ],
+       [
+        1780617600,
+        17903
+       ],
+       [
+        1780704000,
+        18979
+       ],
+       [
+        1780790400,
+        10044
+       ],
+       [
+        1780876800,
+        19284
+       ],
+       [
+        1780963200,
+        23001
+       ],
+       [
+        1781049600,
+        14294
+       ],
+       [
+        1781136000,
+        15582
+       ],
+       [
+        1781222400,
+        13040
+       ],
+       [
+        1781308800,
+        10080
+       ],
+       [
+        1781395200,
+        5054
+       ],
+       [
+        1781481600,
+        15562
+       ],
+       [
+        1781568000,
+        15205
+       ],
+       [
+        1781654400,
+        12961
+       ],
+       [
+        1781740800,
+        9208
+       ],
+       [
+        1781827200,
+        12574
+       ],
+       [
+        1781913600,
+        25075
+       ],
+       [
+        1782000000,
+        7145
+       ],
+       [
+        1782086400,
+        7781
+       ],
+       [
+        1782172800,
+        7273
+       ],
+       [
+        1782259200,
+        9758
+       ],
+       [
+        1782345600,
+        18328
+       ],
+       [
+        1782432000,
+        5136
+       ],
+       [
+        1782518400,
+        2955
+       ],
+       [
+        1782604800,
+        2640
+       ],
+       [
+        1782691200,
+        3280
+       ],
+       [
+        1782777600,
+        5925
+       ],
+       [
+        1782864000,
+        4598
+       ],
+       [
+        1782950400,
+        3627
+       ],
+       [
+        1783036800,
+        5605
+       ],
+       [
+        1783123200,
+        3001
+       ],
+       [
+        1783209600,
+        3978
+       ],
+       [
+        1783296000,
+        3767
+       ],
+       [
+        1783382400,
+        10695
+       ],
+       [
+        1783468800,
+        13273
+       ],
+       [
+        1783555200,
+        8438
+       ],
+       [
+        1783641600,
+        9276
+       ],
+       [
+        1783728000,
+        4483
+       ],
+       [
+        1783814400,
+        4616
+       ],
+       [
+        1783900800,
+        102906
+       ],
+       [
+        1783987200,
+        8003
+       ],
+       [
+        1784073600,
+        20279
+       ],
+       [
+        1784160000,
+        8142
+       ],
+       [
+        1784246400,
+        16473
+       ],
+       [
+        1784332800,
+        7180
+       ],
+       [
+        1784419200,
+        2351
+       ],
+       [
+        1784505600,
+        4496
+       ],
+       [
+        1784592000,
+        7823
+       ],
+       [
+        1784678400,
+        10653
+       ],
+       [
+        1784764800,
+        6340
+       ],
+       [
+        1784851200,
+        3695
+       ],
+       [
+        1784937600,
+        3431
+       ],
+       [
+        1785024000,
+        2564
+       ],
+       [
+        1785110400,
+        3246
+       ],
+       [
+        1785196800,
+        3179
+       ],
+       [
+        1785283200,
+        21915
+       ],
+       [
+        1785369600,
+        4812
+       ],
+       [
+        1785456000,
+        4266
+       ],
+       [
+        1785542400,
+        3447
+       ],
+       [
+        1785628800,
+        3488
+       ],
+       [
+        1785715200,
+        2881
+       ],
+       [
+        1785801600,
+        1986
+       ],
+       [
+        1785888000,
+        1559
+       ],
+       [
+        1785974400,
+        3275
+       ],
+       [
+        1786060800,
+        4364
+       ],
+       [
+        1786147200,
+        1803
+       ],
+       [
+        1786233600,
+        3346
+       ],
+       [
+        1786320000,
+        6744
+       ],
+       [
+        1786406400,
+        1766
+       ],
+       [
+        1786492800,
+        4159
+       ],
+       [
+        1786579200,
+        4675
+       ],
+       [
+        1786665600,
+        3351
+       ],
+       [
+        1786752000,
+        2405
+       ],
+       [
+        1786838400,
+        4189
+       ],
+       [
+        1786924800,
+        3084
+       ],
+       [
+        1787011200,
+        4639
+       ],
+       [
+        1787097600,
+        4451
+       ],
+       [
+        1787184000,
+        8359
+       ],
+       [
+        1787270400,
+        15362
+       ],
+       [
+        1787356800,
+        11783
+       ],
+       [
+        1787443200,
+        13314
+       ],
+       [
+        1787529600,
+        15367
+       ],
+       [
+        1787616000,
+        10880
+       ],
+       [
+        1787702400,
+        10800
+       ],
+       [
+        1787788800,
+        35487
+       ],
+       [
+        1787875200,
+        9534
+       ],
+       [
+        1787961600,
+        23093
+       ],
+       [
+        1788048000,
+        11450
+       ],
+       [
+        1788134400,
+        16419
+       ],
+       [
+        1788220800,
+        23840
+       ],
+       [
+        1788307200,
+        12405
+       ],
+       [
+        1788393600,
+        17260
+       ],
+       [
+        1788480000,
+        10513
+       ],
+       [
+        1788566400,
+        7871
+       ],
+       [
+        1788652800,
+        8788
+       ],
+       [
+        1788739200,
+        16931
+       ],
+       [
+        1788825600,
+        8314
+       ],
+       [
+        1788912000,
+        6742
+       ],
+       [
+        1788998400,
+        7779
+       ],
+       [
+        1789084800,
+        6136
+       ],
+       [
+        1789171200,
+        4692
+       ],
+       [
+        1789257600,
+        3036
+       ],
+       [
+        1789344000,
+        2803
+       ],
+       [
+        1789430400,
+        4806
+       ],
+       [
+        1789516800,
+        3327
+       ],
+       [
+        1789603200,
+        2464
+       ],
+       [
+        1789689600,
+        4890
+       ],
+       [
+        1789776000,
+        4320
+       ],
+       [
+        1789862400,
+        83007
+       ],
+       [
+        1789948800,
+        6042
+       ],
+       [
+        1790035200,
+        6156
+       ],
+       [
+        1790121600,
+        8423
+       ],
+       [
+        1790208000,
+        3788
+       ],
+       [
+        1790294400,
+        3648
+       ],
+       [
+        1790380800,
+        115130
+       ],
+       [
+        1790467200,
+        30237
+       ],
+       [
+        1790553600,
+        21973
+       ],
+       [
+        1790640000,
+        16860
+       ],
+       [
+        1790726400,
+        7396
+       ],
+       [
+        1790812800,
+        186981
+       ],
+       [
+        1790899200,
+        15088
+       ],
+       [
+        1790985600,
+        13241
+       ],
+       [
+        1791072000,
+        9433
+       ],
+       [
+        1791158400,
+        8696
+       ],
+       [
+        1791244800,
+        4430
+       ],
+       [
+        1791331200,
+        23547
+       ],
+       [
+        1791417600,
+        4455
+       ],
+       [
+        1791504000,
+        415850
+       ],
+       [
+        1791590400,
+        416026
+       ]
+      ],
+      "totalDataChartBreakdown": [],
+      "change_1d": 9238.41,
+      "chainBreakdown": {
+       "Monad": {
+        "total24h": 0,
+        "total48hto24h": 0,
+        "total7d": 0,
+        "total14dto7d": 0,
+        "total30d": 0,
+        "total60dto30d": 0,
+        "total1y": 0,
+        "annualized1y": null,
+        "total7DaysAgo": 0,
+        "total30DaysAgo": 0,
+        "totalAllTime": 0
+       },
+       "Unichain": {
+        "total24h": 0,
+        "total48hto24h": 0,
+        "total7d": 0.12,
+        "total14dto7d": 0,
+        "total30d": 0.13,
+        "total60dto30d": 0.02,
+        "total1y": 220.46,
+        "annualized1y": 220.46,
+        "total7DaysAgo": 0,
+        "total30DaysAgo": 0,
+        "totalAllTime": 3823.7600000000043,
+        "average1y": 0.604,
+        "monthlyAverage1y": 18.38576,
+        "change_30dover30d": 550
+       },
+       "Arbitrum": {
+        "total24h": 0,
+        "total48hto24h": 0,
+        "total7d": 1.21,
+        "total14dto7d": 0.05,
+        "total30d": 14.28,
+        "total60dto30d": 136.96,
+        "total1y": 581.9599999999994,
+        "annualized1y": 581.9599999999994,
+        "total7DaysAgo": 0.01,
+        "total30DaysAgo": 0.95,
+        "totalAllTime": 14246.690000000022,
+        "average1y": 1.5944109589041078,
+        "monthlyAverage1y": 48.533869589041046,
+        "change_7d": -100,
+        "change_1m": -100,
+        "change_7dover7d": 2320,
+        "change_30dover30d": -89.57
+       },
+       "Ethereum": {
+        "total24h": 0.03,
+        "total48hto24h": 2.48,
+        "total7d": 522.62,
+        "total14dto7d": 500.80999999999995,
+        "total30d": 1058.62,
+        "total60dto30d": 11076.36,
+        "total1y": 51387.979999999996,
+        "annualized1y": 51813.84723756906,
+        "total7DaysAgo": 3.1,
+        "total30DaysAgo": 0.99,
+        "totalAllTime": 51388.009999999995,
+        "average1y": 140.78898630136985,
+        "monthlyAverage1y": 4285.616743013698,
+        "change_1d": -98.79,
+        "change_7d": -99.03,
+        "change_1m": -96.97,
+        "change_7dover7d": 4.35,
+        "change_30dover30d": -90.44
+       },
+       "Robinhood Chain": {
+        "total24h": 7166,
+        "total48hto24h": 1235,
+        "total7d": 11153,
+        "total14dto7d": 4227,
+        "total30d": 35508,
+        "total60dto30d": 71504.54000000001,
+        "total1y": 168716.33000000002,
+        "annualized1y": 655121.9196808512,
+        "total7DaysAgo": 975,
+        "total30DaysAgo": 1250,
+        "totalAllTime": 175882.33000000002,
+        "average1y": 462.23652054794525,
+        "monthlyAverage1y": 14070.479685479453,
+        "change_1d": 480.24,
+        "change_7d": 634.97,
+        "change_1m": 473.28,
+        "change_7dover7d": 163.85,
+        "change_30dover30d": -50.34
+       },
+       "Base": {
+        "total24h": 408860,
+        "total48hto24h": 3218,
+        "total7d": 467977,
+        "total14dto7d": 388937,
+        "total30d": 992050,
+        "total60dto30d": 244513,
+        "total1y": 43152141,
+        "annualized1y": 43152141,
+        "total7DaysAgo": 14110,
+        "total30DaysAgo": 5490,
+        "totalAllTime": 77036974,
+        "average1y": 118225.04383561644,
+        "monthlyAverage1y": 3598770.3343561646,
+        "change_1d": 12605.41,
+        "change_7d": 2797.66,
+        "change_1m": 7347.36,
+        "change_7dover7d": 20.32,
+        "change_30dover30d": 305.72
+       }
+      }
+     },
+     "_atlas": {
+      "docs": "https://defillama.use.x402atlas.com/llms.txt",
+      "related": [
+       {
+        "bridge": "coingecko",
+        "url": "https://coingecko.use.x402atlas.com/price?ref=defillama",
+        "docs": "https://coingecko.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Crypto prices & market data"
+       },
+       {
+        "bridge": "marketdata",
+        "url": "https://marketdata.use.x402atlas.com/ticker?ref=defillama",
+        "docs": "https://marketdata.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Stocks, ETFs & indices data"
+       },
+       {
+        "bridge": "perpsignals",
+        "url": "https://perpsignals.use.x402atlas.com/funding-rates?ref=defillama",
+        "docs": "https://perpsignals.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Perp funding & fear/greed"
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_d792f62850a6429da4abb14c041c5660/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.00646,
+  "tool_cost_usd": 0.02,
+  "frames_fee_usd": 0.003969,
+  "total_cost_usd": 0.030429,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 20266,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 152,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.00646,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "title": "Fees & revenue summary by DefiLlama \u2014 fee and revenue history for one protocol b",
+   "capability": "fee-summary",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "amount": "0.005",
+   "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x6bfeb329172ec38ebdc7a75bb70b35dc8df3ff21783fdf38819f1f8cecdf5c86",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "amount": "0.005",
+   "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x45326c12a6606deb9272784c387210dca3ab6aed8911d915a0e08ce185db575a",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "amount": "0.005",
+   "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x4a92f14fe77671b6ec2a176b85365b9bdb08f6494e277b72843708931320a9dc",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The returned data includes fee entries dated in the future relative to the query date.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "amount": "0.005",
+   "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x54665673c7bffb986d8a8266ebea7dd27100997a137d2730bfac3ff431747f8b",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}

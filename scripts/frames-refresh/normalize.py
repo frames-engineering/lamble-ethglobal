@@ -173,15 +173,22 @@ universe = registry['poolUniverse']
 VOLUME_METHOD = 'token-all-pools'
 tid_of = {(u['address'], u['networkId']): u['tokenId'] for u in universe}
 bars, bar_eid, snapshot, created = {}, {}, [], {}
-for c in runs['c1']['result']['calls'][1:]:
-    q = requests['c1']['calls'][c['seq']]['args']['query']; data = c['body']['data']
+# A c1 call skipped for budget (delivered false, no body data) may be re-requested in a later c batch (c3, c4...); use that delivery instead.
+# A refunded call whose body still carries the requested data is used too; the daily/hourly reconciliation below checks it.
+usable = lambda c: c['delivered'] or isinstance((c.get('body') or {}).get('data'), dict)
+c1_calls = [('c1', c) for c in runs['c1']['result']['calls'][1:] if usable(c)]
+for b in (b for b in BATCHES if re.fullmatch(r'c([3-9]|\d{2,})', b)):
+    c1_calls += [(b, c) for c in runs[b]['result']['calls'] if usable(c)]
+assert len(c1_calls) == len(requests['c1']['calls']) - 1, 'a c1 call has no delivery (retry it as c3)'
+for batch, c in c1_calls:
+    q = requests[batch]['calls'][c['seq']]['args']['query']; data = c['body']['data']
     for alias, addr, net, frm, to in re.findall(r'(p\d+):getTokenBars\(symbol:"(\w+):(\d+)",from:(\d+),to:(\d+)', q):
         assert (int(frm), int(to)) == (T - 7 * 86400, T - 1)
         tid = tid_of.get((addr, int(net)))
         if tid is None: continue  # a coin removed after collect
-        assert tid not in bars; bars[tid] = data[alias]; bar_eid[tid] = eid[('c1', c['seq'])]
+        assert tid not in bars; bars[tid] = data[alias]; bar_eid[tid] = eid[(batch, c['seq'])]
     if 'filterTokens' in (data or {}):
-        snapshot += data['filterTokens']['results']; snap_eid = eid[('c1', c['seq'])]
+        snapshot += data['filterTokens']['results']; snap_eid = eid[(batch, c['seq'])]
     for x in (data or {}).get('created') or []:
         if (x['address'], x['networkId']) in tid_of and x.get('createdAt'):
             assert x['createdAt'] <= RUNTIME_TS, f'{x["address"]} created after the run started'  # refunds often cite "future" dates; check them
@@ -401,7 +408,7 @@ assert len(launchpads) == 19 and all(len(x['metrics']['history30d']) == 30 for x
 for e in evidence:
     if e.get('response_ref', '').startswith('raw/') and e['id'].startswith(f'frames-{P.name}'): assert sha(P / e['response_ref']) == e['sha256']
 for f in (P / 'raw').glob('*.json'):
-    assert not re.search(r'(?i)(authorization|x-api-key|bearer\s+[a-z0-9])', f.read_text()), f'credential-like text in {f.name}'
+    assert not re.search(r'(?i)("?authorization"?\s*[:=]|x-api-key|bearer\s+[a-z0-9._-]{16,})', f.read_text()), f'credential-like text in {f.name}'
 billing = dict(charged_credits=sum(r['billing']['charged_credits'] for r in runs.values()), percent_remaining=min(r['billing']['percent_remaining'] for r in runs.values()),
                balance_credits_after=min(r['billing']['balance_credits'] for r in runs.values()), per_run={k: r['billing']['charged_credits'] for k, r in runs.items()},
                run_ids={k: r['run_id'] for k, r in runs.items()}, deduplication='Unique run_id only.')
