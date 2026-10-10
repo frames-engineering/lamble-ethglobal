@@ -44,6 +44,7 @@ for (const batch of finBatches) {
   const request = readJson(run(`raw/${batch}-request.json`));
   for (const call of readJson(run(`raw/${batch}.json`)).result.calls) {
     const { protocol, dataType } = request.calls[call.seq].args;
+    if (!call.body?.data?.totalDataChart) continue; // skipped for budget; a later batch (f7...) re-requests it
     feeBodies.set(`${protocol}:${dataType}`, new Map(call.body.data.totalDataChart));
   }
 }

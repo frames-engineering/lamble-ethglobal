@@ -59,17 +59,17 @@ if stage == 'discover':
     calls.append(dict(id=CODEX, args=dict(query=f'{{ trending:filterTokens(filters:{{launchpadName:{every},liquidity:{{gt:{d["minLiquidityUsd"]}}}}},'
                                                  f'rankings:[{{attribute:trendingScore24,direction:DESC}}],limit:{d["trendingLimit"]}){{{SNAPSHOT_FIELDS}}} }}')))
     calls.append(snapshot(universe))
-    write('d1', calls, [SEARCH['codex']], 0.03)
+    write('d1', calls, [SEARCH['codex']], 0.04)
     ev = [dict(id='mpp.firecrawl.post.v1-scrape', args=dict(url=u, formats=['markdown'])) for u in reg['dailyEvidence']['pages']]
     ev += [dict(id='bazaar.twitter-use-x402atlas-com-search', args=dict(words=w)) for w in reg['dailyEvidence']['xSearches'] + d.get('trendQueries', [])]
     assert len(ev) <= 10, 'dailyEvidence pages + xSearches + discovery.trendQueries exceed one batch of 10; trim the registry'
-    write('e1', ev, [SEARCH['scrape'], SEARCH['x']], 0.1)
+    write('e1', ev, [SEARCH['scrape'], SEARCH['x']], 0.13)
     print(json.dumps(dict(run=run.name, stage=stage, batches=['d1', 'e1'], calls=len(calls) + len(ev))))
 else:
     fin = [dict(id=FIN, args=dict(protocol=v['providerSlug'], dataType=k, excludeTotalDataChart='false', excludeTotalDataChartBreakdown='true'))
            for v in reg['venues'] for k in ('dailyFees', 'dailyRevenue', 'dailySupplySideRevenue')]
     for i in range(0, len(fin), 10):
-        write(f'f{i // 10 + 1}', fin[i:i + 10], [SEARCH['fin']], 0.1)
+        write(f'f{i // 10 + 1}', fin[i:i + 10], [SEARCH['fin']], 0.12)
     launchpads = ('{ filterLaunchpads(scope: global, filters: {isTestnet: false}, limit: 200, offset: 0) { count offset results { id launchpadName displayName '
                   'launchpadUrl launchpadProtocol isThirdParty networkIds timestamp tokensCreated24 tokensCreated1w tokensCompleted24 tokensCompleted1w '
                   'tokensMigrated24 totalFees24 pre { totalFees24 } post { totalFees24 } } } }')
@@ -83,7 +83,7 @@ else:
     ids = ','.join(f'{{address:"{u["address"]}",networkId:{u["networkId"]}}}' for u in universe)
     calls.append(dict(id=CODEX, args=dict(query=f'{{ created:tokens(ids:[{ids}]){{address networkId createdAt}} }}')))  # zero-fill boundary
     assert len(calls) <= 10, 'too many networks for one Codex batch; split c1'
-    write('c1', calls, [SEARCH['codex']], 0.03)
+    write('c1', calls, [SEARCH['codex']], 0.05)
     # 30 complete UTC days of all-pool daily bars ending at the last midnight on or before the chart anchor.
     # Codex omits the bucket that starts exactly at `from`, so ask from one day earlier; normalize.py keeps exactly 30 days.
     D = T // 86400 * 86400; daily = []
@@ -92,7 +92,7 @@ else:
                         f'currencyCode:USD,removeEmptyBars:false){{t volume}}' for u in universe if u['networkId'] == network)
         daily.append(dict(id=CODEX, args=dict(query='{ ' + bars + ' }')))
     assert len(daily) <= 10
-    write('c2', daily, [SEARCH['codex']], 0.02)
+    write('c2', daily, [SEARCH['codex']], 0.03)
     fb = [f'f{i // 10 + 1}' for i in range(0, len(fin), 10)]
     print(json.dumps(dict(run=run.name, stage=stage, chartAnchor=dt.datetime.fromtimestamp(T, dt.timezone.utc).isoformat(),
                           dailyEnd=dt.datetime.fromtimestamp(D, dt.timezone.utc).isoformat(),
