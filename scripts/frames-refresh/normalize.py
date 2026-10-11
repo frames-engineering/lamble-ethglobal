@@ -73,6 +73,7 @@ for name in sorted({f.name[:-13] for f in (PRIOR / 'raw').glob('f*-request.json'
     if not (PRIOR / f'raw/{name}.json').exists(): continue
     oreq = read(f'raw/{name}-request.json', PRIOR)
     for c in read(f'raw/{name}.json', PRIOR)['result']['calls']:
+        if not (c.get('body') or {}).get('data'): continue  # a budget-skipped or refunded call of the prior run has no body; its retry batch (f7...) supplies the series
         a = oreq['calls'][c['seq']]['args']
         old_bodies[(a['protocol'], a['dataType'])] = dict(c['body']['data']['totalDataChart'])
 fin, checks, disputes, revisions = {}, [], [], []
