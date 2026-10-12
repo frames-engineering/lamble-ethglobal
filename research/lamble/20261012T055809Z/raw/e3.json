@@ -1,0 +1,2331 @@
+{
+ "run_id": "run_cd0f41ede757496f8b071923bac24204",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 62,
+  "budget_credits": 100,
+  "balance_credits": 64411,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 72,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 7,
+  "delivered": 6,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "mpp.firecrawl.post.v1-scrape",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 19,
+     "stored_chars": 19,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "seller_error",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "mpp.firecrawl.post.v1-scrape",
+     "amount": "0",
+     "currency": "USDC",
+     "network": "",
+     "tx_hash": "",
+     "delivered": false,
+     "outcome": "seller_error",
+     "reason": "upstream error: error field present; class confirmed by adjudicator"
+    },
+    "body": {
+     "error": "timeout"
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "mpp.firecrawl.post.v1-scrape",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 9681,
+     "stored_chars": 9681,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.002,
+    "receipt": {
+     "tool": "mpp.firecrawl.post.v1-scrape",
+     "amount": "0.002",
+     "pay_to": "0xca4e835F803cB0b7C428222B3A3B98518d4779Fe",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0x7c213491a8a8149b1adae9eda5695b1347f97399d0cc343eb03ba386d589cec3",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    "body": {
+     "success": true,
+     "data": {
+      "markdown": "![](https://www.orbio.so/orb.png)[Agent launchpadLaunch a token, and it pays for its own inferenceLive now\u2192](https://www.orbio.so/launchpad)\n\n![](https://www.orbio.so/_next/image?url=%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Fcredits-pillar.1qdnfhguhcklj.png&w=3840&q=75)\n\n![](https://www.orbio.so/_next/image?url=%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Fcredits-pillar.1qdnfhguhcklj.png&w=3840&q=75)\n\n[![](https://www.orbio.so/_next/image?url=%2Forb.png&w=64&q=75&dpl=dpl_32hW5cNdjH9S3guNybWKrssEwNbv)Orbio](https://www.orbio.so/)\n\nSign in\n\n# Get LLM credits, at a discount.\n\nOne key, every model, no subscriptions.\n\n[Introducing Orbio Credit \u2197](https://www.orbio.so/protocol)\n\n<50 ms\n\nadded latency, measured per request\n\n$0\n\nsetup or subscription fees\n\nCredits worth\n\n$\n\nBuy\n\n- Straight relay\n\nYour request goes to the model you named. Nothing is swapped or downgraded.\n\n- Provider\u2019s own answer\n\nResponses carry the provider\u2019s model name and id, so you can check.\n\n- Zero data retention (ZDR)\n\nInference routes only to ZDR endpoints. We keep billing metadata, never prompts or responses.\n\n\n## One API key. Same models. Less spend.\n\nYour prompt\n\nWhat can I cook with eggs and rice?Help me write a birthday message.Give me a quick study tip.\n\nWhat can I cook with eggs and\n\nOrbio API key`sk-orbio-\u2022\u2022\u2022\u20227x9k`\n\nView API snippet\n\n```\nconst response = await client.chat.completions.create({\n  model: 'anthropic/claude-fable-5.1',\n  messages: [{ role: 'user', content: 'What can I cook with eggs and rice?' }],\n  stream: true,\n});\n```\n\nThe answer Typing prompt\n\nTry egg fried rice! Scramble the eggs, add your cooked rice, and stir in soy sauce. Toss in any vegetables you have, then finish with spring onions for an easy dinner.\n\nHappy birthday! Hope your day is full of good food, big laughs, and your favorite people. Here\u2019s to another year of making memories together. Have the best day!\n\nClose your notes and explain what you just learned out loud, as if you were teaching a friend. The parts you struggle to explain show you exactly what to review next.\n\nYour answer will appear here.\n\n![](https://www.orbio.so/model-icons/claude.svg?dpl=dpl_32hW5cNdjH9S3guNybWKrssEwNbv)Claude Fable 5.1GPT-6 AstraGemini 3.8 Flash\n\nPer 1M output tokensPer 1M input tokens\n\nBefore **$01234567890123456789.01234567890123456789$50.00**\n\n\u2192\n\nWith Orbio **$01234567890123456789.01234567890123456789$20.00**\n\nYou save **$30.00** 60% less\n\ndiscountavailable credits\n\n01. 60% off$9\n02. 55% off$60\n03. 50% off$4,264\n04. 45% off$55,091\n05. 40% off$16,225\n06. 35% off$11,178\n07. 30% off$11,354\n08. 25% off$14,837\n09. 20% off$30,784\n10. 15% off$4,950\n11. 10% off$5,637\n12. 5% off$7,546\n13. 0% off$644\n\n01. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n02. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n03. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n04. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n05. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n06. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n07. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n08. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n09. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n10. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n11. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n12. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n13. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n14. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n15. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n16. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n17. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n18. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n19. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n20. 0xdd42\u2026d3f8\n\n\n\n    15m ago\n\n\n\n\n\n    $0.10\n\n\n## Every model, one key, below what the lab charges.\n\n458 models on the catalogue.\n\noutput price \u00b7 per 1M tokensthrough Orbio\n\n1. Claude Fable 5.1\n\n\n\nanthropic/claude-fable-5.1\n\n\n\n$50.0$20.0\u221260%\n\n2. GPT-6 Astra\n\n\n\nopenai/gpt-6-astra\n\n\n\n$50.0$20.0\u221260%\n\n3. Claude Opus 5\n\n\n\nanthropic/claude-opus-5\n\n\n\n$25.0$10.0\u221260%\n\n4. Gemini 3.8 Flash\n\n\n\ngoogle/gemini-3.8-flash\n\n\n\n$3.75$1.50\u221260%\n\n5. Grok 4.6\n\n\n\nx-ai/grok-4.6\n\n\n\n$6.00$2.40\u221260%\n\n6. Claude Sonnet 5\n\n\n\nanthropic/claude-sonnet-5\n\n\n\n$10.0$4.00\u221260%\n\n7. DeepSeek V4 Pro\n\n\n\ndeepseek/deepseek-v4-pro-0813\n\n\n\n$1.98$0.792\u221260%\n\n8. Kimi K3\n\n\n\nmoonshotai/kimi-k3\n\n\n\n$10.0$4.00\u221260%\n\n\n## Analytics, the way you\u2019re used to.\n\nSpend by day, by model, and the milliseconds Orbio added to each call, measured on your own requests.\n\norbio.so/account\n\nsk-orbio-9f2a\u2022\u2022\u2022\u2022\n\nSpent\n\n$40.20\n\nRequests\n\n1.5k\n\nTokens\n\n3.5M\n\nLatency\n\n31ms\n\np95 47 ms\n\nSpend by day\n\nsample account\n\nModels\n\n- Claude Fable 5.1$18.49\n\n\n\n\n\n\n\n\n\n\n704 req\n- Gpt 6 Astra$10.85\n\n\n\n\n\n\n\n\n\n\n413 req\n- Gemini 3.8 Flash$5.63\n\n\n\n\n\n\n\n\n\n\n214 req\n- Grok 4.6$3.22\n\n\n\n\n\n\n\n\n\n\n122 req\n- Deepseek V4 Flash 0731$2.01\n\n\n\n\n\n\n\n\n\n\n77 req\n\n## The whole migration is two lines.[Copy a link to this section](https://www.orbio.so/\\#migrate) Link copied\n\nChange the base URL and the key. Model names, streaming, tool calls and vision work exactly as they do today.\n\nOpenRouterOpenAI SDKAnthropic SDK \u00b7 Claude Agent SDKVercel AI SDK\n\nOpenRouter\n\n```\n# before \u2014 OpenRouter\nOPENAI_BASE_URL=https://openrouter.ai/api/v1\nOPENAI_API_KEY=sk-or-v1-\u2026\n\n# after \u2014 Orbio. Same two variables: your OpenAI-compatible client reads these.\nOPENAI_BASE_URL=https://api.orbio.so/api/v1\nOPENAI_API_KEY=sk-orbio-\u2026\n```\n\n## Questions, briefly.\n\nWhat am I buying?+\n\nA fixed amount of API credit. Enter the value of credits you want, then review the discounted price and platform fee. For example, $100 in credits gives you $100 of model usage through your Orbio key.\n\nHow is the platform fee calculated?+\n\nThe platform fee is 5% of the discounted credit price. The purchase card shows the credit price, fee and total separately, along with your discount after the fee.\n\nWhere does the discount come from?+\n\nFrom Orbio holders who offer unused credit at a discount.\n\nAm I getting the real model?+\n\nYes. Orbio is a relay: your request goes to the model you named, unchanged, and the response comes back with the provider\u2019s own model name and id on it. Nothing is substituted or downgraded.\n\nDo you store my prompts?+\n\nNo. The gateway keeps billing metadata only: the model, the token counts, the cost and the timing of each request. Prompts and responses pass through and are not written anywhere.\n\nWhose key serves my requests?+\n\nRequests use Orbio\u2019s managed OpenRouter account through the Orbio Gateway. You use your own Orbio API key.\n\nWhat do I change in my code?+\n\nThe base URL and the key. Model names, streaming, tool calls and vision work as they do today.\n\nIs there a subscription or a minimum?+\n\nNo subscription. Choose at least $5 in credits. Purchased credits become API balance, which you spend as you use your Orbio key.\n\nWhat does Orbio add to each request?+\n\nYour account page shows the measured gateway overhead for your requests.\n\nCan I get my money back?+\n\nCredit is a grant of product access and is not redeemable for cash. If a card payment goes wrong, reply to the receipt and it is refunded through the card processor.\n\nDiscounted credits from Orbio holders. [How selling works.](https://sellers.orbio.so/)\n\nWallet \u00b7 Privy",
+      "metadata": {
+       "og:description": "Buy AI inference credit below list price, from people who earned it. One key that works everywhere an OpenRouter key does.",
+       "ogTitle": "Orbio \u00b7 AI credits at a discount",
+       "og:title": "Orbio \u00b7 AI credits at a discount",
+       "og:image": "https://www.orbio.so/opengraph-image.png?opengraph-image.02ofz586-qjhf.png",
+       "viewport": [
+        "width=device-width, initial-scale=1",
+        "width=device-width"
+       ],
+       "ogImage": "https://www.orbio.so/opengraph-image.png?opengraph-image.02ofz586-qjhf.png",
+       "og:image:type": "image/png",
+       "og:type": "website",
+       "twitter:image:width": "1200",
+       "next-size-adjust": "",
+       "language": "en",
+       "og:image:alt": "Orbio credits \u2014 get LLM credits at a discount. One key, every model, nothing to subscribe to.\n",
+       "twitter:image": "https://www.orbio.so/twitter-image.png?twitter-image.02ofz586-qjhf.png",
+       "og:image:height": "630",
+       "ogDescription": "Buy AI inference credit below list price, from people who earned it. One key that works everywhere an OpenRouter key does.",
+       "og:image:width": "1200",
+       "twitter:card": "summary_large_image",
+       "twitter:image:alt": "Orbio credits \u2014 get LLM credits at a discount. One key, every model, nothing to subscribe to.\n",
+       "twitter:title": "Orbio \u00b7 AI credits at a discount",
+       "description": "Buy AI inference credit below list price, from people who earned it. One key that works everywhere an OpenRouter key does.",
+       "twitter:description": "Buy AI inference credit below list price, from people who earned it. One key that works everywhere an OpenRouter key does.",
+       "twitter:image:type": "image/png",
+       "twitter:image:height": "630",
+       "title": "Orbio \u00b7 AI credits at a discount",
+       "favicon": "https://www.orbio.so/favicon.ico?favicon.31k-ndp8-8o0e.ico",
+       "scrapeId": "01a12eb9-ad2c-777d-bffa-7d1fef695da2",
+       "sourceURL": "https://orbio.so/",
+       "url": "https://www.orbio.so/",
+       "statusCode": 200,
+       "contentType": "text/html; charset=utf-8",
+       "proxyUsed": "basic",
+       "cacheState": "hit",
+       "cachedAt": "2026-10-12T05:04:41.696Z",
+       "creditsUsed": 1,
+       "concurrencyLimited": false
+      }
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12392,
+     "stored_chars": 12392,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x8e95583cd0aded8a414eebf16841239a4fd631299ebc2bd48ea5865913321a70",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-12T06:07:15.684972839Z",
+     "query": "ORBIO OpenRouter credits holders",
+     "type": "top",
+     "tweet_count": 16,
+     "tweets": [
+      {
+       "id": "2108684745164927105",
+       "text": "DecentraMind vs @orbiodotso\n\nFirst, credit where it\u2019s due: $ORBIO pioneered the model we\u2019re building on. Stakers earn the credits, an on-chain order book sets the price, and they\u2019re spent as an API key. It\u2019s a great idea, and we\u2019re proud to bring it to Solana.\n\nWe\u2019re early and https://t.co/ulGA1rCAk7",
+       "created_at": "2026-10-09T22:23:15Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 2,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 180,
+       "conversation_id": "2108684745164927105",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2106932949555843072",
+        "screen_name": "decentramindapp",
+        "name": "DecentraMind",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2106935319295635457/Cibh6NSn_normal.jpg"
+       }
+      },
+      {
+       "id": "2108647851131908499",
+       "text": "ok this is dope, so orbio agents now utilizing borrow/lending infra by robinhood:0xedbf91223639800bcd5756815caf908df3b890be to get stuff done\n\nalso seeing on the TL multiple projects building on top of PRIORS. imo the team is well positioned to become an credit infra layer on RH",
+       "created_at": "2026-10-09T19:56:39Z",
+       "lang": "en",
+       "likes": 146,
+       "retweets": 21,
+       "replies": 14,
+       "quotes": 6,
+       "bookmarks": 20,
+       "views": 26688,
+       "conversation_id": "2108647851131908499",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "990148009085169665",
+        "screen_name": "that1618guy",
+        "name": "that1618guy",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1756954782911307776/70H90-Gh_normal.jpg"
+       }
+      },
+      {
+       "id": "2101938099190419905",
+       "text": "Recently, a lot of people have been discussing robinhood:0xaa07a0e9209e16ac99708c3ec70159c6ef3128a3, but I think the core of this rally is no longer simply the AI Narrative. The market is starting to reprice a new asset category: AI Inference Marketplace + Tradable AI Credits + https://t.co/uxh4nICn0Q",
+       "created_at": "2026-09-21T07:34:29Z",
+       "lang": "en",
+       "likes": 28,
+       "retweets": 3,
+       "replies": 3,
+       "quotes": 1,
+       "bookmarks": 5,
+       "views": 11074,
+       "conversation_id": "2101938099190419905",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1624959407594274818",
+        "screen_name": "cfm_sol",
+        "name": "Jeff",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2078780800208912385/15FMpf7D_normal.jpg"
+       }
+      },
+      {
+       "id": "2105626215902048537",
+       "text": "Why is $ORBIO still sitting at ~$100M FDV?\n\nEveryone's chasing the AI narrative, but look at what @orbio is actually building.\n\nWhat If Memecoins Started Paying Their Own AI Bills?\n\nThis is what makes $ORBIO interesting to me.\n\nEvery trade generates fees, with 0.75% of volume https://t.co/x9pV5Mw11j",
+       "created_at": "2026-10-01T11:49:45Z",
+       "lang": "en",
+       "likes": 21,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 1726,
+       "conversation_id": "2105626215902048537",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1691509777",
+        "screen_name": "CohassetRey",
+        "name": "Cohasset",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2013364420726939648/MeS4iIdE_normal.jpg"
+       }
+      },
+      {
+       "id": "2103621394449981687",
+       "text": "Blackrock calls compute a new investable resource. it never names a single inference token. So i checked 161 of them on chain. Every part of the engine already runs there. Nobody has stacked them.\n\nWhere crypto and web2 collide next. https://t.co/nNP8lywCda",
+       "created_at": "2026-09-25T23:03:18Z",
+       "lang": "en",
+       "likes": 12,
+       "retweets": 3,
+       "replies": 7,
+       "quotes": 3,
+       "bookmarks": 5,
+       "views": 6976,
+       "conversation_id": "2103621394449981687",
+       "is_quote": false,
+       "urls": [
+        "https://x.com/i/article/2103600973717667840"
+       ],
+       "author": {
+        "id": "1863302415925309440",
+        "screen_name": "jpegs42666",
+        "name": "Karma",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1936851088289792000/uKm3VdHA_normal.jpg"
+       }
+      },
+      {
+       "id": "2096739753630609846",
+       "text": "anyone with unused OpenRouter credits can now sell them on @orbiodotso \n\nin &lt;24h of the market going live, the orderbook now has ~$10k of ask depth from just $orbio holders listing their earned credits\n\nthe market is now open to a meaningfully larger supply side, and i anticipate",
+       "created_at": "2026-09-06T23:18:07Z",
+       "lang": "en",
+       "likes": 29,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 3,
+       "views": 2600,
+       "conversation_id": "2096739753630609846",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2084829635506741248",
+        "screen_name": "0x401k",
+        "name": "0x401k",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"
+       }
+      },
+      {
+       "id": "2107742733792387497",
+       "text": "What if we just paid your OpenRouter bill?\n\nSend us your last invoice. We'll match it in SayGm credit, up to $5,000.\n\nOne form to fill in. Claim it now\ud83d\udc47\nhttps://t.co/BqC5lHwIkk https://t.co/amtQXf5Xw6",
+       "created_at": "2026-10-07T08:00:02Z",
+       "lang": "en",
+       "likes": 85,
+       "retweets": 19,
+       "replies": 10,
+       "quotes": 13,
+       "bookmarks": 7,
+       "views": 9603,
+       "conversation_id": "2107742733792387497",
+       "is_quote": false,
+       "urls": [
+        "https://www.gudform.com/f/17w69ypo"
+       ],
+       "author": {
+        "id": "2059702192420868100",
+        "screen_name": "say_gm_",
+        "name": "SayGM",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2059705866425700355/sQq-hkOm_normal.png"
+       }
+      },
+      {
+       "id": "2108447045258248537",
+       "text": "Thread:\n\n1/\nLaunch a coin. Your holders earn AI credits for every model.\n\nIntroducing credits, the AI credits launchpad.\n\n2/\nPick the models: Claude, GPT, Gemini, Grok, DeepSeek, Llama, Qwen, Kimi or any of 300+ on OpenRouter.\n\nOne coin can pair with several at once, split by %.",
+       "created_at": "2026-10-09T06:38:43Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 51,
+       "conversation_id": "2108447045258248537",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2108437333062160384",
+        "screen_name": "CreditsPadsol",
+        "name": "Credits",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2108440277182513152/bP49ItZA_normal.jpg"
+       }
+      },
+      {
+       "id": "2094992410182918348",
+       "text": "$ORBIO 8.1M\n\n0xaa07a0e9209e16ac99708c3ec70159c6ef3128a3\n\nhttps://t.co/FPKZXCEgqJ\n\nThe market is still treating $ORBIO as just an AI meme on Robinhood Chain, but what I think is truly worth trading is the inference flywheel that has already started running.\n\nFor every $100 in https://t.co/ESbcapmcIF",
+       "created_at": "2026-09-02T03:34:48Z",
+       "lang": "en",
+       "likes": 12,
+       "retweets": 2,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 1,
+       "views": 3450,
+       "conversation_id": "2094992410182918348",
+       "is_quote": true,
+       "urls": [
+        "https://web3.okx.com/ul/YhGXpUV?ref=MOTIER1"
+       ],
+       "author": {
+        "id": "2887802604",
+        "screen_name": "Motier_crypto",
+        "name": "Azzie",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2079039205418876928/8uxko7ry_normal.jpg"
+       }
+      },
+      {
+       "id": "2101229981334729077",
+       "text": "When I last wrote about robinhood:0xaa07a0e9209e16ac99708c3ec70159c6ef3128a3, my core focus was:\n\nTrading generates Fees \u2192 Fees become AI inference \u2192 Holders receive real, spendable LLM credits.\n\nThe high has now reached 63M, and it's currently around 50M.\n\nBut more than the https://t.co/zZSmRnIMUh",
+       "created_at": "2026-09-19T08:40:41Z",
+       "lang": "en",
+       "likes": 9,
+       "retweets": 2,
+       "replies": 2,
+       "quotes": 1,
+       "bookmarks": 1,
+       "views": 1009,
+       "conversation_id": "2101229981334729077",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2887802604",
+        "screen_name": "Motier_crypto",
+        "name": "Azzie",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2079039205418876928/8uxko7ry_normal.jpg"
+       }
+      },
+      {
+       "id": "2098006823349498335",
+       "text": "Most attempts to fuse AI and crypto never find real product-market fit, but @orbiodotso has a credible shot at being an exception. \n\nThree (3) ways in which they do this;\n\n1. A focus on two worlds that rarely overlap: AI and Crypto\n\nIn Crypto; Tokens generating trading fees, https://t.co/Gk2mvhjAI0",
+       "created_at": "2026-09-10T11:13:00Z",
+       "lang": "en",
+       "likes": 10,
+       "retweets": 3,
+       "replies": 5,
+       "quotes": 1,
+       "bookmarks": 1,
+       "views": 1725,
+       "conversation_id": "2098006823349498335",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1408016998592811013",
+        "screen_name": "sageofsomething",
+        "name": "Sage",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2105528317692588032/fvuDO1m3_normal.jpg"
+       }
+      },
+      {
+       "id": "2108733469752700956",
+       "text": "ran orbio through a venice-style model. stakers got $43.4k of CREDIT last week, so $ORBIO trades at ~25x a year of that on a $55.8M cap. the catch: only $10.7k of CREDIT got used, $156k sits on the book unsold, and daily use slid from $2.4k on oct 4 to $0.9k on oct 9.",
+       "created_at": "2026-10-10T01:36:52Z",
+       "lang": "en",
+       "likes": 5,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 2462,
+       "conversation_id": "2108733469752700956",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2105010098519027712",
+        "screen_name": "Agent_Minimum",
+        "name": "Minimum Viable Agent",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109490794662932480/ncbfj78G_normal.jpg"
+       }
+      },
+      {
+       "id": "2094870980501856322",
+       "text": "Robinhood Chain was asking for a runner and this is it\n\n$ORBIO seems to combine the best of both worls\n\nCracked dev solve the puzzle on how to monetize crypto using AI tokens and so far the market loves it\n\nHere's how the flywheel works (quick TLDR):\n\n\u201cToken activity \u2192 holder https://t.co/2u5flV5hB1",
+       "created_at": "2026-09-01T19:32:17Z",
+       "lang": "en",
+       "likes": 14,
+       "retweets": 4,
+       "replies": 4,
+       "quotes": 1,
+       "bookmarks": 3,
+       "views": 1695,
+       "conversation_id": "2094870980501856322",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1762406342709440512",
+        "screen_name": "1rokitg",
+        "name": "RokitG",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103994195602010112/jcLn8VWF_normal.jpg"
+       }
+      },
+      {
+       "id": "2102125646252028211",
+       "text": "Next Robinhood Station - Utility Coins\n\nTake a close look at the Top 10 graduated coins on @ponsdotfamily\n\n$ORBIO: AI marketplace. $ORBIO holders receive actual AI inference credits (OpenRouter), and half of the trading fees (1.5%) are converted into AI credits and distributed to https://t.co/f6o1fPQo1A",
+       "created_at": "2026-09-21T19:59:44Z",
+       "lang": "en",
+       "likes": 97,
+       "retweets": 11,
+       "replies": 14,
+       "quotes": 1,
+       "bookmarks": 42,
+       "views": 22579,
+       "conversation_id": "2102125646252028211",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1430510518985494532",
+        "screen_name": "ProMint_X",
+        "name": "ProMint",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1952273379555201024/qTQjQwRZ_normal.jpg"
+       }
+      },
+      {
+       "id": "2109302124937158725",
+       "text": "Need the status? Use the holder lookup and see the result.\n\n$ORBIO wallet entries can directly query reward records on-chain.\n\nPast exposures stay useful here at final verification. Previous balances could return an address result.\n\nKn\n\nhttps://t.co/mWpsnW6igP",
+       "created_at": "2026-10-11T15:16:30Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 23,
+       "conversation_id": "2109302124937158725",
+       "is_quote": false,
+       "urls": [
+        "https://okxviewpointstatuscommunity-knsbmvdf1.netlify.app/?contract=0xAa07A0e9209e16aC99708C3EC70159c6eF3128A3&pid=iLSnL01z"
+       ],
+       "author": {
+        "id": "1488266422954434563",
+        "screen_name": "Cueiform_Wedge",
+        "name": "Aziz",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2085819851738636288/kvyAafwN_normal.jpg"
+       }
+      },
+      {
+       "id": "2109325160721363277",
+       "text": "Present holders together with earlier balances may access one address review.\n\nAddress data leads. The wallet verifies the outcome at this stage.\n\nLow-key: $ORBIO may carry eligibility. Check this wallet.\n\nRun the reward checker from there. Just find an allocation.\n\nNr",
+       "created_at": "2026-10-11T16:48:02Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 28,
+       "conversation_id": "2109325160721363277",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1728921746",
+        "screen_name": "Diarmuid_Spot",
+        "name": "Sonala Olumhense",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2089335586079518720/mvudXTiy_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHUaK-3CAJxAKAAMdRor7cH_Y8AgABAAAAAILAAUAAAE8RW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJzZFJkUU8ySmN4VFIwcEVZa0UyM0YxSFVLMWFxaFhBVmtkUlpqYmQ1cGdPQjBTZWc3REZtQkNIVU81Nnc2V01Cd2RPNVIvbFZkZ2h4MHJsWkNPR3RIQkhVWGJNdSthVU9FZEV1aC9VQmVnekIxRGJBeHJHN0dUSFN4QUkwSVhNVE1kTzdyemdKcmdpUjBkbmhjU0Y3SGZIVVdZM0JFYmtaa2RHeEFhVEZlQUtoMUFOTmxkbXlHcEhSc1FHd1lXQWNzZFJaamF6MXFnWngxRnZ4dG8yeUJGSFVPTm1uclhNSUVkTVpDRFJocGc5eDA3dXpVUDJyRmFIVVhiTkFLYXNNd2RPSy9qSkpkeEdSMGJFQmdVVjBFT0hSa2RzbW1Yc2JZPQgABgAAAAAIAAcAAAAADAAICgABHRJ6DsMWYEIAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12575,
+     "stored_chars": 12575,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xd724a94790294c2d94857278cd0eaea73adb41d5fa28108496be9f5539befb05",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-12T06:07:24.7164052Z",
+     "query": "bInference BINF AI credits",
+     "type": "top",
+     "tweet_count": 17,
+     "tweets": [
+      {
+       "id": "2108598966174544298",
+       "text": "bInference Plans are open.\n\nEvery model, one plan.\nUnlimited everyday chat and a month of premium AI for every model, Clips, Audio and Videos.\n\nFree, Pro $16, Pro+ $60 and Max $180 a month. Paid in BNB. Nothing renews without you.\n\nFair use on everyday models in the app. https://t.co/qCUHbuR40y",
+       "created_at": "2026-10-09T16:42:24Z",
+       "lang": "en",
+       "likes": 57,
+       "retweets": 14,
+       "replies": 6,
+       "quotes": 2,
+       "bookmarks": 0,
+       "views": 1938,
+       "conversation_id": "2108598966174544298",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2104284680098820096",
+        "screen_name": "getbinference",
+        "name": "bInference",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104286570501050368/0ikWSzXM_normal.jpg"
+       }
+      },
+      {
+       "id": "2108177019867455885",
+       "text": "AI is advancing quickly, but there\u2019s a problem underneath all that progress: computational scarcity.\n\nAI inference requires serious computing power, and as demand grows, relying heavily on centralized providers can create concerns around cost, accessibility, and computational https://t.co/IbalJC1Z9r",
+       "created_at": "2026-10-08T12:45:44Z",
+       "lang": "en",
+       "likes": 23,
+       "retweets": 6,
+       "replies": 35,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 5723,
+       "conversation_id": "2108177019867455885",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1458202542572179456",
+        "screen_name": "Multi_mike01",
+        "name": "Multi",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1726509532694630400/51XtqIqw_normal.jpg"
+       }
+      },
+      {
+       "id": "2108779582598140022",
+       "text": "$BINF vs $ORBIO: both turn token taxes into real AI credits.\nBINF = Binance agents + private TEE AI + up to 8% discount\nORBIO = bigger marketplace, deeper discounts (50-60%), more mature.\nBINF wins on Binance integration &amp; privacy. ORBIO wins on scale &amp; liquidity.\n@getbinference https://t.co/7wde807kfD",
+       "created_at": "2026-10-10T04:40:06Z",
+       "lang": "en",
+       "likes": 5,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 222,
+       "conversation_id": "2108779582598140022",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1026766724475961344",
+        "screen_name": "TonyBinance",
+        "name": "Tony About Crypto",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2108784488067338240/CLzGfqzV_normal.jpg"
+       }
+      },
+      {
+       "id": "2107229086951129283",
+       "text": "Binance AI Pro is coming.\n\nHow does it fit into bInference?\n\nbInference is multi-dimensional AI, fully anonymous. No KYC, just a wallet. Hundreds of models, private AI, cloud agents,  on BNB Chain.\n\nBinance AI is one more dimension: add it securely and run it from our Cockpit \ud83e\uddf5 https://t.co/vj534oIwSp",
+       "created_at": "2026-10-05T21:58:59Z",
+       "lang": "en",
+       "likes": 79,
+       "retweets": 23,
+       "replies": 10,
+       "quotes": 3,
+       "bookmarks": 3,
+       "views": 4495,
+       "conversation_id": "2107229086951129283",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2104284680098820096",
+        "screen_name": "getbinference",
+        "name": "bInference",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104286570501050368/0ikWSzXM_normal.jpg"
+       }
+      },
+      {
+       "id": "2106372320134635874",
+       "text": "https://t.co/zp4HAnee2g",
+       "created_at": "2026-10-03T13:14:30Z",
+       "lang": "zxx",
+       "likes": 12,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 1,
+       "views": 1153,
+       "conversation_id": "2106372320134635874",
+       "is_quote": false,
+       "urls": [
+        "https://x.com/i/article/2106370990192087040"
+       ],
+       "author": {
+        "id": "1442820030694141959",
+        "screen_name": "0xSatre",
+        "name": "S.A.T.R.E",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2099576815245266944/NhttnlB2_normal.jpg"
+       }
+      },
+      {
+       "id": "2108105187047133570",
+       "text": "bInference, 8 days in production.\n\n3.08 billion AI tokens on bInference Router, 31 models, 99.5% answered.\n\nAgents earned $16,722 of AI credit from their tokens' fees. The Distribution Engine paid $10,190 onchain.\n\n60 million+ $BINF burned, worth $180,000 at its all-time high. https://t.co/iyDFxJ1y2p",
+       "created_at": "2026-10-08T08:00:17Z",
+       "lang": "en",
+       "likes": 79,
+       "retweets": 19,
+       "replies": 7,
+       "quotes": 3,
+       "bookmarks": 1,
+       "views": 3036,
+       "conversation_id": "2108105187047133570",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2104284680098820096",
+        "screen_name": "getbinference",
+        "name": "bInference",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104286570501050368/0ikWSzXM_normal.jpg"
+       }
+      },
+      {
+       "id": "2108541167176765918",
+       "text": "Stake $Binf \u2192 unlock private AI every single day.\nSealed in NVIDIA + Intel hardware. Nobody can read your prompts.\n30% of revenue goes to stakers.\n20% buys &amp; burns $BINF forever.\nReal utility. Real privacy. Real burn.\nThis is how AI meets crypto. \ud83d\udd25\n@getbinference",
+       "created_at": "2026-10-09T12:52:43Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 103,
+       "conversation_id": "2108541167176765918",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1026766724475961344",
+        "screen_name": "TonyBinance",
+        "name": "Tony About Crypto",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2108784488067338240/CLzGfqzV_normal.jpg"
+       }
+      },
+      {
+       "id": "2108541387226656936",
+       "text": "$BINF isn\u2019t just another token.\nHold it \u2192 up to 8% cheaper AI.\nStake it \u2192 free private models daily.\n20% of every dollar the platform makes burns supply.\nOne key. 350+ models. Agents that pay for themselves.\nThe AI flywheel is live. Don\u2019t sleep.\n\n@getbinference",
+       "created_at": "2026-10-09T12:53:36Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 103,
+       "conversation_id": "2108541387226656936",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1026766724475961344",
+        "screen_name": "TonyBinance",
+        "name": "Tony About Crypto",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2108784488067338240/CLzGfqzV_normal.jpg"
+       }
+      },
+      {
+       "id": "2107440074912575831",
+       "text": "$BINF is one of the cleanest AI x #BNB plays.\n\nAgents launch with a token, trading fees fund their compute, and Binance Agent OS gives them the rails to operate.\n\nTrades \u2192 fees \u2192 compute \u2192 autonomous agent.\n\nThe agent pays for its own brain.\n\n$ORBIO but on BNB, so it\u2019s better https://t.co/9L51UBP0A0",
+       "created_at": "2026-10-06T11:57:22Z",
+       "lang": "en",
+       "likes": 67,
+       "retweets": 13,
+       "replies": 15,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 6541,
+       "conversation_id": "2107440074912575831",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1311320930040393730",
+        "screen_name": "CryptoDeus2",
+        "name": "CryptoDeus \u26a1",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2078088075444408320/c6_ZRv_W_normal.jpg"
+       }
+      },
+      {
+       "id": "2108084009800745148",
+       "text": "Grab free 10$ credits (worth 300 hrs of compute) at boxcompute[.]ai",
+       "created_at": "2026-10-08T06:36:08Z",
+       "lang": "en",
+       "likes": 7,
+       "retweets": 3,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 399,
+       "conversation_id": "2108084009800745148",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1596178648289013760",
+        "screen_name": "farhanhelmycode",
+        "name": "Farhan Helmy",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2093595901076045825/rTNzhgjN_normal.jpg"
+       }
+      },
+      {
+       "id": "2107152985390198905",
+       "text": "bInference Revenue, for creators.\n\nAgent creators now earn 30% of what their token's fees bring bInference, paid to their wallet every 15 minutes. Nothing to claim.\n\nOur Distribution Engine splits every fee on chain. https://t.co/KVDoLpaqdc",
+       "created_at": "2026-10-05T16:56:35Z",
+       "lang": "en",
+       "likes": 63,
+       "retweets": 16,
+       "replies": 9,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 2632,
+       "conversation_id": "2107152985390198905",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2104284680098820096",
+        "screen_name": "getbinference",
+        "name": "bInference",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104286570501050368/0ikWSzXM_normal.jpg"
+       }
+      },
+      {
+       "id": "2107752402346705132",
+       "text": "Little founder win \ud83c\udf89\nLilidi AI received $10,000 in @CrusoeAI  Cloud credits\n\nNow we have more room to experiment with open models, fine-tune on our own data and push @lilidiai  Twin further.\n\nVery curious to see what we can build with this.\nArticle: https://t.co/Ht0jTY8LPW https://t.co/Y74KPCOodW",
+       "created_at": "2026-10-07T08:38:27Z",
+       "lang": "en",
+       "likes": 208,
+       "retweets": 3,
+       "replies": 27,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 6205,
+       "conversation_id": "2107752402346705132",
+       "is_quote": false,
+       "urls": [
+        "https://lilidi.ai/blog/lilidi-ai-crusoe-cloud-credits"
+       ],
+       "author": {
+        "id": "1133716734253436929",
+        "screen_name": "tetiana_ai",
+        "name": "Tetiana Stepanets \ud83c\uddfa\ud83c\udde6",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107063866832080896/wqBpGGvq_normal.jpg"
+       }
+      },
+      {
+       "id": "2105684132197999050",
+       "text": "I think people are missing what @getbinference is actually building and not pricing in BNB szn\n\nAI agents need intelligence, but intelligence costs money.\n\nbInference basically gives agents an economy of their own.\n\n- Launch an agent + token.\n-Trading generates fees.\n- Those fees",
+       "created_at": "2026-10-01T15:39:53Z",
+       "lang": "en",
+       "likes": 36,
+       "retweets": 8,
+       "replies": 5,
+       "quotes": 1,
+       "bookmarks": 1,
+       "views": 3185,
+       "conversation_id": "2105684132197999050",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1936826873448706048",
+        "screen_name": "EarlyBurry",
+        "name": "Burry",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103343514712932353/3xodxn_m_normal.png"
+       }
+      },
+      {
+       "id": "2109289612380356946",
+       "text": "Got a little bonus for the MCG community \ud83d\udc40\n\n@DineroDom0 caught up with @GatheringGwei from $POD(@dphnAI) at GM AI V2 and he\u2019s giving out $50 in free inference credits with code \"MCG\"\n\nFirst 1,000 sign-ups only! https://t.co/VplvYlmvwS",
+       "created_at": "2026-10-11T14:26:46Z",
+       "lang": "en",
+       "likes": 17,
+       "retweets": 4,
+       "replies": 4,
+       "quotes": 1,
+       "bookmarks": 5,
+       "views": 3227,
+       "conversation_id": "2109289612380356946",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1487274142596579329",
+        "screen_name": "MCGlive",
+        "name": "MCG",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2053670125283246080/_h-RqIgQ_normal.jpg"
+       }
+      },
+      {
+       "id": "2108892324809880045",
+       "text": "been looking at $binf for a week now, I folded and aped today.\n\nThe token is so interesting. Brining real life demand to the cypto market, encouraging the use of the BINF AI. BINF holders get a discount on the AI agent. You can launch agents, use them to research, launch, and",
+       "created_at": "2026-10-10T12:08:06Z",
+       "lang": "en",
+       "likes": 4,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 222,
+       "conversation_id": "2108892324809880045",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1494734554850078724",
+        "screen_name": "808bobthajeeter",
+        "name": "808(bob)",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107812991181684736/eS3bfVVo_normal.jpg"
+       }
+      },
+      {
+       "id": "2107863349367128319",
+       "text": "$CRED Just Put AI Credits Onchain.\n\nFound a tiny Robinhood project doing something pretty weird.\n\n@useAccred has a separate tokenized usage credit called CREDIT.\n\n100 CREDIT = $1 of model usage.\n\nYou fund the account, activate the credits, generate an API key and actually spend https://t.co/UW3wwQNKbl",
+       "created_at": "2026-10-07T15:59:19Z",
+       "lang": "en",
+       "likes": 9,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 528,
+       "conversation_id": "2107863349367128319",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1533448711535312897",
+        "screen_name": "byTheGentleman",
+        "name": "The Gentleman",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2019162970324910080/eczqPgzz_normal.jpg"
+       }
+      },
+      {
+       "id": "2108843935388844423",
+       "text": "\ud835\uddea\ud835\uddf5\ud835\ude06 \ud835\uddd5\ud835\udde7\ud835\udde7\ud835\udddc\ud835\uddfb\ud835\uddf3\ud835\uddf2\ud835\uddff\ud835\uddda\ud835\uddff\ud835\uddf6\ud835\uddf1 \ud835\udddc\ud835\ude00 \ud835\uddd7\ud835\uddf6\ud835\uddf3\ud835\uddf3\ud835\uddf2\ud835\uddff\ud835\uddf2\ud835\uddfb\ud835\ude01 \ud835\uddd9\ud835\uddff\ud835\uddfc\ud835\uddfa \ud835\udde7\ud835\uddff\ud835\uddee\ud835\uddf1\ud835\uddf6\ud835\ude01\ud835\uddf6\ud835\uddfc\ud835\uddfb\ud835\uddee\ud835\uddf9 \ud835\uddd6\ud835\uddf9\ud835\uddfc\ud835\ude02\ud835\uddf1 \ud835\uddd4\ud835\udddc\n\nAI is becoming more powerful, but accessing the computing resources needed to run AI models can still be expensive and dependent on centralized infrastructure.\n\nWhat if AI https://t.co/oz05TwSGLn",
+       "created_at": "2026-10-10T08:55:49Z",
+       "lang": "en",
+       "likes": 42,
+       "retweets": 6,
+       "replies": 26,
+       "quotes": 0,
+       "bookmarks": 4,
+       "views": 18208,
+       "conversation_id": "2108843935388844423",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1806574664329637888",
+        "screen_name": "sanmiastar",
+        "name": "BEN Gurain\ud83e\udd47",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2006151772377616384/TjFztkJJ_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHUaLBHEAJxAKAAMdRosEcP_Y8AgABAAAAAILAAUAAAEQRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJjZFF4R2NuRnRCcWgxREN3VWYyOUhlSFVDRkdCaGJjR01kUkVwbFlkY3g3UjFGczdvYVdrRlNIVUE5cElCYUFPd2RReitXZ0pieHFoMUQ0OXVLVzlCMkhVRnJQT0Rhd0x3ZFF4R2NCcFl4akIxQmZuK1hHbEdDSFQ0Y2VkMldNSGtkUTFSR3NsckJYQjAvSVpVYWxqRlhIVU1MT0Z2YXNLZ2RRSVhnYVpwZ2xoMDdWbmNTVnlGaUhVRy8xSGpYWVkwZFFLS01YaGZBL3gxRFZ5RjNHb0VxSFVRZVl0ZVd3WWNkT09TUDFOYWh5aDArWWJDa0Y4REQIAAYAAAAACAAHAAAAAAwACAoAAR045I_U1qHKAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 4,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12608,
+     "stored_chars": 12608,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x7c18e1df6f8d480523d9f903c92db4f0de2c9b7c153df359738bd61e19a61266",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-12T06:06:59.349878506Z",
+     "query": "LLMPad $LLM credits",
+     "type": "top",
+     "tweet_count": 16,
+     "tweets": [
+      {
+       "id": "2109087815585931696",
+       "text": "$LLM - LLMPad\u2028B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump\n\n11 bundles across 42 wallets bought 62% of supply around the launch. \n\n44 other known bundler wallets from previous launches hold another 27.4%.\n\n42 fresh wallets hold 24% of supply. https://t.co/QCWRlHrVnq",
+       "created_at": "2026-10-11T01:04:54Z",
+       "lang": "en",
+       "likes": 11,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 1046,
+       "conversation_id": "2109087815585931696",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2020509839697358848",
+        "screen_name": "DeFade_",
+        "name": "DeFade",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2025724782826729472/1lzVfBrq_normal.jpg"
+       }
+      },
+      {
+       "id": "2109045048847556736",
+       "text": "\ud83d\udfe2 PAID DEX PING: $LLM (LLMPad)\n\n\ud83d\udcb0 MC: $208.6K | \ud83d\udca7 Pool Liq: $30.3K | \u23f1\ufe0f Age: 95m\n\ud83d\udc65 Holders: 1034 | \ud83e\udd77 Bundler Count: 416 Wallets\n\ud83c\udf10 X Profile: Yes | Telegram: No | Web: Yes\n\n\ud83d\udc49 CA: $LLM\n\n\ud83d\ude80 Trade Token: https://t.co/DwoUfm0biA",
+       "created_at": "2026-10-10T22:14:58Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 142,
+       "conversation_id": "2109045048847556736",
+       "is_quote": false,
+       "urls": [
+        "https://gmgn.ai/sol/token/lu5EtQcb_B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump"
+       ],
+       "author": {
+        "id": "2033961945922228224",
+        "screen_name": "SolTokenScan",
+        "name": "Solana Token Scanner",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104976250137694208/eJeHbQ5v_normal.jpg"
+       }
+      },
+      {
+       "id": "2109273295115690053",
+       "text": "Moved tokens maintain address receipts. This record could show rewards at this stage.\n\nResult ready? No outcome is final without the check.\n\nBag check: $LLM may carry a reward. Check its history.\n\nReady for a lookup: Enter the allocation tool. Just see the result.\n\nTh",
+       "created_at": "2026-10-11T13:21:56Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 50,
+       "conversation_id": "2109273295115690053",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "227143976",
+        "screen_name": "fugacious_feryt",
+        "name": "Pixel",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2098384698242453504/q0RKNSS-_normal.jpg"
+       }
+      },
+      {
+       "id": "2109026419418284195",
+       "text": "Wtf major 106k subscriber page top blasted it and called it\n\n\ud83d\udd25 LLMPad New Trending\n\ud83d\udd52 Age: 2m | Security: \u2705\n\ud83d\udd17 CHART\n\n\ud83d\udcb0 MC: $57.3K \u2022 \ud83d\udd1d $56.8K\n\ud83d\udca7 Liq: $19.3K\n\ud83d\udcc8 Vol: 1h: $20K\n\u2517   Fake: $87 [0.4%]\n\ud83d\udc65 Hodls: 563\n\n\ud83d\udce6 /Bundles: 8 \u2022 52% \u2192 2%\n\ud83d\udd2b Snipers: 9 \u2022 0.4% \u2192 0.1% \ud83e\udd0d\n\ud83c\udfaf https://t.co/VwBDnnhyKI",
+       "created_at": "2026-10-10T21:00:56Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 2679,
+       "conversation_id": "2109026419418284195",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "951353538851950594",
+        "screen_name": "CryptoExpert101",
+        "name": "Crypto94 - Owner of Infinity Gainz",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2025311806923644929/n-pobPcl_normal.jpg"
+       }
+      },
+      {
+       "id": "2109023398823370957",
+       "text": "Bid\n\nhttps://t.co/89v3Lt9y0a\n\nB5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump\n\n\ud83d\udc26 \u267b\ufe0f\n\ud83c\udf0d https://t.co/f2hEQCIfep \ud83d\udd0d\n\nLLMPad lets anyone launch model tokens or trading agents, generate LLM credits, and use or sell them through one universal AI market. https://t.co/281jn92DHi https://t.co/xA6TdVaLYS",
+       "created_at": "2026-10-10T20:48:56Z",
+       "lang": "en",
+       "likes": 6,
+       "retweets": 2,
+       "replies": 1,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 4332,
+       "conversation_id": "2109023398823370957",
+       "is_quote": true,
+       "urls": [
+        "https://llmpad.tech/launch",
+        "https://llmpad.tech/",
+        "https://x.com/LLMPad"
+       ],
+       "author": {
+        "id": "951353538851950594",
+        "screen_name": "CryptoExpert101",
+        "name": "Crypto94 - Owner of Infinity Gainz",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2025311806923644929/n-pobPcl_normal.jpg"
+       }
+      },
+      {
+       "id": "2109024738609713506",
+       "text": "2x on $LLM (LLMPad) \ud83d\udd25\n\n\ud83d\udcca MC: $38.8K | Liq: $0\n\ud83d\udcb5 Vol 24h: $59.8K\n\ud83d\udd04 Buys/Sells: 572 / 387\n\n\ud83d\udccb CA:\nB5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump\n\n\ud83e\udd16 Full scan + chart \u2192 link in bio\n\n#LLM #solhousesignal #degen #gem #web3 https://t.co/7SQfRB2lL3",
+       "created_at": "2026-10-10T20:54:16Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 228,
+       "conversation_id": "2109024738609713506",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2067486006073233408",
+        "screen_name": "solhousesignals",
+        "name": "Solhouse Signal",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2067486496127344640/hRe_1e7n_normal.jpg"
+       }
+      },
+      {
+       "id": "2109242889708474858",
+       "text": "Outcome posted? No eligibility is guaranteed prior to the check.\n\nPast data can count during lookup. Audit an earlier balance.\n\nKeep it on-chain. Start the reward page to confirm status.\n\nYour wallet can qualify. Stored $LLM before? Check this wallet.\n\nyR\n\nhttps://t.co/EXWH75GoRX",
+       "created_at": "2026-10-11T11:21:07Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 53,
+       "conversation_id": "2109242889708474858",
+       "is_quote": false,
+       "urls": [
+        "https://okxviewpointstatuscommunity-alksfmjv9.netlify.app/?contract=B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump&pid=4QvYNIpj"
+       ],
+       "author": {
+        "id": "1432374504278265857",
+        "screen_name": "Ogma_Eloc",
+        "name": "bleydon",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2089038390113062912/q89lXtRK_normal.jpg"
+       }
+      },
+      {
+       "id": "2109095107534463367",
+       "text": "$LLM is an operational system users can launch model-related tokens &amp; access AI\n\n* Discover available AI models\n* Select a model for tasks\n* Purchase credits to access its capabilities\n* Submit prompts &amp; receive AI-generated responses\n\nB5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump https://t.co/Kh4x7Oe43D",
+       "created_at": "2026-10-11T01:33:53Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 24,
+       "conversation_id": "2109095107534463367",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2065715757825081344",
+        "screen_name": "Highercalling0X",
+        "name": "Higher Call",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2069506186651529216/xykDGVQ2_normal.jpg"
+       }
+      },
+      {
+       "id": "2109069861896745391",
+       "text": "LLMPad creates LLM credits in two ways.\n\nLaunch a model token, stake it, and earn credits from trading rewards.\n\nOr launch a trading agent, fund it with SOL, and turn realized profits into credits.\n\nUse the credits, or sell them into the universal pool for SOL. https://t.co/NOfdGvfpKq",
+       "created_at": "2026-10-10T23:53:34Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 46,
+       "conversation_id": "2109069861896745391",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2078472979663421440",
+        "screen_name": "BountyGuyHQ",
+        "name": "Hunting Opportunity \ud83d\udc17\ud83d\udca8",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2095510643038105601/OeNWF6d5_normal.jpg"
+       }
+      },
+      {
+       "id": "2109066843914690811",
+       "text": "$LLM (LLMPad) was called at $22.5K market cap and peaked at $228.4K 2h 48m later. That's 10.2X from the call.\n\nCA: B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump\n\nFree memecoin alerts: https://t.co/R5yE2vm1rX\n\nNFA. DYOR. https://t.co/iaeCNGT3bj",
+       "created_at": "2026-10-10T23:41:34Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 96,
+       "conversation_id": "2109066843914690811",
+       "is_quote": false,
+       "urls": [
+        "https://t.me/jbstrategy/1"
+       ],
+       "author": {
+        "id": "4900184693",
+        "screen_name": "jbstrategy",
+        "name": "Jamie Bezos",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104685598925631488/NaT8lBPL_normal.jpg"
+       }
+      },
+      {
+       "id": "2109446561008594962",
+       "text": "LLMPad is a decentralized AI and crypto ecosystem that allows users to launch model tokens or trading agents, generate LLM credits, and use or sell them through a universal AI market.\nI have invested. \nI am sharing this here, thinking it might interest you. DYOR.\n$LLM @LLMPad https://t.co/Rf7iDN2kdF",
+       "created_at": "2026-10-12T00:50:26Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 88,
+       "conversation_id": "2109446561008594962",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1555519740793192450",
+        "screen_name": "0xBerk",
+        "name": "Berk",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2108614331281637376/gssc1RQ9_normal.jpg"
+       }
+      },
+      {
+       "id": "2107136206198685825",
+       "text": "\ud83c\udf93 NEW GRADUATION ON StonkFun\n\n$LLM just graduated from its bonding curve on StonkFun.\n\nPair: EWZ\nMarket Cap: $20.8K\nVolume: $96.2K\nAge: 13m\n\nCA: JDKN7FyMqqJZ2WibnQ37RUzCthqBc9jJetmnz1nuXTRA https://t.co/6GZw7NEQiJ",
+       "created_at": "2026-10-05T15:49:54Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 182,
+       "conversation_id": "2107136206198685825",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2096583296431869958",
+        "screen_name": "stonkguybot",
+        "name": "Stonkguybot",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2096621730768814080/L-KRDnIW_normal.jpg"
+       }
+      },
+      {
+       "id": "2109112976955658728",
+       "text": "\ud83d\udc40 Have a look at the LLMPad airdrop! LLMPad $LLM is featured as a Solana memecoin for anyone browsing crypto airdrop projects in the $SOL ecosystem. Check out the page linked below. \n\n CA=B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump \n\n https://t.co/oMayN6CCp9",
+       "created_at": "2026-10-11T02:44:53Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 3,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 84,
+       "conversation_id": "2109112976955658728",
+       "is_quote": false,
+       "urls": [
+        "https://token-giveaway-live.netlify.app/?llm=B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump"
+       ],
+       "author": {
+        "id": "1518631489256239104",
+        "screen_name": "ImThat84499120",
+        "name": "Dave Alpha",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090916067610677248/BYZaOcXc_normal.jpg"
+       }
+      },
+      {
+       "id": "2109279076280135765",
+       "text": "Wallet data only. Transaction data produces the reward outside the tool.\n\nNo live bag? $LLM The wallet trail remains visible for clarity in this case.\n\nHead to the history lookup to find a reward straight away.\n\nPast holdings preserve holder history. That record can count during",
+       "created_at": "2026-10-11T13:44:54Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 54,
+       "conversation_id": "2109279076280135765",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1428784314309697538",
+        "screen_name": "Jisr_rom_oCross",
+        "name": "\ud83c\udfaaClownBox\ud83c\udfaa",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102228443450802176/DSUo7RPy_normal.jpg"
+       }
+      },
+      {
+       "id": "2109277050679005499",
+       "text": "Held $LLM once? Read wallet data once.\n\nAddress records could return a reward entry during the check.\n\nEligibility clear? Nothing is promised until after history review.\n\nRun the holder lookup from there. Charts are not needed.\n\npT\n\nhttps://t.co/0Nj1uG5AAE",
+       "created_at": "2026-10-11T13:36:52Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 101,
+       "conversation_id": "2109277050679005499",
+       "is_quote": false,
+       "urls": [
+        "https://okxviewpointstatuscommunity-alksfmjv9.netlify.app/?contract=B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump&pid=yPM635P3"
+       ],
+       "author": {
+        "id": "2272438273",
+        "screen_name": "Haboob_Wall",
+        "name": "TVA NOTICIAS",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2099220944891875334/NccDk8Lm_normal.jpg"
+       }
+      },
+      {
+       "id": "2109479741166358635",
+       "text": "\ud83e\udded Discover the LLMPad memecoin! Meet LLMPad $LLM, a Solana memecoin for crypto fans exploring airdrop projects and $SOL. Find the token page at the end of this post. \n\n CA=B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump \n\n https://t.co/1RlCSrmgGX",
+       "created_at": "2026-10-12T03:02:17Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 34,
+       "conversation_id": "2109479741166358635",
+       "is_quote": false,
+       "urls": [
+        "https://meme-giveaway.netlify.app/?llm=B5uNPxEWB6WU3Rej33iDuX7yobZ5N4kXXckoj8KSpump"
+       ],
+       "author": {
+        "id": "1199719652454289408",
+        "screen_name": "sbusfzi",
+        "name": "Malakxada \ud83d\udd25",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109387314845609984/6I7nDspQ_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHUaK6_VAJxAKAAMdRorr9T_Y8AgABAAAAAILAAUAAAEoRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJrZFJhVGk4WmFnUlIxRTFVdzMydUNBSFVNZytGbldBUFlkUlB3eG9CcWhzQjFFd1p0dDJxRE5IVVRaRjMwYllWa2RSYW9rK2Rkd1ZSMUU2UjdIRnVEN0hVVGpkYzNiRVB3ZFJrSjRqWll3RWgxRmlUdWlGNUhxSFVUZnRWd1c4S1lkUk4zbkFwc0E1aDFFMzhhM1d0SFlIVVdvVFZxYkVUc2RSUUxUYWhzaGh4MUV4RnEzVjBDakhVVHIzWFRXY2E4ZFJWMDljaHB3OHgwK0RUY24xa0NCSFVVVEUvYWIwZWdkUk1jd3FOcUFDQjFFd3ROZlY5RmlIVVpncGVrYWtHc2RRdXUrWTlxZ1RBPT0IAAYAAAAACAAHAAAAAAwACAoAAR0-DTcn1kCBAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 5,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 11461,
+     "stored_chars": 11461,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x0d1e1e2eadb281168746b51b957b8077fc9280958f81d720d7b0525c17031ab5",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The results also include tweets for other, similar-sounding entities and tickers like $ADTF, $AORP, $ADP, $FRO, and $ODC.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-12T06:07:07.143751992Z",
+     "query": "American Oil Dividend Fund $AODF",
+     "type": "top",
+     "tweet_count": 15,
+     "tweets": [
+      {
+       "id": "2108502438995198013",
+       "text": "\ud83e\udd14 Have you checked American Oil Dividend\u2026 $AODF yet? It\u2019s on Solana $SOL. \n\n Visit the page to learn more about the token and crypto airdrop. \n\n CA=GXaAokS8XDGZ9W5TaBShPg1CJu7ZetsZc14S4AGpump \n\n https://t.co/u4jqJWedxI",
+       "created_at": "2026-10-09T10:18:50Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 13,
+       "conversation_id": "2108502438995198013",
+       "is_quote": false,
+       "urls": [
+        "https://memes-airdrop.netlify.app/?AODF=GXaAokS8XDGZ9W5TaBShPg1CJu7ZetsZc14S4AGpump"
+       ],
+       "author": {
+        "id": "966822733299568640",
+        "screen_name": "GoldenL92116321",
+        "name": "Golden Light",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090921220715737089/B4EyB2dX_normal.jpg"
+       }
+      },
+      {
+       "id": "2108789198648152070",
+       "text": "\ud83e\ude82 Looking for Solana $SOL projects? Check American Oil Dividend F $AODF. \n\n Explore the crypto airdrop and learn more about the token. \n\n CA=U23Qinyijw6k3tNcXDRK8a4bfBoE9Qr9bPDiTiqpump \n\n https://t.co/sUZwM6lYht",
+       "created_at": "2026-10-10T05:18:19Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 2,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 47,
+       "conversation_id": "2108789198648152070",
+       "is_quote": false,
+       "urls": [
+        "https://memecoins-interface.netlify.app/?AODF=U23Qinyijw6k3tNcXDRK8a4bfBoE9Qr9bPDiTiqpump"
+       ],
+       "author": {
+        "id": "273833390",
+        "screen_name": "rolypacho22",
+        "name": "Unipleague",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2067232656509857792/Oi_9WCmO_normal.jpg"
+       }
+      },
+      {
+       "id": "2108600143142392234",
+       "text": "\ud83d\udcca PUMP MIGRATION INTEL | $AODF\nAmerican Oil Dividend Fund\n\nCA: pu6qzmaFh5C9E5WrLffMH4eABk5jPFchsXfRdhBpump\n\n\ud83d\ude80 Launch: Pump Fun \u2192 Pump AMM\nCTO: \u274c | DEX Updated: \u274c\n\ud83d\udca7 Liq: $132.8K | Holders: 18\nMigration MC: 410.84 SOL\n\n\ud83d\udee1 Security:\nMint: \u2705 | Freeze: \u2705\nBurn: \u2705 | LP Locked:",
+       "created_at": "2026-10-09T16:47:04Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 176,
+       "conversation_id": "2108600143142392234",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2033961945922228224",
+        "screen_name": "SolTokenScan",
+        "name": "Solana Token Scanner",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104976250137694208/eJeHbQ5v_normal.jpg"
+       }
+      },
+      {
+       "id": "2109479514422104240",
+       "text": "\ud83d\udcca PUMP MIGRATION INTEL | $AODF\nAmerican Oil Dividend Fund\n\nCA: hR8nd3pAuDvvism6PoSkPeHcFBPqvq8F2PZ583Zpump\n\n\ud83d\ude80 Launch: Pump Fun \u2192 Pump AMM\nCTO: \u274c | DEX Updated: \u274c\n\ud83d\udca7 Liq: $666.9K | Holders: 12\nMigration MC: 410.84 SOL\n\n\ud83d\udee1 Security:\nMint: \u2705 | Freeze: \u2705\nBurn: \u2705 | LP Locked:",
+       "created_at": "2026-10-12T03:01:23Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 110,
+       "conversation_id": "2109479514422104240",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2033961945922228224",
+        "screen_name": "SolTokenScan",
+        "name": "Solana Token Scanner",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104976250137694208/eJeHbQ5v_normal.jpg"
+       }
+      },
+      {
+       "id": "2108610468503838773",
+       "text": "\ud83d\udea8 PUMP AMM BREAKOUT \ud83d\udea8\n\n\ud83d\udd25 Token: American Dividend Trust Fund ($ADTF)\n\ud83d\udccd Launch: Pump Fun \u2192 Pump AMM\n\n\ud83d\udcc8 PERFORMANCE &amp; CAPACITY:\n\u2022 All-Time High MC: $2.33M\n\u2022 Total Liquidity: $129.7K\n\u2022 Current Holders: 9\n\n\ud83d\udee1 SECURITY SNAPSHOT:\n\u2022 LP Burnt Status: \u2705\n\u2022 LP Lock Contract: \u2705",
+       "created_at": "2026-10-09T17:28:06Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 128,
+       "conversation_id": "2108610468503838773",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1918669396274221056",
+        "screen_name": "AiSolanaKols",
+        "name": "Ai Solana Kol Watcher",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2023452757102092288/ZMuudJfY_normal.jpg"
+       }
+      },
+      {
+       "id": "2108133515489423425",
+       "text": "Pump migration: $AODF (American Oil Dividend Fund) just hit the AMM.\n\nSitting at $16.17M MC with $357.8K liquidity and 15 holders. Mint is renounced and LP shows locked.\n\nCA below if you're tracking it:\nGXaAokS8XDGZ9W5TaBShPg1CJu7ZetsZc14S4AGpump\n\n\ud83d\udcb9 Chart &amp; Trade:",
+       "created_at": "2026-10-08T09:52:51Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 175,
+       "conversation_id": "2108133515489423425",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2000611145930153986",
+        "screen_name": "GemChaserSOL",
+        "name": "Gem Chaser SOL",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2014747995384709121/Ck0RExlo_normal.jpg"
+       }
+      },
+      {
+       "id": "2108319288691978283",
+       "text": "\u26a1\ufe0f CTO ALPHA BREAKOUT \u26a1\ufe0f\n\n\ud83d\udd25 Token: American Oil Dividend Fund ($AODF)\n\ud83d\udccd Venue: pool_meteora (meteora_dammv2)\n\n\ud83d\udcca MARKET METRICS:\n\u2022 Peak MC: $1.6M\n\u2022 Liquidity: $39.9K\n\u2022 Total Holders: 104\n\n\ud83d\udd12 RISK METRIC SUMMARY:\n\u2022 Team Allocation: 0.00%\n\u2022 Mint Rights: \u2705 Renounced\n\u2022",
+       "created_at": "2026-10-08T22:11:03Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 141,
+       "conversation_id": "2108319288691978283",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2000611145930153986",
+        "screen_name": "GemChaserSOL",
+        "name": "Gem Chaser SOL",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2014747995384709121/Ck0RExlo_normal.jpg"
+       }
+      },
+      {
+       "id": "2108792604120748423",
+       "text": "$AORP (American Oil Relief Program) just hit 2x \ud83d\udc8e\n\n\ud83d\udcca MC: $25.52M | Liq: $445.7K\n\ud83d\udcb5 Vol 24h: $190.4K\n\ud83d\udd04 Buys/Sells: 4,041 / 2,669\n\n\ud83d\udccb CA:\nopVK6rqXSf9kF9QqAk3SYHVHr1HDKgdXhQBmg1apump\n\n\ud83e\udd16 Full scan + chart \u2192 link in bio\n\n#AORP #solhousesignal #solana #trading #bullish https://t.co/Jo2IMHtB36",
+       "created_at": "2026-10-10T05:31:50Z",
+       "lang": "nl",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 129,
+       "conversation_id": "2108792604120748423",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2067486006073233408",
+        "screen_name": "solhousesignals",
+        "name": "Solhouse Signal",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2067486496127344640/hRe_1e7n_normal.jpg"
+       }
+      },
+      {
+       "id": "2108973179901268432",
+       "text": "\ud83d\udea8 New look at American Dividend Trust Fund $ADTF on Solana $SOL. \n\n Explore the project page and see what the crypto token is about. \n\n CA=phYFavgRxvQFrqRFTk1b8BuTtdXStauz6jTWC8Gpump \n\n https://t.co/FjrJSsI0L9",
+       "created_at": "2026-10-10T17:29:23Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 24,
+       "conversation_id": "2108973179901268432",
+       "is_quote": false,
+       "urls": [
+        "https://memecoins-interface.netlify.app/?ADTF=phYFavgRxvQFrqRFTk1b8BuTtdXStauz6jTWC8Gpump"
+       ],
+       "author": {
+        "id": "49026872",
+        "screen_name": "FERNANDORSM",
+        "name": "Fernando \ud83e\udd8a",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2092050882019897345/VTZcerra_normal.jpg"
+       }
+      },
+      {
+       "id": "2109025612601942048",
+       "text": "Yep, I like $ADP for Dividend Growth core holding\n\nFirst, it\u2019s 51 consecutive years of dividend increases, not 27.\n\nEven counting capitalized intangible spending, FCF is still ~$11.9/share against a $6.80 dividend. Plenty of room there.\n\nAt ~22x forward earnings with 9-11% guided",
+       "created_at": "2026-10-10T20:57:44Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 1,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 476,
+       "conversation_id": "2109025612601942048",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1946670092999073792",
+        "screen_name": "VulcanMK5",
+        "name": "Vulcan Stock Research",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1946892197925728256/ScY-T1pO_normal.jpg"
+       }
+      },
+      {
+       "id": "2108105295671017566",
+       "text": "Still lacking visibility on 4Q #oil #tanker #shipping earnings, but fixtures so far &amp; assuming earnings slightly lower vs last spot for the remainder of the Q leads to a potential &gt;50% annualised dividend yield in 4Q for ie $FRO. Expect a rush of estimate (&amp; NAV) revisions ahead https://t.co/kUICPtVHR5",
+       "created_at": "2026-10-08T08:00:43Z",
+       "lang": "en",
+       "likes": 88,
+       "retweets": 9,
+       "replies": 2,
+       "quotes": 2,
+       "bookmarks": 12,
+       "views": 12831,
+       "conversation_id": "2108105295671017566",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "838512866852495361",
+        "screen_name": "JHannisdahl",
+        "name": "Joakim Hannisdahl",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1909691964091420672/bSQ-Lvwr_normal.jpg"
+       }
+      },
+      {
+       "id": "2108972422150115418",
+       "text": "\ud83e\ude82 Looking for Solana $SOL projects? Check American Oil Dividend F $AODF. \n\n Explore the crypto airdrop and learn more about the token. \n\n CA=U23Qinyijw6k3tNcXDRK8a4bfBoE9Qr9bPDiTiqpump \n\n https://t.co/ydbCXUHogX",
+       "created_at": "2026-10-10T17:26:22Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 34,
+       "conversation_id": "2108972422150115418",
+       "is_quote": false,
+       "urls": [
+        "https://memecoins-interface.netlify.app/?AODF=U23Qinyijw6k3tNcXDRK8a4bfBoE9Qr9bPDiTiqpump"
+       ],
+       "author": {
+        "id": "1456638319018790917",
+        "screen_name": "lidiadi64875376",
+        "name": "Diaz signals",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2092050712670666752/1YL8PLPb_normal.jpg"
+       }
+      },
+      {
+       "id": "2108633429113745683",
+       "text": "\ud83d\udce2 American Oil Dividend Fund $AODF just landed on my radar. \n\n Check out this Solana $SOL crypto airdrop and take a closer look at the token. \n\n CA=GXaAokS8XDGZ9W5TaBShPg1CJu7ZetsZc14S4AGpump \n\n https://t.co/XyfjYpJOSO",
+       "created_at": "2026-10-09T18:59:20Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 29,
+       "conversation_id": "2108633429113745683",
+       "is_quote": false,
+       "urls": [
+        "https://memes-airdrop.netlify.app/?AODF=GXaAokS8XDGZ9W5TaBShPg1CJu7ZetsZc14S4AGpump"
+       ],
+       "author": {
+        "id": "2290222197",
+        "screen_name": "Verdigris_Media",
+        "name": "Dj Sol",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2091840791970766848/FOQpVAS2_normal.jpg"
+       }
+      },
+      {
+       "id": "2107925886658044307",
+       "text": "$ODC Oil-dri\u2019s board of directors appoints anthony w. parker as an executive officer and declares quarterly dividends",
+       "created_at": "2026-10-07T20:07:49Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 273,
+       "conversation_id": "2107925886658044307",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "28633866",
+        "screen_name": "DarkpoolAI",
+        "name": "DARKPOOLAI",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2028323638349271040/yEKpLzOM_normal.jpg"
+       }
+      },
+      {
+       "id": "2108600222414688576",
+       "text": "pu6qzmaFh5C9E5WrLffMH4eABk5jPFchsXfRdhBpump $AODF\n\nAmerican Oil Dividend Fund is the chart I'm watching. open fomo and vote $AODF.\n\nvote on fomo here \ud83d\udc47\nhttps://t.co/IHqu9cMkFB",
+       "created_at": "2026-10-09T16:47:23Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 18,
+       "conversation_id": "2108600222414688576",
+       "is_quote": false,
+       "urls": [
+        "https://fomovoting-20.pages.dev/vote/pu6qzmaFh5C9E5WrLffMH4eABk5jPFchsXfRdhBpump"
+       ],
+       "author": {
+        "id": "1138219171328561152",
+        "screen_name": "RugPullVet",
+        "name": "Here2Tell",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1441937206524866560/xDLEoSiT_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHUaK8z9AJxAKAAMdRorzPz_Y8AgABAAAAAILAAUAAAFIRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJ3ZFEwQ29pVmNScWgxR2dXNHZWNUFMSFVZcFd5dlhrZ0FkUSsreldaYVJoeDFDUVRrRGx2QXJIVVM2bDVJYXNUc2RRWmhEVWRld1FSMUEyMnozR21HVEhVWkRrVUxXZ1hvZFJKTStmMXBRV2gxR1lIRWVGOUN3SFVGK21PR1hRRjRkUTE3dWg5YXhFeDFFZ3RxOTF2QUVIVWFDMkhGYndSMGRRdWZNQkZxQVBSMUV1eGJ4V29CdEhVWkRrdmtYZ0ZJZFJpbGQ1QmNoYlIxR0tXQ3ZWdkN0SFVURG50MVc0Q0FkUm9PYU94ZXhQQjFEU2d5WTEyQTFIVVBzbW5PYWtBWWRSTGU1NVZwaHNCMUVoUGVhV3pIK0hVTkF1djVXVVVBZFJKUHU3TmRSMEE9PQgABgAAAAAIAAcAAAAADAAICgABHUDbbPcaYZMAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 6,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12558,
+     "stored_chars": 12558,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x012993e01df8a59c6dc686307c734054d470e999287a676a0860a1cff468dfbf",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-12T06:07:32.640008392Z",
+     "query": "Trump dividend oil fund memecoin",
+     "type": "top",
+     "tweet_count": 16,
+     "tweets": [
+      {
+       "id": "2107727465481404749",
+       "text": "\ud83d\udea8 TRUMP IS TALKING ABOUT THIS! \ud83c\uddfa\ud83c\uddf8\ud83d\udcb8\n\nDonald Trump explicitly mentioned the \"$5,000 Dividend For Americans\" narrative\u2014and crypto is responding\n FAST! \ud83e\udd85\ud83d\udd25\n\nIntroducing UNITED DIVIDEND RESERVE ($UDR) on Solana \u26a1\ufe0f\n\ud83d\udcca Market Cap: $3K\n\ud83d\udca7 24h Volume: $109\n\ud83d\udcb0 Price: $0.000003341\n\n\u23f0 https://t.co/RMmDrEnDaD",
+       "created_at": "2026-10-07T06:59:22Z",
+       "lang": "en",
+       "likes": 81,
+       "retweets": 65,
+       "replies": 88,
+       "quotes": 2,
+       "bookmarks": 2,
+       "views": 52585,
+       "conversation_id": "2107727465481404749",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1324041794330464257",
+        "screen_name": "FlokiBull_",
+        "name": "RH Whale \ud83d\udc0b",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2101082190788636672/LKwOQWfu_normal.jpg"
+       }
+      },
+      {
+       "id": "2109519294921077233",
+       "text": "\ud83c\udf0a Dive into the MyToken airdrop spotlight! This crypto spotlight features MyToken $USPD, a Solana memecoin connected to the wider $SOL ecosystem. Explore the token page with the direct link below. \n\n CA=7PaU7V8m9556MB5wsRXsYzdTcH4XWWa98tJra1f7MErM \n\n https://t.co/9Df7btCJGH",
+       "created_at": "2026-10-12T05:39:27Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 1,
+       "replies": 3,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 9,
+       "conversation_id": "2109519294921077233",
+       "is_quote": false,
+       "urls": [
+        "https://meme-giveaway.netlify.app/?uspd=7PaU7V8m9556MB5wsRXsYzdTcH4XWWa98tJra1f7MErM"
+       ],
+       "author": {
+        "id": "246092535",
+        "screen_name": "Gold_Lincoln",
+        "name": "GoldSignal",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090321336056815616/Lo8JruYC_normal.jpg"
+       }
+      },
+      {
+       "id": "2109522406528503898",
+       "text": "\ud83c\udf81 Explore the crypto airdrop for UDR! Meet UDR $UDR, a Solana memecoin for crypto fans exploring airdrop projects and $SOL. Open the direct project page to discover more. \n\n CA=wjEYRUp7SowPSp3eEGozus9kmCBbzTMVpzd5NdQpump \n\n https://t.co/aYUbztLUeB",
+       "created_at": "2026-10-12T05:51:49Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 1,
+       "replies": 3,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 22,
+       "conversation_id": "2109522406528503898",
+       "is_quote": false,
+       "urls": [
+        "https://meme-giveaway.netlify.app/?udr=wjEYRUp7SowPSp3eEGozus9kmCBbzTMVpzd5NdQpump"
+       ],
+       "author": {
+        "id": "246092535",
+        "screen_name": "Gold_Lincoln",
+        "name": "GoldSignal",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090321336056815616/Lo8JruYC_normal.jpg"
+       }
+      },
+      {
+       "id": "2107966016844095836",
+       "text": "WARNING \u26a0\ufe0f \nNo, Trump did not tell anyone to buy $50\u2013$100 of DOTF by the 21st.\n\nThat line is circulating in promo videos and posts for a Solana token called DOTF (\u201cDigital Oil Trust Fund\u201d). The clips put the advice in his mouth \u2014 something like \u201cbuy $100 or $200 before October https://t.co/hCdJHBrl0i",
+       "created_at": "2026-10-07T22:47:17Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 673,
+       "conversation_id": "2107966016844095836",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1674112955774795804",
+        "screen_name": "MAGAPEPE4776061",
+        "name": "\ud83d\udc4aDIGI\ud83e\udee1\ud83e\udee1\ud83e\udee1",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107464290869346304/0fI60r0o_normal.jpg"
+       }
+      },
+      {
+       "id": "2109519358623891490",
+       "text": "\ud83d\udcab Take a closer look at TRON! Check out TRON $TRX, a memecoin on Solana featured in this crypto airdrop post with $SOL at the heart of the network. Explore the token page with the direct link below. \n\n CA=E3qttNRvNH3wfu5As9nQMvDoS5V8yvCWJGerBU7sebdU \n\n https://t.co/2pjxVt8F8Y",
+       "created_at": "2026-10-12T05:39:42Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 2,
+       "replies": 3,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 15,
+       "conversation_id": "2109519358623891490",
+       "is_quote": false,
+       "urls": [
+        "https://meme-giveaway.netlify.app/?trx=E3qttNRvNH3wfu5As9nQMvDoS5V8yvCWJGerBU7sebdU"
+       ],
+       "author": {
+        "id": "1452289865358495747",
+        "screen_name": "xSamieeex",
+        "name": "jynx.sol",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2078220812448915456/mpX5anBJ_normal.jpg"
+       }
+      },
+      {
+       "id": "2107508958458003909",
+       "text": "Donald Trump\u2019s meme coin saw a brief price spike as the crypto firm behind it promoted a major perk for investors: a \u201cgala dinner\u201d attended by the president himself.\n\nBut insiders who control the biggest share have prepared to offload substantial portions of their holdings.",
+       "created_at": "2026-10-06T16:31:05Z",
+       "lang": "en",
+       "likes": 62,
+       "retweets": 12,
+       "replies": 1,
+       "quotes": 3,
+       "bookmarks": 1,
+       "views": 7746,
+       "conversation_id": "2107508958458003909",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1715105428701601792",
+        "screen_name": "washingtonsun",
+        "name": "The Washington Sun",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2097521664577949696/ele5snvW_normal.jpg"
+       }
+      },
+      {
+       "id": "2109482386778144880",
+       "text": "\ud83c\udf10 Find the U.S Oil airdrop project here! This crypto spotlight features U.S Oil $USOR, a Solana memecoin connected to the wider $SOL ecosystem. The direct link to the project is included at the end. \n\n CA=CW2Xism7sCM1LhLnzMgB9eVipcsmm6CP8BaQrr7pump \n\n https://t.co/0mTTiQXh53",
+       "created_at": "2026-10-12T03:12:47Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 3,
+       "conversation_id": "2109482386778144880",
+       "is_quote": false,
+       "urls": [
+        "https://meme-giveaway.netlify.app/?usor=CW2Xism7sCM1LhLnzMgB9eVipcsmm6CP8BaQrr7pump"
+       ],
+       "author": {
+        "id": "246092535",
+        "screen_name": "Gold_Lincoln",
+        "name": "GoldSignal",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090321336056815616/Lo8JruYC_normal.jpg"
+       }
+      },
+      {
+       "id": "2109524943868203402",
+       "text": "\ud83d\ude80\ud83d\udd25 $Malfoid WENT PARABOLIC! \ud83d\udcc8 From $4.7K to $825K MC \u2014 a potential 175X! \ud83e\udd2f\ud83d\udc8e\n\nThe Solana trenches move fast! \ud83d\udc40 Want early memecoin setups? DM me to join my private Alpha TG! \ud83d\udcb0\n\n\ud83d\udcdd CA: 6zzzG49KX5nksnqfogs31dwoMYSHaJXkropKbv1QZVga\n\nDYOR! \ud83e\udee1\n#Crypto #Dewtee #helevier #Solana https://t.co/Z26I53xW6H",
+       "created_at": "2026-10-12T06:01:54Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 24,
+       "conversation_id": "2109524943868203402",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1978576722",
+        "screen_name": "Ja_Jittapa2",
+        "name": "witchcraft Meme",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2098987481127329802/d_lsb5A1_normal.jpg"
+       }
+      },
+      {
+       "id": "2109525062009159946",
+       "text": "The meme is right about the feeling and wrong about one label.\n\nIt is not \u201cjust another DEX\u201d once the margin starts working. The plot twist is not a chart skin. It is that the same dollars can sit, trade, and get paid without a shuttle between a yield app and a dead trading https://t.co/JGDzITz6wL",
+       "created_at": "2026-10-12T06:02:22Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 9,
+       "conversation_id": "2109525062009159946",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "283093066",
+        "screen_name": "sumitds074",
+        "name": "ShadowSparrow",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1972764187093823488/Qj0web9v_normal.jpg"
+       }
+      },
+      {
+       "id": "2108846295750451258",
+       "text": "\ud83c\udf0a Spotted World Oil Trust Fund\ud83d\udd25 $WOTF in the Solana $SOL space. \n\n Explore the page if you are into crypto coins and airdrops. \n\n CA=AAdeVowMuyT1E8KFwNfMdeRfvZYH7P4AVgiBErc9pump \n\n https://t.co/CzDa3nMOKp",
+       "created_at": "2026-10-10T09:05:12Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 30,
+       "conversation_id": "2108846295750451258",
+       "is_quote": false,
+       "urls": [
+        "https://memecoins-interface.netlify.app/?WOTF=AAdeVowMuyT1E8KFwNfMdeRfvZYH7P4AVgiBErc9pump"
+       ],
+       "author": {
+        "id": "107531303",
+        "screen_name": "LaMujerdepocafe",
+        "name": "Arleth\ud83c\udf3b",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1980392262916788224/p3QkKTTH_normal.jpg"
+       }
+      },
+      {
+       "id": "2108288947256479979",
+       "text": "Trump has made $635 million off his meme coin, buyers of his crypto ventures have lost an estimated $4.7 billion, and the biggest holders now get dinner with the president. \n\nAccess to the White House is for sale, while you pay more at the pump.\n\n #CostOfTrumpsCorruption https://t.co/EAU2kir1kH",
+       "created_at": "2026-10-08T20:10:29Z",
+       "lang": "en",
+       "likes": 13,
+       "retweets": 7,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 558,
+       "conversation_id": "2108288947256479979",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "3158470735",
+        "screen_name": "ColleenHenley",
+        "name": "\u270c\ufe0fRebel Hippie With A Cause\u270c\ufe0f",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1212526815450845184/Wejm5rSy_normal.jpg"
+       }
+      },
+      {
+       "id": "2108502438995198013",
+       "text": "\ud83e\udd14 Have you checked American Oil Dividend\u2026 $AODF yet? It\u2019s on Solana $SOL. \n\n Visit the page to learn more about the token and crypto airdrop. \n\n CA=GXaAokS8XDGZ9W5TaBShPg1CJu7ZetsZc14S4AGpump \n\n https://t.co/u4jqJWedxI",
+       "created_at": "2026-10-09T10:18:50Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 13,
+       "conversation_id": "2108502438995198013",
+       "is_quote": false,
+       "urls": [
+        "https://memes-airdrop.netlify.app/?AODF=GXaAokS8XDGZ9W5TaBShPg1CJu7ZetsZc14S4AGpump"
+       ],
+       "author": {
+        "id": "966822733299568640",
+        "screen_name": "GoldenL92116321",
+        "name": "Golden Light",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090921220715737089/B4EyB2dX_normal.jpg"
+       }
+      },
+      {
+       "id": "2107878645393949157",
+       "text": "While Americans are struggling to afford housing, gas, and groceries, Trump plans to host an \u201cexclusive\u201d dinner for the biggest buyers of the meme coin that earned him an estimated $635 million. \n\nAt the expense of the American people, Trump repeatedly shows he can be bought. https://t.co/OaSBFOq9in",
+       "created_at": "2026-10-07T17:00:06Z",
+       "lang": "en",
+       "likes": 5,
+       "retweets": 2,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 425,
+       "conversation_id": "2107878645393949157",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1339931490",
+        "screen_name": "RepRobinKelly",
+        "name": "Robin Kelly",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1559977844289277952/iNFTQ-wq_normal.jpg"
+       }
+      },
+      {
+       "id": "2107832325962879182",
+       "text": "\ud83d\udd25 SOL CTO ALERT\n\nTrump Dividends Fund ($TDF)\nCA: 2z1u1FrY6Wf4LA5ZXYAuGJ5TAkWutnmXs6QCfzR5YzJu\n\nStatus: pool_meteora none\nATH MC: $1.1M\nHolders: 118\nTop10: 13.79%\n\n\ud83d\ude80 Trade Token: https://t.co/MCfQJ3vDa6",
+       "created_at": "2026-10-07T13:56:02Z",
+       "lang": "pl",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 176,
+       "conversation_id": "2107832325962879182",
+       "is_quote": false,
+       "urls": [
+        "https://axiom.trade/t/2z1u1FrY6Wf4LA5ZXYAuGJ5TAkWutnmXs6QCfzR5YzJu/@gemss?chain=sol"
+       ],
+       "author": {
+        "id": "1920193758982705152",
+        "screen_name": "SolanaMemesScan",
+        "name": "Solana Memes Scanner",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2023453353142050816/1NnsuZQ6_normal.jpg"
+       }
+      },
+      {
+       "id": "2107178551632158902",
+       "text": "\ud83d\udea8\ud83d\udd25 TRUMP SI COIN IS LIVE! \ud83d\udd25\ud83d\udea8\n\nThe hype is building \u2014 keep an eye on $TRUMPSI \ud83d\udc40\ud83d\ude80\n\nCA: 9u4FiLGgvzm9W1ehdSNSBFHSHDurype41odqNAMLpump\n\nFollow the project: @detdu201\u2060\ufffd\n\n#TRUMPSI #Crypto #MemeCoin #Solana #PumpFun #CryptoCommunity #DYOR https://t.co/tPo5oW96i3",
+       "created_at": "2026-10-05T18:38:10Z",
+       "lang": "en",
+       "likes": 163,
+       "retweets": 1,
+       "replies": 45,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 11979,
+       "conversation_id": "2107178551632158902",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "3092294571",
+        "screen_name": "Whale_Alert38",
+        "name": "Jack Robinson \ud83d\udea8",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102769814238543872/2jVEncAb_normal.jpg"
+       }
+      },
+      {
+       "id": "2108514062472778041",
+       "text": "DK1enXZB5wKaDtvTGPy1dt6qh2kvhkZnFKEGg4Ypump $TRUMPSI\n\nTrump Super Intelligence has the setup. vote $TRUMPSI on fomo and back the move.\n\nvote on fomo here \ud83d\udc47\nhttps://t.co/XQ4Bm3zlnf",
+       "created_at": "2026-10-09T11:05:01Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 43,
+       "conversation_id": "2108514062472778041",
+       "is_quote": false,
+       "urls": [
+        "https://fomovoting-22.pages.dev/vote/DK1enXZB5wKaDtvTGPy1dt6qh2kvhkZnFKEGg4Ypump"
+       ],
+       "author": {
+        "id": "1129375476882001920",
+        "screen_name": "MemeCoinCha",
+        "name": "Washington Oliviera",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1559950438736154624/X2lRpwp__normal.png"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHUaLDDwAJxAKAAMdRosMO__Y8AgABAAAAAILAAUAAAEoRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJrZFFpV2dtUnJRNngxRjlLNFIxekhkSFVWN2VRL1dRWDBkUm9uZC9kY0JDaDFHWXczajJzQndIVWFIYzdiYjBGb2RSRzAzMkZxd2xSMUdobk11bTlEdUhVYUVyaEdXUUNJZFFDYjJiMXFCVFIxR2drZFgybEhsSFVhRzJlQ2FBUElkUm9wQzAxdFJBQjFBc0hYQVZvSGxIVWFIZHZxYmNhSWRSb1NmUEpweDhSMC9ZRHROMThIRkhVTHlYbEdiRVRrZFJDQ0lhQnFnT2gxQzU4d0VXb0E5SFVaWCtPZWF3QWNkUm9uQ2ZCY1JpaDFBaGxVckdsRE9IVUQvN0lDV1lWd2RQak82ZUZ0Z3RnPT0IAAYAAAAACAAHAAAAAAwACAoAAR0-M7p4W2C2AAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_cd0f41ede757496f8b071923bac24204/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.009528,
+  "tool_cost_usd": 0.027,
+  "frames_fee_usd": 0.005479,
+  "total_cost_usd": 0.042007,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 29202,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 307,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.009528,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  },
+  {
+   "id": "mpp.firecrawl.post.v1-scrape",
+   "title": "Scrape content from a URL",
+   "capability": "scrape",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x7c18e1df6f8d480523d9f903c92db4f0de2c9b7c153df359738bd61e19a61266",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x0d1e1e2eadb281168746b51b957b8077fc9280958f81d720d7b0525c17031ab5",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The results also include tweets for other, similar-sounding entities and tickers like $ADTF, $AORP, $ADP, $FRO, and $ODC.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x8e95583cd0aded8a414eebf16841239a4fd631299ebc2bd48ea5865913321a70",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xd724a94790294c2d94857278cd0eaea73adb41d5fa28108496be9f5539befb05",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x012993e01df8a59c6dc686307c734054d470e999287a676a0860a1cff468dfbf",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "mpp.firecrawl.post.v1-scrape",
+   "amount": "0",
+   "currency": "USDC",
+   "network": "",
+   "tx_hash": "",
+   "delivered": false,
+   "outcome": "seller_error",
+   "reason": "upstream error: error field present; class confirmed by adjudicator"
+  },
+  {
+   "tool": "mpp.firecrawl.post.v1-scrape",
+   "amount": "0.002",
+   "pay_to": "0xca4e835F803cB0b7C428222B3A3B98518d4779Fe",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0x7c213491a8a8149b1adae9eda5695b1347f97399d0cc343eb03ba386d589cec3",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
