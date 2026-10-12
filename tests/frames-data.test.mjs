@@ -111,6 +111,24 @@ test('enrichment retains source evidence, supported networks and verified local 
   assert.equal(stats.chainCount, 9);
 });
 
+// Exactly rounded sum (Shewchuk partials, as Python's math.fsum): the normalizer sums with fsum, and left-to-right addition can differ in the last bit.
+function fsum(values) {
+  const partials = [];
+  for (let x of values) {
+    let i = 0;
+    for (let y of partials) {
+      if (Math.abs(x) < Math.abs(y)) [x, y] = [y, x];
+      const hi = x + y;
+      const lo = y - (hi - x);
+      if (lo) partials[i++] = lo;
+      x = hi;
+    }
+    partials.length = i;
+    partials.push(x);
+  }
+  return partials.reduce((a, b) => a + b, 0);
+}
+
 test('all venue metrics preserve the acquired values and missing observations', () => {
   assert.equal(LAUNCHPADS.length, 19);
   for (const row of LAUNCHPADS) {
@@ -120,7 +138,7 @@ test('all venue metrics preserve the acquired values and missing observations', 
     assert.deepEqual(row.metrics.history30d.map((p) => p.time), Array.from({ length: 30 }, (_, i) => F - (30 - i) * 86400));
     for (const p of row.metrics.history30d) assert.equal(p.value, rawFees(row.slug, p.time));
     const window = (days, end) => Array.from({ length: days }, (_, i) => rawFees(row.slug, end - (days - i) * 86400));
-    const sum = (values) => values.includes(null) ? null : values.reduce((a, b) => a + b, 0);
+    const sum = (values) => values.includes(null) ? null : fsum(values);
     for (const [key, days] of [['h24', 1], ['d7', 7], ['d30', 30]]) {
       const current = sum(window(days, F));
       const previous = sum(window(days, F - days * 86400));
