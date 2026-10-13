@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>LAMBLE report images</title>
+<style>
+:root{--bg:#0e0f12;--panel:#16171b;--ink:#f3f2ee;--ink2:#b9b8b0;--ink3:#85847d;--grid:#26272c;--line:#34353b;
+--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#14a014;--s7:#9085e9;--s8:#e66767;--other:#6d6c67;--seq-lo:#1b2638;--seq-hi:#5aa2f2;}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg)}
+body{font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif;color:var(--ink)}
+.slide{display:none;width:1600px;height:900px;padding:56px 72px 40px;position:relative;background:var(--bg);overflow:hidden}
+.slide.on{display:block}
+.kick{font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+h1{font-size:46px;white-space:nowrap;line-height:1.08;margin:10px 0 8px;letter-spacing:-.02em;max-width:1360px}
+.sub{font-size:23px;color:var(--ink2);margin:0;max-width:1300px}
+.chart{position:absolute;left:72px;right:72px;top:210px;bottom:84px;display:flex;flex-direction:column}
+.chart svg{width:100%;flex:1;min-height:0;display:block;overflow:visible}
+.foot{position:absolute;left:72px;right:72px;bottom:28px;font-size:16px;color:var(--ink3);display:flex;justify-content:space-between}
+svg text{font-family:inherit;fill:var(--ink2);font-size:18px}
+svg .t3 text,svg text.t3{fill:var(--ink3)}
+svg text.big{fill:var(--ink);font-weight:650}
+.legend{display:flex;gap:26px;font-size:19px;color:var(--ink2);margin-top:14px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:8px;vertical-align:-1px}
+.tiles{position:absolute;left:72px;right:72px;top:300px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px 36px;height:230px}
+.tile .v{font-size:84px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.tile .l{font-size:25px;color:var(--ink);margin-top:14px;font-weight:600}
+.tile .d{font-size:19px;color:var(--ink2);margin-top:6px}
+</style></head><body>
+<script>const D={"days":[{"date":"2026-09-28","n":{"n-x-money":{"v24":35740346.29797081,"coins":15},"n-launchpad-coins":{"v24":15783436.95748337,"coins":5},"n-pair-rewards":{"v24":956925.52670148,"coins":2}},"created":72583,"completed":4321,"fees":5069407.0},{"date":"2026-10-02","n":{"n-super-intelligence":{"v24":40412794.1398064,"coins":5},"n-inference-credits":{"v24":21915257.62114183,"coins":3},"n-x-money":{"v24":19792115.668909304,"coins":17},"n-ai-agents":{"v24":9592294.22382493,"coins":8},"n-sapling":{"v24":9587211.269518903,"coins":3},"n-launchpad-coins":{"v24":7003483.885989676,"coins":8}},"created":88944,"completed":5628,"fees":6439000.0},{"date":"2026-10-03","n":{"n-super-intelligence":{"v24":36132856.425506316,"coins":7},"n-privacy":{"v24":18325159.8193254,"coins":5},"n-holder-rewards":{"v24":12702905.64853289,"coins":6},"n-x-money":{"v24":9332373.469005803,"coins":17},"n-inference-credits":{"v24":8457243.63511364,"coins":3},"n-ai-agents":{"v24":7149312.015025167,"coins":11}},"created":82642,"completed":5620,"fees":6104432.0},{"date":"2026-10-04","n":{"n-agency":{"v24":36211781.546002015,"coins":3},"n-inference-credits":{"v24":19687368.76315404,"coins":3},"n-ai-influencers":{"v24":17322060.02865437,"coins":4},"n-super-intelligence":{"v24":13179838.675730865,"coins":7},"n-holder-rewards":{"v24":7844611.13565199,"coins":6},"n-privacy":{"v24":7734631.499290181,"coins":5}},"created":86123,"completed":5962,"fees":5369033.0},{"date":"2026-10-05","n":{"n-super-intelligence":{"v24":59696468.81080794,"coins":14},"n-ai-influencers":{"v24":34440286.06941856,"coins":5},"n-agency":{"v24":32064081.436183553,"coins":3},"n-inference-credits":{"v24":8154651.65590998,"coins":3},"n-holder-rewards":{"v24":4059424.343765901,"coins":6},"n-privacy":{"v24":3234017.2437705,"coins":5}},"created":85114,"completed":5573,"fees":5382610.0},{"date":"2026-10-06","n":{"n-super-intelligence":{"v24":24807629.9401193,"coins":14},"n-agency":{"v24":17815521.951091927,"coins":3},"n-ai-influencers":{"v24":14350350.128245737,"coins":5},"n-programmable-rules":{"v24":12173522.89652728,"coins":4},"n-inference-credits":{"v24":9189462.1069693,"coins":3},"n-holder-rewards":{"v24":4591657.1829956835,"coins":7}},"created":86255,"completed":5617,"fees":5474550.0},{"date":"2026-10-07","n":{"n-agency":{"v24":14750960.917630827,"coins":3},"n-super-intelligence":{"v24":12128138.17825603,"coins":13},"n-inference-credits":{"v24":9303303.360818664,"coins":3},"n-ai-influencers":{"v24":8564419.077468071,"coins":5},"n-programmable-rules":{"v24":6440525.4053222,"coins":4},"n-binance-intelligence":{"v24":2766323.357720735,"coins":3}},"created":85837,"completed":6026,"fees":5173673.0},{"date":"2026-10-08","n":{"n-super-intelligence":{"v24":8261335.128651539,"coins":13},"n-tokenized-assets":{"v24":7564260.986361412,"coins":4},"n-programmable-rules":{"v24":5326616.956983895,"coins":4},"n-agency":{"v24":5307230.762531292,"coins":3},"n-inference-credits":{"v24":4520758.13393022,"coins":3},"n-ai-influencers":{"v24":3662591.881886243,"coins":5}},"created":84195,"completed":5535,"fees":4311814.0},{"date":"2026-10-09","n":{"n-super-intelligence":{"v24":13199655.413125696,"coins":12},"n-programmable-rules":{"v24":7418524.203580034,"coins":4},"n-inference-credits":{"v24":4638002.651042504,"coins":3},"n-agency":{"v24":4540711.486169034,"coins":3},"n-ai-influencers":{"v24":3133779.424989192,"coins":5},"n-tokenized-assets":{"v24":3007002.990389198,"coins":8}},"created":74443,"completed":4456,"fees":3998216.0},{"date":"2026-10-10","n":{"n-post-quantum":{"v24":28157121.73283569,"coins":6},"n-ai-influencers":{"v24":10050050.625602452,"coins":5},"n-super-intelligence":{"v24":4728945.386791353,"coins":12},"n-tokenized-assets":{"v24":3441553.154407214,"coins":9},"n-agency":{"v24":2914204.3030174053,"coins":3},"n-programmable-rules":{"v24":2907303.973215666,"coins":4}},"created":66473,"completed":3449,"fees":4423917.06},{"date":"2026-10-11","n":{"n-super-intelligence":{"v24":10672226.803344186,"coins":14},"n-post-quantum":{"v24":8380053.489483826,"coins":7},"n-ai-influencers":{"v24":4161117.8348237295,"coins":5},"n-agency":{"v24":2807426.1054149014,"coins":3},"n-programmable-rules":{"v24":2290608.5963382055,"coins":4},"n-tokenized-assets":{"v24":2142595.224987767,"coins":9}},"created":62372,"completed":4308,"fees":3470220.26},{"date":"2026-10-12","n":{"n-super-intelligence":{"v24":5648734.899286014,"coins":16},"n-ai-influencers":{"v24":4550338.5297412565,"coins":5},"n-credits-for-holders":{"v24":3975010.456791832,"coins":4},"n-post-quantum":{"v24":3947127.466180653,"coins":7},"n-tokenized-assets":{"v24":2813908.641321667,"coins":11},"n-programmable-rules":{"v24":2101160.043201795,"coins":4}},"created":57410,"completed":4700,"fees":3490492.0},{"date":"2026-10-13","n":{"n-super-intelligence":{"v24":7605188.185945103,"coins":16},"n-creator-fee-routing":{"v24":7105239.742253751,"coins":6},"n-credits-for-holders":{"v24":5172181.802908549,"coins":4},"n-ai-influencers":{"v24":2744765.089657922,"coins":5},"n-tokenized-assets":{"v24":2515584.2283955547,"coins":12},"n-programmable-rules":{"v24":2110665.237590999,"coins":4}},"created":70222,"completed":4270,"fees":4028169.0}],"titles":{"n-x-money":"X-handle creator-fee routing","n-launchpad-coins":"Launchpads launched as coins","n-pair-rewards":"Holder rewards in the paired asset","n-super-intelligence":"Super Intelligence coins","n-inference-credits":"Fees paid as AI inference credits","n-ai-agents":"AI-agent coins on Robinhood Chain","n-sapling":"Sapling: Zcash coins on Solana","n-privacy":"Privacy coins","n-holder-rewards":"Holder rewards in the paired asset","n-agency":"Agency living tokens","n-ai-influencers":"AI influencer characters","n-programmable-rules":"Launchpad coins with on-chain rules","n-binance-intelligence":"Binance Intelligence coins","n-tokenized-assets":"Tokenized stocks and RWA coins","n-post-quantum":"Post-quantum coins","n-credits-for-holders":"AI credits for holders","n-creator-fee-routing":"Creator fees routed to people"},"fees":{"times":[1789603200,1789689600,1789776000,1789862400,1789948800,1790035200,1790121600,1790208000,1790294400,1790380800,1790467200,1790553600,1790640000,1790726400,1790812800,1790899200,1790985600,1791072000,1791158400,1791244800,1791331200,1791417600,1791504000,1791590400,1791676800,1791763200],"venues":{"pump.fun":[1646052,1666140,1475148,1437832,1729657,1746896,1585924,1650379,1724583,2699475,2112093,2229995,2024455,2144226,2400773,2365228,2306954,2399727,2585425,2516228,2382659,2242930,2195409,1925044,2011215,2195847],"pons":[2946980,2860867,3021961,1979205,3266507,2496137,2376683,1772253,1528158,1645345,1253778,1385707,1579685,1644343,1331872,1364514,1043843,852393,870290,681623,609186,515328,546127,445058,329504,590164],"flap-sh":[979664,1117062,994754,1289064,1316509,1251075,1035568,1006049,727148,1036488,877261,1069070,1565871,1454960,1743297,1755668,1581343,1612323,1489366,1354676,876281,911736,908503,952967,934894,967317],"launchlab":[359712,590702,524152,519330,833355,761754,727072,656938,573696,179006,249407,335246,530986,450211,460004,322717,194994,248663,238459,256714,139770,95420,71673,41852,59859,92787],"genius.fun":[933627,1030875,163522,476205,402731,140942,77704,57490,45121,50002,42341,26595,119261,40259,30501,46776,45502,14408,13944,17760,8995,4920,2767,5233,4399,4137],"argus-world":[370079,176721,131969,90215,89442,85195,88475,94014,148380,141161,435300,105901,134371,57818,55897,51622,29395,29151,28649,25732,37298,29418,13721,10835,7278,11119],"meteora-dbc":[73494,48761,48231,37702,46471,84266,67742,115294,86820,65951,39307,99645,175963,112287,126983,130678,112113,182608,202065,263136,186398,166756,165583,71940,102454,114123],"o1-launchpad":[77013,38529,24052,22776,37582,37669,108599,38376,27492,11825,11341,34565,25521,53968,22084,19542,15709,11625,11129,14137,23068,16924,10755,5115,16907,27492],"clanker":[2954,5865,5181,99606,7250,7390,10106,4548,4376,138157,36282,26363,20234,8869,224380,18109,15891,11323,10441,5318,28253,5354,499017,2479,9992,11131],"stonkbrokers":[57980,15514,30766,922,35518,15791,1881,595,1960,7462,478,16481,644,966,6534,200,2476,213,3211,7349,2929,154,53.06,1628,4430,803],"rapid-launch":[5166,7819,5548,5516,6361,7972,6519,5082,6899,10350,3621,4925,5740,6565,8230,6482,3768,3511,6186,7178,6067,5146,4658,2945,5001,6939],"basestonk":[6526,2773,12395,4129,5059,5765,5809,3003,3646,4291,2565,3014,7045,7421,1299,2405,1755,988,1201,1975,2235,693,671,672,544,998],"four.meme":[7487,5833,5623,4826,6893,4830,3768,5789,5844,6082,4532,7115,7176,8427,25853,19412,15103,16168,13480,14203,8417,7415,4945,4393,3974,5242],"foci":[1756,1102,175,51.4,5649,10757,8379,5090,5010,4371,1503,1397,521,352,207,200,170,92,68,62,191,105,35,59.26,41,70]},"names":{"pump.fun":"pump.fun","pons":"Pons","flap-sh":"Flap.sh","launchlab":"LaunchLab","genius.fun":"Genius.fun","argus-world":"Argus World","meteora-dbc":"Meteora DBC","o1-launchpad":"o1 Launchpad","clanker":"clanker","stonkbrokers":"StonkBrokers","rapid-launch":"Rapid Launch","basestonk":"BaseStonk","four.meme":"four.meme","foci":"Foci"},"subtotal":[7468490.0,7568563.0,6443477.0,5967379.4,7788984.0,6656439.0,6104229.0,5414900.0,4889133.0,5999966.0,5069809.0,5346019.0,6197473.0,5990672.0,6437914.0,6103553.0,5369016.0,5383193.0,5473914.0,5166091.0,4311747.0,4002299.0,4423917.06,3470220.26,3490492.0,4028169.0]}};</script>
+<div id="root"></div>
+<script>
+const MS=864e5, $=(s,r=document)=>r.querySelector(s);
+const money=(v,d=1)=>v>=1e9?'$'+(v/1e9).toFixed(2)+'B':v>=1e6?'$'+(v/1e6).toFixed(d)+'M':v>=1e3?'$'+Math.round(v/1e3)+'K':'$'+Math.round(v);
+const num=v=>Math.round(v).toLocaleString('en-US');
+const pct=v=>(v>=0?'+':'−')+Math.abs(v*100).toFixed(0)+'%';
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const dl=ms=>{const d=new Date(ms);return MON[d.getUTCMonth()]+' '+d.getUTCDate()};
+const tOf=s=>Date.parse(s+'T00:00:00Z');
+const days=D.days,last=days[days.length-1],F=D.fees;
+const FOOT='<span>Fees: DefiLlama via Frames · Narratives and launch counts: Codex via Frames · LAMBLE daily refresh</span>';
+const slides=[];
+function slide(kick,h1,sub,body,foot){slides.push(`<section class="slide"><div class="kick">${kick}</div><h1>${h1}</h1><p class="sub">${sub}</p>${body}<div class="foot">${FOOT}<span>${foot||''}</span></div></section>`)}
+function nice(max,n=4){const r=max/n,p=10**Math.floor(Math.log10(r)),f=r/p,s=(f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p,o=[];for(let v=0;v<=max+s*.999;v+=s)o.push(v);return o}
+const CW=1456,CH=600;
+
+// ---------- derived facts
+const ft=F.times.map(t=>t*1000), ftot=F.subtotal;
+const pk=ftot.indexOf(Math.max(...ftot)), n=ftot.length;
+const avg=a=>a.reduce((x,y)=>x+y,0)/a.length;
+const vk=Object.keys(F.venues);
+const w1=i=>i<7, w2=i=>i>=n-7;
+const venueStat=vk.map(k=>{const a=F.venues[k].map(v=>v||0);return{k,name:F.names[k],a1:avg(a.slice(0,7)),a2:avg(a.slice(n-7)),tot:a.reduce((x,y)=>x+y,0),arr:a}}).sort((a,b)=>b.tot-a.tot);
+const fromPeak=ftot[n-1]/ftot[pk]-1, wk1=avg(ftot.slice(0,7)), wk2=avg(ftot.slice(n-7));
+// leaders
+const lead=days.map(d=>Object.entries(d.n).sort((a,b)=>b[1].v24-a[1].v24)[0][0]);
+let changes=0;for(let i=1;i<days.length;i++)if(lead[i]!==lead[i-1])changes++;
+const firstSeen={},lastSeen={},peak={};
+days.forEach(d=>Object.entries(d.n).forEach(([id,x])=>{firstSeen[id]??=d.date;lastSeen[id]=d.date;if(!peak[id]||x.v24>peak[id].v)peak[id]={v:x.v24,d:d.date}}));
+const ids=Object.keys(D.titles).sort((a,b)=>firstSeen[a]<firstSeen[b]?-1:firstSeen[a]>firstSeen[b]?1:0);
+const curIds=Object.keys(last.n).sort((a,b)=>last.n[b].v24-last.n[a].v24);
+const retired=ids.filter(i=>!curIds.includes(i));
+const span=i=>(tOf(lastSeen[i])-tOf(firstSeen[i]))/MS+1;
+const med=a=>{const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2};
+const medLife=med(retired.map(span));
+const tot24=days.map(d=>Object.values(d.n).reduce((a,x)=>a+x.v24,0));
+const tpk=tot24.indexOf(Math.max(...tot24));
+const cr=days.map(d=>d.created), crMin=Math.min(...cr.slice(1)), crMinI=cr.indexOf(crMin);
+const START=dl(ft[0]), END=dl(ft[n-1]);
+
+// ---------- 1 cover
+slide('State of the trenches','Four weeks of launchpad fees, narratives and launches','Daily snapshots, '+days[0].date+' to '+last.date+'. Fees are settled UTC days; narratives are a curated tracked set, not the whole market.',
+`<div class="tiles">
+<div class="tile"><div class="v" style="color:var(--s2)">${pct(fromPeak)}</div><div class="l">Daily launchpad fees vs the ${dl(ft[pk])} peak</div><div class="d">${money(ftot[pk],2)} → ${money(ftot[n-1],2)} per day, 14 non-overlapping venues</div></div>
+<div class="tile"><div class="v" style="color:var(--s1)">${ids.length}</div><div class="l">Narratives tracked in ${(tOf(last.date)-tOf(days[0].date))/MS+1} days</div><div class="d">${retired.length} already retired · median lifespan ${medLife} days</div></div>
+<div class="tile"><div class="v" style="color:var(--s3)">${changes}</div><div class="l">Changes of the #1 narrative in ${days.length-1} snapshots</div><div class="d">by 24h pool volume, across the tracked set</div></div>
+<div class="tile"><div class="v" style="color:var(--s4)">${pct(crMin/cr[1]-1)}</div><div class="l">Indexed token creations, ${dl(tOf(days[1].date))} → ${dl(tOf(days[crMinI].date))}</div><div class="d">${num(cr[1])} → ${num(crMin)} created per 24h (beta indexed counts)</div></div>
+</div>`,'');
+
+// ---------- 2 fees hero (stacked area)
+(function(){
+  const top=venueStat.slice(0,5), rest=venueStat.slice(5);
+  const ser=[{name:'Other venues',color:'var(--other)',a:ft.map((_,i)=>rest.reduce((s,v)=>s+v.arr[i],0))}].concat(top.slice().reverse().map((v,i)=>({name:v.name,color:`var(--s${5-i})`,a:v.arr})));
+  // stack bottom->top: other first... reorder so largest at bottom
+  const order=[...top.map((v,i)=>({name:v.name,color:`var(--s${i+1})`,a:v.arr})),{name:'Other venues',color:'var(--other)',a:ser[0].a}];
+  const M={l:84,r:130,t:20,b:40}, ymax=nice(Math.max(...ftot)*1.05).slice(-1)[0], ticks=nice(Math.max(...ftot)*1.05);
+  const X=i=>M.l+i/(n-1)*(CW-M.l-M.r), Y=v=>CH-M.b-v/ymax*(CH-M.t-M.b);
+  const cum=order.map(()=>new Array(n).fill(0)),base=new Array(n).fill(0);
+  order.forEach((s,k)=>{for(let i=0;i<n;i++){cum[k][i]=base[i]+s.a[i];base[i]=cum[k][i]}});
+  let g='';ticks.forEach(t=>g+=`<line x1="${M.l}" x2="${CW-M.r}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--grid)"/><text class="t3" x="${M.l-12}" y="${Y(t)+6}" text-anchor="end">${money(t,0)}</text>`);
+  for(let i=0;i<n;i+=4)g+=`<text class="t3" x="${X(i)}" y="${CH-10}" text-anchor="middle">${dl(ft[i])}</text>`;
+  order.forEach((s,k)=>{const lo=k?cum[k-1]:new Array(n).fill(0);const up=cum[k].map((v,i)=>`${X(i)} ${Y(v)}`),dn=lo.map((v,i)=>`${X(i)} ${Y(v)}`).reverse();g+=`<path d="M${up.join('L')}L${dn.join('L')}Z" fill="${s.color}" stroke="var(--bg)" stroke-width="2"/>`});
+  g+=`<circle cx="${X(pk)}" cy="${Y(ftot[pk])}" r="7" fill="var(--ink)" stroke="var(--bg)" stroke-width="3"/><text class="big" x="${X(pk)}" y="${Y(ftot[pk])-22}" text-anchor="middle" style="font-size:22px">${dl(ft[pk])} peak ${money(ftot[pk],2)}</text>`;
+  g+=`<circle cx="${X(n-1)}" cy="${Y(ftot[n-1])}" r="7" fill="var(--ink)" stroke="var(--bg)" stroke-width="3"/><text class="big" x="${X(n-1)+16}" y="${Y(ftot[n-1])-8}" style="font-size:22px">${money(ftot[n-1],2)}</text><text x="${X(n-1)+16}" y="${Y(ftot[n-1])+18}">${END}</text>`;
+  const lg=order.map(s=>`<span><i style="background:${s.color}"></i>${s.name}</span>`).join('');
+  slide('Fees over time',`Launchpad fees are down ${Math.abs(fromPeak*100).toFixed(0)}% from the ${dl(ft[pk])} peak`,`14 non-overlapping venues, per settled UTC day. Weekly average: ${money(wk1,2)} → ${money(wk2,2)} per day (${pct(wk2/wk1-1)}).`,
+  `<div class="chart" style="top:215px"><div class="legend" style="margin:0 0 6px 84px">${lg}</div><svg viewBox="0 0 ${CW} ${CH}" preserveAspectRatio="xMidYMid meet">${g}</svg></div>`,'');
+})();
+
+// ---------- 3 dumbbell by venue
+(function(){
+  const top=venueStat.slice(0,8), rest=venueStat.slice(8);
+  const rows=top.map(v=>({name:v.name,a1:v.a1,a2:v.a2})).concat([{name:`Other ${rest.length} venues`,a1:rest.reduce((s,v)=>s+v.a1,0),a2:rest.reduce((s,v)=>s+v.a2,0)}]);
+  const M={l:260,r:300,t:30,b:50}, xmax=nice(Math.max(...rows.map(r=>Math.max(r.a1,r.a2)))*1.05,4);
+  const xm=xmax[xmax.length-1], rh=(CH-M.t-M.b)/rows.length, X=v=>M.l+v/xm*(CW-M.l-M.r);
+  let g='';xmax.forEach(t=>g+=`<line x1="${X(t)}" x2="${X(t)}" y1="${M.t}" y2="${CH-M.b}" stroke="var(--grid)"/><text class="t3" x="${X(t)}" y="${CH-14}" text-anchor="middle">${money(t,1)}</text>`);
+  rows.forEach((r,i)=>{const y=M.t+i*rh+rh/2,ch=r.a2/r.a1-1,col=ch>=0?'var(--s3)':'var(--s2)';
+    g+=`<text class="big" x="${M.l-24}" y="${y+7}" text-anchor="end" style="font-size:22px">${r.name}</text><line x1="${X(r.a1)}" x2="${X(r.a2)}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="5" stroke-linecap="round" opacity=".55"/><circle cx="${X(r.a1)}" cy="${y}" r="10" fill="var(--bg)" stroke="var(--ink2)" stroke-width="4"/><circle cx="${X(r.a2)}" cy="${y}" r="11" fill="${col}" stroke="var(--bg)" stroke-width="3"/><text x="${CW-M.r+30}" y="${y-4}" style="font-size:22px;fill:var(--ink)">${money(r.a1,2)} → ${money(r.a2,2)}</text><text x="${CW-M.r+30}" y="${y+22}" style="font-size:20px;font-weight:700;fill:${col}">${pct(ch)}</text>`});
+  const best=venueStat.slice().sort((a,b)=>(b.a2-b.a1)-(a.a2-a.a1))[0], worst=venueStat.slice().sort((a,b)=>(a.a2-a.a1)-(b.a2-b.a1))[0];
+  slide('Where the fees went',`${best.name} ${pct(best.a2/best.a1-1)}, ${worst.name} ${pct(worst.a2/worst.a1-1)}: fees moved unevenly`,`Average daily fees, first week (${dl(ft[0])} – ${dl(ft[6])}) vs last week (${dl(ft[n-7])} – ${dl(ft[n-1])}), per venue ($ per day).`,
+  `<div class="chart" style="top:190px"><svg viewBox="0 0 ${CW} ${CH}">${g}</svg></div>`,'Hollow dot: first week · filled dot: last week');
+})();
+
+// ---------- 4 heatmap
+(function(){
+  const t0=tOf(days[0].date),t1=tOf(last.date),cols=[];for(let t=t0;t<=t1;t+=MS)cols.push(t);
+  const byT={};days.forEach(d=>byT[tOf(d.date)]=d);
+  const L=380,cw=(CW-L)/cols.length,T=36,rh=(CH-T-4)/ids.length;
+  let vmin=1e18,vmax=0;days.forEach(d=>Object.values(d.n).forEach(x=>{if(x.v24>0){vmin=Math.min(vmin,x.v24);vmax=Math.max(vmax,x.v24)}}));
+  const tt=v=>(Math.log10(v)-Math.log10(vmin))/(Math.log10(vmax)-Math.log10(vmin));
+  let g='';cols.forEach((t,i)=>g+=`<text class="${byT[t]?'':'t3'}" x="${L+i*cw+cw/2}" y="22" text-anchor="middle" style="font-size:16px;${byT[t]?'':'opacity:.5'}">${dl(t)}</text>`);
+  ids.forEach((id,r)=>{const y=T+r*rh,cur=curIds.includes(id);
+    g+=`<text x="${L-14}" y="${y+rh/2+6}" text-anchor="end" style="font-size:19px;fill:${cur?'var(--ink)':'var(--ink3)'};${cur?'font-weight:650':''}">${D.titles[id]}</text>`;
+    cols.forEach((t,i)=>{const d=byT[t],x=d&&d.n[id],cx=L+i*cw;
+      if(!x){g+=`<rect x="${cx+1.5}" y="${y+1.5}" width="${cw-3}" height="${rh-3}" rx="5" fill="none" stroke="var(--grid)"/>`;return}
+      const f=Math.max(0,Math.min(1,tt(Math.max(x.v24,vmin)))),isL=lead[days.indexOf(d)]===id;
+      g+=`<rect x="${cx+1.5}" y="${y+1.5}" width="${cw-3}" height="${rh-3}" rx="5" style="fill:color-mix(in oklab,var(--seq-hi) ${Math.round(8+f*92)}%,var(--seq-lo))" ${isL?'stroke="var(--ink)" stroke-width="3"':''}/><text x="${cx+cw/2}" y="${y+rh/2+6}" text-anchor="middle" style="font-size:17px;fill:${f>.5?'#fff':'var(--ink)'};font-weight:${isL?700:500}">${(x.v24/1e6).toFixed(x.v24>=1e7?0:1)}</text>`});});
+  slide('How fast narratives change',`The #1 narrative changed ${changes} times in ${days.length-1} snapshots`,`24h pool volume per tracked narrative, $M. White outline: that day's leader. ${ids.length} tracked, ${curIds.length} still active.`,
+  `<div class="chart" style="top:200px"><svg viewBox="0 0 ${CW} ${CH}">${g}</svg></div>`,'Empty cell: not tracked that day · Sep 29 – Oct 1: no snapshots');
+})();
+
+// ---------- 5 lifespans
+(function(){
+  const t0=tOf(days[0].date),t1=tOf(last.date),nd=(t1-t0)/MS+1,L=380,R=240,T=30,rh=(CH-T-40)/ids.length,X=t=>L+(t-t0)/MS/nd*(CW-L-R),cwid=(CW-L-R)/nd;
+  let g='';
+  g+=`<rect x="${X(tOf('2026-09-29'))}" y="${T-8}" width="${cwid*3}" height="${CH-T-30}" fill="var(--panel)"/><text class="t3" x="${X(tOf('2026-09-29'))+cwid*1.5}" y="${CH-44}" text-anchor="middle" style="font-size:16px">no snapshots</text>`;
+  for(let t=t0;t<=t1;t+=MS*3)g+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T-8}" y2="${CH-30}" stroke="var(--grid)"/><text class="t3" x="${X(t)+cwid/2}" y="${CH-6}" text-anchor="middle">${dl(t)}</text>`;
+  ids.forEach((id,r)=>{const y=T+r*rh+rh/2,cur=curIds.includes(id),a=tOf(firstSeen[id]),b=tOf(lastSeen[id]),col=cur?'var(--s3)':'var(--other)';
+    g+=`<text x="${L-14}" y="${y+6}" text-anchor="end" style="font-size:19px;fill:${cur?'var(--ink)':'var(--ink3)'};${cur?'font-weight:650':''}">${D.titles[id]}</text><rect x="${X(a)+1}" y="${y-11}" width="${X(b)-X(a)+cwid-2}" height="22" rx="11" fill="${col}"/><text x="${X(b)+cwid+12}" y="${y+6}" style="font-size:18px;fill:var(--ink2)">${span(id)}d · peak ${money(peak[id].v,0)}</text>`});
+  slide('Narratives live fast',`Median lifespan of a retired narrative: ${medLife} days`,`First to last snapshot in which each narrative was tracked. ${retired.length} of ${ids.length} have already been retired; green bars are still active.`,
+  `<div class="chart" style="top:200px"><svg viewBox="0 0 ${CW} ${CH}">${g}</svg></div>`,'Lifespans are lower bounds: Sep 29 – Oct 1 had no snapshots');
+})();
+
+// ---------- 6 total tracked volume
+(function(){
+  const M={l:84,r:20,t:30,b:44},ymax=nice(Math.max(...tot24)*1.02),ym=ymax[ymax.length-1],t0=tOf(days[0].date),t1=tOf(last.date),nd=(t1-t0)/MS+1,cw=(CW-M.l-M.r)/nd,X=t=>M.l+(t-t0)/MS*cw,Y=v=>CH-M.b-v/ym*(CH-M.t-M.b);
+  let g='';ymax.forEach(t=>g+=`<line x1="${M.l}" x2="${CW-M.r}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--grid)"/><text class="t3" x="${M.l-12}" y="${Y(t)+6}" text-anchor="end">${money(t,0)}</text>`);
+  const colorOf=Object.fromEntries(curIds.map((id,i)=>[id,`var(--s${i+1})`]));
+  days.forEach((d,di)=>{let acc=0;const x=X(tOf(d.date))+cw*.15,w=cw*.7;
+    const parts=[['other',Object.entries(d.n).filter(([id])=>!curIds.includes(id)).reduce((s,[,v])=>s+v.v24,0),'var(--other)']].concat(curIds.slice().reverse().map(id=>[id,(d.n[id]||{v24:0}).v24,colorOf[id]]));
+    parts.forEach(([id,v,c])=>{if(v<=0)return;const y1=Y(acc+v),y2=Y(acc);g+=`<rect x="${x}" y="${y1}" width="${w}" height="${Math.max(0,y2-y1-2)}" rx="3" fill="${c}"/>`;acc+=v});
+    if(di%2===0||di===days.length-1)g+=`<text class="t3" x="${x+w/2}" y="${CH-14}" text-anchor="middle" style="font-size:16px">${dl(tOf(d.date))}</text>`;});
+  const px=X(tOf(days[tpk].date))+cw/2,lx=X(t1)+cw/2;
+  g+=`<text class="big" x="${px}" y="${Y(tot24[tpk])-12}" text-anchor="middle" style="font-size:24px">${money(tot24[tpk],1)}</text><text class="big" x="${lx}" y="${Y(tot24[days.length-1])-12}" text-anchor="end" style="font-size:24px">${money(tot24[days.length-1],1)}</text>`;
+  const lg=curIds.map((id,i)=>`<span><i style="background:var(--s${i+1})"></i>${D.titles[id]}</span>`).join('')+'<span><i style="background:var(--other)"></i>Earlier narratives</span>';
+  slide('Attention cooled',`Tracked narrative volume: ${money(tot24[tpk],0)} (${dl(tOf(days[tpk].date))}) → ${money(tot24[tot24.length-1],0)} (${dl(tOf(last.date))})`,`24h pool volume summed over the narratives tracked each day. The set changes daily: read it as the tracked set's attention, not the market.`,
+  `<div class="chart" style="top:215px"><div class="legend" style="margin:0 0 4px 84px;font-size:17px;flex-wrap:wrap;gap:6px 20px;max-width:1300px">${lg}</div><svg viewBox="0 0 ${CW} ${CH-40}" style="overflow:visible">${g}</svg></div>`,'');
+})();
+
+// ---------- 7 activity
+(function(){
+  const panel=(arr,col,title,note,flip)=>{const w=700,h=470,M={l:76,r:20,t:30,b:40},ymax=nice(Math.max(...arr)*1.08,4),ym=ymax[ymax.length-1],t0=tOf(days[0].date),t1=tOf(last.date),X=i=>M.l+(tOf(days[i].date)-t0)/(t1-t0)*(w-M.l-M.r),Y=v=>h-M.b-v/ym*(h-M.t-M.b);
+    let g='';ymax.forEach(t=>g+=`<line x1="${M.l}" x2="${w-M.r}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--grid)"/><text class="t3" x="${M.l-10}" y="${Y(t)+6}" text-anchor="end" style="font-size:16px">${t>=1000?(t/1000)+'K':t}</text>`);
+    let d='';arr.forEach((v,i)=>{d+=(i&&tOf(days[i].date)-tOf(days[i-1].date)<=MS*1.5?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)});
+    g+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="4" stroke-linejoin="round"/>`;arr.forEach((v,i)=>g+=`<circle cx="${X(i)}" cy="${Y(v)}" r="5" fill="${col}" stroke="var(--bg)" stroke-width="2"/>`);
+    [0,Math.floor(days.length/2),days.length-1].forEach(i=>g+=`<text class="t3" x="${X(i)}" y="${h-10}" text-anchor="middle" style="font-size:16px">${dl(tOf(days[i].date))}</text>`);
+    const mi=arr.indexOf(Math.min(...arr.slice(1))),li=arr.length-1;
+    g+=`<text class="big" x="${X(mi)}" y="${Y(arr[mi])+34}" text-anchor="middle" style="font-size:20px">low ${num(arr[mi])}</text><text class="big" x="${X(li)}" y="${flip?Y(arr[li])+36:Y(arr[li])-14}" text-anchor="end" style="font-size:20px">${num(arr[li])}</text>`;
+    return `<div><div style="font-size:26px;font-weight:650;margin-bottom:2px">${title}</div><div style="font-size:18px;color:var(--ink3);margin-bottom:6px">${note}</div><svg viewBox="0 0 ${w} ${h}" style="width:100%;overflow:visible">${g}</svg></div>`};
+  const cmp=days.map(d=>d.completed);
+  slide('Launch activity',`Token creations: ${pct(crMin/cr[1]-1)} by ${dl(tOf(days[crMinI].date))}, then a bounce`,`Provider-indexed counts per 24h. Beta data: coverage and cutoffs are not independently verified.`,
+  `<div class="chart" style="top:235px;display:grid;grid-template-columns:1fr 1fr;gap:40px">${panel(cr,'var(--s1)','Tokens created, 24h','14 venues with creation records')}${panel(cmp,'var(--s7)','Completions, 24h','11 venues with completion records',true)}</div>`,'');
+})();
+
+$('#root').innerHTML=slides.join('');
+const k=(location.hash||'#1').slice(1);document.querySelectorAll('.slide')[k-1].classList.add('on');
+</script></body></html>
