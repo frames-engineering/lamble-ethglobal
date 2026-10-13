@@ -24,7 +24,7 @@ I've tracked 17 narratives in 16 days. 11 are already retired; the median retire
 Combined 24h volume of the narratives I track: $141.6M on Oct 5 → $27.3M on Oct 13. (The tracked set changes daily, so read it as the tracked set's attention, not the whole market.)
 
 5/ Launches slowed too.
-Indexed token creations: 88.9K per 24h on Oct 2 → 57.4K on Oct 12 (−35%), then a bounce to 70.2K on Oct 13. Completions hit a low of 3,449 on Oct 9.
+Indexed token creations: 88.9K per 24h on Oct 2 → 57.4K on Oct 12 (−35%), then a bounce to 70.2K on Oct 13. Completions hit a low of 3,449 on Oct 10.
 
 6/ What's new this week: coins pitching AI credits for holders and creator fees routed to named accounts both showed up in the tracked set on Oct 12–13. Those are the projects' own claims; I'm not verifying payouts or usage.
 
