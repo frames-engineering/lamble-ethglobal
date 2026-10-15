@@ -14,6 +14,7 @@ import argparse, csv, datetime as dt, hashlib, json, math, pathlib, re
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 ap = argparse.ArgumentParser()
 ap.add_argument('run'); ap.add_argument('--prior', required=True); ap.add_argument('--prior-narrative')
+ap.add_argument('--financial-anchor', help='YYYY-MM-DD exclusive end; use an earlier day when a covered venue has not published the latest complete day yet')
 args = ap.parse_args()
 P = pathlib.Path(args.run).resolve(); PRIOR = pathlib.Path(args.prior).resolve()
 PRIOR_N = pathlib.Path(args.prior_narrative).resolve() if args.prior_narrative else PRIOR
@@ -21,7 +22,9 @@ VERSION = 'lamble-daily-refresh-2.0.0'
 RUNTIME_DT = dt.datetime.strptime(P.name, '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc)
 RUNTIME = RUNTIME_DT.isoformat().replace('+00:00', 'Z'); RUNTIME_TS = int(RUNTIME_DT.timestamp())
 SETTLE_HOURS = 4          # a UTC day counts as complete only this long after it closes
-F = (RUNTIME_TS - SETTLE_HOURS * 3600) // 86400 * 86400   # financial exclusive end
+F = F_RUN = (RUNTIME_TS - SETTLE_HOURS * 3600) // 86400 * 86400   # financial exclusive end (F_RUN: latest day boundary the clock allows)
+if args.financial_anchor:  # an anchor every covered venue supports; data after F_RUN is still rejected below
+    F = int(dt.datetime.strptime(args.financial_anchor, '%Y-%m-%d').replace(tzinfo=dt.timezone.utc).timestamp()); assert F <= F_RUN, 'anchor is in the future'
 T = RUNTIME_TS // 3600 * 3600 - 3600       # chart exclusive end: one complete-hour margin
 NETWORK_CHAIN = {1399811149: 'solana', 56: 'bsc', 4663: 'robinhood', 8453: 'base', 1: 'ethereum', 42161: 'arbitrum', 143: 'monad', 5042: 'arc', 196: 'xlayer', 130: 'unichain'}
 CHAIN_NAME = {'solana': 'Solana', 'bsc': 'BNB Chain', 'robinhood': 'Robinhood Chain', 'base': 'Base', 'ethereum': 'Ethereum', 'arbitrum': 'Arbitrum', 'monad': 'Monad', 'arc': 'Arc', 'xlayer': 'X Layer', 'unichain': 'Unichain'}
@@ -87,14 +90,14 @@ for name in FIN_BATCHES:
         a = requests[name]['calls'][c['seq']]['args']; provider, kind = a['protocol'], a['dataType']
         d = c['body']['data']; pairs = d['totalDataChart']
         assert d['slug'] == provider and len({t for t, _ in pairs}) == len(pairs)
-        assert all(t % 86400 == 0 and t <= F and isinstance(v, (int, float)) and v >= 0 for t, v in pairs), provider
+        assert all(t % 86400 == 0 and t <= F_RUN and isinstance(v, (int, float)) and v >= 0 for t, v in pairs), provider
         series = dict(pairs); fin[(provider, kind)] = (d, eid[(name, c['seq'])])
         prior = old_bodies.get((provider, kind), {})
         overlap = [t for t in prior if t < OLD_F and t in series]
         changed = [dict(date=iso(t), previous=prior[t], current=series[t]) for t in sorted(overlap) if prior[t] != series[t]]
         if changed: revisions.append(dict(provider=provider, kind=kind, revisedDays=changed))
         checks.append(dict(provider=provider, kind=kind, sourceDays=len(pairs), latestCompleteDate=iso(max(t for t in series if t < F)),
-                           containsCurrentPartialDay=F in series, priorCompleteDaysCompared=len(overlap), revisedDays=len(changed),
+                           containsCurrentPartialDay=F_RUN in series, priorCompleteDaysCompared=len(overlap), revisedDays=len(changed),
                            delivery=c['delivered'], outcome=c.get('outcome')))
         if not c['delivered']:
             same = all(series.get(t) == prior[t] for t in overlap)
