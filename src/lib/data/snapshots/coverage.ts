@@ -1,6 +1,6 @@
 // Generated offline by import-frames-snapshot.mjs.
 export const FEE_COVERAGE = {
-  "value": 3807669.27,
+  "value": 3690873.27,
   "kind": "covered subtotal",
   "financialAnchor": "2026-10-14T00:00:00Z",
   "includedSlugs": [
@@ -37,7 +37,7 @@ export const FEE_COVERAGE = {
     },
     {
       "time": 1789516800,
-      "value": null
+      "value": 7765954.77
     },
     {
       "time": 1789603200,
@@ -145,7 +145,7 @@ export const FEE_COVERAGE = {
     },
     {
       "time": 1791849600,
-      "value": 3807669.27
+      "value": 3690873.27
     }
   ],
   "change30d": null,
