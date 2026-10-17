@@ -1,0 +1,678 @@
+{
+ "run_id": "run_d27ee47c408e47d69ec4d9966d26ed1c",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 22,
+  "budget_credits": 30,
+  "balance_credits": 58712,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 65,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 2,
+  "delivered": 2,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 6647,
+     "stored_chars": 6647,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+     "amount": "0.005",
+     "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xacd9fb606da954005f5d4b8781b11e26dcf237cf2e123e5cc8a3b1861da32811",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-17T06:18:12.650067283Z",
+     "data": {
+      "id": "8722",
+      "name": "Genius.fun",
+      "address": "bsc:0x1F12B85aAC097E43Aa1555b2881E98a51090e9A6",
+      "symbol": "GENIUS",
+      "url": "https://genius.fun",
+      "description": "A permissionless token launchpad on BNB Smart Chain with bonding-curve trading, multiple quote assets, creator fee distributions, and graduation into permanently locked PancakeSwap Infinity liquidity",
+      "chain": "Binance",
+      "logo": "https://icons.llamao.fi/icons/protocols/genius.fun",
+      "audits": "0",
+      "gecko_id": null,
+      "cmcId": null,
+      "category": "Launchpad",
+      "chains": [
+       "BSC"
+      ],
+      "module": "genius-fun",
+      "twitter": "GeniusTerminal",
+      "forkedFromIds": [
+       "8369"
+      ],
+      "parentProtocol": "parent#genius-terminal",
+      "listedAt": 1790097839,
+      "dimensions": {
+       "fees": "genius-fun",
+       "dexs": "genius-fun"
+      },
+      "methodology": {
+       "Fees": "Token creation, bonding-curve trading (including any launch-window surcharge), Genius hook trading and paid Alpha promotion fees. Fees accrue at launch/trade/promotion; settlements are excluded. Meme-denominated hook fees use the same swap\u2019s quote/meme execution-price ratio, rounded down to quote base units.",
+       "Revenue": "The Genius platform share of trading fees under each launch\u2019s immutable policy, plus separately labeled creation and Alpha promotion fees. The creator-selected destination allocation (Foundation or creator), creator share and launched-meme buyback allocations are excluded.",
+       "ProtocolRevenue": "The same protocol-retained portion as Revenue. Genius.fun has no protocol token receiving these fees.",
+       "SupplySideRevenue": "Creator-selected destination allocations (Foundation or creator), creator shares and accrued funding for buybacks of individual launched meme tokens, calculated from immutable per-launch policies with contract integer rounding."
+      },
+      "misrepresentedTokens": false,
+      "doublecounted": true,
+      "tvlCodePath": "https://github.com/DefiLlama/DefiLlama-Adapters/blob/main/projects/genius-fun/index.js",
+      "defillamaId": "8722",
+      "displayName": "Genius.fun",
+      "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/genius-fun.ts",
+      "forkedFrom": null,
+      "audit_links": null,
+      "github": null,
+      "governanceID": null,
+      "treasury": null,
+      "previousNames": null,
+      "hallmarks": null,
+      "defaultChartView": null,
+      "breakdownMethodology": {
+       "Fees": {
+        "Curve Trading Fees": "CurveBuy and CurveSell fee + tax; CurveBuy.fee already contains any snipe surcharge.",
+        "Hook Trading Fees": "HookFeeCollected feeAmount + taxAmount, valued in the pool\u2019s paired quote asset at the originating trade\u2019s execution price when needed.",
+        "Token Creation Fees": "One historical factory launchFee per TokenLaunched, replaying same-period fee changes in log order.",
+        "Alpha Promotion Fees": "Actual BNB paid in AlphaPromoted events, including zero-cost grants."
+       },
+       "Revenue": {
+        "Curve Fees To Genius": "The platform share of bonding-curve fees under each launch\u2019s immutable fee policy.",
+        "Hook Fees To Genius": "The platform share of accrued Genius hook fees; meme-denominated fees are valued at the originating swap\u2019s execution price.",
+        "Token Creation Fees To Genius": "Token creation fees retained by Genius, using the historical factory fee and intraperiod LaunchFeeUpdated events.",
+        "Alpha Promotion Fees To Genius": "Actual paidWei in AlphaPromoted events; free grants contribute zero."
+       },
+       "ProtocolRevenue": {
+        "Curve Fees To Genius": "The platform share of bonding-curve fees under each launch\u2019s immutable fee policy.",
+        "Hook Fees To Genius": "The platform share of accrued Genius hook fees; meme-denominated fees are valued at the originating swap\u2019s execution price.",
+        "Token Creation Fees To Genius": "Token creation fees retained by Genius, using the historical factory fee and intraperiod LaunchFeeUpdated events.",
+        "Alpha Promotion Fees To Genius": "Actual paidWei in AlphaPromoted events; free grants contribute zero."
+       },
+       "SupplySideRevenue": {
+        "Curve Fees To Foundation": "Creator-selected destination allocation from curve fees routed to the shared Foundation vault; excluded from Genius platform revenue.",
+        "Hook Fees To Foundation": "Creator-selected destination allocation from hook fees routed to the shared Foundation vault; excluded from Genius platform revenue.",
+        "Curve Fees To Creators": "Creator share, any destination share selected for the creator, and separate creator tax on curve trades.",
+        "Curve Fees For Meme Buybacks": "Accrued curve-fee allocation reserved to buy back and burn that launch\u2019s meme token.",
+        "Hook Fees To Creators": "Creator share, any destination share selected for the creator, and separate creator tax on hook trades.",
+        "Hook Fees For Meme Buybacks": "Accrued hook-fee allocation reserved to buy back and burn that launch\u2019s meme token."
+       }
+      },
+      "slug": "genius.fun",
+      "protocolType": "protocol",
+      "linkedProtocols": [
+       "Genius Terminal",
+       "Genius.fun"
+      ],
+      "hasLabelBreakdown": true,
+      "total24h": 1832,
+      "total48hto24h": 1440,
+      "total7d": 21445,
+      "total30d": 2837166,
+      "total1y": 2837178.38,
+      "annualized1y": 33405487.377419353,
+      "totalAllTime": 2839010.38,
+      "totalDataChart": [
+       [
+        1789516800,
+        12.38
+       ],
+       [
+        1789603200,
+        698681
+       ],
+       [
+        1789689600,
+        761587
+       ],
+       [
+        1789776000,
+        120349
+       ],
+       [
+        1789862400,
+        351663
+       ],
+       [
+        1789948800,
+        299386
+       ],
+       [
+        1790035200,
+        104901
+       ],
+       [
+        1790121600,
+        57021
+       ],
+       [
+        1790208000,
+        42897
+       ],
+       [
+        1790294400,
+        33682
+       ],
+       [
+        1790380800,
+        37082
+       ],
+       [
+        1790467200,
+        31630
+       ],
+       [
+        1790553600,
+        19500
+       ],
+       [
+        1790640000,
+        89209
+       ],
+       [
+        1790726400,
+        29980
+       ],
+       [
+        1790812800,
+        22712
+       ],
+       [
+        1790899200,
+        34834
+       ],
+       [
+        1790985600,
+        33947
+       ],
+       [
+        1791072000,
+        10669
+       ],
+       [
+        1791158400,
+        10362
+       ],
+       [
+        1791244800,
+        13212
+       ],
+       [
+        1791331200,
+        6691
+       ],
+       [
+        1791417600,
+        3667
+       ],
+       [
+        1791504000,
+        2059
+       ],
+       [
+        1791590400,
+        3913
+       ],
+       [
+        1791676800,
+        3279
+       ],
+       [
+        1791763200,
+        3081
+       ],
+       [
+        1791849600,
+        4794
+       ],
+       [
+        1791936000,
+        3123
+       ],
+       [
+        1792022400,
+        1440
+       ],
+       [
+        1792108800,
+        1815
+       ],
+       [
+        1792195200,
+        1832
+       ]
+      ],
+      "totalDataChartBreakdown": [],
+      "change_1d": 27.22,
+      "chainBreakdown": {
+       "BSC": {
+        "total24h": 1832,
+        "total48hto24h": 1440,
+        "total7d": 21445,
+        "total14dto7d": 80607,
+        "total30d": 2837166,
+        "total60dto30d": 12.38,
+        "total1y": 2837178.38,
+        "total7DaysAgo": 2059,
+        "total30DaysAgo": 12.38,
+        "totalAllTime": 2839010.38,
+        "average1y": 91521.88322580645,
+        "monthlyAverage1y": 2785926.1253935485,
+        "change_1d": 27.22,
+        "change_7d": -11.02,
+        "change_1m": 14698.06,
+        "change_7dover7d": -73.4,
+        "change_30dover30d": 22917234.41
+       }
+      }
+     },
+     "_atlas": {
+      "docs": "https://defillama.use.x402atlas.com/llms.txt",
+      "related": [
+       {
+        "bridge": "coingecko",
+        "url": "https://coingecko.use.x402atlas.com/price?ref=defillama",
+        "docs": "https://coingecko.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Crypto prices & market data"
+       },
+       {
+        "bridge": "marketdata",
+        "url": "https://marketdata.use.x402atlas.com/ticker?ref=defillama",
+        "docs": "https://marketdata.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Stocks, ETFs & indices data"
+       },
+       {
+        "bridge": "perpsignals",
+        "url": "https://perpsignals.use.x402atlas.com/funding-rates?ref=defillama",
+        "docs": "https://perpsignals.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Perp funding & fear/greed"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 8973,
+     "stored_chars": 8973,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+     "amount": "0.005",
+     "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xcd5c047dc53132abc917c2326f92bb6e30500f0a925b02a9d0ba4d2708ea8863",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-17T06:18:16.53618857Z",
+     "data": {
+      "id": "8717",
+      "name": "StonkBrokers Nightshades",
+      "address": "robinhood:0xe934e36a439c94017b64a3fece66af12099abf50",
+      "symbol": "STONKBROKER",
+      "url": "https://www.stonkbrokers.cash",
+      "description": "Anti-snipe token launch platform where WETH raised for faction tokens transitions into protocol-owned Uniswap V4 liquidity after bonding",
+      "chain": "Robinhood Chain",
+      "logo": "https://icons.llamao.fi/icons/protocols/stonkbrokers-nightshades",
+      "audits": "0",
+      "gecko_id": null,
+      "cmcId": null,
+      "category": "Launchpad",
+      "chains": [
+       "Robinhood Chain"
+      ],
+      "module": "stonkbrokers-nightshades",
+      "twitter": "ClutchMarkets",
+      "parentProtocol": "parent#stonkbrokers",
+      "listedAt": 1790092631,
+      "dimensions": {
+       "fees": "stonkbrokers-nightshades",
+       "dexs": "stonkbrokers-nightshades"
+      },
+      "methodology": {
+       "Volume": "Civilization anti-snipe pad PadBuy.quoteIn (WETH, Nightshades faction launches) + post-bond faction pool swaps (WETH-side notional of every user swap in the hooked Uniswap v4 faction pools; reopen-window buys grossed up by the same-tx SnipeTaxCollected; the vault's own night rebalances excluded).",
+       "Fees": "The Civilization anti-snipe pad snipe tax on Nightshades faction curve buys (PadTaxCollected \u2014 50% next-night boost pot / 10% faction pool / 13.33% StockBooster / 13.33% protocol / 13.34% game creator, WETH); the sunrise reopen snipe tax levied by the game hook on hooked v4 pool trades after each night (SnipeTaxCollected, same five-way split); the 1% LP fee on every user swap in the hooked faction pools (100% protocol-owned game liquidity \u2014 the vault is the pools' only permitted LP); and Nightshades faction NFT royalties (ERC-2981 10% of secondary sales) as flushed from the immutable FactionRoyaltySplitter (75% game vault survivor liquidity / 25% team).",
+       "Revenue": "The 13.33% protocol treasury leg of the pad + sunrise reopen snipe taxes, and the 1% LP fee accruing to the protocol-owned faction pool liquidity.",
+       "ProtocolRevenue": "13.33% of the pad + sunrise reopen snipe taxes \u2192 protocol treasury; the faction pools' 1% LP fee \u2192 the vault's protocol-owned game liquidity position (compounds into game LP, not distributed).",
+       "SupplySideRevenue": "Pad + sunrise reopen tax legs to the next-night boost pot (50%), the faction's own locked pool (10%), StockBooster (13.33%) and the game creator (13.34%), plus both legs of the flushed NFT royalties."
+      },
+      "misrepresentedTokens": false,
+      "doublecounted": true,
+      "tvlCodePath": "https://github.com/DefiLlama/DefiLlama-Adapters/blob/main/projects/stonkbrokers-nightshades/index.js",
+      "defillamaId": "8717",
+      "displayName": "StonkBrokers Nightshades",
+      "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/stonkbrokers-nightshades",
+      "forkedFrom": null,
+      "audit_links": null,
+      "github": null,
+      "governanceID": null,
+      "treasury": null,
+      "previousNames": null,
+      "hallmarks": null,
+      "defaultChartView": null,
+      "breakdownMethodology": {
+       "Fees": {
+        "Civilization anti-snipe pad snipe tax (Nightshades faction launches, time-decay tax on curve buys)": "Time-decay snipe tax on Civilization anti-snipe pad curve buys (Nightshades faction launches; 99% at the bell falling to 0 over a 99-minute buys-only window; PadTaxCollected.tax, WETH). Split by the game hook per trade: 50% next-night boost pot / 10% the faction's own locked pool / 13.33% StockBooster / 13.33% protocol treasury / 13.34% game creator.",
+        "Civilization sunrise reopen snipe tax (daily time-decay tax on hooked v4 pool trades after each night)": "Daily sunrise reopen snipe tax levied by FactionGameHook on hooked v4 faction pool buys and sells after each night (SnipeTaxCollected.taxWeth; decays from 99% to 0 over the 60-minute sunrise window). Same five-way split as the pad tax: 50% next-night boost / 10% faction pool / 13.33% StockBooster / 13.33% protocol treasury / 13.34% game creator.",
+        "Civilization faction pool 1% LP fee (100% protocol-owned game liquidity)": "1% Uniswap v4 LP fee on every user swap in the hooked Civilization faction pools (Swap.fee ppm \u00d7 input amount). The game vault is the only LP the hook permits, so 100% accrues to protocol-owned game liquidity. WETH-input fees booked as-is; faction-token-input fees valued in WETH at the swap's own execution price.",
+        "Nightshades NFT royalty (10% of secondary sales) \u2192 game vault as survivor pool liquidity (75%)": "Nightshades faction NFT royalties (ERC-2981, 10% of every secondary sale) as they are flushed out of the immutable FactionRoyaltySplitter (Flushed.toPot + toTeam; native ETH is wrapped to WETH before the split). Counted at flush time, not at sale time. 75% \u2192 game vault as free quote deployed into the surviving faction's locked pool.",
+        "Nightshades NFT royalty (10% of secondary sales) \u2192 team wallet (25%)": "25% team leg of the flushed Nightshades NFT royalties."
+       },
+       "Revenue": {
+        "Civilization snipe tax \u2192 protocol treasury (13.33%)": "13.33% protocol treasury leg of the Civilization anti-snipe pad + sunrise reopen snipe taxes (Nightshades).",
+        "Civilization faction pool 1% LP fee (100% protocol-owned game liquidity)": "1% LP fee on Civilization faction pool swaps accruing to the vault's protocol-owned game liquidity position (compounds into game LP; not distributed to holders)."
+       },
+       "ProtocolRevenue": {
+        "Civilization snipe tax \u2192 protocol treasury (13.33%)": "13.33% protocol treasury leg of the Civilization anti-snipe pad + sunrise reopen snipe taxes (Nightshades).",
+        "Civilization faction pool 1% LP fee (100% protocol-owned game liquidity)": "1% LP fee on Civilization faction pool swaps accruing to the vault's protocol-owned game liquidity position (compounds into game LP; not distributed to holders)."
+       },
+       "SupplySideRevenue": {
+        "Civilization snipe tax \u2192 next-night boost pot (50%)": "50% of the Civilization pad + sunrise reopen snipe taxes \u2192 the next night's boost pot (buys the surviving faction after each night; escrowed in the game vault).",
+        "Civilization snipe tax \u2192 faction's own locked pool (10%)": "10% of the Civilization pad + sunrise reopen snipe taxes \u2192 the paying faction's own protocol-owned locked pool.",
+        "Civilization snipe tax \u2192 StockBooster dividends (13.33%)": "13.33% of the Civilization pad + sunrise reopen snipe taxes \u2192 StockBooster \u2192 Clock In dividends to activated brokers.",
+        "Civilization snipe tax \u2192 game creator (13.34%)": "13.34% of the Civilization pad + sunrise reopen snipe taxes \u2192 game creator (Meebco).",
+        "Nightshades NFT royalty (10% of secondary sales) \u2192 game vault as survivor pool liquidity (75%)": "75% of flushed Nightshades NFT royalties \u2192 game vault as free quote, deployed into the surviving faction's protocol-owned locked pool at the next boostSurvivor.",
+        "Nightshades NFT royalty (10% of secondary sales) \u2192 team wallet (25%)": "25% of flushed Nightshades NFT royalties \u2192 game team wallet."
+       }
+      },
+      "slug": "stonkbrokers-nightshades",
+      "protocolType": "protocol",
+      "linkedProtocols": [
+       "StonkBrokers",
+       "StonkBrokers Safety Deposit Box",
+       "StonkBrokers Nightshades",
+       "StonkBrokers Smart LP",
+       "StonkBrokers Anvil",
+       "StonkBrokers Broker Box",
+       "StonkBrokers Safe Launch",
+       "StonkBrokers Desks"
+      ],
+      "hasLabelBreakdown": true,
+      "total24h": 743,
+      "total48hto24h": 1255,
+      "total7d": 8944.470000000001,
+      "total30d": 219021.53,
+      "total1y": 812503.53,
+      "annualized1y": 8986781.468181819,
+      "totalAllTime": 813246.53,
+      "totalDataChart": [
+       [
+        1789344000,
+        307099
+       ],
+       [
+        1789430400,
+        156134
+       ],
+       [
+        1789516800,
+        130249
+       ],
+       [
+        1789603200,
+        57980
+       ],
+       [
+        1789689600,
+        15514
+       ],
+       [
+        1789776000,
+        30766
+       ],
+       [
+        1789862400,
+        922
+       ],
+       [
+        1789948800,
+        35518
+       ],
+       [
+        1790035200,
+        15791
+       ],
+       [
+        1790121600,
+        1881
+       ],
+       [
+        1790208000,
+        595
+       ],
+       [
+        1790294400,
+        1960
+       ],
+       [
+        1790380800,
+        7462
+       ],
+       [
+        1790467200,
+        478
+       ],
+       [
+        1790553600,
+        16481
+       ],
+       [
+        1790640000,
+        644
+       ],
+       [
+        1790726400,
+        966
+       ],
+       [
+        1790812800,
+        6534
+       ],
+       [
+        1790899200,
+        200
+       ],
+       [
+        1790985600,
+        2476
+       ],
+       [
+        1791072000,
+        213
+       ],
+       [
+        1791158400,
+        3211
+       ],
+       [
+        1791244800,
+        7349
+       ],
+       [
+        1791331200,
+        2929
+       ],
+       [
+        1791417600,
+        154
+       ],
+       [
+        1791504000,
+        53.06
+       ],
+       [
+        1791590400,
+        1628
+       ],
+       [
+        1791676800,
+        4430
+       ],
+       [
+        1791763200,
+        803
+       ],
+       [
+        1791849600,
+        53.27
+       ],
+       [
+        1791936000,
+        32.2
+       ],
+       [
+        1792022400,
+        1255
+       ],
+       [
+        1792108800,
+        743
+       ],
+       [
+        1792195200,
+        743
+       ]
+      ],
+      "totalDataChartBreakdown": [],
+      "change_1d": -40.8,
+      "chainBreakdown": {
+       "Robinhood Chain": {
+        "total24h": 743,
+        "total48hto24h": 1255,
+        "total7d": 8944.470000000001,
+        "total14dto7d": 16385.06,
+        "total30d": 219021.53,
+        "total60dto30d": 593482,
+        "total1y": 812503.53,
+        "total7DaysAgo": 53.06,
+        "total30DaysAgo": 130249,
+        "totalAllTime": 813246.53,
+        "average1y": 24621.31909090909,
+        "monthlyAverage1y": 749472.9531272728,
+        "change_1d": -40.8,
+        "change_7d": 1300.3,
+        "change_1m": -99.43,
+        "change_7dover7d": -45.41,
+        "change_30dover30d": -63.1
+       }
+      }
+     },
+     "_atlas": {
+      "docs": "https://defillama.use.x402atlas.com/llms.txt",
+      "related": [
+       {
+        "bridge": "coingecko",
+        "url": "https://coingecko.use.x402atlas.com/price?ref=defillama",
+        "docs": "https://coingecko.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Crypto prices & market data"
+       },
+       {
+        "bridge": "marketdata",
+        "url": "https://marketdata.use.x402atlas.com/ticker?ref=defillama",
+        "docs": "https://marketdata.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Stocks, ETFs & indices data"
+       },
+       {
+        "bridge": "perpsignals",
+        "url": "https://perpsignals.use.x402atlas.com/funding-rates?ref=defillama",
+        "docs": "https://perpsignals.use.x402atlas.com/llms.txt?ref=defillama",
+        "summary": "Perp funding & fear/greed"
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_d27ee47c408e47d69ec4d9966d26ed1c/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.002017,
+  "tool_cost_usd": 0.01,
+  "frames_fee_usd": 0.001803,
+  "total_cost_usd": 0.013819,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 6189,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 64,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.002017,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "title": "Fees & revenue summary by DefiLlama \u2014 fee and revenue history for one protocol b",
+   "capability": "fee-summary",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "amount": "0.005",
+   "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xacd9fb606da954005f5d4b8781b11e26dcf237cf2e123e5cc8a3b1861da32811",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.defillama-use-x402atlas-com-fee-summary",
+   "amount": "0.005",
+   "pay_to": "0xCB8025D951e5E45Be7D288B658EEee6f05713006",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xcd5c047dc53132abc917c2326f92bb6e30500f0a925b02a9d0ba4d2708ea8863",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}

@@ -437,10 +437,13 @@ candidates = read('candidates.json', PRIOR_N) if (PRIOR_N / 'candidates.json').e
 for c in curation.get('candidates', []): candidates['candidates'].append(dict(c, observedAt=RUNTIME))
 addr_universe = {u['address'] for u in universe}
 removed_addr = {t.split(':', 1)[1]: c['reason'] for t, c in curation.get('removedMembers', {}).items()}
+retired_addr = {m['tokenId'].split(':', 1)[1]: f'Left with retired narrative {m["narrativeId"]}; membership interval closed.' for m in members
+                if m['narrativeId'] in retired and m['tokenId'] not in in_universe}  # members of a retired narrative are no longer accepted
 for c in candidates['candidates']:  # statuses follow the registry, so a token is a member exactly when it is "accepted"
     a = c.get('address')
     if a in addr_universe and c['status'] != 'accepted': c.update(status='accepted', acceptedIn=P.name)
     elif a in removed_addr: c.update(status='removed', removedIn=P.name, reason=removed_addr[a])
+    elif a in retired_addr and c['status'] == 'accepted': c.update(status='removed', removedIn=P.name, reason=retired_addr[a])
 known_c = {c.get('address') for c in candidates['candidates']}
 for tid, c in curation.get('removedMembers', {}).items():
     if tid.split(':', 1)[1] not in known_c:
