@@ -18,7 +18,7 @@ def completed(text):
         r = json.loads(text)
     except ValueError:
         return None
-    return r if isinstance(r, dict) and r.get('run_id') == run_id and r.get('status') == 'completed' else None
+    return r if isinstance(r, dict) and r.get('run_id') == run_id and r.get('status') == 'completed' and r.get('billing') else None  # billing appears once the run is final
 
 
 def parts(text):  # persisted results are either the raw text or a JSON list of {"type": "text", "text": ...} parts
