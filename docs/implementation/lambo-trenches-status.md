@@ -105,6 +105,25 @@ Defects found while building Batch 5 and fixed at the source: negative `secondsS
 | O8 | Runbooks | operations, provider onboarding, editorial policy, payments, Frames listing | — | implemented |
 | O9 | Documentation drift D1–D9 corrected | README, `src/lib/data/snapshots/README.md`, `docs/prompts/refresh-market-data.md` (cost 805–978 credits/run measured 2026-10-12..19; six-narrative cap and paused collection; collector; publish step) | — | implemented |
 
+## Batch 8 — QA
+
+| ID | Requirement | Evidence | Status |
+|---|---|---|---|
+| Q1 | Type checks, lint, all tests, production build, diff check | [qa/checks.txt](qa/checks.txt): tsc 0, lint 0, 90/90 tests, build 221 routes, `git diff --check` clean | tested |
+| Q2 | The 20 required cases | [qa/README.md](qa/README.md) maps each case to its test | tested |
+| Q3 | Rendered pages inspected, screenshots retained | [qa/screenshots](qa/screenshots) (desktop 1440 and mobile 390; `next start` of the production build); 9/9 browser tests | tested |
+| Q4 | Clean environment | fresh clone: `npm run data:setup` rebuilt the identical release `rel-20261019T055754Z-c137ab6d`, editions and articles; tests, build and serving pass | tested |
+| Q5 | Observability | `npm run lambo -- status`: freshness (exit 1 when older than 36 h), coverage, billed credits per run, reservations, publish failures, delivery state, seller receipts | implemented |
+
+## Live verification and spending in this work
+
+- Frames: free calls only (`frames_get_usage`, `frames_search_tools`, `frames_get_tool`, `frames_probe_tools`);
+  **0 credits** spent. No owner-approved budget was supplied, so no paid read was made and no x4o2 response
+  body exists.
+- Payments: **no live payment.** Offline tests only.
+- Schedules active: the external daily Claude Code routine (not installed by this repository). Configured but
+  not active: weekly aggregation template, x4o2 panels (budget 0), notification delivery (disabled).
+
 ## Documentation drift found
 
 | ID | Drift | Resolution |
