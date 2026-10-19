@@ -113,3 +113,20 @@ test("generation is deterministic for the same inputs", () => {
   const coin = r.data.coins[0]!;
   assert.deepEqual(coinArticle(r.data, coin), coinArticle(r.data, coin));
 });
+
+test("historical articles stay pinned to their release; regeneration records the correction and drops a stale review", async () => {
+  const { mergeArticle } = await import("../../scripts/lambo/research.ts");
+  const stored = articles.find((a) => a.format === "weekly")!;
+  const draft = Object.fromEntries(Object.entries(stored).filter(([k]) => !["schemaVersion", "publishedAt", "updatedAt", "generator", "changelog"].includes(k))) as Parameters<typeof mergeArticle>[1];
+  assert.equal(mergeArticle(stored, draft, "2026-10-26T07:00:00Z").status, "unchanged");
+  const reviewed = { ...stored, review: { ...stored.review, status: "reviewed" as const, reviewer: "Synthetic Reviewer", reviewedAt: "2026-10-20T00:00:00Z" } };
+  const changed = { ...draft, releaseId: "rel-20261026T060000Z-bbbbbbbb", dek: `${draft.dek} (corrected)` };
+  const next = mergeArticle(reviewed, changed, "2026-10-26T07:00:00Z");
+  assert.equal(next.status, "updated");
+  assert.equal(next.article.publishedAt, stored.publishedAt, "publication date is kept");
+  assert.equal(next.article.releaseId, "rel-20261026T060000Z-bbbbbbbb");
+  assert.equal(next.article.review.status, "auto-published", "a review does not carry over to new text");
+  assert.match(next.article.changelog.at(-1)!.summary, /previously release rel-20261019T055754Z-[0-9a-f]{8}, reviewed by Synthetic Reviewer — that review does not cover this text/);
+  // The stored article itself still names the release it was written from, and the API binds its offer to it.
+  assert.equal(stored.releaseId, loadRelease(stored.releaseId).manifest.releaseId);
+});

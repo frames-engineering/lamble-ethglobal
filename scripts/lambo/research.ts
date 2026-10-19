@@ -36,6 +36,31 @@ export function pickNarrative(narratives: NarrativePublic[]): NarrativePublic | 
   );
 }
 
+type Draft = Omit<Article, "publishedAt" | "updatedAt" | "generator" | "changelog" | "schemaVersion">;
+
+/**
+ * How a regenerated draft replaces a stored article. Unchanged inputs keep the file as is. Changed inputs keep
+ * the publication date, set updatedAt, append a changelog line naming the release it now reads, and reset the
+ * review to the format's default: a recorded review covers the text that was reviewed, not the new text. The
+ * article stays pinned to the release it states; nothing rewrites an old article silently.
+ */
+export function mergeArticle(prev: Article | null, d: Draft, at: string): { article: Article; status: "written" | "updated" | "unchanged" } {
+  const inputSha256 = sha256(stableStringify({ body: d.body, title: d.title, dek: d.dek, limitations: d.limitations }));
+  if (prev && prev.generator.inputSha256 === inputSha256) return { article: prev, status: "unchanged" };
+  const article: Article = {
+    schemaVersion: ARTICLE_SCHEMA,
+    ...d,
+    review: d.review,
+    publishedAt: prev?.publishedAt ?? at,
+    updatedAt: at,
+    generator: { ...GENERATOR, inputSha256 },
+    changelog: prev
+      ? [...prev.changelog, { at, summary: `Regenerated from release ${d.releaseId} (data cutoff ${d.dataCutoff}); previously release ${prev.releaseId}${prev.review.status === "reviewed" ? `, reviewed by ${prev.review.reviewer} — that review does not cover this text` : ""}.` }]
+      : [],
+  };
+  return { article, status: prev ? "updated" : "written" };
+}
+
 export function runResearch(argv: string[] = []) {
   const release = loadRelease();
   const r = release.data;
@@ -65,25 +90,9 @@ export function runResearch(argv: string[] = []) {
   const results: { slug: string; status: "written" | "updated" | "unchanged" }[] = [];
   for (const d of drafts) {
     const file = path.join(dir, `${d.slug}.json`);
-    const prev = readJsonIfExists<Article>(file);
-    const inputSha256 = sha256(stableStringify({ body: d.body, title: d.title, dek: d.dek, limitations: d.limitations }));
-    if (prev && prev.generator.inputSha256 === inputSha256) {
-      results.push({ slug: d.slug, status: "unchanged" });
-      continue;
-    }
-    const at = nowIso();
-    const article: Article = {
-      schemaVersion: ARTICLE_SCHEMA,
-      ...d,
-      // A review covers the text that was reviewed; changed text goes back to the format's default status.
-      review: d.review,
-      publishedAt: prev?.publishedAt ?? at,
-      updatedAt: at,
-      generator: { ...GENERATOR, inputSha256 },
-      changelog: prev ? [...prev.changelog, { at, summary: `Regenerated from release ${d.releaseId} (data cutoff ${d.dataCutoff}).` }] : [],
-    };
-    if (!argv.includes("--dry-run")) writeJsonAtomic(file, article);
-    results.push({ slug: d.slug, status: prev ? "updated" : "written" });
+    const next = mergeArticle(readJsonIfExists<Article>(file), d, nowIso());
+    if (next.status !== "unchanged" && !argv.includes("--dry-run")) writeJsonAtomic(file, next.article);
+    results.push({ slug: d.slug, status: next.status });
   }
   return results;
 }
