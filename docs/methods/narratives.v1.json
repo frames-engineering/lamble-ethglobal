@@ -1,0 +1,28 @@
+{
+  "method": "narrative-analytics",
+  "version": "narratives-v1.0.0",
+  "status": "active",
+  "lifecycle": {
+    "states": {
+      "collected": "Lambo's daily run collects market data for the narrative's members.",
+      "collection_paused": "Collection stopped (for example a replacement at the six-narrative cap). Memberships stay open; pages stay reachable; gaps after the pause are shown as gaps.",
+      "retired": "The defining source is gone or contradicted. Memberships close with the reason."
+    },
+    "featured": "Featured placement (homepage, at most six) and collection priority are separate from lifecycle and from factual membership.",
+    "trend": "For collected narratives: 'rising' when 7-day volume of the same basket is >= 25% above the prior 7 days, 'fading' when <= -25%, otherwise 'steady'; 'new' when first observed within 7 days. Computed on the current basket and labelled so."
+  },
+  "membership": {
+    "factual": "A coin's membership is an evidence-backed classification of what the coin is (name, metadata or official source naming the story). It is not affiliation with a named project or person.",
+    "intervals": "Each interval has a unique id (narrative:token@start), its effective start, when it was recorded, and (only for factual exits) its end. Collection pauses and inactivity archive a member without ending the interval.",
+    "reconstructed": "Members added with historicalMembershipBasis=reconstructed_today were classified when first observed; volume before that date is today's classification applied backwards."
+  },
+  "metrics": {
+    "volumeShare": "Share of the narrative's measured volume by member (all indexed pools per token, Codex getTokenBars). Market-volume share, not social attention.",
+    "concentration": "top1Share and Herfindahl-Hirschman index (sum of squared shares, 0-10000) of member volume over the window.",
+    "breadth": "Members with a positive 7-day price return / members with prices at both ends; the denominator is shown.",
+    "attention": "X results are a top-results convenience sample: counts of posts are reported only as 'posts found in N searches', never as mindshare.",
+    "evidence": "Project claims (official pages and posts), independent evidence (news, third-party reporting) and observed on-chain behavior are listed separately. Reposts or quotes of one claim count once."
+  },
+  "dedup": "Market totals across narratives count each token once; the overlap (tokens in more than one narrative) is listed with its volume.",
+  "capitalFlows": "Turnover and market-cap changes are not net capital inflows; no inflow figures are published."
+}

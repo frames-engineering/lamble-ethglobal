@@ -1,0 +1,58 @@
+{
+  "method": "bottoming",
+  "version": "bottoming-v1.0.0",
+  "status": "active",
+  "summary": "An auditable three-condition state machine evaluated point-in-time on UTC-day intervals. It describes what has been observed in a drawdown; it does not predict or confirm a bottom.",
+  "interval": { "seconds": 86400, "source": "daily OHLC candles (codex.token-bars resolution 1D, or a validated x4o2 candle capability)", "note": "Daily snapshot prices are point samples, not candles: they can open an episode and measure drawdown, but they never establish a held low (no observed lows)." },
+  "episode": {
+    "peakLookbackIntervals": 30,
+    "openDrawdown": 0.5,
+    "definition": "At evaluation time t, peak = max(high) over the lookback intervals that ended at or before t (point-in-time). An episode opens when close(t) <= (1 - openDrawdown) x peak. Its id is <tokenId>@<peakStart>. The episode low is min(low) since the peak, using only intervals ended by t.",
+    "close": "The episode ends when a later interval's high exceeds the episode peak (superseded by a new high) or when no adequately observed interval exists for staleIntervals consecutive intervals (stale).",
+    "staleIntervals": 7
+  },
+  "conditions": {
+    "1_capitulation": {
+      "name": "Material realized loss-taking during the drawdown",
+      "window": "From the episode peak to t.",
+      "formula": "lossSoldShare = soldValueUsd(loss-making sales with known cost) / soldValueUsd(all sales with known cost); realizedLossUsd = sum(cost - proceeds) over loss-making sales with known cost.",
+      "met": "costCoverage >= 0.8 AND lossSoldShare >= 0.6 AND realizedLossUsd >= max(25000, 0.05 x mean circulating market cap over the window)",
+      "costCoverage": "soldValueUsd with known acquisition cost / total soldValueUsd. Coverage is by sold value, not by number of wallets returned.",
+      "accounting": {
+        "costBasis": "FIFO per wallet within the token.",
+        "transfersIn": "Unknown cost (never zero, never inferred from the sender).",
+        "startingInventory": "Balance held before the first observed trade has unknown cost.",
+        "pricing": "USD value at transaction time from the trade record; current prices are never used.",
+        "fees": "Proceeds and costs net of fees when the trade record states them; otherwise gross, disclosed.",
+        "sourceReportedPnl": "Provider P&L, cost basis and unrealized P&L are context only and never substitute for reconstructed realized losses."
+      },
+      "insufficient": "costCoverage < 0.8, no wallet-resolved trades, or an unvalidated trade capability."
+    },
+    "2_low_holds": {
+      "name": "The episode low holds",
+      "formula": "Count consecutive adequately observed intervals after the interval that set the episode low whose low >= episode low.",
+      "met": "count >= 3",
+      "adequate": "An interval with high, low and close present and USD volume >= 1000. A missing or thin interval resets the count; it never counts as holding.",
+      "insufficient": "No candles (only snapshot prices) or fewer than 3 intervals after the low."
+    },
+    "3_absorption": {
+      "name": "Buying absorbs selling and first-seen buyers participate",
+      "baseline": "The drawdown leg: intervals from the peak to the interval that set the low.",
+      "formula": "absorption = buyVolumeUsd / sellVolumeUsd; firstSeenShare = buyers never seen buying this token before / all buyers (wallet-resolved).",
+      "met": "absorption(after low) >= 1.2 x absorption(baseline) AND firstSeenShare(after low) >= 1.1 x firstSeenShare(baseline), each over at least 3 adequately observed intervals with flow coverage >= 0.8 of volume.",
+      "insufficient": "No buy/sell split or no wallet-resolved buyers."
+    }
+  },
+  "stage": "Counted in order: stage = number of leading conditions met. A later condition never advances the stage while an earlier one is unmet; every condition is still shown independently.",
+  "states": {
+    "not_applicable": "No open episode: the coin is not in a qualifying drawdown at t.",
+    "insufficient_data": "An episode is open (or candles are missing) but condition 1 cannot be evaluated. Never shown as 0/3.",
+    "stage_0": "In a qualifying drawdown; condition 1 evaluated and not met.",
+    "stage_1": "Realized loss-taking observed.",
+    "stage_2": "Realized loss-taking observed; the low has held.",
+    "stage_3": "Realized loss-taking observed; the low has held; buying absorption and new-buyer participation improved."
+  },
+  "resetPolicy": "A new lower low (low < episode low) resets condition 2 and condition 3 to unmet and starts their windows at the new low. Condition 1 is re-evaluated over the whole episode window. Each reset is recorded as an invalidation in the condition history.",
+  "lookAhead": "Every evaluation uses only intervals that ended, and observations that were available, at or before t. Later lows or recoveries never relabel earlier evaluations; histories are append-only per evaluation time.",
+  "labels": "Descriptive only: 'Capitulation observed', 'Low holding', 'Absorption improving'. Never 'bottom confirmed', never a return probability."
+}

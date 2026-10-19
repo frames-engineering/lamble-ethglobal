@@ -1,0 +1,134 @@
+{
+  "method": "holder-analysis",
+  "version": "holder-analysis-v1.0.0",
+  "status": "active",
+  "summary": "Nine components in four areas. Raw values, histories, peer comparisons and coverage come first; a composite is a separate, versioned, gated framework that is disabled until its inputs are defensible.",
+  "exclusions": {
+    "policy": "Excluded from holder populations only when classified with evidence: liquidity pools, burn addresses, custody/exchange wallets, lockups/vesting contracts and the token's own program accounts. A contract address is not excluded merely for being a contract (smart wallets hold tokens). Heuristic ownership clusters are reported separately and never merged into verified labels.",
+    "sensitivity": "Concentration is reported with and without each exclusion class so the effect of every exclusion is visible."
+  },
+  "populations": {
+    "all_holders": "Every balance of the token on its chain at a checkpoint. Required for any measure labelled 'all holders'.",
+    "top_holders_sample": "The largest positions a source tracks (for example pump.holders, at most 100). Valid for top-N concentration when total supply is known; never for holder counts or retention of all holders.",
+    "fomo_users": "Holders who trade on FOMO (fomo.holders). Reported only as 'FOMO users'.",
+    "recent_trades_sample": "The most recent trades a tape returns. Valid only for the window it covers."
+  },
+  "components": [
+    {
+      "id": "persistence.drawdown_retention",
+      "area": "persistence",
+      "label": "Holdings retained through drawdowns",
+      "formula": "For a fixed cohort (holders at the episode peak checkpoint), sum(min(balance at trough, balance at peak)) / sum(balance at peak). Endpoint retention: a wallet that sold and rebought between checkpoints counts as retained only up to its trough balance; continuity is reported separately.",
+      "requires": ["all_holders balance checkpoints at peak and trough"],
+      "minCoverage": 0.9,
+      "maxAgeSeconds": 172800
+    },
+    {
+      "id": "persistence.balance_retention",
+      "area": "persistence",
+      "label": "Balance retention and uninterrupted holding",
+      "formula": "endpointRetention = sum(min(b1, b0)) / sum(b0) over the cohort at t0. uninterruptedShare = share of the cohort's t0 balance held by wallets whose wallet-resolved history shows the balance never fell to zero between t0 and t1. Buy 100, sell 100, buy 100 is endpoint-retained but not uninterrupted.",
+      "requires": ["all_holders balance checkpoints", "wallet-resolved transfer or trade history for continuity"],
+      "temporalResolution": "Checkpoint spacing is disclosed; exits and re-entries between checkpoints are invisible without transfer history.",
+      "minCoverage": 0.9,
+      "maxAgeSeconds": 172800
+    },
+    {
+      "id": "persistence.portfolio_allocation",
+      "area": "persistence",
+      "label": "Allocation to the token within the measured wallet portfolio",
+      "formula": "token value / value of all measured assets in the same wallets, on the measured networks only. Never described as a share of anyone's whole portfolio.",
+      "requires": ["wallet balances across measured assets (no validated capability yet)"],
+      "minCoverage": 0.8,
+      "maxAgeSeconds": 172800
+    },
+    {
+      "id": "demand.meaningful_holder_growth",
+      "area": "demand",
+      "label": "Meaningful-holder growth",
+      "formula": "entrants = wallets at or above usdThreshold at t1 that were below it at t0 AND whose token balance increased. priceCrossers (balance unchanged or lower, crossed only because price rose) are reported separately and never counted as entrants.",
+      "parameters": { "usdThreshold": 100 },
+      "requires": ["all_holders balance checkpoints", "price at both checkpoints"],
+      "minCoverage": 0.9,
+      "maxAgeSeconds": 172800
+    },
+    {
+      "id": "demand.whale_accumulation",
+      "area": "demand",
+      "label": "Accumulation by a fixed whale cohort",
+      "formula": "Cohort = top 20 non-excluded wallets at the window start, fixed for the comparison. netPurchases = sum(buy token amounts) - sum(sell token amounts) from wallet-resolved trades only. Transfers, airdrops and rebases change balances but are never purchases; balance change is reported separately.",
+      "parameters": { "cohortSize": 20 },
+      "requires": ["wallet-resolved trades", "holder ranking at window start"],
+      "minCoverage": 0.8,
+      "maxAgeSeconds": 172800
+    },
+    {
+      "id": "demand.dip_absorption",
+      "area": "demand",
+      "label": "Buying that absorbs selling during dips",
+      "formula": "Over intervals whose close fell >= 5% versus the prior close: buyVolumeUsd / sellVolumeUsd.",
+      "parameters": { "dipThreshold": 0.05 },
+      "requires": ["buy/sell volume split per interval"],
+      "minCoverage": 0.8,
+      "maxAgeSeconds": 172800
+    },
+    {
+      "id": "health.concentration",
+      "area": "market_health",
+      "label": "Concentration under documented exclusions",
+      "formula": "top10Share = sum(top 10 non-excluded balances) / circulating supply. Valid from a top-holders sample when supply is known; reported with each exclusion class toggled.",
+      "requires": ["top_holders_sample or all_holders balances", "supply", "address classifications"],
+      "minCoverage": 1.0,
+      "maxAgeSeconds": 86400
+    },
+    {
+      "id": "health.liquidity_to_size",
+      "area": "market_health",
+      "label": "Liquidity relative to size",
+      "formula": "liquidityUsd / circulatingMarketCapUsd from the same snapshot (codex.token-snapshot). Both are the source's figures for the token's top pair; circulating market cap, not FDV.",
+      "requires": ["codex.token-snapshot"],
+      "minCoverage": 1.0,
+      "maxAgeSeconds": 93600
+    },
+    {
+      "id": "relative.peer_performance",
+      "area": "relative_strength",
+      "label": "Performance against explicitly defined peers",
+      "formula": "excessReturn7d = token 7-day price return - median 7-day return of the peer set. Peers = the other open members of the token's narratives on the evaluation date, each listed. Returns come from snapshot prices taken 7 days apart (+/- 12 hours); a token or peer without both prices is excluded and the peer count is reported.",
+      "parameters": { "horizonDays": 7, "toleranceHours": 12, "minPeers": 3 },
+      "requires": ["codex.token-snapshot"],
+      "minCoverage": 0.6,
+      "maxAgeSeconds": 93600
+    }
+  ],
+  "composite": {
+    "version": "holder-composite-v0.1.0-experimental",
+    "enabled": false,
+    "disabledReason": "Seven of nine components have no validated input capability (no holder balances, wallet-resolved trades or portfolio data are collected). A score over two market-health/relative components would not measure holders.",
+    "normalization": {
+      "persistence.drawdown_retention": { "zeroAt": 0.3, "hundredAt": 0.95 },
+      "persistence.balance_retention": { "zeroAt": 0.4, "hundredAt": 0.98 },
+      "persistence.portfolio_allocation": { "zeroAt": 0.01, "hundredAt": 0.3 },
+      "demand.meaningful_holder_growth": { "zeroAt": -0.2, "hundredAt": 0.3 },
+      "demand.whale_accumulation": { "zeroAt": -0.1, "hundredAt": 0.1 },
+      "demand.dip_absorption": { "zeroAt": 0.6, "hundredAt": 1.6 },
+      "health.concentration": { "zeroAt": 0.8, "hundredAt": 0.2 },
+      "health.liquidity_to_size": { "zeroAt": 0.02, "hundredAt": 0.3 },
+      "relative.peer_performance": { "zeroAt": -0.5, "hundredAt": 0.5 }
+    },
+    "weights": {
+      "persistence.drawdown_retention": 0.15,
+      "persistence.balance_retention": 0.15,
+      "persistence.portfolio_allocation": 0.05,
+      "demand.meaningful_holder_growth": 0.15,
+      "demand.whale_accumulation": 0.1,
+      "demand.dip_absorption": 0.1,
+      "health.concentration": 0.1,
+      "health.liquidity_to_size": 0.1,
+      "relative.peer_performance": 0.1
+    },
+    "gate": { "minComponents": 7, "requiredAreas": ["persistence", "demand", "market_health", "relative_strength"], "maxBoundWidth": 15 },
+    "missingPolicy": "Missing components never raise a score: the score is published only when the gate passes, and then as a bound [missing at 0, missing at 100]; the point value is shown only when the bound is narrower than maxBoundWidth.",
+    "interpretation": "A relative description of holder structure on fixed references. Not a return probability and not a recommendation."
+  }
+}
