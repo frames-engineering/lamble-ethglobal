@@ -11,6 +11,25 @@ import { resolveFromRoot } from "../../src/lib/lambo/server/io.ts";
 export class LockBusyError extends Error {}
 
 export function withLock<T>(group: string, fn: () => T, ttlSeconds = 30 * 60): T {
+  const release = acquireLock(group, ttlSeconds);
+  try {
+    return fn();
+  } finally {
+    release();
+  }
+}
+
+/** Holds the lock until the promise settles (withLock would release when an async body returns its promise). */
+export async function withLockAsync<T>(group: string, fn: () => Promise<T>, ttlSeconds = 30 * 60): Promise<T> {
+  const release = acquireLock(group, ttlSeconds);
+  try {
+    return await fn();
+  } finally {
+    release();
+  }
+}
+
+function acquireLock(group: string, ttlSeconds: number): () => void {
   const dir = process.env.LAMBO_LOCK_DIR ?? resolveFromRoot("data/locks");
   mkdirSync(dir, { recursive: true });
   const file = path.join(dir, `${group}.lock`);
@@ -34,9 +53,5 @@ export function withLock<T>(group: string, fn: () => T, ttlSeconds = 30 * 60): T
     rmSync(file, { force: true });
     acquire();
   }
-  try {
-    return fn();
-  } finally {
-    rmSync(file, { force: true });
-  }
+  return () => rmSync(file, { force: true });
 }

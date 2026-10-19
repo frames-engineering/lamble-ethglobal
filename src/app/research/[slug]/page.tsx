@@ -12,6 +12,7 @@ import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import { apiPaths } from "@/lib/lambo/api/paths";
 import type { Evidence } from "@/lib/lambo/release/types";
+import { resolveReleaseValue } from "@/lib/lambo/api/resources";
 import { resolveCitation } from "@/lib/lambo/research/cite";
 import type { Article, ArticleBlock } from "@/lib/lambo/research/types";
 import { BadRequest, NotFound, getArticle, listArticles, loadRelease } from "@/lib/lambo/service";
@@ -203,6 +204,17 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
           <ol className="mt-2 flex flex-col gap-1 text-2xs leading-relaxed text-med">
             {cites.map((c) => {
               const r = resolveCitation(c, evidence);
+              // A release pointer to an evidence entry (curated sources) renders as that source's own link.
+              const v = r.kind === "release" ? resolveReleaseValue(c).value : undefined;
+              const ev = v && typeof v === "object" && "url" in v && "label" in v ? (v as { url: string | null; label: string }) : null;
+              if (ev?.url) {
+                return (
+                  <li key={c} id={`cite-${numbers.get(c)}`} className="scroll-mt-24">
+                    <span className="mr-1 text-low tabular-nums">{numbers.get(c)}.</span>
+                    <ExternalLink href={ev.url}>{ev.label}</ExternalLink>
+                  </li>
+                );
+              }
               return (
                 <li key={c} id={`cite-${numbers.get(c)}`} className="scroll-mt-24">
                   <span className="mr-1 text-low tabular-nums">{numbers.get(c)}.</span>

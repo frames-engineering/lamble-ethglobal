@@ -9,7 +9,7 @@ import { compactUsd, percent } from "../../format.ts";
 import { CHAIN_NAME } from "../core/identity.ts";
 import type { CoinPublic, NarrativePublic, ReleasePublic } from "../release/types.ts";
 import type { EditionDoc } from "../service.ts";
-import { editionCite, releaseCite } from "./cite.ts";
+import { changeCite, editionCite, releaseCite } from "./cite.ts";
 import type { Article, ArticleBlock, Citation } from "./types.ts";
 
 export const GENERATOR = { name: "lambo-research-templates", version: "1.0.0" };
@@ -235,8 +235,8 @@ export function dailyArticle(r: ReleasePublic, runDate: string, changes: { kind:
   ];
   if (changes.length) {
     body.push({ type: "h2", text: "Recorded changes" });
-    body.push({ type: "list", items: changes.slice(0, 12).map((x) => ({ text: x.summary, cites: [c("changes", x.seq)] })) });
-    if (changes.length > 12) body.push(p(`${changes.length - 12} more changes are in the changes feed.`, c("changes")));
+    body.push({ type: "list", items: changes.slice(0, 12).map((x) => ({ text: x.summary, cites: [changeCite(x.seq)] })) });
+    if (changes.length > 12) body.push(p(`${changes.length - 12} more changes are in the changes feed.`, changeCite(changes[12]!.seq)));
   }
   return {
     slug: `daily-${runDate}`,
@@ -371,9 +371,10 @@ export function narrativeArticle(r: ReleasePublic, n: NarrativePublic, editions:
   body.push(
     p(
       `Evidence on record: ${n.evidence.projectClaims.length} project claim(s), ${n.evidence.independent.length} independent source(s) and ${n.evidence.posts.length} post(s). ${n.evidence.note}`,
-      ...n.evidence.projectClaims.slice(0, 3).map((x) => x.id),
-      ...n.evidence.independent.slice(0, 3).map((x) => x.id),
-      ...n.evidence.posts.slice(0, 3).map((x) => x.id),
+      // Evidence indexed by the release is cited by id; curated sources are cited by their place in the narrative.
+      ...(["projectClaims", "independent", "posts"] as const).flatMap((group) =>
+        n.evidence[group].slice(0, 3).map((x, i) => (r.evidence[x.id] ? x.id : c("evidence", group, i))),
+      ),
     ),
     { type: "h2", text: "Activity" },
     {

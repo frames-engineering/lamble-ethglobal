@@ -2,6 +2,7 @@
  * Citation helpers shared by the article generator and the article page. A citation is one of:
  *   release:<releaseId>#/<json pointer>    a value inside a published release's public data
  *   edition:<weekId>/r<n>#/<json pointer>  a value inside a weekly edition revision
+ *   change:<seq>                           an event in the changes feed (data/changes/events.json)
  *   <evidence id>                          an entry in the release's evidence index
  */
 import type { Evidence } from "../release/types.ts";
@@ -18,8 +19,12 @@ function unescape(segment: string): string {
   return segment.replaceAll("~1", "/").replaceAll("~0", "~");
 }
 
+export function changeCite(seq: number): string {
+  return `change:${seq}`;
+}
+
 export interface ResolvedCitation {
-  kind: "release" | "edition" | "evidence" | "unknown";
+  kind: "release" | "edition" | "change" | "evidence" | "unknown";
   label: string;
   href: string | null;
   external: boolean;
@@ -45,6 +50,8 @@ export function resolveCitation(c: string, evidence: Record<string, Evidence>): 
   if (ed) {
     return { kind: "edition", label: `${ed[1]} r${ed[2]} · ${ed[3]!.split("/").map(unescape).join(" › ")}`, href: `/market/${ed[1]}?revision=${ed[2]}`, external: false, raw: c };
   }
+  const ch = /^change:(\d{1,9})$/.exec(c);
+  if (ch) return { kind: "change", label: `Change event #${ch[1]}`, href: `/api/v1/changes?since=${Number(ch[1]) - 1}&limit=1`, external: false, raw: c };
   const e = evidence[c];
   if (e) return { kind: "evidence", label: e.label, href: e.url, external: e.url !== null, raw: c };
   return { kind: "unknown", label: c, href: null, external: false, raw: c };

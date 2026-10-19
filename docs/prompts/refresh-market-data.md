@@ -12,14 +12,21 @@ open a pull request and merge. Without such an instruction, the boundaries below
 ## Daily routine: scripted path
 
 Run from the repository root on a fresh branch from the default branch. Every paid call
-goes through the Frames MCP; scripts never spend. A normal day costs about 450–550 credits:
-57 DefiLlama calls (~320), discovery and the 30-day Codex bars (~20), and evidence and
-story checks (~150).
+goes through the Frames MCP; planning and normalization scripts never spend. Measured cost of
+the seven runs 2026-10-12..19: 805–978 credits per run, 88–100 calls in 13–15 batches (from each
+run's `refresh-manifest.json` and request files). Treat the latest manifests as the cost
+reference, not older estimates.
 
-**Calling and saving Frames batches.** Invoke each `raw/<batch>-request.json` with
-`frames_invoke_tools`, passing its `calls`, `idempotency_key`, `max_usd` and `search_ids`
-exactly; poll `frames_get_run` until `completed`; save with
-`python3 scripts/frames-refresh/save.py <run_id> <run>/raw/<batch>.json`. Never transcribe
+**Calling and saving Frames batches.** Preferred, when `FRAMES_MCP_URL`,
+`FRAMES_MCP_AUTHORIZATION` and an owner-approved budget (`LAMBO_FRAMES_BUDGET_ID`,
+`LAMBO_FRAMES_BUDGET_USD`) are set: `npm run lambo -- collect $RUN <batch…>`. It reserves each
+batch's `max_usd` against the budget before calling, passes `calls`, `idempotency_key`, `max_usd`
+and `search_ids` unchanged, polls the run, fetches `body_ref` bodies for free and writes
+`raw/<batch>.json`; reservations are recorded in `data/collect/ledger.json`. In an interactive
+agent session instead, invoke each `raw/<batch>-request.json` with `frames_invoke_tools`, passing
+those fields exactly; poll `frames_get_run` until `completed`; save with
+`python3 scripts/frames-refresh/save.py <run_id> <run>/raw/<batch>.json` (it reads the session
+transcript, so it only works inside the session that made the call). Never transcribe
 bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_probe_tools`
 (free) and retry only those calls as the next `e2`, `e3`… batch with a new key.
 
@@ -84,6 +91,12 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
    run as `--prior-narrative`.
 5. **Import.** `node scripts/import-frames-snapshot.mjs $RUN research/lamble/20260926T175634Z/launchpad-enrichment.json $RUN/landing-metrics.json $RUN`,
    then point the importer's default paths and the registry's `references` at the new run.
+   The snapshot now only supplies launchpad presentation metadata to the release builder.
+5b. **Publish the research release.** `npm run lambo -- refresh` (offline, never spends): ingests
+   the new run into the observation store, builds and validates a release, publishes it
+   atomically, freezes any newly complete weekly edition (Mondays) and regenerates articles.
+   A rejected release leaves the previous one published; fix the cause. Commit
+   `data/releases/`, `data/editions/`, `data/changes/` and `content/research/` with the run.
 6. **Check and report.** Run the checks in section 8 and inspect the page. Write
    `$RUN/report.md`: changes, anchors, new narratives and every cluster decision with
    reasons, member changes, story changes, failures and billed credits.
@@ -249,10 +262,12 @@ underlying launches. StonkBrokers and BaseStonk had no matching indexed rows.
 
 ## 5. Refresh narrative evidence, constituents and real volume charts
 
-The first three array entries drive the landing selection; currently only two
-narratives are supported. They are a curated evidence-backed selection, not a
-market-wide top-three ranking. Do not manufacture a third or preserve yesterday's
-story as “emerging” without checking fresh evidence.
+Up to six narratives are collected and featured at a time (the cap). They are a curated,
+evidence-backed selection, not a market-wide ranking. Featured placement, collection and
+membership are separate: replacing a narrative at the cap moves it to `pausedNarratives`
+(collection paused) and keeps its memberships open with `collectionStatus` set; only an
+observed exit (`archivedMembers`, a coin leaving the story) ends a membership. Do not
+manufacture a narrative or preserve yesterday's story as “emerging” without fresh evidence.
 
 Perform token-first and story-first review daily. Revisit official source records
 and public discussion, sample both recent launches and established activity across
@@ -391,8 +406,10 @@ ongoing monitoring has begun.
 
 ## Daily call envelope and optional cadence
 
-Starting daily workload: 38 financial calls + 1 indexed launchpad query + 1 batched
-nine-pool seven-day bar query + 2 targeted social queries = **42 calls**. Add up to
+Historical starting workload (September 2026, two narratives): 38 financial calls + 1
+indexed launchpad query + 1 batched nine-pool seven-day bar query + 2 targeted social
+queries = **42 calls**. With six narratives and 57 DefiLlama calls the measured October runs
+make 88–100 calls (see the daily routine above). Add up to
 four changed narrative evidence pages (46 total), and at most two focused discovery
 calls if needed (48 total), subject to the invocation's authorization. Expand only
 for an identified coverage need; don't spend the entire run rediscovering tools.

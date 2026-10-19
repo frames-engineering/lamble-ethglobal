@@ -13,6 +13,7 @@ import {
   type ArticleSummary,
   type EditionDoc,
   type LoadedRelease,
+  allChanges,
   editionIndex,
   getEdition,
   holderCoverage,
@@ -358,7 +359,12 @@ export function articleBundle(a: Article) {
       citedValues: Object.fromEntries(
         [...cites].map((c) => {
           const label = resolveCitation(c, evidence);
-          return [c, label.kind === "release" ? resolveReleaseValue(c) : { found: label.kind !== "unknown", reference: { kind: label.kind, label: label.label, href: label.href } }];
+          if (label.kind === "release") return [c, resolveReleaseValue(c)];
+          if (label.kind === "change") {
+            const event = allChanges().find((x) => `change:${x.seq}` === c);
+            return [c, event ? { found: true, value: event } : { found: false }];
+          }
+          return [c, { found: label.kind !== "unknown", reference: { kind: label.kind, label: label.label, href: label.href } }];
         }),
       ),
     }),

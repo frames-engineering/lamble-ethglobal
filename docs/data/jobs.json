@@ -9,8 +9,16 @@
     "serving": "Page views, builds and API reads never run a job and never make a paid call."
   },
   "codexBars": {
-    "fields": ["t", "volume"],
-    "ohlcFields": ["o", "h", "l", "c"],
+    "fields": [
+      "t",
+      "volume"
+    ],
+    "ohlcFields": [
+      "o",
+      "h",
+      "l",
+      "c"
+    ],
     "ohlcEnabled": true,
     "ohlcStatus": "Field names verified against the retained official getTokenBars example (research/lamble/20260926T170103Z/raw/codex-gettokenbars.md lines 113-120); not yet seen in a live Frames response. The same paid calls carry them (no extra calls). If the first run's c1 or c2 returns GraphQL errors naming these fields, set ohlcEnabled to false, re-run plan.py collect and retry the bars as the next c batch.",
     "maxAliasesPerCall": 30,
@@ -25,13 +33,35 @@
       "cron": "57 5 * * *",
       "scheduleStatus": "active-external",
       "scheduleEvidence": "A Claude Code scheduled routine outside this repository opens and merges one 'Daily refresh <date>' pull request per day (git log: 2026-10-02 to 2026-10-19, none on 2026-10-14). Its prompt, budget and identity are not stored here and were not inspected.",
-      "capabilities": ["codex.token-discovery", "codex.token-metadata", "codex.token-snapshot", "codex.token-bars", "codex.launchpad-activity", "defillama.fees", "firecrawl.scrape", "x.search"],
+      "capabilities": [
+        "codex.token-discovery",
+        "codex.token-metadata",
+        "codex.token-snapshot",
+        "codex.token-bars",
+        "codex.launchpad-activity",
+        "defillama.fees",
+        "firecrawl.scrape",
+        "x.search"
+      ],
       "scope": "Registry poolUniverse (current constituents), 19 venues, dailyEvidence pages and searches.",
-      "budget": { "maxCreditsPerRun": 1200, "typicalCredits": "450-980 (2026-10-02..19 billed 456-978)", "authorization": "routine prompt" },
-      "pagination": { "maxBatches": 20, "maxCallsPerBatch": 10 },
-      "freshness": { "financialSettleHours": 4, "chartSafetyMarginHours": 1, "overlapHours": 3 },
+      "budget": {
+        "maxCreditsPerRun": 1200,
+        "typicalCredits": "450-980 (2026-10-02..19 billed 456-978)",
+        "authorization": "routine prompt"
+      },
+      "pagination": {
+        "maxBatches": 20,
+        "maxCallsPerBatch": 10
+      },
+      "freshness": {
+        "financialSettleHours": 4,
+        "chartSafetyMarginHours": 1,
+        "overlapHours": 3
+      },
       "writerGroup": "research-runs",
-      "outputs": ["research/lamble/<run>/"]
+      "outputs": [
+        "research/lamble/<run>/"
+      ]
     },
     {
       "id": "x4o2-coin-panels",
@@ -41,13 +71,35 @@
       "cron": null,
       "scheduleStatus": "configured",
       "scheduleEvidence": "Not installed. Capabilities are candidates; no budget approved.",
-      "capabilities": ["pump.coin", "pump.holders", "pump.candles", "fomo.token", "fomo.holders", "fomo.theses", "fomo.candles", "fomo.developers"],
+      "capabilities": [
+        "pump.coin",
+        "pump.holders",
+        "pump.candles",
+        "fomo.token",
+        "fomo.holders",
+        "fomo.theses",
+        "fomo.candles",
+        "fomo.developers"
+      ],
       "scope": "Open-membership coins only; Pump routes for Solana pump.fun-origin coins; FOMO routes for chains each descriptor lists.",
-      "budget": { "maxCreditsPerRun": 0, "typicalCredits": "~6 credits per call x up to 8 calls per coin; quote with frames_probe_tools first", "authorization": "none approved" },
-      "pagination": { "fomoCandlesMaxPages": 3, "fomoFeedMaxPages": 2, "pumpCandlesCount": 720, "pumpCandlesRes": "1h" },
-      "freshness": { "maxAgeSeconds": 21600 },
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "~6 credits per call x up to 8 calls per coin; quote with frames_probe_tools first",
+        "authorization": "none approved"
+      },
+      "pagination": {
+        "fomoCandlesMaxPages": 3,
+        "fomoFeedMaxPages": 2,
+        "pumpCandlesCount": 720,
+        "pumpCandlesRes": "1h"
+      },
+      "freshness": {
+        "maxAgeSeconds": 21600
+      },
       "writerGroup": "research-runs",
-      "outputs": ["research/lamble/<run>/raw/x*.json"]
+      "outputs": [
+        "research/lamble/<run>/raw/x*.json"
+      ]
     },
     {
       "id": "provider-health",
@@ -57,13 +109,25 @@
       "cron": "15 5 * * *",
       "scheduleStatus": "manual",
       "scheduleEvidence": "Run by an operator or agent (scripts/lambo/providers.ts health --plan prints the probe list).",
-      "capabilities": ["*"],
+      "capabilities": [
+        "*"
+      ],
       "scope": "Up to 5 probes per call; probe volume is rate-limited per project per hour.",
-      "budget": { "maxCreditsPerRun": 0, "typicalCredits": "0 (free)", "authorization": "not required" },
-      "pagination": { "maxProbeIdsPerCall": 5 },
-      "freshness": { "maxAgeSeconds": 86400 },
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0 (free)",
+        "authorization": "not required"
+      },
+      "pagination": {
+        "maxProbeIdsPerCall": 5
+      },
+      "freshness": {
+        "maxAgeSeconds": 86400
+      },
       "writerGroup": "provider-health",
-      "outputs": ["data/provider-health/<date>.json"]
+      "outputs": [
+        "data/provider-health/<date>.json"
+      ]
     },
     {
       "id": "ingest",
@@ -75,11 +139,17 @@
       "scheduleEvidence": "npm run lambo -- ingest",
       "capabilities": [],
       "scope": "research/lamble/*",
-      "budget": { "maxCreditsPerRun": 0, "typicalCredits": "0", "authorization": "not required" },
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required"
+      },
       "pagination": {},
       "freshness": {},
       "writerGroup": "store",
-      "outputs": ["data/lambo.sqlite"]
+      "outputs": [
+        "data/lambo.sqlite"
+      ]
     },
     {
       "id": "daily-release",
@@ -91,11 +161,26 @@
       "scheduleEvidence": "npm run lambo -- release",
       "capabilities": [],
       "scope": "All tracked coins and narratives.",
-      "budget": { "maxCreditsPerRun": 0, "typicalCredits": "0", "authorization": "not required" },
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required"
+      },
       "pagination": {},
-      "freshness": { "componentMaxAgeSeconds": { "price": 93600, "volume": 93600, "fees": 172800, "holders": 21600, "membership": 0 } },
+      "freshness": {
+        "componentMaxAgeSeconds": {
+          "price": 93600,
+          "volume": 93600,
+          "fees": 172800,
+          "holders": 21600,
+          "membership": 0
+        }
+      },
       "writerGroup": "releases",
-      "outputs": ["data/releases/<releaseId>/", "data/releases/published.json"]
+      "outputs": [
+        "data/releases/<releaseId>/",
+        "data/releases/published.json"
+      ]
     },
     {
       "id": "weekly-aggregation",
@@ -107,11 +192,20 @@
       "scheduleEvidence": "npm run lambo -- weekly",
       "capabilities": [],
       "scope": "Calendar week and its comparison week.",
-      "budget": { "maxCreditsPerRun": 0, "typicalCredits": "0", "authorization": "not required" },
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required"
+      },
       "pagination": {},
-      "freshness": { "requiredDailyRunsPerWeek": 5, "financialAnchorMustReachWeekEnd": true },
+      "freshness": {
+        "requiredDailyRunsPerWeek": 5,
+        "financialAnchorMustReachWeekEnd": true
+      },
       "writerGroup": "releases",
-      "outputs": ["data/editions/<week>/r<n>.json"]
+      "outputs": [
+        "data/editions/<week>/r<n>.json"
+      ]
     },
     {
       "id": "research-preparation",
@@ -123,11 +217,17 @@
       "scheduleEvidence": "npm run lambo -- research",
       "capabilities": [],
       "scope": "Daily factual changes (auto), weekly edition, deep dives (reviewed).",
-      "budget": { "maxCreditsPerRun": 0, "typicalCredits": "0", "authorization": "not required" },
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required"
+      },
       "pagination": {},
       "freshness": {},
       "writerGroup": "releases",
-      "outputs": ["content/research/"]
+      "outputs": [
+        "content/research/"
+      ]
     },
     {
       "id": "notification-delivery",
@@ -136,14 +236,30 @@
       "cadence": "after daily-release",
       "cron": null,
       "scheduleStatus": "configured",
-      "scheduleEvidence": "No destinations configured; no Telegram bot token. npm run lambo -- deliver",
+      "scheduleEvidence": "Disabled: notifications.json enabled=false, no destinations, LAMBO_DELIVERY_ENABLED unset. npm run lambo -- deliver",
       "capabilities": [],
-      "scope": "Destinations in the commerce store with verified_at and consent_at set and not revoked.",
-      "budget": { "maxCreditsPerRun": 0, "typicalCredits": "0", "authorization": "not required", "maxDeliveriesPerDestinationPerDay": 200 },
-      "pagination": { "maxAttempts": 6, "backoffSeconds": [60, 300, 900, 3600, 21600] },
+      "scope": "Destinations in docs/data/notifications.json with verifiedAt and consentAt recorded and no revokedAt; secrets from the environment variable each destination names.",
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required",
+        "maxDeliveriesPerDestinationPerDay": 200
+      },
+      "pagination": {
+        "maxAttempts": 6,
+        "backoffSeconds": [
+          60,
+          300,
+          900,
+          3600,
+          21600
+        ]
+      },
       "freshness": {},
       "writerGroup": "delivery",
-      "outputs": ["commerce store delivery_attempts"]
+      "outputs": [
+        "data/delivery/state.json (cursor, attempts, backoff per destination)"
+      ]
     }
   ]
 }
