@@ -1,0 +1,600 @@
+{
+ "date": "2026-10-19",
+ "probedAt": "2026-10-19T16:40:00Z",
+ "method": "frames_probe_tools (free, unpaid 402 challenge) and frames_get_tool (free)",
+ "credits": 0,
+ "results": [
+  {
+   "toolId": "bazaar.pump-x4o2-com-v1-coins-trending",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 150,
+      "default": 50
+     }
+    },
+    "required": []
+   }
+  },
+  {
+   "toolId": "bazaar.pump-x4o2-com-v1-coins-feed",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 150,
+      "default": 50
+     }
+    },
+    "required": []
+   }
+  },
+  {
+   "toolId": "bazaar.pump-x4o2-com-v1-coin-mint",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "mint": {
+      "type": "string",
+      "description": "Token mint address (base58)"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     }
+    },
+    "required": [
+     "mint"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-holders",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "mint": {
+      "type": "string",
+      "description": "Token mint address (base58)"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 50
+     }
+    },
+    "required": [
+     "mint"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-trades",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "mint": {
+      "type": "string",
+      "description": "Token mint address (base58)"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 200,
+      "default": 100
+     },
+     "minUsd": {
+      "type": "number",
+      "minimum": 0
+     }
+    },
+    "required": [
+     "mint"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-candles",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "mint": {
+      "type": "string",
+      "description": "Token mint address (base58)"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "res": {
+      "type": "string",
+      "enum": [
+       "1m",
+       "5m",
+       "15m",
+       "30m",
+       "1h",
+       "4h",
+       "6h",
+       "12h",
+       "1d"
+      ]
+     },
+     "count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+     },
+     "measure": {
+      "type": "string",
+      "enum": [
+       "price_usd",
+       "price_sol",
+       "market_cap_usd",
+       "market_cap_sol"
+      ]
+     }
+    },
+    "required": [
+     "mint"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.fomo-x4o2-com-v1-feed",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "types": {
+      "type": "string",
+      "description": "Comma-separated event types: large_buy, large_sell, large_transfer_in, large_transfer_out, single_user_transfer_out, single_user_sell, thesis_created, multi_user_buy, multi_user_sell, new_token_listing, price_since_listing, user_trade_profit_milestone, user_with_smart_following, manual"
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 50
+     },
+     "cursor": {
+      "type": "string"
+     }
+    },
+    "required": []
+   }
+  },
+  {
+   "toolId": "bazaar.fomo-x4o2-com-v1-tokens-list",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "list": {
+      "type": "string",
+      "enum": [
+       "trending",
+       "most-held",
+       "graduated",
+       "community",
+       "verified"
+      ]
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 50
+     }
+    },
+    "required": [
+     "list"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "chain": {
+      "type": "string",
+      "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+     },
+     "address": {
+      "type": "string"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     }
+    },
+    "required": [
+     "chain",
+     "address"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "chain": {
+      "type": "string",
+      "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+     },
+     "address": {
+      "type": "string"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     }
+    },
+    "required": [
+     "chain",
+     "address"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-theses",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "chain": {
+      "type": "string",
+      "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+     },
+     "address": {
+      "type": "string"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 50
+     },
+     "thread": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "chain",
+     "address"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "chain": {
+      "type": "string",
+      "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+     },
+     "address": {
+      "type": "string"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "period": {
+      "type": "string",
+      "enum": [
+       "5m",
+       "30m",
+       "1h",
+       "4h",
+       "12h"
+      ],
+      "default": "1h"
+     },
+     "from": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "unix ms"
+     },
+     "to": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "unix ms"
+     }
+    },
+    "required": [
+     "chain",
+     "address"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-developers",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "chain": {
+      "type": "string",
+      "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+     },
+     "address": {
+      "type": "string"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     }
+    },
+    "required": [
+     "chain",
+     "address"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "chain": {
+      "type": "string",
+      "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+     },
+     "address": {
+      "type": "string"
+     },
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 50
+     },
+     "threshold": {
+      "type": "number",
+      "minimum": 0
+     }
+    },
+    "required": [
+     "chain",
+     "address"
+    ]
+   }
+  },
+  {
+   "toolId": "bazaar.pump-x4o2-com-v1-coins-search",
+   "live": true,
+   "status": 402,
+   "quotePriceUsd": 0.001,
+   "payable": true,
+   "liveInputSchema": {
+    "type": "object",
+    "properties": {
+     "maxAge": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "stale": {
+      "type": "integer",
+      "enum": [
+       0,
+       1
+      ]
+     },
+     "q": {
+      "type": "string",
+      "description": "up to 100 characters"
+     },
+     "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 20
+     },
+     "offset": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000
+     }
+    },
+    "required": []
+   }
+  }
+ ],
+ "notes": [
+  "Live 402 schemas use integers for limit/count/maxAge/stale and numbers for minUsd/threshold on every x4o2 route; the catalog descriptors (frames_get_tool) for pump coin/holders/trades/candles/search and fomo token/holders/theses/activity declared strings.",
+  "Every FOMO route's live schema lists robinhood; the descriptors for token/holders/theses/activity did not.",
+  "Frames probe notes (other projects' calls): fomo.feed 'returned 4 feed items, exceeding the requested limit of 3' (2026-10-19), consistent with the always-added pinned manual post. Not our observation; recorded as context only.",
+  "Quotes are seller prices before the Frames fee and are not binding."
+ ]
+}

@@ -18,6 +18,8 @@ Usage:
 """
 import argparse, datetime as dt, json, pathlib
 
+from catalog import search_ids, tool
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 ap = argparse.ArgumentParser(); ap.add_argument('run'); ap.add_argument('step', choices=['names', 'summary', 'stories']); ap.add_argument('--prior')
 args = ap.parse_args()
@@ -25,7 +27,7 @@ P = pathlib.Path(args.run).resolve()
 NOW = int(dt.datetime.strptime(P.name, '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc).timestamp())
 reg = json.loads((ROOT / 'docs/prompts/refresh-market-data.sources.json').read_text())
 NETWORK_CHAIN = {1399811149: 'solana', 56: 'bsc', 4663: 'robinhood', 8453: 'base', 1: 'ethereum', 42161: 'arbitrum', 143: 'monad', 5042: 'arc', 196: 'xlayer', 130: 'unichain'}
-CODEX = reg['marketAndActivityTool']
+CODEX, XSEARCH = tool('codex.token-metadata'), tool('x.search')  # tool IDs live in docs/data/providers.json
 
 
 def read(p): return json.loads(pathlib.Path(p).read_text())
@@ -53,7 +55,7 @@ if args.step == 'names':
     parts = [sides[i:i + 60] for i in range(0, len(sides), 60)]
     q = '{ ' + ' '.join(f't{i}:tokens(ids:[' + ','.join(f'{{address:"{a}",networkId:{n}}}' for a, n in part) +
                         ']){address name symbol networkId info{description} launchpad{launchpadName}}' for i, part in enumerate(parts)) + ' }'
-    req = dict(calls=[dict(id=CODEX, args=dict(query=q))], search_ids=['srch_0292469d-885f-450d-b251-260690bfa135'],
+    req = dict(calls=[dict(id=CODEX, args=dict(query=q))], search_ids=search_ids('codex.token-metadata'),
                idempotency_key=f'lamble-{P.name}-d2', max_usd=0.01)
     (P / 'raw/d2-request.json').write_text(json.dumps(req, separators=(',', ':')) + '\n')
     print(json.dumps(dict(lookups=len(sides), request='raw/d2-request.json')))
@@ -71,8 +73,8 @@ if args.step == 'stories':  # story-first check of today's clusters: theme word 
     if not words_: print(json.dumps(dict(stories=0))); raise SystemExit
     n = 2
     while (P / f'raw/e{n}-request.json').exists(): n += 1
-    req = dict(calls=[dict(id='bazaar.twitter-use-x402atlas-com-search', args=dict(words=w)) for w in words_],
-               search_ids=['srch_5cb35fee-4f86-413f-954c-78fc2c92631f'], idempotency_key=f'lamble-{P.name}-e{n}', max_usd=0.1)
+    req = dict(calls=[dict(id=XSEARCH, args=dict(words=w)) for w in words_],
+               search_ids=search_ids('x.search'), idempotency_key=f'lamble-{P.name}-e{n}', max_usd=0.1)
     (P / f'raw/e{n}-request.json').write_text(json.dumps(req, separators=(',', ':')) + '\n')
     print(json.dumps(dict(stories=len(words_), request=f'raw/e{n}-request.json', words=words_)))
     raise SystemExit

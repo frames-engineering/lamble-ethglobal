@@ -11,6 +11,8 @@ story notes, and rationales for new members. Everything else is computed here.
 """
 import argparse, csv, datetime as dt, hashlib, json, math, pathlib, re
 
+from catalog import tool, upstream_names
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 ap = argparse.ArgumentParser()
 ap.add_argument('run'); ap.add_argument('--prior', required=True); ap.add_argument('--prior-narrative')
@@ -50,8 +52,7 @@ curation = read('curation.json')
 runs = {k: read(f'raw/{k}.json') for k in BATCHES}
 requests = {k: read(f'raw/{k}-request.json') for k in BATCHES}
 assert all(r['status'] == 'completed' for r in runs.values()) and len({r['run_id'] for r in runs.values()}) == len(runs)
-UPSTREAM = {'mpp.codex.post.graphql': 'Codex', registry['financialTool']: 'DefiLlama via Atlas',
-            'mpp.firecrawl.post.v1-scrape': 'Firecrawl / target website', 'bazaar.twitter-use-x402atlas-com-search': 'X via Atlas'}
+UPSTREAM = upstream_names()  # tool ID -> provider name, from docs/data/providers.json
 evidence, eid, outcomes = [], {}, []
 for name, r in runs.items():
     for c in r['result']['calls']:
@@ -198,6 +199,22 @@ for batch, c in c1_calls:
             assert x['createdAt'] <= RUNTIME_TS, f'{x["address"]} created after the run started'  # refunds often cite "future" dates; check them
             created[tid_of[(x['address'], x['networkId'])]] = x['createdAt']
 assert {u['tokenId'] for u in universe} <= set(bars), 'every constituent needs token bars'
+
+
+def check_ohlc(b, label):  # o/h/l/c are requested when jobs.json codexBars.ohlcEnabled; ingest (scripts/lambo) stores them
+    if not any(k in b for k in 'ohlc'): return 0
+    assert all(k in b and len(b[k]) == len(b['t']) for k in 'ohlc'), f'{label}: incomplete OHLC arrays'
+    n = 0
+    for i in range(len(b['t'])):
+        q = [None if b[k][i] is None else float(b[k][i]) for k in 'ohlc']
+        if None in q: continue
+        o, h, l, c = q
+        assert l >= 0 and h >= l and l <= min(o, c) * (1 + 1e-9) and h >= max(o, c) * (1 - 1e-9), f'{label}: inconsistent OHLC at {b["t"][i]}'
+        n += 1
+    return n
+
+
+ohlc_bars = sum(check_ohlc(b, f'{tid} hourly') for tid, b in bars.items())
 grid = list(range(T - 7 * 86400, T, 3600))
 series, precreation = {}, []
 for u in universe:
@@ -223,6 +240,7 @@ if DAILY:
             tid = tid_of.get((addr, int(net)))
             if tid is None: continue
             b = data[alias]; assert b is not None and len(b['t']) == len(set(b['t'])) and all(t % 86400 == 0 and t < D for t in b['t'])
+            ohlc_bars += check_ohlc(b, f'{tid} daily')
             vals = dict(zip(b['t'], b['volume'])); out = []
             for t in DAYS:
                 v = vals.get(t); cr = created.get(tid)
@@ -421,7 +439,7 @@ validation = dict(as_of=RUNTIME, passed=True, financialAnchor=iso(F), chartAncho
                   financialChecks=checks, deliveryDisputes=disputes, financialRevisionsProviders=len(revisions),
                   financialComplete30dRows=sum(all(p['value'] is not None for p in x['metrics']['history30d']) for x in launchpads),
                   indexedLaunchpadRows=fl['count'], activityVenues=len(observations), pools=len(universe), precreationZeroBuckets=len(precreation),
-                  hourlyOverlapWithPriorRun=overlap, volumeMethod=VOLUME_METHOD,
+                  hourlyOverlapWithPriorRun=overlap, volumeMethod=VOLUME_METHOD, ohlcBars=ohlc_bars,
                   volumeMethodChanged=sorted(prior_method - {VOLUME_METHOD}) or None, narrativeCount=len(narratives), constituentCount=len(universe),
                   staleMarketSnapshots=[t['id'] for t in tokens if t.get('marketSnapshotStale')],
                   dailyBars=dict(end=iso(D), days=30, reconciledDays=len(reconcile), maxRelativeGap=max((r['relativeGap'] for r in reconcile), default=None),

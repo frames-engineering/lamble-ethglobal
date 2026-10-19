@@ -20,6 +20,8 @@ Each batch gets a stable idempotency key derived from the run id.
 """
 import datetime as dt, json, pathlib, sys
 
+from catalog import codex_bar_fields, search_ids, tool
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 run = pathlib.Path(sys.argv[1]).resolve(); stage = sys.argv[2]
 assert stage in ('discover', 'collect'), 'stage must be discover or collect'
@@ -28,9 +30,14 @@ NOW = int(runtime.timestamp())
 T = NOW // 3600 * 3600 - 3600  # one complete-hour safety margin
 reg = json.loads((ROOT / 'docs/prompts/refresh-market-data.sources.json').read_text())
 (run / 'raw').mkdir(parents=True, exist_ok=True)
-FIN, CODEX = reg['financialTool'], reg['marketAndActivityTool']
-SEARCH = {'fin': 'srch_1176fd9b-8396-4f26-8dc8-37abc8fc6eeb', 'codex': 'srch_0292469d-885f-450d-b251-260690bfa135',
-          'scrape': 'srch_bb1aaf8a-5504-476b-a652-d896325be6e1', 'x': 'srch_5cb35fee-4f86-413f-954c-78fc2c92631f'}
+# Tool IDs and search attribution come from the provider catalog (docs/data/providers.json); nothing is hardcoded here.
+FIN, CODEX = tool('defillama.fees'), tool('codex.token-bars')
+SCRAPE, XSEARCH = tool('firecrawl.scrape'), tool('x.search')
+assert CODEX == tool('codex.token-snapshot') == tool('codex.token-discovery') == tool('codex.launchpad-activity') == tool('codex.token-metadata')
+SEARCH = {'fin': search_ids('defillama.fees'), 'codex': search_ids('codex.token-bars'),
+          'scrape': search_ids('firecrawl.scrape'), 'x': search_ids('x.search')}
+BAR_FIELDS, MAX_ALIASES = codex_bar_fields()  # jobs.json codexBars: t volume, plus o h l c when ohlcEnabled
+BAR_SELECTION = '{' + ' '.join(BAR_FIELDS) + '}'
 SNAPSHOT_FIELDS = 'results{pair{address token0 token1 networkId createdAt} priceUSD circulatingMarketCap change24 volume24 liquidity}'
 
 
@@ -59,40 +66,44 @@ if stage == 'discover':
     calls.append(dict(id=CODEX, args=dict(query=f'{{ trending:filterTokens(filters:{{launchpadName:{every},liquidity:{{gt:{d["minLiquidityUsd"]}}}}},'
                                                  f'rankings:[{{attribute:trendingScore24,direction:DESC}}],limit:{d["trendingLimit"]}){{{SNAPSHOT_FIELDS}}} }}')))
     calls.append(snapshot(universe))
-    write('d1', calls, [SEARCH['codex']], 0.04)
-    ev = [dict(id='mpp.firecrawl.post.v1-scrape', args=dict(url=u, formats=['markdown'])) for u in reg['dailyEvidence']['pages']]
-    ev += [dict(id='bazaar.twitter-use-x402atlas-com-search', args=dict(words=w)) for w in reg['dailyEvidence']['xSearches'] + d.get('trendQueries', [])]
+    write('d1', calls, SEARCH['codex'], 0.04)
+    ev = [dict(id=SCRAPE, args=dict(url=u, formats=['markdown'])) for u in reg['dailyEvidence']['pages']]
+    ev += [dict(id=XSEARCH, args=dict(words=w)) for w in reg['dailyEvidence']['xSearches'] + d.get('trendQueries', [])]
     assert len(ev) <= 10, 'dailyEvidence pages + xSearches + discovery.trendQueries exceed one batch of 10; trim the registry'
-    write('e1', ev, [SEARCH['scrape'], SEARCH['x']], 0.13)
+    write('e1', ev, SEARCH['scrape'] + SEARCH['x'], 0.13)
     print(json.dumps(dict(run=run.name, stage=stage, batches=['d1', 'e1'], calls=len(calls) + len(ev))))
 else:
     fin = [dict(id=FIN, args=dict(protocol=v['providerSlug'], dataType=k, excludeTotalDataChart='false', excludeTotalDataChartBreakdown='true'))
            for v in reg['venues'] for k in ('dailyFees', 'dailyRevenue', 'dailySupplySideRevenue')]
     for i in range(0, len(fin), 10):
-        write(f'f{i // 10 + 1}', fin[i:i + 10], [SEARCH['fin']], 0.12)
+        write(f'f{i // 10 + 1}', fin[i:i + 10], SEARCH['fin'], 0.12)
     launchpads = ('{ filterLaunchpads(scope: global, filters: {isTestnet: false}, limit: 200, offset: 0) { count offset results { id launchpadName displayName '
                   'launchpadUrl launchpadProtocol isThirdParty networkIds timestamp tokensCreated24 tokensCreated1w tokensCompleted24 tokensCompleted1w '
                   'tokensMigrated24 totalFees24 pre { totalFees24 } post { totalFees24 } } } }')
     calls = [dict(id=CODEX, args=dict(query=launchpads))]
     # Token-level bars aggregate every pool a coin trades in (Codex getTokenBars; currencyCode is an enum here).
     for network in sorted({u['networkId'] for u in universe}, key=lambda n: (n != 1399811149, n)):
-        bars = ' '.join(f'p{universe.index(u)}:getTokenBars(symbol:"{u["address"]}:{network}",from:{T - 7 * 86400},to:{T - 1},resolution:"60",'
-                        f'currencyCode:USD,removeEmptyBars:false){{t volume}}' for u in universe if u['networkId'] == network)
-        calls.append(dict(id=CODEX, args=dict(query='{ ' + bars + ' }')))
+        members = [u for u in universe if u['networkId'] == network]
+        for k in range(0, len(members), MAX_ALIASES):  # bound body size (Frames stores at most 1,000,000 characters per body)
+            bars = ' '.join(f'p{universe.index(u)}:getTokenBars(symbol:"{u["address"]}:{network}",from:{T - 7 * 86400},to:{T - 1},resolution:"60",'
+                            f'currencyCode:USD,removeEmptyBars:false){BAR_SELECTION}' for u in members[k:k + MAX_ALIASES])
+            calls.append(dict(id=CODEX, args=dict(query='{ ' + bars + ' }')))
     calls.append(snapshot(universe))
     ids = ','.join(f'{{address:"{u["address"]}",networkId:{u["networkId"]}}}' for u in universe)
     calls.append(dict(id=CODEX, args=dict(query=f'{{ created:tokens(ids:[{ids}]){{address networkId createdAt}} }}')))  # zero-fill boundary
     assert len(calls) <= 10, 'too many networks for one Codex batch; split c1'
-    write('c1', calls, [SEARCH['codex']], 0.05)
+    write('c1', calls, SEARCH['codex'], 0.05)
     # 30 complete UTC days of all-pool daily bars ending at the last midnight on or before the chart anchor.
     # Codex omits the bucket that starts exactly at `from`, so ask from one day earlier; normalize.py keeps exactly 30 days.
     D = T // 86400 * 86400; daily = []
     for network in sorted({u['networkId'] for u in universe}, key=lambda n: (n != 1399811149, n)):
-        bars = ' '.join(f'q{universe.index(u)}:getTokenBars(symbol:"{u["address"]}:{network}",from:{D - 31 * 86400},to:{D - 1},resolution:"1D",'
-                        f'currencyCode:USD,removeEmptyBars:false){{t volume}}' for u in universe if u['networkId'] == network)
-        daily.append(dict(id=CODEX, args=dict(query='{ ' + bars + ' }')))
+        members = [u for u in universe if u['networkId'] == network]
+        for k in range(0, len(members), MAX_ALIASES):
+            bars = ' '.join(f'q{universe.index(u)}:getTokenBars(symbol:"{u["address"]}:{network}",from:{D - 31 * 86400},to:{D - 1},resolution:"1D",'
+                            f'currencyCode:USD,removeEmptyBars:false){BAR_SELECTION}' for u in members[k:k + MAX_ALIASES])
+            daily.append(dict(id=CODEX, args=dict(query='{ ' + bars + ' }')))
     assert len(daily) <= 10
-    write('c2', daily, [SEARCH['codex']], 0.03)
+    write('c2', daily, SEARCH['codex'], 0.03)
     fb = [f'f{i // 10 + 1}' for i in range(0, len(fin), 10)]
     print(json.dumps(dict(run=run.name, stage=stage, chartAnchor=dt.datetime.fromtimestamp(T, dt.timezone.utc).isoformat(),
                           dailyEnd=dt.datetime.fromtimestamp(D, dt.timezone.utc).isoformat(),

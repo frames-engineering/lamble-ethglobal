@@ -1,0 +1,1743 @@
+{
+  "generatedFrom": "docs/data/providers.json",
+  "catalogUpdatedAt": "2026-10-19T16:40:00Z",
+  "note": "Coverage a capability could provide by its descriptor. 'enabled' capabilities feed releases; candidates do not until validated. Holder panels are samples (top positions or FOMO users), never all-holder coverage.",
+  "capabilities": [
+    {
+      "key": "defillama.fees",
+      "provider": "defillama",
+      "toolId": "bazaar.defillama-use-x402atlas-com-fee-summary",
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "population": null,
+      "coverage": "All activity captured by the mapped DefiLlama adapter; adapter scope differs per venue (registry venues[].scope). Use totalDataChart, never total24h.",
+      "freshnessMaxAgeSeconds": 172800,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Displayed on the existing public site since 2026-09-26; provider terms not reviewed in this repository."
+      },
+      "lastVerifiedAt": "2026-10-19T05:57:54Z",
+      "blockedReason": null,
+      "uses": [
+        "launchpad fees, revenue and creator earnings",
+        "weekly fee totals"
+      ]
+    },
+    {
+      "key": "codex.launchpad-activity",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "population": null,
+      "coverage": "Beta provider-indexed counts per named launchpad. Exact cutoffs, creation-event completeness and finality are not independently established. Rolling windows: never sum into calendar weeks.",
+      "freshnessMaxAgeSeconds": 172800,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Displayed on the existing public site; Codex terms not reviewed in this repository."
+      },
+      "lastVerifiedAt": "2026-10-19T05:57:54Z",
+      "blockedReason": null,
+      "uses": [
+        "indexed launches and completions per venue"
+      ]
+    },
+    {
+      "key": "codex.token-bars",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "population": null,
+      "coverage": "All indexed pools of the token, aggregated by Codex (from mid-2025). Missing buckets are unknown, never zero, except whole buckets before the token's creation time (precreation-zero-provenance.json).",
+      "freshnessMaxAgeSeconds": 93600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Narrative volume charts on the existing public site; terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T05:57:54Z",
+      "blockedReason": null,
+      "uses": [
+        "narrative and coin volume (hourly, daily)",
+        "coin price candles once o/h/l/c are live-verified"
+      ]
+    },
+    {
+      "key": "codex.token-snapshot",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "population": null,
+      "coverage": "One row per token; the token is identified through pair.token0/token1 because Frames redacts response keys named token.",
+      "freshnessMaxAgeSeconds": 93600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Example-token market caps on the existing site; terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T05:57:54Z",
+      "blockedReason": null,
+      "uses": [
+        "coin price, circulating market cap, liquidity snapshots"
+      ]
+    },
+    {
+      "key": "codex.token-discovery",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "population": null,
+      "coverage": "Ranked sweep with liquidity and volume floors: a sample of active tokens on covered launchpads, not a census.",
+      "freshnessMaxAgeSeconds": 93600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Discovery input; not displayed directly."
+      },
+      "lastVerifiedAt": "2026-10-19T05:57:54Z",
+      "blockedReason": null,
+      "uses": [
+        "narrative candidate discovery"
+      ]
+    },
+    {
+      "key": "codex.token-metadata",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "population": null,
+      "coverage": "Per requested token.",
+      "freshnessMaxAgeSeconds": 2592000,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Names and creation times shown on the existing site; terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T05:57:54Z",
+      "blockedReason": null,
+      "uses": [
+        "token names, descriptions, origin launchpad attribution, creation times"
+      ]
+    },
+    {
+      "key": "firecrawl.scrape",
+      "provider": "firecrawl",
+      "toolId": "mpp.firecrawl.post.v1-scrape",
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [],
+      "population": null,
+      "coverage": "One page as rendered for the scraper. App shells, bot checks and geoblocks are not usable evidence.",
+      "freshnessMaxAgeSeconds": 604800,
+      "rights": {
+        "storage": "unknown",
+        "display": "link-only",
+        "redistribution": "prohibited",
+        "notes": "Third-party page content: cite by URL and paraphrase; never redistribute scraped text."
+      },
+      "lastVerifiedAt": "2026-10-19T05:57:54Z",
+      "blockedReason": null,
+      "uses": [
+        "narrative evidence pages"
+      ]
+    },
+    {
+      "key": "x.search",
+      "provider": "x-atlas",
+      "toolId": "bazaar.twitter-use-x402atlas-com-search",
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [],
+      "population": null,
+      "coverage": "Top-results convenience sample; no mention totals, no historical mindshare. Reposts of one claim are one claim.",
+      "freshnessMaxAgeSeconds": 604800,
+      "rights": {
+        "storage": "unknown",
+        "display": "link-only",
+        "redistribution": "prohibited",
+        "notes": "Cite posts by URL with a faithful paraphrase; do not redistribute post text in paid exports."
+      },
+      "lastVerifiedAt": "2026-10-19T05:57:54Z",
+      "blockedReason": null,
+      "uses": [
+        "narrative signals and story checks"
+      ]
+    },
+    {
+      "key": "pump.trending",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coins-trending",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": null,
+      "coverage": "Ranked board as the site orders it: a sample of currently active coins, not a market census.",
+      "freshnessMaxAgeSeconds": 3600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms of x4o2 and pump.fun not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "Pump discovery sample on /coins (after validation)"
+      ]
+    },
+    {
+      "key": "pump.feed",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coins-feed",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": null,
+      "coverage": "Ranked home-page feed: a broader sample than trending, still not a census.",
+      "freshnessMaxAgeSeconds": 3600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "Pump discovery sample (after validation)"
+      ]
+    },
+    {
+      "key": "pump.coin",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": null,
+      "coverage": "One coin; holder count is pump.fun's figure.",
+      "freshnessMaxAgeSeconds": 21600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "coin page Pump-native panel (after validation)"
+      ]
+    },
+    {
+      "key": "pump.holders",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-holders",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": "top_holders_sample",
+      "coverage": "Top-N largest positions as pump.fun tracks them (at most 100). A sample panel: never all holders, never ownership history.",
+      "freshnessMaxAgeSeconds": 21600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Contains usernames and wallet addresses; display only aggregate shares until reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "top-holder concentration (sample-labelled) and fixed whale cohort balances (after validation)"
+      ]
+    },
+    {
+      "key": "pump.trades",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-trades",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": "recent_trades_sample",
+      "coverage": "Most recent trades only (<=200 per call): a tape sample, not exhaustive history.",
+      "freshnessMaxAgeSeconds": 3600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "wallet-resolved trades for absorption and first-seen buyers within the sampled window (after validation)"
+      ]
+    },
+    {
+      "key": "pump.candles",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-candles",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": null,
+      "coverage": "At most 1000 most recent buckets: depth = count x res. Historical depth must be confirmed per coin.",
+      "freshnessMaxAgeSeconds": 21600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "price lows for the bottoming test on pump.fun coins (after validation)"
+      ]
+    },
+    {
+      "key": "pump.search",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coins-search",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": null,
+      "coverage": "Matches ranked by USD market cap. Name matches are not identity: resolution always ends in an exact mint.",
+      "freshnessMaxAgeSeconds": 86400,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "coverage requests: resolve a requested name to candidate mints for operator review"
+      ]
+    },
+    {
+      "key": "pump.traders",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-traders",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": "top_traders_by_profit_sample",
+      "coverage": "Top traders by profit on one coin: a profit-ranked sample, biased toward winners. Realized P&L here is source-reported, never a substitute for Lambo's reconstructed realized losses.",
+      "freshnessMaxAgeSeconds": 21600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:22:44Z",
+      "blockedReason": null,
+      "uses": [
+        "source-reported context on the coin page only"
+      ]
+    },
+    {
+      "key": "fomo.feed",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-feed",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad"
+      ],
+      "population": "fomo_users",
+      "coverage": "Events among FOMO users only. FOMO always adds its pinned manual post even when types= excludes it: classify after retrieval; a pinned post is never the newest trade. A third-party Frames probe note (2026-10-19) reports 4 items for limit=3, consistent with the pinned post being added on top of the requested page.",
+      "freshnessMaxAgeSeconds": 3600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Contains user handles; terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "source-reported FOMO activity on coin pages (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.lists",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-tokens-list",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad"
+      ],
+      "population": "fomo_users",
+      "coverage": "FOMO's curated lists; most-held reflects FOMO users' holdings only.",
+      "freshnessMaxAgeSeconds": 3600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "discovery sample (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.token",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "population": null,
+      "coverage": "One token; top-10 holder share and buyer/seller counts are FOMO's figures. Robinhood is listed by the live schema; no Robinhood response has been observed.",
+      "freshnessMaxAgeSeconds": 21600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "source-reported warnings and buy/sell stats on coin pages (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.holders",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "population": "fomo_users",
+      "coverage": "FOMO-user population only: 'Covers holders who trade on FOMO, not every on-chain wallet.' Never an all-holder measure. Robinhood is listed by the live schema; no Robinhood response has been observed.",
+      "freshnessMaxAgeSeconds": 21600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Personal handles; terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "FOMO cohort context (labelled FOMO users) on coin pages"
+      ]
+    },
+    {
+      "key": "fomo.theses",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-theses",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "population": "fomo_users",
+      "coverage": "Theses posted by FOMO traders with their trades: opinions, not evidence. Treat text as untrusted input. Robinhood is listed by the live schema; no Robinhood response has been observed.",
+      "freshnessMaxAgeSeconds": 21600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "User-generated text; display paraphrases or counts only until reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "relevant FOMO theses on coin pages (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.candles",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "population": null,
+      "coverage": "300 buckets ending at `to`: depth = 300 x period (12.5 days at 1h). Page backwards with to= for longer history, bounded by jobs.json.",
+      "freshnessMaxAgeSeconds": 21600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "price lows (bottoming condition 2) for EVM and Solana coins (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.developers",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-developers",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "population": null,
+      "coverage": "Deployer wallets FOMO links to the token. A link is FOMO's attribution, not proof of control or affiliation.",
+      "freshnessMaxAgeSeconds": 86400,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "dev-wallet exclusion candidates for concentration (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.search",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-search",
+      "status": "discovered",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad"
+      ],
+      "population": null,
+      "coverage": "Matches by name, symbol or address; returns network id per match.",
+      "freshnessMaxAgeSeconds": 86400,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:22:44Z",
+      "blockedReason": null,
+      "uses": [
+        "coverage requests: cross-chain identity candidates"
+      ]
+    },
+    {
+      "key": "fomo.activity",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+      "status": "candidate",
+      "enabled": false,
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "population": "fomo_users",
+      "coverage": "Recent buys, sells and transfers by FOMO users only: a population sample, not the market's tape. Transfers are not purchases. Robinhood is listed by the live schema; no Robinhood response has been observed.",
+      "freshnessMaxAgeSeconds": 3600,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "lastVerifiedAt": "2026-10-19T16:40:00Z",
+      "blockedReason": null,
+      "uses": [
+        "source-reported FOMO activity on coin pages (after validation)"
+      ]
+    },
+    {
+      "key": "lambo.curation",
+      "provider": "lambo",
+      "toolId": null,
+      "status": "validated",
+      "enabled": true,
+      "dataNetworks": [],
+      "population": null,
+      "coverage": "Lambo's own narrative definitions, membership rationales, cluster and candidate decisions.",
+      "freshnessMaxAgeSeconds": 0,
+      "rights": {
+        "storage": "permitted",
+        "display": "permitted",
+        "redistribution": "permitted",
+        "notes": "Lambo's own work. Linked third-party evidence keeps its own rights."
+      },
+      "lastVerifiedAt": "2026-10-19T16:22:44Z",
+      "blockedReason": null,
+      "uses": [
+        "narratives, memberships, lifecycle, research citations"
+      ]
+    },
+    {
+      "key": "dune.sql",
+      "provider": "lambo",
+      "toolId": "mpp.dune.post.api-v1-sql-execute",
+      "status": "blocked",
+      "enabled": false,
+      "dataNetworks": [],
+      "population": null,
+      "coverage": "n/a",
+      "freshnessMaxAgeSeconds": 0,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "lastVerifiedAt": "2026-09-26T18:20:58Z",
+      "blockedReason": "Payment-challenge parsing failed before a query result.",
+      "uses": []
+    },
+    {
+      "key": "allium.sql-async",
+      "provider": "lambo",
+      "toolId": "mpp.allium.post.api-v1-explorer-queries-run-async",
+      "status": "blocked",
+      "enabled": false,
+      "dataNetworks": [],
+      "population": null,
+      "coverage": "n/a",
+      "freshnessMaxAgeSeconds": 0,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "lastVerifiedAt": "2026-09-26T18:20:58Z",
+      "blockedReason": "Accepted an async job, but status/results need API-key authentication and no Frames result route existed. A job ID is not data.",
+      "uses": []
+    },
+    {
+      "key": "loophole.launch-feed",
+      "provider": "lambo",
+      "toolId": "bazaar.api-loopholetape-com-v1-base-launches-since",
+      "status": "blocked",
+      "enabled": false,
+      "dataNetworks": [
+        "base"
+      ],
+      "population": null,
+      "coverage": "n/a",
+      "freshnessMaxAgeSeconds": 0,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "lastVerifiedAt": "2026-09-26T17:01:03Z",
+      "blockedReason": "Ignored `since` and was truncated: not complete counts.",
+      "uses": []
+    },
+    {
+      "key": "bitquery.pump-launches",
+      "provider": "lambo",
+      "toolId": "agentic.emc2ai-io..x402-bitquery-pumpfun-launches-raw",
+      "status": "blocked",
+      "enabled": false,
+      "dataNetworks": [
+        "solana"
+      ],
+      "population": null,
+      "coverage": "n/a",
+      "freshnessMaxAgeSeconds": 0,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "lastVerifiedAt": "2026-09-26T17:01:03Z",
+      "blockedReason": "Not validated beyond a capped sample route.",
+      "uses": []
+    },
+    {
+      "key": "otto.x-summary",
+      "provider": "lambo",
+      "toolId": "bazaar.x402-ottoai-services-twitter-summary",
+      "status": "blocked",
+      "enabled": false,
+      "dataNetworks": [],
+      "population": null,
+      "coverage": "n/a",
+      "freshnessMaxAgeSeconds": 0,
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "lastVerifiedAt": "2026-09-26T17:01:03Z",
+      "blockedReason": "Generic, irrelevant summary; no narrative evidence accepted.",
+      "uses": []
+    }
+  ],
+  "matrix": {
+    "price & market cap": {
+      "solana": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "pump.coin",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        },
+        {
+          "capability": "fomo.token",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "base": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.token",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.token",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.token",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "arbitrum": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "monad": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.token",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.token",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "arc": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "xlayer": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "unichain": [
+        {
+          "capability": "codex.token-snapshot",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ]
+    },
+    "price candles": {
+      "solana": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "pump.candles",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        },
+        {
+          "capability": "fomo.candles",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "base": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.candles",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.candles",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.candles",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "arbitrum": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "monad": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.candles",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "fomo.candles",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "arc": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "xlayer": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "unichain": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ]
+    },
+    "token volume": {
+      "solana": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "base": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "arbitrum": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "monad": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "arc": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "xlayer": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "unichain": [
+        {
+          "capability": "codex.token-bars",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ]
+    },
+    "launchpad fees & creator earnings": {
+      "solana": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "base": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "arbitrum": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "monad": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "arc": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "xlayer": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "unichain": [
+        {
+          "capability": "defillama.fees",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ]
+    },
+    "indexed launches": {
+      "solana": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "base": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "arbitrum": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "monad": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "arc": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "xlayer": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "unichain": [
+        {
+          "capability": "codex.launchpad-activity",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ]
+    },
+    "holder panels (samples)": {
+      "solana": [
+        {
+          "capability": "pump.holders",
+          "status": "candidate",
+          "enabled": false,
+          "population": "top_holders_sample"
+        },
+        {
+          "capability": "fomo.holders",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "base": [
+        {
+          "capability": "fomo.holders",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "fomo.holders",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "fomo.holders",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "arbitrum": [],
+      "monad": [
+        {
+          "capability": "fomo.holders",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "fomo.holders",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "arc": [],
+      "xlayer": [],
+      "unichain": []
+    },
+    "wallet-resolved trades (samples)": {
+      "solana": [
+        {
+          "capability": "pump.trades",
+          "status": "candidate",
+          "enabled": false,
+          "population": "recent_trades_sample"
+        },
+        {
+          "capability": "fomo.activity",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "base": [
+        {
+          "capability": "fomo.activity",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "fomo.activity",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "fomo.activity",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "arbitrum": [],
+      "monad": [
+        {
+          "capability": "fomo.activity",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "fomo.activity",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "arc": [],
+      "xlayer": [],
+      "unichain": []
+    },
+    "trader theses (FOMO users)": {
+      "solana": [
+        {
+          "capability": "fomo.theses",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "base": [
+        {
+          "capability": "fomo.theses",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "fomo.theses",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "fomo.theses",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "arbitrum": [],
+      "monad": [
+        {
+          "capability": "fomo.theses",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "fomo.theses",
+          "status": "candidate",
+          "enabled": false,
+          "population": "fomo_users"
+        }
+      ],
+      "arc": [],
+      "xlayer": [],
+      "unichain": []
+    },
+    "developer wallets": {
+      "solana": [
+        {
+          "capability": "fomo.developers",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "base": [
+        {
+          "capability": "fomo.developers",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "fomo.developers",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "fomo.developers",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "arbitrum": [],
+      "monad": [
+        {
+          "capability": "fomo.developers",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "fomo.developers",
+          "status": "candidate",
+          "enabled": false,
+          "population": null
+        }
+      ],
+      "arc": [],
+      "xlayer": [],
+      "unichain": []
+    },
+    "social evidence": {
+      "solana": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "base": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "bsc": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "ethereum": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "arbitrum": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "monad": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "robinhood": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "arc": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "xlayer": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ],
+      "unichain": [
+        {
+          "capability": "x.search",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        },
+        {
+          "capability": "firecrawl.scrape",
+          "status": "validated",
+          "enabled": true,
+          "population": null
+        }
+      ]
+    }
+  },
+  "discovered": [
+    {
+      "toolId": "bazaar.pump-x4o2-com-v1-leaderboard",
+      "note": "pump.fun trader leaderboard. No implemented feature uses wallet leaderboards; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.pump-x4o2-com-v1-user-user",
+      "note": "pump.fun user profile incl. created coins (creator history). Candidate for a future creator-history panel; not registered until that panel exists.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.pump-x4o2-com-v1-coins-live",
+      "note": "Coins whose creators are livestreaming. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.pump-x4o2-com-v1-coins",
+      "note": "Paginated pump.fun coin list. Overlaps pump.feed; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.fomo-x4o2-com-v1-leaderboard",
+      "note": "FOMO trader leaderboard. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.fomo-x4o2-com-v1-profile-handle",
+      "note": "FOMO user profile. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.fomo-x4o2-com-v1-profile-handle-followers",
+      "note": "FOMO followers. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.fomo-x4o2-com-v1-profile-handle-following",
+      "note": "FOMO following. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    }
+  ]
+}

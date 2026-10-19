@@ -1,0 +1,508 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lamble/docs/data/providers.schema.json",
+  "title": "Lambo provider capability catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "catalogVersion",
+    "updatedAt",
+    "policy",
+    "providers",
+    "capabilities",
+    "discovered"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "catalogVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "policy": {
+      "type": "object"
+    },
+    "providers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "transport"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "homepage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "docs": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "transport": {
+            "enum": [
+              "frames",
+              "internal",
+              "outside-frames"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capability"
+      }
+    },
+    "discovered": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "toolId",
+          "note",
+          "observedAt"
+        ],
+        "properties": {
+          "toolId": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "observedAt": {
+            "type": "string"
+          },
+          "searchId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "rightsValue": {
+      "enum": [
+        "permitted",
+        "link-only",
+        "unknown",
+        "prohibited"
+      ]
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "provider",
+        "toolId",
+        "upstream",
+        "contract",
+        "attribution",
+        "payment",
+        "dataNetworks",
+        "adapter",
+        "semantics",
+        "pagination",
+        "freshness",
+        "cost",
+        "validation",
+        "rights",
+        "enabled",
+        "uses"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(\\.[a-z0-9-]+)+$"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "toolId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "upstream": {
+          "type": "object",
+          "required": [
+            "host",
+            "method",
+            "path",
+            "source"
+          ],
+          "properties": {
+            "host": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "method": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "path": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "operation": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          }
+        },
+        "contract": {
+          "type": "object",
+          "required": [
+            "inputSchema",
+            "argTypes"
+          ],
+          "properties": {
+            "inputSchema": {
+              "type": "object"
+            },
+            "argTypes": {
+              "type": "string"
+            },
+            "queryTemplate": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object"
+            },
+            "validatedRequest": {
+              "type": "string"
+            },
+            "descriptorObservedAt": {
+              "type": "string"
+            },
+            "fieldMap": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "required": [
+                "fields"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "items": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                },
+                "units": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "enum": [
+                      "seconds",
+                      "milliseconds",
+                      "iso8601",
+                      "usd",
+                      "sol",
+                      "token_units",
+                      "ratio",
+                      "percent"
+                    ]
+                  }
+                },
+                "verifiedAgainst": {
+                  "type": "string"
+                }
+              }
+            },
+            "descriptorInputSchema": {
+              "type": "object",
+              "description": "Schema from frames_get_tool when it differs from the live seller schema"
+            },
+            "liveSchemaObservedAt": {
+              "type": "string"
+            }
+          }
+        },
+        "attribution": {
+          "type": "object",
+          "required": [
+            "searchId"
+          ],
+          "properties": {
+            "searchId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "payment": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "protocol",
+                "network",
+                "currency",
+                "priceHintUsd"
+              ],
+              "properties": {
+                "protocol": {
+                  "enum": [
+                    "x402",
+                    "x402v2",
+                    "mpp"
+                  ]
+                },
+                "network": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string"
+                },
+                "priceHintUsd": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0
+                }
+              }
+            }
+          ]
+        },
+        "dataNetworks": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "solana",
+              "base",
+              "bsc",
+              "ethereum",
+              "arbitrum",
+              "monad",
+              "robinhood",
+              "arc",
+              "xlayer",
+              "unichain"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "adapter": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "semantics": {
+          "type": "object",
+          "required": [
+            "units",
+            "coverage",
+            "timestamps",
+            "sourceReported"
+          ],
+          "properties": {
+            "units": {
+              "type": "object"
+            },
+            "coverage": {
+              "type": "string"
+            },
+            "population": {
+              "enum": [
+                "top_holders_sample",
+                "fomo_users",
+                "recent_trades_sample",
+                "top_traders_by_profit_sample",
+                "all_holders"
+              ]
+            },
+            "timestamps": {
+              "type": "string"
+            },
+            "sourceReported": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "revisions": {
+              "type": "string"
+            }
+          }
+        },
+        "pagination": {
+          "type": "object",
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "none",
+                "limit",
+                "offset",
+                "cursor",
+                "window",
+                "count",
+                "batch",
+                "unknown"
+              ]
+            },
+            "limit": {
+              "type": "integer"
+            },
+            "note": {
+              "type": "string"
+            }
+          }
+        },
+        "freshness": {
+          "type": "object",
+          "required": [
+            "maxAcceptedAgeSeconds"
+          ],
+          "properties": {
+            "maxAcceptedAgeSeconds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "settleHours": {
+              "type": "number"
+            }
+          }
+        },
+        "cost": {
+          "type": "object",
+          "required": [
+            "maxCallsPerRun",
+            "maxUsdPerBatch"
+          ],
+          "properties": {
+            "maxCallsPerRun": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "maxUsdPerBatch": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "required": [
+            "status",
+            "lastVerifiedAt",
+            "fieldMapVerified",
+            "checks",
+            "evidence"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "validated",
+                "candidate",
+                "discovered",
+                "blocked",
+                "deprecated"
+              ]
+            },
+            "lastVerifiedAt": {
+              "type": "string"
+            },
+            "fieldMapVerified": {
+              "type": "boolean"
+            },
+            "checks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "evidence": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "rights": {
+          "type": "object",
+          "required": [
+            "storage",
+            "display",
+            "redistribution",
+            "notes"
+          ],
+          "properties": {
+            "storage": {
+              "$ref": "#/$defs/rightsValue"
+            },
+            "display": {
+              "$ref": "#/$defs/rightsValue"
+            },
+            "redistribution": {
+              "$ref": "#/$defs/rightsValue"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "uses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

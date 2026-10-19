@@ -6,17 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "lambo": "node --experimental-strip-types --no-warnings scripts/lambo/cli.ts",
+    "test": "node --experimental-strip-types --no-warnings --test tests/frames-data.test.mjs tests/lambo/*.test.ts",
+    "test:e2e": "node --experimental-strip-types --no-warnings --test tests/e2e/*.test.ts",
+    "data:setup": "npm run lambo -- refresh"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
     "@basementstudio/shader-lab": "^3.0.2",
+    "@x402/core": "^2.28.0",
+    "@x402/evm": "^2.28.0",
+    "@x402/extensions": "^2.28.0",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.4.0",
     "lightweight-charts": "^5.2.1",
     "liveline": "^0.0.7",
     "lucide-react": "^1.48.0",
     "motion": "^13.4.4",
+    "mppx": "^0.13.5",
     "next": "16.3.6",
     "next-themes": "^0.4.6",
     "react": "19.2.8",
@@ -27,9 +36,11 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
     "tailwindcss": "^4",
@@ -42,5 +53,8 @@
   "trustedDependencies": [
     "sharp",
     "unrs-resolver"
-  ]
+  ],
+  "engines": {
+    "node": ">=22.13"
+  }
 }
