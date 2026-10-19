@@ -506,6 +506,21 @@ function rebuildCurated(db: Db, latestRun: string): void {
       );
     }
   }
+  // Narratives that memberships name but no ingested run listed (collection paused before the first ingested
+  // run) still get a row, titled from the retirement record when one exists.
+  const pausedRecords = readJsonIfExists<{ retiredNarratives?: { narrativeId: string; title: string; retiredAt: string }[]; pausedNarratives?: { narrativeId: string; title: string; pausedAt: string }[] }>(path.join(dir, "candidates.json"));
+  const titleOf = new Map([...(pausedRecords?.retiredNarratives ?? []), ...(pausedRecords?.pausedNarratives ?? [])].map((r) => [r.narrativeId, r.title]));
+  for (const m of memberships) {
+    if (one(db, "SELECT 1 FROM narratives WHERE narrative_id = ?", m.narrativeId)) continue;
+    const first = isoOrNull(m.effectiveFrom) ?? runs[0]!.runtime_at;
+    db.prepare("INSERT INTO narratives (narrative_id, slug, title, category, first_observed_at, first_observed_run) VALUES (?, ?, ?, NULL, ?, ?)").run(
+      m.narrativeId,
+      m.narrativeId.replace(/^n-/, ""),
+      titleOf.get(m.narrativeId) ?? m.narrativeId,
+      first,
+      runAt(runs, first).run_id,
+    );
+  }
   db.exec("DELETE FROM memberships");
   const seen = new Set<string>();
   for (const m of memberships) {
@@ -688,7 +703,9 @@ export function ingest(options: { rebuild?: boolean; only?: string } = {}): Inge
       break;
     }
   }
-  if (result.ingested.length || options.rebuild) tx(db, () => rebuildCurated(db, latestDaily));
+  // Curated state comes from the newest daily run that is actually in the store, never a run that failed.
+  const latestIngested = one<{ run_id: string }>(db, "SELECT run_id FROM runs WHERE kind = 'daily-refresh' AND passed = 1 ORDER BY runtime_at DESC LIMIT 1")?.run_id;
+  if (latestIngested && (result.ingested.length || options.rebuild)) tx(db, () => rebuildCurated(db, latestIngested));
   db.close();
   return result;
 }

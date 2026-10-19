@@ -54,7 +54,7 @@ export interface WeeklySource {
   venues(): VenueRow[];
   narratives(): NarrativeRow[];
   memberships(): MembershipRow[];
-  tokenLabel(tokenId: string): { symbol: string | null; name: string | null };
+  tokenLabel(tokenId: string): { symbol: string | null; name: string | null; createdAt: number | null };
   /** Number of daily research runs available inside an interval, and whether a run after it reached the week end financially. */
   runsIn(interval: Interval): { dailyRuns: number; financialAnchorReachesEnd: boolean };
 }
@@ -102,10 +102,12 @@ export interface TokenWeek {
   return7d: number | null;
 }
 
-function tokenWeek(src: WeeklySource, tokenId: string, iv: Interval, existsFrom: number | null): TokenWeek {
+function tokenWeek(src: WeeklySource, tokenId: string, iv: Interval): TokenWeek {
   assertSummable("token.volume_usd");
-  const days = daysIn(iv).filter((d) => existsFrom === null || d + DAY > existsFrom);
-  const vols = days.map((d) => src.tokenDailyVolume(tokenId, d));
+  const days = daysIn(iv);
+  const createdAt = src.tokenLabel(tokenId).createdAt;
+  // Documented pre-creation rule: a whole day before the token existed is an observed zero, never a gap.
+  const vols = days.map((d) => (createdAt !== null && d + DAY <= createdAt ? 0 : src.tokenDailyVolume(tokenId, d)));
   const s = sumDays(vols);
   const p0 = src.tokenPrice(tokenId, iv.start, 12 * 3600);
   const p1 = src.tokenPrice(tokenId, iv.end, 12 * 3600);
@@ -182,17 +184,18 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
 
   // ---------------------------------------------------------------- narratives
   const memberships = src.memberships();
-  const narratives = src.narratives();
+  // Only narratives that existed before the week ended belong to it.
+  const narratives = src.narratives().filter((n) => n.firstObservedAt < week.end);
   const narrativeRows = narratives.map((n) => {
     const members = basket(memberships, n.id, week, inp.cutoff, inp.mode, prior.start);
     const priorMembers = basket(memberships, n.id, prior, inp.cutoff, inp.mode === "as_known_then" ? "as_known_then" : inp.mode, prior.start);
     const tokens = [...new Set(members.map((m) => m.tokenId))];
     const weeks = tokens.map((t) => {
       const firstFrom = Math.min(...members.filter((m) => m.tokenId === t).map((m) => m.effectiveFrom));
-      return { ...tokenWeek(src, t, week, null), memberSince: firstFrom };
+      return { ...tokenWeek(src, t, week), memberSince: firstFrom };
     });
     const priorTokens = [...new Set(priorMembers.map((m) => m.tokenId))];
-    const priorWeeks = priorTokens.map((t) => tokenWeek(src, t, prior, null));
+    const priorWeeks = priorTokens.map((t) => tokenWeek(src, t, prior));
     const observed = (ws: TokenWeek[]) => fsum(ws.map((w) => w.observedVolume));
     const complete = (ws: TokenWeek[]) => ws.every((w) => w.volume !== null);
     const coverage = (ws: TokenWeek[]) => {
@@ -210,19 +213,42 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
     const lifecycleAt = (t: number) => n.lifecycle.find((l) => l.from <= t && (l.to === null || l.to > t))?.state ?? null;
     const paused = n.lifecycle.find((l) => l.state === "collection_paused" && l.from >= week.start && l.from < week.end);
     const firstObservedInWeek = n.firstObservedAt >= week.start && n.firstObservedAt < week.end;
-    const change = percentChange(complete(weeks) ? vol : null, complete(priorWeeks) && priorWeeks.length ? volPrior : null);
+    // Week-over-week change on a declared comparable basket: members fully observed in both weeks. Members left
+    // out (archived or paused coins with missing days) are listed, so the denominator never shrinks silently.
+    const comparableIds = weeks.filter((w) => w.volume !== null && priorWeeks.some((p) => p.tokenId === w.tokenId && p.volume !== null)).map((w) => w.tokenId);
+    const comparableVol = fsum(weeks.filter((w) => comparableIds.includes(w.tokenId)).map((w) => w.volume!));
+    const comparablePrior = fsum(priorWeeks.filter((w) => comparableIds.includes(w.tokenId)).map((w) => w.volume!));
+    const change = comparableIds.length ? percentChange(comparableVol, comparablePrior) : null;
     return {
       id: n.id,
       slug: n.slug,
       title: n.title,
       stateAtWeekEnd: lifecycleAt(week.end - 1),
+      collectedDuringWeek: n.lifecycle.some((l) => l.state === "collected" && l.from < week.end && (l.to === null || l.to > week.start)),
       emerging: firstObservedInWeek,
       pausedDuringWeek: paused ? { at: paused.from, reason: paused.reason } : null,
-      trend: firstObservedInWeek ? "new" : change === null ? "unknown" : change >= 25 ? "rising" : change <= -25 ? "fading" : "steady",
+      trend: firstObservedInWeek
+        ? "new"
+        : !n.lifecycle.some((l) => l.state === "collected" && l.from < week.end && (l.to === null || l.to > week.start))
+          ? "not_collected"
+          : change === null || comparableIds.length < 3
+            ? "unknown"
+            : change >= 25
+              ? "rising"
+              : change <= -25
+                ? "fading"
+                : "steady",
       members: weeks.length,
       volume: { observed: vol, complete: complete(weeks), coverage: coverage(weeks) },
       volumePrior: { observed: volPrior, complete: complete(priorWeeks), coverage: coverage(priorWeeks), members: priorWeeks.length },
       volumeChangePct: change,
+      comparable: {
+        members: comparableIds.length,
+        volume: comparableIds.length ? comparableVol : null,
+        volumePrior: comparableIds.length ? comparablePrior : null,
+        excludedIncomplete: [...new Set([...weeks, ...priorWeeks].map((w) => w.tokenId))].filter((id) => !comparableIds.includes(id) && tokens.includes(id) && priorTokens.includes(id)),
+        note: "Change is computed on members observed on every day of both weeks; entrants, exits and partially observed members are excluded and listed.",
+      },
       entrants: entrants.map((w) => ({ tokenId: w.tokenId, symbol: w.symbol, volume: w.volume })),
       exits: exits.map((w) => ({ tokenId: w.tokenId, symbol: w.symbol, volumePrior: w.volume })),
       continuing: {
@@ -265,8 +291,9 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
   const watch: { kind: string; subject: string; condition: string }[] = [];
   for (const n of narrativeRows) {
     if (n.stateAtWeekEnd !== "collected") continue;
-    const lastDay = n.tokens.reduce((a, t) => a + (src.tokenDailyVolume(t.tokenId, week.end - DAY) ?? 0), 0);
-    if (lastDay < inp.rules.retireMaxVolume24Usd) watch.push({ kind: "narrative-volume", subject: n.title, condition: `Last day's volume $${Math.round(lastDay).toLocaleString("en-US")} is below the $${inp.rules.retireMaxVolume24Usd.toLocaleString("en-US")} line; a second observation below it pauses collection.` });
+    const lastValues = n.tokens.map((t) => src.tokenDailyVolume(t.tokenId, week.end - DAY));
+    const lastDay = lastValues.includes(null) ? null : fsum(lastValues as number[]);
+    if (lastDay !== null && lastDay < inp.rules.retireMaxVolume24Usd) watch.push({ kind: "narrative-volume", subject: n.title, condition: `Last day's volume $${Math.round(lastDay).toLocaleString("en-US")} is below the $${inp.rules.retireMaxVolume24Usd.toLocaleString("en-US")} line; a second observation below it pauses collection.` });
     for (const t of n.tokens) {
       const v = src.tokenDailyVolume(t.tokenId, week.end - DAY);
       if (v !== null && v < inp.rules.archiveMaxVolume24Usd) watch.push({ kind: "member-volume", subject: `${t.symbol ?? t.tokenId} (${n.title})`, condition: `Last day's volume $${Math.round(v)} is under $${inp.rules.archiveMaxVolume24Usd.toLocaleString("en-US")}; a second observation archives it.` });

@@ -208,7 +208,7 @@ function weeklySource(over: Partial<WeeklySource> = {}, data?: { memberships?: M
     venues: () => venues,
     narratives: () => narratives,
     memberships: () => memberships,
-    tokenLabel: (t) => ({ symbol: t.slice(-1), name: null }),
+    tokenLabel: (t) => ({ symbol: t.slice(-1), name: null, createdAt: null }),
     runsIn: () => ({ dailyRuns: 7, financialAnchorReachesEnd: true }),
     ...over,
   };

@@ -20,6 +20,10 @@ const COMMANDS: Record<string, () => Promise<{ main: Main }>> = {
   providers: () => import("./providers.ts"),
   migrate: () => import("./migrate.ts"),
   ingest: () => import("./ingest.ts"),
+  release: () => import("./release.ts"),
+  weekly: () => import("./weekly.ts"),
+  refresh: () => import("./refresh.ts"),
+  status: () => import("./status.ts"),
 };
 
 const [cmd, ...rest] = process.argv.slice(2);
