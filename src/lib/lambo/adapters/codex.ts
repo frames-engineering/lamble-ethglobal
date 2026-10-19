@@ -131,14 +131,32 @@ export const codexTokenSnapshot: Adapter = {
       if (identity) requested.set(`${address}:${network}`, identity.id);
     }
     const results = ((data.filterTokens as { results?: SnapshotRow[] } | undefined)?.results ?? []) as SnapshotRow[];
+    const sidesOf = (row: SnapshotRow) =>
+      [row.pair?.token0, row.pair?.token1].filter((a): a is string => typeof a === "string").map((a) => requested.get(`${a}:${row.pair?.networkId}`)).filter(Boolean) as string[];
+    // A pair of two tracked tokens matches both. Unambiguous rows are assigned first; an ambiguous row then goes to
+    // the one side that has no row of its own. Row order is never used.
+    const owner = new Map<number, string>();
+    const assigned = new Set<string>();
+    results.forEach((row, i) => {
+      const sides = sidesOf(row);
+      if (sides.length === 1 && !assigned.has(sides[0]!)) {
+        owner.set(i, sides[0]!);
+        assigned.add(sides[0]!);
+      }
+    });
+    results.forEach((row, i) => {
+      const open = sidesOf(row).filter((s) => !assigned.has(s));
+      if (owner.has(i) || open.length !== 1) return;
+      owner.set(i, open[0]!);
+      assigned.add(open[0]!);
+    });
     results.forEach((row, i) => {
       const pair = row.pair ?? {};
-      const sides = [pair.token0, pair.token1].filter((a): a is string => typeof a === "string").map((a) => requested.get(`${a}:${pair.networkId}`)).filter(Boolean) as string[];
-      if (sides.length !== 1) {
-        out.warnings.push(`row ${i}: ${sides.length ? "ambiguous" : "unrequested"} token sides`);
+      const tokenId = owner.get(i);
+      if (!tokenId) {
+        out.warnings.push(`row ${i}: ${sidesOf(row).length ? "ambiguous or duplicate" : "unrequested"} token sides; skipped`);
         return;
       }
-      const tokenId = sides[0]!;
       const at = `$.data.filterTokens.results[${i}]`;
       const push = (metric: MetricKey, value: number | null, field: string, allowZero: boolean) => {
         if (value === null) return;

@@ -18,6 +18,8 @@ type Main = (argv: string[]) => number | Promise<number>;
 
 const COMMANDS: Record<string, () => Promise<{ main: Main }>> = {
   providers: () => import("./providers.ts"),
+  migrate: () => import("./migrate.ts"),
+  ingest: () => import("./ingest.ts"),
 };
 
 const [cmd, ...rest] = process.argv.slice(2);
