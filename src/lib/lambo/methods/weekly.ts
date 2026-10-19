@@ -6,7 +6,12 @@ import { assertSummable } from "../core/metrics.ts";
 import { fsum, percentChange } from "../core/measure.ts";
 import { DAY, type Interval, daysIn, iso } from "../core/time.ts";
 
-export const WEEKLY_VERSION = "weekly-v1.0.0";
+export const WEEKLY_VERSION = "weekly-v1.1.0";
+
+/** A week-over-week change is reported only on a comparable basket of at least this many members... */
+export const MIN_COMPARABLE_MEMBERS = 3;
+/** ...covering at least this share of the members present in both weeks. */
+export const MIN_COMPARABLE_SHARE = 0.5;
 
 export type HistoricalMode = "as_known_then" | "same_cohort" | "current_basket";
 
@@ -218,7 +223,9 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
     const comparableIds = weeks.filter((w) => w.volume !== null && priorWeeks.some((p) => p.tokenId === w.tokenId && p.volume !== null)).map((w) => w.tokenId);
     const comparableVol = fsum(weeks.filter((w) => comparableIds.includes(w.tokenId)).map((w) => w.volume!));
     const comparablePrior = fsum(priorWeeks.filter((w) => comparableIds.includes(w.tokenId)).map((w) => w.volume!));
-    const change = comparableIds.length ? percentChange(comparableVol, comparablePrior) : null;
+    const inBoth = tokens.filter((id) => priorTokens.includes(id)).length;
+    const sufficient = comparableIds.length >= MIN_COMPARABLE_MEMBERS && comparableIds.length >= MIN_COMPARABLE_SHARE * inBoth;
+    const change = sufficient ? percentChange(comparableVol, comparablePrior) : null;
     return {
       id: n.id,
       slug: n.slug,
@@ -231,7 +238,7 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
         ? "new"
         : !n.lifecycle.some((l) => l.state === "collected" && l.from < week.end && (l.to === null || l.to > week.start))
           ? "not_collected"
-          : change === null || comparableIds.length < 3
+          : change === null
             ? "unknown"
             : change >= 25
               ? "rising"
@@ -244,10 +251,12 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
       volumeChangePct: change,
       comparable: {
         members: comparableIds.length,
+        ofMembersInBothWeeks: inBoth,
+        sufficient,
         volume: comparableIds.length ? comparableVol : null,
         volumePrior: comparableIds.length ? comparablePrior : null,
         excludedIncomplete: [...new Set([...weeks, ...priorWeeks].map((w) => w.tokenId))].filter((id) => !comparableIds.includes(id) && tokens.includes(id) && priorTokens.includes(id)),
-        note: "Change is computed on members observed on every day of both weeks; entrants, exits and partially observed members are excluded and listed.",
+        note: `Change is computed on members observed on every day of both weeks; entrants, exits and partially observed members are excluded and listed. It is reported only when at least ${MIN_COMPARABLE_MEMBERS} members and half of those present in both weeks are comparable.`,
       },
       entrants: entrants.map((w) => ({ tokenId: w.tokenId, symbol: w.symbol, volume: w.volume })),
       exits: exits.map((w) => ({ tokenId: w.tokenId, symbol: w.symbol, volumePrior: w.volume })),
@@ -288,7 +297,7 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
   const status = checks.every((c) => c.passed) ? "complete" : "partial";
 
   // ---------------------------------------------------------------- watch conditions (deterministic)
-  const watch: { kind: string; subject: string; condition: string }[] = [];
+  const watch: { kind: string; subject: string; condition: string; tokenId?: string }[] = [];
   for (const n of narrativeRows) {
     if (n.stateAtWeekEnd !== "collected") continue;
     const lastValues = n.tokens.map((t) => src.tokenDailyVolume(t.tokenId, week.end - DAY));
@@ -296,7 +305,7 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
     if (lastDay !== null && lastDay < inp.rules.retireMaxVolume24Usd) watch.push({ kind: "narrative-volume", subject: n.title, condition: `Last day's volume $${Math.round(lastDay).toLocaleString("en-US")} is below the $${inp.rules.retireMaxVolume24Usd.toLocaleString("en-US")} line; a second observation below it pauses collection.` });
     for (const t of n.tokens) {
       const v = src.tokenDailyVolume(t.tokenId, week.end - DAY);
-      if (v !== null && v < inp.rules.archiveMaxVolume24Usd) watch.push({ kind: "member-volume", subject: `${t.symbol ?? t.tokenId} (${n.title})`, condition: `Last day's volume $${Math.round(v)} is under $${inp.rules.archiveMaxVolume24Usd.toLocaleString("en-US")}; a second observation archives it.` });
+      if (v !== null && v < inp.rules.archiveMaxVolume24Usd) watch.push({ kind: "member-volume", subject: `${t.symbol ?? "Token"} ${shortId(t.tokenId)} (${n.title})`, tokenId: t.tokenId, condition: `Last day's volume $${Math.round(v)} is under $${inp.rules.archiveMaxVolume24Usd.toLocaleString("en-US")}; a second observation archives it.` });
     }
   }
   for (const v of venueRows.filter((x) => x.included && x.missingFeeDays)) watch.push({ kind: "venue-lag", subject: v.name, condition: `${v.missingFeeDays} unsettled day(s) in the week; totals that include it stay partial until it reports.` });
@@ -355,3 +364,10 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
 }
 
 export type WeeklyEdition = ReturnType<typeof buildEdition>;
+
+/** chain:address → "chain:abcd…wxyz", so two coins sharing a symbol stay distinguishable in text. */
+function shortId(tokenId: string): string {
+  const i = tokenId.indexOf(":");
+  const a = tokenId.slice(i + 1);
+  return `${tokenId.slice(0, i)}:${a.length > 12 ? `${a.slice(0, 6)}…${a.slice(-4)}` : a}`;
+}

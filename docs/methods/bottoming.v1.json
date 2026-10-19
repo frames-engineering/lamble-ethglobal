@@ -1,9 +1,13 @@
 {
   "method": "bottoming",
-  "version": "bottoming-v1.0.0",
+  "version": "bottoming-v1.0.1",
   "status": "active",
   "summary": "An auditable three-condition state machine evaluated point-in-time on UTC-day intervals. It describes what has been observed in a drawdown; it does not predict or confirm a bottom.",
-  "interval": { "seconds": 86400, "source": "daily OHLC candles (codex.token-bars resolution 1D, or a validated x4o2 candle capability)", "note": "Daily snapshot prices are point samples, not candles: they can open an episode and measure drawdown, but they never establish a held low (no observed lows)." },
+  "interval": {
+    "seconds": 86400,
+    "source": "daily OHLC candles (codex.token-bars resolution 1D, or a validated x4o2 candle capability)",
+    "note": "Daily snapshot prices are point samples, not candles: they can open an episode and measure drawdown, but they never establish a held low (no observed lows)."
+  },
   "episode": {
     "peakLookbackIntervals": 30,
     "openDrawdown": 0.5,
@@ -54,5 +58,15 @@
   },
   "resetPolicy": "A new lower low (low < episode low) resets condition 2 and condition 3 to unmet and starts their windows at the new low. Condition 1 is re-evaluated over the whole episode window. Each reset is recorded as an invalidation in the condition history.",
   "lookAhead": "Every evaluation uses only intervals that ended, and observations that were available, at or before t. Later lows or recoveries never relabel earlier evaluations; histories are append-only per evaluation time.",
-  "labels": "Descriptive only: 'Capitulation observed', 'Low holding', 'Absorption improving'. Never 'bottom confirmed', never a return probability."
+  "labels": "Descriptive only: 'Capitulation observed', 'Low holding', 'Absorption improving'. Never 'bottom confirmed', never a return probability.",
+  "changelog": [
+    {
+      "version": "bottoming-v1.0.0",
+      "summary": "Initial method."
+    },
+    {
+      "version": "bottoming-v1.0.1",
+      "summary": "secondsSinceLow is measured from the close of the low's interval and is zero while that interval is still open (sample-based episodes could report a negative value). States and stages are unchanged."
+    }
+  ]
 }

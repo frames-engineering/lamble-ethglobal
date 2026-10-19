@@ -4,6 +4,7 @@
  */
 import { ingest } from "./ingest.ts";
 import { runRelease } from "./release.ts";
+import { runResearch } from "./research.ts";
 import { runWeekly } from "./weekly.ts";
 
 export function main(argv: string[]): number {
@@ -17,5 +18,6 @@ export function main(argv: string[]): number {
   console.log(`release: ${rel.status} ${"releaseId" in rel ? rel.releaseId : ""}`);
   if (rel.status === "rejected") return 1;
   for (const w of runWeekly([])) console.log(`weekly: ${JSON.stringify(w)}`);
+  for (const a of runResearch([])) console.log(`research: ${a.slug} ${a.status}`);
   return 0;
 }

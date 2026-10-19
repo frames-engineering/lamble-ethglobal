@@ -24,7 +24,7 @@ import type {
 } from "../../../src/lib/lambo/release/types.ts";
 import type { MembershipRowDb, RunRow, Store, TokenRow } from "./store.ts";
 
-export const RELEASE_BUILDER_VERSION = "lambo-release-1.0.0";
+export const RELEASE_BUILDER_VERSION = "lambo-release-1.1.0";
 const PRICE_MAX_AGE = 26 * HOUR;
 const NO_CURVE_COMPLETION = new Set(["argus-world", "clanker", "o1-launchpad"]);
 const TURNOVER_FLAG = 10;
@@ -435,10 +435,12 @@ export function buildReleaseContent(ctx: BuildContext) {
     const d7prior = sum(dailySum.slice(-14, -7));
     const change7 = percentChange(d7, d7prior);
     const isCollected = current?.state === "collected";
+    // A narrative that is not collected keeps its last observed window, labelled stale with the reason.
+    const notCollectedNote = isCollected || anchor === null ? undefined : `Not collected since ${iso(current?.from_at ?? anchor)} (${current?.state ?? "paused"}); window ends ${iso(anchor)}.`;
     const asOfMeasure = (v: number | null, window: number, note: string): Measure<number> =>
       v === null || anchor === null
         ? missing("insufficient_data", "usd", note)
-        : withFreshness(derived(v, "usd", anchor, { window: { start: anchor - window, end: anchor }, coverage: { scope: `${basketTokens.length} identified coins, all indexed pools (Codex getTokenBars); not all-market coverage.`, population: "tracked_universe" } }), cutoff, isCollected ? 2 * DAY : 0);
+        : withFreshness(derived(v, "usd", anchor, { window: { start: anchor - window, end: anchor }, coverage: { scope: `${basketTokens.length} identified coins, all indexed pools (Codex getTokenBars); not all-market coverage.`, population: "tracked_universe" }, note: notCollectedNote }), cutoff, isCollected ? 2 * DAY : 0);
     const memberRows: NarrativeMemberPublic[] = ms.map((m) => {
       const tk = tokenById.get(m.token_id)!;
       const h = hourlyBy.get(m.token_id);
@@ -526,7 +528,8 @@ export function buildReleaseContent(ctx: BuildContext) {
         history: lifecycle.map((l) => ({ state: l.state, from: iso(l.from_at), to: t(l.to_at), reason: l.reason })),
       },
       featured: { featured: featuredRank.has(nid), rank: featuredRank.get(nid) ?? null },
-      trend: n.first_observed_at >= cutoff - WEEK ? "new" : change7 === null ? "unknown" : change7 >= 25 ? "rising" : change7 <= -25 ? "fading" : "steady",
+      // Trend describes the latest window only while the narrative is collected; otherwise its data has stopped.
+      trend: !isCollected ? "not_collected" : n.first_observed_at >= cutoff - WEEK ? "new" : change7 === null ? "unknown" : change7 >= 25 ? "rising" : change7 <= -25 ? "fading" : "steady",
       firstObservedAt: iso(n.first_observed_at),
       story: story ? { notice: story.notice ?? null, interpretation: story.interpretation ?? null, observedAt: story.observedAt ?? null, evidence: story.evidenceId ?? null } : null,
       evidence: {
@@ -540,7 +543,7 @@ export function buildReleaseContent(ctx: BuildContext) {
       activity: {
         volume24h: asOfMeasure(v24, DAY, "No complete 24 hours of member volume."),
         volume7d: asOfMeasure(v7, WEEK, "No complete 7 days of hourly member volume."),
-        volume30d: v30 === null || dEnd === null ? missing("insufficient_data", "usd", "No complete 30 days of daily member volume.") : withFreshness(derived(v30, "usd", dEnd, { window: { start: dEnd - 30 * DAY, end: dEnd }, note: "Today's basket applied to earlier days (reconstructed)." }), cutoff, isCollected ? 2 * DAY : 0),
+        volume30d: v30 === null || dEnd === null ? missing("insufficient_data", "usd", "No complete 30 days of daily member volume.") : withFreshness(derived(v30, "usd", dEnd, { window: { start: dEnd - 30 * DAY, end: dEnd }, note: [notCollectedNote, "Today's basket applied to earlier days (reconstructed)."].filter(Boolean).join(" ") }), cutoff, isCollected ? 2 * DAY : 0),
         change7dPct: change7,
         hourly: hourlySum,
         daily: dailySum,

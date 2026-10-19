@@ -11,6 +11,8 @@ import { gunzipSync } from "node:zlib";
 
 import { type Chain, IdentityError, isChain, tokenIdentity } from "./core/identity.ts";
 import { isWeekId } from "./core/time.ts";
+import type { WeeklyEdition } from "./methods/weekly.ts";
+import type { Article } from "./research/types.ts";
 import type { ChangeEvent, CoinPublic, LaunchpadPublic, NarrativePublic, ReleaseManifest, ReleasePublic } from "./release/types.ts";
 import { sha256 } from "./server/io.ts";
 
@@ -208,7 +210,22 @@ export function editionIndex(): EditionIndexEntry[] {
   return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : [];
 }
 
-export function getEdition(week: string, revision?: number): Record<string, unknown> & { revision: number } {
+type ModeSummary = { label: string; narratives: Pick<WeeklyEdition["narratives"][number], "id" | "slug" | "title" | "members" | "volume" | "volumePrior" | "volumeChangePct">[] };
+
+/** A published edition file: the method output plus revision and provenance fields (scripts/lambo/weekly.ts). */
+export type EditionDoc = WeeklyEdition & {
+  alternateModes: { same_cohort: ModeSummary; current_basket: ModeSummary };
+  revision: number;
+  revisionOf: string | null;
+  revisionReason: string[] | null;
+  contentSha256: string;
+  releaseId: string | null;
+  builtAt: string;
+  provenance: string;
+  methodChange?: { from: string; to: string } | null;
+};
+
+export function getEdition(week: string, revision?: number): EditionDoc {
   if (!isWeekId(week)) throw new BadRequest(`Not an ISO week id: ${week}`);
   const entry = editionIndex().find((e) => e.id === week);
   if (!entry) throw new NotFound(`No edition for ${week}.`);
@@ -238,18 +255,15 @@ export function changesSince(cursor: number, opts: { entityIds?: string[]; types
 
 // ---------------------------------------------------------------- research articles
 
-export interface ArticleSummary {
-  slug: string;
-  title: string;
-  dek: string;
-  format: "daily" | "weekly" | "coin-deep-dive" | "narrative-deep-dive";
-  publishedAt: string;
-  updatedAt: string;
-  dataCutoff: string;
-  releaseId: string;
-  review: { status: "auto-published" | "pending-review" | "reviewed"; reviewer: string | null; reviewedAt: string | null; policy: string };
-  entities: { coins: string[]; narratives: string[]; weeks: string[]; launchpads: string[] };
-  confidence: "low" | "moderate" | "high";
+export type ArticleSummary = Pick<Article, "slug" | "title" | "dek" | "format" | "publishedAt" | "updatedAt" | "dataCutoff" | "releaseId" | "review" | "entities" | "confidence">;
+
+/**
+ * Deep dives start as pending review. Local and preview builds show them labelled; production hides them until
+ * a reviewer is recorded in the article file (VERCEL_ENV=production, or LAMBO_HIDE_PENDING_REVIEW=true elsewhere).
+ */
+export function articleVisible(a: Pick<Article, "review">): boolean {
+  const hide = process.env.VERCEL_ENV === "production" || process.env.LAMBO_HIDE_PENDING_REVIEW === "true";
+  return !(hide && a.review.status === "pending-review");
 }
 
 export function listArticles(): ArticleSummary[] {
@@ -257,14 +271,20 @@ export function listArticles(): ArticleSummary[] {
   if (!existsSync(dir)) return [];
   return readdirSync(dir)
     .filter((f) => f.endsWith(".json"))
-    .map((f) => JSON.parse(readFileSync(path.join(dir, f), "utf8")) as ArticleSummary)
+    .map((f) => JSON.parse(readFileSync(path.join(dir, f), "utf8")) as Article)
+    .filter(articleVisible)
+    .map((a) => {
+      return { slug: a.slug, title: a.title, dek: a.dek, format: a.format, publishedAt: a.publishedAt, updatedAt: a.updatedAt, dataCutoff: a.dataCutoff, releaseId: a.releaseId, review: a.review, entities: a.entities, confidence: a.confidence };
+    })
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug));
 }
 
-export function getArticle<T = Record<string, unknown>>(slug: string): (ArticleSummary & T) | null {
+export function getArticle(slug: string): Article | null {
   assertSlug(slug);
   const file = path.join(contentRoot(), "research", `${slug}.json`);
-  return existsSync(file) ? (JSON.parse(readFileSync(file, "utf8")) as ArticleSummary & T) : null;
+  if (!existsSync(file)) return null;
+  const a = JSON.parse(readFileSync(file, "utf8")) as Article;
+  return articleVisible(a) ? a : null;
 }
 
 export function articlesFor(entity: { coin?: string; narrative?: string; week?: string; launchpad?: string }): ArticleSummary[] {

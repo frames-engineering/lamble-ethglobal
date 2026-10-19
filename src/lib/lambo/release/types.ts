@@ -126,6 +126,7 @@ export interface CoinPublic {
   holders: { components: HolderComponentPublic[]; composite: { state: string; score: number | null; bound: [number, number] | null; note: string; version: string }; methodVersion: string };
   bottoming: BottomingPublic;
   memberships: MembershipPublic[];
+  /** return7d is a fraction (−0.41 = −41%). */
   peers: { tokenId: string; symbol: string | null; narrativeSlug: string; return7d: number | null }[];
   providerPanels: { capability: string; applicable: boolean; state: DataState; note: string }[];
   evidence: string[];
@@ -143,6 +144,7 @@ export interface NarrativeMemberPublic {
   volume24h: number | null;
   volume7d: number | null;
   share7d: number | null;
+  /** Fraction (−0.41 = −41%), unlike the percent-valued market change measures. */
   return7d: number | null;
   originVenue: string | null;
 }
@@ -155,7 +157,7 @@ export interface NarrativePublic {
   summary: string | null;
   lifecycle: { state: "collected" | "collection_paused" | "retired"; since: string; reason: string | null; history: { state: string; from: string; to: string | null; reason: string | null }[] };
   featured: { featured: boolean; rank: number | null };
-  trend: "new" | "rising" | "steady" | "fading" | "unknown";
+  trend: "new" | "rising" | "steady" | "fading" | "unknown" | "not_collected";
   firstObservedAt: string;
   story: { notice: string | null; interpretation: string | null; observedAt: string | null; evidence: string | null } | null;
   evidence: { projectClaims: Evidence[]; independent: Evidence[]; posts: Evidence[]; note: string };

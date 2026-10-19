@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "status": "test",
+  "approved": false,
+  "note": "These are non-production test prices, pending a cost benchmark and owner approval. They are only for testnet acceptance tests. Do not treat them as approved commercial prices. Mainnet payment protocols stay unavailable until status is \"production\" and approved is true.",
+  "currency": "USD",
+  "resources": {
+    "coin-bundle": {
+      "price": "0.02",
+      "description": "One coin's precomputed research bundle for one release"
+    },
+    "coin-history": {
+      "price": "0.02",
+      "description": "One coin's retained observation history for one release"
+    },
+    "narrative-bundle": {
+      "price": "0.03",
+      "description": "One narrative's precomputed research bundle for one release"
+    },
+    "week-dataset": {
+      "price": "0.05",
+      "description": "One weekly edition's dataset"
+    },
+    "research-article": {
+      "price": "0.01",
+      "description": "One research article's full text and data for one release"
+    },
+    "launchpads-dataset": {
+      "price": "0.05",
+      "description": "The launchpads dataset for one release"
+    }
+  },
+  "access": {
+    "accessDurationSeconds": 2592000,
+    "downloadsMax": 20,
+    "replayWindowSeconds": 600,
+    "replayServesMax": 5,
+    "offerTtlSeconds": 600
+  },
+  "refundPolicy": "No automatic refunds. Access exists only after the payment protocol reports a successful settlement. That access is an entitlement for one resource and one release, held by a capability token. If delivery fails after settlement, the buyer can recover in two ways: re-download with the capability token until it expires (30 days, at most 20 downloads), or ask for operator review using the purchase id or settlement transaction. A protocol receipt (x402 PAYMENT-RESPONSE or MPP Payment-Receipt) proves that a payment happened. It does not grant access by itself and it is never accepted as a credential. An operator may refund manually after review. Refunds are not automatic."
+}

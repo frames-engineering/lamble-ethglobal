@@ -157,7 +157,16 @@ function changedFields(a: Record<string, unknown>, b: Record<string, unknown>): 
   const an = new Map((a.narratives as { id: string; volume: { observed: number } }[]).map((n) => [n.id, n.volume.observed]));
   for (const n of b.narratives as { id: string; title: string; volume: { observed: number } }[]) if (an.get(n.id) !== n.volume.observed) out.push(`${n.title} volume ${an.get(n.id) ?? "absent"} -> ${n.volume.observed}`);
   if (a.status !== b.status) out.push(`status ${a.status} -> ${b.status}`);
-  return out.length ? out : ["Content differs outside the summarized fields (method or presentation change)."];
+  if (a.methodVersion !== b.methodVersion) out.push(`method ${a.methodVersion} -> ${b.methodVersion}`);
+  const ac = new Map((a.narratives as { id: string; volumeChangePct: number | null }[]).map((n) => [n.id, n.volumeChangePct]));
+  for (const n of b.narratives as { id: string; title: string; volumeChangePct: number | null }[]) {
+    const before = ac.get(n.id);
+    if (before !== undefined && before !== n.volumeChangePct) out.push(`${n.title} week change ${before === null ? "withheld" : `${before.toFixed(1)}%`} -> ${n.volumeChangePct === null ? "withheld" : `${n.volumeChangePct.toFixed(1)}%`}`);
+  }
+  const aw = JSON.stringify(a.watch);
+  const bw = JSON.stringify(b.watch);
+  if (aw !== bw) out.push("watch list wording or entries changed");
+  return out.length ? out : ["Content differs outside the summarized fields (presentation change)."];
 }
 
 export function runWeekly(argv: string[]) {
@@ -175,13 +184,19 @@ export function runWeekly(argv: string[]) {
       for (const id of ids) {
         const existing = revisions(id);
         const revise = argv.includes("--revise") && existing.length > 0;
-        const cutoff = editionCutoff(store, id, revise);
+        // --same-cutoff isolates a method or presentation correction: the revision reads exactly the
+        // observations its predecessor read. Without it a revision takes the latest data (late data, restatements).
+        const sameCutoff = revise && argv.includes("--same-cutoff");
+        const cutoff = sameCutoff ? parseIso(readJson<{ dataCutoff: string }>(existing.at(-1)!.file).dataCutoff) : editionCutoff(store, id, revise);
         if (cutoff === null) {
           results.push({ week: id, status: "delayed", reason: "No validated run whose financial anchor reaches the week end yet." });
           continue;
         }
         const content = buildWeek(store, id, cutoff);
-        const reconstructed = cutoff < (latestRun.available_at ?? 0) && !existing.length;
+        // Reconstruction is a property of the edition, carried by every revision of it.
+        const reconstructed = existing.length
+          ? readJson<{ provenance: string }>(existing[0]!.file).provenance.startsWith("Reconstructed")
+          : cutoff < (latestRun.available_at ?? 0);
         const hash = sha256(stableStringify(content));
         const last = existing.at(-1);
         if (last && readJson<{ contentSha256: string }>(last.file).contentSha256 === hash) {
@@ -204,6 +219,7 @@ export function runWeekly(argv: string[]) {
           provenance: reconstructed
             ? `Reconstructed: built on ${new Date().toISOString().slice(0, 10)} from observations available at ${iso(cutoff)}. Lambo did not publish this edition at that time; its numbers are what was knowable then.`
             : `Built from observations available at ${iso(cutoff)}.`,
+          methodChange: last && readJson<{ methodVersion: string }>(last.file).methodVersion !== content.methodVersion ? { from: readJson<{ methodVersion: string }>(last.file).methodVersion, to: content.methodVersion } : null,
         };
         writeJsonAtomic(path.join(editionsDir(), id, `r${n}.json`), doc);
         results.push({ week: id, status: "written", revision: n, cutoff: iso(cutoff), editionStatus: content.status });

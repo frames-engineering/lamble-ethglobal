@@ -153,6 +153,10 @@ test("outside a drawdown the test is not_applicable; snapshot samples never hold
   assert.equal(s.priceBasis, "samples");
   assert.equal(s.conditions.lowHolds.state, "insufficient_data");
   assert.ok(s.stage === null || s.stage <= 1);
+  // A low sampled in the interval that is still open: elapsed time is zero, never negative.
+  const fresh = [...crash.slice(0, -1), crash.at(-1)! * 0.5].map((p, i) => ({ time: T0 + i * DAY + 6 * HOUR, price: p, availableAt: T0 + i * DAY + 6 * HOUR }));
+  const open = evaluateBottoming({ tokenId: "synthetic:s", candles: [], samples: fresh, flows: null, sales: null, marketCaps: [] }, T0 + (crash.length - 1) * DAY + 7 * HOUR);
+  assert.equal(open.secondsSinceLow, 0);
 });
 
 test("composite: disabled by config; gated; missing components never raise a score", () => {
@@ -227,6 +231,10 @@ test("multi-tag tokens and overlapping venue fees are not double-counted", () =>
   assert.equal(e.dedup.totalVolume, 7000 + 3500); // token A counted once
   assert.equal(e.dedup.sumOfNarrativeTotals, 17500);
   assert.deepEqual(e.dedup.overlap.map((o) => o.tokenId), ["solana:A"]);
+  // One comparable member is not a basket: the change is withheld and the basket is still disclosed.
+  assert.equal(n1.comparable.members, 1);
+  assert.equal(n1.comparable.sufficient, false);
+  assert.equal(n1.volumeChangePct, null);
   // Rolling indexed counts are reported in their own window with the ratio labelled.
   assert.equal(e.market.indexedActivity.periodCompletionRatio, 0.01);
   assert.match(e.market.indexedActivity.scope, /not a graduation probability/);

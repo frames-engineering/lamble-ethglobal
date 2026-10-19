@@ -22,6 +22,7 @@ const COMMANDS: Record<string, () => Promise<{ main: Main }>> = {
   ingest: () => import("./ingest.ts"),
   release: () => import("./release.ts"),
   weekly: () => import("./weekly.ts"),
+  research: () => import("./research.ts"),
   refresh: () => import("./refresh.ts"),
   status: () => import("./status.ts"),
 };

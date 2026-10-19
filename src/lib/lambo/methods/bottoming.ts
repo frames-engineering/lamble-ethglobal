@@ -7,7 +7,7 @@
  */
 import { DAY } from "../core/time.ts";
 
-export const BOTTOMING_VERSION = "bottoming-v1.0.0";
+export const BOTTOMING_VERSION = "bottoming-v1.0.1";
 
 export interface BottomingConfig {
   intervalSeconds: number;
@@ -364,7 +364,8 @@ export function evaluateBottoming(inputs: BottomingInputs, asOf: number, cfg: Bo
     label: stage === null ? `In a ${(100 * maxDd).toFixed(0)}% drawdown; conditions cannot be evaluated` : LABELS[stage]!,
     episode,
     drawdown: { current, maxInEpisode: maxDd },
-    secondsSinceLow: asOf - (episode.lowTime + cfg.intervalSeconds),
+    // Time since the low's interval closed; zero while the low sits in an interval that is still open (samples).
+    secondsSinceLow: Math.max(0, asOf - (episode.lowTime + cfg.intervalSeconds)),
     conditions: { capitulation: c1, lowHolds: c2, absorption: c3 },
     explanation:
       stage === null

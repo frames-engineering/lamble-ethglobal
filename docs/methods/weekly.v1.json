@@ -1,6 +1,6 @@
 {
   "method": "weekly-edition",
-  "version": "weekly-v1.0.0",
+  "version": "weekly-v1.1.0",
   "status": "active",
   "calendar": "ISO weeks: Monday 00:00 UTC to the following Monday 00:00 UTC, end exclusive. Edition id = ISO week id (2026-W42). The comparison week is the immediately preceding calendar week.",
   "views": {
@@ -29,5 +29,16 @@
     "scopeChanges": "When the included venue set or a narrative basket differs between the two weeks, the comparison is shown on the intersection and the scope change is listed; the denominator is never silently shrunk."
   },
   "revisions": "A frozen edition is never edited. A later build of the same week whose content differs (provider restatement, late data, correction) is written as revision r+1 with a list of what changed and why; earlier revisions stay published.",
-  "watch": "Next-week watch conditions are generated deterministically from rule thresholds (registry narrativeRules and method thresholds), not from forecasts."
+  "watch": "Next-week watch conditions are generated deterministically from rule thresholds (registry narrativeRules and method thresholds), not from forecasts.",
+  "comparison": "Week-over-week narrative volume change is computed on the comparable basket (members with complete daily data in both weeks) and reported only when that basket has at least 3 members and at least half of the members present in both weeks; otherwise the change is null and the basket is still shown.",
+  "changelog": [
+    {
+      "version": "weekly-v1.0.0",
+      "summary": "Initial method."
+    },
+    {
+      "version": "weekly-v1.1.0",
+      "summary": "Narrative change requires an adequate comparable basket (>=3 members and >=50% of members present in both weeks); watch subjects carry a short token id so coins sharing a symbol are distinguishable. Earlier editions are revised (r+1), not edited."
+    }
+  ]
 }

@@ -28,6 +28,53 @@ No owner-approved Frames budget was supplied for this work, so no paid Frames ca
 | P10 | Machine-readable coverage matrix + public sources page | `docs/data/provider-coverage.json` (generated); `/sources` page pending | — | partial |
 | P11 | Codex OHLC price candles at no extra call cost | `jobs.json codexBars.ohlcEnabled=true`; `plan.py` selection; `normalize.py check_ohlc` | Field names from the retained official doc example only; **first live run will verify** | implemented (unverified live) |
 
+## Batch 2 — observation store and ingestion
+
+| ID | Requirement | Where | Tests / evidence | Status |
+|---|---|---|---|---|
+| S1 | Relational store with migrations | `src/lib/lambo/store/sqlite.ts`, `src/lib/lambo/store/schema.ts`, `npm run lambo -- migrate` | `tests/lambo/release.test.ts` | implemented+tested |
+| S2 | Canonical identity: network + address, Solana case preserved, EVM lowercase; pools (incl. 32-byte v4 ids) | `src/lib/lambo/core/identity.ts` | `tests/lambo/foundation.test.ts` | implemented+tested |
+| S3 | Observations keep source, evidence, observed and availability time, revisions (never overwritten) | `observations` table (`revision_of`), `scripts/lambo/ingest.ts`; availability = first commit time of the run manifest | Ingestion fidelity: 43/43 snapshot prices and 19/19 venue 7-day fees equal the normalizer output; partial ingest rolls back | implemented+tested |
+| S4 | States observed / derived / stale / insufficient_data / unavailable / not_applicable | `src/lib/lambo/core/measure.ts` (`assertMeasure`); release check `measure-states` | release validation on every publish | implemented+tested |
+| S5 | Membership intervals with unique ids; featured, collection, membership and lifecycle separate; cap replacements reinterpreted | `normalize.py` (`interval_id`, `pausedNarratives`, `archivedMembers`), `ingest.ts classifyClosure`, `memberships.close_kind` | methods test "leaving featured placement…"; D9 below | implemented+tested |
+| S6 | Programmatic collection path replacing transcript scraping | pending (Batch 7) | — | pending |
+
+## Batch 3 — methods
+
+| ID | Requirement | Where | Tests / evidence | Status |
+|---|---|---|---|---|
+| M1 | Holder analysis: 9 components in 4 areas with stated semantics; composite versioned, gated, disabled | `src/lib/lambo/methods/holders.ts`, `docs/methods/holder-analysis.v1.json` | `tests/lambo/methods.test.ts` (retention, new wallets, transfers, concentration, composite gating) | implemented+tested; 7 of 9 components **blocked (external)**: no validated holder-balance or wallet-resolved trade capability |
+| M2 | Bottoming test: three-condition state machine, no look-ahead, reset on new low, not_applicable vs insufficient_data | `src/lib/lambo/methods/bottoming.ts` (bottoming-v1.0.1), `docs/methods/bottoming.v1.json` | methods tests incl. look-ahead and open-interval regression | implemented+tested; every coin in the current release is insufficient_data (139) or not_applicable (8): no candles in the store, no wallet-resolved sales |
+| M3 | Forward-evaluation harness | `src/lib/lambo/methods/evaluation.ts` | methods test | implemented+tested; 0 signals, so no performance claim |
+| M4 | Weekly editions: ISO weeks end-exclusive, three historical modes, flows vs stocks, dedup, comparable basket, revisions | `src/lib/lambo/methods/weekly.ts` (weekly-v1.1.0), `scripts/lambo/weekly.ts` | methods tests (boundaries, as-known-then, dedup, comparable basket) | implemented+tested |
+
+## Batch 4 — releases and service layer
+
+| ID | Requirement | Where | Tests / evidence | Status |
+|---|---|---|---|---|
+| R1 | Immutable, content-addressed releases; atomic publication; checksum-verified reads | `scripts/lambo/release/*`, `src/lib/lambo/service.ts` | `tests/lambo/release.test.ts` (tamper, rollback) | implemented+tested |
+| R2 | One read path for website and API; no provider calls when serving or building | `src/lib/lambo/service.ts` | build makes no provider calls (reads files); automated check pending (Batch 8) | implemented |
+| R3 | Change events on one global cursor | `src/lib/lambo/release/changes.ts`, `data/changes/events.json` | release test | implemented+tested |
+| R4 | Latest complete edition plus comparison week | `data/editions/2026-W42` (r1, r2), `2026-W41` (r1, r2, reconstructed) | r2 = weekly-v1.1.0 at the same cutoff; reasons recorded in each file | implemented |
+
+## Batch 5 — public website
+
+| ID | Requirement | Where | Tests / evidence | Status |
+|---|---|---|---|---|
+| W1 | Routes `/`, `/coins`, `/coins/[chain]/[address]`, `/narratives(/[slug])`, `/market(/[week])`, `/launchpads(/[slug])`, `/research(/[slug])`, `/methodology`, `/sources`, `/api` | `src/app/**` | `next build`: 210 pages; Playwright at 1440 and 390 px: all 200, no horizontal overflow, no page errors | implemented |
+| W2 | Coin page: identity, market with per-value as-of, charts with gaps, changes, holder table, bottoming test, memberships, peers, provider panels, research, evidence, agent retrieval | `src/app/coins/[chain]/[address]/page.tsx` | screenshots | implemented |
+| W3 | Unknown coin: not-covered page with request text; malformed chain/address: 404 | same file (`NotCovered`), `src/app/not-found.tsx` | `/coins/solana/So111…112` 200 not-covered; `/coins/notachain/xyz` 404 | implemented |
+| W4 | Bidirectional links coin ↔ narrative ↔ launchpad ↔ week ↔ article | all pages | manual | implemented |
+| W5 | Frames setup and copyable prompts without invented deep links, listings or status | `src/app/api/page.tsx`, `src/components/research/agent-access.tsx`; `NEXT_PUBLIC_FRAMES_MCP_URL` unset → "use the connection details in your Frames account"; `NEXT_PUBLIC_LAMBO_FRAMES_LISTING` unset → "not yet listed" | manual | implemented |
+| W6 | Metadata, canonical URLs, sitemap, robots, RSS and Atom, share cards from release data | `generateMetadata` per route, `src/app/sitemap.ts`, `robots.ts`, `research/feed.xml`, `research/atom.xml`, `opengraph-image.tsx` (home, coin, narrative, edition) | build | implemented |
+| W7 | No paid data in pages, hydration payloads or static artifacts | pages read `public.json` only; `loadBundles` is called only by the paid API path | grep: no page imports `loadBundles` | implemented |
+| W8 | Accessible, responsive, explicit states | skip link, landmarks, `aria-current`, labelled filters, chart text summaries, states as text not colour | 390 px screenshots | implemented |
+| W9 | Local watchlist (no account) | `src/components/research/client.tsx` (`localStorage`, this browser only) | manual | implemented |
+| W10 | Replace launch-only homepage and placeholder agent onboarding; launch stays secondary | `src/app/page.tsx`, `src/components/hero/research-hero.tsx`; removed the placeholder prompt, mock ticker and fixture provider | — | implemented |
+| W11 | Article pipeline with attribution and review policy; ≥1 weekly, coin and narrative article | `src/lib/lambo/research/*`, `scripts/lambo/research.ts`, `content/research/` (daily, weekly 2026-W42, coin SI, narrative Super Intelligence) | template text from release values; every block cited; deep dives `pending-review`, hidden when `VERCEL_ENV=production` | implemented (tests pending) |
+
+Defects found while building Batch 5 and fixed at the source: negative `secondsSinceLow` for sample-based episodes (bottoming-v1.0.1); trend reported for narratives no longer collected (now `not_collected`, release builder 1.1.0); week-over-week change reported on a 1-of-17 comparable basket (weekly-v1.1.0, editions revised to r2); fractional `return7d` rendered as percent; `Intl` compact currency differing between Node and Chromium ICU (hydration mismatch) replaced by a deterministic formatter.
+
 ## Documentation drift found
 
 | ID | Drift | Resolution |
