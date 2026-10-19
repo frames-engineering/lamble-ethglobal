@@ -75,6 +75,22 @@ No owner-approved Frames budget was supplied for this work, so no paid Frames ca
 
 Defects found while building Batch 5 and fixed at the source: negative `secondsSinceLow` for sample-based episodes (bottoming-v1.0.1); trend reported for narratives no longer collected (now `not_collected`, release builder 1.1.0); week-over-week change reported on a 1-of-17 comparable basket (weekly-v1.1.0, editions revised to r2); fractional `return7d` rendered as percent; `Intl` compact currency differing between Node and Chromium ICU (hydration mismatch) replaced by a deterministic formatter.
 
+## Batch 6 — research API and payments
+
+| ID | Requirement | Where | Tests / evidence | Status |
+|---|---|---|---|---|
+| A1 | `/api/v1` resources: coins, coin, coin bundle and history, narratives, weeks, launchpads, research, changes, index, health | `src/app/api/v1/**` (thin), `src/lib/lambo/api/routes.ts` (bodies), `resources.ts` | `tests/lambo/api.test.ts` (12); HTTP smoke against `next start`: free routes 200, rights-blocked bundles 403, sellable bundles 503 without payment config | implemented+tested |
+| A2 | OpenAPI, schemas, agent docs | `/api/v1/openapi.json` (`src/lib/lambo/api/openapi.ts`, generated from paths, pricing and the rights gate), `/llms.txt`, `/api` page | api test checks every paid route documents price, 402, 403, 503 | implemented+tested |
+| A3 | Free discovery shows identity, coverage, availability, schema, price; no market values | `coinDiscovery`, `narrativeDiscovery`, `weekDiscovery`, `articleDiscovery` | api test asserts no market value appears in coin discovery | implemented+tested |
+| A4 | Envelope with schemaVersion and release (id, dataCutoff, methodVersions) | `src/lib/lambo/api/http.ts` | api tests | implemented+tested |
+| A5 | Unknown rights block paid exports | `src/lib/lambo/api/rights.ts`: per-section sources; unsellable bundles answer 403 with no offer; withheld sections marked, never dropped | api tests (403 creates no offer and no settlement; flipping rights opens sections) | implemented+tested; **blocked (owner)**: Codex and DefiLlama terms review — until then coin, history, week and launchpads bundles are not for sale |
+| A6 | x402 and MPP adapters around one entitlement layer: offers pinned to a release, single-use payment keys, verify before settle, no client tx hashes, capability re-download, lost-response replay, uncertain settlement, append-only audit | `src/lib/lambo/payments/**`, `docs/runbooks/payments.md` | `tests/lambo/payments.test.ts` (18), plus api test: full offline x402 purchase through the real route (one settlement, capability re-download, capability refused for another narrative) | implemented+tested offline; **not live-verified** (no facilitator, chain, wallet or budget) |
+| A7 | Config-driven test prices | `docs/data/pricing.json` (status test, approved false); pages read prices through the payment layer's loader | pricing parse tests | implemented+tested |
+| A8 | Bazaar discovery metadata on x402 challenges | `X402Adapter.paymentRequiredHeader` (declare + enrich via the registered Bazaar extension) | api test decodes PAYMENT-REQUIRED: GET, route template `/api/v1/narratives/:slug/bundle` | implemented+tested; listing **unverified** |
+| A9 | Frames seller onboarding inspected; no invented listing | `docs/runbooks/frames-listing.md`; free search 2026-10-19 (`srch_893f6f0d-…`): no LAMBLE tool; pages say "not yet listed" unless `NEXT_PUBLIC_LAMBO_FRAMES_LISTING=listed` | free search evidence | implemented; listing **blocked (external)** |
+| A10 | One live acceptance if credentials, registration, deployment and budget permit | not run: no pay-to address, facilitator credentials, MPP recipient or secret, funded wallet, purchase budget, public deployment, or durable commerce storage | runbook §9 lists the prerequisites | **blocked (external)** |
+| A11 | No paid calls in page views, builds or bundle retrieval | serving reads release files; api test stubs `fetch` and scans `src/app`, `src/components`, API, site, research and the service for collection imports and `fetch(` | api test | implemented+tested |
+
 ## Documentation drift found
 
 | ID | Drift | Resolution |

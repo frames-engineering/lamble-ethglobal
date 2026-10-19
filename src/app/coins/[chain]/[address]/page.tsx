@@ -14,7 +14,6 @@ import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { apiPaths } from "@/lib/lambo/api/paths";
-import { displayPrice } from "@/lib/lambo/api/prices";
 import { CHAIN_NAME, type Chain } from "@/lib/lambo/core/identity";
 import type { DataState } from "@/lib/lambo/core/measure";
 import type { BottomingPublic, CoinPublic, ReleasePublic } from "@/lib/lambo/release/types";
@@ -430,7 +429,7 @@ function CoinResearch({ coin, release }: { coin: CoinPublic; release: ReleasePub
           subject={`${label} (${coin.chain}:${coin.address})`}
           discoveryPath={apiPaths.coin(coin.chain, coin.address)}
           paidPath={apiPaths.coinBundle(coin.chain, coin.address)}
-          price={displayPrice("coin-bundle")}
+          kind="coin-bundle"
           contents="The paid coin bundle adds what this page summarises: full provenance per value, observation-level series, the holder inputs and histories, every bottoming evaluation and the evidence graph, pinned to one release."
         />
       </div>

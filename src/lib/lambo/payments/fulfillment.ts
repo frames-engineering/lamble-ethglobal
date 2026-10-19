@@ -35,7 +35,7 @@ import {
   type ResourceBinding,
   canonicalParams,
 } from "./store.ts";
-import { type X402Adapter, X402_HEADERS, decodeX402Header, x402PaymentKey, x402ReceiptHeader, x402ResourceUrl } from "./x402.ts";
+import { type ResourceDiscovery, type X402Adapter, X402_HEADERS, decodeX402Header, x402PaymentKey, x402ReceiptHeader, x402ResourceUrl } from "./x402.ts";
 
 /** A precomputed resource the route handler has already validated and pinned to a concrete release. */
 export interface PaidResource {
@@ -46,6 +46,8 @@ export interface PaidResource {
   description: string;
   /** JSON body; only called after access is established. */
   render(): unknown;
+  /** Optional Bazaar discovery metadata for the x402 challenge. */
+  discovery?: ResourceDiscovery;
 }
 
 export interface PaymentAdapters {
@@ -218,6 +220,7 @@ async function offerResponse(ctx: Ctx, problem?: Problem): Promise<Response> {
         requirements,
         { url: x402ResourceUrl(resource.canonicalUrl, offer.id, offer.releaseId), description: resource.description },
         problem?.error,
+        resource.discovery,
       );
       accepts.push({
         protocol: "x402",

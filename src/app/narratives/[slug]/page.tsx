@@ -15,7 +15,6 @@ import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { apiPaths } from "@/lib/lambo/api/paths";
-import { displayPrice } from "@/lib/lambo/api/prices";
 import type { Evidence, NarrativePublic } from "@/lib/lambo/release/types";
 import { BadRequest, articlesFor, editionIndex, getEdition, loadRelease } from "@/lib/lambo/service";
 
@@ -289,7 +288,7 @@ export default async function NarrativePage({ params }: { params: Promise<Params
           subject={`the ${n.title} narrative (${n.slug})`}
           discoveryPath={apiPaths.narrative(n.slug)}
           paidPath={apiPaths.narrativeBundle(n.slug)}
-          price={displayPrice("narrative-bundle")}
+          kind="narrative-bundle"
           contents="The paid narrative bundle adds every membership interval with evidence, per-member hourly and daily series, version history and lifecycle records, pinned to one release."
         />
       </div>

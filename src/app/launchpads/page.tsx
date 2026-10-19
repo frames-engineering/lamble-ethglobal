@@ -7,7 +7,6 @@ import { formatValue } from "@/components/research/measure";
 import { Note, PageHeader } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
 import { apiPaths } from "@/lib/lambo/api/paths";
-import { displayPrice } from "@/lib/lambo/api/prices";
 import { toLaunchpadView } from "@/lib/lambo/site/launchpads";
 import { loadRelease } from "@/lib/lambo/service";
 
@@ -51,7 +50,7 @@ export default function LaunchpadsPage() {
             subject="launchpad economics across all tracked venues"
             discoveryPath={apiPaths.launchpads()}
             paidPath={apiPaths.launchpadsDataset()}
-            price={displayPrice("launchpads-dataset")}
+            kind="launchpads-dataset"
             contents="The paid launchpads dataset adds daily fee, revenue and supply-side rows per venue, the fee policy with exclusion reasons, every indexed-activity observation with its window, and fee-model sources."
           />
         </div>

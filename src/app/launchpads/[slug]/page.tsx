@@ -14,7 +14,6 @@ import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import type { ChainId, Launchpad } from "@/lib/data/types";
 import { apiPaths } from "@/lib/lambo/api/paths";
-import { displayPrice } from "@/lib/lambo/api/prices";
 import type { LaunchpadPublic } from "@/lib/lambo/release/types";
 import { BadRequest, articlesFor, loadRelease } from "@/lib/lambo/service";
 import { bps } from "@/lib/format";
@@ -227,7 +226,7 @@ export default async function LaunchpadPage({ params }: { params: Promise<Params
           subject="launchpad economics across all tracked venues"
           discoveryPath={apiPaths.launchpads()}
           paidPath={apiPaths.launchpadsDataset()}
-          price={displayPrice("launchpads-dataset")}
+          kind="launchpads-dataset"
           contents="The paid launchpads dataset covers every venue: daily fee, revenue and supply-side rows, the fee policy with exclusion reasons, every indexed-activity observation with its window, and fee-model sources."
         />
       </div>

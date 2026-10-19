@@ -14,6 +14,7 @@ import { parsePaymentPayload } from "@x402/core/schemas";
 import { type FacilitatorClient, type FacilitatorConfig, HTTPFacilitatorClient, x402ResourceServer } from "@x402/core/server";
 import { type Network, type PaymentPayload, type PaymentRequirements, type SettleResponse, SettleError } from "@x402/core/types";
 import { registerExactEvmScheme } from "@x402/evm/exact/server";
+import { bazaarResourceServerExtension, declareDiscoveryExtension } from "@x402/extensions/bazaar";
 
 import type { X402Terms } from "./store.ts";
 
@@ -150,6 +151,16 @@ function message(error: unknown): string {
   return parts.join(" <- ");
 }
 
+/** Bazaar discovery description of a paid GET resource. */
+export interface ResourceDiscovery {
+  /** Concrete request path, e.g. /api/v1/coins/solana/<mint>/bundle. */
+  path: string;
+  /** Route pattern with :params, e.g. /api/v1/coins/:chain/:address/bundle. */
+  routePattern: string;
+  outputSchema?: Record<string, unknown>;
+  outputExample?: unknown;
+}
+
 export class X402Adapter {
   readonly protocol = "x402" as const;
   readonly network: Network;
@@ -182,6 +193,7 @@ export class X402Adapter {
       });
     this.server = new x402ResourceServer(facilitator);
     registerExactEvmScheme(this.server, { networks: [this.network] });
+    this.server.registerExtension(bazaarResourceServerExtension);
   }
 
   /**
@@ -237,11 +249,23 @@ export class X402Adapter {
     requirements: PaymentRequirements[],
     resource: { url: string; description: string },
     error?: string,
+    discovery?: ResourceDiscovery,
   ): Promise<string> {
+    // Bazaar discovery metadata describes how to call the endpoint (GET, path parameters, output schema) so a
+    // facilitator that catalogues Bazaar extensions can list it. Declaring it does not list anything by itself.
+    const transport = discovery ? { method: "GET", adapter: { getPath: () => discovery.path }, routePattern: discovery.routePattern } : undefined;
+    // The manual flow must run declarations through the registered extensions itself: the Bazaar enricher adds
+    // the HTTP method and turns the route pattern into a routeTemplate with path parameters.
+    const extensions =
+      discovery && transport
+        ? this.server.enrichExtensions(declareDiscoveryExtension({ output: { example: discovery.outputExample, schema: discovery.outputSchema } }), transport)
+        : undefined;
     const required = await this.server.createPaymentRequiredResponse(
       requirements,
       { url: resource.url, description: resource.description, mimeType: "application/json", serviceName: this.serviceName.slice(0, 32) },
       error,
+      extensions,
+      transport,
     );
     return encodePaymentRequiredHeader(required);
   }

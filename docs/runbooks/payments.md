@@ -332,10 +332,18 @@ None of these exist yet. All are needed before a first live test on Base Sepolia
    payer, with client software for both protocols.
 5. An approved purchase budget for the test (number of purchases × test price). For mainnet, also owner
    approval of production prices: `pricing.json` `"status": "production"`, `"approved": true`.
-6. A deployed public HTTPS URL for the API, used as `canonicalUrl` base, with persistent storage for
-   `data/commerce.sqlite`.
+6. A deployed public HTTPS URL for the API, used as `canonicalUrl` base (`NEXT_PUBLIC_SITE_URL`), with
+   persistent, writable storage for `data/commerce.sqlite` shared by every server process. A serverless
+   filesystem is not enough: purchases, entitlements and replay claims would be lost or split between
+   instances. Run the API as one long-running Node server with a volume, or replace the store with a shared
+   database first.
+7. Rights: the route layer (`src/lib/lambo/api/rights.ts`) answers 403 `export_not_permitted`, with no offer,
+   for bundles whose primary content derives from capabilities without recorded redistribution rights. On
+   2026-10-19 that is every coin, history, week and launchpads bundle (Codex and DefiLlama terms not reviewed);
+   narrative and article bundles are sellable with market sections withheld.
 
-Acceptance script outline: GET a coin bundle → 402 with both headers → pay with x402 → 200 with
+Acceptance script outline: GET a narrative bundle (coin bundles stay 403 until market-data rights are
+permitted) → 402 with both headers → pay with x402 → 200 with
 `Lambo-Capability` and `PAYMENT-RESPONSE`. Confirm the transfer on BaseScan. Re-send the same payment → 200,
 no second transfer. Redeem the capability → 200. Repeat with MPP. Then check `payment_events` and
 `status()`.

@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { apiPaths } from "@/lib/lambo/api/paths";
 import { displayPrice } from "@/lib/lambo/api/prices";
+import { exportPlan } from "@/lib/lambo/api/rights";
+import { loadCatalog } from "@/lib/lambo/catalog/load";
 import { loadRelease } from "@/lib/lambo/service";
 import { FRAMES_LISTED, FRAMES_MCP_URL, FRAMES_URL, SITE_URL } from "@/lib/links";
 
@@ -21,6 +23,7 @@ export const metadata: Metadata = {
 
 export default function ApiPage() {
   const { data } = loadRelease();
+  const catalog = loadCatalog();
   const example = data.coins.find((c) => c.collection.status === "collected") ?? data.coins[0]!;
   const coinUrl = `${SITE_URL}${apiPaths.coin(example.chain, example.address)}`;
   const bundleUrl = `${SITE_URL}${apiPaths.coinBundle(example.chain, example.address)}`;
@@ -107,7 +110,7 @@ If no LAMBLE tool is listed, stop and tell me. Do not substitute another provide
           </div>
         </Panel>
 
-        <Panel id="endpoints" title="Endpoints" description="All paths are under /api/v1. Every response carries schemaVersion, releaseId, dataCutoff and methodVersions; bundles also carry provenance for each value.">
+        <Panel id="endpoints" title="Endpoints" description="All paths are under /api/v1. Data responses share one envelope: schemaVersion, the release they read (id, dataCutoff, methodVersions) and links. Bundles add evidence and an export section saying which parts are withheld and why.">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
@@ -120,6 +123,7 @@ If no LAMBLE tool is listed, stop and tell me. Do not substitute another provide
               <TableBody>
                 {rows.map((r) => {
                   const price = r.kind ? displayPrice(r.kind) : null;
+                  const sellable = r.kind ? exportPlan(r.kind, catalog).sellable : true;
                   return (
                     <TableRow key={r.path}>
                       <TableCell className="font-mono text-xs whitespace-nowrap text-high">
@@ -128,6 +132,10 @@ If no LAMBLE tool is listed, stop and tell me. Do not substitute another provide
                       <TableCell>
                         {r.access === "free" ? (
                           <Badge variant="positive">Free</Badge>
+                        ) : !sellable ? (
+                          <Badge variant="outline" title="Main content derives from sources whose redistribution rights are not reviewed; the endpoint answers 403.">
+                            Not for sale yet
+                          </Badge>
                         ) : (
                           <Badge variant="warning">{price ? `$${price.usd}${price.approved ? "" : " test"}` : "Paid"}</Badge>
                         )}

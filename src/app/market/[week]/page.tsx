@@ -11,7 +11,6 @@ import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { apiPaths } from "@/lib/lambo/api/paths";
-import { displayPrice } from "@/lib/lambo/api/prices";
 import { isWeekId } from "@/lib/lambo/core/time";
 import { BadRequest, type EditionDoc, NotFound, articlesFor, editionIndex, getEdition } from "@/lib/lambo/service";
 
@@ -330,7 +329,7 @@ export default async function EditionPage({ params, searchParams }: { params: Pr
           subject={`the ${e.id} weekly edition`}
           discoveryPath={apiPaths.week(e.id)}
           paidPath={apiPaths.weekDataset(e.id)}
-          price={displayPrice("week-dataset")}
+          kind="week-dataset"
           contents="The paid week dataset adds every revision with its cutoff, per-token daily rows behind each narrative total, all three historical modes in full, and venue-day fee rows."
         />
       </div>

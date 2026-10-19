@@ -11,7 +11,6 @@ import { Note, PageHeader } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import { apiPaths } from "@/lib/lambo/api/paths";
-import { displayPrice } from "@/lib/lambo/api/prices";
 import type { Evidence } from "@/lib/lambo/release/types";
 import { resolveCitation } from "@/lib/lambo/research/cite";
 import type { Article, ArticleBlock } from "@/lib/lambo/research/types";
@@ -260,7 +259,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
           subject={`the article "${a.title}"`}
           discoveryPath={apiPaths.article(a.slug)}
           paidPath={apiPaths.articleBundle(a.slug)}
-          price={displayPrice("research-article")}
+          kind="research-article"
           contents="The paid article bundle returns the article with its structured data: every cited value resolved from the release, plus the entities' bundles it draws on."
         />
       </div>
