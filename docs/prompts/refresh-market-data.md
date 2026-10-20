@@ -18,8 +18,8 @@ run's `refresh-manifest.json` and request files). Treat the latest manifests as 
 reference, not older estimates.
 
 **Calling and saving Frames batches.** Preferred, when `FRAMES_MCP_URL`,
-`FRAMES_MCP_AUTHORIZATION` and an owner-approved budget (`LAMBO_FRAMES_BUDGET_ID`,
-`LAMBO_FRAMES_BUDGET_USD`) are set: `npm run lambo -- collect $RUN <batch…>`. It reserves each
+`FRAMES_MCP_AUTHORIZATION` and an owner-approved budget (`LAMBLE_FRAMES_BUDGET_ID`,
+`LAMBLE_FRAMES_BUDGET_USD`) are set: `npm run lamble -- collect $RUN <batch…>`. It reserves each
 batch's `max_usd` against the budget before calling, passes `calls`, `idempotency_key`, `max_usd`
 and `search_ids` unchanged, polls the run, fetches `body_ref` bodies for free and writes
 `raw/<batch>.json`; reservations are recorded in `data/collect/ledger.json`. In an interactive
@@ -92,7 +92,7 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
 5. **Import.** `node scripts/import-frames-snapshot.mjs $RUN research/lamble/20260926T175634Z/launchpad-enrichment.json $RUN/landing-metrics.json $RUN`,
    then point the importer's default paths and the registry's `references` at the new run.
    The snapshot now only supplies launchpad presentation metadata to the release builder.
-5b. **Publish the research release.** `npm run lambo -- refresh` (offline, never spends): ingests
+5b. **Publish the research release.** `npm run lamble -- refresh` (offline, never spends): ingests
    the new run into the observation store, builds and validates a release, publishes it
    atomically, freezes any newly complete weekly edition (Mondays) and regenerates articles.
    A rejected release leaves the previous one published; fix the cause. Commit

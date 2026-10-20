@@ -4,11 +4,11 @@
 
 | Format | Produced by | Review | Where |
 |---|---|---|---|
-| Daily facts | `npm run lambo -- research` from the published release | none; labelled "Not reviewed" | everywhere |
+| Daily facts | `npm run lamble -- research` from the published release | none; labelled "Not reviewed" | everywhere |
 | State of the Trenches (weekly) | same, from the latest weekly edition revision | none; labelled "Not reviewed" | everywhere |
-| Coin and narrative deep dives | same, chosen deterministically (longest-observed collected coin in a narrative; longest-observed featured narrative) | `pending-review` until a named person reviews | local and preview builds; hidden in production (`VERCEL_ENV=production`, or `LAMBO_HIDE_PENDING_REVIEW=true`) |
+| Coin and narrative deep dives | same, chosen deterministically (longest-observed collected coin in a narrative; longest-observed featured narrative) | `pending-review` until a named person reviews | local and preview builds; hidden in production (`VERCEL_ENV=production`, or `LAMBLE_HIDE_PENDING_REVIEW=true`) |
 
-All text is filled into fixed templates from release values by code (`src/lib/lambo/research/generate.ts`).
+All text is filled into fixed templates from release values by code (`src/lib/lamble/research/generate.ts`).
 No person writes the articles and no language model drafts them; the attribution on every article says so.
 Every paragraph, list item and table row cites the release value, edition value, change event or evidence it
 comes from, and the sources list resolves each citation.

@@ -3,7 +3,7 @@
   "catalogVersion": 1,
   "updatedAt": "2026-10-19T16:40:00Z",
   "policy": {
-    "authority": "This file is the only registry of Frames tool IDs and their contracts. Application code, the acquisition scripts (scripts/frames-refresh) and the Lambo pipeline (scripts/lambo) refer to capabilities by key (for example pump.coin) and resolve the tool ID here. Research universe and narrative rules live in docs/prompts/refresh-market-data.sources.json; cadence, scope, budget, pagination and freshness live in docs/data/jobs.json.",
+    "authority": "This file is the only registry of Frames tool IDs and their contracts. Application code, the acquisition scripts (scripts/frames-refresh) and the LAMBLE pipeline (scripts/lamble) refer to capabilities by key (for example pump.coin) and resolve the tool ID here. Research universe and narrative rules live in docs/prompts/refresh-market-data.sources.json; cadence, scope, budget, pagination and freshness live in docs/data/jobs.json.",
     "statuses": {
       "validated": "Descriptor verified, at least one live response retained, adapter registered and its field map verified against that response. May be enabled.",
       "candidate": "Descriptor verified (free frames_get_tool) but no live response has been retained or the field map is unverified. Never enabled; never published.",
@@ -11,8 +11,8 @@
       "blocked": "Tested and failed for a documented reason. Do not pay again until the reason has changed.",
       "deprecated": "Replaced; kept for provenance of old observations."
     },
-    "enableRule": "enabled=true requires validation.status=validated, a registered adapter (src/lib/lambo/adapters/registry.ts) and validation.fieldMapVerified=true. scripts/lambo/providers.ts validate enforces this.",
-    "rights": "storage, display and redistribution are recorded per capability. 'unknown' blocks paid API export of components derived from that capability (src/lib/lambo/api/rights.ts); it does not block collection, retention of evidence the repository already retains, or unrelated work. Values change only after the owner reviews the provider's terms.",
+    "enableRule": "enabled=true requires validation.status=validated, a registered adapter (src/lib/lamble/adapters/registry.ts) and validation.fieldMapVerified=true. scripts/lamble/providers.ts validate enforces this.",
+    "rights": "storage, display and redistribution are recorded per capability. 'unknown' blocks paid API export of components derived from that capability (src/lib/lamble/api/rights.ts); it does not block collection, retention of evidence the repository already retains, or unrelated work. Values change only after the owner reviews the provider's terms.",
     "searchIds": "attribution.searchId is the last Frames search that led to a tool. It is passed to frames_invoke_tools for attribution only; it is not an identifier and may be replaced at any time.",
     "prices": "payment.priceHintUsd is the catalog hint, not a binding quote. Quote with frames_probe_tools (free) before a paid batch; the bill is the run's billing block in credits."
   },
@@ -66,12 +66,12 @@
       "notes": "x402 seller wrapping the FOMO trading app. Holder, thesis and activity data cover FOMO users only, not every on-chain wallet."
     },
     {
-      "id": "lambo",
-      "name": "Lambo research (Frames)",
+      "id": "lamble",
+      "name": "LAMBLE research (Frames)",
       "homepage": null,
       "docs": "/methodology",
       "transport": "internal",
-      "notes": "Lambo's own curation decisions, classifications and deterministic method outputs."
+      "notes": "LAMBLE's own curation decisions, classifications and deterministic method outputs."
     }
   ],
   "capabilities": [
@@ -467,7 +467,7 @@
         "maxAcceptedAgeSeconds": 93600
       },
       "cost": {
-        "maxCallsPerRun": 2,
+        "maxCallsPerRun": 4,
         "maxUsdPerBatch": 0.05
       },
       "validation": {
@@ -806,7 +806,7 @@
         "maxAcceptedAgeSeconds": 604800
       },
       "cost": {
-        "maxCallsPerRun": 12,
+        "maxCallsPerRun": 30,
         "maxUsdPerBatch": 0.1
       },
       "validation": {
@@ -1759,7 +1759,7 @@
         "units": {
           "pnl": "unverified unit"
         },
-        "coverage": "Top traders by profit on one coin: a profit-ranked sample, biased toward winners. Realized P&L here is source-reported, never a substitute for Lambo's reconstructed realized losses.",
+        "coverage": "Top traders by profit on one coin: a profit-ranked sample, biased toward winners. Realized P&L here is source-reported, never a substitute for LAMBLE's reconstructed realized losses.",
         "population": "top_traders_by_profit_sample",
         "timestamps": "Per-trade times unverified.",
         "sourceReported": [
@@ -2992,14 +2992,14 @@
       ]
     },
     {
-      "key": "lambo.curation",
-      "provider": "lambo",
+      "key": "lamble.curation",
+      "provider": "lamble",
       "toolId": null,
       "upstream": {
         "host": null,
         "method": null,
         "path": "research/lamble/<run>/curation.json and memberships.json",
-        "source": "Lambo editorial decisions"
+        "source": "LAMBLE editorial decisions"
       },
       "contract": {
         "inputSchema": {
@@ -3013,10 +3013,10 @@
       },
       "payment": null,
       "dataNetworks": [],
-      "adapter": "lambo.curation",
+      "adapter": "lamble.curation",
       "semantics": {
         "units": {},
-        "coverage": "Lambo's own narrative definitions, membership rationales, cluster and candidate decisions.",
+        "coverage": "LAMBLE's own narrative definitions, membership rationales, cluster and candidate decisions.",
         "timestamps": "Recorded at the run that made the decision.",
         "sourceReported": []
       },
@@ -3043,7 +3043,7 @@
         "storage": "permitted",
         "display": "permitted",
         "redistribution": "permitted",
-        "notes": "Lambo's own work. Linked third-party evidence keeps its own rights."
+        "notes": "LAMBLE's own work. Linked third-party evidence keeps its own rights."
       },
       "enabled": true,
       "uses": [
@@ -3052,7 +3052,7 @@
     },
     {
       "key": "dune.sql",
-      "provider": "lambo",
+      "provider": "lamble",
       "toolId": "mpp.dune.post.api-v1-sql-execute",
       "upstream": {
         "host": "api.dune.com",
@@ -3115,7 +3115,7 @@
     },
     {
       "key": "allium.sql-async",
-      "provider": "lambo",
+      "provider": "lamble",
       "toolId": "mpp.allium.post.api-v1-explorer-queries-run-async",
       "upstream": {
         "host": "api.allium.so",
@@ -3178,7 +3178,7 @@
     },
     {
       "key": "loophole.launch-feed",
-      "provider": "lambo",
+      "provider": "lamble",
       "toolId": "bazaar.api-loopholetape-com-v1-base-launches-since",
       "upstream": {
         "host": "api.loopholetape.com",
@@ -3243,7 +3243,7 @@
     },
     {
       "key": "bitquery.pump-launches",
-      "provider": "lambo",
+      "provider": "lamble",
       "toolId": "agentic.emc2ai-io..x402-bitquery-pumpfun-launches-raw",
       "upstream": {
         "host": "emc2ai.io",
@@ -3308,7 +3308,7 @@
     },
     {
       "key": "otto.x-summary",
-      "provider": "lambo",
+      "provider": "lamble",
       "toolId": "bazaar.x402-ottoai-services-twitter-summary",
       "upstream": {
         "host": "x402.ottoai.services",

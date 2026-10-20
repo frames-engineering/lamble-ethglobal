@@ -3,9 +3,9 @@
   "jobsVersion": 1,
   "updatedAt": "2026-10-19T16:22:44Z",
   "policy": {
-    "budgets": "Ceilings here bound what a job may request; they are not spending authorization. A paid job runs only under an owner-approved budget supplied with the invocation (the scheduled routine's prompt or LAMBO_APPROVED_BUDGET_CREDITS for the programmatic collector). Without one, paid jobs plan and stop.",
+    "budgets": "Ceilings here bound what a job may request; they are not spending authorization. A paid job runs only under an owner-approved budget supplied with the invocation (the scheduled routine's prompt or LAMBLE_APPROVED_BUDGET_CREDITS for the programmatic collector). Without one, paid jobs plan and stop.",
     "schedules": "scheduleStatus says what is actually running: active-external (installed outside this repository and observed through its commits), configured (cron and runbook ready, nothing installed), manual (run by an operator). No job in this repository installs a scheduler.",
-    "writers": "Jobs with the same writerGroup take the same lock (scripts/lambo/lock.ts); daily and weekly writers never overlap.",
+    "writers": "Jobs with the same writerGroup take the same lock (scripts/lamble/lock.ts); daily and weekly writers never overlap.",
     "serving": "Page views, builds and API reads never run a job and never make a paid call."
   },
   "codexBars": {
@@ -66,7 +66,7 @@
     {
       "id": "x4o2-coin-panels",
       "kind": "paid-collection",
-      "description": "Pump and FOMO per-coin panels (coin, holders sample, candles, theses, developers) for tracked coins. Candidate capabilities: runs only after scripts/lambo/providers.ts validate marks them validated and enabled.",
+      "description": "Pump and FOMO per-coin panels (coin, holders sample, candles, theses, developers) for tracked coins. Candidate capabilities: runs only after scripts/lamble/providers.ts validate marks them validated and enabled.",
       "cadence": "daily after daily-refresh",
       "cron": null,
       "scheduleStatus": "configured",
@@ -108,7 +108,7 @@
       "cadence": "daily",
       "cron": "15 5 * * *",
       "scheduleStatus": "manual",
-      "scheduleEvidence": "Run by an operator or agent (scripts/lambo/providers.ts health --plan prints the probe list).",
+      "scheduleEvidence": "Not scheduled. npm run lamble -- providers health --run executes the free probes through FRAMES_MCP_URL (the runner refuses any non-free tool); without that endpoint an agent runs the list from health --plan.",
       "capabilities": [
         "*"
       ],
@@ -136,7 +136,7 @@
       "cadence": "after daily-refresh",
       "cron": null,
       "scheduleStatus": "manual",
-      "scheduleEvidence": "npm run lambo -- ingest",
+      "scheduleEvidence": "npm run lamble -- ingest",
       "capabilities": [],
       "scope": "research/lamble/*",
       "budget": {
@@ -148,7 +148,7 @@
       "freshness": {},
       "writerGroup": "store",
       "outputs": [
-        "data/lambo.sqlite"
+        "data/lamble.sqlite"
       ]
     },
     {
@@ -158,7 +158,7 @@
       "cadence": "after ingest",
       "cron": null,
       "scheduleStatus": "manual",
-      "scheduleEvidence": "npm run lambo -- release",
+      "scheduleEvidence": "npm run lamble -- release",
       "capabilities": [],
       "scope": "All tracked coins and narratives.",
       "budget": {
@@ -189,7 +189,7 @@
       "cadence": "Mondays after the daily release",
       "cron": "30 7 * * 1",
       "scheduleStatus": "configured",
-      "scheduleEvidence": "npm run lambo -- weekly",
+      "scheduleEvidence": "npm run lamble -- weekly",
       "capabilities": [],
       "scope": "Calendar week and its comparison week.",
       "budget": {
@@ -214,7 +214,7 @@
       "cadence": "after daily-release and weekly-aggregation",
       "cron": null,
       "scheduleStatus": "manual",
-      "scheduleEvidence": "npm run lambo -- research",
+      "scheduleEvidence": "npm run lamble -- research",
       "capabilities": [],
       "scope": "Daily factual changes (auto), weekly edition, deep dives (reviewed).",
       "budget": {
@@ -236,9 +236,9 @@
       "cadence": "after daily-release",
       "cron": null,
       "scheduleStatus": "configured",
-      "scheduleEvidence": "Disabled: notifications.json enabled=false, no destinations, LAMBO_DELIVERY_ENABLED unset. npm run lambo -- deliver",
+      "scheduleEvidence": "Disabled: notifications.json enabled=false, no destinations, LAMBLE_DELIVERY_ENABLED unset. npm run lamble -- deliver",
       "capabilities": [],
-      "scope": "Destinations in docs/data/notifications.json with verifiedAt and consentAt recorded and no revokedAt; secrets from the environment variable each destination names.",
+      "scope": "Destinations in docs/data/notifications.json whose current target passed verification (webhook challenge echo or Telegram one-time code, data/delivery/verifications.json), with consentAt recorded and no revokedAt; secrets from the environment variable each destination names.",
       "budget": {
         "maxCreditsPerRun": 0,
         "typicalCredits": "0",
@@ -258,7 +258,8 @@
       "freshness": {},
       "writerGroup": "delivery",
       "outputs": [
-        "data/delivery/state.json (cursor, attempts, backoff per destination)"
+        "data/delivery/state.json (cursor, attempts, backoff per destination)",
+    "data/delivery/verifications.json (verified targets; Telegram codes only as hashes)"
       ]
     }
   ]

@@ -7,15 +7,21 @@ in [`docs/data/jobs.json`](../data/jobs.json); this page explains how to operate
 
 | Job | How it runs today | Cost | Command |
 |---|---|---|---|
-| Daily acquisition | **Active, external**: a scheduled Claude Code routine follows [`docs/prompts/refresh-market-data.md`](../prompts/refresh-market-data.md) once a day; its own prompt states its budget and whether it may commit or merge. Nothing in this repository installs a schedule. | 805–978 credits per run (2026-10-12..19) | agent session, or `npm run lambo -- collect` with a budget |
-| Release, weekly editions, articles | Offline; run after each acquisition (step 5b of the routine) | free | `npm run lambo -- refresh` |
-| Weekly aggregation | Covered by `refresh` (it freezes a week once its checks pass, usually Monday after the daily run). A standalone Monday schedule is **configured, not active** (`jobs.json` cron `30 7 * * 1`; template below). | free | `npm run lambo -- weekly` |
-| x4o2 Pump/FOMO panels | **Configured, budget 0.** Candidate capabilities; enabling needs an approved budget, one retained response per route and a verified field map. | — | `npm run lambo -- providers smoke …` |
-| Provider health | Manual, free calls only | free | `npm run lambo -- providers health` |
-| Notification delivery | **Disabled**: no destinations, `notifications.json` `enabled: false` | free | `npm run lambo -- deliver` |
+| Daily acquisition | **Active, external**: a scheduled Claude Code routine follows [`docs/prompts/refresh-market-data.md`](../prompts/refresh-market-data.md) once a day; its own prompt states its budget and whether it may commit or merge. Nothing in this repository installs a schedule. | 805–978 credits per run (2026-10-12..19) | agent session, or `npm run lamble -- collect` with a budget |
+| Release, weekly editions, articles | Offline; run after each acquisition (step 5b of the routine) | free | `npm run lamble -- refresh` |
+| Weekly aggregation | Covered by `refresh` (it freezes a week once its checks pass, usually Monday after the daily run). A standalone Monday schedule is **configured, not active** (`jobs.json` cron `30 7 * * 1`; template below). | free | `npm run lamble -- weekly` |
+| x4o2 Pump/FOMO panels | **Configured, budget 0.** Candidate capabilities; enabling needs an approved budget, one retained response per route and a verified field map. | — | `npm run lamble -- providers smoke …` |
+| Provider health | Manual, free calls only. `--run` executes `frames_probe_tools` and `frames_get_tool` through `FRAMES_MCP_URL` (the runner refuses any other tool) and writes `data/provider-health/<date>.json` with liveness, quotes and drift; exit 1 when anything drifted. Without the endpoint, `--plan` prints the list for an agent session. | free | `npm run lamble -- providers health --run` |
+| Notification delivery | **Disabled**: no destinations, `notifications.json` `enabled: false`. A destination is eligible only after `deliver verify` (webhook: signed challenge echoed; Telegram: one-time code sent to the chat, then `deliver confirm <id> <code>`), with operator-recorded consent. | free | `npm run lamble -- deliver` |
+
+The collector refuses, before any call, a batch that names a tool without a registered capability, a discovered,
+blocked or deprecated capability, more calls in the run than a capability's `cost.maxCallsPerRun`, or a
+`max_usd` above the sum of its capabilities' `cost.maxUsdPerBatch`; batches are invoked at least 2 s apart.
+`x.search` (30) and `codex.token-snapshot` (4) caps were raised on 2026-10-20 to the measured maxima of the
+retained daily plans (28 and 3); a test keeps every retained plan within the caps.
 
 Writers take a lock per writer group (`data/locks/<group>.lock`, stale after 30 minutes), so a release and a
-weekly build never write at the same time. `npm run lambo -- status` shows the published release, the latest
+weekly build never write at the same time. `npm run lamble -- status` shows the published release, the latest
 ingested run, editions and lock state.
 
 ## Publishing and rollback
@@ -25,7 +31,7 @@ ingested run, editions and lock state.
   resolution, no credential-like text). A rejected release changes nothing.
 - Rollback: point `published.json` at an earlier retained release (`data/releases/index.json` lists them;
   pinned releases are never pruned) and redeploy. Never edit a release directory; publish a correction instead.
-- Weekly editions are never edited: `npm run lambo -- weekly --revise` writes r+1 with the reasons;
+- Weekly editions are never edited: `npm run lamble -- weekly --revise` writes r+1 with the reasons;
   `--same-cutoff` re-reads exactly the observations of the previous revision (method or presentation fixes).
 
 ## Deployment
@@ -40,13 +46,13 @@ that adds it is deployed.
 
 **B. Paid API.** Purchases, entitlements and replay claims live in `data/commerce.sqlite`, which must be on
 persistent, writable storage shared by every process. Run one long-running Node server (`npm run build &&
-npm start`) with a volume mounted for the commerce database (`LAMBO_COMMERCE_DB_PATH`), or replace the store
+npm start`) with a volume mounted for the commerce database (`LAMBLE_COMMERCE_DB_PATH`), or replace the store
 with a shared database before scaling out. A serverless filesystem would lose purchases. Prerequisites and
 acceptance steps: [payments runbook](payments.md) §9. Back the commerce database up as financial records.
 
 Templates (not activated, not built or run in this work):
 [`docs/ops/Dockerfile`](../ops/Dockerfile) for topology B and
-[`docs/ops/github-actions/lambo-offline-refresh.yml`](../ops/github-actions/lambo-offline-refresh.yml) for a
+[`docs/ops/github-actions/lamble-offline-refresh.yml`](../ops/github-actions/lamble-offline-refresh.yml) for a
 scheduled offline refresh check. Copy them into place only with the owner's approval.
 
 ## Security notes
@@ -66,8 +72,10 @@ scheduled offline refresh check. Copy them into place only with the owner's appr
 |---|---|---|
 | `release: rejected` | the failing check in the output | fix the data or normalizer cause; the previous release stays published |
 | `weekly: delayed` | no run whose financial anchor reaches the week end | wait for the next daily run |
-| `LockBusyError` | `npm run lambo -- status` | wait; a crashed holder is taken over after 30 minutes |
-| `collect: refused` | budget id/amount, remaining budget, request `max_usd` | get an approved budget; never raise `max_usd` to fit |
+| `LockBusyError` | `npm run lamble -- status` | wait; a crashed holder is taken over after 30 minutes |
+| `collect: refused` | budget id/amount, remaining budget, request `max_usd`, the catalog limit named in the output | get an approved budget; never raise `max_usd` or a catalog cap to fit without evidence |
+| `research: rejected` | the citation or chart named in the output | an article whose citation does not resolve or whose chart differs from the release is not written; fix the generator |
+| `deliver verify` fails | the endpoint's response | a webhook must answer 200 with `{"challenge": <the value sent>}`; a plain 200 is not a verification |
 | `collect: requires_approval` | the Frames run | approve or cancel it in Frames, then rerun the same batch (same idempotency key) |
 | Paid route 500 `release_not_pinned` | route code | a route passed "latest"; see payments runbook §2 |
 | Purchases in `uncertain` | `listNeedingReconciliation` | payments runbook §7 |

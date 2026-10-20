@@ -13,9 +13,9 @@ FROM node:22-slim
 WORKDIR /app
 ENV NODE_ENV=production
 # Purchases, entitlements and replay claims: mount a persistent volume here.
-ENV LAMBO_COMMERCE_DB_PATH=/var/lib/lambo/commerce.sqlite
+ENV LAMBLE_COMMERCE_DB_PATH=/var/lib/lamble/commerce.sqlite
 COPY --from=build /app /app
-RUN mkdir -p /var/lib/lambo && chown node:node /var/lib/lambo
+RUN mkdir -p /var/lib/lamble && chown node:node /var/lib/lamble
 USER node
 EXPOSE 3000
 CMD ["npm", "start"]

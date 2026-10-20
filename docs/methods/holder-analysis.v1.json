@@ -1,8 +1,18 @@
 {
   "method": "holder-analysis",
-  "version": "holder-analysis-v1.0.0",
+  "version": "holder-analysis-v1.1.0",
+  "changes": {
+    "holder-analysis-v1.1.0": "Components 1, 2, 4-7 compute from stored holder panels, wallet-resolved trades, provider candles and address classes when those inputs exist; values for meaningful-holder growth and whale accumulation are now defined as ratios; trade coverage rules added. Results are unchanged while no such input is collected."
+  },
   "status": "active",
   "summary": "Nine components in four areas. Raw values, histories, peer comparisons and coverage come first; a composite is a separate, versioned, gated framework that is disabled until its inputs are defensible.",
+  "inputs": {
+    "panels": "Holder panels are stored with the population the source declares (holder_panels, balance_checkpoints). A panel is complete only when the source says it covers every holder; no x4o2 panel does. Only token-unit amounts are used; USD values are never converted back into balances.",
+    "trades": "Wallet-resolved trades come from one tape per coin whose responses are complete between the oldest returned trade and the read time (trade_coverage). Coverage of a window is the share of it inside those spans. Filtered feeds (FOMO activity) are context, never flow inputs.",
+    "supply": "Circulating supply = circulating market cap / price from the same Codex snapshot.",
+    "addressClasses": "docs/data/address-labels.json (evidence-backed) plus the pool addresses LAMBLE tracks for the coin. Unclassified pools and programs stay in the population and the coverage note says so.",
+    "checkpoints": "Two checkpoints about 7 days apart, each within checkpointToleranceHours (default 24) of its target; the later within the component's maxAgeSeconds."
+  },
   "exclusions": {
     "policy": "Excluded from holder populations only when classified with evidence: liquidity pools, burn addresses, custody/exchange wallets, lockups/vesting contracts and the token's own program accounts. A contract address is not excluded merely for being a contract (smart wallets hold tokens). Heuristic ownership clusters are reported separately and never merged into verified labels.",
     "sensitivity": "Concentration is reported with and without each exclusion class so the effect of every exclusion is visible."
@@ -46,7 +56,7 @@
       "id": "demand.meaningful_holder_growth",
       "area": "demand",
       "label": "Meaningful-holder growth",
-      "formula": "entrants = wallets at or above usdThreshold at t1 that were below it at t0 AND whose token balance increased. priceCrossers (balance unchanged or lower, crossed only because price rose) are reported separately and never counted as entrants.",
+      "formula": "entrants = wallets at or above usdThreshold at t1 that were below it at t0 AND whose token balance increased. priceCrossers (balance unchanged or lower, crossed only because price rose) are reported separately and never counted as entrants. value = (after - priceCrossers - before) / before, where before and after count wallets at or above usdThreshold at each checkpoint (prices: snapshots within 12 hours of each checkpoint).",
       "parameters": { "usdThreshold": 100 },
       "requires": ["all_holders balance checkpoints", "price at both checkpoints"],
       "minCoverage": 0.9,
@@ -56,7 +66,7 @@
       "id": "demand.whale_accumulation",
       "area": "demand",
       "label": "Accumulation by a fixed whale cohort",
-      "formula": "Cohort = top 20 non-excluded wallets at the window start, fixed for the comparison. netPurchases = sum(buy token amounts) - sum(sell token amounts) from wallet-resolved trades only. Transfers, airdrops and rebases change balances but are never purchases; balance change is reported separately.",
+      "formula": "Cohort = top 20 non-excluded wallets of a top-holder or all-holder panel about 7 days before the release, fixed for the comparison. netPurchases = sum(buy token amounts) - sum(sell token amounts) from wallet-resolved trades only; value = netPurchases / the cohort's starting balance. Transfers, airdrops and rebases change balances but are never purchases; balance change is reported separately. Requires trade coverage of the window >= minCoverage and token amounts on every cohort trade.",
       "parameters": { "cohortSize": 20 },
       "requires": ["wallet-resolved trades", "holder ranking at window start"],
       "minCoverage": 0.8,
@@ -66,8 +76,8 @@
       "id": "demand.dip_absorption",
       "area": "demand",
       "label": "Buying that absorbs selling during dips",
-      "formula": "Over intervals whose close fell >= 5% versus the prior close: buyVolumeUsd / sellVolumeUsd.",
-      "parameters": { "dipThreshold": 0.05 },
+      "formula": "Over daily intervals in the last lookbackDays whose close fell >= dipThreshold versus the prior day's close: sum(buyVolumeUsd) / sum(sellVolumeUsd) from wallet-resolved trades. A dip day counts only when its flow coverage (time inside complete trade spans, capped by traded USD against the day's total volume) is >= minCoverage, and at least minCoverage of dip days must count. No dip day: not_applicable.",
+      "parameters": { "dipThreshold": 0.05, "lookbackDays": 30 },
       "requires": ["buy/sell volume split per interval"],
       "minCoverage": 0.8,
       "maxAgeSeconds": 172800
@@ -104,7 +114,7 @@
   "composite": {
     "version": "holder-composite-v0.1.0-experimental",
     "enabled": false,
-    "disabledReason": "Seven of nine components have no validated input capability (no holder balances, wallet-resolved trades or portfolio data are collected). A score over two market-health/relative components would not measure holders.",
+    "disabledReason": "Seven of nine components have no validated input capability yet (no holder panels, wallet-resolved trades or portfolio data are collected; the store and methods accept them once a capability is enabled). A score over two market-health/relative components would not measure holders.",
     "normalization": {
       "persistence.drawdown_retention": { "zeroAt": 0.3, "hundredAt": 0.95 },
       "persistence.balance_retention": { "zeroAt": 0.4, "hundredAt": 0.98 },

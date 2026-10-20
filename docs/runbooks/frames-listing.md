@@ -23,10 +23,10 @@ have not been verified.
 
 - Every x402 challenge declares Bazaar discovery metadata (`extensions.bazaar`: GET, route template with path
   parameters, output schema reference) through `@x402/extensions/bazaar`
-  (`src/lib/lambo/payments/x402.ts`, tested in `tests/lambo/api.test.ts`). Declaring it does not list anything.
+  (`src/lib/lamble/payments/x402.ts`, tested in `tests/lamble/api.test.ts`). Declaring it does not list anything.
 - The OpenAPI description (`/api/v1/openapi.json`) and `/llms.txt` describe every route, price and the export
   status.
-- MPP challenges carry a stable realm (`MPP_REALM`, default `lambo`) and the offer scope.
+- MPP challenges carry a stable realm (`MPP_REALM`, default `lamble`) and the offer scope.
 
 ## Prerequisites, in order
 
@@ -48,7 +48,7 @@ have not been verified.
    - MPP directory: listing procedure not documented in anything read for this work.
    - Frames-native (`frames.`) and `agentic.` entries: ask Frames how sellers are onboarded.
 6. **Verification.** After listing, run the same free search (queries above). Only when a LAMBLE tool id is
-   returned, set `NEXT_PUBLIC_LAMBO_FRAMES_LISTING=listed` so pages stop saying "not yet listed". Record the
+   returned, set `NEXT_PUBLIC_LAMBLE_FRAMES_LISTING=listed` so pages stop saying "not yet listed". Record the
    tool id and search id here.
 
 Do not buy our own endpoint repeatedly to create usage, and do not ask Frames to change ranking.

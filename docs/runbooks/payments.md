@@ -4,8 +4,8 @@ Status (2026-10-19): implemented and unit-tested offline only. **No live payment
 any facilitator, chain or wallet. Prices in `docs/data/pricing.json` are test prices (`status: "test"`,
 `approved: false`). They wait on a cost benchmark and owner approval.
 
-Code: `src/lib/lambo/payments/` (`fulfillment.ts`, `store.ts`, `schema.ts`, `pricing.ts`, `x402.ts`,
-`mpp.ts`, `index.ts`). Tests: `tests/lambo/payments.test.ts`.
+Code: `src/lib/lamble/payments/` (`fulfillment.ts`, `store.ts`, `schema.ts`, `pricing.ts`, `x402.ts`,
+`mpp.ts`, `index.ts`). Tests: `tests/lamble/payments.test.ts`.
 
 ## 1. Architecture
 
@@ -13,7 +13,7 @@ There are no reader accounts. Every purchase buys one precomputed resource, for 
 
 ```
 GET resource ──(no credential)──> Offer ──402──> client pays ──> Purchase ──settled──> Entitlement ──> capability token
-                                  (quote)        (x402 | MPP)     (single-use          (access record)   (lambo_cap_..., shown once)
+                                  (quote)        (x402 | MPP)     (single-use          (access record)   (lamble_cap_..., shown once)
                                                                    payment_key)
 ```
 
@@ -29,7 +29,7 @@ GET resource ──(no credential)──> Offer ──402──> client pays ─
   fulfilled` (settled and entitled in one transaction), or `failed`, or `uncertain` (needs reconciliation).
 - **Entitlement** (`entitlements`): created only after a successful settlement, atomically with marking the
   purchase fulfilled. It is bound to kind, params key and release. Only `sha256(token)` is stored.
-- **Capability** (`lambo_cap_` + 32 random bytes, base64url): returned once, in `Lambo-Capability`. Sending it
+- **Capability** (`lamble_cap_` + 32 random bytes, base64url): returned once, in `Lamble-Capability`. Sending it
   as `Authorization: Bearer <token>` redeems one download.
 - **Audit** (`payment_events`): an append-only row for every branch, including rejections. Triggers refuse
   UPDATE and DELETE. Rows never contain capability tokens, signatures, credentials or full headers.
@@ -38,7 +38,7 @@ GET resource ──(no credential)──> Offer ──402──> client pays ─
   opens the file.
 
 The commerce database is separate from the observation store: `data/commerce.sqlite`, override
-`LAMBO_COMMERCE_DB_PATH`. It is gitignored and never rebuilt, so back it up as financial records.
+`LAMBLE_COMMERCE_DB_PATH`. It is gitignored and never rebuilt, so back it up as financial records.
 
 ## 2. Route handler contract
 
@@ -46,7 +46,7 @@ Route handlers are Next.js 16 route handlers (Web `Request` → `Response`, Node
 `node:sqlite`; `params` is a promise). The payments layer itself imports nothing from Next.
 
 ```ts
-import { getPaymentRuntime, handlePaidRequest, resolvePinnedRelease } from "@/lib/lambo/payments/index.ts";
+import { getPaymentRuntime, handlePaidRequest, resolvePinnedRelease } from "@/lib/lamble/payments/index.ts";
 
 export async function GET(request: Request, { params }: { params: Promise<{ chain: string; address: string }> }) {
   const { chain, address } = await params;
@@ -93,16 +93,16 @@ Rules:
 
 | Direction | Header | Meaning |
 |---|---|---|
-| 402 | `PAYMENT-REQUIRED` | x402 v2 challenge, base64 JSON from `createPaymentRequiredResponse`. `resource.url` = canonical URL plus `lambo_offer`, `lambo_release`, and a random per-challenge `lambo_n`. |
-| 402 | `WWW-Authenticate: Payment ...` | MPP challenge(s) from `mppx.charge(...)`. `opaque` carries `lambo_offer` and the scope `lambo:<kind>:<paramsKey>:<release>`. `expires` is the offer expiry. |
+| 402 | `PAYMENT-REQUIRED` | x402 v2 challenge, base64 JSON from `createPaymentRequiredResponse`. `resource.url` = canonical URL plus `lamble_offer`, `lamble_release`, and a random per-challenge `lamble_n`. |
+| 402 | `WWW-Authenticate: Payment ...` | MPP challenge(s) from `mppx.charge(...)`. `opaque` carries `lamble_offer` and the scope `lamble:<kind>:<paramsKey>:<release>`. `expires` is the offer expiry. |
 | 402 | `Cache-Control: no-store` | All 402/409/503 and error responses. |
 | request | `PAYMENT-SIGNATURE` | x402 payment payload (EIP-3009 `exact` only). |
 | request | `Authorization: Payment <credential>` | MPP credential (Tempo pull mode: signed transaction). |
-| request | `Authorization: Bearer lambo_cap_...` | Capability redemption. |
+| request | `Authorization: Bearer lamble_cap_...` | Capability redemption. |
 | 200 | `PAYMENT-RESPONSE` | x402 settlement receipt (the facilitator's `SettleResponse`). |
 | 200 | `Payment-Receipt` | MPP receipt (`reference` = transaction hash from mppx). |
-| 200 | `Lambo-Capability` | Plaintext capability, on the purchase response only (and in the 500 delivery-failure body). |
-| 200 | `Lambo-Entitlement-Expires`, `Lambo-Downloads-Remaining`, `Lambo-Release`, `Lambo-Purchase` | Access facts. |
+| 200 | `Lamble-Capability` | Plaintext capability, on the purchase response only (and in the 500 delivery-failure body). |
+| 200 | `Lamble-Entitlement-Expires`, `Lamble-Downloads-Remaining`, `Lamble-Release`, `Lamble-Purchase` | Access facts. |
 | 200/500 | `Cache-Control: private, no-store` | Every paid body. Never cache it in a shared cache. |
 
 The 402 JSON body describes the offer: `offer.id`, `resource` (kind, params, paramsKey, releaseId, url),
@@ -111,7 +111,7 @@ and `pricing` (status, approved, note).
 
 How each protocol binds the offer:
 
-- **x402**: the client copies `resource` and the chosen `accepts[i]` verbatim into its payload. On retry, Lambo
+- **x402**: the client copies `resource` and the chosen `accepts[i]` verbatim into its payload. On retry, LAMBLE
   reads the offer id from `payload.resource.url`. It checks resource, params and release against the request,
   then rebuilds the requirements from the offer's own amount. `findMatchingRequirements` must deep-equal
   `accepted` against them (scheme, network, asset, amount, payTo, maxTimeoutSeconds). `authorization.to` and
@@ -120,7 +120,7 @@ How each protocol binds the offer:
   single-use.
 - **MPP**: `scope`, `meta`, `amount` and `expires` are derived from the offer and passed identically on issue
   and on retry. mppx HMAC-binds them into the challenge id and re-checks scope/meta on the paid request.
-  Lambo first verifies the HMAC itself (`Challenge.verify`), reads the offer id from `opaque`, and claims
+  LAMBLE first verifies the HMAC itself (`Challenge.verify`), reads the offer id from `opaque`, and claims
   the purchase before mppx broadcasts anything.
 
 Client-supplied transaction hashes are never trusted. x402 stores the facilitator's
@@ -134,16 +134,16 @@ Misconfiguration never throws. The protocol shows as unavailable in `status()` w
 available every paid route answers `503 payments_unavailable`, never a fake challenge.
 
 **Real-money guard:** a non-testnet x402 network (anything outside Base Sepolia, Ethereum Sepolia, Avalanche
-Fuji and Polygon Amoy) or Tempo mainnet (`LAMBO_MPP_TESTNET=false`) stays unavailable until `pricing.json` has
+Fuji and Polygon Amoy) or Tempo mainnet (`LAMBLE_MPP_TESTNET=false`) stays unavailable until `pricing.json` has
 `"status": "production"` and `"approved": true`.
 
 ### x402 on Base Sepolia (testnet, default)
 
 ```
-LAMBO_X402_ENABLED=true
-LAMBO_X402_NETWORK=eip155:84532            # default
-LAMBO_X402_PAY_TO=0x...                    # your receiving address
-LAMBO_X402_FACILITATOR_URL=https://x402.org/facilitator   # default, public testnet facilitator, no auth
+LAMBLE_X402_ENABLED=true
+LAMBLE_X402_NETWORK=eip155:84532            # default
+LAMBLE_X402_PAY_TO=0x...                    # your receiving address
+LAMBLE_X402_FACILITATOR_URL=https://x402.org/facilitator   # default, public testnet facilitator, no auth
 ```
 
 The asset is Base Sepolia USDC `0x036CbD53842c5426634e7929541eC2318f3dCF7e` (6 decimals). `$0.02` is `20000`.
@@ -151,10 +151,10 @@ The asset is Base Sepolia USDC `0x036CbD53842c5426634e7929541eC2318f3dCF7e` (6 d
 ### x402 on Base mainnet
 
 ```
-LAMBO_X402_ENABLED=true
-LAMBO_X402_NETWORK=eip155:8453
-LAMBO_X402_PAY_TO=0x...
-LAMBO_X402_FACILITATOR_URL=<authenticated mainnet facilitator, e.g. Coinbase CDP>
+LAMBLE_X402_ENABLED=true
+LAMBLE_X402_NETWORK=eip155:8453
+LAMBLE_X402_PAY_TO=0x...
+LAMBLE_X402_FACILITATOR_URL=<authenticated mainnet facilitator, e.g. Coinbase CDP>
 ```
 
 The asset is Base USDC `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`. The CDP facilitator needs a URL **and**
@@ -179,16 +179,16 @@ Facilitator requests time out after 60 s by default. A settle that outlives that
 ### MPP on Tempo testnet (Moderato, chain 42431; default)
 
 ```
-LAMBO_MPP_ENABLED=true
-LAMBO_MPP_RECIPIENT=0x...
-LAMBO_MPP_TESTNET=true                     # default
+LAMBLE_MPP_ENABLED=true
+LAMBLE_MPP_RECIPIENT=0x...
+LAMBLE_MPP_TESTNET=true                     # default
 MPP_SECRET_KEY=<openssl rand -base64 32>   # >= 32 bytes; HMAC key for challenge ids
-MPP_REALM=lambo                            # optional, default "lambo"
+MPP_REALM=lamble                            # optional, default "lamble"
 ```
 
 ### MPP on Tempo mainnet (chain 4217)
 
-Same variables with `LAMBO_MPP_TESTNET=false`, plus approved production pricing.
+Same variables with `LAMBLE_MPP_TESTNET=false`, plus approved production pricing.
 
 mppx picks currencies itself: OUSD first, then USDC.e on mainnet or pathUSD on Moderato. Its default RPCs are
 `https://rpc.tempo.xyz` and `https://rpc.moderato.tempo.xyz`. No fee sponsor is configured, so payers pay
@@ -221,10 +221,10 @@ Revoke access with `store.revokeEntitlement(entitlementId, reason, Date.now())`.
   `409 use_capability`. This holds even after the offer expired, because known payment identities are answered
   from their purchase before any expiry check.
 - **Lost-response safety:** the window keys on the hash of the exact credential. For x402 it includes the
-  random `lambo_n` from the challenge, which never goes on chain, so a third party cannot rebuild the payload
+  random `lamble_n` from the challenge, which never goes on chain, so a third party cannot rebuild the payload
   from public calldata to get a free copy.
 - **Rendering failed after settlement:** the response is `500 delivery_failed_after_payment`. It carries the
-  capability in the body and in `Lambo-Capability`, plus the protocol receipt. The download is not counted.
+  capability in the body and in `Lamble-Capability`, plus the protocol receipt. The download is not counted.
 - **Entitlement could not be recorded after settlement** (database error): the response is
   `500 fulfillment_failed_after_payment` with the purchase id and settlement reference. The purchase is left in
   `settled` if possible. The buyer's identical retry claims the entitlement and gets the capability.
@@ -259,8 +259,8 @@ Operator steps:
 3. Resolve:
    ```bash
    node --experimental-strip-types --no-warnings -e '
-     import("./src/lib/lambo/payments/store.ts").then(({ CommerceStore }) => {
-       const s = CommerceStore.open(process.env.LAMBO_COMMERCE_DB_PATH ?? "data/commerce.sqlite");
+     import("./src/lib/lamble/payments/store.ts").then(({ CommerceStore }) => {
+       const s = CommerceStore.open(process.env.LAMBLE_COMMERCE_DB_PATH ?? "data/commerce.sqlite");
        console.log(s.resolveUncertain(process.argv[1], { outcome: "settled", settlementRef: process.argv[2] }, Date.now()));
      });' <purchaseId> <txHash>
    ```
@@ -274,7 +274,7 @@ entitlements or `payment_events`.
 
 ## 8. What is tested and what is not
 
-Run `node --experimental-strip-types --no-warnings --test tests/lambo/payments.test.ts`. All tests are
+Run `node --experimental-strip-types --no-warnings --test tests/lamble/payments.test.ts`. All tests are
 offline. A `fetch` stub fails the suite on any network attempt, and the last test asserts zero attempts.
 
 Unit-tested, with the real `@x402/core` server and `mppx` server code against in-process fakes:
@@ -323,7 +323,7 @@ Not verified, needs a live environment:
 
 None of these exist yet. All are needed before a first live test on Base Sepolia and Tempo Moderato:
 
-1. A `payTo` address for x402 (`LAMBO_X402_PAY_TO`) and a recipient for MPP (`LAMBO_MPP_RECIPIENT`), both
+1. A `payTo` address for x402 (`LAMBLE_X402_PAY_TO`) and a recipient for MPP (`LAMBLE_MPP_RECIPIENT`), both
    controlled by the owner.
 2. Facilitator access: the public `https://x402.org/facilitator` for Base Sepolia. For mainnet, CDP
    facilitator credentials and an auth-header signer (section 4).
@@ -337,13 +337,13 @@ None of these exist yet. All are needed before a first live test on Base Sepolia
    filesystem is not enough: purchases, entitlements and replay claims would be lost or split between
    instances. Run the API as one long-running Node server with a volume, or replace the store with a shared
    database first.
-7. Rights: the route layer (`src/lib/lambo/api/rights.ts`) answers 403 `export_not_permitted`, with no offer,
+7. Rights: the route layer (`src/lib/lamble/api/rights.ts`) answers 403 `export_not_permitted`, with no offer,
    for bundles whose primary content derives from capabilities without recorded redistribution rights. On
    2026-10-19 that is every coin, history, week and launchpads bundle (Codex and DefiLlama terms not reviewed);
    narrative and article bundles are sellable with market sections withheld.
 
 Acceptance script outline: GET a narrative bundle (coin bundles stay 403 until market-data rights are
 permitted) → 402 with both headers → pay with x402 → 200 with
-`Lambo-Capability` and `PAYMENT-RESPONSE`. Confirm the transfer on BaseScan. Re-send the same payment → 200,
+`Lamble-Capability` and `PAYMENT-RESPONSE`. Confirm the transfer on BaseScan. Re-send the same payment → 200,
 no second transfer. Redeem the capability → 200. Repeat with MPP. Then check `payment_events` and
 `status()`.
