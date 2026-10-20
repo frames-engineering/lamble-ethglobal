@@ -290,7 +290,8 @@ in_universe = {u['tokenId'] for u in universe}
 # Collection is separate from membership. The six-narrative cap decides what is collected and featured, never what a
 # coin is: a cap replacement pauses a narrative (pausedNarratives) and an inactive coin is archived (archivedMembers);
 # both keep the membership interval open and only stop collection. removedMembers (evidence contradicts membership)
-# and retiredNarratives (the defining source is gone) close intervals.
+# and retiredNarratives (the defining source is gone, or the narrative never met the creation bar) close intervals and
+# say so in closedBy; ingest reads older closures without it as legacy cap replacements.
 retired = curation.get('retiredNarratives', {})
 paused = curation.get('pausedNarratives', {})
 archived = curation.get('archivedMembers', {})
@@ -312,11 +313,12 @@ for nid, c in paused.items():
 for tid, c in curation.get('removedMembers', {}).items():  # close the interval, keep the record
     assert tid not in in_universe, f'{tid} is marked removed but still in the registry poolUniverse'
     for m in members:
-        if m['tokenId'] == tid and m['effectiveTo'] is None: m.update(effectiveTo=RUNTIME, closedReason=c['reason'])
+        if m['tokenId'] == tid and m['effectiveTo'] is None: m.update(effectiveTo=RUNTIME, closedReason=c['reason'], closedBy='removedMembers')
 for nid, c in retired.items():
     assert not any(u['narrativeId'] == nid for u in universe), f'retired narrative {nid} still has pools in the registry'
     for m in members:
-        if m['narrativeId'] == nid and m['effectiveTo'] is None: m.update(effectiveTo=RUNTIME, closedReason=f'narrative retired: {c["reason"]}')
+        if m['narrativeId'] == nid and m['effectiveTo'] is None:
+            m.update(effectiveTo=RUNTIME, closedReason=f'narrative retired: {c["reason"]}', closedBy='retiredNarratives')
 for m in members:  # every open membership is charted, or its collection is explicitly paused or archived
     assert m['effectiveTo'] is not None or m['tokenId'] in in_universe or m.get('collectionStatus') in ('paused', 'inactive'), \
         f'{m["tokenId"]} left the registry without an archivedMembers, pausedNarratives or removedMembers entry'
@@ -350,7 +352,8 @@ social = [dict(postId=tw['id'], url=f"https://x.com/{tw['author']['screen_name']
                attentionInterpretation='Top-results convenience sample; no mention total or historical mindshare.') for tw, src in tweets.values()]
 prior_evidence = {e['id']: e for e in read('evidence.json', PRIOR_N)}
 narratives = read('narratives.json', PRIOR_N)
-retired_records = [dict(narrativeId=n['id'], title=n['title'], retiredAt=RUNTIME, reason=retired[n['id']]['reason'],
+# endsMembership marks a retirement recorded since pausedNarratives exists; earlier records were cap replacements.
+retired_records = [dict(narrativeId=n['id'], title=n['title'], retiredAt=RUNTIME, reason=retired[n['id']]['reason'], endsMembership=True,
                         lastVolume24hUsd=n['volume24hUsd'], lastChartAnchor=n['_meta']['chartAnchor']) for n in narratives if n['id'] in retired]
 paused_records = [dict(narrativeId=n['id'], title=n['title'], pausedAt=RUNTIME, reason=paused[n['id']]['reason'],
                        lastVolume24hUsd=n['volume24hUsd'], lastChartAnchor=n['_meta']['chartAnchor']) for n in narratives if n['id'] in paused]
