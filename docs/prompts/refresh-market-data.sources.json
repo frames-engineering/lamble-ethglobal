@@ -1518,7 +1518,8 @@
       "maxNewPerRun": 2,
       "minActive": 2,
       "maxActive": 6,
-      "evidence": "Each constituent: exact chain + address, covered launchpad, and token metadata or an official source describing the shared mechanism or story. The story: at least one independent public source (official page or X post) beyond token metadata.",
+      "evidence": "Each constituent: exact chain + address, covered launchpad, and either its own token metadata (name, symbol or description) naming the story or mechanism itself, or an official source naming the coin in connection with the story. A word the coin merely shares with the story's theme does not count (for example 'Pokémon' or 'collector' for Pump.fun's card-gacha integration). Quote the metadata or cite the source for each constituent in curation.newMembers; minConstituents counts only coins that meet this. The story: at least one independent public source (official page or X post) beyond token metadata.",
+      "correction": "A narrative created without meeting this bar is corrected on the next run. Record it in curation.retiredNarratives with the reason 'created without meeting the newNarrative bar: <what was missing>'; this closes its memberships, and its pages stay reachable with the reason. Remove its pools from poolUniverse, and resume any narrative paused only to make room for it.",
       "daily": "Every run evaluates every theme cluster discover.py reports and records a decision in curation.clusterDecisions (created, assigned, rejected or deferred, with a reason). Create a narrative whenever a cluster or a story meets this bar. maxActive caps how many narratives are collected and featured, not how many exist: at the cap, pause the weakest (curation.pausedNarratives) only when the new one has more 24h volume and its story is current. A paused narrative keeps its memberships and pages; it is not retired."
     },
     "addMember": {
@@ -1542,9 +1543,9 @@
       "evidence": "Flagged tokens are never constituents; record them as quarantined candidates."
     },
     "storyChecks": {
-      "maxXSearchesPerRun": 12,
+      "maxXSearchesPerRun": 24,
       "maxPageScrapesPerRun": 6,
-      "note": "discover.py stories writes the cluster theme searches (up to 10); remaining budget is for targeted follow-ups. Each X search is about 7 credits; each page scrape about 5."
+      "note": "Every X search in the run counts: e1's dailyEvidence and trendQueries searches (up to 10 with its pages), discover.py stories' cluster theme searches (up to 10), and targeted follow-ups, which get at least 4. Each X search is about 7 credits; each page scrape about 5."
     }
   }
 }
