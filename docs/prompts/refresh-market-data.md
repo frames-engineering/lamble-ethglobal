@@ -17,6 +17,15 @@ the seven runs 2026-10-12..19: 805–978 credits per run, 88–100 calls in 13�
 run's `refresh-manifest.json` and request files). Treat the latest manifests as the cost
 reference, not older estimates.
 
+**Budget.** On 2026-10-20 the owner approved up to **5,000 credits ($5.00) per daily run**
+(`docs/data/jobs.json` `dailyCreditCeiling`): about 1,200 for the steps below through Collect and
+the rest, at most 3,800, for the Pump/FOMO panels (step 3b). This is the ceiling, not a target, and
+it does not authorize anything beyond this routine. The routine's own prompt must still carry the
+budget for its invocation; without it, run no paid step. 5,000 a day is about 150,000 a month,
+above the plan's 90,000 monthly grant: the account needs purchased credits, and a paid call refused
+for balance is a failure to report, not a reason to skip the ceiling check. Frames bills each
+delivered call at the seller's price × 1.15 + $0.005 (`framesPricing`); refunded calls cost nothing.
+
 **Calling and saving Frames batches.** Preferred, when `FRAMES_MCP_URL`,
 `FRAMES_MCP_AUTHORIZATION` and an owner-approved budget (`LAMBLE_FRAMES_BUDGET_ID`,
 `LAMBLE_FRAMES_BUDGET_USD`) are set: `npm run lamble -- collect $RUN <batch…>`. It reserves each
@@ -81,7 +90,23 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
    launchpad activity, all-pool hourly token bars for every constituent via `getTokenBars`,
    market snapshot, token creation times used for the pre-launch zero rule) and `c2` (30
    complete UTC days of all-pool daily token bars).
-4. **Normalize.** `python3 scripts/frames-refresh/normalize.py $RUN --prior <latestRefreshRun>`.
+3b. **Pump and FOMO panels.** `python3 scripts/frames-refresh/plan.py $RUN panels` (after every
+   `d`, `e`, `f` and `c` request of the run exists); call and save every `p` batch it writes, in
+   order. It plans whole coins, constituents first, then the prior run's other tracked coins by
+   market cap: for pump.fun coins on Solana `pump.coin`, `pump.trades` (latest 100 trades),
+   `pump.candles` (30 daily candles), `pump.holders` and `fomo.holders`; for other coins on FOMO
+   networks `fomo.token`, `fomo.holders`, `fomo.candles` (12h) and `fomo.activity`. Its ceiling is
+   the job's 3,800 credits, lowered so the run's total reserved `max_usd` stays within 5,000; the
+   printed `plannedCredits` and `reservedByOtherBatchesCredits` go in the report. On 2026-10-19's
+   batches it planned 615 calls in 62 batches (43 constituents + 96 other coins, 8 skipped) for
+   3,782 credits. Re-plan only before any `p` batch is called (the planner refuses after). Frames
+   may refund FOMO candles and lists after its cross-check calls their timestamps "in the
+   future": on 2026-10-20 the latest bucket was the hour in progress (01:00Z, fetched 01:31Z), not
+   a future one. The body is retained and normalized at no charge; the adapter drops any candle
+   whose interval had not ended at the run time, and Pump's `final: false` day. Never raise
+   `maxCallsPerRun` or the ceilings to fit more coins without the owner's approval.
+4. **Normalize.** `python3 scripts/frames-refresh/normalize.py $RUN --prior <latestRefreshRun>`
+   (it counts the `p` batches in evidence, billing and outcomes).
    It computes every metric (including creator earnings and the 30-day narrative series),
    the turnover-based volume caveat and the validation report, reconciles daily bars with
    hourly sums, enforces the narrative rules, cluster decisions and registry/curation
@@ -93,7 +118,8 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
    then point the importer's default paths and the registry's `references` at the new run.
    The snapshot now only supplies launchpad presentation metadata to the release builder.
 5b. **Publish the research release.** `npm run lamble -- refresh` (offline, never spends): ingests
-   the new run into the observation store, builds and validates a release, publishes it
+   the new run into the observation store (the `p` bodies through the registered Pump/FOMO field
+   maps), builds and validates a release, publishes it
    atomically, freezes any newly complete weekly edition (Mondays) and regenerates articles.
    A rejected release leaves the previous one published; fix the cause. Commit
    `data/releases/`, `data/editions/`, `data/changes/` and `content/research/` with the run.
@@ -409,7 +435,8 @@ ongoing monitoring has begun.
 Historical starting workload (September 2026, two narratives): 38 financial calls + 1
 indexed launchpad query + 1 batched nine-pool seven-day bar query + 2 targeted social
 queries = **42 calls**. With six narratives and 57 DefiLlama calls the measured October runs
-make 88–100 calls (see the daily routine above). Add up to
+make 88–100 calls (see the daily routine above); from 2026-10-20 the Pump/FOMO panels add up to
+about 615 calls (≤3,800 credits) under the 5,000-credit daily ceiling. Add up to
 four changed narrative evidence pages (46 total), and at most two focused discovery
 calls if needed (48 total), subject to the invocation's authorization. Expand only
 for an identified coverage need; don't spend the entire run rediscovering tools.

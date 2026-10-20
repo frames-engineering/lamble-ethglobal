@@ -17,7 +17,8 @@ else. Code never contains a Frames tool id; inserting an id does not enable anyt
 4. **Add a candidate entry.** Contract, `dataNetworks`, `semantics` (units, coverage, population, timestamps,
    source-reported fields, revisions), pagination, freshness, cost caps, rights (`unknown` until the terms are
    reviewed) and validation status `candidate`. Population matters: a venue's top-holder list is
-   `top_holders_sample`, FOMO's holders are `fomo_users`; neither is ever `all_holders`.
+   `top_holders_sample`, FOMO's holders are `fomo_users`, Pump's holders route is `pump_users`; none is ever
+   `all_holders`. Check it against the route's own totals before labelling a list as "top holders".
 5. **One bounded paid smoke call, under an approved budget.** Plan it as a batch request with a small
    `max_usd` and run it with `npm run lamble -- collect` (or in an agent session). The response is retained
    under `research/lamble/<run>/raw/`.
@@ -35,10 +36,18 @@ else. Code never contains a Frames tool id; inserting an id does not enable anyt
 
 ## Provider-specific rules already encoded
 
-- x4o2 Pump: holder panels are top-N samples; P&L fields are source-reported; pinned posts are flagged;
-  candle depth is `count × resolution` and must be confirmed per coin; timestamps in milliseconds where the
-  live schema says so; paid on Base, data on Solana.
+- x4o2 Pump: the holders route lists positions of pump.fun accounts (`pump_users`), not the largest on-chain
+  holders: on 2026-10-20 it listed 526 positions for PIERRE against 3,890 holders and a top-10 share of 10.6%
+  against the coin route's 25.2%, and rejected `limit: 100` (50 works). Amounts are `{raw, decimals}` objects;
+  the trade tape returns the latest 100 trades (about six minutes for an active coin); daily candles carry
+  `final` (the open day is `false` and is skipped). P&L fields are source-reported; pinned posts are flagged;
+  times are milliseconds; paid on Base, data on Solana.
 - x4o2 FOMO: holders and activity cover FOMO users only; theses are opinions with their author's position.
+  Candles mark nothing final, so the adapter drops any interval that had not ended at the run time. Frames'
+  cross-check refunded candles and lists as "future timestamps" when the latest bucket was the hour in
+  progress; the bodies are retained and used at no charge. Frames stores every object under a key named
+  `token` as `"[redacted]"`, so FOMO bodies cannot confirm the coin they describe; identity comes from the
+  request's chain and address.
 - Codex: all-pool aggregation per token; missing bars are unknown, never zero, except whole buckets before the
   token's creation time (pre-creation zero rule).
 - DefiLlama: use daily series of settled UTC days, never `total24h`; venues that share a fee stream are

@@ -9,8 +9,10 @@ implemented, how it is tested, what evidence exists and its status. Statuses:
 - **blocked (external)** — cannot be completed without an external prerequisite, named in the row.
 - **partial** — some of the requirement is met; the remainder is named.
 
-No owner-approved Frames budget was supplied for this work, so no paid Frames call was made. Free calls only:
-`frames_get_usage`, `frames_search_tools`, `frames_get_tool`, `frames_probe_tools` (2026-10-19).
+Until 2026-10-20 no owner-approved Frames budget was supplied, so only free calls were made (`frames_get_usage`,
+`frames_search_tools`, `frames_get_tool`, `frames_probe_tools`, 2026-10-19). On 2026-10-20 the owner approved up to
+500 credits for a one-off Pump/FOMO sample (143 spent) and a ceiling of 5,000 credits per daily run; see
+[Pump and FOMO enabled](#pump-and-fomo-enabled-2026-10-20).
 
 **Naming.** The implementation brief used "Lambo" as its working label and said to keep the established public
 name. The product is LAMBLE. On 2026-10-20 every use of the label was renamed: code folders, environment
@@ -37,8 +39,8 @@ O5 (verification was a date an operator typed). Those rows now point to the foll
 | P4 | Capability names in code; tool IDs only in the catalog | `scripts/frames-refresh/catalog.py`; `plan.py`, `discover.py`, `normalize.py` resolve via `tool()`/`search_ids()`; scripts assert no `bazaar.`/`mpp.`/`srch_` literals | Regenerated 2026-10-19 requests byte-identical to the archived run with OHLC off (all 10 batches); `normalize.py` re-run on a copy reproduces every output except evidence `upstream` labels | implemented+tested |
 | P5 | New provider needs registered adapter + validation; inserting an ID does not enable it | `checkCatalogRules` (enable rule), `src/lib/lamble/adapters/registry.ts`, `providers.ts enable` | foundation test "candidates cannot be enabled" | implemented+tested |
 | P6 | Retain Codex, DefiLlama, Firecrawl, X | 8 enabled capabilities with validated contracts and evidence paths | catalog validate | implemented |
-| P7 | x4o2 Pump + FOMO seeds, descriptors re-verified | 6 Pump + 7 FOMO seeds plus `pump.search`, `pump.traders`, `fomo.activity`, `fomo.search`; descriptors via `frames_get_tool`, live schemas via `frames_probe_tools` (`data/provider-health/2026-10-19.json`) | Live 402 schemas disagree with descriptors (integers vs strings; Robinhood listed on every FOMO route) — catalog follows the live schema and keeps the descriptor | live-verified (descriptors and liveness only); **no response bodies** |
-| P8 | Provider-specific normalization (FOMO population, Pump panel sample, source-reported P&L, pinned posts, timestamps, units, arg types, payment ≠ data network, candle depth) | `src/lib/lamble/adapters/x4o2.ts` (field-map driven; refuses without a verified map), `codex.ts`, `defillama.ts`, `social.ts` | foundation tests 3–9 use SYNTHETIC fixtures | implemented+tested; x4o2 field paths **blocked (external)**: need one retained response per route under an approved budget |
+| P7 | x4o2 Pump + FOMO seeds, descriptors re-verified | 6 Pump + 7 FOMO seeds plus `pump.search`, `pump.traders`, `fomo.activity`, `fomo.search`; descriptors via `frames_get_tool`, live schemas via `frames_probe_tools` (`data/provider-health/2026-10-19.json`) | Live 402 schemas disagree with descriptors (integers vs strings; Robinhood listed on every FOMO route) — catalog follows the live schema and keeps the descriptor | live-verified: descriptors and liveness (2026-10-19); response bodies for 16 routes (2026-10-20, see below) |
+| P8 | Provider-specific normalization (FOMO population, Pump panel sample, source-reported P&L, pinned posts, timestamps, units, arg types, payment ≠ data network, candle depth) | `src/lib/lamble/adapters/x4o2.ts` (field-map driven; refuses without a verified map), `codex.ts`, `defillama.ts`, `social.ts` | foundation tests 3–9 use SYNTHETIC fixtures | implemented+tested; x4o2 field maps for 8 routes verified against retained responses (2026-10-20); `x4o2.test.ts` normalizes each retained body in production mode |
 | P9 | Onboarding workflow discover→inspect→probe→smoke→normalize→validate→register→enable | `scripts/lamble/providers.ts inspect/smoke/register/enable/health`; `docs/runbooks/provider-onboarding.md` | foundation tests (enable rules) | implemented |
 | P10 | Machine-readable coverage matrix + public sources page | `docs/data/provider-coverage.json` (generated); `/sources` | build | implemented |
 | P11 | Codex OHLC price candles at no extra call cost | `jobs.json codexBars.ohlcEnabled=true`; `plan.py` selection; `normalize.py check_ohlc` | Field names from the retained official doc example only; **first live run will verify** | implemented (unverified live) |
@@ -134,7 +136,7 @@ Defects found while building Batch 5 and fixed at the source: negative `secondsS
 
 | ID | Gap | Implementation | Tests / evidence | Status |
 |---|---|---|---|---|
-| F1 | Holder and bottoming data path | migration `0002_holder_inputs` (token_events, trade_coverage, holder_panels, balance_checkpoints, candles, address_labels); `ingest.ts writeOutput`; `methods/inputs.ts` (coverage spans, provider daily candles, flows, FIFO sales); `release/holder-inputs.ts`; `holders.ts` computes components 1, 2, 4–7; `docs/data/address-labels.json` | `holder-path.test.ts`: SYNTHETIC adapter output → store → inputs → concentration, whale accumulation and dip absorption populated; all-holder measures refuse a top-holder sample; coverage below threshold refuses; FIFO splits unknown cost | implemented+tested; **not live**: no x4o2 response exists, field maps unverified, capabilities not enabled |
+| F1 | Holder and bottoming data path | migration `0002_holder_inputs` (token_events, trade_coverage, holder_panels, balance_checkpoints, candles, address_labels); `ingest.ts writeOutput`; `methods/inputs.ts` (coverage spans, provider daily candles, flows, FIFO sales); `release/holder-inputs.ts`; `holders.ts` computes components 1, 2, 4–7; `docs/data/address-labels.json` | `holder-path.test.ts`: SYNTHETIC adapter output → store → inputs → concentration, whale accumulation and dip absorption populated; all-holder measures refuse a top-holder sample; coverage below threshold refuses; FIFO splits unknown cost | implemented+tested; x4o2 routes enabled 2026-10-20 and the sample bodies load through ingest into candles, panels, trades and coverage. **Not yet live in a release**: no daily run has collected panels. Pump's holders route is `pump_users`, so concentration, whale accumulation and the persistence components still have no valid panel |
 | F2 | API path and envelope | `/api/v1/market/weeks[/{week}[/dataset]]`; `generatedAt`, `dataThrough`, `interval` on every response; OpenAPI schemas and examples | api test validates with Ajv | implemented+tested |
 | F3 | Research, edition and correction events | `correctionChanges` (restated windows per coin/launchpad plus a release summary), `edition.published/revised`, `research.published/updated`; hidden articles never announced | release tests | implemented+tested |
 | F4 | Two-way links | coin origin → launchpad; coin and launchpad → editions that include them | build, e2e | implemented |
@@ -148,12 +150,44 @@ Defects found while building Batch 5 and fixed at the source: negative `secondsS
 
 ## Live verification and spending in this work
 
-- Frames: free calls only (`frames_get_usage`, `frames_search_tools`, `frames_get_tool`, `frames_probe_tools`);
-  **0 credits** spent, including the 2026-10-20 follow-up (which made no Frames call at all). No owner-approved budget was supplied, so no paid read was made and no x4o2 response
-  body exists.
+- Frames: free calls through 2026-10-20's audit follow-up; then **143 credits** for the owner-approved Pump/FOMO
+  sample (limit 500): runs `run_be6f161263a7432bba091f2df987820a` (50), `run_b0881123277949cb85cb25ec9c55dd15` (37),
+  `run_f97bef59ca6543a28858c67b20a80141` (56). Balance afterwards 56,034 credits.
 - Payments: **no live payment.** Offline tests only.
 - Schedules active: the external daily Claude Code routine (not installed by this repository). Configured but
-  not active: weekly aggregation template, x4o2 panels (budget 0), notification delivery (disabled).
+  not active: weekly aggregation template, notification delivery (disabled). The x4o2 panels are a step of the
+  daily routine (ceiling 5,000 credits per run) but run only once this branch is merged, since the routine branches
+  from the default branch.
+
+## Pump and FOMO enabled (2026-10-20)
+
+Owner approvals on 2026-10-20: up to 500 credits for a one-off sample, and up to 5,000 credits per daily run
+(`jobs.json` `dailyCreditCeiling`, about 1,200 for the existing refresh and at most 3,800 for the panels). Only
+the sample has been spent.
+
+| ID | Item | Where | Evidence | Status |
+|---|---|---|---|---|
+| X1 | One retained response per route | `research/lamble/samples/x4o2-20261020/` (three full Frames run bodies and requests; one file per route under `routes/`) | 16 routes; 13 delivered. Refunded at no charge: `fomo.candles` and `fomo.lists` (Frames' cross-check called the timestamps "in the future"; the latest bucket was the hour in progress), `fomo.developers` (empty list). `pump.holders` rejected `limit: 100` (50 works) | live-verified |
+| X2 | Field maps and enabling | `docs/data/providers.json`: `pump.coin`, `pump.trades`, `pump.candles`, `pump.holders`, `fomo.token`, `fomo.holders`, `fomo.candles`, `fomo.activity` validated and enabled, each map `verifiedAgainst` its retained body; adapters read `{raw, decimals}` amounts, numeric network ids, `swap_buy`/`swap_sell`, FOMO's EVM wallet field, Pump's `final` flag, and drop intervals that had not ended at the run time | `x4o2.test.ts` (3): every enabled route normalizes its retained body in production mode, with spot values (holder count 3,890; trade amount 15,383.767354; open day and open hour dropped) | implemented+tested |
+| X3 | Pump's holders population | new population `pump_users` (catalog, schema, method description, store migration `0003_pump_users_population`) | PIERRE: 526 positions listed vs 3,890 holders on the coin route; top-10 share 10.6% in the list vs 25.2% reported | implemented+tested. Consequence: no x4o2 route supplies a top-holder or all-holder panel, so concentration, whale accumulation and the persistence components stay unavailable |
+| X4 | Daily plan within the ceilings | `plan.py panels` (whole coins, constituents first, then the prior run's coins by market cap; ceiling lowered by what the run's other requests reserve; refuses to re-plan once a panel batch was called); `catalog.py billed_usd` (price × 1.15 + $0.005); `collect.ts` `runCeilingUsd`; `normalize.py` counts `p` batches | planner tests (2); collector test "a run never reserves more than its daily ceiling across batches"; on 2026-10-19's batches: 1,130 credits reserved + 615 panel calls for 3,782 = 4,912 | implemented+tested; **not run daily yet** |
+| X5 | End-to-end load | ingest of a scratch run stamped 2026-10-20T01:30Z (a copy of 2026-10-19 plus the sample bodies as `p` batches) | 72 closed candles (Pump: 2 daily, PIERRE being two days old, and 33 hourly; FOMO: 33 hourly and 4 of 12h), 3 `fomo_users` and 2 `pump_users` panels, 220 trade events, Pump tape coverage 3,575 s, 4 reported holder counts and top-10 shares; only the 10 unmapped exploration calls were skipped | tested manually (scratch store, not committed) |
+
+What the panels can and cannot change once collected daily:
+
+- **Bottoming.** Every coin in the current release runs on point samples (`priceBasis: "samples"`), constituents
+  included: `codexBars.ohlcEnabled` has been on since batch 1, but every retained run was planned by the default
+  branch's `plan.py`, which asks Codex for `{t volume}` only. After the merge, Codex OHLC (no extra calls) gives
+  the constituents daily candles; Pump's 30 daily candles cover pump.fun coins without Codex candles; FOMO 12h
+  candles become days only when both halves are complete.
+- **Dip absorption** needs 80% tape coverage per interval. Pump's tape is the latest 100 trades, minutes for an
+  active coin, so it rarely qualifies; quiet coins may.
+- **Holder components** that need the largest positions or all holders stay unavailable (X3). Holder counts and
+  top-10 shares are stored as source-reported observations.
+
+External prerequisites: the branch must be merged before the routine collects panels; the routine's own prompt
+must carry the 5,000-credit budget; 5,000 credits a day is about 150,000 a month, above the plan's 90,000 monthly
+grant, so the account needs purchased credits (balance 56,034 after the sample).
 
 ## Documentation drift found
 
