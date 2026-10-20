@@ -12,6 +12,21 @@ implemented, how it is tested, what evidence exists and its status. Statuses:
 No owner-approved Frames budget was supplied for this work, so no paid Frames call was made. Free calls only:
 `frames_get_usage`, `frames_search_tools`, `frames_get_tool`, `frames_probe_tools` (2026-10-19).
 
+**Naming.** The implementation brief used "Lambo" as its working label and said to keep the established public
+name. The product is LAMBLE. On 2026-10-20 every use of the label was renamed: code folders, environment
+variables (`LAMBLE_*`), response headers (`Lamble-*`), capability tokens (`lamble_cap_`), schema ids, the MPP
+realm, the store file and this document's filename. Nothing had been deployed, so no client used the old names.
+
+**Regenerated artifacts.** Releases, weekly editions, the change feed and articles were rebuilt on 2026-10-20 from
+the retained runs with the corrected code. They had never been published or deployed. Earlier rows below that
+cite release ids or edition revisions (r2) describe the state before the rebuild; current ids are in
+[qa/checks.txt](qa/checks.txt).
+
+**Earlier statuses corrected.** An audit on 2026-10-20 found rows marked implemented whose substance was missing:
+W4 (links ran one way), M1 (the store dropped holder panels, trades and candles, so 7 components could never
+populate even with data), A1/A4 (weekly path, envelope times), R3 (no research, edition or correction events),
+O5 (verification was a date an operator typed). Those rows now point to the follow-up section.
+
 ## Batch 1 — provider and data foundation
 
 | ID | Requirement | Implementation | Tests / evidence | Status |
@@ -43,10 +58,10 @@ No owner-approved Frames budget was supplied for this work, so no paid Frames ca
 
 | ID | Requirement | Where | Tests / evidence | Status |
 |---|---|---|---|---|
-| M1 | Holder analysis: 9 components in 4 areas with stated semantics; composite versioned, gated, disabled | `src/lib/lamble/methods/holders.ts`, `docs/methods/holder-analysis.v1.json` | `tests/lamble/methods.test.ts` (retention, new wallets, transfers, concentration, composite gating) | implemented+tested; 7 of 9 components **blocked (external)**: no validated holder-balance or wallet-resolved trade capability |
-| M2 | Bottoming test: three-condition state machine, no look-ahead, reset on new low, not_applicable vs insufficient_data | `src/lib/lamble/methods/bottoming.ts` (bottoming-v1.0.1), `docs/methods/bottoming.v1.json` | methods tests incl. look-ahead and open-interval regression | implemented+tested; every coin in the current release is insufficient_data (139) or not_applicable (8): no candles in the store, no wallet-resolved sales |
+| M1 | Holder analysis: 9 components in 4 areas with stated semantics; composite versioned, gated, disabled | `src/lib/lamble/methods/holders.ts` (holder-analysis-v1.1.0), `docs/methods/holder-analysis.v1.json` | `tests/lamble/methods.test.ts`; `tests/lamble/holder-path.test.ts` (F1) | implemented+tested end to end with SYNTHETIC panels and trades; in the release 7 of 9 components stay unpopulated **blocked (external)**: no enabled capability collects holder panels or wallet-resolved trades |
+| M2 | Bottoming test: three-condition state machine, no look-ahead, reset on new low, not_applicable vs insufficient_data | `src/lib/lamble/methods/bottoming.ts` (bottoming-v1.0.2), `docs/methods/bottoming.v1.json`; inputs from `scripts/lamble/release/holder-inputs.ts` | methods tests; holder-path test (provider candles, FIFO sales with unknown cost) | implemented+tested; no coin can reach stage 1 until a source with complete wallet-resolved trade history exists |
 | M3 | Forward-evaluation harness | `src/lib/lamble/methods/evaluation.ts` | methods test | implemented+tested; 0 signals, so no performance claim |
-| M4 | Weekly editions: ISO weeks end-exclusive, three historical modes, flows vs stocks, dedup, comparable basket, revisions | `src/lib/lamble/methods/weekly.ts` (weekly-v1.1.0), `scripts/lamble/weekly.ts` | methods tests (boundaries, as-known-then, dedup, comparable basket) | implemented+tested |
+| M4 | Weekly editions: ISO weeks end-exclusive, three historical modes, flows vs stocks, dedup, comparable basket, revisions; holder and bottoming changes where measurable | `src/lib/lamble/methods/weekly.ts` (weekly-v1.2.0), `scripts/lamble/weekly.ts` (`weekSignals`) | methods tests (boundaries, as-known-then, dedup, comparable basket) | implemented+tested |
 
 ## Batch 4 — releases and service layer
 
@@ -54,8 +69,8 @@ No owner-approved Frames budget was supplied for this work, so no paid Frames ca
 |---|---|---|---|---|
 | R1 | Immutable, content-addressed releases; atomic publication; checksum-verified reads | `scripts/lamble/release/*`, `src/lib/lamble/service.ts` | `tests/lamble/release.test.ts` (tamper, rollback) | implemented+tested |
 | R2 | One read path for website and API; no provider calls when serving or building | `src/lib/lamble/service.ts` | api test A11: fetch stubbed, import scan of pages, components, API, site, research and service | implemented+tested |
-| R3 | Change events on one global cursor | `src/lib/lamble/release/changes.ts`, `data/changes/events.json` | release test | implemented+tested |
-| R4 | Latest complete edition plus comparison week | `data/editions/2026-W42` (r1, r2), `2026-W41` (r1, r2, reconstructed) | r2 = weekly-v1.1.0 at the same cutoff; reasons recorded in each file | implemented |
+| R3 | Change events on one global cursor, including corrections, editions and research | `src/lib/lamble/release/changes.ts`, `scripts/lamble/release/publish.ts` (`appendChangeEvents`), `data/changes/events.json` | release tests (F3) | implemented+tested |
+| R4 | Latest complete edition plus comparison week | `data/editions/2026-W42` r1, `2026-W41` r1 (reconstructed), weekly-v1.2.0 | regenerated 2026-10-20 | implemented |
 
 ## Batch 5 — public website
 
@@ -64,7 +79,7 @@ No owner-approved Frames budget was supplied for this work, so no paid Frames ca
 | W1 | Routes `/`, `/coins`, `/coins/[chain]/[address]`, `/narratives(/[slug])`, `/market(/[week])`, `/launchpads(/[slug])`, `/research(/[slug])`, `/methodology`, `/sources`, `/api` | `src/app/**` | `next build`: 210 pages; Playwright at 1440 and 390 px: all 200, no horizontal overflow, no page errors | implemented |
 | W2 | Coin page: identity, market with per-value as-of, charts with gaps, changes, holder table, bottoming test, memberships, peers, provider panels, research, evidence, agent retrieval | `src/app/coins/[chain]/[address]/page.tsx` | screenshots | implemented |
 | W3 | Unknown coin: not-covered page with request text; malformed chain/address: 404 | same file (`NotCovered`), `src/app/not-found.tsx` | `/coins/solana/So111…112` 200 not-covered; `/coins/notachain/xyz` 404 | implemented |
-| W4 | Bidirectional links coin ↔ narrative ↔ launchpad ↔ week ↔ article | all pages | manual | implemented |
+| W4 | Bidirectional links coin ↔ narrative ↔ launchpad ↔ week ↔ article | all pages; `editionsFor` in `src/lib/lamble/service.ts` (F4) | build, e2e, screenshots | implemented (coin→launchpad, coin/launchpad→edition were missing before 2026-10-20) |
 | W5 | Frames setup and copyable prompts without invented deep links, listings or status | `src/app/api/page.tsx`, `src/components/research/agent-access.tsx`; `NEXT_PUBLIC_FRAMES_MCP_URL` unset → "use the connection details in your Frames account"; `NEXT_PUBLIC_LAMBLE_FRAMES_LISTING` unset → "not yet listed" | manual | implemented |
 | W6 | Metadata, canonical URLs, sitemap, robots, RSS and Atom, share cards from release data | `generateMetadata` per route, `src/app/sitemap.ts`, `robots.ts`, `research/feed.xml`, `research/atom.xml`, `opengraph-image.tsx` (home, coin, narrative, edition) | build | implemented |
 | W7 | No paid data in pages, hydration payloads or static artifacts | pages read `public.json` only; `loadBundles` is called only by the paid API path | grep: no page imports `loadBundles` | implemented |
@@ -79,10 +94,10 @@ Defects found while building Batch 5 and fixed at the source: negative `secondsS
 
 | ID | Requirement | Where | Tests / evidence | Status |
 |---|---|---|---|---|
-| A1 | `/api/v1` resources: coins, coin, coin bundle and history, narratives, weeks, launchpads, research, changes, index, health | `src/app/api/v1/**` (thin), `src/lib/lamble/api/routes.ts` (bodies), `resources.ts` | `tests/lamble/api.test.ts` (12); HTTP smoke against `next start`: free routes 200, rights-blocked bundles 403, sellable bundles 503 without payment config | implemented+tested |
-| A2 | OpenAPI, schemas, agent docs | `/api/v1/openapi.json` (`src/lib/lamble/api/openapi.ts`, generated from paths, pricing and the rights gate), `/llms.txt`, `/api` page | api test checks every paid route documents price, 402, 403, 503 | implemented+tested |
+| A1 | `/api/v1` resources: coins, coin, coin bundle and history, narratives, `market/weeks` (moved from `/api/v1/weeks` on 2026-10-20), launchpads, research, changes, index, health | `src/app/api/v1/**` (thin), `src/lib/lamble/api/routes.ts` (bodies), `resources.ts` | `tests/lamble/api.test.ts` (12); HTTP smoke against `next start`: free routes 200, rights-blocked bundles 403, sellable bundles 503 without payment config | implemented+tested |
+| A2 | OpenAPI, schemas, example responses, agent docs | `/api/v1/openapi.json` (`openapi.ts` schemas for every free response; `examples.ts` builds examples from the published release; paid routes get refusal examples only), `/llms.txt`, `/api` page | api tests: Ajv validates every example and every live free response (all coins' chains, every narrative, week and article) against the schemas | implemented+tested |
 | A3 | Free discovery shows identity, coverage, availability, schema, price; no market values | `coinDiscovery`, `narrativeDiscovery`, `weekDiscovery`, `articleDiscovery` | api test asserts no market value appears in coin discovery | implemented+tested |
-| A4 | Envelope with schemaVersion and release (id, dataCutoff, methodVersions) | `src/lib/lamble/api/http.ts` | api tests | implemented+tested |
+| A4 | Envelope with schemaVersion, release (id, dataCutoff, methodVersions), generatedAt, dataThrough and interval | `src/lib/lamble/api/http.ts` (`releaseMeta`, `editionMeta`, article meta) | api tests (F2) | implemented+tested |
 | A5 | Unknown rights block paid exports | `src/lib/lamble/api/rights.ts`: per-section sources; unsellable bundles answer 403 with no offer; withheld sections marked, never dropped | api tests (403 creates no offer and no settlement; flipping rights opens sections) | implemented+tested; **blocked (owner)**: Codex and DefiLlama terms review — until then coin, history, week and launchpads bundles are not for sale |
 | A6 | x402 and MPP adapters around one entitlement layer: offers pinned to a release, single-use payment keys, verify before settle, no client tx hashes, capability re-download, lost-response replay, uncertain settlement, append-only audit | `src/lib/lamble/payments/**`, `docs/runbooks/payments.md` | `tests/lamble/payments.test.ts` (18), plus api test: full offline x402 purchase through the real route (one settlement, capability re-download, capability refused for another narrative) | implemented+tested offline; **not live-verified** (no facilitator, chain, wallet or budget) |
 | A7 | Config-driven test prices | `docs/data/pricing.json` (status test, approved false); pages read prices through the payment layer's loader | pricing parse tests | implemented+tested |
@@ -95,11 +110,11 @@ Defects found while building Batch 5 and fixed at the source: negative `secondsS
 
 | ID | Requirement | Where | Tests / evidence | Status |
 |---|---|---|---|---|
-| O1 | Daily facts, weekly State of the Trenches, coin and narrative deep dives; ≥1 of each required format published to local/preview | `src/lib/lamble/research/generate.ts`, `scripts/lamble/research.ts`, `content/research/` (4 articles), `/research` | `tests/lamble/research.test.ts` (6): every citation resolves, figures equal release values, review status honest, production hides pending deep dives, deterministic | implemented+tested |
+| O1 | Daily facts, weekly State of the Trenches, coin and narrative deep dives; ≥1 of each required format published to local/preview | `src/lib/lamble/research/generate.ts` (templates 1.1.0), `validate.ts` (publishing gate), `scripts/lamble/research.ts`, `content/research/` (4 articles), `content/research-selection.json` | `tests/lamble/research.test.ts` (10) (F7) | implemented+tested; deep dives are still template text, not analysis a person wrote |
 | O2 | Attribution and review policy without invented bylines or approvals | `docs/runbooks/editorial-policy.md`; article `attribution` and `review` fields | research tests | implemented+tested |
-| O3 | Programmatic, budget-guarded Frames collection replacing transcript scraping | `src/lib/lamble/frames/{mcp,collect}.ts`, `npm run lamble -- collect`; ledger `data/collect/ledger.json` | `tests/lamble/collect.test.ts` (6) against a fake MCP server: no budget or too small → no call; same idempotency key and cap; paged bodies; never repeats; approval left to a person | implemented+tested; **not live-verified**: Frames MCP endpoint URL and auth scheme for headless use not known in this work |
+| O3 | Programmatic, budget-guarded Frames collection replacing transcript scraping, within catalog limits | `src/lib/lamble/frames/{mcp,collect}.ts`, `npm run lamble -- collect`; ledger `data/collect/ledger.json` | `tests/lamble/collect.test.ts` (9) against a fake MCP server (F9) | implemented+tested; **not live-verified**: Frames MCP endpoint URL and auth scheme for headless use not known in this work |
 | O4 | Local watchlists and cursor changes API | `src/components/research/client.tsx`; `/api/v1/changes` | api tests | implemented+tested |
-| O5 | Pluggable webhook / Telegram delivery, not activated | `src/lib/lamble/notify/deliver.ts`, `npm run lamble -- deliver`, `docs/data/notifications.json` (`enabled: false`, no destinations) | `tests/lamble/notify.test.ts` (6): disabled by default, consent and verification required, SSRF guard incl. DNS, signed ordered at-least-once delivery, backoff, token never logged | implemented+tested; not activated (no destination, no bot) |
+| O5 | Pluggable webhook / Telegram delivery, not activated | `src/lib/lamble/notify/{deliver,verify}.ts`, `npm run lamble -- deliver [verify|confirm]`, `docs/data/notifications.json` (`enabled: false`, no destinations) | `tests/lamble/notify.test.ts` (8) (F10) | implemented+tested; not activated (no destination, no bot) |
 | O6 | Jobs, locks, checkpoints, observability | `docs/data/jobs.json`, `scripts/lamble/lock.ts` (sync and async), `npm run lamble -- status` | release tests (rollback), collect tests | implemented |
 | O7 | Deployment and scheduler configuration prepared, not activated | `docs/runbooks/operations.md`, `docs/ops/Dockerfile` (template, not built), `docs/ops/github-actions/lamble-offline-refresh.yml` (template, not installed) | — | implemented (untested templates) |
 | O8 | Runbooks | operations, provider onboarding, editorial policy, payments, Frames listing | — | implemented |
@@ -109,16 +124,32 @@ Defects found while building Batch 5 and fixed at the source: negative `secondsS
 
 | ID | Requirement | Evidence | Status |
 |---|---|---|---|
-| Q1 | Type checks, lint, all tests, production build, diff check | [qa/checks.txt](qa/checks.txt): tsc 0, lint 0, 90/90 tests, build 221 routes, `git diff --check` clean | tested |
+| Q1 | Type checks, lint, all tests, production build, diff check | [qa/checks.txt](qa/checks.txt): tsc 0, lint 0, 111/111 tests, build 221 pages, 9/9 browser tests, `git diff --check` clean | tested |
 | Q2 | The 20 required cases | [qa/README.md](qa/README.md) maps each case to its test | tested |
 | Q3 | Rendered pages inspected, screenshots retained | [qa/screenshots](qa/screenshots) (desktop 1440 and mobile 390; `next start` of the production build); 9/9 browser tests | tested |
-| Q4 | Clean environment | fresh clone: `npm run data:setup` rebuilt the identical release `rel-20261019T055754Z-c137ab6d`, editions and articles; tests, build and serving pass | tested |
+| Q4 | Clean environment | full and shallow (`--depth 1`) clones: `npm run data:setup` rebuilt the identical release `rel-20261019T055754Z-bda72390`, editions and articles with a clean `git status` | tested |
 | Q5 | Observability | `npm run lamble -- status`: freshness (exit 1 when older than 36 h), coverage, billed credits per run, reservations, publish failures, delivery state, seller receipts | implemented |
+
+## Follow-up 2026-10-20 — rename and audit gaps 1–11
+
+| ID | Gap | Implementation | Tests / evidence | Status |
+|---|---|---|---|---|
+| F1 | Holder and bottoming data path | migration `0002_holder_inputs` (token_events, trade_coverage, holder_panels, balance_checkpoints, candles, address_labels); `ingest.ts writeOutput`; `methods/inputs.ts` (coverage spans, provider daily candles, flows, FIFO sales); `release/holder-inputs.ts`; `holders.ts` computes components 1, 2, 4–7; `docs/data/address-labels.json` | `holder-path.test.ts`: SYNTHETIC adapter output → store → inputs → concentration, whale accumulation and dip absorption populated; all-holder measures refuse a top-holder sample; coverage below threshold refuses; FIFO splits unknown cost | implemented+tested; **not live**: no x4o2 response exists, field maps unverified, capabilities not enabled |
+| F2 | API path and envelope | `/api/v1/market/weeks[/{week}[/dataset]]`; `generatedAt`, `dataThrough`, `interval` on every response; OpenAPI schemas and examples | api test validates with Ajv | implemented+tested |
+| F3 | Research, edition and correction events | `correctionChanges` (restated windows per coin/launchpad plus a release summary), `edition.published/revised`, `research.published/updated`; hidden articles never announced | release tests | implemented+tested |
+| F4 | Two-way links | coin origin → launchpad; coin and launchpad → editions that include them | build, e2e | implemented |
+| F5 | Homepage and daily view | homepage "What changed" (`latestChanges`); `/market` daily view with the daily note link | screenshots `home-changes-desktop`, `market-daily-desktop` | implemented |
+| F6 | Edition sections | entrants/exits/continuing, concentration and breadth per narrative, stories with evidence, holder and bottoming changes | screenshot `edition-sections-desktop` | implemented |
+| F7 | Articles | chart blocks equal to the cited release value; "What cuts against this" in every format; publishing gate (`validate.ts`); one coin and one narrative deep dive per ISO week, pinned once written; richer deep dives (peers, membership history, editions, origin venues) | research tests (gate rejects a doctored chart and an unresolvable citation) | implemented+tested |
+| F8 | Narrative market context | members' price, market cap and liquidity; narrative market cap, liquidity and median return as a cross-section | build, screenshots | implemented |
+| F9 | Operations | `providers health --run` (free tools only, drift report); collector enforces `maxCallsPerRun`, `maxUsdPerBatch`, refuses unregistered/discovered/blocked tools, paces batches; `src/app/error.tsx` | `health.test.ts` (fake MCP server); collect tests incl. every retained plan within the caps | implemented+tested; health run **not live-verified** (no headless MCP endpoint); caps for x.search and codex.token-snapshot raised to measured maxima |
+| F10 | Destination verification | webhook signed challenge echo; Telegram one-time code (hash only, 30-minute expiry, 5 attempts); eligibility requires the verified target plus consent | notify tests | implemented+tested; not activated |
+| F11 | Reproducible availability | `store/availability.ts`, `data/run-availability.json` | availability tests; full and shallow clones reproduce the release | implemented+tested |
 
 ## Live verification and spending in this work
 
 - Frames: free calls only (`frames_get_usage`, `frames_search_tools`, `frames_get_tool`, `frames_probe_tools`);
-  **0 credits** spent. No owner-approved budget was supplied, so no paid read was made and no x4o2 response
+  **0 credits** spent, including the 2026-10-20 follow-up (which made no Frames call at all). No owner-approved budget was supplied, so no paid read was made and no x4o2 response
   body exists.
 - Payments: **no live payment.** Offline tests only.
 - Schedules active: the external daily Claude Code routine (not installed by this repository). Configured but

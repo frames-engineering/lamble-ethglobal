@@ -387,4 +387,3 @@ export function changeHref(e: Pick<ChangeEvent, "entityType" | "entityId">): str
       return null;
   }
 }
-

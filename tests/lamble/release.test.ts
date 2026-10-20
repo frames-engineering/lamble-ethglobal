@@ -201,4 +201,3 @@ test("events recorded after a release (research, editions) continue the same cur
     delete process.env.LAMBLE_DATA_DIR;
   }
 });
-

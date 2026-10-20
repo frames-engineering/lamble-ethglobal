@@ -159,4 +159,3 @@ test("Telegram verification: a one-time code, stored only as a hash, expiring, w
   const locked = { ...pending, pending: { ...pending.pending!, attempts: 5 } };
   assert.throws(() => confirmTelegram(locked, code, t0 + 1000), /too many attempts/);
 });
-

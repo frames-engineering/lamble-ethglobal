@@ -133,4 +133,3 @@ export function correctionChanges(rows: RevisionRow[], names: { coin: Map<string
   });
   return out;
 }
-
