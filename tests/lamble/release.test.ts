@@ -312,3 +312,22 @@ test("indexed counts: a provider row missing from the latest run is not current,
     rmSync(data, { recursive: true, force: true });
   }
 });
+
+test("a retirement recorded through curation ends memberships and retires the narrative; legacy cap replacements do not", async () => {
+  const { classifyClosure, stateAfterDrop } = await import("../../scripts/lamble/ingest.ts");
+  // Before 2026-10-20 every "narrative retired" closure was a cap replacement: the membership stays.
+  assert.deepEqual(classifyClosure("narrative retired: Replaced at the six-narrative cap by a larger narrative"), { kind: "collection_paused", endsMembership: false });
+  // A closure made through curation.retiredNarratives or removedMembers says so and ends the membership.
+  assert.deepEqual(classifyClosure("narrative retired: created without meeting the newNarrative bar", "retiredNarratives"), { kind: "factual_exit", endsMembership: true });
+  assert.deepEqual(classifyClosure("removed from the official registry", "removedMembers"), { kind: "factual_exit", endsMembership: true });
+
+  const legacy = { at: 100, reason: "Replaced at the six-narrative cap.", endsMembership: false, paused: false };
+  assert.deepEqual(stateAfterDrop([legacy], 100), { state: "collection_paused", reason: "Collection paused: Replaced at the six-narrative cap.", source: "candidates.json retiredNarratives (cap replacement)" });
+  const paused = { at: 200, reason: "Paused at the cap.", endsMembership: false, paused: true };
+  const retired = { at: 300, reason: "created without meeting the newNarrative bar", endsMembership: true, paused: false };
+  // Each drop is explained by the record of the run that dropped the narrative.
+  assert.equal(stateAfterDrop([paused, retired], 200).state, "collection_paused");
+  assert.equal(stateAfterDrop([paused, retired], 200).source, "candidates.json pausedNarratives");
+  assert.deepEqual(stateAfterDrop([paused, retired], 300), { state: "retired", reason: "Retired: created without meeting the newNarrative bar", source: "candidates.json retiredNarratives" });
+  assert.equal(stateAfterDrop([], 300).source, "featured runs");
+});

@@ -26,7 +26,7 @@ import { type AvailabilityFile, decideAvailability } from "../../src/lib/lamble/
 import { type Db, all, migrate, one, openDb, tx } from "../../src/lib/lamble/store/sqlite.ts";
 import { PIPELINE_MIGRATIONS } from "../../src/lib/lamble/store/schema.ts";
 
-export const INGEST_VERSION = "lamble-ingest-1.3.0";
+export const INGEST_VERSION = "lamble-ingest-1.3.1";
 export const TRANSFORM_VERSION = "lamble-adapters-1.2.0";
 export const ADDRESS_LABELS_PATH = "docs/data/address-labels.json";
 const RUN_ID = /^\d{8}T\d{6}Z$/;
@@ -472,6 +472,8 @@ interface MembershipFile {
   confidence?: string;
   methodVersion?: string;
   closedReason?: string;
+  /** The curation list that closed the interval; absent on closures recorded before 2026-10-20 (legacy reasons). */
+  closedBy?: "retiredNarratives" | "removedMembers";
   collectionStatus?: "collected" | "paused" | "inactive";
   collectionChangedAt?: string;
   collectionReason?: string;
@@ -484,11 +486,36 @@ function runAt(runs: { run_id: string; runtime_at: number; available_at: number 
   return best;
 }
 
-/** Classifies a recorded closure. Only evidence that contradicts membership ends it. */
-export function classifyClosure(reason: string): { kind: "factual_exit" | "collection_paused" | "inactive"; endsMembership: boolean } {
+/**
+ * Classifies a recorded closure. Only evidence that contradicts membership ends it. A closure made through
+ * curation.retiredNarratives or removedMembers says so (closedBy) and always ends the membership; older closures carry
+ * only a reason, and every "narrative retired" among them was a cap replacement, which keeps the membership.
+ */
+export function classifyClosure(reason: string, closedBy?: "retiredNarratives" | "removedMembers"): { kind: "factual_exit" | "collection_paused" | "inactive"; endsMembership: boolean } {
+  if (closedBy) return { kind: "factual_exit", endsMembership: true };
   if (/cap|narrative retired|retired narrative|leaves with the retired/i.test(reason)) return { kind: "collection_paused", endsMembership: false };
   if (/\$1,000|below .*volume|under .*volume|removeMember|inactive/i.test(reason)) return { kind: "inactive", endsMembership: false };
   return { kind: "factual_exit", endsMembership: true };
+}
+
+export interface DropRecord {
+  at: number;
+  reason: string;
+  /** A retirement recorded with endsMembership (normalize since 2026-10-20); legacy retirements were cap replacements. */
+  endsMembership: boolean;
+  paused: boolean;
+}
+
+/**
+ * The lifecycle state a narrative enters when a run stops featuring it. The curation record stamped with that run
+ * explains it; failing that, the latest earlier one. Only a retirement that ends memberships retires the narrative.
+ */
+export function stateAfterDrop(records: readonly DropRecord[], dropAt: number): { state: "collection_paused" | "retired"; reason: string; source: string } {
+  const sorted = [...records].sort((a, b) => a.at - b.at);
+  const why = sorted.find((r) => Math.abs(r.at - dropAt) <= 60) ?? sorted.filter((r) => r.at <= dropAt).at(-1);
+  if (!why) return { state: "collection_paused", reason: "No longer collected by the daily run; no retirement evidence recorded.", source: "featured runs" };
+  if (why.endsMembership) return { state: "retired", reason: `Retired: ${why.reason}`, source: "candidates.json retiredNarratives" };
+  return { state: "collection_paused", reason: `Collection paused: ${why.reason}`, source: why.paused ? "candidates.json pausedNarratives" : "candidates.json retiredNarratives (cap replacement)" };
 }
 
 function rebuildCurated(db: Db, latestRun: string): void {
@@ -566,7 +593,7 @@ function rebuildCurated(db: Db, latestRun: string): void {
       pausedAt !== null
         ? { kind: m.collectionStatus === "paused" ? ("collection_paused" as const) : ("inactive" as const), endsMembership: false }
         : closedAt !== null
-          ? classifyClosure(m.closedReason ?? "")
+          ? classifyClosure(m.closedReason ?? "", m.closedBy)
           : null;
     db.prepare(
       `INSERT INTO memberships (interval_id, source_id, narrative_id, token_id, effective_from, recorded_at, effective_to, close_recorded_at, close_kind, close_reason, observed_through, basis, rationale, evidence_ids_json, confidence, method_version)
@@ -591,16 +618,18 @@ function rebuildCurated(db: Db, latestRun: string): void {
     );
   }
   // Lifecycle from the per-run collected sets: a narrative is collected while runs feature it; when a run drops it,
-  // collection is paused (every historical drop was a cap replacement), never retired without a recorded reason.
+  // collection is paused (every drop before 2026-10-20 was a cap replacement) unless a retirement that ends memberships
+  // is recorded for that run.
   db.exec("DELETE FROM narrative_lifecycle");
   const narratives = all<{ narrative_id: string }>(db, "SELECT narrative_id FROM narratives");
-  const reasons = new Map<string, { at: number; reason: string }>();
+  const drops = new Map<string, DropRecord[]>();
+  const record = (id: string, r: DropRecord) => drops.set(id, [...(drops.get(id) ?? []), r]);
   const candidates = readJsonIfExists<{
-    retiredNarratives?: { narrativeId: string; retiredAt: string; reason: string }[];
+    retiredNarratives?: { narrativeId: string; retiredAt: string; reason: string; endsMembership?: boolean }[];
     pausedNarratives?: { narrativeId: string; pausedAt: string; reason: string }[];
   }>(path.join(dir, "candidates.json"));
-  for (const r of candidates?.retiredNarratives ?? []) reasons.set(r.narrativeId, { at: isoOrNull(r.retiredAt)!, reason: r.reason });
-  for (const r of candidates?.pausedNarratives ?? []) reasons.set(r.narrativeId, { at: isoOrNull(r.pausedAt)!, reason: r.reason });
+  for (const r of candidates?.retiredNarratives ?? []) record(r.narrativeId, { at: isoOrNull(r.retiredAt)!, reason: r.reason, endsMembership: r.endsMembership === true, paused: false });
+  for (const r of candidates?.pausedNarratives ?? []) record(r.narrativeId, { at: isoOrNull(r.pausedAt)!, reason: r.reason, endsMembership: false, paused: true });
   const runsWithNarratives = all<{ run_id: string; runtime_at: number; available_at: number }>(
     db,
     "SELECT DISTINCT r.run_id, r.runtime_at, r.available_at FROM runs r JOIN featured f ON f.run_id = r.run_id ORDER BY r.runtime_at",
@@ -614,15 +643,8 @@ function rebuildCurated(db: Db, latestRun: string): void {
       if (present.has(r.run_id) && !open) open = { from: r.runtime_at, recorded: r.available_at };
       else if (!present.has(r.run_id) && open) {
         put("collected", open.from, r.runtime_at, open.recorded, null, "featured runs");
-        const why = reasons.get(narrative_id);
-        put(
-          "collection_paused",
-          r.runtime_at,
-          null,
-          r.available_at,
-          why ? `Collection paused: ${why.reason}` : "No longer collected by the daily run; no retirement evidence recorded.",
-          why ? "candidates.json retiredNarratives (cap replacement)" : "featured runs",
-        );
+        const after = stateAfterDrop(drops.get(narrative_id) ?? [], r.runtime_at);
+        put(after.state, r.runtime_at, null, r.available_at, after.reason, after.source);
         open = null;
       }
     }
