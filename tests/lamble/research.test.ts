@@ -138,7 +138,7 @@ test("historical articles stay pinned to their release; regeneration records the
   assert.equal(next.article.publishedAt, stored.publishedAt, "publication date is kept");
   assert.equal(next.article.releaseId, "rel-20261026T060000Z-bbbbbbbb");
   assert.equal(next.article.review.status, "auto-published", "a review does not carry over to new text");
-  assert.match(next.article.changelog.at(-1)!.summary, /previously release rel-20261019T055754Z-[0-9a-f]{8}, reviewed by Synthetic Reviewer — that review does not cover this text/);
+  assert.ok(next.article.changelog.at(-1)!.summary.includes(`previously release ${stored.releaseId}, reviewed by Synthetic Reviewer — that review does not cover this text`));
   // The stored article itself still names the release it was written from, and the API binds its offer to it.
   assert.equal(stored.releaseId, loadRelease(stored.releaseId).manifest.releaseId);
 });

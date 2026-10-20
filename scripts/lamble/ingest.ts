@@ -753,12 +753,18 @@ export function ingest(options: { rebuild?: boolean; only?: string } = {}): Inge
           Math.floor(Date.now() / 1000),
           INGEST_VERSION,
         );
-        if (kind === "daily-refresh" && validation?.passed) ingestRawBatches(ctx, dir);
-        ingestEvidenceFile(ctx, dir);
-        ingestNarratives(ctx, dir);
-        ingestCuration(ctx, dir);
-        ingestFeePolicy(ctx, dir);
-        ingestVenues(ctx, dir);
+        // A run that failed validation (or a daily run without a result) is recorded but contributes nothing the
+        // release reads: no observations, narratives, curation, fee policy or venue metadata. Reference runs predate
+        // validation reports and are kept unless one says they failed.
+        const usable = kind === "daily-refresh" ? validation?.passed === true : validation?.passed !== false;
+        if (usable) {
+          if (kind === "daily-refresh") ingestRawBatches(ctx, dir);
+          ingestEvidenceFile(ctx, dir);
+          ingestNarratives(ctx, dir);
+          ingestCuration(ctx, dir);
+          ingestFeePolicy(ctx, dir);
+          ingestVenues(ctx, dir);
+        } else ctx.warnings.push("validation did not pass; run recorded, nothing ingested from it");
         db.prepare("UPDATE runs SET warnings_json = ? WHERE run_id = ?").run(JSON.stringify({ stats: ctx.stats, warnings: ctx.warnings.slice(0, 200) }), runId);
       });
       result.ingested.push(runId);

@@ -15,7 +15,7 @@ import path from "node:path";
 import { LAUNCHPADS as SNAPSHOT_LAUNCHPADS } from "../../src/lib/data/snapshots/frames.ts";
 import { loadRegistry } from "../../src/lib/lamble/catalog/load.ts";
 import { DAY, HOUR, type Interval, WEEK, iso, lastCompleteWeek, parseIso, parseWeekId, previousWeekId, weekId } from "../../src/lib/lamble/core/time.ts";
-import { type HistoricalMode, type MembershipRow, type NarrativeRow, type WeeklySource, buildEdition } from "../../src/lib/lamble/methods/weekly.ts";
+import { type HistoricalMode, type MembershipRow, type NarrativeRow, type WeeklySource, buildEdition, lastAtOrBefore } from "../../src/lib/lamble/methods/weekly.ts";
 import { readJson, sha256, stableStringify, writeJsonAtomic } from "../../src/lib/lamble/server/io.ts";
 import { openPipelineDb } from "./ingest.ts";
 import { withLock } from "./lock.ts";
@@ -47,14 +47,7 @@ export function weeklySourceFromStore(store: Store, cutoff: number, week: Interv
   return {
     venueDaily: (provider, metric, day) => win("venue_provider", provider, metric).get(day)?.value ?? null,
     tokenDailyVolume: (tokenId, day) => win("token", tokenId, "token.volume_usd").get(day)?.value ?? null,
-    tokenPrice: (tokenId, t, tol) => {
-      let best: { price: number; time: number } | null = null;
-      for (const s of store.snapshots("token", tokenId, "token.price_usd", cutoff)) {
-        if (Math.abs(s.observed_at - t) > tol) continue;
-        if (!best || Math.abs(s.observed_at - t) < Math.abs(best.time - t)) best = { price: s.value, time: s.observed_at };
-      }
-      return best;
-    },
+    tokenPrice: (tokenId, t, tol) => lastAtOrBefore(store.snapshots("token", tokenId, "token.price_usd", cutoff).map((s) => ({ time: s.observed_at, price: s.value })), t, tol),
     indexedNear: (slug, t) => {
       const ids = registry.venues.find((v) => v.slug === slug)?.indexedProviderIds ?? [];
       if (!ids.length) return null;
@@ -226,6 +219,11 @@ function changedFields(a: Record<string, unknown>, b: Record<string, unknown>): 
     const before = ac.get(n.id);
     if (before !== undefined && before !== n.volumeChangePct) out.push(`${n.title} week change ${before === null ? "withheld" : `${before.toFixed(1)}%`} -> ${n.volumeChangePct === null ? "withheld" : `${n.volumeChangePct.toFixed(1)}%`}`);
   }
+  type Tokens = { id: string; tokens: { tokenId: string; return7d: number | null }[] }[];
+  const ar = new Map((a.narratives as Tokens).flatMap((n) => n.tokens.map((t) => [`${n.id}|${t.tokenId}`, t.return7d] as const)));
+  const returns = (b.narratives as Tokens).flatMap((n) => n.tokens.filter((t) => ar.has(`${n.id}|${t.tokenId}`) && ar.get(`${n.id}|${t.tokenId}`) !== t.return7d));
+  if (returns.length) out.push(`${returns.length} token 7-day returns changed (${returns.filter((t) => t.return7d === null).length} now unknown)`);
+  if (JSON.stringify(a.breadth) !== JSON.stringify(b.breadth)) out.push("market breadth changed");
   const aw = JSON.stringify(a.watch);
   const bw = JSON.stringify(b.watch);
   if (aw !== bw) out.push("watch list wording or entries changed");

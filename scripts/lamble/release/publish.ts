@@ -11,7 +11,7 @@ import { assertMeasure, type Measure } from "../../../src/lib/lamble/core/measur
 import { parseTokenId } from "../../../src/lib/lamble/core/identity.ts";
 import { readJsonIfExists, removeDir, resolveFromRoot, sha256, stableStringify, writeFileAtomic, writeJsonAtomic } from "../../../src/lib/lamble/server/io.ts";
 import { RELEASE_SCHEMA, type ChangeEvent, type ReleaseManifest, type ReleasePublic } from "../../../src/lib/lamble/release/types.ts";
-import type { DraftChange } from "../../../src/lib/lamble/release/changes.ts";
+import { type DraftChange, committedEvents } from "../../../src/lib/lamble/release/changes.ts";
 
 export interface PublishedPointer {
   releaseId: string;
@@ -26,6 +26,8 @@ export interface ReleaseIndexEntry {
   latestRun: string;
   changes: { fromSeq: number; toSeq: number };
   pinned: boolean;
+  /** Set by prune once the release directory is gone; the API stops advertising it. */
+  removed?: boolean;
 }
 
 export const dataDir = () => process.env.LAMBLE_DATA_DIR ?? resolveFromRoot("data");
@@ -142,7 +144,10 @@ export function stageAndPublish(input: StageInput): PublishResult {
   removeDir(staging);
   const now = (input.now ?? new Date()).toISOString().replace(/\.\d{3}Z$/, "Z");
   const publicDoc: ReleasePublic = { schemaVersion: RELEASE_SCHEMA, releaseId, dataCutoff: input.dataCutoff, ...input.publicContent };
-  const events = readChanges();
+  // Events and index entries left by a publication interrupted before its pointer moved are dropped, so a retry
+  // neither duplicates them nor advances clients past a release that was never served.
+  const committed = committedEvents(readIndex(), pointer?.releaseId);
+  const events = readChanges().filter(committed);
   const fromSeq = (events.at(-1)?.seq ?? 0) + 1;
   const changeEvents: ChangeEvent[] = input.changes.map((c, i) => ({ ...c, seq: fromSeq + i, releaseId, at: now, reconstructed: input.reconstructedChanges }));
   // Paid bundles are stored gzipped (mtime-free, deterministic); public files stay plain JSON for review.
@@ -193,7 +198,7 @@ export function stageAndPublish(input: StageInput): PublishResult {
   renameSync(staging, target);
   // The pointer moves last: until this rename, readers keep serving the previous release.
   writeJsonAtomic(changesFile(), [...events, ...changeEvents]);
-  const index = readIndex().filter((e) => e.releaseId !== releaseId);
+  const index = readIndex().filter((e) => committed(e) && e.releaseId !== releaseId);
   index.push({ releaseId, dataCutoff: input.dataCutoff, publishedAt: now, latestRun: input.latestRun, changes: { fromSeq, toSeq: fromSeq + changeEvents.length - 1 }, pinned: false });
   writeJsonAtomic(path.join(releasesDir(), "index.json"), index);
   writeJsonAtomic(path.join(releasesDir(), "published.json"), { releaseId, publishedAt: now, previousReleaseId: pointer?.releaseId ?? null } satisfies PublishedPointer);
@@ -206,7 +211,7 @@ export function stageAndPublish(input: StageInput): PublishResult {
  */
 export function appendChangeEvents(drafts: DraftChange[], releaseId: string, now = new Date()): ChangeEvent[] {
   if (!drafts.length) return [];
-  const events = readChanges();
+  const events = readChanges().filter(committedEvents(readIndex(), readPointer()?.releaseId));
   const at = now.toISOString().replace(/\.\d{3}Z$/, "Z");
   const from = (events.at(-1)?.seq ?? 0) + 1;
   const added: ChangeEvent[] = drafts.map((d, i) => ({ ...d, seq: from + i, releaseId, at, reconstructed: false }));
@@ -225,6 +230,7 @@ export function prune(pinned: Set<string>, keep = 3): string[] {
     removeDir(path.join(releasesDir(), d));
     removed.push(d);
   }
-  writeJsonAtomic(path.join(releasesDir(), "index.json"), index.map((e) => ({ ...e, pinned: pinned.has(e.releaseId), removed: removed.includes(e.releaseId) || undefined })));
+  // A release stays marked removed on every later prune: the mark follows the directory, not this run's deletions.
+  writeJsonAtomic(path.join(releasesDir(), "index.json"), index.map((e) => ({ ...e, pinned: pinned.has(e.releaseId), removed: !existsSync(path.join(releasesDir(), e.releaseId)) || undefined })));
   return removed;
 }

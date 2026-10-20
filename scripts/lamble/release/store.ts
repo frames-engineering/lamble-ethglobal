@@ -239,8 +239,14 @@ export class Store {
     const marks = rowIds.map(() => "?").join(",");
     return all<{ entity_id: string; value: number; event_time: number }>(
       this.db,
-      `SELECT entity_id, value, event_time FROM observations WHERE entity_type = 'index_row' AND metric = 'index.created_rolling24h' AND entity_id IN (${marks}) AND available_at <= ? ORDER BY event_time`,
+      // One value per provider row and time: the latest revision visible at the cutoff, never the sum of revisions.
+      `SELECT o.entity_id, o.value, o.event_time FROM observations o
+       WHERE o.entity_type = 'index_row' AND o.metric = 'index.created_rolling24h' AND o.entity_id IN (${marks}) AND o.available_at <= ?
+         AND o.obs_id = (SELECT p.obs_id FROM observations p WHERE p.entity_type = 'index_row' AND p.metric = o.metric AND p.entity_id = o.entity_id
+                         AND p.event_time = o.event_time AND p.available_at <= ? ORDER BY p.available_at DESC, p.obs_id DESC LIMIT 1)
+       ORDER BY o.event_time`,
       ...rowIds,
+      cutoff,
       cutoff,
     );
   }

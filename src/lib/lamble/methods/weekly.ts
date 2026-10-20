@@ -6,7 +6,7 @@ import { assertSummable } from "../core/metrics.ts";
 import { fsum, percentChange } from "../core/measure.ts";
 import { DAY, type Interval, daysIn, iso } from "../core/time.ts";
 
-export const WEEKLY_VERSION = "weekly-v1.2.0";
+export const WEEKLY_VERSION = "weekly-v1.2.1";
 
 /** A week-over-week change is reported only on a comparable basket of at least this many members... */
 export const MIN_COMPARABLE_MEMBERS = 3;
@@ -81,6 +81,13 @@ function sumDays(values: (number | null)[]): { total: number | null; observed: n
 }
 
 /** Members of a narrative that count for a week under a mode. */
+/** The last sample at or before t and no older than tolerance: a later sample would carry the next period's movement. */
+export function lastAtOrBefore(samples: Iterable<{ time: number; price: number }>, t: number, toleranceSeconds: number): { price: number; time: number } | null {
+  let best: { price: number; time: number } | null = null;
+  for (const s of samples) if (s.time <= t && t - s.time <= toleranceSeconds && (!best || s.time > best.time)) best = { price: s.price, time: s.time };
+  return best;
+}
+
 export function basket(rows: MembershipRow[], narrativeId: string, week: Interval, cutoff: number, mode: HistoricalMode, cohortAt?: number): MembershipRow[] {
   const forNarrative = rows.filter((m) => m.narrativeId === narrativeId);
   const overlaps = (m: MembershipRow, iv: Interval) => m.effectiveFrom < iv.end && (m.effectiveTo === null || m.effectiveTo > iv.start);
@@ -114,8 +121,9 @@ function tokenWeek(src: WeeklySource, tokenId: string, iv: Interval): TokenWeek 
   // Documented pre-creation rule: a whole day before the token existed is an observed zero, never a gap.
   const vols = days.map((d) => (createdAt !== null && d + DAY <= createdAt ? 0 : src.tokenDailyVolume(tokenId, d)));
   const s = sumDays(vols);
-  const p0 = src.tokenPrice(tokenId, iv.start, 12 * 3600);
-  const p1 = src.tokenPrice(tokenId, iv.end, 12 * 3600);
+  // Prices are the last daily sample at or before each boundary (samples land once a day, so up to 24 hours old).
+  const p0 = src.tokenPrice(tokenId, iv.start, DAY);
+  const p1 = src.tokenPrice(tokenId, iv.end, DAY);
   return {
     tokenId,
     symbol: src.tokenLabel(tokenId).symbol,
@@ -160,9 +168,10 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
   const included = venueRows.filter((v) => v.included);
   const intersection = policy.included.filter((s) => priorPolicy.included.includes(s));
   const scopeChanged = intersection.length !== policy.included.length || intersection.length !== priorPolicy.included.length;
-  const subtotal = (rows: typeof venueRows, key: "fees" | "feesPrior") => (rows.every((r) => r[key] !== null) ? fsum(rows.map((r) => r[key]!)) : null);
+  // A sum over no venues is not a measured zero: with no venue selected the subtotal is unknown.
+  const subtotal = (rows: typeof venueRows, key: "fees" | "feesPrior") => (rows.length > 0 && rows.every((r) => r[key] !== null) ? fsum(rows.map((r) => r[key]!)) : null);
   const onIntersection = venueRows.filter((v) => intersection.includes(v.slug));
-  const feeComplete = included.every((v) => v.missingFeeDays === 0);
+  const feeComplete = included.length > 0 && included.every((v) => v.missingFeeDays === 0);
   const feesWeek = subtotal(included, "fees");
   const feesPriorSame = subtotal(onIntersection, "feesPrior");
   const feesWeekSame = subtotal(onIntersection, "fees");
@@ -290,7 +299,15 @@ export function buildEdition(src: WeeklySource, inp: EditionInputs) {
   // ---------------------------------------------------------------- completeness and status
   const runs = src.runsIn(week);
   const checks = [
-    { id: "fees", passed: feeComplete, detail: feeComplete ? "Every included venue has 7 settled days." : `Missing venue-days: ${included.filter((v) => v.missingFeeDays).map((v) => `${v.slug} (${v.missingFeeDays})`).join(", ")}` },
+    {
+      id: "fees",
+      passed: feeComplete,
+      detail: feeComplete
+        ? "Every included venue has 7 settled days."
+        : included.length === 0
+          ? "No fee policy selects any venue at the cutoff."
+          : `Missing venue-days: ${included.filter((v) => v.missingFeeDays).map((v) => `${v.slug} (${v.missingFeeDays})`).join(", ")}`,
+    },
     { id: "runs", passed: runs.dailyRuns >= inp.rules.minDailyRuns, detail: `${runs.dailyRuns} daily runs in the week (minimum ${inp.rules.minDailyRuns}).` },
     { id: "financial-anchor", passed: runs.financialAnchorReachesEnd, detail: runs.financialAnchorReachesEnd ? "A run after the week reached its end financially." : "No run's financial anchor reaches the week end yet." },
   ];

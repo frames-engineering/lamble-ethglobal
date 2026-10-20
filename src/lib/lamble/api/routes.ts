@@ -354,7 +354,10 @@ export function articlePaid(request: Request, params: { slug: string }, siteUrl:
         path: apiPaths.articleBundle(slug),
         routePattern: "/api/v1/research/:slug/bundle",
         description: `LAMBLE research article ${slug}`,
-        exists: () => true,
+        // Only the current article file is kept, and it was written from one release. A credential pinned to an
+        // earlier release (the article has been regenerated since) is told the resource is gone rather than handed
+        // newer content under the older release's name.
+        exists: (releaseId) => releaseId === a.releaseId,
         render: () => articleBundle(a),
         fixedRelease: a.releaseId,
         meta: articleMeta(a),

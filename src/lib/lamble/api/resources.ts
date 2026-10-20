@@ -3,12 +3,13 @@
  * export status) without market values; paid bundles carry the values with provenance, filtered by the
  * rights gate. Both read only published release files through the service layer.
  */
+import type { Catalog } from "../catalog/catalog.ts";
 import { loadCatalog } from "../catalog/load.ts";
 import { type Pricing, priceFor } from "../payments/pricing.ts";
 import type { ResourceKind } from "../payments/pricing.ts";
 import type { CoinPublic, Evidence, NarrativePublic, ReleasePublic } from "../release/types.ts";
 import { resolveCitation } from "../research/cite.ts";
-import { articleCitations, resolveReleaseValue } from "../research/validate.ts";
+import { articleCitations, resolveEditionValue, resolveReleaseValue } from "../research/validate.ts";
 import type { Article } from "../research/types.ts";
 import {
   type ArticleSummary,
@@ -313,8 +314,8 @@ export function articleDiscovery(a: Article, pricing: Pricing | null) {
   };
 }
 
-export function articleBundle(a: Article) {
-  const plan = exportPlan("research-article", loadCatalog());
+export function articleBundle(a: Article, catalog: Catalog = loadCatalog()) {
+  const plan = exportPlan("research-article", catalog);
   let evidence: Record<string, Evidence> = {};
   try {
     evidence = loadRelease(a.releaseId).data.evidence;
@@ -330,6 +331,7 @@ export function articleBundle(a: Article) {
         [...cites].map((c) => {
           const label = resolveCitation(c, evidence);
           if (label.kind === "release") return [c, resolveReleaseValue(c)];
+          if (label.kind === "edition") return [c, resolveEditionValue(c)];
           if (label.kind === "change") {
             const event = allChanges().find((x) => `change:${x.seq}` === c);
             return [c, event ? { found: true, value: event } : { found: false }];

@@ -63,7 +63,7 @@ O5 (verification was a date an operator typed). Those rows now point to the foll
 | M1 | Holder analysis: 9 components in 4 areas with stated semantics; composite versioned, gated, disabled | `src/lib/lamble/methods/holders.ts` (holder-analysis-v1.1.0), `docs/methods/holder-analysis.v1.json` | `tests/lamble/methods.test.ts`; `tests/lamble/holder-path.test.ts` (F1) | implemented+tested end to end with SYNTHETIC panels and trades; in the release 7 of 9 components stay unpopulated **blocked (external)**: no enabled capability collects holder panels or wallet-resolved trades |
 | M2 | Bottoming test: three-condition state machine, no look-ahead, reset on new low, not_applicable vs insufficient_data | `src/lib/lamble/methods/bottoming.ts` (bottoming-v1.0.2), `docs/methods/bottoming.v1.json`; inputs from `scripts/lamble/release/holder-inputs.ts` | methods tests; holder-path test (provider candles, FIFO sales with unknown cost) | implemented+tested; no coin can reach stage 1 until a source with complete wallet-resolved trade history exists |
 | M3 | Forward-evaluation harness | `src/lib/lamble/methods/evaluation.ts` | methods test | implemented+tested; 0 signals, so no performance claim |
-| M4 | Weekly editions: ISO weeks end-exclusive, three historical modes, flows vs stocks, dedup, comparable basket, revisions; holder and bottoming changes where measurable | `src/lib/lamble/methods/weekly.ts` (weekly-v1.2.0), `scripts/lamble/weekly.ts` (`weekSignals`) | methods tests (boundaries, as-known-then, dedup, comparable basket) | implemented+tested |
+| M4 | Weekly editions: ISO weeks end-exclusive, three historical modes, flows vs stocks, dedup, comparable basket, revisions; holder and bottoming changes where measurable | `src/lib/lamble/methods/weekly.ts` (weekly-v1.2.1: prices at or before each boundary), `scripts/lamble/weekly.ts` (`weekSignals`) | methods tests (boundaries, as-known-then, dedup, comparable basket) | implemented+tested |
 
 ## Batch 4 — releases and service layer
 
@@ -72,7 +72,7 @@ O5 (verification was a date an operator typed). Those rows now point to the foll
 | R1 | Immutable, content-addressed releases; atomic publication; checksum-verified reads | `scripts/lamble/release/*`, `src/lib/lamble/service.ts` | `tests/lamble/release.test.ts` (tamper, rollback) | implemented+tested |
 | R2 | One read path for website and API; no provider calls when serving or building | `src/lib/lamble/service.ts` | api test A11: fetch stubbed, import scan of pages, components, API, site, research and service | implemented+tested |
 | R3 | Change events on one global cursor, including corrections, editions and research | `src/lib/lamble/release/changes.ts`, `scripts/lamble/release/publish.ts` (`appendChangeEvents`), `data/changes/events.json` | release tests (F3) | implemented+tested |
-| R4 | Latest complete edition plus comparison week | `data/editions/2026-W42` r1, `2026-W41` r1 (reconstructed), weekly-v1.2.0 | regenerated 2026-10-20 | implemented |
+| R4 | Latest complete edition plus comparison week | `data/editions/2026-W42` r2, `2026-W41` r2 (reconstructed), weekly-v1.2.1; r1 of each kept | regenerated 2026-10-20; r2 corrects post-boundary prices (see review findings) | implemented |
 
 ## Batch 5 — public website
 
@@ -188,6 +188,24 @@ What the panels can and cannot change once collected daily:
 External prerequisites: the branch must be merged before the routine collects panels; the routine's own prompt
 must carry the 5,000-credit budget; 5,000 credits a day is about 150,000 a month, above the plan's 90,000 monthly
 grant, so the account needs purchased credits (balance 56,034 after the sample).
+
+## Review findings fixed (PR #28, 2026-10-20)
+
+Codex reviewed commit `5e86730` and raised nine findings. Each was traced in the code; all nine were real. Seven had no
+effect on the retained data (latent); two were live: weekly returns used prices sampled after the week boundary, and a
+paid article credential could receive a newer article under an older release's name (payments are not live).
+
+| Finding | Fix | Test |
+|---|---|---|
+| A run that failed validation still wrote narratives, curation, fee policy and venues | `ingest.ts`: a daily run must pass; it is recorded but contributes nothing otherwise | release test: failed run contributes no rows |
+| Change events of an interrupted publication were served and duplicated on retry | `committedEvents` (feed, publish, append): only releases up to the published pointer count | release test: interrupted then retried publication |
+| Prune cleared earlier tombstones | `removed` follows the directory | release test: two prunes |
+| A provider row missing from the latest run kept publishing stale counts | `indexedRowsCurrent`: every component from the latest activity anchor | release test |
+| Index history summed revisions | latest revision per row and time at the cutoff | release test on a temporary store |
+| Paid article served for any pinned release | served only for the article's own release; otherwise 410 `resource_gone` | api test: stale credential gets 410 |
+| Edition citations in paid article bundles returned only a link | resolved from the cited revision (only reachable once redistribution rights permit cited values) | api test with permitted rights |
+| Weekly prices could come from after the boundary | `lastAtOrBefore`, tolerance one sampling day (24 h); W41 and W42 corrected as r2 (22 and 19 returns changed, 10 and 2 now unknown) | methods test |
+| An empty fee policy produced a complete edition with fees 0 | empty selection: subtotal unknown, fee check fails | methods test |
 
 ## Documentation drift found
 

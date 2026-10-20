@@ -13,6 +13,7 @@ import { type Chain, IdentityError, isChain, tokenIdentity } from "./core/identi
 import { isWeekId } from "./core/time.ts";
 import type { WeeklyEdition } from "./methods/weekly.ts";
 import type { Article } from "./research/types.ts";
+import { committedEvents } from "./release/changes.ts";
 import type { ChangeEvent, CoinPublic, LaunchpadPublic, NarrativePublic, ReleaseManifest, ReleasePublic } from "./release/types.ts";
 import { sha256 } from "./server/io.ts";
 
@@ -246,9 +247,14 @@ export function getEdition(week: string, revision?: number): EditionDoc {
 
 // ---------------------------------------------------------------- changes
 
+/** The change feed, without events of a publication that never completed (see committedEvents). */
 export function allChanges(): ChangeEvent[] {
   const file = path.join(dataRoot(), "changes", "events.json");
-  return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : [];
+  if (!existsSync(file)) return [];
+  const events: ChangeEvent[] = JSON.parse(readFileSync(file, "utf8"));
+  const pointerFile = path.join(dataRoot(), "releases", "published.json");
+  const published = existsSync(pointerFile) ? (JSON.parse(readFileSync(pointerFile, "utf8")) as { releaseId: string }).releaseId : null;
+  return events.filter(committedEvents(releaseIndex(), published));
 }
 
 export function changesSince(cursor: number, opts: { entityIds?: string[]; types?: string[]; limit?: number } = {}) {

@@ -133,3 +133,18 @@ export function correctionChanges(rows: RevisionRow[], names: { coin: Map<string
   });
   return out;
 }
+
+/**
+ * Whether a feed event belongs to a completed publication. Publishing writes the feed, then the index, then the
+ * pointer; a release is committed once the pointer reaches it, so committed releases are the index entries up to and
+ * including the published one. Events of a publication interrupted before its pointer moved are not served, and the
+ * next publication replaces them. Before any publication nothing is committed; a pointer missing from the index (an
+ * index older than the pointer) gives nothing to judge by, and every event counts.
+ */
+export function committedEvents(index: readonly { releaseId: string }[], published: string | null | undefined): (e: { releaseId: string }) => boolean {
+  if (!published) return () => false;
+  const at = index.findIndex((e) => e.releaseId === published);
+  if (at < 0) return () => true;
+  const committed = new Set(index.slice(0, at + 1).map((e) => e.releaseId));
+  return (e) => committed.has(e.releaseId);
+}

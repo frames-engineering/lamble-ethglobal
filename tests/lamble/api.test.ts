@@ -18,12 +18,13 @@ import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 import { apiExamples } from "../../src/lib/lamble/api/examples.ts";
+import { articleBundle } from "../../src/lib/lamble/api/resources.ts";
 import { openapi } from "../../src/lib/lamble/api/openapi.ts";
 import { BUNDLE_SECTIONS, applyPlan, exportPlan } from "../../src/lib/lamble/api/rights.ts";
 import { loadCatalog } from "../../src/lib/lamble/catalog/load.ts";
 import { createPaymentRuntime, loadPricing } from "../../src/lib/lamble/payments/index.ts";
 import { RESOURCE_KINDS } from "../../src/lib/lamble/payments/pricing.ts";
-import { getArticle, listArticles, loadRelease, publishedReleaseId } from "../../src/lib/lamble/service.ts";
+import { getArticle, listArticles, loadRelease, publishedReleaseId, releaseIndex } from "../../src/lib/lamble/service.ts";
 import { escapeXml, rss } from "../../src/lib/lamble/site/feeds.ts";
 
 let networkAttempts = 0;
@@ -193,11 +194,31 @@ test("narrative bundle: offer pinned to a release, Bazaar metadata, one settleme
   assert.ok(wrong.status === 401 || wrong.status === 403, `capability for one narrative opened another (${wrong.status})`);
 }));
 
-test("article bundle offers bind to the release the article was written from", withPayments(async () => {
+test("article bundles bind to the release the article was written from and resolve edition citations", withPayments(async () => {
   const a = listArticles().find((x) => x.format === "weekly")!;
-  const r = await routes.articlePaid(get(`/api/v1/research/${a.slug}/bundle`), { slug: a.slug }, SITE);
+  const p = `/api/v1/research/${a.slug}/bundle`;
+  const r = await routes.articlePaid(get(p), { slug: a.slug }, SITE);
   assert.equal(r.status, 402);
-  assert.equal((await body(r)).offer.resource.releaseId, getArticle(a.slug)!.releaseId);
+  assert.equal((await body(r.clone())).offer.resource.releaseId, getArticle(a.slug)!.releaseId);
+  const paid = await routes.articlePaid(get(p, { "PAYMENT-SIGNATURE": x402Pay(r) }), { slug: a.slug }, SITE);
+  assert.equal(paid.status, 200, await paid.clone().text());
+  const token = paid.headers.get("Lamble-Capability")!;
+  // Cited values open only when every source permits redistribution (all unknown today); with rights in place, an
+  // edition citation carries the value from its exact revision, not just a link.
+  const open = structuredClone(loadCatalog());
+  for (const c of open.capabilities) c.rights.redistribution = "permitted";
+  const cited = articleBundle(getArticle(a.slug)!, open).sections.citedValues as Record<string, { found: boolean; value?: unknown; reference?: unknown }>;
+  const editions = Object.entries(cited).filter(([c]) => c.startsWith("edition:"));
+  assert.ok(editions.length > 0, "the weekly article cites its edition");
+  for (const [c, v] of editions) assert.ok(v.found && v.value !== undefined && v.reference === undefined, `${c} resolves to the cited value`);
+  // The article was regenerated after the purchase: its credential pins an earlier release, which no longer has this
+  // version of the article. The buyer is told so, never handed the newer text under the older release's name.
+  const runtime = holder[RUNTIME_KEY] as { store: { db: { prepare(sql: string): { run(...a: unknown[]): unknown } } } };
+  const previous = releaseIndex().find((e) => e.releaseId !== getArticle(a.slug)!.releaseId && !e.removed)!.releaseId;
+  runtime.store.db.prepare("UPDATE entitlements SET release_id = ?").run(previous);
+  const stale = await routes.articlePaid(get(p, { Authorization: `Bearer ${token}` }), { slug: a.slug }, SITE);
+  assert.equal(stale.status, 410);
+  assert.equal((await body(stale)).error, "resource_gone");
 }));
 
 test("identifiers are validated before any lookup; EVM case folds to one canonical id", async () => {

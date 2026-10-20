@@ -8,7 +8,7 @@ import test from "node:test";
 import { BOTTOMING_DEFAULTS, type BottomingInputs, type Candle, bottomingHistory, evaluateBottoming } from "../../src/lib/lamble/methods/bottoming.ts";
 import { evaluate, outcomes } from "../../src/lib/lamble/methods/evaluation.ts";
 import { COMPONENT_IDS, type ComponentResult, composite, concentration, meaningfulHolders, retention, whaleAccumulation } from "../../src/lib/lamble/methods/holders.ts";
-import { type MembershipRow, type NarrativeRow, type VenueRow, type WeeklySource, basket, buildEdition } from "../../src/lib/lamble/methods/weekly.ts";
+import { type MembershipRow, type NarrativeRow, type VenueRow, type WeeklySource, basket, buildEdition, lastAtOrBefore } from "../../src/lib/lamble/methods/weekly.ts";
 import { DAY, HOUR, parseWeekId } from "../../src/lib/lamble/core/time.ts";
 
 const T0 = Date.UTC(2026, 9, 1) / 1000; // 2026-10-01, a synthetic origin
@@ -312,4 +312,25 @@ test("evaluation: small samples make no claim; returns are net of costs", () => 
   assert.equal(r.horizons[0]!.all.confidence, "insufficient");
   assert.match(r.horizons[0]!.claim, /No performance claim/);
   void BOTTOMING_DEFAULTS;
+});
+
+test("weekly prices are the last sample at or before each boundary, never a later one", () => {
+  // Daily samples land around 06:00 UTC; the week ends Monday 00:00.
+  const samples = [
+    { time: W42.end - 18 * HOUR, price: 1 }, // Sunday 06:00, inside the week
+    { time: W42.end + 6 * HOUR, price: 9 }, // Monday 06:00, after the week: closer, but it is the next period
+  ];
+  assert.deepEqual(lastAtOrBefore(samples, W42.end, DAY), { price: 1, time: W42.end - 18 * HOUR });
+  assert.equal(lastAtOrBefore(samples, W42.end, 12 * HOUR), null, "older than the tolerance is no price, not the next day's");
+  assert.equal(lastAtOrBefore([{ time: W42.end + HOUR, price: 9 }], W42.end, DAY), null);
+});
+
+test("with no venue selected by the fee policy the fee subtotal is unknown and the check fails", () => {
+  const src = weeklySource({ feePolicy: () => ({ included: [], excluded: {}, runId: "none" }), priorFeePolicy: () => ({ included: [], excluded: {}, runId: "none" }) });
+  const e = buildEdition(src, { id: "2026-W42", week: W42, prior: W41, cutoff: W42.end + HOUR, mode: "as_known_then", rules });
+  assert.equal(e.market.feeSubtotal.value, null);
+  const fees = e.checks.find((c) => c.id === "fees")!;
+  assert.equal(fees.passed, false);
+  assert.match(fees.detail, /No fee policy selects any venue/);
+  assert.notEqual(e.status, "complete");
 });

@@ -201,3 +201,114 @@ test("events recorded after a release (research, editions) continue the same cur
     delete process.env.LAMBLE_DATA_DIR;
   }
 });
+
+test("an interrupted publication's events are neither served nor duplicated when it is retried", async () => {
+  const dir = tempData();
+  try {
+    const { stageAndPublish, readPointer, readChanges, readIndex } = await publishModule();
+    const { allChanges } = await import("../../src/lib/lamble/service.ts");
+    const first = stageAndPublish(stageInput(1, [{ id: "all", passed: true, detail: "" }]));
+    const pointerFile = path.join(dir, "releases", "published.json");
+    const committedPointer = readFileSync(pointerFile, "utf8");
+    // The second publication wrote its events and index entry, then failed before moving the pointer.
+    const second = stageAndPublish(stageInput(2, [{ id: "all", passed: true, detail: "" }]));
+    writeFileSync(pointerFile, committedPointer);
+    assert.equal(readPointer()!.releaseId, first.releaseId);
+    assert.deepEqual(allChanges().map((e) => [e.seq, e.releaseId]), [[1, first.releaseId]], "the feed serves only committed releases");
+    // The retry publishes once: one event per change, one index entry per release.
+    assert.equal(stageAndPublish(stageInput(2, [{ id: "all", passed: true, detail: "" }])).status, "published");
+    assert.deepEqual(readChanges().map((e) => [e.seq, e.releaseId]), [
+      [1, first.releaseId],
+      [2, second.releaseId],
+    ]);
+    assert.deepEqual(readIndex().map((e) => e.releaseId), [first.releaseId, second.releaseId]);
+    assert.deepEqual(allChanges().map((e) => e.seq), [1, 2]);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+    delete process.env.LAMBLE_DATA_DIR;
+  }
+});
+
+test("a pruned release stays marked removed on every later prune", async () => {
+  const dir = tempData();
+  try {
+    const { stageAndPublish, prune, readIndex } = await publishModule();
+    const ids = [1, 2, 3, 4].map((m) => stageAndPublish(stageInput(m, [{ id: "all", passed: true, detail: "" }])).releaseId);
+    assert.deepEqual(prune(new Set(), 1), [ids[0], ids[1]]);
+    assert.deepEqual(prune(new Set(), 1), [], "nothing left to delete");
+    assert.deepEqual(readIndex().map((e) => [e.releaseId, e.removed ?? false]), [
+      [ids[0], true],
+      [ids[1], true],
+      [ids[2], false],
+      [ids[3], false],
+    ]);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+    delete process.env.LAMBLE_DATA_DIR;
+  }
+});
+
+test("a run that failed validation is recorded but contributes nothing to what releases read", async () => {
+  const research = mkdtempSync(path.join(os.tmpdir(), "lamble-research-"));
+  const data = mkdtempSync(path.join(os.tmpdir(), "lamble-db-"));
+  process.env.LAMBLE_RESEARCH_DIR = research;
+  process.env.LAMBLE_DB_PATH = path.join(data, "lamble.sqlite");
+  process.env.LAMBLE_AVAILABILITY_FILE = path.join(data, "run-availability.json");
+  try {
+    for (const run of ["20261018T055734Z", "20261019T055754Z"]) cpSync(path.join(root, "research/lamble", run), path.join(research, run), { recursive: true });
+    const report = path.join(research, "20261019T055754Z", "validation-report.json");
+    writeFileSync(report, JSON.stringify({ ...JSON.parse(readFileSync(report, "utf8")), passed: false }));
+    const { ingest } = await import("../../scripts/lamble/ingest.ts");
+    assert.deepEqual(ingest({ rebuild: true }).ingested, ["20261018T055734Z", "20261019T055754Z"]);
+    const { DatabaseSync } = await import("node:sqlite");
+    const db = new DatabaseSync(process.env.LAMBLE_DB_PATH);
+    const count = (table: string, run: string) => (db.prepare(`SELECT count(*) n FROM ${table} WHERE run_id = ?`).get(run) as { n: number }).n;
+    assert.equal((db.prepare("SELECT passed FROM runs WHERE run_id = '20261019T055754Z'").get() as { passed: number }).passed, 0);
+    for (const table of ["observations", "narrative_versions", "fee_policy", "curation_decisions", "evidence"]) {
+      assert.equal(count(table, "20261019T055754Z"), 0, `${table} from the failed run`);
+      if (table !== "curation_decisions") assert.ok(count(table, "20261018T055734Z") > 0, `${table} from the passed run`);
+    }
+    db.close();
+  } finally {
+    rmSync(research, { recursive: true, force: true });
+    rmSync(data, { recursive: true, force: true });
+    delete process.env.LAMBLE_RESEARCH_DIR;
+    delete process.env.LAMBLE_DB_PATH;
+    delete process.env.LAMBLE_AVAILABILITY_FILE;
+  }
+});
+
+test("indexed counts: a provider row missing from the latest run is not current, and revisions are not summed", async () => {
+  const { indexedRowsCurrent } = await import("../../scripts/lamble/release/build.ts");
+  const at = (t: number) => ({ event_time: t });
+  const full = (t: number) => ({ created24: at(t), created7d: at(t), completed24: at(t), completed7d: at(t) });
+  assert.equal(indexedRowsCurrent([full(200)], 200), true);
+  assert.equal(indexedRowsCurrent([full(100)], 200), false, "a single provider row last seen in an earlier run");
+  assert.equal(indexedRowsCurrent([full(200), full(100)], 200), false, "one of two rows vanished");
+  assert.equal(indexedRowsCurrent([{ ...full(200), completed7d: undefined }], 200), false);
+  assert.equal(indexedRowsCurrent([], 200), false);
+
+  const data = mkdtempSync(path.join(os.tmpdir(), "lamble-db-"));
+  try {
+    const { migrate, openDb } = await import("../../src/lib/lamble/store/sqlite.ts");
+    const { PIPELINE_MIGRATIONS } = await import("../../src/lib/lamble/store/schema.ts");
+    const { Store } = await import("../../scripts/lamble/release/store.ts");
+    const db = openDb(path.join(data, "s.sqlite"));
+    migrate(db, PIPELINE_MIGRATIONS);
+    const run = db.prepare("INSERT INTO runs (run_id, kind, runtime_at, available_at, available_basis, manifest_sha256, ingested_at, ingest_version) VALUES (?, 'daily-refresh', ?, ?, 'runtime', 'x', 0, 'test')");
+    run.run("A", 100, 100);
+    run.run("B", 200, 200);
+    const obs = db.prepare(
+      `INSERT INTO observations (entity_type, entity_id, metric, value, unit, event_time, observed_at, fetched_at, available_at, run_id, evidence_id, capability, extraction, transform_version, revision_of, delivery)
+       VALUES ('index_row', 'v:0', 'index.created_rolling24h', ?, 'count', ?, ?, ?, ?, ?, 'e', 'codex.launchpad-activity', '$', 't', ?, 'delivered')`,
+    );
+    const first = Number(obs.run(10, 50, 50, 100, 100, "A", null).lastInsertRowid);
+    obs.run(12, 50, 50, 200, 200, "B", first); // run B restates the count observed at 50
+    const store = new Store(db);
+    assert.deepEqual(store.indexHistory(["v:0"], 300).map((h) => [h.event_time, h.value]), [[50, 12]], "the latest revision, not 10 + 12");
+    assert.deepEqual(store.indexHistory(["v:0"], 150).map((h) => [h.event_time, h.value]), [[50, 10]], "as known before the revision");
+    db.close();
+  } finally {
+    rmSync(data, { recursive: true, force: true });
+  }
+});

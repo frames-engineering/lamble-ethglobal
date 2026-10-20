@@ -68,6 +68,19 @@ function nearestTo<T extends { observed_at: number }>(rows: T[], at: number, tol
   return best;
 }
 
+/**
+ * Whether a venue's indexed counts can be published as current: every provider row needs all four components, each
+ * from the latest run's activity observation. A provider row that vanished from that run keeps only historical values
+ * in the store, and those are not current counts.
+ */
+export function indexedRowsCurrent(
+  rows: readonly { created24?: { event_time: number }; created7d?: { event_time: number }; completed24?: { event_time: number }; completed7d?: { event_time: number } }[],
+  activityAsOf: number | null,
+): boolean {
+  const current = (o: { event_time: number } | undefined) => o !== undefined && activityAsOf !== null && o.event_time === activityAsOf;
+  return rows.length > 0 && rows.every((r) => current(r.created24) && current(r.created7d) && current(r.completed24) && current(r.completed7d));
+}
+
 export function buildReleaseContent(ctx: BuildContext) {
   const { store, cutoff, catalog } = ctx;
   const runs = store.dailyRuns(cutoff);
@@ -632,7 +645,7 @@ export function buildReleaseContent(ctx: BuildContext) {
       completed24: indexRows.find((r) => r.entity_id === pid && r.metric === "index.completed_rolling24h"),
       completed7d: indexRows.find((r) => r.entity_id === pid && r.metric === "index.completed_rolling7d"),
     }));
-    const haveAll = rows.length > 0 && rows.every((r) => r.created24 && r.created7d && r.completed24 && r.completed7d) && new Set(rows.map((r) => r.created24!.event_time)).size === 1;
+    const haveAll = indexedRowsCurrent(rows, latest.activity_as_of);
     const curve = !NO_CURVE_COMPLETION.has(presentationRow.slug);
     const history = store.indexHistory(reg.indexedProviderIds ?? [], cutoff);
     const byTime = new Map<number, number>();
