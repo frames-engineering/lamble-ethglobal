@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ChainMark } from "@/components/brand/chain-mark";
 import { Badge } from "@/components/ui/badge";
 import type { ChainId } from "@/lib/data/types";
-import type { Evidence } from "@/lib/lambo/release/types";
+import type { Evidence } from "@/lib/lamble/release/types";
 import { cn } from "@/lib/utils";
 
 export function coinHref(chain: string, address: string) {

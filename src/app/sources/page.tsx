@@ -7,10 +7,10 @@ import { formatDate } from "@/components/research/time";
 import { PoweredByFrames } from "@/components/layout/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { loadCatalog } from "@/lib/lambo/catalog/load";
-import type { Capability } from "@/lib/lambo/catalog/catalog";
-import { CHAIN_NAME } from "@/lib/lambo/core/identity";
-import { loadRelease } from "@/lib/lambo/service";
+import { loadCatalog } from "@/lib/lamble/catalog/load";
+import type { Capability } from "@/lib/lamble/catalog/catalog";
+import { CHAIN_NAME } from "@/lib/lamble/core/identity";
+import { loadRelease } from "@/lib/lamble/service";
 
 export const metadata: Metadata = {
   title: "Sources and coverage",

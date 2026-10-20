@@ -1,4 +1,4 @@
-import type { ArticleFormat } from "@/lib/lambo/research/types";
+import type { ArticleFormat } from "@/lib/lamble/research/types";
 
 export const FORMAT_LABEL: Record<ArticleFormat, string> = {
   daily: "Daily facts",

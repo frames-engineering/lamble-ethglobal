@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import type { DataState, Measure } from "@/lib/lambo/core/measure";
+import type { DataState, Measure } from "@/lib/lamble/core/measure";
 import { compactUsd, percent, usd } from "@/lib/format";
 import { cn } from "@/lib/utils";
 

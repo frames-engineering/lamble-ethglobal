@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import type { NarrativePublic } from "@/lib/lambo/release/types";
+import type { NarrativePublic } from "@/lib/lamble/release/types";
 
 export const LIFECYCLE_LABEL: Record<NarrativePublic["lifecycle"]["state"], string> = {
   collected: "Collected",

@@ -1,8 +1,8 @@
 import { ogCard } from "@/components/research/og-card";
 import { formatValue } from "@/components/research/measure";
 import { formatDate } from "@/components/research/time";
-import { CHAIN_NAME } from "@/lib/lambo/core/identity";
-import { loadRelease, parseCoinRoute } from "@/lib/lambo/service";
+import { CHAIN_NAME } from "@/lib/lamble/core/identity";
+import { loadRelease, parseCoinRoute } from "@/lib/lamble/service";
 
 export const alt = "LAMBLE coin research";
 export const size = { width: 1200, height: 630 };

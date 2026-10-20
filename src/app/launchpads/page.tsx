@@ -6,9 +6,9 @@ import { AgentAccess } from "@/components/research/agent-access";
 import { formatValue } from "@/components/research/measure";
 import { Note, PageHeader } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
-import { apiPaths } from "@/lib/lambo/api/paths";
-import { toLaunchpadView } from "@/lib/lambo/site/launchpads";
-import { loadRelease } from "@/lib/lambo/service";
+import { apiPaths } from "@/lib/lamble/api/paths";
+import { toLaunchpadView } from "@/lib/lamble/site/launchpads";
+import { loadRelease } from "@/lib/lamble/service";
 
 export const metadata: Metadata = {
   title: "Launchpads",

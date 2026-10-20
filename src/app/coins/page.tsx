@@ -7,9 +7,9 @@ import { formatValue } from "@/components/research/measure";
 import { Note, PageHeader, Panel } from "@/components/research/panel";
 import { formatDateTime } from "@/components/research/time";
 import { Input } from "@/components/ui/input";
-import { CHAIN_NAME, type Chain } from "@/lib/lambo/core/identity";
-import type { CoinPublic } from "@/lib/lambo/release/types";
-import { type CoinFilters, filterCoins, holderCoverage, loadRelease } from "@/lib/lambo/service";
+import { CHAIN_NAME, type Chain } from "@/lib/lamble/core/identity";
+import type { CoinPublic } from "@/lib/lamble/release/types";
+import { type CoinFilters, filterCoins, holderCoverage, loadRelease } from "@/lib/lamble/service";
 
 export const metadata: Metadata = {
   title: "Coins",

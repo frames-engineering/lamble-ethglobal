@@ -1,5 +1,5 @@
-import { llmsTxt } from "@/lib/lambo/site/llms";
-import { loadRelease } from "@/lib/lambo/service";
+import { llmsTxt } from "@/lib/lamble/site/llms";
+import { loadRelease } from "@/lib/lamble/service";
 import { FRAMES_LISTED, SITE_URL } from "@/lib/links";
 
 export const dynamic = "force-static";

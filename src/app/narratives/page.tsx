@@ -7,8 +7,8 @@ import { MeasureValue, formatValue } from "@/components/research/measure";
 import { LifecycleBadge, TrendBadge, shownChange } from "@/components/research/narrative-bits";
 import { Note, PageHeader } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
-import type { NarrativePublic } from "@/lib/lambo/release/types";
-import { loadRelease } from "@/lib/lambo/service";
+import type { NarrativePublic } from "@/lib/lamble/release/types";
+import { loadRelease } from "@/lib/lamble/service";
 
 export const metadata: Metadata = {
   title: "Narratives",

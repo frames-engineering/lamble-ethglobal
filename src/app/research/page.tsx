@@ -6,8 +6,8 @@ import { FORMAT_LABEL, REVIEW_LABEL } from "@/components/research/article-bits";
 import { EmptyState, PageHeader } from "@/components/research/panel";
 import { formatDate } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
-import type { ArticleFormat } from "@/lib/lambo/research/types";
-import { listArticles } from "@/lib/lambo/service";
+import type { ArticleFormat } from "@/lib/lamble/research/types";
+import { listArticles } from "@/lib/lamble/service";
 
 export const metadata: Metadata = {
   title: "Research",
@@ -77,7 +77,7 @@ export default async function ResearchIndex({ searchParams }: { searchParams: Pr
             ))}
           </ul>
         ) : (
-          <EmptyState title="No articles yet">Articles appear after `npm run lambo -- research` runs against a published release.</EmptyState>
+          <EmptyState title="No articles yet">Articles appear after `npm run lamble -- research` runs against a published release.</EmptyState>
         )}
       </div>
     </Container>

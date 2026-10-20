@@ -1,8 +1,8 @@
 import { ogCard } from "@/components/research/og-card";
 import { formatValue } from "@/components/research/measure";
 import { formatDate } from "@/components/research/time";
-import { isWeekId } from "@/lib/lambo/core/time";
-import { editionIndex, getEdition } from "@/lib/lambo/service";
+import { isWeekId } from "@/lib/lamble/core/time";
+import { editionIndex, getEdition } from "@/lib/lamble/service";
 
 export const alt = "State of the Trenches weekly edition";
 export const size = { width: 1200, height: 630 };

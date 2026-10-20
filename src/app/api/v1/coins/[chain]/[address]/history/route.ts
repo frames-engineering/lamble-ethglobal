@@ -1,5 +1,5 @@
-import { options } from "@/lib/lambo/api/http";
-import { coinPaid } from "@/lib/lambo/api/routes";
+import { options } from "@/lib/lamble/api/http";
+import { coinPaid } from "@/lib/lamble/api/routes";
 import { SITE_URL } from "@/lib/links";
 
 export async function GET(request: Request, { params }: { params: Promise<{ chain: string; address: string }> }) {

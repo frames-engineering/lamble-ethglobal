@@ -5,17 +5,19 @@ import type { ReactNode } from "react";
 
 import { Container } from "@/components/layout/container";
 import { AgentAccess } from "@/components/research/agent-access";
+import { SeriesChart } from "@/components/research/charts";
+import { PALETTE } from "@/components/research/colors";
 import { FORMAT_LABEL, REVIEW_LABEL } from "@/components/research/article-bits";
 import { ExternalLink } from "@/components/research/links";
 import { Note, PageHeader } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
-import { apiPaths } from "@/lib/lambo/api/paths";
-import type { Evidence } from "@/lib/lambo/release/types";
-import { resolveReleaseValue } from "@/lib/lambo/api/resources";
-import { resolveCitation } from "@/lib/lambo/research/cite";
-import type { Article, ArticleBlock } from "@/lib/lambo/research/types";
-import { BadRequest, NotFound, getArticle, listArticles, loadRelease } from "@/lib/lambo/service";
+import { apiPaths } from "@/lib/lamble/api/paths";
+import type { Evidence } from "@/lib/lamble/release/types";
+import { articleCitations, resolveReleaseValue } from "@/lib/lamble/research/validate";
+import { resolveCitation } from "@/lib/lamble/research/cite";
+import type { Article, ArticleBlock } from "@/lib/lamble/research/types";
+import { BadRequest, NotFound, getArticle, listArticles, loadRelease } from "@/lib/lamble/service";
 
 type Params = { slug: string };
 
@@ -119,17 +121,28 @@ function Block({ b, evidence, numbers }: { b: ArticleBlock; evidence: Record<str
           {b.text}
         </Note>
       );
+    case "chart": {
+      return (
+        <div className="mt-4 rounded-lg bg-surface-2 p-3">
+          <SeriesChart
+            series={b.series.map((s, i) => ({ id: `s${i}`, label: s.label, color: PALETTE[i % PALETTE.length]!, points: s.points }))}
+            format={b.format}
+            kind={b.format === "usd" ? "area" : "line"}
+            height={180}
+            summary={`${b.caption} Unobserved points are gaps, not zero.`}
+          />
+          <p className="mt-1 text-2xs text-med">
+            Data
+            <Cites cites={b.series.map((s) => s.cite)} evidence={evidence} start={numbers} />
+          </p>
+        </div>
+      );
+    }
   }
 }
 
 function citationsOf(body: ArticleBlock[]): string[] {
-  const out: string[] = [];
-  for (const b of body) {
-    if (b.type === "p") out.push(...b.cites);
-    if (b.type === "list") for (const it of b.items) out.push(...it.cites);
-    if (b.type === "facts") for (const r of b.rows) out.push(r.cite);
-  }
-  return [...new Set(out)];
+  return [...new Set(articleCitations({ body }))];
 }
 
 export default async function ArticlePage({ params }: { params: Promise<Params> }) {

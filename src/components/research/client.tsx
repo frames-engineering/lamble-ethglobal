@@ -46,7 +46,7 @@ export function CopyBlock({ text, label, className }: { text: string; label: str
 
 // ---------------------------------------------------------------- local watchlist (no account; this browser only)
 
-const KEY = "lambo.watchlist.v1";
+const KEY = "lamble.watchlist.v1";
 const listeners = new Set<() => void>();
 
 function readWatchlist(): string[] {

@@ -14,9 +14,9 @@ import { EmptyState, Note, PageHeader, Panel } from "@/components/research/panel
 import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { apiPaths } from "@/lib/lambo/api/paths";
-import type { Evidence, NarrativePublic } from "@/lib/lambo/release/types";
-import { BadRequest, articlesFor, editionIndex, getEdition, loadRelease } from "@/lib/lambo/service";
+import { apiPaths } from "@/lib/lamble/api/paths";
+import type { Evidence, NarrativePublic } from "@/lib/lamble/release/types";
+import { BadRequest, articlesFor, editionIndex, getEdition, loadRelease } from "@/lib/lamble/service";
 
 type Params = { slug: string };
 
@@ -142,6 +142,21 @@ export default async function NarrativePage({ params }: { params: Promise<Params
               {a.caveat}
             </Note>
           )}
+          <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-divider pt-4 sm:grid-cols-4">
+            <Stat label="Members' market cap (circulating)" sub={`${n.market.withMarketCap} of ${n.market.of} open members with a current value`}>
+              <span className="tabular-nums">{formatValue(n.market.marketCap, "usd")}</span>
+            </Stat>
+            <Stat label="Members' liquidity (top pairs)" sub={`${n.market.withLiquidity} of ${n.market.of} members`}>
+              <span className="tabular-nums">{formatValue(n.market.liquidity, "usd")}</span>
+            </Stat>
+            <Stat label="Median member return, 7d" sub="Snapshot to snapshot">
+              <span className="tabular-nums">{formatValue(n.market.medianReturn7d, "ratio-percent")}</span>
+            </Stat>
+            <Stat label="Snapshots from" sub={n.market.newest ? `to ${formatDateTime(n.market.newest)}` : undefined}>
+              {formatDateTime(n.market.oldest)}
+            </Stat>
+          </dl>
+          <p className="mt-2 text-2xs leading-relaxed text-med">{n.market.note}</p>
           <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
             <SeriesChart series={[{ id: "h", label: "Hourly volume", color: SERIES.link, points: a.hourly }]} format="usd" tickFormat="hour" kind="area" summary={hourlySummary} />
             <SeriesChart series={[{ id: "d", label: "Daily volume", color: SERIES.positive, points: a.daily }]} format="usd" kind="area" summary={dailySummary} />
@@ -173,6 +188,9 @@ export default async function NarrativePage({ params }: { params: Promise<Params
                     <TableHead className="text-right">Vol 7d</TableHead>
                     <TableHead className="text-right">Share 7d</TableHead>
                     <TableHead className="text-right">Return 7d</TableHead>
+                    <TableHead className="text-right">Price</TableHead>
+                    <TableHead className="text-right">Mkt cap</TableHead>
+                    <TableHead className="text-right">Liquidity</TableHead>
                     <TableHead>Origin</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -193,7 +211,18 @@ export default async function NarrativePage({ params }: { params: Promise<Params
                         <TableCell className="text-right tabular-nums">{formatValue(m.volume7d, "usd")}</TableCell>
                         <TableCell className="text-right tabular-nums">{m.share7d === null ? "—" : formatValue(100 * m.share7d, "percent")}</TableCell>
                         <TableCell className="text-right tabular-nums">{formatValue(m.return7d, "ratio-percent")}</TableCell>
-                        <TableCell className="text-xs text-med">{m.originVenue ?? "—"}</TableCell>
+                        <TableCell className="text-right tabular-nums">{formatValue(m.price, "price")}</TableCell>
+                        <TableCell className="text-right tabular-nums">{formatValue(m.marketCap, "usd")}</TableCell>
+                        <TableCell className="text-right tabular-nums">{formatValue(m.liquidity, "usd")}</TableCell>
+                        <TableCell className="text-xs text-med">
+                          {m.originVenue ? (
+                            <Link href={`/launchpads/${m.originVenue}`} className="hover:text-high hover:underline">
+                              {m.originVenue}
+                            </Link>
+                          ) : (
+                            "—"
+                          )}
+                        </TableCell>
                       </TableRow>
                     );
                   })}

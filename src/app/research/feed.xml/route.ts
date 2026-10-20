@@ -1,7 +1,7 @@
 export const dynamic = "force-static";
 
-import { rss } from "@/lib/lambo/site/feeds";
-import { listArticles } from "@/lib/lambo/service";
+import { rss } from "@/lib/lamble/site/feeds";
+import { listArticles } from "@/lib/lamble/service";
 import { SITE_URL } from "@/lib/links";
 
 export function GET() {

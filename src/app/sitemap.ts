@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { editionIndex, listArticles, loadRelease } from "@/lib/lambo/service";
+import { editionIndex, listArticles, loadRelease } from "@/lib/lamble/service";
 import { SITE_URL } from "@/lib/links";
 
 /** Every public research page of the published release. Built from the same files the pages read. */

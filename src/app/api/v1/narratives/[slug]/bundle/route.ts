@@ -1,5 +1,5 @@
-import { options } from "@/lib/lambo/api/http";
-import { narrativePaid } from "@/lib/lambo/api/routes";
+import { options } from "@/lib/lamble/api/http";
+import { narrativePaid } from "@/lib/lamble/api/routes";
 import { SITE_URL } from "@/lib/links";
 
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {

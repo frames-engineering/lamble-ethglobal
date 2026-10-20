@@ -2,18 +2,18 @@
  * Browser and HTTP tests against a running server (production build recommended):
  *
  *   npm run build && npm start -- -p 3100 &
- *   LAMBO_E2E_BASE=http://localhost:3100 PLAYWRIGHT_MODULE=<path to playwright/index.mjs> npm run test:e2e
+ *   LAMBLE_E2E_BASE=http://localhost:3100 PLAYWRIGHT_MODULE=<path to playwright/index.mjs> npm run test:e2e
  *
- * Screenshots go to LAMBO_E2E_SHOTS (default test-results/screenshots). Reads only; buys nothing.
+ * Screenshots go to LAMBLE_E2E_SHOTS (default test-results/screenshots). Reads only; buys nothing.
  */
 import assert from "node:assert/strict";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { after, before, test } from "node:test";
 
-const BASE = (process.env.LAMBO_E2E_BASE ?? "http://localhost:3100").replace(/\/$/, "");
-const SHOTS = process.env.LAMBO_E2E_SHOTS ?? path.resolve("test-results/screenshots");
-const CHROMIUM = process.env.LAMBO_E2E_CHROMIUM ?? "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
+const BASE = (process.env.LAMBLE_E2E_BASE ?? "http://localhost:3100").replace(/\/$/, "");
+const SHOTS = process.env.LAMBLE_E2E_SHOTS ?? path.resolve("test-results/screenshots");
+const CHROMIUM = process.env.LAMBLE_E2E_CHROMIUM ?? "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
 
 type Browser = { newPage(o?: unknown): Promise<Page>; close(): Promise<void> };
 type Page = {

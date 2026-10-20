@@ -14,10 +14,10 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3
 export const FRAMES_MCP_URL = process.env.NEXT_PUBLIC_FRAMES_MCP_URL ?? null;
 
 /** Optional intake for coverage requests (an issue form or similar). Unset: pages offer copyable request text only. */
-export const COVERAGE_REQUEST_URL = process.env.NEXT_PUBLIC_LAMBO_COVERAGE_REQUEST_URL ?? null;
+export const COVERAGE_REQUEST_URL = process.env.NEXT_PUBLIC_LAMBLE_COVERAGE_REQUEST_URL ?? null;
 
 /**
  * Whether this API has been confirmed as listed in the Frames catalog. Set to "listed" only after an operator
  * has found it with Frames search; pages otherwise say plainly that it is not listed.
  */
-export const FRAMES_LISTED = process.env.NEXT_PUBLIC_LAMBO_FRAMES_LISTING === "listed";
+export const FRAMES_LISTED = process.env.NEXT_PUBLIC_LAMBLE_FRAMES_LISTING === "listed";

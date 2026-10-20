@@ -41,7 +41,7 @@ def upstream_names():
     names = {}
     for c in CATALOG['capabilities']:
         if c['toolId'] and c['toolId'] not in names:
-            names[c['toolId']] = c['upstream'].get('source') if c['provider'] == 'lambo' else _PROVIDERS[c['provider']]['name']
+            names[c['toolId']] = c['upstream'].get('source') if c['provider'] == 'lamble' else _PROVIDERS[c['provider']]['name']
     return names
 
 

@@ -13,11 +13,11 @@ import { formatDate, formatDateTime, formatDuration } from "@/components/researc
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { apiPaths } from "@/lib/lambo/api/paths";
-import { CHAIN_NAME, type Chain } from "@/lib/lambo/core/identity";
-import type { DataState } from "@/lib/lambo/core/measure";
-import type { BottomingPublic, CoinPublic, ReleasePublic } from "@/lib/lambo/release/types";
-import { BadRequest, NotFound, allChanges, articlesFor, loadRelease, parseCoinRoute } from "@/lib/lambo/service";
+import { apiPaths } from "@/lib/lamble/api/paths";
+import { CHAIN_NAME, type Chain } from "@/lib/lamble/core/identity";
+import type { DataState } from "@/lib/lamble/core/measure";
+import type { BottomingPublic, CoinPublic, ReleasePublic } from "@/lib/lamble/release/types";
+import { BadRequest, NotFound, allChanges, articlesFor, editionsFor, loadRelease, parseCoinRoute } from "@/lib/lamble/service";
 import { COVERAGE_REQUEST_URL } from "@/lib/links";
 
 type Params = { chain: string; address: string };
@@ -113,6 +113,8 @@ function CoinResearch({ coin, release }: { coin: CoinPublic; release: ReleasePub
     .reverse()
     .slice(0, 12);
   const articles = articlesFor({ coin: coin.id });
+  const editions = editionsFor({ coin: coin.id });
+  const originLaunchpad = coin.identity.originVenue && release.launchpads.some((l) => l.slug === coin.identity.originVenue) ? coin.identity.originVenue : null;
   const methods = new Map(release.methods.holderComponents.map((m) => [m.id, m]));
   const panels = new Map(release.methods.providerPanels.map((m) => [m.capability, m]));
   const covered = coin.holders.components.filter((h) => h.measure.value !== null).length;
@@ -359,7 +361,13 @@ function CoinResearch({ coin, release }: { coin: CoinPublic; release: ReleasePub
                 {formatDateTime(coin.identity.firstAvailableAt)}
               </Stat>
               <Stat label="Origin venue" sub={coin.identity.originStatus ?? undefined}>
-                {coin.identity.originVenue ?? "Unknown"}
+                {originLaunchpad ? (
+                  <Link href={`/launchpads/${originLaunchpad}`} className="text-high hover:underline">
+                    {coin.identity.originVenue}
+                  </Link>
+                ) : (
+                  (coin.identity.originVenue ?? "Unknown")
+                )}
               </Stat>
               {coin.names.length > 1 && (
                 <Stat label="Names seen" className="sm:col-span-2">
@@ -392,7 +400,7 @@ function CoinResearch({ coin, release }: { coin: CoinPublic; release: ReleasePub
                       <code className="font-mono text-xs text-high">{pp.capability}</code>
                       <StateBadge state={pp.state as DataState} />
                     </div>
-                    <p className="text-2xs leading-relaxed text-med">{pp.applicable ? (m?.note ?? pp.note) : pp.note}</p>
+                    <p className="text-2xs leading-relaxed text-med">{pp.applicable && pp.state !== "observed" ? (m?.note ?? pp.note) : pp.note}</p>
                     {pp.applicable && m?.coverage && <p className="text-2xs leading-relaxed text-low">Coverage when enabled: {m.coverage}</p>}
                   </li>
                 );
@@ -402,7 +410,21 @@ function CoinResearch({ coin, release }: { coin: CoinPublic; release: ReleasePub
         </div>
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <Panel title="Research">
+          <Panel title="Research and weekly editions">
+            {editions.length > 0 && (
+              <ul className="mb-3 flex flex-col gap-2">
+                {editions.map((e) => (
+                  <li key={e.id}>
+                    <Link href={`/market/${e.id}`} className="text-sm text-high hover:underline">
+                      {e.title}
+                    </Link>
+                    <p className="text-2xs text-med">
+                      Revision r{e.revision} · {e.detail}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
             {articles.length ? (
               <ul className="flex flex-col gap-2">
                 {articles.map((a) => (
@@ -417,7 +439,7 @@ function CoinResearch({ coin, release }: { coin: CoinPublic; release: ReleasePub
                 ))}
               </ul>
             ) : (
-              <p className="text-xs text-med">No articles cover this coin yet.</p>
+              <p className="text-xs text-med">No articles cover this coin yet{editions.length ? "" : ", and no weekly edition includes it"}.</p>
             )}
           </Panel>
           <Panel title="Evidence" description="Sources behind the values and classifications on this page.">

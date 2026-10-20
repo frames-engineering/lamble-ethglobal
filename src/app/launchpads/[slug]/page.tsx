@@ -13,9 +13,9 @@ import { Note, PageHeader, Panel } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import type { ChainId, Launchpad } from "@/lib/data/types";
-import { apiPaths } from "@/lib/lambo/api/paths";
-import type { LaunchpadPublic } from "@/lib/lambo/release/types";
-import { BadRequest, articlesFor, loadRelease } from "@/lib/lambo/service";
+import { apiPaths } from "@/lib/lamble/api/paths";
+import type { LaunchpadPublic } from "@/lib/lamble/release/types";
+import { BadRequest, articlesFor, editionsFor, loadRelease } from "@/lib/lamble/service";
 import { bps } from "@/lib/format";
 
 type Params = { slug: string };
@@ -53,6 +53,7 @@ export default async function LaunchpadPage({ params }: { params: Promise<Params
   const p = l.presentation as Partial<Launchpad> & { provenance?: { methodology?: Record<string, string>; sourceUrl?: string; scope?: string } };
   const fm = p.feeModel;
   const articles = articlesFor({ launchpad: l.slug });
+  const editions = editionsFor({ launchpad: l.slug });
   const coinsById = data.coins.filter((c) => l.coins.some((x) => x.tokenId === c.id));
   const historySummary = `Daily fees for the 30 settled UTC days to ${formatDate(l.financialAnchor)}; missing days are gaps.`;
   const ixHistory = (l.indexed?.history ?? []).map((h) => ({ time: Math.floor(Date.parse(h.asOf) / 1000), value: h.created24 }));
@@ -191,7 +192,7 @@ export default async function LaunchpadPage({ params }: { params: Promise<Params
               </p>
             )}
           </Panel>
-          <Panel title="Narratives with coins from here">
+          <Panel title="Narratives, weekly editions and research">
             {l.narratives.length ? (
               <ul className="flex flex-col gap-2">
                 {[...l.narratives]
@@ -207,6 +208,20 @@ export default async function LaunchpadPage({ params }: { params: Promise<Params
               </ul>
             ) : (
               <p className="text-xs text-med">None.</p>
+            )}
+            {editions.length > 0 && (
+              <ul className="mt-4 flex flex-col gap-2 border-t border-divider pt-4">
+                {editions.map((e) => (
+                  <li key={e.id}>
+                    <Link href={`/market/${e.id}`} className="text-sm text-high hover:underline">
+                      {e.title}
+                    </Link>
+                    <p className="text-2xs text-med">
+                      Revision r{e.revision} · {e.detail}
+                    </p>
+                  </li>
+                ))}
+              </ul>
             )}
             {articles.length > 0 && (
               <ul className="mt-4 flex flex-col gap-2 border-t border-divider pt-4">

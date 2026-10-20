@@ -4,15 +4,16 @@ import { notFound } from "next/navigation";
 
 import { Container } from "@/components/layout/container";
 import { AgentAccess } from "@/components/research/agent-access";
-import { CoinLabel } from "@/components/research/links";
+import { CoinLabel, EvidenceList } from "@/components/research/links";
 import { Stat, formatValue } from "@/components/research/measure";
 import { Note, PageHeader, Panel } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { apiPaths } from "@/lib/lambo/api/paths";
-import { isWeekId } from "@/lib/lambo/core/time";
-import { BadRequest, type EditionDoc, NotFound, articlesFor, editionIndex, getEdition } from "@/lib/lambo/service";
+import { apiPaths } from "@/lib/lamble/api/paths";
+import { isWeekId } from "@/lib/lamble/core/time";
+import { BadRequest, type EditionDoc, NotFound, articlesFor, editionIndex, getEdition, loadRelease } from "@/lib/lamble/service";
+import type { Evidence } from "@/lib/lamble/release/types";
 
 type Params = { week: string };
 
@@ -38,6 +39,17 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 }
 
 const pct = (v: number | null) => formatValue(v, "signed-percent");
+const share = (v: number | null) => (v === null ? "—" : formatValue(100 * v, "percent"));
+const coin = (tokenId: string, symbol: string | null) => <CoinLabel chain={tokenId.split(":")[0]!} address={tokenId.split(":").slice(1).join(":")} symbol={symbol} />;
+
+/** Evidence as recorded in the edition's release; the published release when that one is no longer retained. */
+function evidenceIndex(releaseId: string | null): Record<string, Evidence> {
+  try {
+    return loadRelease(releaseId ?? undefined).data.evidence;
+  } catch {
+    return loadRelease().data.evidence;
+  }
+}
 
 export default async function EditionPage({ params, searchParams }: { params: Promise<Params>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const { week } = await params;
@@ -50,6 +62,11 @@ export default async function EditionPage({ params, searchParams }: { params: Pr
   const articles = articlesFor({ week: e.id });
   const narratives = [...e.narratives].sort((a, b) => b.volume.observed - a.volume.observed);
   const lastDay = formatDate(Date.parse(e.interval.end) / 1000 - 1);
+  const moved = narratives.filter((n) => n.entrants.length || n.exits.length);
+  const [weekStart, weekEnd] = [Date.parse(e.interval.start) / 1000, Date.parse(e.interval.end) / 1000];
+  const storyInWeek = (n: (typeof narratives)[number]) => Boolean(n.story?.notice) && n.story!.at >= weekStart && n.story!.at < weekEnd;
+  const stories = narratives.filter((n) => storyInWeek(n) || n.signalsInWeek.length);
+  const evidence = stories.length ? evidenceIndex(e.releaseId) : {};
 
   return (
     <Container>
@@ -276,6 +293,160 @@ export default async function EditionPage({ params, searchParams }: { params: Pr
             </div>
           </details>
         </Panel>
+
+        <Panel title="Inside each narrative" description="Continuing members are those open in both weeks; their change is computed on their own volume only. Entrants and exits are membership intervals that opened or closed during the week. Concentration is the top member's share of the narrative's volume and the Herfindahl index (0–10,000).">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Narrative</TableHead>
+                  <TableHead className="text-right">Continuing</TableHead>
+                  <TableHead className="text-right">Their change</TableHead>
+                  <TableHead className="text-right">Entrants</TableHead>
+                  <TableHead className="text-right">Exits</TableHead>
+                  <TableHead className="text-right">Top member</TableHead>
+                  <TableHead className="text-right">HHI</TableHead>
+                  <TableHead className="text-right">Advancing</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {narratives.map((n) => (
+                  <TableRow key={n.id}>
+                    <TableCell>
+                      <Link href={`/narratives/${n.slug}`} className="text-high hover:underline">
+                        {n.title}
+                      </Link>
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums">{n.continuing.members}</TableCell>
+                    <TableCell className="text-right tabular-nums">{pct(n.continuing.changePct)}</TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      {n.entrants.length}
+                      {n.entrants.some((x) => x.volume !== null) && <span className="block text-2xs text-med">{formatValue(n.entrants.reduce((a, x) => a + (x.volume ?? 0), 0), "usd")}{n.entrants.some((x) => x.volume === null) && "+"}</span>}
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums">{n.exits.length}</TableCell>
+                    <TableCell className="text-right tabular-nums">{share(n.concentration.top1Share)}</TableCell>
+                    <TableCell className="text-right tabular-nums">{n.concentration.hhi === null ? "—" : Math.round(n.concentration.hhi).toLocaleString("en-US")}</TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      {n.breadth.withPrices ? `${n.breadth.advancing} of ${n.breadth.withPrices}` : "—"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          {moved.length > 0 && (
+            <div className="mt-4 grid gap-4 border-t border-divider pt-4 md:grid-cols-2">
+              {moved.map((n) => (
+                <div key={n.id} className="text-xs">
+                  <p className="text-high">{n.title}</p>
+                  {n.entrants.length > 0 && (
+                    <p className="mt-1 text-med">
+                      Joined:{" "}
+                      {n.entrants.map((x, i) => (
+                        <span key={x.tokenId}>
+                          {i > 0 && ", "}
+                          {coin(x.tokenId, x.symbol)} ({formatValue(x.volume, "usd")})
+                        </span>
+                      ))}
+                    </p>
+                  )}
+                  {n.exits.length > 0 && (
+                    <p className="mt-1 text-med">
+                      Left:{" "}
+                      {n.exits.map((x, i) => (
+                        <span key={x.tokenId}>
+                          {i > 0 && ", "}
+                          {coin(x.tokenId, x.symbol)} (prior week {formatValue(x.volumePrior, "usd")})
+                        </span>
+                      ))}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </Panel>
+
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <Panel title="Holder and bottoming changes" description={e.signals ? `${e.signals.bottoming.note} Method ${e.signals.bottoming.methodVersion}.` : "Not part of this edition's method version."}>
+            {e.signals ? (
+              <div className="flex flex-col gap-3 text-xs">
+                <p className="text-med">
+                  {e.signals.bottoming.evaluated} member coin(s) evaluated at {formatDateTime(e.signals.bottoming.from)} and {formatDateTime(e.signals.bottoming.to)}. At the cutoff:{" "}
+                  {Object.entries(e.signals.bottoming.atEnd)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([k, v]) => `${v} ${k.replaceAll("_", " ")}`)
+                    .join(", ")}
+                  .
+                </p>
+                {e.signals.bottoming.transitions.length ? (
+                  <ul className="flex flex-col gap-1.5">
+                    {e.signals.bottoming.transitions.slice(0, 12).map((t) => (
+                      <li key={t.tokenId}>
+                        {coin(t.tokenId, t.symbol)}: <span className="text-med">{t.from.label}</span> → <span className="text-high">{t.to.label}</span>
+                        {t.drawdownCurrent !== null && <span className="text-low"> ({formatValue(100 * t.drawdownCurrent, "percent")} below peak)</span>}
+                      </li>
+                    ))}
+                    {e.signals.bottoming.transitions.length > 12 && <li className="text-low">+{e.signals.bottoming.transitions.length - 12} more in the week dataset.</li>}
+                  </ul>
+                ) : (
+                  <p className="text-med">No member changed bottoming state, stage or label during the week.</p>
+                )}
+                <p className="border-t border-divider pt-3 text-med">
+                  Liquidity-to-size measured at both times for {e.signals.liquidityToSize.measured} of {e.signals.liquidityToSize.of} members: {e.signals.liquidityToSize.rising} rising, {e.signals.liquidityToSize.falling} falling. {e.signals.liquidityToSize.note}
+                </p>
+                {e.signals.liquidityToSize.largestMoves.length > 0 && (
+                  <ul className="flex flex-col gap-1">
+                    {e.signals.liquidityToSize.largestMoves.slice(0, 5).map((x) => (
+                      <li key={x.tokenId} className="flex justify-between gap-3">
+                        {coin(x.tokenId, x.symbol)}
+                        <span className="tabular-nums text-med">
+                          {share(x.from)} → {share(x.to)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <p className="text-low">{e.signals.holders.note}</p>
+              </div>
+            ) : (
+              <p className="text-xs text-med">This revision predates the weekly holder and bottoming section.</p>
+            )}
+          </Panel>
+          <Panel title="Stories and evidence" description="Story notices and signals recorded for narratives during the week, with the sources behind them. Notices are quoted as recorded; they are not LAMBLE's claims.">
+            {stories.length ? (
+              <ul className="flex flex-col gap-4">
+                {stories.map((n) => (
+                  <li key={n.id} className="text-xs">
+                    <Link href={`/narratives/${n.slug}`} className="text-high hover:underline">
+                      {n.title}
+                    </Link>
+                    {storyInWeek(n) && (
+                      <p className="mt-1 text-med">
+                        {formatDate(n.story!.at)}: {n.story!.notice}
+                      </p>
+                    )}
+                    {n.signalsInWeek.length > 0 && (
+                      <ul className="mt-1 list-disc pl-4 text-med">
+                        {n.signalsInWeek.map((x) => (
+                          <li key={x.id}>
+                            {x.at !== null && `${formatDate(x.at)}: `}
+                            {x.title}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <div className="mt-2">
+                      <EvidenceList ids={[...(storyInWeek(n) && n.story?.evidenceId ? [n.story.evidenceId] : []), ...n.signalsInWeek.map((x) => x.id)]} index={evidence} limit={4} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-xs text-med">No story notice or signal was recorded for any narrative this week.</p>
+            )}
+          </Panel>
+        </div>
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <Panel title="What to watch next week" description="Generated from the published rule thresholds, not forecasts.">

@@ -201,7 +201,7 @@ for batch, c in c1_calls:
 assert {u['tokenId'] for u in universe} <= set(bars), 'every constituent needs token bars'
 
 
-def check_ohlc(b, label):  # o/h/l/c are requested when jobs.json codexBars.ohlcEnabled; ingest (scripts/lambo) stores them
+def check_ohlc(b, label):  # o/h/l/c are requested when jobs.json codexBars.ohlcEnabled; ingest (scripts/lamble) stores them
     if not any(k in b for k in 'ohlc'): return 0
     assert all(k in b and len(b[k]) == len(b['t']) for k in 'ohlc'), f'{label}: incomplete OHLC arrays'
     n = 0

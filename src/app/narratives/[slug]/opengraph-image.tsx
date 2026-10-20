@@ -2,7 +2,7 @@ import { ogCard } from "@/components/research/og-card";
 import { formatValue } from "@/components/research/measure";
 import { TREND_LABEL } from "@/components/research/narrative-bits";
 import { formatDate } from "@/components/research/time";
-import { loadRelease } from "@/lib/lambo/service";
+import { loadRelease } from "@/lib/lamble/service";
 
 export const alt = "LAMBLE narrative research";
 export const size = { width: 1200, height: 630 };

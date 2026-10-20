@@ -1,7 +1,7 @@
 import { ogCard } from "@/components/research/og-card";
 import { formatValue } from "@/components/research/measure";
 import { formatDate } from "@/components/research/time";
-import { loadRelease } from "@/lib/lambo/service";
+import { loadRelease } from "@/lib/lamble/service";
 
 export const alt = "LAMBLE — trenches research";
 export const size = { width: 1200, height: 630 };

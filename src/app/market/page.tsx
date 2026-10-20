@@ -4,14 +4,16 @@ import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { SeriesChart } from "@/components/research/charts";
 import { SERIES } from "@/components/research/colors";
+import { ChangeList } from "@/components/research/changes";
+import { CoinLabel } from "@/components/research/links";
 import { Stat, formatValue } from "@/components/research/measure";
 import { TrendBadge } from "@/components/research/narrative-bits";
 import { Note, PageHeader, Panel } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import type { NarrativePublic } from "@/lib/lambo/release/types";
-import { editionIndex, loadRelease } from "@/lib/lambo/service";
+import type { NarrativePublic } from "@/lib/lamble/release/types";
+import { editionIndex, latestChanges, listArticles, loadRelease } from "@/lib/lamble/service";
 
 export const metadata: Metadata = {
   title: "Market",
@@ -23,16 +25,79 @@ export default function MarketPage() {
   const { data } = loadRelease();
   const m = data.market;
   const editions = editionIndex();
+  const days = m.feeSubtotal.history30d.filter((p) => p.value !== null);
+  const [dayBefore, lastDay] = [days.at(-2) ?? null, days.at(-1) ?? null];
+  const dayChange = lastDay && dayBefore && dayBefore.value ? (100 * (lastDay.value! - dayBefore.value)) / dayBefore.value : null;
+  const venuesDay = [...data.launchpads].filter((l) => l.metrics.h24.fees !== null).sort((a, b) => (b.metrics.h24.fees ?? 0) - (a.metrics.h24.fees ?? 0)).slice(0, 8);
+  const coinsDay = [...data.coins].filter((c) => c.market.volume24hRolling.value !== null && c.market.volume24hRolling.state !== "stale").sort((a, b) => b.market.volume24hRolling.value! - a.market.volume24hRolling.value!).slice(0, 6);
+  const changes = latestChanges(10);
+  const daily = listArticles().find((a) => a.format === "daily") ?? null;
   const feeSummary = `Daily fee subtotal of the included venues for 30 settled UTC days to ${formatDate(m.feeSubtotal.anchor)}. A day is drawn only when every included venue reported it.`;
   return (
     <Container>
       <PageHeader
         eyebrow="Research"
         title="Market"
-        description={<p>Three views that never mix: settled calendar weeks (the editions below), the developing week so far, and a rolling seven days ending at the latest cutoff.</p>}
+        description={<p>Four views that never mix: the latest settled day, settled calendar weeks (the editions), the developing week so far, and a rolling seven days ending at the latest cutoff.</p>}
         meta={<span>Data cutoff {formatDateTime(data.dataCutoff)}</span>}
       />
       <div className="flex flex-col gap-4 pb-8">
+        <Panel
+          id="daily"
+          title="Daily view"
+          description={`The last settled UTC day of fees (to ${formatDate(m.feeSubtotal.anchor)}), rolling 24-hour trading as of each coin's latest snapshot, and what changed in release ${data.releaseId}.`}
+          aside={
+            daily ? (
+              <Link href={`/research/${daily.slug}`} className="text-xs text-link hover:underline">
+                {daily.title}
+              </Link>
+            ) : undefined
+          }
+        >
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="flex flex-col gap-3">
+              <dl className="grid grid-cols-2 gap-4">
+                <Stat label="Fee subtotal, last settled day">{formatValue(lastDay?.value ?? null, "usd")}</Stat>
+                <Stat label="Versus the day before">{formatValue(dayChange, "signed-percent")}</Stat>
+              </dl>
+              <ul className="flex flex-col gap-1.5">
+                {venuesDay.map((l) => (
+                  <li key={l.slug} className="flex items-center justify-between gap-3 text-xs">
+                    <Link href={`/launchpads/${l.slug}`} className="text-high hover:underline">
+                      {l.name}
+                    </Link>
+                    <span className="text-med tabular-nums">
+                      {formatValue(l.metrics.h24.fees, "usd")}
+                      <span className="ml-2">{formatValue(l.metrics.h24.change, "signed-percent")}</span>
+                      {!l.feeSubtotal.included && <span className="ml-2 text-low">overlaps</span>}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="text-2xs text-med">Most traded tracked coins, rolling 24h</p>
+              <ul className="flex flex-col gap-1.5">
+                {coinsDay.map((c) => (
+                  <li key={c.id} className="flex items-center justify-between gap-3 text-xs">
+                    <CoinLabel chain={c.chain} address={c.address} symbol={c.symbol} />
+                    <span className="text-med tabular-nums">
+                      {formatValue(c.market.volume24hRolling.value, "usd")}
+                      <span className="ml-2">{formatValue(c.market.priceChange24hRolling.value, "signed-percent")}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="text-2xs text-med">
+                What changed ({changes.total} event{changes.total === 1 ? "" : "s"})
+              </p>
+              <ChangeList events={changes.events} />
+            </div>
+          </div>
+        </Panel>
+
         <Panel title="Weekly editions" description="State of the Trenches: one edition per ISO week (Monday 00:00 UTC, end exclusive), frozen when complete. Corrections are new revisions; earlier revisions stay readable.">
           {editions.length ? (
             <ul className="grid gap-3 md:grid-cols-2">

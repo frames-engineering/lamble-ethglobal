@@ -4,13 +4,14 @@ import { Sparkline } from "@/components/charts/sparkline";
 import { type HeroStat, ResearchHero } from "@/components/hero/research-hero";
 import { Container } from "@/components/layout/container";
 import { FORMAT_LABEL, REVIEW_LABEL } from "@/components/research/article-bits";
+import { ChangeList } from "@/components/research/changes";
 import { CoinLabel } from "@/components/research/links";
 import { formatValue } from "@/components/research/measure";
 import { LifecycleBadge, TrendBadge, shownChange } from "@/components/research/narrative-bits";
 import { Panel } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
-import { editionIndex, getEdition, listArticles, loadRelease } from "@/lib/lambo/service";
+import { editionIndex, getEdition, latestChanges, listArticles, loadRelease } from "@/lib/lamble/service";
 import { LAUNCH_BOT_URL } from "@/lib/links";
 
 export default function HomePage() {
@@ -25,6 +26,8 @@ export default function HomePage() {
     .slice(0, 8);
   const venues = [...data.launchpads].sort((a, b) => (b.metrics.d7.fees ?? -1) - (a.metrics.d7.fees ?? -1)).slice(0, 6);
   const articles = listArticles().slice(0, 4);
+  const changes = latestChanges(8);
+  const daily = listArticles().find((a) => a.format === "daily") ?? null;
 
   const stats: HeroStat[] = [
     { label: "Fee subtotal, last settled day", value: formatValue(m.feeSubtotal.value, "usd"), sub: `${m.feeSubtotal.included.length} non-overlapping venues · ${formatDate(m.feeSubtotal.anchor)}` },
@@ -78,6 +81,20 @@ export default function HomePage() {
               </dl>
             </Panel>
           )}
+
+          <Panel
+            title="What changed"
+            description={`${changes.total} change event(s) since the previous release${changes.reconstructed ? " (reconstructed against a rebuilt baseline)" : ""}; the most significant first. Agents read the same feed from /api/v1/changes?since=${changes.fromSeq - 1}.`}
+            aside={
+              daily ? (
+                <Link href={`/research/${daily.slug}`} className="text-xs text-link hover:underline">
+                  Daily note
+                </Link>
+              ) : undefined
+            }
+          >
+            <ChangeList events={changes.events} />
+          </Panel>
 
           <section aria-labelledby="featured">
             <div className="mb-3 flex items-end justify-between">

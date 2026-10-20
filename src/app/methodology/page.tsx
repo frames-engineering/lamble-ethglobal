@@ -9,7 +9,7 @@ import { Container } from "@/components/layout/container";
 import { formatValue } from "@/components/research/measure";
 import { Note, PageHeader, Panel } from "@/components/research/panel";
 import { Badge } from "@/components/ui/badge";
-import { loadRelease } from "@/lib/lambo/service";
+import { loadRelease } from "@/lib/lamble/service";
 
 export const metadata: Metadata = {
   title: "Methodology",
@@ -27,7 +27,7 @@ const DOCS = [
 type Json = string | number | boolean | null | Json[] | { [k: string]: Json };
 
 function readDoc(file: string): Record<string, Json> {
-  return JSON.parse(readFileSync(path.join(process.env.LAMBO_ROOT ?? process.cwd(), "docs", "methods", file), "utf8"));
+  return JSON.parse(readFileSync(path.join(process.env.LAMBLE_ROOT ?? process.cwd(), "docs", "methods", file), "utf8"));
 }
 
 function humanize(key: string): string {
