@@ -1,58 +1,93 @@
-# LAMBLE — landing page
+# LAMBLE — trenches research, powered by Frames
 
-LAMBLE is a meta launchpad: describe the token you want to launch, get a recommendation for the launchpad where it has the best odds, and deploy there from one place. This repo is the **frontend only**. The backend (a Telegram mini app) lives elsewhere.
+LAMBLE publishes research on the crypto trenches: coin pages with holder analysis and a bottoming test,
+narratives with their full membership and lifecycle history, launchpad economics, and a weekly State of the
+Trenches edition. People read it on the website; agents read the same research through a structured API,
+with fixed-price bundles paid per request (x402 or MPP). There are no reader accounts or subscriptions.
+Data is acquired through [Frames](https://frames.ag); the launch bot remains available as a secondary link.
 
-The landing page has three parts: a hero/about, **Current Narratives** (what people are launching right now, with a Polymarket-style featured card and chart) and a **Launchpad screener** (19 venues ranked by fees, revenue, launches, graduations, momentum and fee model).
+Status, requirement by requirement, with tests and evidence: [docs/implementation/lamble-trenches-status.md](docs/implementation/lamble-trenches-status.md).
+
+## How it fits together
+
+```
+Frames (paid reads, budget-guarded)        scripts/frames-refresh (plan, discover, normalize)
+        │                                   scripts/lamble collect (programmatic) or an agent session
+        ▼
+research/lamble/<run>/  ── retained raw responses, requests, evidence, normalized outputs (per daily run)
+        │  npm run lamble -- ingest
+        ▼
+data/lamble.sqlite       ── observation store: tokens, pools, observations (with availability time and
+        │                  revisions), memberships, lifecycle, evidence (gitignored, rebuilt from runs)
+        │  npm run lamble -- release / weekly / research
+        ▼
+data/releases/<id>/     ── immutable, content-addressed release: public.json (website), bundles.json.gz
+data/editions/<week>/   ── weekly editions, revised (r2, r3…) never edited
+data/changes/           ── one change feed: release diffs, corrections, editions, research
+content/research/       ── articles generated from a release; every citation and chart checked before writing
+        │
+        ├── website (src/app)   reads public.json only
+        └── /api/v1             free discovery + paid bundles (rights-gated, x402/MPP)
+```
+
+Serving a page or an API request never calls a provider. Builds read committed release files.
+
+## Commands
+
+```bash
+npm run dev                 # http://localhost:3000
+npm run build && npm start
+npm run lint
+npm run typecheck
+npm test                    # unit and integration tests (offline)
+npm run data:setup          # rebuild the store and outputs from retained runs (offline, never spends)
+
+npm run lamble -- providers validate|matrix|inspect|health [--plan|--run]   # catalog; health --run: free probes
+npm run lamble -- ingest | release | weekly | research | refresh | status
+npm run lamble -- collect research/lamble/<run> <batch…> [--dry-run]   # paid Frames reads, budget + catalog limits
+npm run lamble -- deliver [--dry-run]                                  # change notifications (disabled)
+npm run lamble -- deliver verify <id> | confirm <id> <code>           # verify a webhook or Telegram destination
+```
+
+Node 22.13 or later (built-in `node:sqlite`, `--experimental-strip-types`).
+
+## Configuration
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, feeds and payment resource URLs | `http://localhost:3000` |
+| `NEXT_PUBLIC_FRAMES_URL` | Link target for "Powered by Frames" | `https://frames.ag` |
+| `NEXT_PUBLIC_FRAMES_MCP_URL` | Frames MCP URL shown in agent setup | unset: readers are told to use their Frames account |
+| `NEXT_PUBLIC_LAMBLE_FRAMES_LISTING` | `listed` only after the API is found in Frames search | unset: pages say "not yet listed" |
+| `NEXT_PUBLIC_LAMBLE_COVERAGE_REQUEST_URL` | Intake for coverage requests | unset: copyable request text only |
+| `LAMBLE_X402_*`, `LAMBLE_MPP_*`, `MPP_SECRET_KEY` | Payment protocols | disabled — see [docs/runbooks/payments.md](docs/runbooks/payments.md) |
+| `LAMBLE_COMMERCE_DB_PATH` | Commerce database (purchases, entitlements) | `data/commerce.sqlite` |
+| `LAMBLE_FRAMES_BUDGET_ID`, `LAMBLE_FRAMES_BUDGET_USD` | Owner-approved budget for `collect` | unset: no paid call |
+| `FRAMES_MCP_URL`, `FRAMES_MCP_AUTHORIZATION` | Frames MCP endpoint for `collect` and `providers health --run` | unset |
+| `LAMBLE_DELIVERY_ENABLED` | Allow `deliver` to send | unset |
+| `LAMBLE_HIDE_PENDING_REVIEW` | Hide unreviewed deep dives outside Vercel production | unset |
+
+## Documentation
+
+- Methods: [docs/methods](docs/methods) (the files the code reads; rendered at `/methodology`)
+- Provider catalog: [docs/data/providers.json](docs/data/providers.json), jobs and budgets: [docs/data/jobs.json](docs/data/jobs.json)
+- Runbooks: [operations](docs/runbooks/operations.md), [provider onboarding](docs/runbooks/provider-onboarding.md),
+  [editorial policy](docs/runbooks/editorial-policy.md), [payments](docs/runbooks/payments.md),
+  [Frames listing](docs/runbooks/frames-listing.md)
+- Daily acquisition routine: [docs/prompts/refresh-market-data.md](docs/prompts/refresh-market-data.md)
 
 ## Stack
 
-- Next.js 16 (App Router, `src/`), React 19, TypeScript strict
-- Tailwind v4 bridged to the Backpack-derived tokens in `src/styles/tokens.css` (dark default, `data-theme="light"` for light)
-- shadcn (Base UI, `base-nova`) components customized to the token system in `src/components/ui`
-- `lightweight-charts` for historical charts, `liveline` for the live pulse, inline SVG sparklines in tables and tiles
-- `motion` for reveals, `lucide-react` icons, `next-themes` for the theme toggle
-
-## Scripts
-
-```bash
-npm run dev     # http://localhost:3000
-npm run build
-npm run start
-npm run lint
-```
-
-The lockfile is `package-lock.json` because bun could not resolve packages through the sandboxed proxy the app was scaffolded in. `bun install` migrates it to `bun.lock` if you prefer bun.
-
-## Data
-
-The landing page uses an offline, generated Frames data snapshot through
-`src/lib/data/providers/frames.ts`. Rendering and builds make no paid data calls.
-
-- Financials use verified complete UTC-day observations and explicit fee-subtotal exclusions.
-- Launch/completion observations are labelled indexed because provider coverage is beta.
-- Two evidence-backed narratives cover nine identified coins, with real 24-hour and seven-day hourly volume. The volume universe is a selected pool sample, not the entire market.
-- Unknown fields remain null; fixtures are not the active provider.
-
-### Refresh the data
-
-Ask the agent: **“Follow [the daily refresh prompt](docs/prompts/refresh-market-data.md) to refresh the landing data.”**
-
-The prompt includes daily work, exact validated tool recipes, timing and validation
-rules, known blockers, and the [source registry](docs/prompts/refresh-market-data.sources.json).
-See [snapshot integration notes](src/lib/data/snapshots/README.md) for offline import
-commands. No recurring refresh or paid background job is installed.
-
-## Structure
+Next.js 16 (App Router), React 19, TypeScript strict; Tailwind v4 bridged to the design tokens in
+`src/styles/tokens.css` (dark default); shadcn (Base UI) primitives in `src/components/ui`;
+`lightweight-charts` and inline SVG sparklines; `@x402/*` and `mppx` for payments; `node:sqlite` stores.
 
 ```
-src/app                 layout, page, globals.css (theme bridge), icon, OG image
-src/styles/tokens.css   design tokens (source of truth: design-system/tokens.css)
-src/components/ui       customized shadcn primitives
-src/components/brand    wordmark, letter-mark avatars, chain marks
-src/components/hero     hero, stat tiles, how it works
-src/components/narratives  featured card, contenders, signals, cards, live pulse
-src/components/launchpads  screener table, toolbar, columns, detail sheet
-src/components/charts   lightweight-charts wrapper, liveline wrapper, sparkline
-src/lib/data            types, fixtures, provider, aggregates, seeded generators
-src/hooks               scroll, active section, theme colors, mock ticker
+src/app                  pages, /api/v1 route handlers, feeds, sitemap, share images
+src/components/research  research UI kit (measures with states, panels, evidence, charts, agent access)
+src/components/launchpads  screener table and detail sheet
+src/lib/lamble            core (identity, time, measures), catalog, adapters, methods, release types,
+                         service (the one read path), api, payments, research, notify, frames
+scripts/lamble            CLI: providers, ingest, release, weekly, research, collect, deliver, status
+scripts/frames-refresh   daily acquisition planning and normalization (Python)
 ```

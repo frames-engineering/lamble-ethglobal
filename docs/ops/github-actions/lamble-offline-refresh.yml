@@ -1,0 +1,25 @@
+# Template, NOT active: copy to .github/workflows/ only with the owner's approval.
+# Rebuilds the store from retained research runs and verifies that the committed release, editions and
+# articles are reproducible. Offline: no Frames call, no spend, no deploy, no commit.
+name: lamble offline refresh check
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 7 * * 1" # Mondays 07:30 UTC, after the daily acquisition (jobs.json weekly-aggregation)
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run data:setup
+      - name: Committed outputs are reproducible
+        run: git diff --exit-code -- data/releases data/editions content/research

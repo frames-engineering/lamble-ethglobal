@@ -11,6 +11,8 @@ story notes, and rationales for new members. Everything else is computed here.
 """
 import argparse, csv, datetime as dt, hashlib, json, math, pathlib, re
 
+from catalog import tool, upstream_names
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 ap = argparse.ArgumentParser()
 ap.add_argument('run'); ap.add_argument('--prior', required=True); ap.add_argument('--prior-narrative')
@@ -33,7 +35,8 @@ TURNOVER_FLAG = 10        # 24h pool volume above this multiple of circulating m
 NO_CURVE_COMPLETION = {'argus-world', 'clanker', 'o1-launchpad'}
 # d* = discovery, e* = evidence (e2+ are retries or story checks for candidates); all are citable as "<batch>:<seq>".
 FIN_BATCHES = sorted((f.name[:-13] for f in (P / 'raw').glob('f*-request.json')), key=lambda b: int(b[1:]))
-BATCHES = FIN_BATCHES + ['c1'] + sorted(f.name[:-13] for f in (P / 'raw').glob('[cde]*-request.json') if f.name != 'c1-request.json')
+# p* = Pump and FOMO coin panels (plan.py panels): evidence and billing only here; the TypeScript ingest normalizes them.
+BATCHES = FIN_BATCHES + ['c1'] + sorted(f.name[:-13] for f in (P / 'raw').glob('[cdep]*-request.json') if f.name != 'c1-request.json')
 DAILY = (P / 'raw/c2-request.json').exists()  # 30 daily all-pool bars per constituent (plan.py collect writes c2)
 
 
@@ -50,8 +53,7 @@ curation = read('curation.json')
 runs = {k: read(f'raw/{k}.json') for k in BATCHES}
 requests = {k: read(f'raw/{k}-request.json') for k in BATCHES}
 assert all(r['status'] == 'completed' for r in runs.values()) and len({r['run_id'] for r in runs.values()}) == len(runs)
-UPSTREAM = {'mpp.codex.post.graphql': 'Codex', registry['financialTool']: 'DefiLlama via Atlas',
-            'mpp.firecrawl.post.v1-scrape': 'Firecrawl / target website', 'bazaar.twitter-use-x402atlas-com-search': 'X via Atlas'}
+UPSTREAM = upstream_names()  # tool ID -> provider name, from docs/data/providers.json
 evidence, eid, outcomes = [], {}, []
 for name, r in runs.items():
     for c in r['result']['calls']:
@@ -198,6 +200,22 @@ for batch, c in c1_calls:
             assert x['createdAt'] <= RUNTIME_TS, f'{x["address"]} created after the run started'  # refunds often cite "future" dates; check them
             created[tid_of[(x['address'], x['networkId'])]] = x['createdAt']
 assert {u['tokenId'] for u in universe} <= set(bars), 'every constituent needs token bars'
+
+
+def check_ohlc(b, label):  # o/h/l/c are requested when jobs.json codexBars.ohlcEnabled; ingest (scripts/lamble) stores them
+    if not any(k in b for k in 'ohlc'): return 0
+    assert all(k in b and len(b[k]) == len(b['t']) for k in 'ohlc'), f'{label}: incomplete OHLC arrays'
+    n = 0
+    for i in range(len(b['t'])):
+        q = [None if b[k][i] is None else float(b[k][i]) for k in 'ohlc']
+        if None in q: continue
+        o, h, l, c = q
+        assert l >= 0 and h >= l and l <= min(o, c) * (1 + 1e-9) and h >= max(o, c) * (1 - 1e-9), f'{label}: inconsistent OHLC at {b["t"][i]}'
+        n += 1
+    return n
+
+
+ohlc_bars = sum(check_ohlc(b, f'{tid} hourly') for tid, b in bars.items())
 grid = list(range(T - 7 * 86400, T, 3600))
 series, precreation = {}, []
 for u in universe:
@@ -223,6 +241,7 @@ if DAILY:
             tid = tid_of.get((addr, int(net)))
             if tid is None: continue
             b = data[alias]; assert b is not None and len(b['t']) == len(set(b['t'])) and all(t % 86400 == 0 and t < D for t in b['t'])
+            ohlc_bars += check_ohlc(b, f'{tid} daily')
             vals = dict(zip(b['t'], b['volume'])); out = []
             for t in DAYS:
                 v = vals.get(t); cr = created.get(tid)
@@ -244,23 +263,52 @@ if DAILY:
 
 tokens = read('tokens.json', PRIOR_N); members = read('memberships.json', PRIOR_N)
 known = {t['id'] for t in tokens}
+interval_ids = {m['id'] for m in members}
+
+
+def interval_id(nid, tid):  # a coin that leaves a narrative and rejoins gets a new, unique interval id
+    base = f'{nid}:{tid}'
+    return base if base not in interval_ids else f'{base}@{P.name}'
 open_pairs = {(m['narrativeId'], m['tokenId']) for m in members if m['effectiveTo'] is None}
 for u in universe:
     if u['tokenId'] in known and (u['narrativeId'], u['tokenId']) in open_pairs: continue
     c = curation['newMembers'][u['tokenId']]  # every new constituent, or known token joining a narrative again, needs a written rationale and evidence
     evid = [ev_ref(x) if ':' in x and x.split(':')[0] in BATCHES else x for x in c['evidence']]
     if u['tokenId'] in known:  # a token seen before gets a new membership interval; its token record stays
-        members.append(dict(id=f"{u['narrativeId']}:{u['tokenId']}", narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
+        members.append(dict(id=interval_id(u['narrativeId'], u['tokenId']), narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
                             rationale=c['rationale'], evidenceIds=evid, effectiveFrom=RUNTIME, effectiveTo=None, firstObservedAt=RUNTIME,
                             historicalMembershipBasis='reconstructed_today', confidence='source-supported; not calibrated'))
+        interval_ids.add(members[-1]['id'])
         continue
     tokens.append(dict(id=u['tokenId'], chain=u['chain'], address=u['address'], name=u['name'], symbol=u['symbol'], originLaunchpadSlug=u['originLaunchpadSlug'],
                        originStatus=u['originStatus'], evidenceIds=evid, firstObservedAt=RUNTIME, pool=u['pool'], tokenCreatedAt=created.get(u['tokenId'])))
-    members.append(dict(id=f"{u['narrativeId']}:{u['tokenId']}", narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
+    members.append(dict(id=interval_id(u['narrativeId'], u['tokenId']), narrativeId=u['narrativeId'], tokenId=u['tokenId'], version=1, methodVersion=VERSION,
                         rationale=c['rationale'], evidenceIds=evid, effectiveFrom=RUNTIME, effectiveTo=None, firstObservedAt=RUNTIME,
                         historicalMembershipBasis='reconstructed_today', confidence='source-supported; not calibrated'))
+    interval_ids.add(members[-1]['id'])
 in_universe = {u['tokenId'] for u in universe}
+# Collection is separate from membership. The six-narrative cap decides what is collected and featured, never what a
+# coin is: a cap replacement pauses a narrative (pausedNarratives) and an inactive coin is archived (archivedMembers);
+# both keep the membership interval open and only stop collection. removedMembers (evidence contradicts membership)
+# and retiredNarratives (the defining source is gone) close intervals.
 retired = curation.get('retiredNarratives', {})
+paused = curation.get('pausedNarratives', {})
+archived = curation.get('archivedMembers', {})
+assert not set(paused) & set(retired), 'a narrative is either paused or retired'
+universe_pairs = {(u['narrativeId'], u['tokenId']) for u in universe}
+for m in members:  # members collected again (a resumed narrative or re-activated coin) are collected
+    if m['effectiveTo'] is None and (m['narrativeId'], m['tokenId']) in universe_pairs and m.get('collectionStatus') not in (None, 'collected'):
+        m.update(collectionStatus='collected', collectionChangedAt=RUNTIME, collectionReason='collected again')
+for tid, c in archived.items():
+    assert tid not in in_universe, f'{tid} is marked archived but still in the registry poolUniverse'
+    for m in members:
+        if m['tokenId'] == tid and m['effectiveTo'] is None and m.get('collectionStatus') in (None, 'collected'):
+            m.update(collectionStatus='inactive', collectionChangedAt=RUNTIME, collectionReason=c['reason'])
+for nid, c in paused.items():
+    assert not any(u['narrativeId'] == nid for u in universe), f'paused narrative {nid} still has pools in the registry'
+    for m in members:
+        if m['narrativeId'] == nid and m['effectiveTo'] is None and m.get('collectionStatus') in (None, 'collected'):
+            m.update(collectionStatus='paused', collectionChangedAt=RUNTIME, collectionReason=f'narrative collection paused: {c["reason"]}')
 for tid, c in curation.get('removedMembers', {}).items():  # close the interval, keep the record
     assert tid not in in_universe, f'{tid} is marked removed but still in the registry poolUniverse'
     for m in members:
@@ -269,8 +317,9 @@ for nid, c in retired.items():
     assert not any(u['narrativeId'] == nid for u in universe), f'retired narrative {nid} still has pools in the registry'
     for m in members:
         if m['narrativeId'] == nid and m['effectiveTo'] is None: m.update(effectiveTo=RUNTIME, closedReason=f'narrative retired: {c["reason"]}')
-for m in members:  # every open membership must still be charted
-    assert m['effectiveTo'] is not None or m['tokenId'] in in_universe, f'{m["tokenId"]} left the registry without a removedMembers entry'
+for m in members:  # every open membership is charted, or its collection is explicitly paused or archived
+    assert m['effectiveTo'] is not None or m['tokenId'] in in_universe or m.get('collectionStatus') in ('paused', 'inactive'), \
+        f'{m["tokenId"]} left the registry without an archivedMembers, pausedNarratives or removedMembers entry'
 assert {t['id'] for t in tokens} >= {u['tokenId'] for u in universe}
 pool_of = {u['tokenId']: u['pool'] for u in universe}
 by_token = {}
@@ -303,7 +352,9 @@ prior_evidence = {e['id']: e for e in read('evidence.json', PRIOR_N)}
 narratives = read('narratives.json', PRIOR_N)
 retired_records = [dict(narrativeId=n['id'], title=n['title'], retiredAt=RUNTIME, reason=retired[n['id']]['reason'],
                         lastVolume24hUsd=n['volume24hUsd'], lastChartAnchor=n['_meta']['chartAnchor']) for n in narratives if n['id'] in retired]
-narratives = [n for n in narratives if n['id'] not in retired]
+paused_records = [dict(narrativeId=n['id'], title=n['title'], pausedAt=RUNTIME, reason=paused[n['id']]['reason'],
+                       lastVolume24hUsd=n['volume24hUsd'], lastChartAnchor=n['_meta']['chartAnchor']) for n in narratives if n['id'] in paused]
+narratives = [n for n in narratives if n['id'] not in retired and n['id'] not in paused]
 prev_ext = {n['id']: {p['time']: p['value'] for p in n['_meta']['extendedSeries'][0]['points']} for n in narratives}
 prior_method = {n['_meta'].get('volumeMethod', 'single-pool') for n in narratives}
 for nid, spec in curation.get('newNarratives', {}).items():
@@ -421,7 +472,7 @@ validation = dict(as_of=RUNTIME, passed=True, financialAnchor=iso(F), chartAncho
                   financialChecks=checks, deliveryDisputes=disputes, financialRevisionsProviders=len(revisions),
                   financialComplete30dRows=sum(all(p['value'] is not None for p in x['metrics']['history30d']) for x in launchpads),
                   indexedLaunchpadRows=fl['count'], activityVenues=len(observations), pools=len(universe), precreationZeroBuckets=len(precreation),
-                  hourlyOverlapWithPriorRun=overlap, volumeMethod=VOLUME_METHOD,
+                  hourlyOverlapWithPriorRun=overlap, volumeMethod=VOLUME_METHOD, ohlcBars=ohlc_bars,
                   volumeMethodChanged=sorted(prior_method - {VOLUME_METHOD}) or None, narrativeCount=len(narratives), constituentCount=len(universe),
                   staleMarketSnapshots=[t['id'] for t in tokens if t.get('marketSnapshotStale')],
                   dailyBars=dict(end=iso(D), days=30, reconciledDays=len(reconcile), maxRelativeGap=max((r['relativeGap'] for r in reconcile), default=None),
@@ -439,16 +490,20 @@ addr_universe = {u['address'] for u in universe}
 removed_addr = {t.split(':', 1)[1]: c['reason'] for t, c in curation.get('removedMembers', {}).items()}
 retired_addr = {m['tokenId'].split(':', 1)[1]: f'Left with retired narrative {m["narrativeId"]}; membership interval closed.' for m in members
                 if m['narrativeId'] in retired and m['tokenId'] not in in_universe}  # members of a retired narrative are no longer accepted
-for c in candidates['candidates']:  # statuses follow the registry, so a token is a member exactly when it is "accepted"
+not_collected = {m['tokenId'].split(':', 1)[1]: m['collectionReason'] for m in members
+                 if m['effectiveTo'] is None and m.get('collectionStatus') in ('paused', 'inactive') and m['tokenId'] not in in_universe}
+for c in candidates['candidates']:  # statuses follow the registry, so a token is collected exactly when it is "accepted"
     a = c.get('address')
     if a in addr_universe and c['status'] != 'accepted': c.update(status='accepted', acceptedIn=P.name)
     elif a in removed_addr: c.update(status='removed', removedIn=P.name, reason=removed_addr[a])
     elif a in retired_addr and c['status'] == 'accepted': c.update(status='removed', removedIn=P.name, reason=retired_addr[a])
+    elif a in not_collected and c['status'] == 'accepted': c.update(status='archived', archivedIn=P.name, reason=not_collected[a] + ' Membership stays open; collection stopped.')
 known_c = {c.get('address') for c in candidates['candidates']}
 for tid, c in curation.get('removedMembers', {}).items():
     if tid.split(':', 1)[1] not in known_c:
         candidates['candidates'].append(dict(address=tid.split(':', 1)[1], tokenId=tid, status='removed', removedIn=P.name, reason=c['reason']))
 candidates.setdefault('retiredNarratives', []).extend(retired_records)
+if paused_records: candidates.setdefault('pausedNarratives', []).extend(paused_records)
 for name, obj in [('launchpads.json', launchpads), ('landing-metrics.json', landing), ('narratives.json', narratives), ('tokens.json', tokens),
                   ('memberships.json', members), ('evidence.json', evidence), ('precreation-zero-provenance.json', precreation), ('social-evidence.json', social),
                   ('financial-revisions.json', dict(priorRun=PRIOR.name, revisions=revisions)), ('hourly-revisions.json', overlap), ('candidates.json', candidates),

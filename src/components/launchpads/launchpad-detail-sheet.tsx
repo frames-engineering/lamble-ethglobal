@@ -2,6 +2,7 @@
 
 import { ArrowUpRightIcon } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useState, type ReactNode } from "react";
 
 import { ChainStack } from "@/components/brand/chain-mark";
@@ -168,7 +169,7 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
             </div>
 
             <SheetFooter className="flex-row">
-              <Button type="button" disabled className="flex-1">Launch here</Button>
+              <Button nativeButton={false} render={<Link href={`/launchpads/${lp.slug}`} />} className="flex-1">Research page</Button>
               <Button variant="secondary" nativeButton={false} render={<a href={lp.url} target="_blank" rel="noopener noreferrer" />}>
                 Website
                 <ArrowUpRightIcon data-icon="inline-end" />

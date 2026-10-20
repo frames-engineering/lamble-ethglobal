@@ -1,0 +1,275 @@
+{
+  "$schema": "./jobs.schema.json",
+  "jobsVersion": 1,
+  "updatedAt": "2026-10-19T16:22:44Z",
+  "policy": {
+    "budgets": "Ceilings here bound what a job may request; they are not spending authorization by themselves. On 2026-10-20 the owner approved, in session, up to 5,000 credits ($5) per daily run across paid jobs: daily-refresh up to 1,200 and x4o2-coin-panels up to 3,800. A paid job runs only under an approval supplied with the invocation (the scheduled routine's prompt, or LAMBLE_FRAMES_BUDGET_ID and LAMBLE_FRAMES_BUDGET_USD for the programmatic collector). Without one, paid jobs plan and stop. 5,000 credits a day is about 150,000 a month, above the 90,000 monthly grant: purchased credits are needed before the grant runs out.",
+    "schedules": "scheduleStatus says what is actually running: active-external (installed outside this repository and observed through its commits), configured (cron and runbook ready, nothing installed), manual (run by an operator). No job in this repository installs a scheduler.",
+    "writers": "Jobs with the same writerGroup take the same lock (scripts/lamble/lock.ts); daily and weekly writers never overlap.",
+    "serving": "Page views, builds and API reads never run a job and never make a paid call."
+  },
+  "codexBars": {
+    "fields": [
+      "t",
+      "volume"
+    ],
+    "ohlcFields": [
+      "o",
+      "h",
+      "l",
+      "c"
+    ],
+    "ohlcEnabled": true,
+    "ohlcStatus": "Field names verified against the retained official getTokenBars example (research/lamble/20260926T170103Z/raw/codex-gettokenbars.md lines 113-120); not yet seen in a live Frames response. The same paid calls carry them (no extra calls). If the first run's c1 or c2 returns GraphQL errors naming these fields, set ohlcEnabled to false, re-run plan.py collect and retry the bars as the next c batch.",
+    "maxAliasesPerCall": 30,
+    "bodyCharLimit": 1000000
+  },
+  "jobs": [
+    {
+      "id": "daily-refresh",
+      "kind": "paid-collection",
+      "description": "Discovery, narrative curation and market collection through Frames, then normalize.py. Runs the scripted path in docs/prompts/refresh-market-data.md.",
+      "cadence": "daily ~05:57 UTC",
+      "cron": "57 5 * * *",
+      "scheduleStatus": "active-external",
+      "scheduleEvidence": "A Claude Code scheduled routine outside this repository opens and merges one 'Daily refresh <date>' pull request per day (git log: 2026-10-02 to 2026-10-19, none on 2026-10-14). Its prompt, budget and identity are not stored here and were not inspected.",
+      "capabilities": [
+        "codex.token-discovery",
+        "codex.token-metadata",
+        "codex.token-snapshot",
+        "codex.token-bars",
+        "codex.launchpad-activity",
+        "defillama.fees",
+        "firecrawl.scrape",
+        "x.search"
+      ],
+      "scope": "Registry poolUniverse (current constituents), 19 venues, dailyEvidence pages and searches.",
+      "budget": {
+        "maxCreditsPerRun": 1200,
+        "typicalCredits": "450-980 (2026-10-02..19 billed 456-978)",
+        "authorization": "routine prompt; owner-approved ceiling 1,200 of the 5,000-credit daily total (2026-10-20)"
+      },
+      "pagination": {
+        "maxBatches": 20,
+        "maxCallsPerBatch": 10
+      },
+      "freshness": {
+        "financialSettleHours": 4,
+        "chartSafetyMarginHours": 1,
+        "overlapHours": 3
+      },
+      "writerGroup": "research-runs",
+      "outputs": [
+        "research/lamble/<run>/"
+      ]
+    },
+    {
+      "id": "x4o2-coin-panels",
+      "kind": "paid-collection",
+      "description": "Pump and FOMO coin panels for tracked coins: plan.py panels writes p batches filled in priority order (coins collected daily, then other tracked coins) until the credit ceiling.",
+      "cadence": "daily after daily-refresh",
+      "cron": null,
+      "scheduleStatus": "configured",
+      "scheduleEvidence": "Runs inside the daily routine after collect: python3 scripts/frames-refresh/plan.py $RUN panels, then call and save each p batch. The routine's own prompt must carry the 5,000-credit approval.",
+      "capabilities": [
+        "pump.coin",
+        "pump.trades",
+        "pump.candles",
+        "pump.holders",
+        "fomo.token",
+        "fomo.holders",
+        "fomo.candles",
+        "fomo.activity"
+      ],
+      "scope": "Open-membership coins only; Pump routes for Solana pump.fun-origin coins; FOMO routes for chains each descriptor lists.",
+      "budget": {
+        "maxCreditsPerRun": 3800,
+        "typicalCredits": "about 6.15 credits per delivered call ($0.001 seller price x 1.15 + $0.005); 5 calls per pump.fun coin, 4 per other coin; ~1,200 credits for the 43 daily-collected coins",
+        "authorization": "owner-approved 2026-10-20 in session (5,000 credits per daily run across paid jobs)"
+      },
+      "pagination": {
+        "pumpHoldersLimit": 50,
+        "pumpTradesLimit": 100,
+        "pumpCandles": "res 1d, count 30, measure price_usd",
+        "fomoCandles": "period 12h (two per UTC day; days are assembled only when both are present)",
+        "maxCallsPerBatch": 10
+      },
+      "freshness": {
+        "maxAgeSeconds": 21600
+      },
+      "writerGroup": "research-runs",
+      "outputs": [
+        "research/lamble/<run>/raw/x*.json"
+      ]
+    },
+    {
+      "id": "provider-health",
+      "kind": "free-probe",
+      "description": "frames_get_tool and frames_probe_tools on enabled and candidate capabilities; records descriptor drift and liveness. Never invokes.",
+      "cadence": "daily",
+      "cron": "15 5 * * *",
+      "scheduleStatus": "manual",
+      "scheduleEvidence": "Not scheduled. npm run lamble -- providers health --run executes the free probes through FRAMES_MCP_URL (the runner refuses any non-free tool); without that endpoint an agent runs the list from health --plan.",
+      "capabilities": [
+        "*"
+      ],
+      "scope": "Up to 5 probes per call; probe volume is rate-limited per project per hour.",
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0 (free)",
+        "authorization": "not required"
+      },
+      "pagination": {
+        "maxProbeIdsPerCall": 5
+      },
+      "freshness": {
+        "maxAgeSeconds": 86400
+      },
+      "writerGroup": "provider-health",
+      "outputs": [
+        "data/provider-health/<date>.json"
+      ]
+    },
+    {
+      "id": "ingest",
+      "kind": "offline",
+      "description": "Load every successful research run into the observation store (idempotent, revision-preserving).",
+      "cadence": "after daily-refresh",
+      "cron": null,
+      "scheduleStatus": "manual",
+      "scheduleEvidence": "npm run lamble -- ingest",
+      "capabilities": [],
+      "scope": "research/lamble/*",
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required"
+      },
+      "pagination": {},
+      "freshness": {},
+      "writerGroup": "store",
+      "outputs": [
+        "data/lamble.sqlite"
+      ]
+    },
+    {
+      "id": "daily-release",
+      "kind": "offline",
+      "description": "Compute holder analysis, signals, narratives, launchpads and market views from the store; stage, validate, publish atomically; write changes.",
+      "cadence": "after ingest",
+      "cron": null,
+      "scheduleStatus": "manual",
+      "scheduleEvidence": "npm run lamble -- release",
+      "capabilities": [],
+      "scope": "All tracked coins and narratives.",
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required"
+      },
+      "pagination": {},
+      "freshness": {
+        "componentMaxAgeSeconds": {
+          "price": 93600,
+          "volume": 93600,
+          "fees": 172800,
+          "holders": 21600,
+          "membership": 0
+        }
+      },
+      "writerGroup": "releases",
+      "outputs": [
+        "data/releases/<releaseId>/",
+        "data/releases/published.json"
+      ]
+    },
+    {
+      "id": "weekly-aggregation",
+      "kind": "offline",
+      "description": "Freeze the latest complete calendar week (Monday 00:00 UTC to Monday 00:00 UTC, end exclusive) once its completeness checks pass; write a new revision for corrections.",
+      "cadence": "Mondays after the daily release",
+      "cron": "30 7 * * 1",
+      "scheduleStatus": "configured",
+      "scheduleEvidence": "npm run lamble -- weekly",
+      "capabilities": [],
+      "scope": "Calendar week and its comparison week.",
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required"
+      },
+      "pagination": {},
+      "freshness": {
+        "requiredDailyRunsPerWeek": 5,
+        "financialAnchorMustReachWeekEnd": true
+      },
+      "writerGroup": "releases",
+      "outputs": [
+        "data/editions/<week>/r<n>.json"
+      ]
+    },
+    {
+      "id": "research-preparation",
+      "kind": "offline",
+      "description": "Derive structured findings from a release, render drafts, validate every claim against release evidence. Interpretive drafts wait for review (docs/runbooks/editorial-policy.md).",
+      "cadence": "after daily-release and weekly-aggregation",
+      "cron": null,
+      "scheduleStatus": "manual",
+      "scheduleEvidence": "npm run lamble -- research",
+      "capabilities": [],
+      "scope": "Daily factual changes (auto), weekly edition, deep dives (reviewed).",
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required"
+      },
+      "pagination": {},
+      "freshness": {},
+      "writerGroup": "releases",
+      "outputs": [
+        "content/research/"
+      ]
+    },
+    {
+      "id": "notification-delivery",
+      "kind": "delivery",
+      "description": "Deliver change events to verified, consented webhook or Telegram destinations with deduplication and retries.",
+      "cadence": "after daily-release",
+      "cron": null,
+      "scheduleStatus": "configured",
+      "scheduleEvidence": "Disabled: notifications.json enabled=false, no destinations, LAMBLE_DELIVERY_ENABLED unset. npm run lamble -- deliver",
+      "capabilities": [],
+      "scope": "Destinations in docs/data/notifications.json whose current target passed verification (webhook challenge echo or Telegram one-time code, data/delivery/verifications.json), with consentAt recorded and no revokedAt; secrets from the environment variable each destination names.",
+      "budget": {
+        "maxCreditsPerRun": 0,
+        "typicalCredits": "0",
+        "authorization": "not required",
+        "maxDeliveriesPerDestinationPerDay": 200
+      },
+      "pagination": {
+        "maxAttempts": 6,
+        "backoffSeconds": [
+          60,
+          300,
+          900,
+          3600,
+          21600
+        ]
+      },
+      "freshness": {},
+      "writerGroup": "delivery",
+      "outputs": [
+        "data/delivery/state.json (cursor, attempts, backoff per destination)",
+        "data/delivery/verifications.json (verified targets; Telegram codes only as hashes)"
+      ]
+    }
+  ],
+  "dailyCreditCeiling": 5000,
+  "framesPricing": {
+    "feeRate": 0.15,
+    "feeFloorUsdPerCall": 0.005,
+    "creditUsd": 0.001,
+    "rule": "Each delivered call bills price_usd x 1.15 + $0.005; refunded calls bill $0; max_usd must cover the sum (frames_get_usage, 2026-10-20).",
+    "accountLimits": "Plan per-run allowance 10,000 credits ($10); monthly grant 90,000 credits (frames_get_usage, 2026-10-20)."
+  }
+}

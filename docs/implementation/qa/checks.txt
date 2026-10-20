@@ -1,0 +1,39 @@
+# Final checks 2026-10-20T01:14:11Z at 7fa5504
+
+$ npx tsc --noEmit
+exit 0
+
+$ npm run lint
+exit 0
+
+$ npm test
+# tests 111
+# suites 0
+# pass 111
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+
+$ npm run lamble -- providers validate
+ok: 31 capabilities (9 enabled), 8 discovered
+
+$ git diff --check HEAD~3
+5 files had an extra blank line at EOF; fixed in the QA commit; re-run: exit 0
+
+$ npm run build   (same source plus the EOF fixes)
+✓ Compiled successfully; 221/221 static pages generated; exit 0 (warnings: Node's SQLite ExperimentalWarning while collecting page data)
+
+$ LAMBLE_E2E_BASE=http://localhost:3100 npm run test:e2e   (against next start of that build)
+# tests 9 / pass 9 / fail 0
+
+$ old-name scan
+git grep -i lambo (tracked files outside research/): no match. 206 rendered pages (sitemap, /api, /api/v1, openapi.json, llms.txt): no match.
+research/ keeps third-party token names ("LAMBO", "Lamboo") inside retained raw provider bodies; they are evidence and are not edited.
+
+$ clean clone (git clone, full history) -> npm run data:setup -> git status
+ingest 27 runs; release unchanged rel-20261019T055754Z-bda72390; weekly W41/W42 unchanged r1; research: daily and weekly unchanged, both deep dives pinned; git status clean
+
+$ shallow clone (git clone --depth 1) -> npm run data:setup -> git status
+identical outcome: release rel-20261019T055754Z-bda72390 unchanged, editions and articles unchanged, git status clean
+(run availability comes from data/run-availability.json, so a shallow clone no longer falls back to run start times)

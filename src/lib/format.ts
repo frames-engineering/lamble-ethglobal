@@ -1,31 +1,42 @@
 /** Fixed locale so server and client render identical strings. */
 const LOCALE = "en-US";
 
-const compactUsd1 = new Intl.NumberFormat(LOCALE, {
-  style: "currency",
-  currency: "USD",
-  notation: "compact",
-  maximumFractionDigits: 1,
-});
-const compactUsd2 = new Intl.NumberFormat(LOCALE, {
-  style: "currency",
-  currency: "USD",
-  notation: "compact",
-  maximumFractionDigits: 2,
-});
 const fullUsd = new Intl.NumberFormat(LOCALE, {
   style: "currency",
   currency: "USD",
   maximumFractionDigits: 0,
 });
 const intFmt = new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 0 });
-const compactInt = new Intl.NumberFormat(LOCALE, { notation: "compact", maximumFractionDigits: 1 });
+
+const UNITS = [
+  [1e3, "K"],
+  [1e6, "M"],
+  [1e9, "B"],
+  [1e12, "T"],
+] as const;
+
+/**
+ * Compact notation computed here rather than by Intl: ICU versions disagree on trailing zeros for compact
+ * currency ("$6.0M" in Node, "$6M" in Chromium), which broke hydration. Trailing zeros are dropped; a value
+ * that rounds up to 1000 of a unit moves to the next unit ($999,999 -> $1M).
+ */
+function compact(n: number, digits: number, prefix: string): string {
+  const abs = Math.abs(n);
+  const sign = n < 0 ? "-" : "";
+  const scale = 10 ** digits;
+  for (let i = 0; i < UNITS.length; i++) {
+    const [unit, suffix] = UNITS[i]!;
+    const v = Math.round((abs / unit) * scale) / scale;
+    if (v < 1000 || i === UNITS.length - 1) return `${sign}${prefix}${v.toFixed(digits).replace(/\.?0+$/, "")}${suffix}`;
+  }
+  return `${sign}${prefix}${abs}`;
+}
 
 /** $1.2M, $860K, $12 — compact currency. */
 export function compactUsd(n: number | null, digits: 1 | 2 = 1): string {
   if (n === null || !Number.isFinite(n)) return "—";
-  if (Math.abs(n) < 1000) return fullUsd.format(n);
-  return (digits === 2 ? compactUsd2 : compactUsd1).format(n);
+  if (Math.abs(n) < 999.5) return fullUsd.format(n);
+  return compact(n, digits, "$");
 }
 
 export function usd(n: number | null): string {
@@ -41,8 +52,8 @@ export function int(n: number | null): string {
 /** 41.2K, 1.3M — compact plain number. */
 export function compactNumber(n: number | null): string {
   if (n === null || !Number.isFinite(n)) return "—";
-  if (Math.abs(n) < 1000) return intFmt.format(n);
-  return compactInt.format(n);
+  if (Math.abs(n) < 999.5) return intFmt.format(n);
+  return compact(n, 1, "");
 }
 
 export interface PercentOptions {

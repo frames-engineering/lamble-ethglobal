@@ -2,8 +2,17 @@
   "version": 1,
   "referenceDate": "2026-09-26",
   "automaticRefresh": false,
-  "financialTool": "bazaar.defillama-use-x402atlas-com-fee-summary",
-  "marketAndActivityTool": "mpp.codex.post.graphql",
+  "catalog": "docs/data/providers.json",
+  "capabilities": {
+    "financial": "defillama.fees",
+    "tokenBars": "codex.token-bars",
+    "tokenSnapshot": "codex.token-snapshot",
+    "launchpadActivity": "codex.launchpad-activity",
+    "discovery": "codex.token-discovery",
+    "tokenMetadata": "codex.token-metadata",
+    "evidencePages": "firecrawl.scrape",
+    "socialSearch": "x.search"
+  },
   "venues": [
     {
       "slug": "pump.fun",
@@ -1534,7 +1543,7 @@
       "minActive": 2,
       "maxActive": 6,
       "evidence": "Each constituent: exact chain + address, covered launchpad, and token metadata or an official source describing the shared mechanism or story. The story: at least one independent public source (official page or X post) beyond token metadata.",
-      "daily": "Every run evaluates every theme cluster discover.py reports and records a decision in curation.clusterDecisions (created, assigned, rejected or deferred, with a reason). Create a narrative whenever a cluster or a story meets this bar; at the cap, replace the weakest narrative only when the new one has more 24h volume and its story is current."
+      "daily": "Every run evaluates every theme cluster discover.py reports and records a decision in curation.clusterDecisions (created, assigned, rejected or deferred, with a reason). Create a narrative whenever a cluster or a story meets this bar. maxActive caps how many narratives are collected and featured, not how many exist: at the cap, pause the weakest (curation.pausedNarratives) only when the new one has more 24h volume and its story is current. A paused narrative keeps its memberships and pages; it is not retired."
     },
     "addMember": {
       "minVolume24Usd": 50000,
@@ -1543,11 +1552,11 @@
     },
     "removeMember": {
       "maxPoolVolume24Usd": 1000,
-      "evidence": "Below the threshold on two consecutive observations, or evidence that contradicts membership (for example removal from an official registry). Close the membership interval; never delete the record."
+      "evidence": "Below the threshold on two consecutive observations: archive the coin (curation.archivedMembers) — collection stops, the membership interval stays open and the coin's pages stay reachable. Evidence that contradicts membership (for example removal from an official registry): curation.removedMembers closes the interval. Never delete the record."
     },
     "retireNarrative": {
       "maxVolume24Usd": 100000,
-      "evidence": "Below the threshold on two consecutive observations, or the defining source is gone. Record the reason; keep memberships as closed intervals."
+      "evidence": "Below the threshold on two consecutive observations: pause collection (curation.pausedNarratives); memberships stay open. Retire (curation.retiredNarratives, closes memberships) only when the defining source is gone or contradicted. Record the reason either way."
     },
     "quarantine": {
       "maxMcapUsdForNewPool": 100000000,

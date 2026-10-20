@@ -1,0 +1,38 @@
+{
+  "_synthetic": "SYNTHETIC — invented to test classification and deduplication. Not FOMO data.",
+  "fieldMap": {
+    "items": "data.events",
+    "fields": { "id": "id", "type": "type", "time": "createdAt", "pinned": "pinned", "tokenChain": "token.chain", "tokenAddress": "token.address", "usd": "usdAmount", "wallet": "wallet" },
+    "units": { "time": "iso8601", "usd": "usd", "observedAt": "iso8601" }
+  },
+  "pages": [
+    {
+      "request": { "args": { "types": "large_buy,large_sell", "limit": 3 } },
+      "body": {
+        "meta": { "observedAt": "2026-10-19T12:00:00Z", "source": "synthetic" },
+        "data": {
+          "events": [
+            { "id": "pin-1", "type": "manual", "pinned": true, "createdAt": "2026-10-19T11:59:59Z", "token": null, "usdAmount": null },
+            { "id": "e-3", "type": "large_buy", "createdAt": "2026-10-19T11:50:00Z", "token": { "chain": "solana", "address": "So11111111111111111111111111111111111111112" }, "usdAmount": 1200, "wallet": "SyntheticWallet1111111111111111111111111111" },
+            { "id": "e-2", "type": "large_sell", "createdAt": "2026-10-19T11:40:00Z", "token": { "chain": "solana", "address": "So11111111111111111111111111111111111111112" }, "usdAmount": 900, "wallet": "SyntheticWallet2222222222222222222222222222" }
+          ],
+          "nextCursor": "c-2"
+        }
+      }
+    },
+    {
+      "request": { "args": { "types": "large_buy,large_sell", "limit": 3, "cursor": "c-2" } },
+      "body": {
+        "meta": { "observedAt": "2026-10-19T12:00:05Z", "source": "synthetic" },
+        "data": {
+          "events": [
+            { "id": "pin-1", "type": "manual", "pinned": true, "createdAt": "2026-10-19T11:59:59Z", "token": null, "usdAmount": null },
+            { "id": "e-2", "type": "large_sell", "createdAt": "2026-10-19T11:40:00Z", "token": { "chain": "solana", "address": "So11111111111111111111111111111111111111112" }, "usdAmount": 900, "wallet": "SyntheticWallet2222222222222222222222222222" },
+            { "id": "e-1", "type": "large_transfer_in", "createdAt": "2026-10-19T11:30:00Z", "token": { "chain": "solana", "address": "So11111111111111111111111111111111111111112" }, "usdAmount": 5000, "wallet": "SyntheticWallet3333333333333333333333333333" }
+          ],
+          "nextCursor": null
+        }
+      }
+    }
+  ]
+}

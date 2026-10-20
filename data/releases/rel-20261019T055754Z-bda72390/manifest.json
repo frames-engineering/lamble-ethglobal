@@ -1,0 +1,137 @@
+{
+ "schemaVersion": "lamble.release.v1",
+ "releaseId": "rel-20261019T055754Z-bda72390",
+ "dataCutoff": "2026-10-19T06:21:26Z",
+ "generatedAt": "2026-10-20T01:12:40Z",
+ "latestRun": "20261019T055754Z",
+ "sourceRuns": [
+  "20260928T154336Z",
+  "20261002T003446Z",
+  "20261002T012546Z",
+  "20261002T015435Z",
+  "20261002T055743Z",
+  "20261003T055711Z",
+  "20261004T055808Z",
+  "20261005T055716Z",
+  "20261006T055822Z",
+  "20261007T055714Z",
+  "20261008T055710Z",
+  "20261009T055804Z",
+  "20261010T055705Z",
+  "20261011T055716Z",
+  "20261012T055809Z",
+  "20261013T055731Z",
+  "20261015T055742Z",
+  "20261016T092026Z",
+  "20261017T055714Z",
+  "20261018T055734Z",
+  "20261019T055754Z"
+ ],
+ "dataThrough": {
+  "financial": "2026-10-19T00:00:00Z",
+  "hourlyVolume": "2026-10-19T04:00:00Z",
+  "dailyVolume": "2026-10-19T00:00:00Z",
+  "prices": "2026-10-19T05:57:54Z",
+  "membership": "2026-10-19T05:57:54Z"
+ },
+ "methodVersions": {
+  "releaseBuilder": "lamble-release-1.1.0",
+  "holders": "holder-analysis-v1.1.0",
+  "composite": "holder-composite-v0.1.0-experimental",
+  "bottoming": "bottoming-v1.0.2",
+  "weekly": "weekly-v1.2.0",
+  "evaluation": "forward-eval-v1.0.0",
+  "narratives": "narratives-v1.0.0"
+ },
+ "files": {
+  "public.json": {
+   "sha256": "cc3db3d4bda450c32dcebdb5a9456fb674d9d5dc5cb8d6a50c1a9b3ce3de9de0",
+   "bytes": 2315636
+  },
+  "bundles.json.gz": {
+   "sha256": "f7375bbf6031bd2b04f5d8c20523557c75dc84e9c39fb81893b2fa3c0439860a",
+   "bytes": 869805
+  },
+  "changes.json": {
+   "sha256": "0b650204e41dfc167c7107aeaecaccab8842ab1dcc0a9e8ba0cf3d70d1011757",
+   "bytes": 15731
+  }
+ },
+ "contentSha256": "bda72390636f7bf0c856768ae255129981c3eeffe23d948a3c97cd756fa4f179",
+ "counts": {
+  "coins": 147,
+  "narratives": 21,
+  "launchpads": 19,
+  "evidence": 382,
+  "memberships": 153
+ },
+ "previousReleaseId": null,
+ "changes": {
+  "fromSeq": 1,
+  "toSeq": 49,
+  "count": 49,
+  "reconstructed": true
+ },
+ "validation": {
+  "passed": true,
+  "checks": [
+   {
+    "id": "measure-states",
+    "passed": true,
+    "detail": "Every measure respects the state contract."
+   },
+   {
+    "id": "canonical-identity",
+    "passed": true,
+    "detail": "147 coins, 0 identity errors."
+   },
+   {
+    "id": "venues",
+    "passed": true,
+    "detail": "19 venues; registry has 19."
+   },
+   {
+    "id": "fees-match-normalizer",
+    "passed": true,
+    "detail": "7-day fees reproduce the run's validated normalizer output for every venue."
+   },
+   {
+    "id": "narrative-volume-match-normalizer",
+    "passed": true,
+    "detail": "24h narrative volume reproduces the run's normalizer for every collected narrative."
+   },
+   {
+    "id": "featured-cap",
+    "passed": true,
+    "detail": "6 featured narratives."
+   },
+   {
+    "id": "hourly-grid",
+    "passed": true,
+    "detail": "Hourly series are complete 168-hour grids."
+   },
+   {
+    "id": "evidence-resolves",
+    "passed": true,
+    "detail": "Every coin evidence id resolves."
+   },
+   {
+    "id": "bundles-match",
+    "passed": true,
+    "detail": "147 coin bundles."
+   },
+   {
+    "id": "no-credentials",
+    "passed": true,
+    "detail": "No credential-like text."
+   }
+  ]
+ },
+ "limitations": [
+  "x4o2 Pump and FOMO capabilities are candidates: no response has been collected, so Pump and FOMO panels are unavailable.",
+  "Holder components other than liquidity-to-size and peer performance need holder panels, wallet-resolved trades or candles from capabilities that are not validated yet; the store and methods accept them once collected.",
+  "Bottoming condition 1 needs wallet-resolved sales with acquisition cost; no coin can reach stage 1.",
+  "Price histories are daily snapshot samples until Codex OHLC bars are live-verified (jobs.json codexBars).",
+  "Narrative volume covers identified coins only; it is not all-market coverage."
+ ]
+}

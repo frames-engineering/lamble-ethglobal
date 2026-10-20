@@ -5,8 +5,9 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
+import { SiteHeader } from "@/components/layout/site-header";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { SITE_URL } from "@/lib/links";
 
 // Self-hosted Inter variable (https://rsms.me/inter): no build-time fetch, full cv01/cv03/cv04/cv09 feature set.
 const inter = localFont({
@@ -16,27 +17,19 @@ const inter = localFont({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const description =
+  "Research on the crypto trenches: coin pages with holder analysis and a bottoming test, evolving narratives, weekly market editions and launchpad economics. Public pages; structured research API for agents through Frames.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "LAMBLE — Meta Launchpad",
+    default: "LAMBLE — Trenches research, powered by Frames",
     template: "%s · LAMBLE",
   },
-  description:
-    "LAMBLE routes your token launch to the launchpad where it has the best odds: live launchpad screener, current narratives, one deploy flow.",
-  openGraph: {
-    title: "LAMBLE — Meta Launchpad",
-    description: "Route your token launch to the launchpad with highest odds of success.",
-    siteName: "LAMBLE",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "LAMBLE — Meta Launchpad",
-    description: "Route your token launch to the launchpad with highest odds of success.",
-  },
+  description,
+  alternates: { canonical: "/", types: { "application/rss+xml": "/research/feed.xml", "application/atom+xml": "/research/atom.xml" } },
+  openGraph: { title: "LAMBLE — Trenches research", description, siteName: "LAMBLE", type: "website" },
+  twitter: { card: "summary_large_image", title: "LAMBLE — Trenches research", description },
 };
 
 export const viewport: Viewport = {
@@ -51,8 +44,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="flex min-h-full flex-col">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <TooltipProvider delay={150}>
-            <Navbar />
-            <main className="flex-1">{children}</main>
+            <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-surface-3 focus:px-3 focus:py-2 focus:text-sm">
+              Skip to content
+            </a>
+            <SiteHeader />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
             <Footer />
           </TooltipProvider>
         </ThemeProvider>

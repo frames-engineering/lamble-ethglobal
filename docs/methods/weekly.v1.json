@@ -1,0 +1,44 @@
+{
+  "method": "weekly-edition",
+  "version": "weekly-v1.1.0",
+  "status": "active",
+  "calendar": "ISO weeks: Monday 00:00 UTC to the following Monday 00:00 UTC, end exclusive. Edition id = ISO week id (2026-W42). The comparison week is the immediately preceding calendar week.",
+  "views": {
+    "calendar": "A complete calendar week, frozen when it passes the completeness checks.",
+    "developing": "The current calendar week so far (Monday 00:00 UTC to the data cutoff), always labelled partial.",
+    "rolling7d": "The seven days ending at the latest data cutoff; never mixed with calendar weeks."
+  },
+  "historicalModes": {
+    "as_known_then": "Only observations with available_at <= the cutoff and memberships recorded by the cutoff. The cutoff of a frozen edition is its data cutoff; for a past week it can be set to the week end to show what was knowable then.",
+    "same_cohort": "A declared fixed set (the members open at the comparison week's start, plus entrants named separately) measured in both weeks; members that died or were archived stay in the set with their (possibly zero or missing) values.",
+    "current_basket": "Today's open members applied to both weeks retrospectively. Labelled as reconstructed; it is not what was known then."
+  },
+  "completeness": {
+    "fees": "Every included venue (fee policy of the edition's financial run) has a settled value for all 7 days of the week; otherwise the fee total is partial and the missing venue-days are listed.",
+    "narrativeVolume": "Every member in the mode's basket has a daily volume bar for every day it existed in the week; a missing bar makes that narrative's total partial.",
+    "runs": "At least 5 daily research runs available within the week plus one run after it whose financial anchor reaches the week end.",
+    "publication": "An edition is published as complete only when the fee and run checks pass; otherwise it is published as partial with the failing checks listed, or delayed."
+  },
+  "aggregation": {
+    "flows": "Sum daily flows over the 7 days: venue fees, revenue, supply-side revenue, token volume.",
+    "stocks": "Never summed over time: holder counts, market caps, liquidity, prices. Reported as end-of-week (last observation at or before the week end) and start-of-week values.",
+    "rolling": "Rolling-24h and rolling-7d provider observations are never summed into weekly totals. Indexed launch counts are reported as the provider's rolling 7-day value nearest the week end, labelled with its own window.",
+    "ratios": "Period completions / period creations is a period ratio, not a cohort graduation probability, and can exceed 100%.",
+    "fees": "Covered fee subtotal uses the run's fee policy (non-overlapping streams only). Excluded venues are listed with reasons and shown individually, never added.",
+    "multiLabel": "A token in several narratives counts once in deduplicated market totals; per-narrative totals overlap and the overlap is disclosed.",
+    "scopeChanges": "When the included venue set or a narrative basket differs between the two weeks, the comparison is shown on the intersection and the scope change is listed; the denominator is never silently shrunk."
+  },
+  "revisions": "A frozen edition is never edited. A later build of the same week whose content differs (provider restatement, late data, correction) is written as revision r+1 with a list of what changed and why; earlier revisions stay published.",
+  "watch": "Next-week watch conditions are generated deterministically from rule thresholds (registry narrativeRules and method thresholds), not from forecasts.",
+  "comparison": "Week-over-week narrative volume change is computed on the comparable basket (members with complete daily data in both weeks) and reported only when that basket has at least 3 members and at least half of the members present in both weeks; otherwise the change is null and the basket is still shown.",
+  "changelog": [
+    {
+      "version": "weekly-v1.0.0",
+      "summary": "Initial method."
+    },
+    {
+      "version": "weekly-v1.1.0",
+      "summary": "Narrative change requires an adequate comparable basket (>=3 members and >=50% of members present in both weeks); watch subjects carry a short token id so coins sharing a symbol are distinguishable. Earlier editions are revised (r+1), not edited."
+    }
+  ]
+}

@@ -1,0 +1,3555 @@
+{
+  "$schema": "./providers.schema.json",
+  "catalogVersion": 1,
+  "updatedAt": "2026-10-19T16:40:00Z",
+  "policy": {
+    "authority": "This file is the only registry of Frames tool IDs and their contracts. Application code, the acquisition scripts (scripts/frames-refresh) and the LAMBLE pipeline (scripts/lamble) refer to capabilities by key (for example pump.coin) and resolve the tool ID here. Research universe and narrative rules live in docs/prompts/refresh-market-data.sources.json; cadence, scope, budget, pagination and freshness live in docs/data/jobs.json.",
+    "statuses": {
+      "validated": "Descriptor verified, at least one live response retained, adapter registered and its field map verified against that response. May be enabled.",
+      "candidate": "Descriptor verified (free frames_get_tool) but no live response has been retained or the field map is unverified. Never enabled; never published.",
+      "discovered": "Seen in free search results only. No adapter. Not callable by any job.",
+      "blocked": "Tested and failed for a documented reason. Do not pay again until the reason has changed.",
+      "deprecated": "Replaced; kept for provenance of old observations."
+    },
+    "enableRule": "enabled=true requires validation.status=validated, a registered adapter (src/lib/lamble/adapters/registry.ts) and validation.fieldMapVerified=true. scripts/lamble/providers.ts validate enforces this.",
+    "rights": "storage, display and redistribution are recorded per capability. 'unknown' blocks paid API export of components derived from that capability (src/lib/lamble/api/rights.ts); it does not block collection, retention of evidence the repository already retains, or unrelated work. Values change only after the owner reviews the provider's terms.",
+    "searchIds": "attribution.searchId is the last Frames search that led to a tool. It is passed to frames_invoke_tools for attribution only; it is not an identifier and may be replaced at any time.",
+    "prices": "payment.priceHintUsd is the catalog hint, not a binding quote. Quote with frames_probe_tools (free) before a paid batch; the bill is the run's billing block in credits."
+  },
+  "providers": [
+    {
+      "id": "codex",
+      "name": "Codex",
+      "homepage": "https://www.codex.io/",
+      "docs": "https://docs.codex.io/",
+      "transport": "frames",
+      "notes": "GraphQL API sold through Frames as an MPP seller (Tempo). Introspection is disabled; the retained official reference pages under research/lamble/20260926T170103Z/raw/ are the field reference."
+    },
+    {
+      "id": "defillama",
+      "name": "DefiLlama via Atlas",
+      "homepage": "https://defillama.com/",
+      "docs": "https://api-docs.defillama.com/",
+      "transport": "frames",
+      "notes": "DefiLlama fee/revenue summaries resold by an x402 Atlas wrapper."
+    },
+    {
+      "id": "firecrawl",
+      "name": "Firecrawl",
+      "homepage": "https://www.firecrawl.dev/",
+      "docs": "https://docs.firecrawl.dev/",
+      "transport": "frames",
+      "notes": "Page scrapes of public evidence pages. The page owner's terms govern the scraped content."
+    },
+    {
+      "id": "x-atlas",
+      "name": "X search via Atlas",
+      "homepage": "https://x.com/",
+      "docs": null,
+      "transport": "frames",
+      "notes": "Top-results X search. A convenience sample, never a mention census."
+    },
+    {
+      "id": "x4o2-pump",
+      "name": "x4o2 Pump (pump.fun indexer)",
+      "homepage": "https://pump.x4o2.com/",
+      "docs": "https://x4o2.com/",
+      "transport": "frames",
+      "notes": "x402 seller wrapping pump.fun's own indexer surfaces. Responses are { data, meta }; meta.observedAt and meta.source describe freshness (seller guidance, observed 2026-10-19). Solana only."
+    },
+    {
+      "id": "x4o2-fomo",
+      "name": "x4o2 FOMO (FOMO app data)",
+      "homepage": "https://fomo.x4o2.com/",
+      "docs": "https://x4o2.com/",
+      "transport": "frames",
+      "notes": "x402 seller wrapping the FOMO trading app. Holder, thesis and activity data cover FOMO users only, not every on-chain wallet."
+    },
+    {
+      "id": "lamble",
+      "name": "LAMBLE research (Frames)",
+      "homepage": null,
+      "docs": "/methodology",
+      "transport": "internal",
+      "notes": "LAMBLE's own curation decisions, classifications and deterministic method outputs."
+    }
+  ],
+  "capabilities": [
+    {
+      "key": "defillama.fees",
+      "provider": "defillama",
+      "toolId": "bazaar.defillama-use-x402atlas-com-fee-summary",
+      "upstream": {
+        "host": "defillama via x402atlas.com",
+        "method": "GET",
+        "path": "fee-summary",
+        "source": "DefiLlama dimension adapters"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "protocol",
+            "dataType"
+          ],
+          "properties": {
+            "protocol": {
+              "type": "string",
+              "description": "DefiLlama protocol slug (registry venues[].providerSlug)"
+            },
+            "dataType": {
+              "type": "string",
+              "enum": [
+                "dailyFees",
+                "dailyRevenue",
+                "dailySupplySideRevenue"
+              ]
+            },
+            "excludeTotalDataChart": {
+              "type": "string",
+              "enum": [
+                "false"
+              ]
+            },
+            "excludeTotalDataChartBreakdown": {
+              "type": "string",
+              "enum": [
+                "true"
+              ]
+            }
+          }
+        },
+        "argTypes": "All four arguments are strings, including the booleans (validated requests in research/lamble/20261019T055754Z/raw/f1-request.json).",
+        "validatedRequest": "research/lamble/20261019T055754Z/raw/f1-request.json"
+      },
+      "attribution": {
+        "searchId": "srch_1176fd9b-8396-4f26-8dc8-37abc8fc6eeb"
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.005
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "adapter": "defillama.fees",
+      "semantics": {
+        "units": {
+          "totalDataChart[i][0]": "unix seconds, UTC midnight, start of day",
+          "totalDataChart[i][1]": "USD for that UTC day"
+        },
+        "coverage": "All activity captured by the mapped DefiLlama adapter; adapter scope differs per venue (registry venues[].scope). Use totalDataChart, never total24h.",
+        "timestamps": "Daily buckets labelled by start (UTC midnight). The current partial day can appear and is excluded (normalize.py F_RUN rule).",
+        "sourceReported": [
+          "methodology",
+          "methodologyURL"
+        ],
+        "revisions": "Earlier days can be revised; normalize.py records revisions against the prior run."
+      },
+      "pagination": {
+        "kind": "none",
+        "note": "Full history in one body."
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 172800,
+        "settleHours": 4
+      },
+      "cost": {
+        "maxCallsPerRun": 64,
+        "maxUsdPerBatch": 0.12
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T05:57:54Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "descriptor",
+          "live-response",
+          "daily-run-normalizer"
+        ],
+        "evidence": "research/lamble/20261019T055754Z/validation-report.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Displayed on the existing public site since 2026-09-26; provider terms not reviewed in this repository."
+      },
+      "enabled": true,
+      "uses": [
+        "launchpad fees, revenue and creator earnings",
+        "weekly fee totals"
+      ]
+    },
+    {
+      "key": "codex.launchpad-activity",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "upstream": {
+        "host": "graph.codex.io",
+        "method": "POST",
+        "path": "/graphql",
+        "operation": "filterLaunchpads",
+        "source": "Codex launchpad index (beta)"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "query"
+          ],
+          "properties": {
+            "query": {
+              "type": "string"
+            }
+          }
+        },
+        "queryTemplate": "{ filterLaunchpads(scope: global, filters: {isTestnet: false}, limit: 200, offset: 0) { count offset results { id launchpadName displayName launchpadUrl launchpadProtocol isThirdParty networkIds timestamp tokensCreated24 tokensCreated1w tokensCompleted24 tokensCompleted1w tokensMigrated24 totalFees24 pre { totalFees24 } post { totalFees24 } } } }",
+        "argTypes": "query is a GraphQL string; enum values unquoted.",
+        "validatedRequest": "research/lamble/20261019T055754Z/raw/c1-request.json#calls[0]"
+      },
+      "attribution": {
+        "searchId": "srch_0292469d-885f-450d-b251-260690bfa135"
+      },
+      "payment": {
+        "protocol": "mpp",
+        "network": "tempo",
+        "currency": "USDC.e",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "adapter": "codex.launchpad-activity",
+      "semantics": {
+        "units": {
+          "tokensCreated24": "count, rolling 24h at timestamp",
+          "tokensCreated1w": "count, rolling 7d at timestamp",
+          "timestamp": "unix seconds"
+        },
+        "coverage": "Beta provider-indexed counts per named launchpad. Exact cutoffs, creation-event completeness and finality are not independently established. Rolling windows: never sum into calendar weeks.",
+        "timestamps": "results[].timestamp is the provider's as-of time.",
+        "sourceReported": [
+          "tokensCompleted24",
+          "tokensMigrated24",
+          "totalFees24"
+        ]
+      },
+      "pagination": {
+        "kind": "offset",
+        "limit": 200,
+        "note": "Assert count == len(results) < 200 before import; paginate otherwise."
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 172800
+      },
+      "cost": {
+        "maxCallsPerRun": 2,
+        "maxUsdPerBatch": 0.05
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T05:57:54Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "official-reference-doc",
+          "live-response",
+          "daily-run-normalizer"
+        ],
+        "evidence": "research/lamble/20261019T055754Z/validation-report.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Displayed on the existing public site; Codex terms not reviewed in this repository."
+      },
+      "enabled": true,
+      "uses": [
+        "indexed launches and completions per venue"
+      ]
+    },
+    {
+      "key": "codex.token-bars",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "upstream": {
+        "host": "graph.codex.io",
+        "method": "POST",
+        "path": "/graphql",
+        "operation": "getTokenBars",
+        "source": "Codex aggregated token bars across a token's pools"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "query"
+          ],
+          "properties": {
+            "query": {
+              "type": "string"
+            }
+          }
+        },
+        "queryTemplate": "<alias>:getTokenBars(symbol:\"<address>:<networkId>\",from:<unix>,to:<unix>,resolution:\"60\"|\"1D\",currencyCode:USD,removeEmptyBars:false){<fields>}",
+        "fields": {
+          "validated": [
+            "t",
+            "volume"
+          ],
+          "documented": [
+            "o",
+            "h",
+            "l",
+            "c"
+          ],
+          "note": "o/h/l/c appear verbatim in the official example retained at research/lamble/20260926T170103Z/raw/codex-gettokenbars.md (lines 113-120) but have not been live-verified in a Frames response. Buy/sell volume and buyer/seller fields are described in that page but their exact names were lost in rendering: unverified, never requested."
+        },
+        "argTypes": "symbol is \"address:networkId\"; currencyCode is an enum (unquoted USD); resolution a quoted string.",
+        "validatedRequest": "research/lamble/20261019T055754Z/raw/c1-request.json#calls[1]"
+      },
+      "attribution": {
+        "searchId": "srch_0292469d-885f-450d-b251-260690bfa135"
+      },
+      "payment": {
+        "protocol": "mpp",
+        "network": "tempo",
+        "currency": "USDC.e",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "adapter": "codex.token-bars",
+      "semantics": {
+        "units": {
+          "t": "unix seconds, bucket start",
+          "volume": "USD, decimal string",
+          "o/h/l/c": "USD price (documented, not yet observed)"
+        },
+        "coverage": "All indexed pools of the token, aggregated by Codex (from mid-2025). Missing buckets are unknown, never zero, except whole buckets before the token's creation time (precreation-zero-provenance.json).",
+        "timestamps": "Start-labelled buckets; request to=T-1 avoids an extra boundary bucket; inclusive end.",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "window",
+        "note": "One window per alias; at most 1,000,000 stored characters per body (Frames storage limit): keep aliases per call bounded (jobs.json codexBars.maxAliasesPerCall)."
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 93600
+      },
+      "cost": {
+        "maxCallsPerRun": 12,
+        "maxUsdPerBatch": 0.05
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T05:57:54Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "official-reference-doc",
+          "live-response",
+          "hourly-daily-reconciliation"
+        ],
+        "evidence": "research/lamble/20261019T055754Z/validation-report.json#dailyBars"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Narrative volume charts on the existing public site; terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "narrative and coin volume (hourly, daily)",
+        "coin price candles once o/h/l/c are live-verified"
+      ]
+    },
+    {
+      "key": "codex.token-snapshot",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "upstream": {
+        "host": "graph.codex.io",
+        "method": "POST",
+        "path": "/graphql",
+        "operation": "filterTokens(tokens:[...])",
+        "source": "Codex token statistics, top pair"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "query"
+          ],
+          "properties": {
+            "query": {
+              "type": "string"
+            }
+          }
+        },
+        "queryTemplate": "{filterTokens(tokens:[\"<address>:<networkId>\",...],limit:<n>){results{pair{address token0 token1 networkId createdAt} priceUSD circulatingMarketCap change24 volume24 liquidity}}}",
+        "argTypes": "tokens is a list of \"address:networkId\" strings.",
+        "validatedRequest": "research/lamble/20261019T055754Z/raw/c1-request.json#calls[5]"
+      },
+      "attribution": {
+        "searchId": "srch_0292469d-885f-450d-b251-260690bfa135"
+      },
+      "payment": {
+        "protocol": "mpp",
+        "network": "tempo",
+        "currency": "USDC.e",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "adapter": "codex.token-snapshot",
+      "semantics": {
+        "units": {
+          "priceUSD": "USD, decimal string",
+          "circulatingMarketCap": "USD, decimal string; circulating, not FDV",
+          "change24": "ratio (0.1 = +10%), rolling 24h (verified against hourly closes 2026-09-28)",
+          "volume24": "USD, rolling 24h",
+          "liquidity": "USD",
+          "pair.createdAt": "unix seconds, pool creation as indexed"
+        },
+        "coverage": "One row per token; the token is identified through pair.token0/token1 because Frames redacts response keys named token.",
+        "timestamps": "No source timestamp in the body. Observation time is the run's fetch time; recorded as such.",
+        "sourceReported": [
+          "circulatingMarketCap"
+        ]
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 200
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 93600
+      },
+      "cost": {
+        "maxCallsPerRun": 4,
+        "maxUsdPerBatch": 0.05
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T05:57:54Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "live-response",
+          "unit-check-change24"
+        ],
+        "evidence": "tests/frames-data.test.mjs"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Example-token market caps on the existing site; terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "coin price, circulating market cap, liquidity snapshots"
+      ]
+    },
+    {
+      "key": "codex.token-discovery",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "upstream": {
+        "host": "graph.codex.io",
+        "method": "POST",
+        "path": "/graphql",
+        "operation": "filterTokens(filters, rankings)",
+        "source": "Codex token screener"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "query"
+          ],
+          "properties": {
+            "query": {
+              "type": "string"
+            }
+          }
+        },
+        "queryTemplate": "see scripts/frames-refresh/plan.py discover (sweeps per chain group, trending ranking)",
+        "argTypes": "launchpadName values must be Codex launchpad names (registry discovery.codexLaunchpadNames).",
+        "validatedRequest": "research/lamble/20261019T055754Z/raw/d1-request.json"
+      },
+      "attribution": {
+        "searchId": "srch_0292469d-885f-450d-b251-260690bfa135"
+      },
+      "payment": {
+        "protocol": "mpp",
+        "network": "tempo",
+        "currency": "USDC.e",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "adapter": "codex.token-snapshot",
+      "semantics": {
+        "units": {
+          "volume24": "USD rolling 24h"
+        },
+        "coverage": "Ranked sweep with liquidity and volume floors: a sample of active tokens on covered launchpads, not a census.",
+        "timestamps": "Fetch time.",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 100
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 93600
+      },
+      "cost": {
+        "maxCallsPerRun": 4,
+        "maxUsdPerBatch": 0.04
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T05:57:54Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "live-response"
+        ],
+        "evidence": "research/lamble/20261019T055754Z/discovery.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Discovery input; not displayed directly."
+      },
+      "enabled": true,
+      "uses": [
+        "narrative candidate discovery"
+      ]
+    },
+    {
+      "key": "codex.token-metadata",
+      "provider": "codex",
+      "toolId": "mpp.codex.post.graphql",
+      "upstream": {
+        "host": "graph.codex.io",
+        "method": "POST",
+        "path": "/graphql",
+        "operation": "tokens(ids)",
+        "source": "Codex token metadata"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "query"
+          ],
+          "properties": {
+            "query": {
+              "type": "string"
+            }
+          }
+        },
+        "queryTemplate": "{ t0:tokens(ids:[{address:\"<a>\",networkId:<n>},...]){address name symbol networkId info{description} launchpad{launchpadName}} } and { created:tokens(ids:[...]){address networkId createdAt} }",
+        "argTypes": "ids is a list of input objects.",
+        "validatedRequest": "research/lamble/20261019T055754Z/raw/d2-request.json"
+      },
+      "attribution": {
+        "searchId": "srch_0292469d-885f-450d-b251-260690bfa135"
+      },
+      "payment": {
+        "protocol": "mpp",
+        "network": "tempo",
+        "currency": "USDC.e",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "bsc",
+        "ethereum",
+        "arbitrum",
+        "monad",
+        "robinhood",
+        "arc",
+        "xlayer",
+        "unichain"
+      ],
+      "adapter": "codex.token-metadata",
+      "semantics": {
+        "units": {
+          "createdAt": "unix seconds; Codex token creation as indexed (not decoded from the creation transaction)"
+        },
+        "coverage": "Per requested token.",
+        "timestamps": "createdAt is the source event time as indexed.",
+        "sourceReported": [
+          "launchpad.launchpadName",
+          "info.description"
+        ]
+      },
+      "pagination": {
+        "kind": "batch",
+        "limit": 60
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 2592000
+      },
+      "cost": {
+        "maxCallsPerRun": 2,
+        "maxUsdPerBatch": 0.02
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T05:57:54Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "live-response"
+        ],
+        "evidence": "research/lamble/20261019T055754Z/raw/d2.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Names and creation times shown on the existing site; terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "token names, descriptions, origin launchpad attribution, creation times"
+      ]
+    },
+    {
+      "key": "firecrawl.scrape",
+      "provider": "firecrawl",
+      "toolId": "mpp.firecrawl.post.v1-scrape",
+      "upstream": {
+        "host": "api.firecrawl.dev",
+        "method": "POST",
+        "path": "/v1/scrape",
+        "source": "Target website"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "url",
+            "formats"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "formats": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "markdown"
+                ]
+              }
+            }
+          }
+        },
+        "argTypes": "formats is an array of strings.",
+        "validatedRequest": "research/lamble/20261019T055754Z/raw/e1-request.json"
+      },
+      "attribution": {
+        "searchId": "srch_bb1aaf8a-5504-476b-a652-d896325be6e1"
+      },
+      "payment": {
+        "protocol": "mpp",
+        "network": "tempo",
+        "currency": "USDC.e",
+        "priceHintUsd": 0.005
+      },
+      "dataNetworks": [],
+      "adapter": "firecrawl.scrape",
+      "semantics": {
+        "units": {},
+        "coverage": "One page as rendered for the scraper. App shells, bot checks and geoblocks are not usable evidence.",
+        "timestamps": "Fetch time; page dates only when the page states them.",
+        "sourceReported": [
+          "page text"
+        ]
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 604800
+      },
+      "cost": {
+        "maxCallsPerRun": 6,
+        "maxUsdPerBatch": 0.13
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T05:57:54Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "live-response"
+        ],
+        "evidence": "research/lamble/20261019T055754Z/raw/e1.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "link-only",
+        "redistribution": "prohibited",
+        "notes": "Third-party page content: cite by URL and paraphrase; never redistribute scraped text."
+      },
+      "enabled": true,
+      "uses": [
+        "narrative evidence pages"
+      ]
+    },
+    {
+      "key": "x.search",
+      "provider": "x-atlas",
+      "toolId": "bazaar.twitter-use-x402atlas-com-search",
+      "upstream": {
+        "host": "x402atlas.com",
+        "method": "GET",
+        "path": "twitter search",
+        "source": "X"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "words"
+          ],
+          "properties": {
+            "words": {
+              "type": "string"
+            }
+          }
+        },
+        "argTypes": "words is a single search string.",
+        "validatedRequest": "research/lamble/20261019T055754Z/raw/e1-request.json"
+      },
+      "attribution": {
+        "searchId": "srch_5cb35fee-4f86-413f-954c-78fc2c92631f"
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.005
+      },
+      "dataNetworks": [],
+      "adapter": "x.search",
+      "semantics": {
+        "units": {},
+        "coverage": "Top-results convenience sample; no mention totals, no historical mindshare. Reposts of one claim are one claim.",
+        "timestamps": "tweets[].created_at is the source event time.",
+        "sourceReported": [
+          "post text"
+        ]
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 604800
+      },
+      "cost": {
+        "maxCallsPerRun": 30,
+        "maxUsdPerBatch": 0.1
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T05:57:54Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "live-response"
+        ],
+        "evidence": "research/lamble/20261019T055754Z/social-evidence.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "link-only",
+        "redistribution": "prohibited",
+        "notes": "Cite posts by URL with a faithful paraphrase; do not redistribute post text in paid exports."
+      },
+      "enabled": true,
+      "uses": [
+        "narrative signals and story checks"
+      ]
+    },
+    {
+      "key": "pump.trending",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coins-trending",
+      "upstream": {
+        "host": "pump.x4o2.com",
+        "method": "GET",
+        "path": "/v1/coins/trending",
+        "source": "pump.fun advanced indexer 'movers' surface"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 150,
+              "default": 50
+            }
+          },
+          "required": []
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: limit:integer, maxAge:integer, stale:integer. Matches the descriptor.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 150,
+              "default": 50
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": "x4o2.pump.list",
+      "semantics": {
+        "units": {
+          "marketCap": "unverified: USD or SOL",
+          "priceChange": "unverified: ratio or percent"
+        },
+        "coverage": "Ranked board as the site orders it: a sample of currently active coins, not a market census.",
+        "timestamps": "meta.observedAt (format unverified); per-coin times unverified.",
+        "sourceReported": [
+          "ranking",
+          "holder count",
+          "transaction counts"
+        ]
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 150
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 3600
+      },
+      "cost": {
+        "maxCallsPerRun": 2,
+        "maxUsdPerBatch": 0.01
+      },
+      "validation": {
+        "status": "candidate",
+        "lastVerifiedAt": "2026-10-19T16:40:00Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "descriptor",
+          "live-402-probe"
+        ],
+        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms of x4o2 and pump.fun not reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "Pump discovery sample on /coins (after validation)"
+      ]
+    },
+    {
+      "key": "pump.feed",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coins-feed",
+      "upstream": {
+        "host": "pump.x4o2.com",
+        "method": "GET",
+        "path": "/v1/coins/feed",
+        "source": "pump.fun home-page ranked feed"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 150,
+              "default": 50
+            }
+          },
+          "required": []
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: limit:integer, maxAge:integer, stale:integer. Matches the descriptor.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 150,
+              "default": 50
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": "x4o2.pump.list",
+      "semantics": {
+        "units": {
+          "createdTimestamp": "unverified: seconds or milliseconds"
+        },
+        "coverage": "Ranked home-page feed: a broader sample than trending, still not a census.",
+        "timestamps": "meta.observedAt; coin creation time per row (unit unverified).",
+        "sourceReported": [
+          "protocol (curve/AMM)",
+          "creator"
+        ]
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 150
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 3600
+      },
+      "cost": {
+        "maxCallsPerRun": 2,
+        "maxUsdPerBatch": 0.01
+      },
+      "validation": {
+        "status": "candidate",
+        "lastVerifiedAt": "2026-10-19T16:40:00Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "descriptor",
+          "live-402-probe"
+        ],
+        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "Pump discovery sample (after validation)"
+      ]
+    },
+    {
+      "key": "pump.coin",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint",
+      "upstream": {
+        "host": "pump.x4o2.com",
+        "method": "GET",
+        "path": "/v1/coin/:mint",
+        "source": "pump.fun coins-v3 record + live indexer row"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "mint": {
+              "type": "string",
+              "description": "Token mint address (base58)"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          },
+          "required": [
+            "mint"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: maxAge:integer, mint:string, stale:integer. The frames_get_tool descriptor disagreed on: maxAge, stale.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "mint"
+          ],
+          "properties": {
+            "mint": {
+              "type": "string",
+              "description": "Token mint address (base58)"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data",
+          "fields": {
+            "tokenAddress": "coin.mint",
+            "holderCount": "holders.holderCount",
+            "top10Share": "indexer.top10HoldersPercent"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "top10Share": "percent"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/pump.coin.json"
+        }
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": "x4o2.pump.coin",
+      "semantics": {
+        "units": {
+          "marketCap": "unverified: USD vs SOL",
+          "ath": "unverified",
+          "activity windows": "5m/1h/6h/24h; unit of volume unverified (quote token vs USD)"
+        },
+        "coverage": "One coin; holder count is pump.fun's figure.",
+        "timestamps": "meta.observedAt; creation time unit unverified.",
+        "sourceReported": [
+          "holder count",
+          "dev wallet",
+          "ATH market cap",
+          "buyers/sellers"
+        ]
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 21600
+      },
+      "cost": {
+        "maxCallsPerRun": 80,
+        "maxUsdPerBatch": 0.07
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:21.290Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "descriptor",
+          "live-402-probe",
+          "field-map-smoke"
+        ],
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/pump.coin.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "coin page Pump-native panel (after validation)"
+      ]
+    },
+    {
+      "key": "pump.holders",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-holders",
+      "upstream": {
+        "host": "pump.x4o2.com",
+        "method": "GET",
+        "path": "/v1/coin/:mint/holders",
+        "source": "pump.fun largest-positions panel"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "mint": {
+              "type": "string",
+              "description": "Token mint address (base58)"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          "required": [
+            "mint"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: limit:integer, maxAge:integer, mint:string, stale:integer. The frames_get_tool descriptor disagreed on: limit, maxAge, stale.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "mint"
+          ],
+          "properties": {
+            "mint": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "string",
+              "description": "1-100"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.positions",
+          "fields": {
+            "wallet": "walletAddress",
+            "amount": "amountHeld",
+            "costBasisUsd": "costBasisUsd"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "amount": "token_units",
+            "costBasisUsd": "usd"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/pump.holders.json"
+        }
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": "x4o2.pump.holders",
+      "semantics": {
+        "units": {
+          "amountHeld": "token units (scaled)",
+          "costBasisUsd, pnlUsd": "USD (field names; consistent with prices in the sample)"
+        },
+        "coverage": "Positions held by pump.fun accounts, largest first (50 per page; limit=100 is rejected). Not the largest on-chain holders: on 2026-10-20 PIERRE listed 526 positions against 3,890 on-chain holders, top-10 share 10.6% against 25.2% on chain. Never all holders, never ownership history.",
+        "population": "pump_users",
+        "timestamps": "meta.observedAt only; a current-positions panel cannot reconstruct earlier balances.",
+        "sourceReported": [
+          "costBasis",
+          "realizedPnl",
+          "unrealizedPnl",
+          "isDev",
+          "username"
+        ]
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 50,
+        "note": "limit=100 was rejected (caller_error) on 2026-10-20; 50 and the default work."
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 21600
+      },
+      "cost": {
+        "maxCallsPerRun": 80,
+        "maxUsdPerBatch": 0.07
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:22.277Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "descriptor",
+          "live-402-probe",
+          "field-map-smoke"
+        ],
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/pump.holders.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Contains usernames and wallet addresses; display only aggregate shares until reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "pump.fun-user positions on the coin page (labelled pump.fun users); never concentration or whale cohorts"
+      ]
+    },
+    {
+      "key": "pump.trades",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-trades",
+      "upstream": {
+        "host": "pump.x4o2.com",
+        "method": "GET",
+        "path": "/v1/coin/:mint/trades",
+        "source": "pump.fun trade tape"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "mint": {
+              "type": "string",
+              "description": "Token mint address (base58)"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 100
+            },
+            "minUsd": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "mint"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: limit:integer, maxAge:integer, minUsd:number, mint:string, stale:integer. The frames_get_tool descriptor disagreed on: limit, maxAge, minUsd, stale.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "mint"
+          ],
+          "properties": {
+            "mint": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "string",
+              "description": "1-200"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "minUsd": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.trades",
+          "fields": {
+            "signature": "ordinalKey",
+            "side": "side",
+            "wallet": "trader.address",
+            "amount": "baseAmount",
+            "usd": "valueUsd",
+            "time": "blockTimeMs"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "amount": "token_units",
+            "usd": "usd",
+            "time": "milliseconds"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/pump.trades.json"
+        }
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": "x4o2.pump.trades",
+      "semantics": {
+        "units": {
+          "tokenAmount": "token units",
+          "solAmount": "SOL (quote token), not USD",
+          "usdValue": "USD at trade time",
+          "slot": "Solana slot",
+          "signature": "transaction signature"
+        },
+        "coverage": "Most recent trades only (<=200 per call): a tape sample, not exhaustive history.",
+        "population": "recent_trades_sample",
+        "timestamps": "Per-trade time field name/unit unverified; slot gives ordering.",
+        "sourceReported": [
+          "username"
+        ]
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 200,
+        "note": "Most recent trades, newest first, complete between the oldest returned trade and the read time. 100 trades covered 6 minutes for an active coin on 2026-10-20. The response carries a cursor the descriptor does not document; it is not used."
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 3600
+      },
+      "cost": {
+        "maxCallsPerRun": 80,
+        "maxUsdPerBatch": 0.07
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:21.627Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "descriptor",
+          "live-402-probe",
+          "field-map-smoke"
+        ],
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/pump.trades.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "wallet-resolved trades for absorption and first-seen buyers within the sampled window (after validation)"
+      ]
+    },
+    {
+      "key": "pump.candles",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-candles",
+      "upstream": {
+        "host": "pump.x4o2.com",
+        "method": "GET",
+        "path": "/v1/coin/:mint/candles",
+        "source": "pump.fun chart data"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "mint": {
+              "type": "string",
+              "description": "Token mint address (base58)"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "res": {
+              "type": "string",
+              "enum": [
+                "1m",
+                "5m",
+                "15m",
+                "30m",
+                "1h",
+                "4h",
+                "6h",
+                "12h",
+                "1d"
+              ]
+            },
+            "count": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "measure": {
+              "type": "string",
+              "enum": [
+                "price_usd",
+                "price_sol",
+                "market_cap_usd",
+                "market_cap_sol"
+              ]
+            }
+          },
+          "required": [
+            "mint"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: count:integer, maxAge:integer, measure:string, mint:string, res:string, stale:integer. The frames_get_tool descriptor disagreed on: count, maxAge, stale.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "mint"
+          ],
+          "properties": {
+            "mint": {
+              "type": "string"
+            },
+            "count": {
+              "type": "string",
+              "description": "1-1000 most recent buckets"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "measure": {
+              "type": "string",
+              "description": "price_usd, price_sol, market_cap_usd or market_cap_sol"
+            },
+            "res": {
+              "type": "string",
+              "description": "1m, 5m, 15m, 30m, 1h, 4h, 6h, 12h, 1d"
+            },
+            "stale": {
+              "type": "string"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.candles",
+          "fields": {
+            "time": "openTimeMs",
+            "open": "open",
+            "high": "high",
+            "low": "low",
+            "close": "close",
+            "volumeUsd": "volumeUsd",
+            "final": "final"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "time": "milliseconds",
+            "volumeUsd": "usd"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/pump.candles.json"
+        }
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": "x4o2.pump.candles",
+      "semantics": {
+        "units": {
+          "o/h/l/c": "per the requested measure",
+          "volume": "USD",
+          "time": "unit unverified (seconds or ms)"
+        },
+        "coverage": "At most 1000 most recent buckets: depth = count x res. Historical depth must be confirmed per coin.",
+        "timestamps": "Bucket start (unverified).",
+        "sourceReported": [
+          "trade count"
+        ]
+      },
+      "pagination": {
+        "kind": "count",
+        "limit": 1000,
+        "note": "No from/to: depth is bounded by count x res."
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 21600
+      },
+      "cost": {
+        "maxCallsPerRun": 80,
+        "maxUsdPerBatch": 0.07
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:21.951Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "descriptor",
+          "live-402-probe",
+          "field-map-smoke"
+        ],
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/pump.candles.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "price lows for the bottoming test on pump.fun coins (after validation)"
+      ]
+    },
+    {
+      "key": "pump.search",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coins-search",
+      "upstream": {
+        "host": "pump.x4o2.com",
+        "method": "GET",
+        "path": "/v1/coins/search",
+        "source": "pump.fun coin search"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "q": {
+              "type": "string",
+              "description": "up to 100 characters"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          "required": []
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: limit:integer, maxAge:integer, offset:integer, q:string, stale:integer. The frames_get_tool descriptor disagreed on: limit, maxAge, offset, stale.",
+        "descriptorObservedAt": "2026-10-19 (search hit, input_schema_source=catalog)",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "q": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "string"
+            },
+            "offset": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+      },
+      "attribution": {
+        "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": "x4o2.pump.list",
+      "semantics": {
+        "units": {},
+        "coverage": "Matches ranked by USD market cap. Name matches are not identity: resolution always ends in an exact mint.",
+        "timestamps": "meta.observedAt.",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "offset",
+        "limit": 100
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 86400
+      },
+      "cost": {
+        "maxCallsPerRun": 10,
+        "maxUsdPerBatch": 0.01
+      },
+      "validation": {
+        "status": "candidate",
+        "lastVerifiedAt": "2026-10-19T16:40:00Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "live-402-probe",
+          "search-hit-schema"
+        ],
+        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "coverage requests: resolve a requested name to candidate mints for operator review"
+      ]
+    },
+    {
+      "key": "pump.traders",
+      "provider": "x4o2-pump",
+      "toolId": "bazaar.pump-x4o2-com-v1-coin-mint-traders",
+      "upstream": {
+        "host": "pump.x4o2.com",
+        "method": "GET",
+        "path": "/v1/coin/:mint/traders",
+        "source": "pump.fun per-coin trader leaderboard"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "mint"
+          ],
+          "properties": {
+            "mint": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            }
+          }
+        },
+        "argTypes": "Strings.",
+        "descriptorObservedAt": "2026-10-19 (search hit, input_schema_source=catalog)"
+      },
+      "attribution": {
+        "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": "x4o2.pump.traders",
+      "semantics": {
+        "units": {
+          "pnl": "unverified unit"
+        },
+        "coverage": "Top traders by profit on one coin: a profit-ranked sample, biased toward winners. Realized P&L here is source-reported, never a substitute for LAMBLE's reconstructed realized losses.",
+        "population": "top_traders_by_profit_sample",
+        "timestamps": "Per-trade times unverified.",
+        "sourceReported": [
+          "realizedPnl",
+          "unrealizedPnl",
+          "buyTotal",
+          "sellTotal"
+        ]
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 21600
+      },
+      "cost": {
+        "maxCallsPerRun": 20,
+        "maxUsdPerBatch": 0.01
+      },
+      "validation": {
+        "status": "candidate",
+        "lastVerifiedAt": "2026-10-19T16:22:44Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "search-hit-schema"
+        ],
+        "evidence": "frames_search_tools srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "source-reported context on the coin page only"
+      ]
+    },
+    {
+      "key": "fomo.feed",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-feed",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/feed",
+        "source": "FOMO app event feed"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "types": {
+              "type": "string",
+              "description": "Comma-separated event types: large_buy, large_sell, large_transfer_in, large_transfer_out, single_user_transfer_out, single_user_sell, thesis_created, multi_user_buy, multi_user_sell, new_token_listing, price_since_listing, user_trade_profit_milestone, user_with_smart_following, manual"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            },
+            "cursor": {
+              "type": "string"
+            }
+          },
+          "required": []
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: cursor:string, limit:integer, maxAge:integer, stale:integer, types:string. Matches the descriptor.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "cursor": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "types": {
+              "type": "string",
+              "description": "Comma-separated: large_buy, large_sell, large_transfer_in, large_transfer_out, single_user_transfer_out, single_user_sell, thesis_created, multi_user_buy, multi_user_sell, new_token_listing, price_since_listing, user_trade_profit_milestone, user_with_smart_following, manual"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad"
+      ],
+      "adapter": "x4o2.fomo.feed",
+      "semantics": {
+        "units": {
+          "amounts": "unverified"
+        },
+        "coverage": "Events among FOMO users only. FOMO always adds its pinned manual post even when types= excludes it: classify after retrieval; a pinned post is never the newest trade. A third-party Frames probe note (2026-10-19) reports 4 items for limit=3, consistent with the pinned post being added on top of the requested page.",
+        "population": "fomo_users",
+        "timestamps": "Newest first, usually minutes old; event time field unverified.",
+        "sourceReported": [
+          "event classification",
+          "profit milestones",
+          "smart-following signals"
+        ]
+      },
+      "pagination": {
+        "kind": "cursor",
+        "limit": 100,
+        "note": "Page with nextCursor; deduplicate by stable event id across pages and runs; bound pages per run (jobs.json)."
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 3600
+      },
+      "cost": {
+        "maxCallsPerRun": 5,
+        "maxUsdPerBatch": 0.01
+      },
+      "validation": {
+        "status": "candidate",
+        "lastVerifiedAt": "2026-10-19T16:40:00Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "descriptor",
+          "live-402-probe"
+        ],
+        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Contains user handles; terms not reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "source-reported FOMO activity on coin pages (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.lists",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-tokens-list",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/tokens/:list",
+        "source": "FOMO discover-tab lists"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "string",
+              "enum": [
+                "trending",
+                "most-held",
+                "graduated",
+                "community",
+                "verified"
+              ]
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          "required": [
+            "list"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: limit:integer, list:string, maxAge:integer, stale:integer. Matches the descriptor.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "string",
+              "enum": [
+                "trending",
+                "most-held",
+                "graduated",
+                "community",
+                "verified"
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad"
+      ],
+      "adapter": "x4o2.fomo.list",
+      "semantics": {
+        "units": {
+          "change": "unverified ratio/percent"
+        },
+        "coverage": "FOMO's curated lists; most-held reflects FOMO users' holdings only.",
+        "population": "fomo_users",
+        "timestamps": "meta.observedAt.",
+        "sourceReported": [
+          "launchpad",
+          "graduation state",
+          "holders"
+        ]
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 100
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 3600
+      },
+      "cost": {
+        "maxCallsPerRun": 5,
+        "maxUsdPerBatch": 0.01
+      },
+      "validation": {
+        "status": "candidate",
+        "lastVerifiedAt": "2026-10-19T16:40:00Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "descriptor",
+          "live-402-probe"
+        ],
+        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "discovery sample (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.token",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/token/:chain/:address",
+        "source": "FOMO market panel"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          },
+          "required": [
+            "chain",
+            "address"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: address:string, chain:string, maxAge:integer, stale:integer. The frames_get_tool descriptor disagreed on: maxAge, stale.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "chain",
+            "address"
+          ],
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data",
+          "fields": {
+            "holderCount": "statistics.holders",
+            "top10Share": "statistics.top10HoldersPercent"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "top10Share": "percent"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/fomo.token.json"
+        }
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "adapter": "x4o2.fomo.token",
+      "semantics": {
+        "units": {
+          "volumes": "unverified"
+        },
+        "coverage": "One token; top-10 holder share and buyer/seller counts are FOMO's figures. Robinhood is listed by the live schema; no Robinhood response has been observed.",
+        "timestamps": "meta.observedAt.",
+        "sourceReported": [
+          "safety warnings",
+          "top-10 holder share",
+          "unique buyers/sellers"
+        ]
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 21600
+      },
+      "cost": {
+        "maxCallsPerRun": 160,
+        "maxUsdPerBatch": 0.07
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:22.617Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "descriptor",
+          "live-402-probe",
+          "field-map-smoke"
+        ],
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/fomo.token.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "source-reported warnings and buy/sell stats on coin pages (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.holders",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/token/:chain/:address/holders",
+        "source": "FOMO users holding the token"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          },
+          "required": [
+            "chain",
+            "address"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: address:string, chain:string, maxAge:integer, stale:integer. The frames_get_tool descriptor disagreed on: maxAge, stale.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "chain",
+            "address"
+          ],
+          "properties": {
+            "chain": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.topHolders",
+          "fields": {
+            "wallet": "user.address",
+            "walletEvm": "user.evmAddress",
+            "amount": "humanAmount",
+            "valueUsd": "value",
+            "costBasisUsd": "costBasis",
+            "isDeveloper": "isDev"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "amount": "token_units",
+            "valueUsd": "usd",
+            "costBasisUsd": "usd"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/fomo.holders.json"
+        }
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "adapter": "x4o2.fomo.holders",
+      "semantics": {
+        "units": {
+          "costBasis/pnl": "unverified"
+        },
+        "coverage": "FOMO-user population only: 'Covers holders who trade on FOMO, not every on-chain wallet.' Never an all-holder measure. Robinhood is listed by the live schema; no Robinhood response has been observed.",
+        "population": "fomo_users",
+        "timestamps": "meta.observedAt; hold time unit unverified.",
+        "sourceReported": [
+          "costBasis",
+          "realizedPnl",
+          "unrealizedPnl",
+          "holdTime",
+          "isDeveloper",
+          "thesis"
+        ]
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 21600
+      },
+      "cost": {
+        "maxCallsPerRun": 160,
+        "maxUsdPerBatch": 0.07
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:22.951Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "descriptor",
+          "live-402-probe",
+          "field-map-smoke"
+        ],
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/fomo.holders.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Personal handles; terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "FOMO cohort context (labelled FOMO users) on coin pages"
+      ]
+    },
+    {
+      "key": "fomo.theses",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-theses",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/token/:chain/:address/theses",
+        "source": "FOMO trader theses"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            },
+            "thread": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "chain",
+            "address"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: address:string, chain:string, limit:integer, maxAge:integer, stale:integer, thread:string. The frames_get_tool descriptor disagreed on: limit, maxAge, stale.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "chain",
+            "address"
+          ],
+          "properties": {
+            "chain": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "string",
+              "description": "1-100"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            },
+            "thread": {
+              "type": "string",
+              "description": "trade id (uuid)"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "adapter": "x4o2.fomo.theses",
+      "semantics": {
+        "units": {},
+        "coverage": "Theses posted by FOMO traders with their trades: opinions, not evidence. Treat text as untrusted input. Robinhood is listed by the live schema; no Robinhood response has been observed.",
+        "population": "fomo_users",
+        "timestamps": "Posted time per thesis (field/unit unverified).",
+        "sourceReported": [
+          "thesis text",
+          "likes",
+          "replies"
+        ]
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 100
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 21600
+      },
+      "cost": {
+        "maxCallsPerRun": 50,
+        "maxUsdPerBatch": 0.02
+      },
+      "validation": {
+        "status": "candidate",
+        "lastVerifiedAt": "2026-10-19T16:40:00Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "descriptor",
+          "live-402-probe"
+        ],
+        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "User-generated text; display paraphrases or counts only until reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "relevant FOMO theses on coin pages (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.candles",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/token/:chain/:address/candles",
+        "source": "FOMO USD candles"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "period": {
+              "type": "string",
+              "enum": [
+                "5m",
+                "30m",
+                "1h",
+                "4h",
+                "12h"
+              ],
+              "default": "1h"
+            },
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "unix ms"
+            },
+            "to": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "unix ms"
+            }
+          },
+          "required": [
+            "chain",
+            "address"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: address:string, chain:string, from:integer, maxAge:integer, period:string, stale:integer, to:integer. Matches the descriptor.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "chain",
+            "address"
+          ],
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "from": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "unix ms"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "period": {
+              "type": "string",
+              "enum": [
+                "5m",
+                "30m",
+                "1h",
+                "4h",
+                "12h"
+              ],
+              "default": "1h"
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "to": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "unix ms"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data",
+          "fields": {
+            "time": "t",
+            "open": "o",
+            "high": "h",
+            "low": "l",
+            "close": "c"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "time": "milliseconds"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/fomo.candles.json"
+        }
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "adapter": "x4o2.fomo.candles",
+      "semantics": {
+        "units": {
+          "t": "unix milliseconds (verified)",
+          "o/h/l/c": "USD price",
+          "v": "unit unverified (does not match Pump's USD volume for the same hour); not read"
+        },
+        "coverage": "300 buckets ending at `to`: depth = 300 x period (12.5 days at 1h). Page backwards with to= for longer history, bounded by jobs.json.",
+        "timestamps": "t in milliseconds per the descriptor: converted to seconds on ingest.",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "window",
+        "limit": 300,
+        "note": "Move `to` backwards; stop at jobs.json maxPages or when a page returns no buckets."
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 21600
+      },
+      "cost": {
+        "maxCallsPerRun": 160,
+        "maxUsdPerBatch": 0.07
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:23.259Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "descriptor",
+          "live-402-probe",
+          "field-map-smoke"
+        ],
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/fomo.candles.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "price lows (bottoming condition 2) for EVM and Solana coins (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.developers",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-developers",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/token/:chain/:address/developers",
+        "source": "FOMO developer panel"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          },
+          "required": [
+            "chain",
+            "address"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: address:string, chain:string, maxAge:integer, stale:integer. Matches the descriptor.",
+        "descriptorObservedAt": "2026-10-19T11:10:51.684Z",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "chain",
+            "address"
+          ],
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "adapter": "x4o2.fomo.developers",
+      "semantics": {
+        "units": {},
+        "coverage": "Deployer wallets FOMO links to the token. A link is FOMO's attribution, not proof of control or affiliation.",
+        "timestamps": "meta.observedAt.",
+        "sourceReported": [
+          "deployer attribution",
+          "developer holdings"
+        ]
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 86400
+      },
+      "cost": {
+        "maxCallsPerRun": 50,
+        "maxUsdPerBatch": 0.02
+      },
+      "validation": {
+        "status": "candidate",
+        "lastVerifiedAt": "2026-10-19T16:40:00Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "descriptor",
+          "live-402-probe"
+        ],
+        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "dev-wallet exclusion candidates for concentration (after validation)"
+      ]
+    },
+    {
+      "key": "fomo.search",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-search",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/search",
+        "source": "FOMO token search"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "required": [],
+          "properties": {}
+        },
+        "argTypes": "Not captured: the search hit truncated the description and gave no schema. Run frames_get_tool before use.",
+        "descriptorObservedAt": "2026-10-19 (search hit only)"
+      },
+      "attribution": {
+        "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad"
+      ],
+      "adapter": "x4o2.fomo.list",
+      "semantics": {
+        "units": {},
+        "coverage": "Matches by name, symbol or address; returns network id per match.",
+        "timestamps": "meta.observedAt.",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "unknown"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 86400
+      },
+      "cost": {
+        "maxCallsPerRun": 10,
+        "maxUsdPerBatch": 0.01
+      },
+      "validation": {
+        "status": "discovered",
+        "lastVerifiedAt": "2026-10-19T16:22:44Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "search-hit"
+        ],
+        "evidence": "frames_search_tools srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": false,
+      "uses": [
+        "coverage requests: cross-chain identity candidates"
+      ]
+    },
+    {
+      "key": "fomo.activity",
+      "provider": "x4o2-fomo",
+      "toolId": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+      "upstream": {
+        "host": "fomo.x4o2.com",
+        "method": "GET",
+        "path": "/v1/token/:chain/:address/activity",
+        "source": "FOMO users' trade tape"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "chain": {
+              "type": "string",
+              "description": "solana, base, ethereum, bsc, monad, robinhood or a numeric network id"
+            },
+            "address": {
+              "type": "string"
+            },
+            "maxAge": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stale": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            },
+            "threshold": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "chain",
+            "address"
+          ]
+        },
+        "argTypes": "Live seller schema (402 challenge via frames_probe_tools, 2026-10-19) is authoritative: address:string, chain:string, limit:integer, maxAge:integer, stale:integer, threshold:number. The frames_get_tool descriptor disagreed on: limit, maxAge, stale, threshold.",
+        "descriptorObservedAt": "2026-10-19 (search hit, input_schema_source=catalog)",
+        "descriptorInputSchema": {
+          "type": "object",
+          "required": [
+            "chain",
+            "address"
+          ],
+          "properties": {
+            "chain": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "string",
+              "description": "1-100"
+            },
+            "maxAge": {
+              "type": "string"
+            },
+            "stale": {
+              "type": "string"
+            },
+            "threshold": {
+              "type": "string",
+              "description": "minimum USD size"
+            }
+          }
+        },
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.items",
+          "fields": {
+            "id": "id",
+            "type": "type",
+            "time": "createdAt",
+            "usd": "usdAmount"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "time": "iso8601",
+            "usd": "usd"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/fomo.activity.json"
+        }
+      },
+      "attribution": {
+        "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": 0.001
+      },
+      "dataNetworks": [
+        "solana",
+        "base",
+        "ethereum",
+        "bsc",
+        "monad",
+        "robinhood"
+      ],
+      "adapter": "x4o2.fomo.activity",
+      "semantics": {
+        "units": {
+          "amount": "USD at the time (descriptor)"
+        },
+        "coverage": "Recent buys, sells and transfers by FOMO users only: a population sample, not the market's tape. Transfers are not purchases. Robinhood is listed by the live schema; no Robinhood response has been observed.",
+        "population": "fomo_users",
+        "timestamps": "Event time field unverified.",
+        "sourceReported": [
+          "handle"
+        ]
+      },
+      "pagination": {
+        "kind": "limit",
+        "limit": 100
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 3600
+      },
+      "cost": {
+        "maxCallsPerRun": 160,
+        "maxUsdPerBatch": 0.07
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:23.594Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "live-402-probe",
+          "search-hit-schema",
+          "field-map-smoke"
+        ],
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/fomo.activity.json"
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": "Terms not reviewed."
+      },
+      "enabled": true,
+      "uses": [
+        "source-reported FOMO activity on coin pages (after validation)"
+      ]
+    },
+    {
+      "key": "lamble.curation",
+      "provider": "lamble",
+      "toolId": null,
+      "upstream": {
+        "host": null,
+        "method": null,
+        "path": "research/lamble/<run>/curation.json and memberships.json",
+        "source": "LAMBLE editorial decisions"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "argTypes": "n/a"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": null,
+      "dataNetworks": [],
+      "adapter": "lamble.curation",
+      "semantics": {
+        "units": {},
+        "coverage": "LAMBLE's own narrative definitions, membership rationales, cluster and candidate decisions.",
+        "timestamps": "Recorded at the run that made the decision.",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 0
+      },
+      "cost": {
+        "maxCallsPerRun": 0,
+        "maxUsdPerBatch": 0
+      },
+      "validation": {
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-19T16:22:44Z",
+        "fieldMapVerified": true,
+        "checks": [
+          "internal"
+        ],
+        "evidence": "scripts/frames-refresh/normalize.py"
+      },
+      "rights": {
+        "storage": "permitted",
+        "display": "permitted",
+        "redistribution": "permitted",
+        "notes": "LAMBLE's own work. Linked third-party evidence keeps its own rights."
+      },
+      "enabled": true,
+      "uses": [
+        "narratives, memberships, lifecycle, research citations"
+      ]
+    },
+    {
+      "key": "dune.sql",
+      "provider": "lamble",
+      "toolId": "mpp.dune.post.api-v1-sql-execute",
+      "upstream": {
+        "host": "api.dune.com",
+        "method": "POST",
+        "path": "/api/v1/sql/execute",
+        "source": "Dune"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "argTypes": "not captured"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "mpp",
+        "network": "tempo",
+        "currency": "USDC.e",
+        "priceHintUsd": null
+      },
+      "dataNetworks": [],
+      "adapter": null,
+      "semantics": {
+        "units": {},
+        "coverage": "n/a",
+        "timestamps": "n/a",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 0
+      },
+      "cost": {
+        "maxCallsPerRun": 0,
+        "maxUsdPerBatch": 0
+      },
+      "validation": {
+        "status": "blocked",
+        "lastVerifiedAt": "2026-09-26T18:20:58Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "live-attempt"
+        ],
+        "evidence": "research/lamble/20260926T182058Z/raw/dune-execute.md",
+        "reason": "Payment-challenge parsing failed before a query result."
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "enabled": false,
+      "uses": []
+    },
+    {
+      "key": "allium.sql-async",
+      "provider": "lamble",
+      "toolId": "mpp.allium.post.api-v1-explorer-queries-run-async",
+      "upstream": {
+        "host": "api.allium.so",
+        "method": "POST",
+        "path": "/api/v1/explorer/queries/run-async",
+        "source": "Allium"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "argTypes": "not captured"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "mpp",
+        "network": "tempo",
+        "currency": "USDC.e",
+        "priceHintUsd": null
+      },
+      "dataNetworks": [],
+      "adapter": null,
+      "semantics": {
+        "units": {},
+        "coverage": "n/a",
+        "timestamps": "n/a",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 0
+      },
+      "cost": {
+        "maxCallsPerRun": 0,
+        "maxUsdPerBatch": 0
+      },
+      "validation": {
+        "status": "blocked",
+        "lastVerifiedAt": "2026-09-26T18:20:58Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "live-attempt"
+        ],
+        "evidence": "research/lamble/20260926T182058Z/raw/allium-status.md",
+        "reason": "Accepted an async job, but status/results need API-key authentication and no Frames result route existed. A job ID is not data."
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "enabled": false,
+      "uses": []
+    },
+    {
+      "key": "loophole.launch-feed",
+      "provider": "lamble",
+      "toolId": "bazaar.api-loopholetape-com-v1-base-launches-since",
+      "upstream": {
+        "host": "api.loopholetape.com",
+        "method": "GET",
+        "path": "/v1/base/launches-since",
+        "source": "Loophole"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "argTypes": "not captured"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": null
+      },
+      "dataNetworks": [
+        "base"
+      ],
+      "adapter": null,
+      "semantics": {
+        "units": {},
+        "coverage": "n/a",
+        "timestamps": "n/a",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 0
+      },
+      "cost": {
+        "maxCallsPerRun": 0,
+        "maxUsdPerBatch": 0
+      },
+      "validation": {
+        "status": "blocked",
+        "lastVerifiedAt": "2026-09-26T17:01:03Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "live-attempt"
+        ],
+        "evidence": "docs/prompts/refresh-market-data.md section 7",
+        "reason": "Ignored `since` and was truncated: not complete counts."
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "enabled": false,
+      "uses": []
+    },
+    {
+      "key": "bitquery.pump-launches",
+      "provider": "lamble",
+      "toolId": "agentic.emc2ai-io..x402-bitquery-pumpfun-launches-raw",
+      "upstream": {
+        "host": "emc2ai.io",
+        "method": "GET",
+        "path": "x402-bitquery-pumpfun-launches-raw",
+        "source": "Bitquery wrapper"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "argTypes": "not captured"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": null
+      },
+      "dataNetworks": [
+        "solana"
+      ],
+      "adapter": null,
+      "semantics": {
+        "units": {},
+        "coverage": "n/a",
+        "timestamps": "n/a",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 0
+      },
+      "cost": {
+        "maxCallsPerRun": 0,
+        "maxUsdPerBatch": 0
+      },
+      "validation": {
+        "status": "blocked",
+        "lastVerifiedAt": "2026-09-26T17:01:03Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "live-attempt"
+        ],
+        "evidence": "docs/prompts/refresh-market-data.md section 7",
+        "reason": "Not validated beyond a capped sample route."
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "enabled": false,
+      "uses": []
+    },
+    {
+      "key": "otto.x-summary",
+      "provider": "lamble",
+      "toolId": "bazaar.x402-ottoai-services-twitter-summary",
+      "upstream": {
+        "host": "x402.ottoai.services",
+        "method": "GET",
+        "path": "twitter-summary",
+        "source": "Otto AI"
+      },
+      "contract": {
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "argTypes": "not captured"
+      },
+      "attribution": {
+        "searchId": null
+      },
+      "payment": {
+        "protocol": "x402v2",
+        "network": "base",
+        "currency": "USDC",
+        "priceHintUsd": null
+      },
+      "dataNetworks": [],
+      "adapter": null,
+      "semantics": {
+        "units": {},
+        "coverage": "n/a",
+        "timestamps": "n/a",
+        "sourceReported": []
+      },
+      "pagination": {
+        "kind": "none"
+      },
+      "freshness": {
+        "maxAcceptedAgeSeconds": 0
+      },
+      "cost": {
+        "maxCallsPerRun": 0,
+        "maxUsdPerBatch": 0
+      },
+      "validation": {
+        "status": "blocked",
+        "lastVerifiedAt": "2026-09-26T17:01:03Z",
+        "fieldMapVerified": false,
+        "checks": [
+          "live-attempt"
+        ],
+        "evidence": "docs/prompts/refresh-market-data.md section 7",
+        "reason": "Generic, irrelevant summary; no narrative evidence accepted."
+      },
+      "rights": {
+        "storage": "unknown",
+        "display": "unknown",
+        "redistribution": "unknown",
+        "notes": ""
+      },
+      "enabled": false,
+      "uses": []
+    }
+  ],
+  "discovered": [
+    {
+      "toolId": "bazaar.pump-x4o2-com-v1-leaderboard",
+      "note": "pump.fun trader leaderboard. No implemented feature uses wallet leaderboards; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.pump-x4o2-com-v1-user-user",
+      "note": "pump.fun user profile incl. created coins (creator history). Candidate for a future creator-history panel; not registered until that panel exists.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.pump-x4o2-com-v1-coins-live",
+      "note": "Coins whose creators are livestreaming. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.pump-x4o2-com-v1-coins",
+      "note": "Paginated pump.fun coin list. Overlaps pump.feed; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.fomo-x4o2-com-v1-leaderboard",
+      "note": "FOMO trader leaderboard. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.fomo-x4o2-com-v1-profile-handle",
+      "note": "FOMO user profile. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.fomo-x4o2-com-v1-profile-handle-followers",
+      "note": "FOMO followers. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    },
+    {
+      "toolId": "bazaar.fomo-x4o2-com-v1-profile-handle-following",
+      "note": "FOMO following. No implemented feature; not registered.",
+      "observedAt": "2026-10-19",
+      "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
+    }
+  ]
+}
