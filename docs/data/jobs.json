@@ -3,7 +3,7 @@
   "jobsVersion": 1,
   "updatedAt": "2026-10-19T16:22:44Z",
   "policy": {
-    "budgets": "Ceilings here bound what a job may request; they are not spending authorization. A paid job runs only under an owner-approved budget supplied with the invocation (the scheduled routine's prompt or LAMBLE_APPROVED_BUDGET_CREDITS for the programmatic collector). Without one, paid jobs plan and stop.",
+    "budgets": "Ceilings here bound what a job may request; they are not spending authorization by themselves. On 2026-10-20 the owner approved, in session, up to 5,000 credits ($5) per daily run across paid jobs: daily-refresh up to 1,200 and x4o2-coin-panels up to 3,800. A paid job runs only under an approval supplied with the invocation (the scheduled routine's prompt, or LAMBLE_FRAMES_BUDGET_ID and LAMBLE_FRAMES_BUDGET_USD for the programmatic collector). Without one, paid jobs plan and stop. 5,000 credits a day is about 150,000 a month, above the 90,000 monthly grant: purchased credits are needed before the grant runs out.",
     "schedules": "scheduleStatus says what is actually running: active-external (installed outside this repository and observed through its commits), configured (cron and runbook ready, nothing installed), manual (run by an operator). No job in this repository installs a scheduler.",
     "writers": "Jobs with the same writerGroup take the same lock (scripts/lamble/lock.ts); daily and weekly writers never overlap.",
     "serving": "Page views, builds and API reads never run a job and never make a paid call."
@@ -47,7 +47,7 @@
       "budget": {
         "maxCreditsPerRun": 1200,
         "typicalCredits": "450-980 (2026-10-02..19 billed 456-978)",
-        "authorization": "routine prompt"
+        "authorization": "routine prompt; owner-approved ceiling 1,200 of the 5,000-credit daily total (2026-10-20)"
       },
       "pagination": {
         "maxBatches": 20,
@@ -66,32 +66,33 @@
     {
       "id": "x4o2-coin-panels",
       "kind": "paid-collection",
-      "description": "Pump and FOMO per-coin panels (coin, holders sample, candles, theses, developers) for tracked coins. Candidate capabilities: runs only after scripts/lamble/providers.ts validate marks them validated and enabled.",
+      "description": "Pump and FOMO coin panels for tracked coins: plan.py panels writes p batches filled in priority order (coins collected daily, then other tracked coins) until the credit ceiling.",
       "cadence": "daily after daily-refresh",
       "cron": null,
       "scheduleStatus": "configured",
-      "scheduleEvidence": "Not installed. Capabilities are candidates; no budget approved.",
+      "scheduleEvidence": "Runs inside the daily routine after collect: python3 scripts/frames-refresh/plan.py $RUN panels, then call and save each p batch. The routine's own prompt must carry the 5,000-credit approval.",
       "capabilities": [
         "pump.coin",
-        "pump.holders",
+        "pump.trades",
         "pump.candles",
+        "pump.holders",
         "fomo.token",
         "fomo.holders",
-        "fomo.theses",
         "fomo.candles",
-        "fomo.developers"
+        "fomo.activity"
       ],
       "scope": "Open-membership coins only; Pump routes for Solana pump.fun-origin coins; FOMO routes for chains each descriptor lists.",
       "budget": {
-        "maxCreditsPerRun": 0,
-        "typicalCredits": "~6 credits per call x up to 8 calls per coin; quote with frames_probe_tools first",
-        "authorization": "none approved"
+        "maxCreditsPerRun": 3800,
+        "typicalCredits": "about 6.15 credits per delivered call ($0.001 seller price x 1.15 + $0.005); 5 calls per pump.fun coin, 4 per other coin; ~1,200 credits for the 43 daily-collected coins",
+        "authorization": "owner-approved 2026-10-20 in session (5,000 credits per daily run across paid jobs)"
       },
       "pagination": {
-        "fomoCandlesMaxPages": 3,
-        "fomoFeedMaxPages": 2,
-        "pumpCandlesCount": 720,
-        "pumpCandlesRes": "1h"
+        "pumpHoldersLimit": 50,
+        "pumpTradesLimit": 100,
+        "pumpCandles": "res 1d, count 30, measure price_usd",
+        "fomoCandles": "period 12h (two per UTC day; days are assembled only when both are present)",
+        "maxCallsPerBatch": 10
       },
       "freshness": {
         "maxAgeSeconds": 21600
@@ -259,8 +260,16 @@
       "writerGroup": "delivery",
       "outputs": [
         "data/delivery/state.json (cursor, attempts, backoff per destination)",
-    "data/delivery/verifications.json (verified targets; Telegram codes only as hashes)"
+        "data/delivery/verifications.json (verified targets; Telegram codes only as hashes)"
       ]
     }
-  ]
+  ],
+  "dailyCreditCeiling": 5000,
+  "framesPricing": {
+    "feeRate": 0.15,
+    "feeFloorUsdPerCall": 0.005,
+    "creditUsd": 0.001,
+    "rule": "Each delivered call bills price_usd x 1.15 + $0.005; refunded calls bill $0; max_usd must cover the sum (frames_get_usage, 2026-10-20).",
+    "accountLimits": "Plan per-run allowance 10,000 credits ($10); monthly grant 90,000 credits (frames_get_usage, 2026-10-20)."
+  }
 }

@@ -179,7 +179,7 @@ test("sampled FOMO and Pump holder panels never masquerade as complete holder co
     const panel = out.panels[0]!;
     assert.equal(panel.complete, false);
     assert.notEqual(panel.population, "all_holders");
-    assert.equal(panel.population, key === "fomo.holders" ? "fomo_users" : "top_holders_sample");
+    assert.equal(panel.population, key === "fomo.holders" ? "fomo_users" : "pump_users");
     // valueUsd has a declared USD unit only under the key "value", so the map's valueUsd (unit missing) is not read as USD.
     assert.equal(panel.rows[0]!.valueUsd, null);
     assert.equal(panel.rows[0]!.costBasisUsd, null);
@@ -194,21 +194,21 @@ test("FOMO candle times are milliseconds by descriptor and convert to seconds; u
   const cap = getCapability(catalog, "fomo.candles");
   const body = { data: [{ t: 1792368000000, o: 1, h: 2, l: 0.5, c: 1.5, v: 10 }] };
   const map = { items: "data", fields: { time: "t", open: "o", high: "h", low: "l", close: "c", volumeUsd: "v" }, units: { time: "milliseconds" as const, volumeUsd: "usd" as const } };
-  const ok = fomoCandles.normalize({ body, request: { id: cap.toolId!, args: { chain: "solana", address: "So11111111111111111111111111111111111111112", period: "1h" } }, capability: { ...cap, contract: { ...cap.contract, fieldMap: map } }, fetchedAt: 0, mode: "validation" } as never);
+  const ok = fomoCandles.normalize({ body, request: { id: cap.toolId!, args: { chain: "solana", address: "So11111111111111111111111111111111111111112", period: "1h" } }, capability: { ...cap, contract: { ...cap.contract, fieldMap: map } }, fetchedAt: 1_792_400_000, mode: "validation" } as never);
   assert.equal(ok.candles[0]!.start, 1792368000);
   assert.equal(ok.candles[0]!.volumeUsd, 10);
-  const noUnit = fomoCandles.normalize({ body, request: { id: cap.toolId!, args: { chain: "solana", address: "So11111111111111111111111111111111111111112", period: "1h" } }, capability: { ...cap, contract: { ...cap.contract, fieldMap: { ...map, units: {} } } }, fetchedAt: 0, mode: "validation" } as never);
+  const noUnit = fomoCandles.normalize({ body, request: { id: cap.toolId!, args: { chain: "solana", address: "So11111111111111111111111111111111111111112", period: "1h" } }, capability: { ...cap, contract: { ...cap.contract, fieldMap: { ...map, units: {} } } }, fetchedAt: 1_792_400_000, mode: "validation" } as never);
   assert.ok(noUnit.refused);
 });
 
 test("catalog: candidates cannot be enabled, and an unregistered adapter blocks enabling", () => {
   assert.deepEqual(checkCatalogRules(catalog, ADAPTER_KEYS), []);
   const flip = (key: string, patch: (c: Capability) => Capability) => ({ ...catalog, capabilities: catalog.capabilities.map((c) => (c.key === key ? patch(c) : c)) });
-  const enabledCandidate = flip("pump.holders", (c) => ({ ...c, enabled: true }));
+  const enabledCandidate = flip("pump.trending", (c) => ({ ...c, enabled: true }));
   const errors = checkCatalogRules(enabledCandidate, ADAPTER_KEYS);
   assert.ok(errors.some((e) => e.includes("enabled but status is candidate")));
   assert.ok(errors.some((e) => e.includes("without a verified field map")));
-  const noAdapter = flip("pump.holders", (c) => ({ ...c, adapter: "x4o2.pump.new-route" }));
+  const noAdapter = flip("pump.trending", (c) => ({ ...c, adapter: "x4o2.pump.new-route" }));
   assert.ok(checkCatalogRules(noAdapter, ADAPTER_KEYS).some((e) => e.includes("is not registered")));
   // Argument types follow the live seller schema (402 probe); the descriptor that disagreed is kept for the record.
   type Props = { properties: { limit: { type: string } } };

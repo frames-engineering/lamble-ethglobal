@@ -1119,7 +1119,20 @@
             }
           }
         },
-        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data",
+          "fields": {
+            "tokenAddress": "coin.mint",
+            "holderCount": "holders.holderCount",
+            "top10Share": "indexer.top10HoldersPercent"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "top10Share": "percent"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/pump.coin.json"
+        }
       },
       "attribution": {
         "searchId": null
@@ -1156,18 +1169,19 @@
         "maxAcceptedAgeSeconds": 21600
       },
       "cost": {
-        "maxCallsPerRun": 50,
-        "maxUsdPerBatch": 0.02
+        "maxCallsPerRun": 80,
+        "maxUsdPerBatch": 0.07
       },
       "validation": {
-        "status": "candidate",
-        "lastVerifiedAt": "2026-10-19T16:40:00Z",
-        "fieldMapVerified": false,
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:21.290Z",
+        "fieldMapVerified": true,
         "checks": [
           "descriptor",
-          "live-402-probe"
+          "live-402-probe",
+          "field-map-smoke"
         ],
-        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/pump.coin.json"
       },
       "rights": {
         "storage": "unknown",
@@ -1175,7 +1189,7 @@
         "redistribution": "unknown",
         "notes": "Terms not reviewed."
       },
-      "enabled": false,
+      "enabled": true,
       "uses": [
         "coin page Pump-native panel (after validation)"
       ]
@@ -1243,7 +1257,21 @@
             }
           }
         },
-        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.positions",
+          "fields": {
+            "wallet": "walletAddress",
+            "amount": "amountHeld",
+            "costBasisUsd": "costBasisUsd"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "amount": "token_units",
+            "costBasisUsd": "usd"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/pump.holders.json"
+        }
       },
       "attribution": {
         "searchId": null
@@ -1260,11 +1288,11 @@
       "adapter": "x4o2.pump.holders",
       "semantics": {
         "units": {
-          "amount": "token units (decimals unverified)",
-          "value/costBasis/pnl": "unverified: USD vs SOL"
+          "amountHeld": "token units (scaled)",
+          "costBasisUsd, pnlUsd": "USD (field names; consistent with prices in the sample)"
         },
-        "coverage": "Top-N largest positions as pump.fun tracks them (at most 100). A sample panel: never all holders, never ownership history.",
-        "population": "top_holders_sample",
+        "coverage": "Positions held by pump.fun accounts, largest first (50 per page; limit=100 is rejected). Not the largest on-chain holders: on 2026-10-20 PIERRE listed 526 positions against 3,890 on-chain holders, top-10 share 10.6% against 25.2% on chain. Never all holders, never ownership history.",
+        "population": "pump_users",
         "timestamps": "meta.observedAt only; a current-positions panel cannot reconstruct earlier balances.",
         "sourceReported": [
           "costBasis",
@@ -1276,24 +1304,26 @@
       },
       "pagination": {
         "kind": "limit",
-        "limit": 100
+        "limit": 50,
+        "note": "limit=100 was rejected (caller_error) on 2026-10-20; 50 and the default work."
       },
       "freshness": {
         "maxAcceptedAgeSeconds": 21600
       },
       "cost": {
-        "maxCallsPerRun": 50,
-        "maxUsdPerBatch": 0.02
+        "maxCallsPerRun": 80,
+        "maxUsdPerBatch": 0.07
       },
       "validation": {
-        "status": "candidate",
-        "lastVerifiedAt": "2026-10-19T16:40:00Z",
-        "fieldMapVerified": false,
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:22.277Z",
+        "fieldMapVerified": true,
         "checks": [
           "descriptor",
-          "live-402-probe"
+          "live-402-probe",
+          "field-map-smoke"
         ],
-        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/pump.holders.json"
       },
       "rights": {
         "storage": "unknown",
@@ -1301,9 +1331,9 @@
         "redistribution": "unknown",
         "notes": "Contains usernames and wallet addresses; display only aggregate shares until reviewed."
       },
-      "enabled": false,
+      "enabled": true,
       "uses": [
-        "top-holder concentration (sample-labelled) and fixed whale cohort balances (after validation)"
+        "pump.fun-user positions on the coin page (labelled pump.fun users); never concentration or whale cohorts"
       ]
     },
     {
@@ -1376,7 +1406,25 @@
             }
           }
         },
-        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.trades",
+          "fields": {
+            "signature": "ordinalKey",
+            "side": "side",
+            "wallet": "trader.address",
+            "amount": "baseAmount",
+            "usd": "valueUsd",
+            "time": "blockTimeMs"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "amount": "token_units",
+            "usd": "usd",
+            "time": "milliseconds"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/pump.trades.json"
+        }
       },
       "attribution": {
         "searchId": null
@@ -1409,24 +1457,25 @@
       "pagination": {
         "kind": "limit",
         "limit": 200,
-        "note": "No cursor in the descriptor: older trades are not reachable."
+        "note": "Most recent trades, newest first, complete between the oldest returned trade and the read time. 100 trades covered 6 minutes for an active coin on 2026-10-20. The response carries a cursor the descriptor does not document; it is not used."
       },
       "freshness": {
         "maxAcceptedAgeSeconds": 3600
       },
       "cost": {
-        "maxCallsPerRun": 50,
-        "maxUsdPerBatch": 0.02
+        "maxCallsPerRun": 80,
+        "maxUsdPerBatch": 0.07
       },
       "validation": {
-        "status": "candidate",
-        "lastVerifiedAt": "2026-10-19T16:40:00Z",
-        "fieldMapVerified": false,
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:21.627Z",
+        "fieldMapVerified": true,
         "checks": [
           "descriptor",
-          "live-402-probe"
+          "live-402-probe",
+          "field-map-smoke"
         ],
-        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/pump.trades.json"
       },
       "rights": {
         "storage": "unknown",
@@ -1434,7 +1483,7 @@
         "redistribution": "unknown",
         "notes": "Terms not reviewed."
       },
-      "enabled": false,
+      "enabled": true,
       "uses": [
         "wallet-resolved trades for absorption and first-seen buyers within the sampled window (after validation)"
       ]
@@ -1532,7 +1581,25 @@
             }
           }
         },
-        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.candles",
+          "fields": {
+            "time": "openTimeMs",
+            "open": "open",
+            "high": "high",
+            "low": "low",
+            "close": "close",
+            "volumeUsd": "volumeUsd",
+            "final": "final"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "time": "milliseconds",
+            "volumeUsd": "usd"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/pump.candles.json"
+        }
       },
       "attribution": {
         "searchId": null
@@ -1568,18 +1635,19 @@
         "maxAcceptedAgeSeconds": 21600
       },
       "cost": {
-        "maxCallsPerRun": 50,
-        "maxUsdPerBatch": 0.02
+        "maxCallsPerRun": 80,
+        "maxUsdPerBatch": 0.07
       },
       "validation": {
-        "status": "candidate",
-        "lastVerifiedAt": "2026-10-19T16:40:00Z",
-        "fieldMapVerified": false,
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:21.951Z",
+        "fieldMapVerified": true,
         "checks": [
           "descriptor",
-          "live-402-probe"
+          "live-402-probe",
+          "field-map-smoke"
         ],
-        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/pump.candles.json"
       },
       "rights": {
         "storage": "unknown",
@@ -1587,7 +1655,7 @@
         "redistribution": "unknown",
         "notes": "Terms not reviewed."
       },
-      "enabled": false,
+      "enabled": true,
       "uses": [
         "price lows for the bottoming test on pump.fun coins (after validation)"
       ]
@@ -2146,7 +2214,19 @@
             }
           }
         },
-        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data",
+          "fields": {
+            "holderCount": "statistics.holders",
+            "top10Share": "statistics.top10HoldersPercent"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "top10Share": "percent"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/fomo.token.json"
+        }
       },
       "attribution": {
         "searchId": null
@@ -2185,18 +2265,19 @@
         "maxAcceptedAgeSeconds": 21600
       },
       "cost": {
-        "maxCallsPerRun": 50,
-        "maxUsdPerBatch": 0.02
+        "maxCallsPerRun": 160,
+        "maxUsdPerBatch": 0.07
       },
       "validation": {
-        "status": "candidate",
-        "lastVerifiedAt": "2026-10-19T16:40:00Z",
-        "fieldMapVerified": false,
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:22.617Z",
+        "fieldMapVerified": true,
         "checks": [
           "descriptor",
-          "live-402-probe"
+          "live-402-probe",
+          "field-map-smoke"
         ],
-        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/fomo.token.json"
       },
       "rights": {
         "storage": "unknown",
@@ -2204,7 +2285,7 @@
         "redistribution": "unknown",
         "notes": "Terms not reviewed."
       },
-      "enabled": false,
+      "enabled": true,
       "uses": [
         "source-reported warnings and buy/sell stats on coin pages (after validation)"
       ]
@@ -2270,7 +2351,25 @@
             }
           }
         },
-        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.topHolders",
+          "fields": {
+            "wallet": "user.address",
+            "walletEvm": "user.evmAddress",
+            "amount": "humanAmount",
+            "valueUsd": "value",
+            "costBasisUsd": "costBasis",
+            "isDeveloper": "isDev"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "amount": "token_units",
+            "valueUsd": "usd",
+            "costBasisUsd": "usd"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/fomo.holders.json"
+        }
       },
       "attribution": {
         "searchId": null
@@ -2313,18 +2412,19 @@
         "maxAcceptedAgeSeconds": 21600
       },
       "cost": {
-        "maxCallsPerRun": 50,
-        "maxUsdPerBatch": 0.02
+        "maxCallsPerRun": 160,
+        "maxUsdPerBatch": 0.07
       },
       "validation": {
-        "status": "candidate",
-        "lastVerifiedAt": "2026-10-19T16:40:00Z",
-        "fieldMapVerified": false,
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:22.951Z",
+        "fieldMapVerified": true,
         "checks": [
           "descriptor",
-          "live-402-probe"
+          "live-402-probe",
+          "field-map-smoke"
         ],
-        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/fomo.holders.json"
       },
       "rights": {
         "storage": "unknown",
@@ -2332,7 +2432,7 @@
         "redistribution": "unknown",
         "notes": "Personal handles; terms not reviewed."
       },
-      "enabled": false,
+      "enabled": true,
       "uses": [
         "FOMO cohort context (labelled FOMO users) on coin pages"
       ]
@@ -2587,7 +2687,22 @@
             }
           }
         },
-        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data",
+          "fields": {
+            "time": "t",
+            "open": "o",
+            "high": "h",
+            "low": "l",
+            "close": "c"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "time": "milliseconds"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/fomo.candles.json"
+        }
       },
       "attribution": {
         "searchId": null
@@ -2609,9 +2724,9 @@
       "adapter": "x4o2.fomo.candles",
       "semantics": {
         "units": {
-          "t": "unix milliseconds, bucket start (descriptor)",
-          "o/h/l/c": "USD",
-          "v": "USD volume"
+          "t": "unix milliseconds (verified)",
+          "o/h/l/c": "USD price",
+          "v": "unit unverified (does not match Pump's USD volume for the same hour); not read"
         },
         "coverage": "300 buckets ending at `to`: depth = 300 x period (12.5 days at 1h). Page backwards with to= for longer history, bounded by jobs.json.",
         "timestamps": "t in milliseconds per the descriptor: converted to seconds on ingest.",
@@ -2626,18 +2741,19 @@
         "maxAcceptedAgeSeconds": 21600
       },
       "cost": {
-        "maxCallsPerRun": 100,
-        "maxUsdPerBatch": 0.02
+        "maxCallsPerRun": 160,
+        "maxUsdPerBatch": 0.07
       },
       "validation": {
-        "status": "candidate",
-        "lastVerifiedAt": "2026-10-19T16:40:00Z",
-        "fieldMapVerified": false,
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:23.259Z",
+        "fieldMapVerified": true,
         "checks": [
           "descriptor",
-          "live-402-probe"
+          "live-402-probe",
+          "field-map-smoke"
         ],
-        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/fomo.candles.json"
       },
       "rights": {
         "storage": "unknown",
@@ -2645,7 +2761,7 @@
         "redistribution": "unknown",
         "notes": "Terms not reviewed."
       },
-      "enabled": false,
+      "enabled": true,
       "uses": [
         "price lows (bottoming condition 2) for EVM and Solana coins (after validation)"
       ]
@@ -2928,7 +3044,22 @@
             }
           }
         },
-        "liveSchemaObservedAt": "2026-10-19T16:40:00Z"
+        "liveSchemaObservedAt": "2026-10-19T16:40:00Z",
+        "fieldMap": {
+          "items": "data.items",
+          "fields": {
+            "id": "id",
+            "type": "type",
+            "time": "createdAt",
+            "usd": "usdAmount"
+          },
+          "units": {
+            "observedAt": "milliseconds",
+            "time": "iso8601",
+            "usd": "usd"
+          },
+          "verifiedAgainst": "research/lamble/samples/x4o2-20261020/routes/fomo.activity.json"
+        }
       },
       "attribution": {
         "searchId": "srch_4471a203-e967-459d-a42f-a9e6156cd33d"
@@ -2967,18 +3098,19 @@
         "maxAcceptedAgeSeconds": 3600
       },
       "cost": {
-        "maxCallsPerRun": 50,
-        "maxUsdPerBatch": 0.02
+        "maxCallsPerRun": 160,
+        "maxUsdPerBatch": 0.07
       },
       "validation": {
-        "status": "candidate",
-        "lastVerifiedAt": "2026-10-19T16:40:00Z",
-        "fieldMapVerified": false,
+        "status": "validated",
+        "lastVerifiedAt": "2026-10-20T01:37:23.594Z",
+        "fieldMapVerified": true,
         "checks": [
           "live-402-probe",
-          "search-hit-schema"
+          "search-hit-schema",
+          "field-map-smoke"
         ],
-        "evidence": "data/provider-health/2026-10-19.json; frames_get_tool 2026-10-19"
+        "evidence": "research/lamble/samples/x4o2-20261020/routes/fomo.activity.json"
       },
       "rights": {
         "storage": "unknown",
@@ -2986,7 +3118,7 @@
         "redistribution": "unknown",
         "notes": "Terms not reviewed."
       },
-      "enabled": false,
+      "enabled": true,
       "uses": [
         "source-reported FOMO activity on coin pages (after validation)"
       ]

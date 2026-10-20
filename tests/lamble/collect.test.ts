@@ -226,3 +226,18 @@ test("batches are paced at least minIntervalMs apart", async () => {
     await f.close();
   }
 });
+
+test("a run never reserves more than its daily ceiling across batches", async () => {
+  const f = await fakeFrames({ runStatus: ["completed", "completed"] });
+  const r = runDir(0.05);
+  try {
+    writeFileSync(path.join(r.dir, "raw", "d2-request.json"), JSON.stringify({ calls: [{ id: TOOL, args: { q: 2 } }], idempotency_key: "lamble-20261020T060000Z-d2", max_usd: 0.05 }));
+    const out = await collect({ runDir: r.dir, batches: ["d1", "d2"], budget: { id: "task-5", approvedUsd: 1 }, ledgerFile: r.ledger, catalog, client: new McpClient({ url: f.url, authorization: "Bearer synthetic-token" }), runCeilingUsd: 0.08, sleep: noSleep });
+    assert.deepEqual(out.map((o) => o.status), ["completed", "refused"]);
+    assert.match(out[1]!.detail, /above its \$0\.08 daily ceiling/);
+    assert.equal(f.calls.filter((c) => c.name === "frames_invoke_tools").length, 1);
+  } finally {
+    r.cleanup();
+    await f.close();
+  }
+});

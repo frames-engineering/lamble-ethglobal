@@ -107,16 +107,28 @@ function usd(item: unknown, map: FieldMap, field: string): number | null {
   return num(pick(item, map.fields[field]));
 }
 
-/** Token quantities are read only when the map declares them in token units (not lamports, not raw base units). */
+/**
+ * Token quantities are read only when the map declares them in token units. A source that reports
+ * { raw, decimals } (base units plus the mint's decimals) is scaled by those decimals; nothing else is converted.
+ */
 function tokenAmount(item: unknown, map: FieldMap, field: string): number | null {
   if (!map.fields[field] || map.units?.[field] !== "token_units") return null;
-  const n = num(pick(item, map.fields[field]));
+  const v = pick(item, map.fields[field]);
+  let n: number | null;
+  if (v && typeof v === "object" && "raw" in v && "decimals" in v) {
+    const raw = num((v as { raw: unknown }).raw);
+    const decimals = num((v as { decimals: unknown }).decimals);
+    n = raw === null || decimals === null || !Number.isInteger(decimals) || decimals < 0 || decimals > 30 ? null : raw / 10 ** decimals;
+  } else n = num(v);
   return n === null || n < 0 ? null : n;
 }
 
 function resolveToken(item: unknown, map: FieldMap, input: X4o2Input): string | null {
   const address = pick(item, map.fields.tokenAddress);
-  const chainValue = pick(item, map.fields.tokenChain) ?? input.request.args.chain ?? (input.capability.dataNetworks.length === 1 ? input.capability.dataNetworks[0] : undefined);
+  const rawChain = pick(item, map.fields.tokenChain);
+  // A numeric network id resolves only through the map's verified table.
+  const mapped = rawChain !== undefined && rawChain !== null ? (map.networkIds?.[String(rawChain)] ?? (typeof rawChain === "string" && isChain(rawChain) ? rawChain : null)) : undefined;
+  const chainValue = mapped === undefined ? (input.request.args.chain ?? (input.capability.dataNetworks.length === 1 ? input.capability.dataNetworks[0] : undefined)) : mapped;
   const addr = typeof address === "string" ? address : typeof input.request.args.address === "string" ? input.request.args.address : typeof input.request.args.mint === "string" ? input.request.args.mint : null;
   // Only chain slugs resolve; numeric network ids are provider-specific and are not mapped by guesswork.
   if (typeof chainValue !== "string" || !isChain(chainValue) || !addr) return null;
@@ -144,6 +156,8 @@ const FEED_CLASS: Record<string, { class: EventClass; side?: "buy" | "sell" }> =
   thesis_created: { class: "social" },
   user_trade_profit_milestone: { class: "social" },
   user_with_smart_following: { class: "social" },
+  swap_buy: { class: "trade", side: "buy" },
+  swap_sell: { class: "trade", side: "sell" },
   new_token_listing: { class: "listing" },
   price_since_listing: { class: "listing" },
   manual: { class: "pinned_post" },
@@ -236,8 +250,10 @@ function holderAdapter(key: string): Adapter {
         return out;
       }
       const rows: HolderRow[] = [];
+      const evm = !tokenId.startsWith("solana:");
       items(input.body, map, out).forEach((item, i) => {
-        const wallet = pick(item, map.fields.wallet);
+        // FOMO accounts carry a Solana and an EVM address; the token's chain decides which one holds it.
+        const wallet = evm && map.fields.walletEvm ? pick(item, map.fields.walletEvm) : pick(item, map.fields.wallet);
         if (typeof wallet !== "string" || !wallet) {
           out.warnings.push(`holder ${i}: no wallet`);
           return;
@@ -296,6 +312,10 @@ function candleAdapter(key: string, resolutionArg: string): Adapter {
           return;
         }
         if (seen.has(start)) return;
+        // An interval the source marks as not final, or that had not ended when the body was fetched, is still open;
+        // it is not a candle yet. FOMO marks nothing, and two 12h halves would otherwise make a day before it ends.
+        if (map.fields.final && pick(item, map.fields.final) === false) return;
+        if (start + step > input.fetchedAt) return;
         seen.add(start);
         const o = num(pick(item, map.fields.open));
         const h = num(pick(item, map.fields.high));

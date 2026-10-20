@@ -10,7 +10,7 @@
  */
 import path from "node:path";
 
-import { loadCatalog } from "../../src/lib/lamble/catalog/load.ts";
+import { loadCatalog, loadJobs } from "../../src/lib/lamble/catalog/load.ts";
 import { budgetFromEnv, collect } from "../../src/lib/lamble/frames/collect.ts";
 import { McpClient } from "../../src/lib/lamble/frames/mcp.ts";
 import { repoRoot } from "../../src/lib/lamble/server/io.ts";
@@ -29,10 +29,20 @@ export async function main(argv: string[]): Promise<number> {
     return 2;
   }
   const budget = budgetFromEnv(process.env);
+  const jobs = loadJobs();
   const url = process.env.FRAMES_MCP_URL;
   const client = url ? new McpClient({ url, authorization: process.env.FRAMES_MCP_AUTHORIZATION ?? null }) : null;
   const outcomes = await withLockAsync("collect", () =>
-    collect({ runDir, batches, budget, ledgerFile: path.join(repoRoot(), "data", "collect", "ledger.json"), client, dryRun, catalog: loadCatalog(true) }),
+    collect({
+      runDir,
+      batches,
+      budget,
+      ledgerFile: path.join(repoRoot(), "data", "collect", "ledger.json"),
+      client,
+      dryRun,
+      catalog: loadCatalog(true),
+      runCeilingUsd: jobs.dailyCreditCeiling * jobs.framesPricing.creditUsd,
+    }),
   );
   for (const o of outcomes) console.log(`${o.batch}: ${o.status} — ${o.detail}${o.chargedCredits != null ? ` (${o.chargedCredits} credits)` : ""}`);
   return outcomes.some((o) => ["failed", "refused", "timeout", "requires_approval"].includes(o.status)) ? 1 : 0;

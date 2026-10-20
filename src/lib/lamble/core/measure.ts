@@ -33,7 +33,7 @@ export interface Coverage {
   observed?: number;
   required?: number;
   /** Population label for holder data, which is never silently widened. */
-  population?: "all_holders" | "top_holders_sample" | "fomo_users" | "recent_trades_sample" | "tracked_universe" | "covered_venues";
+  population?: "all_holders" | "top_holders_sample" | "fomo_users" | "pump_users" | "recent_trades_sample" | "tracked_universe" | "covered_venues";
 }
 
 export interface Measure<T = number> {

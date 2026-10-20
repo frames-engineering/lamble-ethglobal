@@ -376,4 +376,29 @@ CREATE TABLE address_labels (
 );
 `,
   },
+  {
+    // Pump's holder route lists pump.fun accounts' positions, a population of its own (2026-10-20 samples).
+    id: "0003_pump_users_population",
+    sql: `
+CREATE TABLE holder_panels_next (
+  panel_id TEXT PRIMARY KEY,
+  token_id TEXT NOT NULL,
+  capability TEXT NOT NULL,
+  population TEXT NOT NULL CHECK (population IN ('top_holders_sample', 'fomo_users', 'pump_users', 'all_holders')),
+  complete INTEGER NOT NULL CHECK (complete IN (0, 1)),
+  observed_at INTEGER NOT NULL,
+  available_at INTEGER NOT NULL,
+  run_id TEXT NOT NULL REFERENCES runs(run_id),
+  evidence_id TEXT NOT NULL,
+  extraction TEXT NOT NULL,
+  row_count INTEGER NOT NULL
+);
+INSERT INTO holder_panels_next SELECT * FROM holder_panels;
+DROP INDEX holder_panels_token;
+PRAGMA defer_foreign_keys = ON;
+DROP TABLE holder_panels;
+ALTER TABLE holder_panels_next RENAME TO holder_panels;
+CREATE INDEX holder_panels_token ON holder_panels (token_id, observed_at);
+`,
+  },
 ];

@@ -156,6 +156,8 @@ export interface CollectOptions {
   catalog: Catalog;
   /** Minimum time between two batch invocations (default 2000 ms). */
   minIntervalMs?: number;
+  /** Most a run may reserve across all its batches, in USD (jobs.json dailyCreditCeiling x creditUsd). */
+  runCeilingUsd?: number;
   dryRun?: boolean;
   pollMs?: number;
   timeoutMs?: number;
@@ -185,8 +187,10 @@ export async function collect(o: CollectOptions): Promise<BatchOutcome[]> {
 
   // Calls the run already made: batches saved by an earlier collection of this run (any outcome that reached Frames).
   const priorCalls = new Map<string, number>();
+  let runReservedUsd = 0;
   const count = (req: BatchRequest) => {
     for (const [k, n] of callsByCapability(o.catalog, req).counts) priorCalls.set(k, (priorCalls.get(k) ?? 0) + n);
+    runReservedUsd += req.max_usd;
   };
   const listed = new Set(requests.map((r) => r.batch));
   const rawDir = path.join(o.runDir, "raw");
@@ -204,6 +208,9 @@ export async function collect(o: CollectOptions): Promise<BatchOutcome[]> {
       continue;
     }
     const refusals = catalogRefusals(o.catalog, req, priorCalls);
+    if (o.runCeilingUsd !== undefined && runReservedUsd + req.max_usd > o.runCeilingUsd + 1e-9) {
+      refusals.push(`the run would reserve $${(runReservedUsd + req.max_usd).toFixed(4)}, above its $${o.runCeilingUsd.toFixed(2)} daily ceiling`);
+    }
     if (refusals.length) {
       out.push({ batch, status: "refused", detail: `Catalog limits: ${refusals.join("; ")}. No call made.` });
       continue;

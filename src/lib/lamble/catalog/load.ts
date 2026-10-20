@@ -35,6 +35,9 @@ export interface JobsConfig {
   updatedAt: string;
   policy: Record<string, string>;
   codexBars: { fields: string[]; ohlcFields: string[]; ohlcEnabled: boolean; ohlcStatus: string; maxAliasesPerCall: number; bodyCharLimit: number };
+  /** Total credits a daily run may spend across paid jobs (owner-approved). */
+  dailyCreditCeiling: number;
+  framesPricing: { feeRate: number; feeFloorUsdPerCall: number; creditUsd: number; rule: string; accountLimits: string };
   jobs: JobSpec[];
 }
 

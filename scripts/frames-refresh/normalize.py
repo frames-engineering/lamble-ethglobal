@@ -35,7 +35,8 @@ TURNOVER_FLAG = 10        # 24h pool volume above this multiple of circulating m
 NO_CURVE_COMPLETION = {'argus-world', 'clanker', 'o1-launchpad'}
 # d* = discovery, e* = evidence (e2+ are retries or story checks for candidates); all are citable as "<batch>:<seq>".
 FIN_BATCHES = sorted((f.name[:-13] for f in (P / 'raw').glob('f*-request.json')), key=lambda b: int(b[1:]))
-BATCHES = FIN_BATCHES + ['c1'] + sorted(f.name[:-13] for f in (P / 'raw').glob('[cde]*-request.json') if f.name != 'c1-request.json')
+# p* = Pump and FOMO coin panels (plan.py panels): evidence and billing only here; the TypeScript ingest normalizes them.
+BATCHES = FIN_BATCHES + ['c1'] + sorted(f.name[:-13] for f in (P / 'raw').glob('[cdep]*-request.json') if f.name != 'c1-request.json')
 DAILY = (P / 'raw/c2-request.json').exists()  # 30 daily all-pool bars per constituent (plan.py collect writes c2)
 
 

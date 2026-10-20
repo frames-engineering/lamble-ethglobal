@@ -47,7 +47,10 @@ function enabled(key: string, fieldMap: FieldMap): Capability {
   };
 }
 
-const holdersCap = enabled("pump.holders", { items: "data", fields: { wallet: "owner", amount: "balance" }, units: { amount: "token_units", observedAt: "iso8601" } });
+// A HYPOTHETICAL top-holder source: no enabled capability provides the largest on-chain positions (pump.holders lists
+// pump.fun accounts' positions, population pump_users), so the panel route is relabelled here to exercise the path.
+const pumpUsersCap = enabled("pump.holders", { items: "data", fields: { wallet: "owner", amount: "balance" }, units: { amount: "token_units", observedAt: "iso8601" } });
+const holdersCap: Capability = { ...pumpUsersCap, semantics: { ...pumpUsersCap.semantics, population: "top_holders_sample" } };
 const tradesCap = enabled("pump.trades", {
   items: "data",
   fields: { signature: "sig", side: "side", wallet: "user", amount: "tokens", usd: "usd", time: "ts" },

@@ -6,7 +6,8 @@ import type { Chain } from "../core/identity.ts";
 
 export type ValidationStatus = "validated" | "candidate" | "discovered" | "blocked" | "deprecated";
 export type RightsValue = "permitted" | "link-only" | "unknown" | "prohibited";
-export type Population = "top_holders_sample" | "fomo_users" | "recent_trades_sample" | "top_traders_by_profit_sample" | "all_holders";
+/** pump_users and fomo_users are positions of the app's own accounts, not the largest on-chain holders. */
+export type Population = "top_holders_sample" | "fomo_users" | "pump_users" | "recent_trades_sample" | "top_traders_by_profit_sample" | "all_holders";
 
 export interface Capability {
   key: string;
@@ -53,6 +54,8 @@ export interface FieldMap {
   fields: Record<string, string>;
   units?: Record<string, "seconds" | "milliseconds" | "iso8601" | "usd" | "sol" | "token_units" | "ratio" | "percent">;
   verifiedAgainst?: string;
+  /** Provider network ids proven by a retained response (e.g. "1399811149": "solana"); others stay unresolved. */
+  networkIds?: Record<string, string>;
 }
 
 export interface Catalog {

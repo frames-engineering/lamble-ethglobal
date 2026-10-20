@@ -48,3 +48,12 @@ def upstream_names():
 def codex_bar_fields():
     cfg = JOBS['codexBars']
     return cfg['fields'] + (cfg['ohlcFields'] if cfg['ohlcEnabled'] else []), cfg['maxAliasesPerCall']
+
+
+def billed_usd(key):
+    """What Frames bills for one delivered call of a capability: seller price x (1 + fee rate) + per-call fee floor."""
+    c = capability(key); fee = JOBS['framesPricing']
+    price = (c.get('payment') or {}).get('priceHintUsd')
+    if price is None:
+        raise SystemExit(f'capability {key} has no price hint; quote it with frames_probe_tools first')
+    return price * (1 + fee['feeRate']) + fee['feeFloorUsdPerCall']
