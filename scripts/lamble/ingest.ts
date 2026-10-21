@@ -637,14 +637,20 @@ function rebuildCurated(db: Db, latestRun: string): void {
   for (const { narrative_id } of narratives) {
     const present = new Set(all<{ run_id: string }>(db, "SELECT run_id FROM featured WHERE narrative_id = ?", narrative_id).map((r) => r.run_id));
     let open: { from: number; recorded: number } | null = null;
+    let dropped: { state: string; from: number; recorded: number; reason: string; source: string } | null = null;
     const put = (state: string, from: number, to: number | null, recorded: number, reason: string | null, source: string) =>
       db.prepare("INSERT OR REPLACE INTO narrative_lifecycle (narrative_id, state, from_at, to_at, recorded_at, reason, source) VALUES (?, ?, ?, ?, ?, ?, ?)").run(narrative_id, state, from, to, recorded, reason, source);
     for (const r of runsWithNarratives) {
-      if (present.has(r.run_id) && !open) open = { from: r.runtime_at, recorded: r.available_at };
-      else if (!present.has(r.run_id) && open) {
+      if (present.has(r.run_id) && !open) {
+        // A narrative collected again (resumed after a pause) ends the state it was dropped into.
+        if (dropped) put(dropped.state, dropped.from, r.runtime_at, dropped.recorded, dropped.reason, dropped.source);
+        dropped = null;
+        open = { from: r.runtime_at, recorded: r.available_at };
+      } else if (!present.has(r.run_id) && open) {
         put("collected", open.from, r.runtime_at, open.recorded, null, "featured runs");
         const after = stateAfterDrop(drops.get(narrative_id) ?? [], r.runtime_at);
         put(after.state, r.runtime_at, null, r.available_at, after.reason, after.source);
+        dropped = { state: after.state, from: r.runtime_at, recorded: r.available_at, reason: after.reason, source: after.source };
         open = null;
       }
     }
