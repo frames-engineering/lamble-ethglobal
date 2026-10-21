@@ -111,10 +111,18 @@ test("article figures are the release's figures", () => {
   const ca = coinArticle(r.data, coin);
   const mcap = ca.body.flatMap((b) => (b.type === "facts" ? b.rows : [])).find((x) => x.label.startsWith("Market cap"))!;
   assert.equal(mcap.value, compactUsd(coin.market.marketCap.value, 2));
-  // Fractional returns are rendered as percents of the fraction, never as the raw fraction.
-  const peers = ca.body.find((b) => b.type === "p" && b.text.startsWith("Peers are"));
-  const firstPriced = coin.peers.find((p) => p.return7d !== null)!;
-  assert.ok(peers && peers.type === "p" && peers.text.includes(percent(100 * firstPriced.return7d!, { digits: 1, signed: true })));
+  // Fractional returns are rendered as percents of the fraction, never as the raw fraction; with no priced peer the
+  // article says so. Both cases use the coin's own peers with set returns, so the test does not depend on which days
+  // had a run (a missing run seven days back leaves every peer unpriced).
+  assert.ok(coin.peers.length > 0);
+  const peersText = (returns: (number | null)[]) => {
+    const b = coinArticle(r.data, { ...coin, peers: coin.peers.map((x, i) => ({ ...x, return7d: returns[i] ?? null })) }).body.find((x) => x.type === "p" && x.text.startsWith("Peers are"));
+    assert.ok(b && b.type === "p");
+    return b.text;
+  };
+  const priced = peersText([0.1234]);
+  assert.ok(priced.includes(percent(12.34, { digits: 1, signed: true })) && !priced.includes("0.1234"), priced);
+  assert.match(peersText([]), /None has a 7-day snapshot return/);
   const n = r.data.narratives.find((x) => x.slug === "super-intelligence")!;
   const na = narrativeArticle(r.data, n, [e]);
   assert.ok(na.dek.startsWith(compactUsd(n.activity.volume7d.value, 2)));
