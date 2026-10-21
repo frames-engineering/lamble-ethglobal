@@ -26,7 +26,7 @@ import { type AvailabilityFile, decideAvailability } from "../../src/lib/lamble/
 import { type Db, all, migrate, one, openDb, tx } from "../../src/lib/lamble/store/sqlite.ts";
 import { PIPELINE_MIGRATIONS } from "../../src/lib/lamble/store/schema.ts";
 
-export const INGEST_VERSION = "lamble-ingest-1.3.1";
+export const INGEST_VERSION = "lamble-ingest-1.3.2";
 export const TRANSFORM_VERSION = "lamble-adapters-1.2.0";
 export const ADDRESS_LABELS_PATH = "docs/data/address-labels.json";
 const RUN_ID = /^\d{8}T\d{6}Z$/;
