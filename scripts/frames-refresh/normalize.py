@@ -352,6 +352,14 @@ social = [dict(postId=tw['id'], url=f"https://x.com/{tw['author']['screen_name']
                attentionInterpretation='Top-results convenience sample; no mention total or historical mindshare.') for tw, src in tweets.values()]
 prior_evidence = {e['id']: e for e in read('evidence.json', PRIOR_N)}
 narratives = read('narratives.json', PRIOR_N)
+resumed = curation.get('resumedNarratives', {})  # a paused narrative collected again: restore its record from the run that last featured it
+for nid, spec in resumed.items():
+    src = (ROOT / spec['fromRun']).resolve()
+    rec = next(n for n in read('narratives.json', src) if n['id'] == nid)
+    assert nid not in {n['id'] for n in narratives} and nid not in paused and nid not in retired, f'{nid} is already active, paused or retired'
+    assert any(u['narrativeId'] == nid for u in universe), f'resumed narrative {nid} has no pools in the registry'
+    narratives.append(rec)
+    prior_evidence.update({e['id']: e for e in read('evidence.json', src)})
 # endsMembership marks a retirement recorded since pausedNarratives exists; earlier records were cap replacements.
 retired_records = [dict(narrativeId=n['id'], title=n['title'], retiredAt=RUNTIME, reason=retired[n['id']]['reason'], endsMembership=True,
                         lastVolume24hUsd=n['volume24hUsd'], lastChartAnchor=n['_meta']['chartAnchor']) for n in narratives if n['id'] in retired]
@@ -507,6 +515,9 @@ for tid, c in curation.get('removedMembers', {}).items():
         candidates['candidates'].append(dict(address=tid.split(':', 1)[1], tokenId=tid, status='removed', removedIn=P.name, reason=c['reason']))
 candidates.setdefault('retiredNarratives', []).extend(retired_records)
 if paused_records: candidates.setdefault('pausedNarratives', []).extend(paused_records)
+if resumed:  # keep the pause on record, marked resumed, so a narrative is never listed as both paused and active
+    for rec in candidates.get('pausedNarratives', []):
+        if rec['narrativeId'] in resumed and 'resumedAt' not in rec: rec.update(resumedAt=RUNTIME, resumedIn=P.name)
 for name, obj in [('launchpads.json', launchpads), ('landing-metrics.json', landing), ('narratives.json', narratives), ('tokens.json', tokens),
                   ('memberships.json', members), ('evidence.json', evidence), ('precreation-zero-provenance.json', precreation), ('social-evidence.json', social),
                   ('financial-revisions.json', dict(priorRun=PRIOR.name, revisions=revisions)), ('hourly-revisions.json', overlap), ('candidates.json', candidates),
