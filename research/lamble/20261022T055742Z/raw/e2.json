@@ -1,0 +1,2475 @@
+{
+ "run_id": "run_bc975ac083864fe2ae2bf24d3ea5be91",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 33,
+  "budget_credits": 100,
+  "balance_credits": 46995,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 52,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 5,
+  "delivered": 3,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 11602,
+     "stored_chars": 11602,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x218043a6b95e48e687bda694cf879fe6917a02069a6e18397a01890b60e8ea97",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-22T06:02:07.261594971Z",
+     "query": "php2shell $SURY",
+     "type": "top",
+     "tweet_count": 17,
+     "tweets": [
+      {
+       "id": "2112970734540935235",
+       "text": "&gt; https://t.co/S7hjGViSms \ud83d\udc40\n\n#CyberSecurity #infosec #php2shell",
+       "created_at": "2026-10-21T18:14:14Z",
+       "lang": "und",
+       "likes": 135,
+       "retweets": 20,
+       "replies": 11,
+       "quotes": 4,
+       "bookmarks": 190,
+       "views": 66686,
+       "conversation_id": "2112970734540935235",
+       "is_quote": false,
+       "urls": [
+        "https://github.com/9bie/php2shell-bypass-aslr-exp"
+       ],
+       "author": {
+        "id": "1281286039550607360",
+        "screen_name": "J4ck3LSyN",
+        "name": "J\u03bbck\u03bb\u03b9",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1392971712979881985/HIiu6LJ0_normal.jpg"
+       }
+      },
+      {
+       "id": "2113125907846270989",
+       "text": "High fidelity scanner for php2shell (CVE-2026-109618 and CVE-2026-109619)\n\nhttps://t.co/Camyx8l5Qu",
+       "created_at": "2026-10-22T04:30:51Z",
+       "lang": "en",
+       "likes": 137,
+       "retweets": 25,
+       "replies": 1,
+       "quotes": 1,
+       "bookmarks": 128,
+       "views": 7062,
+       "conversation_id": "2113125907846270989",
+       "is_quote": false,
+       "urls": [
+        "https://github.com/assetnote/php2shell-scanner"
+       ],
+       "author": {
+        "id": "128484298",
+        "screen_name": "Dinosn",
+        "name": "Nicolas Krassas",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1932450033233747968/nu7wcCd5_normal.jpg"
+       }
+      },
+      {
+       "id": "2112811239823011931",
+       "text": "\ud83d\udea8\u3010\u901f\u5831\u3011PHP\u306e\u91cd\u5927\u6b20\u9665\u300cphp2shell\u300d\u3001\u30b5\u30fc\u30d0\u30fc\u4e57\u3063\u53d6\u308a\u306b\u3064\u306a\u304c\u308b\u6050\u308c\n\n\u30fb\u8106\u5f31\u60272\u4ef6\u306f\u3068\u3082\u306b\u5371\u967a\u5ea69.2\u3001\u6700\u9ad8\u6df1\u523b\u5ea6\u533a\u5206\n\u30fb\u653b\u6483\u53ef\u80fd\u3068\u4e3b\u5f35\u3059\u308b\u30b3\u30fc\u30c9\u304c\u65e2\u306b\u30cd\u30c3\u30c8\u4e0a\u306b\u6d41\u901a\n\u30fb\u65e2\u77e5\u306e\u8a2d\u5b9a\u5909\u66f4\u3060\u3051\u3067\u306f\u653b\u6483\u3092\u9632\u3052\u306a\u3044\u898b\u8fbc\u307f\n\u30fb21\u65e523\u6642\u306b\u4fee\u6b63\u516c\u958b\u4e88\u5b9a https://t.co/qUagWXfVuo",
+       "created_at": "2026-10-21T07:40:28Z",
+       "lang": "ja",
+       "likes": 150,
+       "retweets": 43,
+       "replies": 0,
+       "quotes": 7,
+       "bookmarks": 27,
+       "views": 40281,
+       "conversation_id": "2112811239823011931",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1440004894417559553",
+        "screen_name": "SOU_BTC",
+        "name": "SOU\u26a1\ufe0f\u6295\u8cc7\u30cb\u30e5\u30fc\u30b9 / \u7c73\u56fd\u682a\u30fb\u65e5\u672c\u682a\u30fb\u4eee\u60f3\u901a\u8ca8\u30fbAI",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1765218233324597248/LRgSXGTP_normal.png"
+       }
+      },
+      {
+       "id": "2112976120119546088",
+       "text": "Our whole #PHP infrastructure was patched within minutes. \nWorked flawlessly. \nNo breach, everything secured. \nSuper quick release on the #sury APT repo, great work!\n\nWe will continue to watch #php2shell, so our platforms and clients stay secure.",
+       "created_at": "2026-10-21T18:35:38Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 177,
+       "conversation_id": "2112976120119546088",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2041616110844264448",
+        "screen_name": "sarah_robiin",
+        "name": "Sarah Robin",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2093286653339082752/3OGyWLK8_normal.jpg"
+       }
+      },
+      {
+       "id": "2113119832157880725",
+       "text": "Just published our high fidelity scanner for php2shell: https://t.co/KV6QWffa0h\n\nSee our detection logic here: https://t.co/nj6p3qhWfa\n\nWe've taken care in our detection logic and hope it helps defenders. Congrats to @calif_io and @lcfr_hax for the discovery.",
+       "created_at": "2026-10-22T04:06:42Z",
+       "lang": "en",
+       "likes": 176,
+       "retweets": 31,
+       "replies": 5,
+       "quotes": 6,
+       "bookmarks": 132,
+       "views": 8476,
+       "conversation_id": "2113119832157880725",
+       "is_quote": false,
+       "urls": [
+        "https://github.com/assetnote/php2shell-scanner",
+        "https://www.slcyber.io/research/high-fidelity-detection-mechanism-for-php2shell-cve-2026-109618-and-cve-2026-109619"
+       ],
+       "author": {
+        "id": "1674598830",
+        "screen_name": "infosec_au",
+        "name": "shubs",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/932695259338985473/c81TqWog_normal.jpg"
+       }
+      },
+      {
+       "id": "2113066111113867581",
+       "text": "Sury is running hard af right now but there was actually TWO people who fixed the PHP exploit. , he managed to push out the fixes whilst on vacation!\n\nPROOF: https://t.co/jCNwV9SWin\n\nRemi's work: https://t.co/Iziup5wAKS\n\nhis github: https://t.co/I1FsMuKYPv\n\nfees to his git https://t.co/Wf4sOFmbW5",
+       "created_at": "2026-10-22T00:33:14Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 2,
+       "replies": 1,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 1099,
+       "conversation_id": "2113066111113867581",
+       "is_quote": false,
+       "urls": [
+        "https://www.reddit.com/r/PHP/comments/1xbwyd3/comment/19rg6294eanab/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button",
+        "https://bsky.app/profile/remirepo.net",
+        "https://github.com/remicollet"
+       ],
+       "author": {
+        "id": "1992656481146343424",
+        "screen_name": "SkritXBT",
+        "name": "skrit",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104966800878280704/8sVhUxtc_normal.jpg"
+       }
+      },
+      {
+       "id": "2113142610604782010",
+       "text": "\ud83d\udea8 PHP2Shell: patch now.\nTwo critical PHP core flaws (CVE-2026-109618 / -109619, CVSS 9.2) allow unauthenticated remote code execution, before any app code runs on Apache mod_php.\n\u2022 Exploitation seen Oct 17, four days before disclosure (AWS)\u2028\u2022 Now broadly exploited in the wild",
+       "created_at": "2026-10-22T05:37:13Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 103,
+       "conversation_id": "2113142610604782010",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2022025603788996608",
+        "screen_name": "ThomasHuffman79",
+        "name": "Thomas Huffman",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2094666563441790976/L72IYTyL_normal.jpg"
+       }
+      },
+      {
+       "id": "2113035003378671739",
+       "text": "php2shell\u3001Sury\u304cPHP\u516c\u5f0f\u306e\u4fee\u6b63\u30925.6\u30847.x\u306a\u3069\u306eEOL\u30d0\u30fc\u30b8\u30e7\u30f3\u306b\u3082\u30d0\u30c3\u30af\u30dd\u30fc\u30c8\u3057\u3066\u304f\u308c\u305f\u3068\u306e\u3053\u3068\n\nDebian\u3067Sury\u304c\u63d0\u4f9b\u3059\u308bAPT\u30ea\u30dd\u30b8\u30c8\u30ea\u304b\u3089\u53e4\u3044PHP\u3092\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u3057\u3066\u3044\u308b\u30b5\u30fc\u30d0\u30fc\u306f\u3001\u4fee\u6b63\u7248\u306e\u914d\u5e03\u3092\u78ba\u8a8d\u3057\u3066\u3001\u65e9\u3081\u306bapt upgrade\u3057\u3066\u304a\u304d\u305f\u3044\n\nhttps://t.co/ZbR2qKdR44",
+       "created_at": "2026-10-21T22:29:37Z",
+       "lang": "ja",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 2,
+       "views": 394,
+       "conversation_id": "2113035003378671739",
+       "is_quote": true,
+       "urls": [
+        "https://codeberg.org/oerdnj/deb.sury.org/issues/145"
+       ],
+       "author": {
+        "id": "199337549",
+        "screen_name": "happyxgarden",
+        "name": "Masataka Fukuba",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1751231505756745728/FAz5Xc0k_normal.jpg"
+       }
+      },
+      {
+       "id": "2113148316246503513",
+       "text": "Entry $SURY\nCA&gt; DYR8KqxtvkRHxcoFSMw62335Se3UfuE8GitP2iePpump https://t.co/RiNM0pXtoG",
+       "created_at": "2026-10-22T05:59:53Z",
+       "lang": "de",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 9,
+       "conversation_id": "2113148316246503513",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2084006024042733568",
+        "screen_name": "VeilGemm",
+        "name": "VeilGemm",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2096524865884901376/t6NM8jQt_normal.jpg"
+       }
+      },
+      {
+       "id": "2113138200827117752",
+       "text": "Fixes for the critical PHP \u201cPHP2Shell\u201d vulnerabilities have been applied to all servers managed by ServerPilot, including end-of-life PHP versions back to PHP 5.6.\n\nhttps://t.co/wDZ6sEvFp6",
+       "created_at": "2026-10-22T05:19:41Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 267,
+       "conversation_id": "2113138200827117752",
+       "is_quote": false,
+       "urls": [
+        "https://serverpilot.io/blog/php2shell-vulnerabilities/"
+       ],
+       "author": {
+        "id": "1137770767",
+        "screen_name": "ServerPilot",
+        "name": "ServerPilot",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1240523972401229824/OF_vtSyN_normal.jpg"
+       }
+      },
+      {
+       "id": "2113008329739980960",
+       "text": "php2shell is real.\n\nOfficial php:8.4.26-apache image \u2192 RCE\nPure HTTP. No session_start(). No app gadget.\nOOM \u2192 UAF \u2192 heap leak \u2192 ASLR bypass \u2192 zif_system\n\nPROOF: uid=33(www-data)\n\n#PHP #infosec #CVEALERT https://t.co/5g6QJeScEx",
+       "created_at": "2026-10-21T20:43:38Z",
+       "lang": "en",
+       "likes": 110,
+       "retweets": 8,
+       "replies": 6,
+       "quotes": 0,
+       "bookmarks": 46,
+       "views": 14343,
+       "conversation_id": "2113008329739980960",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "211997499",
+        "screen_name": "s3yfullah",
+        "name": "Seyfullah KILI\u00c7",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1715433667193966593/jgbmG3bM_normal.jpg"
+       }
+      },
+      {
+       "id": "2113144885855293542",
+       "text": "$SURRY\n\nDYR8KqxtvkRHxcoFSMw62335Se3UfuE8GitP2iePpump https://t.co/wrgLf6j8aN",
+       "created_at": "2026-10-22T05:46:15Z",
+       "lang": "de",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 13,
+       "conversation_id": "2113144885855293542",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2534454513",
+        "screen_name": "mrW0LVE",
+        "name": "mr.WOLF\ud83d\ude80",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2100695529579569152/qo8NKV_l_normal.jpg"
+       }
+      },
+      {
+       "id": "2113140541307379808",
+       "text": "\u4f20\u5947\u9ed1\u5ba2LCFR @lcfr_hax \u7b2c\u4e00\u4e2a\u53d1\u73b0 php2shell \u6f0f\u6d1e\n\nd935be023a55b04681eccd1d2b8385b4b295e141a5df108e5e979d8d5d7124ac https://t.co/QfyXI2yuKm",
+       "created_at": "2026-10-22T05:28:59Z",
+       "lang": "zh",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 138,
+       "conversation_id": "2113140541307379808",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "17546641",
+        "screen_name": "tspy",
+        "name": "yishan",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2085946576317624320/Hn16xInd_normal.jpg"
+       }
+      },
+      {
+       "id": "2113143524904636781",
+       "text": "PHP2Shell \u306e\u60aa\u7528\u304c\u5897\u3048\u7d9a\u3051\u3066\u3044\u308b\u3088\u3046\u3067\u3059\u3002\u5bfe\u7b56\u304c\u5b8c\u4e86\u3057\u3066\u3044\u306a\u3044\u30b5\u30a4\u30c8\u3084\u30b7\u30b9\u30c6\u30e0\u306f\u505c\u6b62\u3057\u307e\u3057\u3087\u3046",
+       "created_at": "2026-10-22T05:40:51Z",
+       "lang": "ja",
+       "likes": 9,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 268,
+       "conversation_id": "2113143524904636781",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "173746885",
+        "screen_name": "yoppy0123",
+        "name": "\u5409\u5ca1 \u88d5\u8cb4",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2072602717613375488/dcVmkTrM_normal.jpg"
+       }
+      },
+      {
+       "id": "2112971866738675798",
+       "text": "Si no pod\u00e9is actualizar php en Debian/Ubuntu del repo ppa:ondrej/php pod\u00e9is usar el privado de Sury\n\nhttps://t.co/3RmtkDdOaa",
+       "created_at": "2026-10-21T18:18:44Z",
+       "lang": "es",
+       "likes": 3,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 481,
+       "conversation_id": "2112971866738675798",
+       "is_quote": false,
+       "urls": [
+        "https://packages.sury.org/php/README.txt"
+       ],
+       "author": {
+        "id": "183813004",
+        "screen_name": "edezacas",
+        "name": "Eduard Deza",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2097964919102885888/7A0O6SYQ_normal.jpg"
+       }
+      },
+      {
+       "id": "2112760737873768664",
+       "text": "#PHP2shell is going to be nasty. No patch available yet (will be released tomorrow at 7am PT/14:00 UTC per https://t.co/3hmdvu30j4)\n\nUse your @Sourcegraph code search to identify every Dockerfile, k8s manifest or helm chart, puppet/ansible/chef config, etc to ensure the latest",
+       "created_at": "2026-10-21T04:19:47Z",
+       "lang": "en",
+       "likes": 13,
+       "retweets": 2,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 4,
+       "views": 5574,
+       "conversation_id": "2112760737873768664",
+       "is_quote": true,
+       "urls": [
+        "https://php.net"
+       ],
+       "author": {
+        "id": "407203367",
+        "screen_name": "DanielNealAdler",
+        "name": "Dan Adler",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1942993183371333635/S1lnq_uJ_normal.jpg"
+       }
+      },
+      {
+       "id": "2113065221551997002",
+       "text": "Bid $sury \n\nDYR8KqxtvkRHxcoFSMw62335Se3UfuE8GitP2iePpump\n\nSaviour of the Internet (SURY) is a meme token that honors Ond\u0159ej Sur\u00fd, whose repositories backported security updates to PHP 7.4, a fix one sysadmin credited with saving the day.\n\nThe token directs its fees to Ond\u0159ej",
+       "created_at": "2026-10-22T00:29:42Z",
+       "lang": "en",
+       "likes": 6,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 893,
+       "conversation_id": "2113065221551997002",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1891268923284439040",
+        "screen_name": "_Twae_0",
+        "name": "TWAE \ud83e\udd87",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2040218184905580544/0L3fk3v3_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVNptLVAJxAKAAMdU2m0tT_Y8AgABAAAAAILAAUAAAEcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJnZFVvbkE4NVpoV2gxUzZlRjFsOUNnSFZNZG41M1d3RW9kVTJUWENWdVJiUjFTeUxmQldsQldIVk5tRStoV2tHWWRVbzZ5VTFkUkhoMVRhTTliMTRBQUhWTmlJRjBhWUdBZFUya3ltNVp3V1IxVEhtNjcyN0U5SFZJSXNueGJzTmdkVXNld0pSdlFReDFTcHV0LzJ3RUpIVktna08rYTBKTWRVMS8vYlp2QXVCMVNOcURqR25CYkhWTlUwVDdhRUEwZFVzeVdFcHZRNkIxU2pML2ptbkZCSFZNQ0krWmFJSHNkVTJRQ0tOYnh1aDFUYU5Dbm00QlRIVk5QU3FPYWdaVT0IAAYAAAAACAAHAAAAAAwACAoAAR1SCLJ8W7DYAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12522,
+     "stored_chars": 12522,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x8f011fe4143d2187b4c55f3e2c1d90bb40d1e2c241ebfae9778efd5e7df7e467",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response does not contain any tweets that include the exact phrase \"using $Au\" as requested.; class adjudicated seller_error\u2192negative_result: The API call successfully processed the request and delivered 19 matching results, indicating the tool worked and provided an answer, despite being presented as an error body.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-22T06:01:28.992418689Z",
+     "query": "using $Au",
+     "type": "top",
+     "tweet_count": 19,
+     "tweets": [
+      {
+       "id": "2113142174871363867",
+       "text": "I am going to buy #XAUUSD\n\nLet\u2019s Go $GOLD\n\n\u26a0\ufe0f Wait for confirmation before entry.\n\ud83d\udc8e Trade smart &amp; manage your risk! https://t.co/C43O7CNx1M",
+       "created_at": "2026-10-22T05:35:29Z",
+       "lang": "en",
+       "likes": 17,
+       "retweets": 11,
+       "replies": 7,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 565,
+       "conversation_id": "2113142174871363867",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2017993753718566913",
+        "screen_name": "MrJackFx9l",
+        "name": "Mr Jack Fx",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107140650236051456/scP5d_m5_normal.jpg"
+       }
+      },
+      {
+       "id": "2113140802088284523",
+       "text": "#XAUUSD BUY SETUP\n\nBUY ENTRY 4086 LIMIT 4082\nTP 1:  4090\nTP 2: 4095\nTP 3: 4100\nTP 4: 4105\nTP 5: 4110\nTP 6: 4120\nTP 7: 4130\nSTOP LOSS 4060\n\n#XAUUSD #forextrading #goldtrading https://t.co/MinHsWl0MH",
+       "created_at": "2026-10-22T05:30:02Z",
+       "lang": "in",
+       "likes": 4,
+       "retweets": 2,
+       "replies": 2,
+       "quotes": 2,
+       "bookmarks": 2,
+       "views": 176,
+       "conversation_id": "2113140802088284523",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1970358091830235136",
+        "screen_name": "Suhail_fx_Boss",
+        "name": "Suhail fx BOSS",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109164670187667457/A3eKd2ns_normal.jpg"
+       }
+      },
+      {
+       "id": "2113143888492032008",
+       "text": "52.6X \ud83d\ude80\ud83d\udd25 from my $Au call.\n\nCalled early. Momentum went CRAZY. \ud83d\udcc8\ud83d\udcb0\n\nCA: 6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump\n\n#Solana #SolanaMemecoins #Memecoin https://t.co/yNgoGl087F",
+       "created_at": "2026-10-22T05:42:17Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 56,
+       "conversation_id": "2113143888492032008",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1764347830448402432",
+        "screen_name": "itsmeflow18",
+        "name": "1000x Gem Hunter \ud83d\udc8e\ud83d\udd0e",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2093291588566827009/e0LW9ySy_normal.jpg"
+       }
+      },
+      {
+       "id": "2113148410891010491",
+       "text": "XAUUSD GOLD BUY \u2014  TP3 HIT \ud83d\udcc8\n\nTP1: 4074 \u2705\nTP2: 4078 \u2705\nTP3: 4082 \u2705\n\nRunning 140 Pips Secured with tp 3 Hited \u2705\n\nMore signals \u2192 Link in Bio &amp; Comments\n\n#XAUUSD #Gold #Forex https://t.co/vSu4ljn3sr",
+       "created_at": "2026-10-22T06:00:16Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 1,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 40,
+       "conversation_id": "2113148410891010491",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2047229417093484544",
+        "screen_name": "Madara724621",
+        "name": "trade with madara",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2047229973207937024/pPoGtpub_normal.jpg"
+       }
+      },
+      {
+       "id": "2113127935221584308",
+       "text": "\ud83d\udc8e $Au HIGHLIGHTED EARLIER IN OUR TG! \ud83d\udcc8\ud83d\udd25We spotted the setup early and shared it with members before momentum started building. Follow me &amp; DM \u201cJOIN\u201d to access our TG + Discord for upcoming crypto setups\n\nCA \n6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump https://t.co/KyvunCmar0",
+       "created_at": "2026-10-22T04:38:54Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 119,
+       "conversation_id": "2113127935221584308",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2182966228",
+        "screen_name": "meme_opportunit",
+        "name": "Meme_opportunities",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2110969947283193856/KoCn4deS_normal.jpg"
+       }
+      },
+      {
+       "id": "2113103744061591719",
+       "text": "\ud83d\udc8eToken : $Au\n\ud83d\udcc8Entry:$11k\n\ud83d\udccaPeak:$318k\n\ud83d\ude80Gain: 28.9x Profit \nNo hype- just early calls , sharp entries, serious profits and great insiders info \nDm for my Invite link to My Alpha telegram Channel now \n\n\u26d3\ufe0f #solana #memecoin #cryptotrading https://t.co/1DuSlzkQ2U",
+       "created_at": "2026-10-22T03:02:46Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 46,
+       "conversation_id": "2113103744061591719",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "178080915",
+        "screen_name": "1_theanalyst",
+        "name": "THE ANALYST",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2091200056657387520/XFxTQMiD_normal.jpg"
+       }
+      },
+      {
+       "id": "2113145344800493569",
+       "text": "$XAUUSD\n\nWHAT I SAID, I DELIVERED. GOLD 4050 SMASHED.\n\nTold you Gold would hit 4070, and here we are. \n\n+170 PIPS RUNNING \n\nIf you're loving my setups, hit the \u2764\ufe0f button and comment \u201cW TRADE\u201d below! https://t.co/c0W9hCXHPE",
+       "created_at": "2026-10-22T05:48:05Z",
+       "lang": "en",
+       "likes": 6,
+       "retweets": 4,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 209,
+       "conversation_id": "2113145344800493569",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2101948290086617088",
+        "screen_name": "Marinafx002",
+        "name": "XAU/USD MARINA",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2101949518354980865/Z4BOCGmh_normal.jpg"
+       }
+      },
+      {
+       "id": "2113142968764797269",
+       "text": "52.6X \ud83d\ude80\ud83d\udd25 from my $Au call.\n\nCalled early. Momentum went CRAZY. \ud83d\udcc8\ud83d\udcb0\n\nCA: 6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump\n\n#Solana #SolanaMemecoins #Memecoin https://t.co/01jserTv8p",
+       "created_at": "2026-10-22T05:38:38Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 44,
+       "conversation_id": "2113142968764797269",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2326983775",
+        "screen_name": "doganayodabass",
+        "name": "MemeAlchemy",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2066120719675568128/0DsZ70_o_normal.jpg"
+       }
+      },
+      {
+       "id": "2113147317754929396",
+       "text": "XAUUSD GOLD BUY \ud83d\udcc8\nEntry: 4070 \u2013 4066\n\nSL: 4158\n\nTP1: 4074\nTP2: 4078\nTP3: 4082\nTP4: 4086\nTP5: 4090\n\nMore signals \u2192 Link in Bio and in Comments \n\n#XAUUSD #Gold #Forex https://t.co/mKbdxRMjS4",
+       "created_at": "2026-10-22T05:55:55Z",
+       "lang": "in",
+       "likes": 0,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 92,
+       "conversation_id": "2113147317754929396",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2047229417093484544",
+        "screen_name": "Madara724621",
+        "name": "trade with madara",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2047229973207937024/pPoGtpub_normal.jpg"
+       }
+      },
+      {
+       "id": "2113109906958033295",
+       "text": "The $Au paired with gold at $14k mc\n\nBmGSAhWVQ68mdJw3LCXURX9PaQnyMe2xbiatGLUDKmwz\n\nThe $Au running is paired with $wBTC\n\n6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump\n\nOne would think the gold pair is accurate but hey it\u2019s crypto \ud83d\ude06",
+       "created_at": "2026-10-22T03:27:16Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 629,
+       "conversation_id": "2113109906958033295",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "331177855",
+        "screen_name": "mrjberlin",
+        "name": "BERLIN",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2084323062300741632/yE-jaaTb_normal.jpg"
+       }
+      },
+      {
+       "id": "2113106581718257905",
+       "text": "TG got $Au at $51k Mcap\n\n6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump https://t.co/p691Uacc3i",
+       "created_at": "2026-10-22T03:14:03Z",
+       "lang": "fr",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 69,
+       "conversation_id": "2113106581718257905",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "421363531",
+        "screen_name": "PumpVapor",
+        "name": "THE.VAPOUR \ud83d\udca8\ud83d\ude80",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2112584727991300096/0pg6SCHT_normal.jpg"
+       }
+      },
+      {
+       "id": "2113105889305772353",
+       "text": "My entry on $Au at $51K market cap\n\nShared in my tg\n\n6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump https://t.co/nbF8PbTwVw",
+       "created_at": "2026-10-22T03:11:18Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 109,
+       "conversation_id": "2113105889305772353",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "335594223",
+        "screen_name": "1000x_Hunter_",
+        "name": "Meme Hunter \ud83d\udc38",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2112547553237749760/IEOvEzhC_normal.jpg"
+       }
+      },
+      {
+       "id": "2113112892908442029",
+       "text": "Gold/AU is useless now selling\nto buy solana:6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump @theunipcs https://t.co/ehNjA4UTS4",
+       "created_at": "2026-10-22T03:39:08Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 116,
+       "conversation_id": "2113112892908442029",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1828212432281427968",
+        "screen_name": "Investor771191",
+        "name": "CallmeDegen",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2065278954286542848/XnGOxKl__normal.jpg"
+       }
+      },
+      {
+       "id": "2113095064901779863",
+       "text": "\ud83d\udd25 MY PRIVATE TG STAYS ACTIVE!\n\n$Au called at $4k MC. \ud83d\udc8e\ud83d\udcca\n\nAlways searching for promising setups and fresh opportunities. \ud83d\ude80\n\n\ud83d\udce9 Follow + DM to get connected!\n\n6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump https://t.co/0k0i3XJ9nQ",
+       "created_at": "2026-10-22T02:28:17Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 169,
+       "conversation_id": "2113095064901779863",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "4105561875",
+        "screen_name": "Token_pump7",
+        "name": "Token.pump",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2112583579490295808/lyD1fpeN_normal.jpg"
+       }
+      },
+      {
+       "id": "2113092406363234809",
+       "text": "Watch your entry on $Au\nCA&gt;\n\n6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump https://t.co/oh0oF64euN",
+       "created_at": "2026-10-22T02:17:43Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 490,
+       "conversation_id": "2113092406363234809",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1766566786508451840",
+        "screen_name": "SOLana_kind",
+        "name": "$ol_Kind",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2085713842495995904/B8C_DcTu_normal.jpg"
+       }
+      },
+      {
+       "id": "2113102793536156036",
+       "text": "I introduce $Au at  $12K market cap?\nNow it\u2019s currently at $302K MC.\ud83d\ude80\ud83d\udcc9\ud83d\udcb0\n\n25.1x gain!\ud83d\ude80 \ud83d\ude80\ud83d\ude80\n\nDon't keep buying the top after the move.\nTap FOLLOW.\nGet into the VIP TG before the next runner.\n\nCa: 6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump https://t.co/ZIuoWqojAM",
+       "created_at": "2026-10-22T02:59:00Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 357,
+       "conversation_id": "2113102793536156036",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "112125714",
+        "screen_name": "realsoltrader",
+        "name": "Sol Trader",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2105270183577415680/1q9BRRtk_normal.jpg"
+       }
+      },
+      {
+       "id": "2113143624326095253",
+       "text": "11k to $Au \ud83d\ude80\ud83d\udcc8\n\nCA: 6mYfg1EmMVjbQv38QGY5XdRUQ4SyNpFauL1aiRiWpump\n\nKeeping an eye on this one.\ud83d\udc40\n\n#Solana #CryptoAlpha #Memecoin #Degen https://t.co/NWKvkatYMK",
+       "created_at": "2026-10-22T05:41:15Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 77,
+       "conversation_id": "2113143624326095253",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1764347830448402432",
+        "screen_name": "itsmeflow18",
+        "name": "1000x Gem Hunter \ud83d\udc8e\ud83d\udd0e",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2093291588566827009/e0LW9ySy_normal.jpg"
+       }
+      },
+      {
+       "id": "2113105013560291488",
+       "text": "Solid 10.7x gained from my call on $Au\n\nThe work continues to speak for itself. \ud83d\udc8e \n\nAnother successful trade secured. \n\nDM me to join my Telegram Group. \u2b55\ufe0f\u2b55\ufe0f\n\nLet\u2019s gooo\n\n#Au #Solana #CryptoGems #Altcoins #Memecoin #Bitcoin #SOL #DEXGems https://t.co/xb9b61A0Cl",
+       "created_at": "2026-10-22T03:07:49Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 96,
+       "conversation_id": "2113105013560291488",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1603829769023397888",
+        "screen_name": "firepump_house",
+        "name": "FirePumpHouse",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2078261661492744192/GdDGPpyu_normal.jpg"
+       }
+      },
+      {
+       "id": "2113116084895391876",
+       "text": "\u5728\u4e00\u5806\u5929\u5929\u5439\u201c\u98a0\u8986\u884c\u4e1a\u201d\u201c\u8d4b\u80fd\u672a\u6765\u201d\u7684\u9879\u76ee\u91cc\uff0c\u7ec8\u4e8e\u6709\u4e00\u4e2a\u8001\u5b9e\u627f\u8ba4\u81ea\u5df1\u201c\u771f\u7684\u6ca1\u7528\u201d\u7684\u5e01\u4e86\u3002\n\n$Au Actually Useless\uff0c\u540d\u5b57\u5c31\u662f\u6574\u4e2a\u6545\u4e8b\uff0c\u628a\u9ec4\u91d1\u7684\u5316\u5b66\u7b26\u53f7Au\u62ff\u6765\u81ea\u5632\uff0c\u7eaf\u7cb9\u7684meme\u8bbd\u523a\uff0c\u6ca1\u6709\u8def\u7ebf\u56fe\u4e5f\u6ca1\u6709\u4ea7\u54c1\uff0c\u5c31\u9760\u8fd9\u4e2a\u6897\u5728\u94fe\u4e0a\u70ed\u95f9\u3002\u793e\u533a\u5728\u73a9\u6897\uff0c\u4ea4\u6613\u91cf\u4e5f\u8d77\u6765\u4e86\uff0c\u4f46\u8bb0\u4f4f\u2014\u2014\u540d\u5b57\u90fd\u5199\u660e\u4e86\uff0c\u522b\u628a\u5b83\u5f53\u6b63\u7ecf\u6295\u8d44\u3002 https://t.co/5If5gS7EBS",
+       "created_at": "2026-10-22T03:51:49Z",
+       "lang": "zh",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 220,
+       "conversation_id": "2113116084895391876",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1995879937442807810",
+        "screen_name": "ATHENAFundAnn",
+        "name": "\u96c5\u5178\u5a1c\ud83d\udfe8Meme Research\ud83c\udc04\ufe0f\u00b7 \u1d43\u02e1\u1d56\u02b0\u1d43",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103486051654447104/iCqYecoi_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVNpj2cAJxAKAAMdU2mPZv_Y8AgABAAAAAILAAUAAADoRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJNZFV6L0xocHV4aEIxVFNQcjRHeEd0SFZNMldSTGJJZmtkVTJVcnNOcndDQjFUT01RUUdnR1hIVk5HUTcrWG9ZOGRVMmxJcE5jQnV4MVRWcWxIMWxHMEhWTm1mc09ha0FFZFUwQ28xbGJRcHgxVFlsMFUyekZySFZORFBZZmJVUEVkVTJoS0lOb2c5QjFUWTV5MUdxRWJIVk5rVll6WEVWVWRVMEtjVU50QlFSMVRTK0lwV3FDRUhWTkIwR3Bic0tBZFUyVHVMMWFobFE9PQgABgAAAAAIAAcAAAAADAAICgABHVM2WRLbIfkAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12482,
+     "stored_chars": 12482,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x1f2f494cc38d22fae3b9de8cd24b6b52614375ec26a98a6a350ec2d654966cbb",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response does not contain any tweets explicitly mentioning 'launches $NOOX'; the single tweet mentioning 'launched' refers to a different token ($NOX), and the other tweets discuss post-launch market performance rather than the launch itself.; class adjudicated seller_error\u2192negative_result: The tool successfully processed the request and returned matching results, indicating it worked and produced an answer, rather than rejecting the request or encountering an internal failure.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-22T06:02:17.54005413Z",
+     "query": "launches $NOOX",
+     "type": "top",
+     "tweet_count": 18,
+     "tweets": [
+      {
+       "id": "2113123585531261138",
+       "text": "5.1x up from my call on $NOOX\n\nProfit locked in! \ud83d\udcc8\ud83d\udcb8 \n\nWho\u2019s ready to join us? DM me. \u2b55\ufe0f\u2b55\ufe0f\n\nLet\u2019s goo\n\n#Noox #Solana #CryptoGems #Altcoins #Memecoin #Bitcoin #SOL #DEXGems https://t.co/FRHu3Yrjfk",
+       "created_at": "2026-10-22T04:21:37Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 92,
+       "conversation_id": "2113123585531261138",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1603829769023397888",
+        "screen_name": "firepump_house",
+        "name": "FirePumpHouse",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2078261661492744192/GdDGPpyu_normal.jpg"
+       }
+      },
+      {
+       "id": "2112285177195974804",
+       "text": "$Nox is building around a simple idea: accessing liquidity across different blockchains should become easier, while the infrastructure handles the complexity behind the scenes.\n@TryNoxApp https://t.co/vrQafso8mI",
+       "created_at": "2026-10-19T20:50:05Z",
+       "lang": "en",
+       "likes": 8,
+       "retweets": 5,
+       "replies": 5,
+       "quotes": 0,
+       "bookmarks": 5,
+       "views": 75,
+       "conversation_id": "2112285177195974804",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1037975534951653381",
+        "screen_name": "Ajecreator",
+        "name": "AjePAPi \ud83d\udc02 \ud83c\udc04\ufe0f",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2075925985480851456/iDnJAFXm_normal.jpg"
+       }
+      },
+      {
+       "id": "2113125926057783379",
+       "text": "\ud83d\udd25 $NOOX spotted early in my VIP TG at $7.2K MCAP, later reaching $251K! \ud83d\udc8e\ud83d\udcc8 Another impressive market move! Hit follow &amp; join TG + Discord for more early gems and future crypto setups! \ud83d\ude80\n#Crypto #Trading #Altcoins\n\nCA \nHx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump https://t.co/6qcOqIkwoT",
+       "created_at": "2026-10-22T04:30:55Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 94,
+       "conversation_id": "2113125926057783379",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2182966228",
+        "screen_name": "meme_opportunit",
+        "name": "Meme_opportunities",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2110969947283193856/KoCn4deS_normal.jpg"
+       }
+      },
+      {
+       "id": "2113114776788475961",
+       "text": "My entry on $NOOX at $23K market cap\n\nShared in my tg\n\nHx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump https://t.co/AhEiOCERF9",
+       "created_at": "2026-10-22T03:46:37Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 89,
+       "conversation_id": "2113114776788475961",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "335594223",
+        "screen_name": "1000x_Hunter_",
+        "name": "Meme Hunter \ud83d\udc38",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2112547553237749760/IEOvEzhC_normal.jpg"
+       }
+      },
+      {
+       "id": "2113122825678852396",
+       "text": "$NOOX 5.3x \ud83d\udc41\n\nPro got it live at $49.9K.\nFree got it at 2x.\n\nHx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump https://t.co/B9MEkSt5YE",
+       "created_at": "2026-10-22T04:18:36Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 60,
+       "conversation_id": "2113122825678852396",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2068451001548587009",
+        "screen_name": "eyezonbot",
+        "name": "EyezOn",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2111699016539049988/7rTKqVPX_normal.jpg"
+       }
+      },
+      {
+       "id": "2113147516480872841",
+       "text": "Called $NOOX at $7.2K in my VIP TG \u2014 now sitting on $162K Mcap.\n\nDon\u2019t miss the next one, join my TG.\n\nCa:\nHx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump\n#bbvipks4 #memecoin https://t.co/63VQSqsM2w",
+       "created_at": "2026-10-22T05:56:42Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 12,
+       "conversation_id": "2113147516480872841",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "724319871262175232",
+        "screen_name": "Maestor01",
+        "name": "MaestorMeme",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2015388434941231104/ouTuRTEB_normal.jpg"
+       }
+      },
+      {
+       "id": "2113123738266845506",
+       "text": "Another profitable exit locked in on $NOOX \ud83d\udd25\ud83d\udcb0\n\nI called the move, trusted my strategy, and secured the profit! \ud83c\udfaf\n\n#Noox #Solana #CryptoGems #Altcoins #Memecoin #Bitcoin #SOL #DEXGems https://t.co/vQ5cu3HWWd",
+       "created_at": "2026-10-22T04:22:13Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 73,
+       "conversation_id": "2113123738266845506",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1603829769023397888",
+        "screen_name": "firepump_house",
+        "name": "FirePumpHouse",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2078261661492744192/GdDGPpyu_normal.jpg"
+       }
+      },
+      {
+       "id": "2110650778205446570",
+       "text": "Great spot from @CryptoHabibi7 \u2014 thank you for putting this on my radar! \ud83d\ude4f\n\nWhat $NOX does differently:\n\u25cf A capability-secure operating system built on a Rust microkernel\n\u25cf Root access doesn't equal full control \u2014 the kernel enforces boundaries even at admin level\n\u25cf ZeroState https://t.co/jAUg5TPE5r",
+       "created_at": "2026-10-15T08:35:34Z",
+       "lang": "en",
+       "likes": 9,
+       "retweets": 7,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 246,
+       "conversation_id": "2110650778205446570",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1900896990869024771",
+        "screen_name": "crypto_AB1",
+        "name": "Crypto_Abz",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2006059122865618946/T8XfHU3V_normal.jpg"
+       }
+      },
+      {
+       "id": "2113142486998610240",
+       "text": "$NOOX \ud83d\ude80 22.5X. Early call. Serious momentum. \ud83c\udfaf\ud83d\udcc8\n\nCA: \"Hx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump\"\n\n#Solana #Memecoin https://t.co/SFSZVbGkSM",
+       "created_at": "2026-10-22T05:36:43Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 34,
+       "conversation_id": "2113142486998610240",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2326983775",
+        "screen_name": "doganayodabass",
+        "name": "MemeAlchemy",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2066120719675568128/0DsZ70_o_normal.jpg"
+       }
+      },
+      {
+       "id": "2113144383768007037",
+       "text": "I highlighted $NOOX at a $7.2K market cap and strategically shared it with my community, emphasizing its early-entry advantage and strong potential for significant upside.\n\nCA: Hx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump\n\n#sstvi #solanamemecoin #azukashier https://t.co/8Ro3LdJYkU",
+       "created_at": "2026-10-22T05:44:16Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 75,
+       "conversation_id": "2113144383768007037",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "15860450",
+        "screen_name": "cerrocoso",
+        "name": "Alpha Calls",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/58278060/friendlycoyote_normal.jpg"
+       }
+      },
+      {
+       "id": "2112933353552806298",
+       "text": "N\u00d8NOS just launched Nil, and $NOX is at the center of a privacy focused workspace that is doing a lot more than putting a wallet button on a project management app.\n\nWhat if your team's identity, work, payments, permissions and governance didn't all have to live inside a",
+       "created_at": "2026-10-21T15:45:42Z",
+       "lang": "en",
+       "likes": 34,
+       "retweets": 9,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 2,
+       "views": 1076,
+       "conversation_id": "2112933353552806298",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "899350803068145664",
+        "screen_name": "TheCrypticWolf1",
+        "name": "\ud835\udc13\ud835\udc21\ud835\udc1e\ud835\udc02\ud835\udc2b\ud835\udc32\ud835\udc29\ud835\udc2d\ud835\udc22\ud835\udc1c\ud835\udc16\ud835\udc28\ud835\udc25\ud835\udc1f",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109473545726107649/qDnkZDmh_normal.jpg"
+       }
+      },
+      {
+       "id": "2113145045729599806",
+       "text": "$NOOX 16.7x \ud83d\ude80\ud83d\udd25\n\nCalled around $7.2K MC \u2192 touched $120K MC+\n\nStrong breakout with explosive momentum and relentless buyer pressure driving it higher all the way up \ud83d\udc40\n\nMore early plays in the VIP group \ud83d\udd12\n\n#sstvi #solanamemecoin #azukashier https://t.co/8d3yveG4BH",
+       "created_at": "2026-10-22T05:46:53Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 64,
+       "conversation_id": "2113145045729599806",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "15860450",
+        "screen_name": "cerrocoso",
+        "name": "Alpha Calls",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/58278060/friendlycoyote_normal.jpg"
+       }
+      },
+      {
+       "id": "2113118567562727667",
+       "text": "$NOOX 26.11x+ \ud83d\ude80\ud83d\udd25\n\nCalled around $7.2K MC \u2192 touched $188K MC+\n\nInsane breakout with explosive momentum pushing it beyond 20x \ud83d\udc40\ud83d\udd25\n\nCa: Hx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump\n\n#NOOX #memecoin #Solana #crypto https://t.co/9bGu7sjFBT",
+       "created_at": "2026-10-22T04:01:41Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 89,
+       "conversation_id": "2113118567562727667",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "55661434",
+        "screen_name": "CipherEdgeCalls",
+        "name": "Cipher Edge",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103451155946684416/PPP7UsRt_normal.jpg"
+       }
+      },
+      {
+       "id": "2113138607162884562",
+       "text": "$NOOX 6X \u00b7 60K \u2192 365K\n\niykyk\n\ncalled it 1h 50m ago\n\nplays hit the crew before they trend here\n\nHx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump https://t.co/qPb0s4l0i6",
+       "created_at": "2026-10-22T05:21:18Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 26,
+       "conversation_id": "2113138607162884562",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "235608599",
+        "screen_name": "tony_leveau",
+        "name": "Tony King",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2086457304040263680/lg1jCVlc_normal.jpg"
+       }
+      },
+      {
+       "id": "2113118911650558376",
+       "text": "\ud83d\udc8eToken : $NOOX\n\ud83d\udcc8Entry: $7.2k\n\ud83d\udccaPeak: $264k\n\ud83d\ude80Gain: 36.6x Profit \nNo hype- just early calls , sharp entries, serious profits and great insiders info \nDm for my Invite link to My Alpha telegram Channel now \n\n\u26d3\ufe0f #solana #memecoin #cryptoTrading https://t.co/vdMgNASroU",
+       "created_at": "2026-10-22T04:03:03Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 85,
+       "conversation_id": "2113118911650558376",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "783273323199205377",
+        "screen_name": "Sammwolff_",
+        "name": "\ud83d\udc51 THE WOLF OF SOLANA\ud83d\udc51",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2029138922878443521/QkMvIi6f_normal.jpg"
+       }
+      },
+      {
+       "id": "2113126330376093753",
+       "text": "\ud83d\udcc8 $NOOX WAS ON OUR RADAR FROM THE START! \ud83d\udcaf We highlighted the setup in our private TG and continued monitoring the price action as it developed. \ud83d\udd25\n\nCA \nHx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump https://t.co/plomlJdX96",
+       "created_at": "2026-10-22T04:32:31Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 63,
+       "conversation_id": "2113126330376093753",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2182966228",
+        "screen_name": "meme_opportunit",
+        "name": "Meme_opportunities",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2110969947283193856/KoCn4deS_normal.jpg"
+       }
+      },
+      {
+       "id": "2113116174292775177",
+       "text": "Posted $NOOX earlier ago at 60K.\n\n190K now \u2014 3X since that call. Clean.\n\nran the whole way in 19m\n\nyou riding or fading?\n\nCA: Hx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump \n\ndon't miss it: https://t.co/qSkTo15bMz \n\nChain: SOLANA https://t.co/qiJtcFpUyP",
+       "created_at": "2026-10-22T03:52:10Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 42,
+       "conversation_id": "2113116174292775177",
+       "is_quote": true,
+       "urls": [
+        "https://t.me/GentleCatCalls"
+       ],
+       "author": {
+        "id": "235608599",
+        "screen_name": "tony_leveau",
+        "name": "Tony King",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2086457304040263680/lg1jCVlc_normal.jpg"
+       }
+      },
+      {
+       "id": "2113137748353921482",
+       "text": "$NOOX 41.67x+ \ud83d\ude80\ud83d\udd25\n\nCalled around $7.2K MC \u2192 touched $300K MC+\n\nInsane breakout with explosive momentum pushing it beyond 40x \ud83d\udc40\ud83d\udd25\n\nCa: Hx4cDZzRjfCNeqZCLS8sR4uwPRH5NVVrE4PF9Fugpump\n\n#NOOX #memecoin #Solana #crypto https://t.co/zOnkVMkGdj",
+       "created_at": "2026-10-22T05:17:54Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 82,
+       "conversation_id": "2113137748353921482",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "55661434",
+        "screen_name": "CipherEdgeCalls",
+        "name": "Cipher Edge",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103451155946684416/PPP7UsRt_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVNpvscAJxAKAAMdU2m-xv_Y8AgABAAAAAILAAUAAAEcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJnZFUwNTBVUmR4cUIxUUNiMUhsMkY4SFZBS1VnT1hVUE1kVTJoNFpkZGhpUjFUWmpraGx1RStIVktsc0xTWEFab2RVMldmQVpxUmZSMUtpYk0zMW1HcUhWTlNBNTlia1N3ZFQvYkN5dGJoM2gxVFVyU0tGekRTSFZOVTFYeFhzRk1kVTFMWUdkZEJRaDFUWDVZVUdySEtIVk5MOXZuYWNRa2RUL3UvMXhZeG5oMVRWVE9mbDRBNUhVLzhEZE1ia2JjZFQvTmRLTllBdmgxUVdDMWpGdENVSFZOZ1hna2JnZElkVTBxeG1Cc2dPUjFUVGlRejI5RHpIVk5qNVdGV2NVQT0IAAYAAAAACAAHAAAAAAwACAoAAR1KibM31mGqAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 14380,
+     "stored_chars": 14380,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xf81022c19c51459579f448cb88522297124e9dfbe19ad736ed44881a28561722",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: Many tweets in the results only contain \"$CLOUT\" or even different terms like \"Claude\" or \"$CLAUS\", failing to meet both keywords specified in the request.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-22T06:03:00.849247971Z",
+     "query": "create $CLOUT",
+     "type": "top",
+     "tweet_count": 19,
+     "tweets": [
+      {
+       "id": "2113142731682058643",
+       "text": "\ud83d\udea8PEOPLE ARE USING NOTEBOOKLM TO MASS-PRODUCE SPECIALIZED CLAUDE SKILLS IN MINUTES.\n\nInstead of writing the same prompts repeatedly, they use curated knowledge to create reusable \"SKILL\u25aa\ufe0emd\" files that help Claude deliver consistent results for specific tasks.\n\nHere's how it https://t.co/U8AqCwes9P",
+       "created_at": "2026-10-22T05:37:42Z",
+       "lang": "en",
+       "likes": 20,
+       "retweets": 19,
+       "replies": 16,
+       "quotes": 0,
+       "bookmarks": 18,
+       "views": 376,
+       "conversation_id": "2113142731682058643",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "3059912953",
+        "screen_name": "Aurora_TechAI",
+        "name": "Aurora_lily",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2052481992466612224/Ql6OKzXf_normal.jpg"
+       }
+      },
+      {
+       "id": "2112826020663615973",
+       "text": "$CLOUT \u2014 $3K MC \ud83d\ude80\ud83d\udcc8\n\n\ud83d\udc40 Eyes on this one.\n\ud83d\udd25 Don\u2019t sleep on it.\n\nCA: 8FGreSHZeiinbu3zPeBA3vawxvz2phvyomnPn1NEpump\n\n#Solana #CryptoAlpha #Memecoin #Degen #bbvpicks4 https://t.co/fnQmvaVyPk",
+       "created_at": "2026-10-21T08:39:12Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 167,
+       "conversation_id": "2112826020663615973",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2394021621",
+        "screen_name": "EarlyChad_",
+        "name": "EarlyChad",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103078396242563072/A8By2ujI_normal.jpg"
+       }
+      },
+      {
+       "id": "2113012738440266193",
+       "text": "$CLOUT team just paid for their Dexscreener push. Social presence is a bit bare bones but active.\n\nStats: $34.5K MC | $12.1K pool depth | 80 holders. Top 10 supply control is at 29.1%.\n\nCA:\nHQp1VjjRDNRgNixrn4drusfrFUHUJivnD2eshXHYuTbJ\n\n\u26a1 Trade on GMGN: https://t.co/24qTiNHaBC",
+       "created_at": "2026-10-21T21:01:09Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 154,
+       "conversation_id": "2113012738440266193",
+       "is_quote": false,
+       "urls": [
+        "https://gmgn.ai/sol/token/lu5EtQcb_HQp1VjjRDNRgNixrn4drusfrFUHUJivnD2eshXHYuTbJ"
+       ],
+       "author": {
+        "id": "2033961945922228224",
+        "screen_name": "SolTokenScan",
+        "name": "Solana Token Scanner",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104976250137694208/eJeHbQ5v_normal.jpg"
+       }
+      },
+      {
+       "id": "2113010701832970717",
+       "text": "\ud83d\udea8 CTO SIGNAL \ud83d\udfe2 MIGRATED\n\nToken: clout\nTicker: $CLOUT\nRoute: Pump Fun \u2192 pump_amm\n\nATH MC: $34.3K\nLiq: $14.4K\nHolders: 86\n\nCTO: \u2705\nDEX Updated: \u2705\nBurn: 100%\n\nCA: HQp1VjjRDNRgNixrn4drusfrFUHUJivnD2eshXHYuTbJ\n\n\ud83d\udd17 Open on GMGN: https://t.co/J6mtVMPjPw",
+       "created_at": "2026-10-21T20:53:03Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 120,
+       "conversation_id": "2113010701832970717",
+       "is_quote": false,
+       "urls": [
+        "https://gmgn.ai/sol/token/lu5EtQcb_HQp1VjjRDNRgNixrn4drusfrFUHUJivnD2eshXHYuTbJ"
+       ],
+       "author": {
+        "id": "1918669396274221056",
+        "screen_name": "AiSolanaKols",
+        "name": "Ai Solana Kol Watcher",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2023452757102092288/ZMuudJfY_normal.jpg"
+       }
+      },
+      {
+       "id": "2112994855311876246",
+       "text": "\ud83d\udc8e LUXURY ENTRIES. MICRO-CAP TERRITORY\n\n$Clout  \ud83d\udfe2 $3.9K MC ENTRY\n\ud83d\udd34 $69K  MC EXIT LEVEL\n\ud83d\udcc8 17.6X  \ud83d\udfe2\nTG is built for rare launch setups \n \nDM FOR ACCESS \ufffd \n\nGBRak4vquY1unoXYycKMATVKR4DLtL66LP6yPvY2pump https://t.co/QjfovutweV",
+       "created_at": "2026-10-21T19:50:05Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 83,
+       "conversation_id": "2112994855311876246",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1241363879818489856",
+        "screen_name": "helloowitsme_",
+        "name": "Aizenn",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2074920248440991744/wk3vZGXi_normal.jpg"
+       }
+      },
+      {
+       "id": "2112712471723049127",
+       "text": "MY TEAM OF HARDWORKING BEES WORKED ON SETTING THIS UP FOR A WHOLE WEEK.\n\nBUILDING @CloutHiveAi EVERYDAY. LET'S TAKE YOUR BRAND TO THE NEXT LEVEL. \ud83d\udc1d\ud83d\udc1d\n\nhttps://t.co/bfBnp8aIm7 https://t.co/jEf86icI65",
+       "created_at": "2026-10-21T01:08:00Z",
+       "lang": "en",
+       "likes": 27,
+       "retweets": 7,
+       "replies": 15,
+       "quotes": 2,
+       "bookmarks": 1,
+       "views": 1278,
+       "conversation_id": "2112712471723049127",
+       "is_quote": false,
+       "urls": [
+        "https://clouthive.net/"
+       ],
+       "author": {
+        "id": "988209683805634560",
+        "screen_name": "nollyxbt",
+        "name": "NOLLY XBT",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2037860330542448640/m5UtxeBg_normal.jpg"
+       }
+      },
+      {
+       "id": "1886323077421711516",
+       "text": "\ud83c\udf29 $CLOUT is rewriting the rules of crypto marketing. \nTraditional ads? \u274c\nCommunity-driven virality? That\u2019s the future. We don\u2019t follow trends\u2014we create them\ud83d\ude80 \nBuy\u2b07\ufe0f\n\ud83d\udd17CA: 3iSMirxf3aLj1KS8iqcEX21ZKJtanA8youqpKfzf1mf7\n\ud83c\udf10https://t.co/fFoP2jx0md \n\n#Clout\u26a1#CloutArmy #ViralCrypto",
+       "created_at": "2025-02-03T07:57:22Z",
+       "lang": "en",
+       "likes": 7,
+       "retweets": 3,
+       "replies": 11,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 90,
+       "conversation_id": "1886323077421711516",
+       "is_quote": false,
+       "urls": [
+        "https://coine.io/clout"
+       ],
+       "author": {
+        "id": "1883978179112472576",
+        "screen_name": "stack_CLOUT",
+        "name": "$CLOUT",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1884417612714586113/E-_DE97x_normal.jpg"
+       }
+      },
+      {
+       "id": "2112916552957784284",
+       "text": "$Clout caught serious momentum! \ud83d\udd25\n\n$14K \u2192 $210K mcap 15x growth! \ud83d\ude80\n\nThat\u2019s the kind of move that gets attention. Stay alert, keep tracking the low caps, and be ready when the next opportunity shows up. \ud83d\udc40\ud83d\udcc8\n\n#CLOUT #Solana #CryptoAlpha #Memecoins https://t.co/gXtmjJ6dh5",
+       "created_at": "2026-10-21T14:38:56Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 145,
+       "conversation_id": "2112916552957784284",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1792625497983139841",
+        "screen_name": "MemNicholas",
+        "name": "Nicholas",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2059668856914731011/d_zeNnNF_normal.jpg"
+       }
+      },
+      {
+       "id": "1878675922435608823",
+       "text": "The @stackCLOUT Countdown is ON! \ud83d\udd25\nJust 18 days until $Clout explodes onto the scene on January 31st! \ud83d\udca5\nPrepare for a seismic shift in the space. The countdown has begun, and the anticipation is palpable.\nStay locked for the latest updates. Let's create history together! \ud83d\ude80 https://t.co/lRI8YqfpfB",
+       "created_at": "2025-01-13T05:30:18Z",
+       "lang": "en",
+       "likes": 11,
+       "retweets": 2,
+       "replies": 10,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 102,
+       "conversation_id": "1878675922435608823",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1550958129713758221",
+        "screen_name": "Korede_1410_",
+        "name": "Korede",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2069726624749178880/qnle4M3-_normal.jpg"
+       }
+      },
+      {
+       "id": "2112865219928338569",
+       "text": "\ud83d\ude80 $CLOUT: $1.3K \u2192 $155K MCAP! \ud83d\udd25\ud83d\udc8e 119x run spotted in my Alpha TG!\n\n\ud83d\udce9 DM to join my TG + Discord for early crypto calls! \ud83c\udfc6\n\n\ud83d\udccc CA: 8FGreSHZeiinbu3zPeBA3vawxvz2phvyomnPn1NEpump https://t.co/65b19QjQcE",
+       "created_at": "2026-10-21T11:14:58Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 63,
+       "conversation_id": "2112865219928338569",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1484850653197479939",
+        "screen_name": "SOLANAMAST9",
+        "name": "SOLANA MASTER",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2084196347851227136/bbnKJvD3_normal.jpg"
+       }
+      },
+      {
+       "id": "2112817424773079503",
+       "text": "$CLOUT From $18K \u2192 $104K MC \ud83d\ude80\n5\u00d7 secured inside TG.\nNo chasing. No FOMO.\nJust early entries and disciplined exits.\n\ud83d\udce9 DM to join the next play.\n#robinhood #bbvpicks4 #memecoin #crypto\n\n8FGreSHZeiinbu3zPeBA3vawxvz2phvyomnPn1NEpump https://t.co/bMBjH1iPc0",
+       "created_at": "2026-10-21T08:05:02Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 21,
+       "conversation_id": "2112817424773079503",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "952405985615728640",
+        "screen_name": "memeprofit08",
+        "name": "Solanamemprofits",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102350408752541696/I5uLcAeA_normal.jpg"
+       }
+      },
+      {
+       "id": "1881981226887877083",
+       "text": "@cryptojack \ud83d\udca5 $CLOUT Launches Jan 31st! \ud83d\udca5\n\ud83d\ude80 The ultimate token for rewards and internet dominance is here!\n\n\ud83d\udd25 Climb the CloutRank leaderboard\n\ud83d\udd25 Burn &amp; Earn rewards\n\ud83d\udd25 Create viral trends\n\nDon\u2019t miss your chance to lead the revolution. \ud83d\udc51\n#CLOUT #BurnAndEarn https://t.co/4Qcr0a1tQ3",
+       "created_at": "2025-01-22T08:24:24Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 40,
+       "conversation_id": "1881975229196444023",
+       "in_reply_to_id": "1881975229196444023",
+       "in_reply_to_user": "cryptojack",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1552320241178492928",
+        "screen_name": "ujunwarules",
+        "name": "jay Hermes",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2046847046649323520/n0zPvnev_normal.jpg"
+       }
+      },
+      {
+       "id": "2113001911792087231",
+       "text": "\ud83d\udc38 $3.9K \u2192 $153K | 39.2\u00d7 UP | +3,823% GAIN \ud83d\ude80\n\n$CLOUT just went nuclear \u2014 sniped before the crowd, turning tiny caps into heavy bags \ud83d\udc8e\ud83d\udd25\n\nMomentum\u2019s hot and the next runner is already loading \ud83d\ude80\n\n\ud83d\udc8e Join the Private Alpha TG\n\n#Solana https://t.co/NJIkauajsF",
+       "created_at": "2026-10-21T20:18:08Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 31,
+       "conversation_id": "2113001911792087231",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "227539051",
+        "screen_name": "caiohollanda",
+        "name": "coitadollanda",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102858975360188416/SdSpiJ-Q_normal.jpg"
+       }
+      },
+      {
+       "id": "2112963475060171215",
+       "text": "$CLOUT just tagged $95K MC $40K \ud83d\udd0d$95K 2.4x already \n\nEarly momentum building \ud83d\udc40\nI drop the next runners in my private\ud83d\udd12TG link is \ud83c\udd99 in bio\n\nCA&gt;\nGBRak4vquY1unoXYycKMATVKR4DLtL66LP6yPvY2pump\n\n#CLOUT #Solana #Crypto https://t.co/UvX5wTcqIh",
+       "created_at": "2026-10-21T17:45:24Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 80,
+       "conversation_id": "2112963475060171215",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1631564006",
+        "screen_name": "solblender99",
+        "name": "\ud83d\udce1 Solblender",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103486356097794049/oa11tCCP_normal.jpg"
+       }
+      },
+      {
+       "id": "1883077421223882918",
+       "text": "@MonstersCoins \ud83d\udca5 $CLOUT Launches Jan 31st! \ud83d\udca5\n\ud83d\ude80 The ultimate token for rewards and internet dominance is here!\n\n\ud83d\udd25 Climb the CloutRank leaderboard\n\ud83d\udd25 Burn &amp; Earn rewards\n\ud83d\udd25 Create viral trends\n\nDon\u2019t miss your chance to lead the revolution\nhttps://t.co/5nHEjH7x7B\n#CLOUT @stackCLOUT",
+       "created_at": "2025-01-25T09:00:17Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 18,
+       "conversation_id": "1883076844473167900",
+       "in_reply_to_id": "1883076844473167900",
+       "in_reply_to_user": "MonstersCoins",
+       "is_quote": false,
+       "urls": [
+        "https://t.me/getCloutStackClout"
+       ],
+       "author": {
+        "id": "1552320241178492928",
+        "screen_name": "ujunwarules",
+        "name": "jay Hermes",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2046847046649323520/n0zPvnev_normal.jpg"
+       }
+      },
+      {
+       "id": "1879422197225447910",
+       "text": "Hey wagwan guys \ud83d\udc99\n\nOnly 16 days left! \ud83d\ude80 \n$CLOUT is about to make a big splash on the Solana blockchain, and the anticipation is palpable!\n\nBe prepared, and let's create history together. Seize this opportunity to get a head start don't let the launch pass you by.\n\n@stackCLOUT https://t.co/UEQsz23qsY",
+       "created_at": "2025-01-15T06:55:44Z",
+       "lang": "en",
+       "likes": 18,
+       "retweets": 6,
+       "replies": 18,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 85,
+       "conversation_id": "1879422197225447910",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1644360408831016962",
+        "screen_name": "Dayo_cryptt",
+        "name": "\u00d0AYO",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2092192646198444033/BeldgEoY_normal.jpg"
+       }
+      },
+      {
+       "id": "1900672807912046747",
+       "text": "Influence = Ownership\n\nStop renting your influence. Start owning it.\nFor too long, big platforms have profited off users. Now? $Clout puts value back where it belongs-with those who create it.\n\ud83d\udd17CA: 3iSMirxf3aLj1KS8iqcEX21ZKJtanA8youqpKfzf1mf7 \n\ud83c\udf10https://t.co/6vpEG9dFLe https://t.co/RGSXsVecUl",
+       "created_at": "2025-03-14T22:18:04Z",
+       "lang": "en",
+       "likes": 5,
+       "retweets": 1,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 36,
+       "conversation_id": "1900672807912046747",
+       "is_quote": false,
+       "urls": [
+        "http://coine.io/clout"
+       ],
+       "author": {
+        "id": "1883978179112472576",
+        "screen_name": "stack_CLOUT",
+        "name": "$CLOUT",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1884417612714586113/E-_DE97x_normal.jpg"
+       }
+      },
+      {
+       "id": "2113140005594095924",
+       "text": "$CLAUS migrated. Dev has launched 176 tokens before this. Logo has a unique logo, might be a fresh narrative.\n\nDEX info updated: No | CTO flag: No\nCA:\nByzEwYir28PXywQVAPChGDMLaCwjuMMXthdQEVcBpump\n\n\ud83d\udcb9 Chart &amp; Trade: https://t.co/jmPF5kF9ei",
+       "created_at": "2026-10-22T05:26:52Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 69,
+       "conversation_id": "2113140005594095924",
+       "is_quote": false,
+       "urls": [
+        "https://gmgn.ai/sol/token/lu5EtQcb_ByzEwYir28PXywQVAPChGDMLaCwjuMMXthdQEVcBpump"
+       ],
+       "author": {
+        "id": "1918669396274221056",
+        "screen_name": "AiSolanaKols",
+        "name": "Ai Solana Kol Watcher",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2023452757102092288/ZMuudJfY_normal.jpg"
+       }
+      },
+      {
+       "id": "2112803663164969324",
+       "text": "$Clout\ud83d\udce3\ud83d\udd25 $CLOUT enters the Solana radar at just $2.8K MC!\n\nTiny starting valuation, one to keep on the watchlist! \ud83d\udc40\ud83d\udc8e Keep an eye on $CLOUT as its journey unfolds \u2014 early-stage tokens can be volatile, so always do your own research. \ud83d\udcc8\u26a1\n\n\ud83d\ude80 Want more low-cap Solana finds to https://t.co/Ts35nxS6By",
+       "created_at": "2026-10-21T07:10:21Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 147,
+       "conversation_id": "2112803663164969324",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1705737782365233152",
+        "screen_name": "AlphaPulsevw",
+        "name": "AlphaPulse",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2066569578256203776/EOFPuw7Y_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVNp6RYAJxAKAAMdU2npFf_Y8AgABAAAAAILAAUAAAEIRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJZZFUyUWVXWnVSa3hvdGtOaEJWOENjR2g0ajlHYWJFZHNkVTJiREYxYVFwaDFUWm9kcG16Qm9IVk5obzZJYVlUUWRVc0VWNmxZaHp4MVMzYUF6RjZDV0hWS1dhUU1YY053ZFVtZTVIQnN3aVIxU1JCSlIyMkhsR2lJSThBaWJzS1lkVWR6TXBaY0FweG9TWmN3ODJwRDNIVkxzQ2NGYVlkMGFZSXZaUGRlQW14MVNQRUR1MnVIUEhWTHQ0L0NiZ2RFYUZReUg0SnRoNWgxU0w3elBGNUZzSFZLUXpIYmJzRk1kVXVRTEtoYXd2dz09CAAGAAAAAAgABwAAAAAMAAgKAAEaEmXMPNqQ9wAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 4,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 13673,
+     "stored_chars": 13673,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x05aa7edcca464905c71c7e7ea8bae662a0b3b400a56725840db7d63c7ccd89af",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: Some results include only one of the specified keywords ('private' or '$CREORA') or 'Creora' without the dollar sign, rather than both as requested.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-22T06:03:21.222829312Z",
+     "query": "private $CREORA",
+     "type": "top",
+     "tweet_count": 19,
+     "tweets": [
+      {
+       "id": "2112613031083450497",
+       "text": "The private AI era starts today.\n\nCreora is officially live.\n\nThis is only the start. The real vision runs much deeper.\n\nNo filters. Full ownership. Just Creora.\n\n0xb11384A6ac2b3708E3d25A834c8a88687Accbcd1 https://t.co/vzSJHFNcCE",
+       "created_at": "2026-10-20T18:32:51Z",
+       "lang": "en",
+       "likes": 94,
+       "retweets": 14,
+       "replies": 19,
+       "quotes": 2,
+       "bookmarks": 1,
+       "views": 9734,
+       "conversation_id": "2112613031083450497",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2009347280202317824",
+        "screen_name": "creora_ai",
+        "name": "Creora",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2031518500007837696/5OPJZ3IU_normal.jpg"
+       }
+      },
+      {
+       "id": "2113002914851729718",
+       "text": "10,000 people have signed up for Creora.\n\nPrivate AI chat, image generation, video and an app builder.\n\nAll in one place.\n\nThank you for building with us. https://t.co/wDZyQH4WB5",
+       "created_at": "2026-10-21T20:22:07Z",
+       "lang": "en",
+       "likes": 74,
+       "retweets": 10,
+       "replies": 10,
+       "quotes": 0,
+       "bookmarks": 2,
+       "views": 4726,
+       "conversation_id": "2113002914851729718",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2009347280202317824",
+        "screen_name": "creora_ai",
+        "name": "Creora",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2031518500007837696/5OPJZ3IU_normal.jpg"
+       }
+      },
+      {
+       "id": "2112641460151669021",
+       "text": "I bought a bag of $CREORA  at 600k MC \n\nThe chart is unstable and high risk for now but if the team pulls this from here, it can crime hard\n\n@creora_ai is an interesting early-stage bet on private, uncensored AI that actually tries to close the loop from \u201cchat\u201d to \u201cownable",
+       "created_at": "2026-10-20T20:25:49Z",
+       "lang": "en",
+       "likes": 42,
+       "retweets": 8,
+       "replies": 16,
+       "quotes": 2,
+       "bookmarks": 5,
+       "views": 2935,
+       "conversation_id": "2112641460151669021",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1845446187324780544",
+        "screen_name": "TraderBrwn",
+        "name": "Brwn",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2080581287002185728/t4m3YVE8_normal.jpg"
+       }
+      },
+      {
+       "id": "2112912250885341608",
+       "text": "\ud83d\ude80\ud83d\udc8e $CREORA IS ON OUR RADAR! \ud83d\udc40\ud83d\udd25\n\nFresh charts. New opportunities. Early eyes on the trenches! \ud83d\udcc8\ud83d\udcb0\n\nWe highlighted $CREORA in our private TG as we continue hunting for emerging tokens and potential runners. \ud83d\udc8e\u26a1\ufe0f\n\n\ud83c\udfaf Want to be part of the next hunt?\n\n\u2705 Follow for more crypto https://t.co/XJTh28OXSc",
+       "created_at": "2026-10-21T14:21:51Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 70,
+       "conversation_id": "2112912250885341608",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1440527322",
+        "screen_name": "Micro_Cap_Play",
+        "name": "\u1d0d\u026a\u1d04\u0280\u1d0f-\u1d04\u1d00\u1d18 \u1d18\u029f\u1d00\u028f\ud83d\ude80 \ud83d\udcc8",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107656232676851712/1HBjBSf7_normal.jpg"
+       }
+      },
+      {
+       "id": "2112999799142109340",
+       "text": "Dash &amp; Creora AMA. DASH now powers private AI on Creora. More freedom to c...\nhttps://t.co/CZwdXefiDE\n\n#Dash #DashRadar",
+       "created_at": "2026-10-21T20:09:44Z",
+       "lang": "it",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 23,
+       "conversation_id": "2112999799142109340",
+       "is_quote": true,
+       "urls": [
+        "https://x.com/Dashpay/status/2112648020848480623"
+       ],
+       "author": {
+        "id": "2014441645907836928",
+        "screen_name": "dashradar",
+        "name": "DashRadar",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2018792559045115904/oCK5L9OS_normal.jpg"
+       }
+      },
+      {
+       "id": "2112663592814162182",
+       "text": "$CREORA spotted early in my private TG at $4.2K MCAP, later touching $551K! \ud83d\udd25\ud83d\udcc8 More crypto highlights and market insights ahead! Follow me &amp; join TG + Discord for upcoming setups! \ud83d\ude80\n#Crypto #Trading #Altcoins\n\nCA \n0xb11384A6ac2b3708E3d25A834c8a88687Accbcd1 https://t.co/6FEGGCe7fx",
+       "created_at": "2026-10-20T21:53:46Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 306,
+       "conversation_id": "2112663592814162182",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2182966228",
+        "screen_name": "meme_opportunit",
+        "name": "Meme_opportunities",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2110969947283193856/KoCn4deS_normal.jpg"
+       }
+      },
+      {
+       "id": "2112911889751564577",
+       "text": "\ud83d\udc8e\ud83d\ude80 $CREORA WAS SPOTTED BEFORE THE BIG MOVE! \ud83d\udd25\n\n\ud83d\udcca Entry MCAP: $41K\n\ud83d\udcc8 Peak MCAP: $663K\n\nThat\u2019s the kind of early setup we\u2019re hunting for in the trenches! \ud83c\udfaf\ud83d\udcb0 $CREORA was highlighted in my private Alpha TG, and the chart made a serious move. \ud83d\udc40\ud83d\udd25\n\nThe hunt for new https://t.co/cQZM6EU78b",
+       "created_at": "2026-10-21T14:20:25Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 112,
+       "conversation_id": "2112911889751564577",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1440527322",
+        "screen_name": "Micro_Cap_Play",
+        "name": "\u1d0d\u026a\u1d04\u0280\u1d0f-\u1d04\u1d00\u1d18 \u1d18\u029f\u1d00\u028f\ud83d\ude80 \ud83d\udcc8",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107656232676851712/1HBjBSf7_normal.jpg"
+       }
+      },
+      {
+       "id": "2112660893712408776",
+       "text": "Creora brings private AI users an\neasier way to pay with $DASH.\n\nCreora says users get more freedom to\ncreate with its private AI tool.\n\nLess payment friction should also help\ncreators focus on private AI work.\n\nWould you pay for private AI in DASH?",
+       "created_at": "2026-10-20T21:43:03Z",
+       "lang": "en",
+       "likes": 7,
+       "retweets": 3,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 834,
+       "conversation_id": "2112660893712408776",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "90828940",
+        "screen_name": "Joshuwa",
+        "name": "Joshuwa Roomsburg",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2070531644360966145/-H1xoDk9_normal.jpg"
+       }
+      },
+      {
+       "id": "2112802440181358603",
+       "text": "The crowd buys late.\nMy TG buys early. \ud83d\ude80\n\n$CREORA\n\ud83d\udcc8 $41K \u2192 $847K MC\n\ud83d\udc8e 21\u00d7 move\n\nJoin my private alpha group for early Solana meme coins\n\n#Robinhood \n\n\ud83d\udce9 DM to get started.\n\n0xb11384A6ac2b3708E3d25A834c8a88687Accbcd1 https://t.co/0wl0LOxYs9",
+       "created_at": "2026-10-21T07:05:30Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 93,
+       "conversation_id": "2112802440181358603",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "422513112",
+        "screen_name": "bnyamn_k",
+        "name": "Mr Mega Bull",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2096161099120816129/9BHhgWgx_normal.jpg"
+       }
+      },
+      {
+       "id": "2112614446720000466",
+       "text": "\ud83d\udea8 MIGRATION DETECTED | robinhood:0x91190add04a5b7edead115f0ef05614627c2a9cb\n\n0xb11384a6ac2b3708e3d25a834c8a88687accbcd1\n\ncreora\n\n\u2022 Migration MC: 20.58 ETH | ATH MC: $3.60M\n\u2022 Liquidity: $127.32K | Holders: 297\n\u2022 DEX Paid: No | CTO: No\n\u2022 Audit: Passed | Honeypot: No\n\u2022",
+       "created_at": "2026-10-20T18:38:29Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 253,
+       "conversation_id": "2112614446720000466",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1965535389386448896",
+        "screen_name": "SolanaTren59241",
+        "name": "@SolanaTrending",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1966864349458227200/urMi1hjX_normal.jpg"
+       }
+      },
+      {
+       "id": "2112833428802375879",
+       "text": "Attention $CREORA gang! let's vote!\n\nJust under 100 votes needed to push $CREORA on the CoinMarketCap Top 100 Leaderboard.\n\n- Listing ID: 32915\n\nCA: 0x1d50ffe678c3e2f14422998c217f075d5d43e99f\nhttps://t.co/IDyVEFsaiX",
+       "created_at": "2026-10-21T09:08:38Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 94,
+       "conversation_id": "2112833428802375879",
+       "is_quote": false,
+       "urls": [
+        "https://helpvote.help/?contract=0x1d50ffe678c3e2f14422998c217f075d5d43e99f&fr=ipguhxh1"
+       ],
+       "author": {
+        "id": "1546965613465174016",
+        "screen_name": "IGljivica",
+        "name": "napaljenica_mala",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1583119076506968065/kXGeCyTE_normal.jpg"
+       }
+      },
+      {
+       "id": "2110885443008958551",
+       "text": "Build an agent, then let it earn for you.\n\nPick a name for it, put a price on every run, and let anyone signed in to Creora hire it. When a run answers, 70% of the price is yours, paid out daily in USDG.\n\nWant it to have an identity of its own? Put it on chain, and we'll register https://t.co/6LLsYvUL6F",
+       "created_at": "2026-10-16T00:08:02Z",
+       "lang": "en",
+       "likes": 43,
+       "retweets": 8,
+       "replies": 10,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 4894,
+       "conversation_id": "2110885443008958551",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2009347280202317824",
+        "screen_name": "creora_ai",
+        "name": "Creora",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2031518500007837696/5OPJZ3IU_normal.jpg"
+       }
+      },
+      {
+       "id": "2112392886088032349",
+       "text": "EARLY ALPHA\n\n@crest_btc \u2014 a non-custodial private Bitcoin wallet on Citrea, Zcash-style privacy by default.\nWhat to do: waitlist https://t.co/A98ScN7JJX + follow @crest_btc, waiting for the release and alpha.",
+       "created_at": "2026-10-20T03:58:05Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 59,
+       "conversation_id": "2112392886088032349",
+       "is_quote": false,
+       "urls": [
+        "https://crestapp.xyz"
+       ],
+       "author": {
+        "id": "1506290416601243652",
+        "screen_name": "pl4nee",
+        "name": "pl4ne",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2083333681561608192/lYLxfd3t_normal.jpg"
+       }
+      },
+      {
+       "id": "2113144106289447097",
+       "text": "If you are looking to hold something long term but don't want to check the chart daily then @CREcoinSOL is your play. \nI believe it will create generational wealth for so many. \nIt's backed by commercial real estate. \nReal yeild coming back into the chart thru rent and increasing https://t.co/qtDEk2xIcL",
+       "created_at": "2026-10-22T05:43:09Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 12,
+       "conversation_id": "2113144106289447097",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1460713859468124163",
+        "screen_name": "Roythebeebum",
+        "name": "Lee Just CRE \ud83e\ude99",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2106006581993242624/zK5lsP1S_normal.jpg"
+       }
+      },
+      {
+       "id": "2112783292680278240",
+       "text": "Yo $CREORA holders! YOUR vote decides it!\n\nLess than 80 votes needed to get $CREORA onto the CoinMarketCap Top 100 Leaderboard.\n\n- Listing ID: 23098\n\nCA: 0xb11384a6ac2b3708e3d25a834c8a88687accbcd1\nhttps://t.co/5BkBfjmYJ1",
+       "created_at": "2026-10-21T05:49:25Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 41,
+       "conversation_id": "2112783292680278240",
+       "is_quote": false,
+       "urls": [
+        "https://helpvote.help/?contract=0xb11384a6ac2b3708e3d25a834c8a88687accbcd1&s=rkqi5j1xa"
+       ],
+       "author": {
+        "id": "1380632043009282048",
+        "screen_name": "Diffcax1",
+        "name": "Diffcax",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1645869485474078726/71ic5LtR_normal.jpg"
+       }
+      },
+      {
+       "id": "2112933295214534726",
+       "text": "$CREORA \n\u4e0d\u9519\uff0c\u5df2\u7ecf\u4e0a\u6da8 3X\n\u8fd8\u6ca1\u7ed3\u675f\uff0c\u6211\u8ba4\u4e3a\u8fd9\u4e2a\u9879\u76ee\u8fd8\u6709\u5f88\u591a\u5927\u724c\u5408\u4f5c\uff0c\u8d77\u7801\u4ef7\u503c\u51e0\u767e\u4e07\u5e02\u503c\u3002 https://t.co/j5jjWe54Kb",
+       "created_at": "2026-10-21T15:45:28Z",
+       "lang": "zh",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 121,
+       "conversation_id": "2112933295214534726",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2041497802770178048",
+        "screen_name": "mikumooy",
+        "name": "Midas",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109232282615844865/2vy9LRHh_normal.jpg"
+       }
+      },
+      {
+       "id": "2112758725195002095",
+       "text": "Gm $CREORA Family! YOUR voice matters!\n\nUnder 100 votes to go to push $CREORA onto the CoinMarketCap Top 100 Leaderboard.\n\n- Listing ID: 68625\n\nCA: 0xb11384a6ac2b3708e3d25a834c8a88687accbcd1\nhttps://t.co/v7nzFdI0wd",
+       "created_at": "2026-10-21T04:11:47Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 84,
+       "conversation_id": "2112758725195002095",
+       "is_quote": false,
+       "urls": [
+        "https://helpvote.help/?contract=0xb11384a6ac2b3708e3d25a834c8a88687accbcd1&s=06t253"
+       ],
+       "author": {
+        "id": "1762477950757199876",
+        "screen_name": "Lanegra826670",
+        "name": "La negra",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1762478924586418176/FfRKkcbd_normal.jpg"
+       }
+      },
+      {
+       "id": "2112654751208763690",
+       "text": "ELEVATED RISK \u00b7 56/100\n\n$CREORA \u2014 a Robinhood-chain token.\n\nCREORA/ETH pool \u00b7 uniswap \u00b7 $78k liquidity\n\nVolume is running 41.0x the pool \u2014 the same liquidity churning. https://t.co/1f5qDR4VXX",
+       "created_at": "2026-10-20T21:18:38Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 106,
+       "conversation_id": "2112654751208763690",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2057564667963117568",
+        "screen_name": "scalper_news",
+        "name": "Scalper News",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2057595092647510016/Z1cswM-K_normal.png"
+       }
+      },
+      {
+       "id": "2112767543920459979",
+       "text": "Hey $CREORA gang! we need YOUR vote!\n\nLess than 100 votes needed to push $CREORA on the CoinMarketCap Top 100 Leaderboard.\n\n- Listing ID: 75087\n\nCA: 0xb11384a6ac2b3708e3d25a834c8a88687accbcd1\nhttps://t.co/tdqtX7wiEY",
+       "created_at": "2026-10-21T04:46:50Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 11,
+       "conversation_id": "2112767543920459979",
+       "is_quote": false,
+       "urls": [
+        "https://helpvote.help/?contract=0xb11384a6ac2b3708e3d25a834c8a88687accbcd1&src=d0fef8rh"
+       ],
+       "author": {
+        "id": "1013810482350870529",
+        "screen_name": "Tioluwalope_mi",
+        "name": "Osho Mary",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1588842969020366849/4vK4IUwS_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVNp_PcAJxAKAAMdU2n89v_Y8AgABAAAAAILAAUAAADwRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJRZFVhM2p0SlpneUIxU0J0M2ZXdkR2SFZHd1dDT1dzUVlkUzE4Z1lCZVFWeDFTNGg5R1ZsQ2NIVkl1b0ErV29Bc2RVMlZlWnBmQXVSMVNrbjlibDRHb0hWR0NXOUdYSUlFZFVZT2xiQnFoMGgxUm5EYjZHbEVkSFZMazlMVWFNVFlkVWc3akpGcUF5eDFScUUySzF2RXFIVklkTmUrV2tPQWRVcVdqSDF1Z1JoMVF1aU5SVnVCZEhWS1NLMFpYWVNFZFVrclBLVllReHgxVGFDTWYxd0FlCAAGAAAAAAgABwAAAAAMAAgKAAEdS18gYBeQVwAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_bc975ac083864fe2ae2bf24d3ea5be91/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.011495,
+  "tool_cost_usd": 0.015,
+  "frames_fee_usd": 0.003974,
+  "total_cost_usd": 0.03047,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 35518,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 336,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.011495,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x8f011fe4143d2187b4c55f3e2c1d90bb40d1e2c241ebfae9778efd5e7df7e467",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response does not contain any tweets that include the exact phrase \"using $Au\" as requested.; class adjudicated seller_error\u2192negative_result: The API call successfully processed the request and delivered 19 matching results, indicating the tool worked and provided an answer, despite being presented as an error body.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x218043a6b95e48e687bda694cf879fe6917a02069a6e18397a01890b60e8ea97",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x1f2f494cc38d22fae3b9de8cd24b6b52614375ec26a98a6a350ec2d654966cbb",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response does not contain any tweets explicitly mentioning 'launches $NOOX'; the single tweet mentioning 'launched' refers to a different token ($NOX), and the other tweets discuss post-launch market performance rather than the launch itself.; class adjudicated seller_error\u2192negative_result: The tool successfully processed the request and returned matching results, indicating it worked and produced an answer, rather than rejecting the request or encountering an internal failure.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xf81022c19c51459579f448cb88522297124e9dfbe19ad736ed44881a28561722",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: Many tweets in the results only contain \"$CLOUT\" or even different terms like \"Claude\" or \"$CLAUS\", failing to meet both keywords specified in the request.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x05aa7edcca464905c71c7e7ea8bae662a0b3b400a56725840db7d63c7ccd89af",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: Some results include only one of the specified keywords ('private' or '$CREORA') or 'Creora' without the dollar sign, rather than both as requested.",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
