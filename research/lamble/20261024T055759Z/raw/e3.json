@@ -1,0 +1,1183 @@
+{
+ "run_id": "run_7168e76a2c57484cade9e8f9350f34f1",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 37,
+  "budget_credits": 60,
+  "balance_credits": 37904,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 42,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 5,
+  "delivered": 4,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "mpp.firecrawl.post.v1-scrape",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12663,
+     "stored_chars": 12663,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.002,
+    "receipt": {
+     "tool": "mpp.firecrawl.post.v1-scrape",
+     "amount": "0.002",
+     "pay_to": "0xca4e835F803cB0b7C428222B3A3B98518d4779Fe",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0x062a6c329d454a83ba8c5ac7591c3a4ef55afd7108e0795510ec90ef659a7b7e",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    "body": {
+     "success": true,
+     "data": {
+      "markdown": "# The AI inference  market.\n\nSellers list spare capacity for Claude, GPT, Gemini, DeepSeek and more on the ORBIX marketplace, and the cheapest offer serves every request. One key to buy it all, and $ORBIX holders pay even less.\n\nClaude Fable 5.1\n\nClaude Fable 5.1AnthropicClaude Opus 5.5AnthropicClaude Sonnet 5.5AnthropicClaude Haiku 5.5AnthropicGPT-6 AstraOpenAIGPT-6.1 SolOpenAIGPT-6 LunaOpenAIGemini 4 ArgonGoogleGemini 3.8 FlashGoogleDeepSeek V4 ProDeepSeekDeepSeek V4.1 FlashDeepSeekQwen3.8 MaxQwenQwen3.8 FlashQwenGrok 4.7xAIKimi K3MoonshotGLM 5.3Z.aiMistral Large 4MistralClaude Sonnet 5AnthropicClaude Opus 4.7AnthropicClaude Sonnet 4.6AnthropicClaude Haiku 4.5AnthropicGPT-5.6 SolOpenAIGPT-5.6 LunaOpenAIGPT-5.5OpenAIGPT-5 MiniOpenAIGPT-4o miniOpenAIGemini 3.7 FlashGoogleGemini 3.1 ProGoogleGemini 3.1 Flash LiteGoogleDeepSeek V3.2DeepSeekGLM 5.3 FlashZ.aiGLM 5.2Z.aiKimi K2.6MoonshotQwen3 CoderQwenGrok 4.3xAIMiniMax M2.5MiniMaxMistral Small 3.2MistralDeepSeek V4 Flash 0423DeepSeekDeepSeek V4 Pro 0423DeepSeekQwen3 VL 235B A22B InstructQwenKimi K2.5MoonshotGemma 4 31BGoogleGLM 4.6Z.aiGPT-5.4OpenAIGLM 5.1Z.aiQwen3 235B A22B Instruct 2507QwenGLM 4.7Z.aiMiniMax M3MiniMaxQwen3 Next 80B A3B InstructQwenGLM 4.7 FlashZ.aiGemma 3 27BGoogleGLM 5Z.aiGemini 3 FlashGoogleGPT-5.4 MiniOpenAIMuse WonderMetaKimi K2.7 CodeMoonshotGemini 2.5 FlashGoogleGPT-5.6 TerraOpenAIClaude Opus 4.6AnthropicMiniMax M2.1MiniMaxGPT-6 SolOpenAIGemma 4 26B A4BGoogleQwen3 Coder NextQwenMiniMax M2MiniMaxClaude Opus 4.8AnthropicClaude Opus 5AnthropicClaude Sonnet 4.5AnthropicDeepSeek V4.1 Flash 1017DeepSeekDeepSeek V4 Flash 0731DeepSeekGLM 5 TurboZ.aiClaude Fable 5AnthropicGPT-5.3-CodexOpenAIQwen3 32BQwenGrok 4.6xAIKimi K2 ThinkingMoonshotGPT-4oOpenAIGemini 2.5 ProGoogleMiniMax M2.7MiniMaxQwen3.6 27BQwenGPT-5.4 NanoOpenAIGrok 4.5xAIGPT-5.2OpenAIKimi K2 0711MoonshotGPT-5 NanoOpenAIClaude Opus 4.5AnthropicLlama 3.3 70B InstructMetaQwen3.8 2.4T A95BQwenQwen3 Coder 30B A3B InstructQwenGLM 5V TurboZ.aiGLM 4.5Z.aiGemma 3 12BGoogleGemma 3 4BGoogleLlama 3.2 3B InstructMetaHermes 3 405B InstructNousGLM 4.5 AirZ.aiSeed 2.1 TurboByteDanceQwen3 235B A22B Thinking 2507QwenQwen3.5 397B A17BQwenQwen3 30B A3BQwenInklingThinking MachinesGemini 3.5 FlashGoogleGemini 3.5 Flash LiteGoogleGemini 3.6 FlashGooglegpt-oss-120bOpenAIgpt-oss-20bOpenAIGPT-5.6 Terra ProOpenAIGPT-5.6 Luna ProOpenAIDeepSeek V3.1DeepSeekMistral Large 3MistralDevstral 2MistralMistral Small 4MistralMinistral 3 14BMistralMinistral 3 8BMistralMinistral 3 3BMistralGrok 4.20xAIGrok 4.20 Multi-AgentxAIGrok Build 0.1xAIQwen3.8 27BQwenQwen3.7 PlusQwenQwen3.7 MaxQwenQwen3.5 35B A3BQwenQwen3.6 35B A3BQwenQwen3.5 9BQwenQwen3 VL 30B A3B ThinkingQwenNemotron 3 Nano 30BNVIDIANemotron 3 Super 120BNVIDIANemotron 3 Ultra 550BNVIDIAMiniMax M3.1 FlashMiniMaxMercury 2InceptionMuse Spark OpenMeta\n\nAscentOrbitCoreSingularity\n\nList price\n\n$50.00\n\nORBIX today\n\n$01234567890123456789.0123456789012345678926.74\n\nper 1M output tokensmarket $14.85 \u00b7 Core \u221260%\n\nCore holders save$44.06 per 1M tokens,\u221201234567890123456789.012345678946.5%today\n\n[Get your API key](https://useorbix.app/app/keys)\n\nPool resets in 12:02:27. The discount follows how much of today's pool is left.\n\nBuild with agents\n\n`\u203a Add ORBIX to my app: useorbix.app/llms.txt`\n\nEvery leading model, one key\n\nLive market\n\n## The market, in motion\n\nLive [Open the market](https://useorbix.app/markets)\n\nSubsidy pool today$0123456789,012345678901234567890123456789$4,440\n\n100% left \u00b7 resets at 00:00 UTC\n\nBelow list price127/130\n\nmodels cheaper on the open market\n\nAverage market saving01234567890123456789%\n\noff list, before your holder discount\n\nOpen market \u00b7 24h$36,965\n\n4.4M requests across 12315 offers\n\nWhere the money goes\n\nTrading fees fill a daily pool, your top-up fills your balance, and every request is paid out at cost.\n\n[How it works](https://useorbix.app/docs/project/how-it-works#money-flow)\n\nIn \u00b7 trading fees\n\n$ORBIX trades\n\n1.2% of every buy and sell on Pons, paid in ETH.\n\nIn \u00b7 top-ups\n\nDevelopers\n\nSend ETH or USDG from their wallet. It is credited in USD.\n\nTreasury [0xa469\u20261a3f](https://robinhoodchain.blockscout.com/address/0xa469E1DA83AaB613e13DA88c74F8Ec7CF7811a3f)\n\nFees\n\nDaily subsidy pool\n\n$3,000 today, 100% left. Resets 00:00 UTC.\n\nTop-ups\n\nYour balance\n\nPrepaid credit in USD. Only your keys spend it.\n\nEach request\n\nBilled at market cost\n\nThe pool pays your tier's discount, your balance pays the rest.cost$1.00pool \u00b7 Core\u2212$0.60your balance$0.40\n\nOut \u00b7 at cost\n\nMarketplace sellers\n\nThe cheapest trusted offer serves the call. Sellers are paid in USDC on Base.\n\nOut \u00b7 fallback\n\nOpenRouter\n\nServes the call when no seller beats list price.\n\nTrading feesYour moneyPaid out at cost\n\nORBIX keeps 0% of fees, 0% margin on inference,0% from sellers\n\nTwo-minute setup\n\n## Integrate in two minutes\n\nChange one base URL. Keep your code, your SDK and your models.\n\nBuild with agents\n\n`\u203a Add ORBIX to my app: useorbix.app/llms.txt`\n\n- Built for coding agents.llms.txt describes endpoints, auth, models and payment so an agent can wire ORBIX in on its own.\n- Works with your SDK.OpenAI-compatible chat completions and Anthropic-compatible messages, with streaming and tool use.\n- Keys stay private.Your ORBIX key lives in an environment variable. Upstream provider keys never leave our router.\n\nPythonTypeScriptAnthropic SDKcURLClaude Code\n\nquickstart.py\n\nCopy\n\n```\nfrom openai import OpenAI\nimport os\n\nclient = OpenAI(\n    base_url=\"https://openrouter.ai/api/v1\",\n    base_url=\"https://api.useorbix.app/v1\",\n    api_key=os.environ[\"ORBIX_API_KEY\"],\n)\n\nreply = client.chat.completions.create(\n    model=\"anthropic/claude-sonnet-5.5\",\n    messages=[{\"role\": \"user\", \"content\": \"Hello from orbit\"}],\n)\n```\n\n```\nimport OpenAI from \"openai\";\n\nconst client = new OpenAI({\n  baseURL: \"https://openrouter.ai/api/v1\",\n  baseURL: \"https://api.useorbix.app/v1\",\n  apiKey: process.env.ORBIX_API_KEY,\n});\n\nconst reply = await client.chat.completions.create({\n  model: \"google/gemini-4-argon\",\n  messages: [{ role: \"user\", content: \"Hello from orbit\" }],\n});\n```\n\n```\nimport Anthropic from \"@anthropic-ai/sdk\";\n\nconst client = new Anthropic({\n  baseURL: \"https://api.useorbix.app\",\n  apiKey: process.env.ORBIX_API_KEY,\n});\n\nconst msg = await client.messages.create({\n  model: \"anthropic/claude-opus-5.5\",\n  max_tokens: 1024,\n  messages: [{ role: \"user\", content: \"Hello from orbit\" }],\n});\n```\n\n```\ncurl https://api.useorbix.app/v1/chat/completions \\\n  -H \"[header redacted: public docs placeholder for an API key variable]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"model\": \"deepseek/deepseek-v4.1-flash\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"Hello from orbit\"}],\n    \"stream\": true\n  }'\n```\n\n```\n# Route Claude Code through ORBIX\nexport ANTHROPIC_BASE_URL=\"https://api.useorbix.app\"\nexport ANTHROPIC_AUTH_TOKEN=\"$ORBIX_API_KEY\"\nexport ANTHROPIC_MODEL=\"anthropic/claude-sonnet-5.5\"\n\nclaude\n```\n\nCalculator\n\n## See how much you keep\n\nPick a model, set your usage, choose a holder tier.\n\nModel\n\nClaude Sonnet 5.5\n\nClaude Fable 5.1AnthropicClaude Opus 5.5AnthropicClaude Sonnet 5.5AnthropicClaude Haiku 5.5AnthropicGPT-6 AstraOpenAIGPT-6.1 SolOpenAIGPT-6 LunaOpenAIGemini 4 ArgonGoogleGemini 3.8 FlashGoogleDeepSeek V4 ProDeepSeekDeepSeek V4.1 FlashDeepSeekQwen3.8 MaxQwenQwen3.8 FlashQwenGrok 4.7xAIKimi K3MoonshotGLM 5.3Z.aiMistral Large 4MistralClaude Sonnet 5AnthropicClaude Opus 4.7AnthropicClaude Sonnet 4.6AnthropicClaude Haiku 4.5AnthropicGPT-5.6 SolOpenAIGPT-5.6 LunaOpenAIGPT-5.5OpenAIGPT-5 MiniOpenAIGPT-4o miniOpenAIGemini 3.7 FlashGoogleGemini 3.1 ProGoogleGemini 3.1 Flash LiteGoogleDeepSeek V3.2DeepSeekGLM 5.3 FlashZ.aiGLM 5.2Z.aiKimi K2.6MoonshotQwen3 CoderQwenGrok 4.3xAIMiniMax M2.5MiniMaxMistral Small 3.2MistralDeepSeek V4 Flash 0423DeepSeekDeepSeek V4 Pro 0423DeepSeekQwen3 VL 235B A22B InstructQwenKimi K2.5MoonshotGemma 4 31BGoogleGLM 4.6Z.aiGPT-5.4OpenAIGLM 5.1Z.aiQwen3 235B A22B Instruct 2507QwenGLM 4.7Z.aiMiniMax M3MiniMaxQwen3 Next 80B A3B InstructQwenGLM 4.7 FlashZ.aiGemma 3 27BGoogleGLM 5Z.aiGemini 3 FlashGoogleGPT-5.4 MiniOpenAIMuse WonderMetaKimi K2.7 CodeMoonshotGemini 2.5 FlashGoogleGPT-5.6 TerraOpenAIClaude Opus 4.6AnthropicMiniMax M2.1MiniMaxGPT-6 SolOpenAIGemma 4 26B A4BGoogleQwen3 Coder NextQwenMiniMax M2MiniMaxClaude Opus 4.8AnthropicClaude Opus 5AnthropicClaude Sonnet 4.5AnthropicDeepSeek V4.1 Flash 1017DeepSeekDeepSeek V4 Flash 0731DeepSeekGLM 5 TurboZ.aiClaude Fable 5AnthropicGPT-5.3-CodexOpenAIQwen3 32BQwenGrok 4.6xAIKimi K2 ThinkingMoonshotGPT-4oOpenAIGemini 2.5 ProGoogleMiniMax M2.7MiniMaxQwen3.6 27BQwenGPT-5.4 NanoOpenAIGrok 4.5xAIGPT-5.2OpenAIKimi K2 0711MoonshotGPT-5 NanoOpenAIClaude Opus 4.5AnthropicLlama 3.3 70B InstructMetaQwen3.8 2.4T A95BQwenQwen3 Coder 30B A3B InstructQwenGLM 5V TurboZ.aiGLM 4.5Z.aiGemma 3 12BGoogleGemma 3 4BGoogleLlama 3.2 3B InstructMetaHermes 3 405B InstructNousGLM 4.5 AirZ.aiSeed 2.1 TurboByteDanceQwen3 235B A22B Thinking 2507QwenQwen3.5 397B A17BQwenQwen3 30B A3BQwenInklingThinking MachinesGemini 3.5 FlashGoogleGemini 3.5 Flash LiteGoogleGemini 3.6 FlashGooglegpt-oss-120bOpenAIgpt-oss-20bOpenAIGPT-5.6 Terra ProOpenAIGPT-5.6 Luna ProOpenAIDeepSeek V3.1DeepSeekMistral Large 3MistralDevstral 2MistralMistral Small 4MistralMinistral 3 14BMistralMinistral 3 8BMistralMinistral 3 3BMistralGrok 4.20xAIGrok 4.20 Multi-AgentxAIGrok Build 0.1xAIQwen3.8 27BQwenQwen3.7 PlusQwenQwen3.7 MaxQwenQwen3.5 35B A3BQwenQwen3.6 35B A3BQwenQwen3.5 9BQwenQwen3 VL 30B A3B ThinkingQwenNemotron 3 Nano 30BNVIDIANemotron 3 Super 120BNVIDIANemotron 3 Ultra 550BNVIDIAMiniMax M3.1 FlashMiniMaxMercury 2InceptionMuse Spark OpenMeta\n\nMonthly usage\n\nSpendTokens\n\n$0123456789,012345678901234567890123456789$1,000per month at list price\n\n$100$10,000\n\nHolder tier\n\nVisitorAscentOrbitCoreSingularity\n\nCore\n\nVisitorno discountAscentup to 10%Orbitup to 30%Coreup to 60%Singularityup to 80%\n\nINFERENCE BILL\n\nORBIX \u00b7 Robinhood Chain\n\nMONTHLY\n\nESTIMATE\n\nMODELUSAGE\n\nClaude Sonnet 5.5012345678901234567890123456789250M tok\n\nLIST PRICE\n\nProvider rate\n\n$0123456789,012345678901234567890123456789.01234567890123456789$1,000.00\n\nMARKET PRICE\n\n21 trusted sellers below list\n\n\u2212$012345678901234567890123456789.01234567890123456789\n\nSUBSIDY \u00b7 CORE\n\nPaid by $ORBIX fees \u00b7 max $10/day\n\n\u2212$012345678901234567890123456789.01234567890123456789$300.00\n\nYOU PAY\n\nEstimated monthly bill\n\n$012345678901234567890123456789.01234567890123456789$700.00\n\n01234567890123456789.012345678930.0% OFF LIST\n\nuseorbix.appDiscount scales with today's pool\n\nHow it works\n\n## Built for every side of the market\n\nDevelopersHoldersSellers\n\nToday \u00b7 Core tierper 1M output\n\n- Claude Opus 5.5\n\n\n\n$20.00$4.71\n\n\n\u221276.4%\n- GPT-6.1 Sol\n\n\n\n$10.00$1.24\n\n\n\u221287.6%\n- Gemini 4 Argon\n\n\n\n$10.00$1.20\n\n\n\u221288.0%\n- DeepSeek V4.1 Flash\n\n\n\n$0.38$0.005\n\n\n\u221298.7%\n- Qwen3.8 Max\n\n\n\n$6.00$2.40\n\n\n\u221260.0%\n\n[Explore every model on the market](https://useorbix.app/markets)\n\n1. 01\n\n\nGet your ORBIX key\n\n\n\nConnect a wallet and mint one key that works with every model.\n\n2. 02\n\n\nSwap the base URL\n\n\n\nPoint your OpenAI or Anthropic SDK at api.useorbix.app. Nothing else changes.\n\n3. 03\n\n\nPay less, automatically\n\n\n\nEach request is billed at market price minus today's subsidy for your tier.\n\n\n[Get your API key](https://useorbix.app/app/keys) [Explore live prices](https://useorbix.app/markets)\n\nThe market is open\n\n## Every model. One key.  Cheaper every trade.\n\nRoute Claude, GPT, Gemini and DeepSeek through one endpoint and let $ORBIX volume pay part of the bill.\n\n[Explore the market](https://useorbix.app/markets) [Read the docs](https://useorbix.app/docs)",
+      "metadata": {
+       "title": "ORBIX \u00b7 The AI inference market",
+       "language": "en",
+       "theme-color": "#050507",
+       "next-size-adjust": "",
+       "viewport": "width=device-width, initial-scale=1",
+       "description": "One API key for Claude, GPT, Gemini, DeepSeek and more, discounted by the trading fees of $ORBIX on Robinhood Chain.",
+       "favicon": "https://useorbix.app/icon.svg?icon.0z0089g2ih3cn.svg",
+       "scrapeId": "01a16c81-f0a0-706e-9d14-5bad32519dff",
+       "sourceURL": "https://useorbix.app/",
+       "url": "https://useorbix.app/",
+       "statusCode": 200,
+       "contentType": "text/html; charset=utf-8",
+       "proxyUsed": "basic",
+       "cacheState": "hit",
+       "cachedAt": "2026-10-23T11:57:32.167Z",
+       "creditsUsed": 1,
+       "concurrencyLimited": false
+      }
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "mpp.firecrawl.post.v1-scrape",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 9741,
+     "stored_chars": 9741,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.002,
+    "receipt": {
+     "tool": "mpp.firecrawl.post.v1-scrape",
+     "amount": "0.002",
+     "pay_to": "0xca4e835F803cB0b7C428222B3A3B98518d4779Fe",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0xff4699a3614e3e1544ad465f9e6b333286cefadcbdd51305928baf43925351de",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    "body": {
+     "success": true,
+     "data": {
+      "markdown": "![](https://www.orbio.so/orb.png)\n\n![](https://www.orbio.so/_next/image?url=%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Fcredits-pillar.1qdnfhguhcklj.png&w=3840&q=75)\n\n![](https://www.orbio.so/_next/image?url=%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Fcredits-pillar.1qdnfhguhcklj.png&w=3840&q=75)\n\n[![](https://www.orbio.so/_next/image?url=%2Forb.png&w=64&q=75&dpl=dpl_Do6e4PJ32xjVnBPyQG9M9qEuvMmP)Orbio](https://www.orbio.so/)\n\nSign in\n\n# Get LLM credits, at a discount.\n\nOne key, every model, no subscriptions.\n\n[Introducing Orbio Credit \u2197](https://www.orbio.so/protocol)\n\n<50 ms\n\nadded latency, measured per request\n\n$0\n\nsetup or subscription fees\n\nCredits worth\n\n$\n\nBuy\n\n- Straight relay\n\nYour request goes to the model you named. Nothing is swapped or downgraded.\n\n- Provider\u2019s own answer\n\nResponses carry the provider\u2019s model name and id, so you can check.\n\n- Zero data retention (ZDR)\n\nInference routes only to ZDR endpoints. We keep billing metadata, never prompts or responses.\n\n\n## One API key. Same models. Less spend.\n\nYour prompt\n\nWhat can I cook with eggs and rice?Help me write a birthday message.Give me a quick study tip.\n\nWhat can I cook with eggs and ri\n\nOrbio API key`sk-orbio-\u2022\u2022\u2022\u20227x9k`\n\nView API snippet\n\n```\nconst response = await client.chat.completions.create({\n  model: 'anthropic/claude-fable-5.1',\n  messages: [{ role: 'user', content: 'What can I cook with eggs and rice?' }],\n  stream: true,\n});\n```\n\nThe answer Typing prompt\n\nTry egg fried rice! Scramble the eggs, add your cooked rice, and stir in soy sauce. Toss in any vegetables you have, then finish with spring onions for an easy dinner.\n\nHappy birthday! Hope your day is full of good food, big laughs, and your favorite people. Here\u2019s to another year of making memories together. Have the best day!\n\nClose your notes and explain what you just learned out loud, as if you were teaching a friend. The parts you struggle to explain show you exactly what to review next.\n\nYour answer will appear here.\n\n![](https://www.orbio.so/model-icons/claude.svg?dpl=dpl_Do6e4PJ32xjVnBPyQG9M9qEuvMmP)Claude Fable 5.1GPT-6 AstraGemini 3.8 Flash\n\nPer 1M output tokensPer 1M input tokens\n\nBefore **$01234567890123456789.01234567890123456789$50.00**\n\n\u2192\n\nWith Orbio **$01234567890123456789.01234567890123456789$25.00**\n\nYou save **$25.00** 50% less\n\ndiscountavailable credits\n\n01. 50% off$30,787\n02. 45% off$59,869\n03. 40% off$33,755\n04. 35% off$6,676\n05. 30% off$9,209\n06. 25% off$14,382\n07. 20% off$36,073\n08. 15% off$8,376\n09. 10% off$5,719\n10. 5% off$3,127\n11. 0% off$4,295\n\n01. la\\*\\*\\*@\\*\\*\\*.com\n\n\n\n    2h ago\n\n\n\n\n\n    $40\n\n\n\n    50% off\n\n02. 0xf092\u20260d90\n\n\n\n    2h ago\n\n\n\n\n\n    $0.24\n\n03. mi\\*\\*\\*@\\*\\*\\*.com\n\n\n\n    3h ago\n\n\n\n\n\n    $200\n\n\n\n    50% off\n\n04. la\\*\\*\\*@\\*\\*\\*.com\n\n\n\n    3h ago\n\n\n\n\n\n    $40\n\n\n\n    50% off\n\n05. la\\*\\*\\*@\\*\\*\\*.com\n\n\n\n    3h ago\n\n\n\n\n\n    $20\n\n\n\n    50% off\n\n06. 0x43eb\u20262d96\n\n\n\n    4h ago\n\n\n\n\n\n    $8.28\n\n07. 0x43eb\u20262d96\n\n\n\n    4h ago\n\n\n\n\n\n    $0.95\n\n08. la\\*\\*\\*@\\*\\*\\*.com\n\n\n\n    4h ago\n\n\n\n\n\n    $20\n\n\n\n    50% off\n\n09. 0x0e16\u2026c35b\n\n\n\n    5h ago\n\n\n\n\n\n    <$0.01\n\n10. 0x1ca0\u20266833\n\n\n\n    6h ago\n\n\n\n\n\n    $9.50\n\n11. 0x2216\u202665f5\n\n\n\n    9h ago\n\n\n\n\n\n    $1,923.35\n\n12. 0x0e16\u2026c35b\n\n\n\n    10h ago\n\n\n\n\n\n    <$0.01\n\n13. 0x0e16\u2026c35b\n\n\n\n    10h ago\n\n\n\n\n\n    <$0.01\n\n14. 0x1ca0\u20266833\n\n\n\n    11h ago\n\n\n\n\n\n    $6.03\n\n15. 0x0e16\u2026c35b\n\n\n\n    11h ago\n\n\n\n\n\n    $0.03\n\n16. 0x1ca0\u20266833\n\n\n\n    12h ago\n\n\n\n\n\n    $4.75\n\n17. 0x0e16\u2026c35b\n\n\n\n    13h ago\n\n\n\n\n\n    <$0.01\n\n18. 0x0e16\u2026c35b\n\n\n\n    13h ago\n\n\n\n\n\n    <$0.01\n\n19. 0x6d5f\u20268280\n\n\n\n    14h ago\n\n\n\n\n\n    $9.50\n\n20. si\\*\\*\\*@\\*\\*\\*.com\n\n\n\n    15h ago\n\n\n\n\n\n    $10\n\n\n\n    50% off\n\n\n## Every model, one key, below what the lab charges.\n\n468 models on the catalogue.\n\noutput price \u00b7 per 1M tokensthrough Orbio\n\n1. Claude Fable 5.1\n\n\n\nanthropic/claude-fable-5.1\n\n\n\n$50.0$25.0\u221250%\n\n2. GPT-6 Astra\n\n\n\nopenai/gpt-6-astra\n\n\n\n$50.0$25.0\u221250%\n\n3. Claude Opus 5\n\n\n\nanthropic/claude-opus-5\n\n\n\n$25.0$12.5\u221250%\n\n4. Gemini 3.8 Flash\n\n\n\ngoogle/gemini-3.8-flash\n\n\n\n$4.13$2.06\u221250%\n\n5. Grok 4.6\n\n\n\nx-ai/grok-4.6\n\n\n\n$6.00$3.00\u221250%\n\n6. Claude Sonnet 5\n\n\n\nanthropic/claude-sonnet-5\n\n\n\n$10.0$5.00\u221250%\n\n7. DeepSeek V4.1 Flash\n\n\n\ndeepseek/deepseek-v4.1-flash-1017\n\n\n\n$0.600$0.300\u221250%\n\n8. Kimi K3\n\n\n\nmoonshotai/kimi-k3\n\n\n\n$11.9$5.97\u221250%\n\n\n## Analytics, the way you\u2019re used to.\n\nSpend by day, by model, and the milliseconds Orbio added to each call, measured on your own requests.\n\norbio.so/account\n\nsk-orbio-9f2a\u2022\u2022\u2022\u2022\n\nSpent\n\n$40.88\n\nRequests\n\n1.6k\n\nTokens\n\n3.6M\n\nLatency\n\n31ms\n\np95 47 ms\n\nSpend by day\n\nsample account\n\nModels\n\n- Claude Fable 5.1$18.80\n\n\n\n\n\n\n\n\n\n\n714 req\n- Gpt 6 Astra$11.04\n\n\n\n\n\n\n\n\n\n\n419 req\n- Gemini 3.8 Flash$5.72\n\n\n\n\n\n\n\n\n\n\n217 req\n- Grok 4.6$3.27\n\n\n\n\n\n\n\n\n\n\n124 req\n- Deepseek V4 Flash 0731$2.04\n\n\n\n\n\n\n\n\n\n\n78 req\n\n## The whole migration is two lines.[Copy a link to this section](https://www.orbio.so/\\#migrate) Link copied\n\nChange the base URL and the key. Model names, streaming, tool calls and vision work exactly as they do today.\n\nOpenRouterOpenAI SDKAnthropic SDK \u00b7 Claude Agent SDKVercel AI SDK\n\nOpenRouter\n\n```\n# before \u2014 OpenRouter\nOPENAI_BASE_URL=https://openrouter.ai/api/v1\nOPENAI_API_KEY=sk-or-v1-\u2026\n\n# after \u2014 Orbio. Same two variables: your OpenAI-compatible client reads these.\nOPENAI_BASE_URL=https://api.orbio.so/api/v1\nOPENAI_API_KEY=sk-orbio-\u2026\n```\n\n## Questions, briefly.\n\nWhat am I buying?+\n\nA fixed amount of API credit. Enter the value of credits you want, then review the discounted price and platform fee. For example, $100 in credits gives you $100 of model usage through your Orbio key.\n\nHow is the platform fee calculated?+\n\nThe platform fee is 5% of the discounted credit price. The purchase card shows the credit price, fee and total separately, along with your discount after the fee.\n\nWhere does the discount come from?+\n\nFrom Orbio holders who offer unused credit at a discount.\n\nAm I getting the real model?+\n\nYes. Orbio is a relay: your request goes to the model you named, unchanged, and the response comes back with the provider\u2019s own model name and id on it. Nothing is substituted or downgraded.\n\nDo you store my prompts?+\n\nNo. The gateway keeps billing metadata only: the model, the token counts, the cost and the timing of each request. Prompts and responses pass through and are not written anywhere.\n\nWhose key serves my requests?+\n\nRequests use Orbio\u2019s managed OpenRouter account through the Orbio Gateway. You use your own Orbio API key.\n\nWhat do I change in my code?+\n\nThe base URL and the key. Model names, streaming, tool calls and vision work as they do today.\n\nIs there a subscription or a minimum?+\n\nNo subscription. Choose at least $5 in credits. Purchased credits become API balance, which you spend as you use your Orbio key.\n\nWhat does Orbio add to each request?+\n\nYour account page shows the measured gateway overhead for your requests.\n\nCan I get my money back?+\n\nCredit is a grant of product access and is not redeemable for cash. If a card payment goes wrong, reply to the receipt and it is refunded through the card processor.\n\nDiscounted credits from Orbio holders. [How selling works.](https://sellers.orbio.so/)\n\nWallet \u00b7 Privy",
+      "metadata": {
+       "twitter:image:alt": "Orbio credits \u2014 get LLM credits at a discount. One key, every model, nothing to subscribe to.\n",
+       "og:type": "website",
+       "title": "Orbio \u00b7 AI credits at a discount",
+       "og:title": "Orbio \u00b7 AI credits at a discount",
+       "description": "Buy AI inference credit below list price, from people who earned it. One key that works everywhere an OpenRouter key does.",
+       "og:description": "Buy AI inference credit below list price, from people who earned it. One key that works everywhere an OpenRouter key does.",
+       "og:image:type": "image/png",
+       "twitter:description": "Buy AI inference credit below list price, from people who earned it. One key that works everywhere an OpenRouter key does.",
+       "next-size-adjust": "",
+       "ogDescription": "Buy AI inference credit below list price, from people who earned it. One key that works everywhere an OpenRouter key does.",
+       "og:image:height": "630",
+       "viewport": [
+        "width=device-width, initial-scale=1",
+        "width=device-width"
+       ],
+       "twitter:image:type": "image/png",
+       "twitter:card": "summary_large_image",
+       "twitter:image": "https://www.orbio.so/twitter-image.png?twitter-image.02ofz586-qjhf.png",
+       "og:image": "https://www.orbio.so/opengraph-image.png?opengraph-image.02ofz586-qjhf.png",
+       "language": "en",
+       "og:image:alt": "Orbio credits \u2014 get LLM credits at a discount. One key, every model, nothing to subscribe to.\n",
+       "twitter:image:width": "1200",
+       "ogTitle": "Orbio \u00b7 AI credits at a discount",
+       "twitter:image:height": "630",
+       "og:image:width": "1200",
+       "ogImage": "https://www.orbio.so/opengraph-image.png?opengraph-image.02ofz586-qjhf.png",
+       "twitter:title": "Orbio \u00b7 AI credits at a discount",
+       "favicon": "https://www.orbio.so/favicon.ico?favicon.31k-ndp8-8o0e.ico",
+       "scrapeId": "01a16c81-fbab-708b-8db7-8079b54f632c",
+       "sourceURL": "https://orbio.so/",
+       "url": "https://www.orbio.so/",
+       "statusCode": 200,
+       "contentType": "text/html; charset=utf-8",
+       "proxyUsed": "basic",
+       "cacheState": "hit",
+       "cachedAt": "2026-10-23T12:03:47.388Z",
+       "creditsUsed": 1,
+       "concurrencyLimited": false
+      }
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 13594,
+     "stored_chars": 13594,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x16757d4393642d078b217612c98971902753e84318c0697c8e8b76a3020d56a1",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The more specific terms 'useorbix.app', 'ORBIX', and 'inference' are not present in the visible tweet content, suggesting the results primarily matched 'marketplace', 'Robinhood', and 'Chain'.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-24T06:03:36.829412037Z",
+     "query": "useorbix.app ORBIX inference marketplace Robinhood Chain",
+     "type": "top",
+     "tweet_count": 18,
+     "tweets": [
+      {
+       "id": "2113281404972736706",
+       "text": "$\ud835\udddc\ud835\udde1\ud835\uddd9\ud835\udddf\ud835\udde8\ud835\uddd8\ud835\udde1\ud835\uddd6\ud835\uddd8 \ud835\uddef\ud835\ude02\ud835\ude06\ud835\uddef\ud835\uddee\ud835\uddf0\ud835\uddf8 \ud835\uddee\ud835\uddfb\ud835\uddf1 \ud835\uddef\ud835\ude02\ud835\uddff\ud835\uddfb \ud835\uddf6\ud835\ude00 \ud835\uddf0\ud835\uddfc\ud835\uddfa\ud835\uddf6\ud835\uddfb\ud835\uddf4, \ud835\uddff\ud835\uddf6\ud835\uddf4\ud835\uddf5\ud835\ude01 \ud835\uddee\ud835\uddf3\ud835\ude01\ud835\uddf2\ud835\uddff \ud835\ude01\ud835\uddf5\ud835\uddf2 \ud835\udddc\ud835\uddfb\ud835\uddf3\ud835\uddf9\ud835\ude02\ud835\uddf2\ud835\uddfb\ud835\uddf0\ud835\uddf2\ud835\uddff \ud835\uddd9\ud835\uddee\ud835\uddfa\ud835\uddf6\ud835\uddf9\ud835\ude06 \ud835\udde1\ud835\uddd9\ud835\udde7 \ud835\ude00\ud835\uddee\ud835\uddf9\ud835\uddf2 \ud835\uddee\ud835\uddfb\ud835\uddf1 \ud835\ude01\ud835\uddf5\ud835\uddf2 \ud835\udddc\ud835\uddfb\ud835\uddf3\ud835\uddf9\ud835\ude02\ud835\uddf2\ud835\uddfb\ud835\uddf0\ud835\uddf2 \ud835\udde1\ud835\uddd9\ud835\udde7 \ud835\udde0\ud835\uddee\ud835\uddff\ud835\uddf8\ud835\uddf2\ud835\ude01\ud835\uddfd\ud835\uddf9\ud835\uddee\ud835\uddf0\ud835\uddf2.\n\nrobinhood:0x29d3945d0c7e4c78d194a343d3db0e909a0a8a91:",
+       "created_at": "2026-10-22T14:48:44Z",
+       "lang": "en",
+       "likes": 418,
+       "retweets": 319,
+       "replies": 376,
+       "quotes": 21,
+       "bookmarks": 4,
+       "views": 6836,
+       "conversation_id": "2113281404972736706",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2107382756476956672",
+        "screen_name": "Influencefamily",
+        "name": "Influence",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107399079437500416/U4M0xH8J_normal.png"
+       }
+      },
+      {
+       "id": "2113871169002889437",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nMarketplace fees go to $INFLUENCE buyback and burn.\n\nThe top 200 on the board are guaranteed a mint. Join me: https://t.co/TP9NtlPdxN\n\n#InfluencerFamily",
+       "created_at": "2026-10-24T05:52:15Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 19,
+       "conversation_id": "2113871169002889437",
+       "is_quote": false,
+       "urls": [
+        "https://influence.family/whitelist?ref=JUVISTAX"
+       ],
+       "author": {
+        "id": "1884910543125008384",
+        "screen_name": "juvistax",
+        "name": "Juvis",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2094915699416461312/NMvgomYF_normal.jpg"
+       }
+      },
+      {
+       "id": "2113729782009491756",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nHold oneint funds and marketplace fees go to $INFLUENCE buyback and burn.\n\nThe top 200 on the board are guaranteed a mint. Join me: https://t.co/ZNXV4bvZhQ\n\n#InfluencerFamily",
+       "created_at": "2026-10-23T20:30:25Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 11,
+       "conversation_id": "2113729782009491756",
+       "is_quote": false,
+       "urls": [
+        "https://influence.family/whitelist?ref=MERALMAHMOD"
+       ],
+       "author": {
+        "id": "1675825871058354178",
+        "screen_name": "meralmahmod",
+        "name": "\ud83e\udd8d Meraal",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2040019307384463360/QL1_Pd4R_normal.jpg"
+       }
+      },
+      {
+       "id": "2113651050624565711",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nHold one for the Family Holder badge. Stake it to join the family: 1.5x Season 2 points, lower fees, early access and whitelists for new launches. 70% of mint funds and marketplace fees",
+       "created_at": "2026-10-23T15:17:34Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 32,
+       "conversation_id": "2113651050624565711",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1554232897481097216",
+        "screen_name": "codycryptavax",
+        "name": "Codycrypt \ud83d\udd3a",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102799140904132608/OPAng8sV_normal.jpg"
+       }
+      },
+      {
+       "id": "2113659851641626664",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\n $INFLUENCE buyback and burn.son 2 points, lower fees, early access and whitelists for new launches. 70% of mint funds and marketplace fees go to  $INFLUENCE buyback and burn.\n#Influence",
+       "created_at": "2026-10-23T15:52:33Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 0,
+       "conversation_id": "2113659851641626664",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2082066471413526528",
+        "screen_name": "arena_spark",
+        "name": "Arena Spark",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2082071936805543936/01SR3zkC_normal.jpg"
+       }
+      },
+      {
+       "id": "2113661232020591082",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nHold one for the Family Holder badge. 70% of mint funds and marketplace fees go to $INFLUENCE buyback and burn.\n\n https://t.co/vQx3GoLaW2\n\n#InfluencerFamily",
+       "created_at": "2026-10-23T15:58:02Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 27,
+       "conversation_id": "2113661232020591082",
+       "is_quote": false,
+       "urls": [
+        "https://influence.family/whitelist?ref=KOYUKIKODACHI"
+       ],
+       "author": {
+        "id": "991118050341502976",
+        "screen_name": "KoyukiKodachi",
+        "name": "Koyuki Kodachi",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1590680278825328641/yUoQxZ0S_normal.jpg"
+       }
+      },
+      {
+       "id": "2113652614110044671",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nHold one for the Family Holder badge. Stake it to join the family: 1.5x Season 2 points, lower fees, early access and whitelists for new launches. 70% of mint funds and marketplace fees",
+       "created_at": "2026-10-23T15:23:47Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 28,
+       "conversation_id": "2113652614110044671",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1574862091990999040",
+        "screen_name": "SnTrnnft",
+        "name": "D&Queen\ud83d\udd06",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2068315062591451136/UJpxteu4_normal.jpg"
+       }
+      },
+      {
+       "id": "2113655537032409491",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\n70% of mint funds and marketplace fees go to $INFLUENCE buyback and burn.\n\nThe top 200 on the board are guaranteed a mint. Join me: https://t.co/wnicbKEioL\n\n#InfluencerFamily",
+       "created_at": "2026-10-23T15:35:24Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 19,
+       "conversation_id": "2113655537032409491",
+       "is_quote": false,
+       "urls": [
+        "https://influence.family/whitelist?ref=DENKARAYA"
+       ],
+       "author": {
+        "id": "1471452903667761152",
+        "screen_name": "DenkaRaya",
+        "name": "Rekt.Shadow",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2110650402404528128/sdYlR8H6_normal.jpg"
+       }
+      },
+      {
+       "id": "2113272901377855564",
+       "text": "\ud835\udde3\ud835\uddff\ud835\uddf2\ud835\uddf1\ud835\uddf6\ud835\uddf0\ud835\ude01\ud835\uddf6\ud835\uddfc\ud835\uddfb \ud835\udde0\ud835\uddee\ud835\uddff\ud835\uddf8\ud835\uddf2\ud835\ude01\ud835\ude00 \ud835\uddd4\ud835\uddff\ud835\uddf2 \ud835\udddf\ud835\uddf6\ud835\ude03\ud835\uddf2 \ud835\uddfc\ud835\uddfb \ud835\udddc\ud835\uddfb\ud835\uddf3\ud835\uddf9\ud835\ude02\ud835\uddf2\ud835\uddfb\ud835\uddf0\ud835\uddf2\nPredict now: https://t.co/d3IwahyuiH\nReal markets, real prices, settled by Polymarket, right inside the app you already use.\n\ud835\uddea\ud835\uddf5\ud835\uddee\ud835\ude01 \ud835\ude06\ud835\uddfc\ud835\ude02 \ud835\uddf4\ud835\uddf2\ud835\ude01:\n\u2022 \ud835\uddd6\ud835\uddff\ud835\ude06\ud835\uddfd\ud835\ude01\ud835\uddfc \ud835\udde8\ud835\uddfd \ud835\uddfc\ud835\uddff \ud835\uddd7\ud835\uddfc\ud835\ude04\ud835\uddfb: BTC, ETH, SOL and https://t.co/Y0gec43BBX",
+       "created_at": "2026-10-22T14:14:57Z",
+       "lang": "en",
+       "likes": 432,
+       "retweets": 338,
+       "replies": 424,
+       "quotes": 4,
+       "bookmarks": 3,
+       "views": 4905,
+       "conversation_id": "2113272901377855564",
+       "is_quote": false,
+       "urls": [
+        "https://influence.family/preds"
+       ],
+       "author": {
+        "id": "2107382756476956672",
+        "screen_name": "Influencefamily",
+        "name": "Influence",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107399079437500416/U4M0xH8J_normal.png"
+       }
+      },
+      {
+       "id": "2113653119313989651",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nHold one for the Family Holder badge. Stake it to join the family: 1.5x Season 2 points, lower fees, early access and whitelists for new launches. 70% of mint funds and marketplace fees",
+       "created_at": "2026-10-23T15:25:48Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 31,
+       "conversation_id": "2113653119313989651",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1881327775254241280",
+        "screen_name": "Xe0nchain",
+        "name": "Xe",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2049082869306605568/g3hhprwp_normal.jpg"
+       }
+      },
+      {
+       "id": "2113643777541963985",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nHold one for the Family Holder badge. Stake it to join the family: 1.5x Season 70% of mint funds and marketplace fees go to $INFLUENCE buyback and burn.\n\nhttps://t.co/hD0gJcvnjP",
+       "created_at": "2026-10-23T14:48:40Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 18,
+       "conversation_id": "2113643777541963985",
+       "is_quote": false,
+       "urls": [
+        "https://influence.family/whitelist?ref=CYPRENAI"
+       ],
+       "author": {
+        "id": "2053014089434038274",
+        "screen_name": "Cyprenai",
+        "name": "L\u265f\ufe0fEGE \ud83d\udc51",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2087798043949027328/g9lLcIcr_normal.jpg"
+       }
+      },
+      {
+       "id": "2113666876442304820",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\n70% of mint funds and marketplace fees go to $INFLUENCE buyback and burn.\n\nThe top 200 on the board are guaranteed a mint. Join me: https://t.co/XN2StuACbi\n\n#InfluencerFamily",
+       "created_at": "2026-10-23T16:20:28Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 66,
+       "conversation_id": "2113666876442304820",
+       "is_quote": false,
+       "urls": [
+        "https://influence.family/whitelist?ref=DSNOW_COOL"
+       ],
+       "author": {
+        "id": "1845382600149385224",
+        "screen_name": "DSnow_cool",
+        "name": "\u015e\u0e96\u0ed0\u0e9f\u00a2\u0ed0\u0ed0l",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090867831533346816/Dpqq6JRM_normal.jpg"
+       }
+      },
+      {
+       "id": "2112913222239949046",
+       "text": "$ORBIO leading the way on Robinhood today! \n\nLooking for more options to buy inference? Try out the Trenchers Inference Markets!\n\nhttps://t.co/XAmh794lPK https://t.co/fLkKJBC4t4",
+       "created_at": "2026-10-21T14:25:42Z",
+       "lang": "en",
+       "likes": 12,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 393,
+       "conversation_id": "2112913222239949046",
+       "is_quote": false,
+       "urls": [
+        "https://www.trenchers.io/inference"
+       ],
+       "author": {
+        "id": "2106454486050816000",
+        "screen_name": "trenchersio",
+        "name": "Trenchers",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2106454951983452160/TrSNATuU_normal.jpg"
+       }
+      },
+      {
+       "id": "2113708779522908475",
+       "text": "Every Stock Token trade on @RobinhoodApp's chain settles back to @ethereum \u26d3\ufe0f\n\nRobinhood Chain is an @arbitrum Orbit Layer 2 that posts its data and state roots to Ethereum.\n\nAssets move in and out through the canonical bridge, @LayerZero_Core for USDG, and @chainlink CCIP for https://t.co/vFWHhWzlar",
+       "created_at": "2026-10-23T19:06:58Z",
+       "lang": "en",
+       "likes": 41,
+       "retweets": 3,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 3,
+       "views": 1587,
+       "conversation_id": "2113708779522908475",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1062176636777447429",
+        "screen_name": "RWAFoundation_",
+        "name": "RWA Foundation",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1965450732460453888/MKdV0Aan_normal.jpg"
+       }
+      },
+      {
+       "id": "2112228842823631027",
+       "text": "robinhood:0x72be1277e198d0c476869253cb4e62807e14533c will be the #1 AI inference project in crypto \n\n$VVV $Orbio",
+       "created_at": "2026-10-19T17:06:14Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 262,
+       "conversation_id": "2112228842823631027",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1908454084350267392",
+        "screen_name": "0xdelboy",
+        "name": "del\ud83d\udc38",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2057858116025282560/cy0_604S_normal.jpg"
+       }
+      },
+      {
+       "id": "2113750583924736331",
+       "text": "hey guys.. come here join in the good project\n\nThe Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\n 70% of mint funds and marketplace fees go to $INFLUENCE buyback and burn.\n\nJoin me: https://t.co/6SyLBGRSHj\n\n#InfluencerFamily",
+       "created_at": "2026-10-23T21:53:05Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 170,
+       "conversation_id": "2113750583924736331",
+       "is_quote": false,
+       "urls": [
+        "https://influence.family/whitelist?ref=SUKMA9408"
+       ],
+       "author": {
+        "id": "1641132242230730752",
+        "screen_name": "sukma9408",
+        "name": "sukma94",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1775285032657276928/iS7HpLby_normal.jpg"
+       }
+      },
+      {
+       "id": "2113869700438651296",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nHold one for the Family Holder badge. Stake it to join the family: 1.5x Season 2 points, lower fees, early access and whitelists for new launches. 70% of mint funds and marketplace",
+       "created_at": "2026-10-24T05:46:25Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 0,
+       "conversation_id": "2113869700438651296",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1938401513212448768",
+        "screen_name": "Tiny280572",
+        "name": "Ti\u1ebfn Huy",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"
+       }
+      },
+      {
+       "id": "2113817365540671571",
+       "text": "The Influencer Family is coming to Robinhood Chain: 1,000 statue NFTs from @influencefamily.\n\nStake it to join the family: 1.5x Season 2 points, lower fees, whitelists for new launches. 70% of mint funds and marketplace fees go to $INFLUENCE buyback and burn.\n\n#InfluencerFamily",
+       "created_at": "2026-10-24T02:18:27Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 135,
+       "conversation_id": "2113817365540671571",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1399211771093655557",
+        "screen_name": "coinvip777",
+        "name": "G\u00c3 \u0110\u1ea6U B\u1ea0C",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1963969237535596544/MvTOOCu2_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVX9OlRAJxAKAAMdVf06VD_Y8AgABAAAAAILAAUAAAEcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJnZFZMSnpXUlpnaUIxVmpQVDZtOEZMSFZTc3hSa1dnUE1kVlRhREpscXhreDFWeWJISkdwQlRIVlU3c1I0YUVlb2RWWUR4SU5mQURoMVZRTk5QMm1FMEhWVXIwUzRhZ05FZFZUUGFtcHJoL3gxVit6eXNGcUJuSFZWbTc2SVdZVHNkVTlxQjJCWVFUQjFWT20rNUdxQW9IVlRpaEp3WGNhOGRWWG9KcDlieExCMVZNbTZUbThIUEhWV09wN2FYMEpFZFUrSTl2ZGFnd2gxVk5GQTdHMUFUSFZLVFlZVFdrUFlkVmZsSzlCdHhvQjFRSlBFRTFrQ3pIVlg2b09GYllOMD0IAAYAAAAACAAHAAAAAAwACAoAAR1QJPEE1kCzAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12671,
+     "stored_chars": 12671,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x96cb24890b4a1d0bd0444d2168424806ca82142106b3cd1ca0dfc088460ed947",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-24T06:03:53.261801075Z",
+     "query": "Raeto tokenized stocks AI inference Morpho credits",
+     "type": "top",
+     "tweet_count": 17,
+     "tweets": [
+      {
+       "id": "2113797841277870104",
+       "text": "\u8ba9\u8d44\u4ea7\u53d1\u6325\u6548\u7528\uff0c\u4e3a\u4eba\u5de5\u667a\u80fd\uff08AI\uff09\u63d0\u4f9b\u52a8\u529b\u3002\n\n\u5982\u679c\u4f7f\u7528\u5f3a\u5927\u7684 AI \u6a21\u578b\u4e0d\u5fc5\u5b8c\u5168\u4f9d\u8d56\u73b0\u91d1\u652f\u4ed8\uff0c\u4f1a\u600e\u6837\uff1f\u5982\u679c\u73b0\u6709\u7684\u8d44\u4ea7\u5c31\u80fd\u4e3a\u60a8\u8d5a\u53d6\u4f7f\u7528 AI \u6240\u9700\u7684\u201c\u989d\u5ea6\u201d\uff08credits\uff09\uff0c\u53c8\u4f1a\u5982\u4f55\uff1f\n\n\u8fd9\u6b63\u662f $RAETO \u7684\u6838\u5fc3\u7406\u5ff5\u2014\u2014\u8fd9\u662f\u4e00\u4e2a\u65b0\u5174\u9879\u76ee\uff0c\u65e8\u5728 Robinhood Chain \u4e0a\u5c06\u94fe\u4e0a\u91d1\u878d\u4e0e AI \u57fa\u7840\u8bbe\u65bd\u7ed3\u5408\u8d77\u6765\u3002 https://t.co/75uEn3zSKW",
+       "created_at": "2026-10-24T01:00:52Z",
+       "lang": "zh",
+       "likes": 31,
+       "retweets": 0,
+       "replies": 6,
+       "quotes": 2,
+       "bookmarks": 0,
+       "views": 5247,
+       "conversation_id": "2113797841277870104",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "175419697",
+        "screen_name": "ChinaDegen",
+        "name": "DRAGON\u4e2d\u56fd\u9f99\ud83d\udc09",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2028071489837412352/I_L4yoL5_normal.jpg"
+       }
+      },
+      {
+       "id": "2112008105446040029",
+       "text": "JUST IN: $RAETO \u2014 LET YOUR ASSETS PAY FOR AI.\n\nWhat if your assets could help cover your AI bill without selling them?\n\nRAETO is building a different approach to AI access on Robinhood Chain.\n\nDeposit eligible tokenized stocks or dollars, lend through Morpho, and turn the https://t.co/9PEWfIvixQ",
+       "created_at": "2026-10-19T02:29:06Z",
+       "lang": "en",
+       "likes": 273,
+       "retweets": 8,
+       "replies": 20,
+       "quotes": 2,
+       "bookmarks": 1,
+       "views": 44888,
+       "conversation_id": "2112008105446040029",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1542486331808698369",
+        "screen_name": "MaxelRowan",
+        "name": "Mando Maxel",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2064257240455061504/zgP-oS3o_normal.jpg"
+       }
+      },
+      {
+       "id": "2112751665770082740",
+       "text": "robinhood:0x72be1277e198d0c476869253cb4e62807e14533c \u6b63\u5728\u63a2\u7d22\u4e00\u79cd\u66f4\u5177\u60f3\u8c61\u529b\u7684 AI \u4f7f\u7528\u65b9\u5f0f\uff1a\u8ba9\u8d44\u4ea7\u4ea7\u751f\u7684\u6536\u76ca\uff0c\u4e3a AI \u670d\u52a1\u63d0\u4f9b\u52a8\u529b\uff0c\u800c\u4e0d\u5fc5\u4e3a\u4e86\u652f\u4ed8\u8d39\u7528\u76f4\u63a5\u5356\u51fa\u8d44\u4ea7\u3002@RaetoCC\n\nRAETO \u6b63\u5728 Robinhood Chain \u4e0a\u5c1d\u8bd5\u8fde\u63a5\u94fe\u4e0a\u91d1\u878d\u4e0e AI \u57fa\u7840\u8bbe\u65bd\u3002\u7528\u6237\u53ef\u4ee5\u5b58\u5165\u7b26\u5408\u6761\u4ef6\u7684\u4ee3\u5e01\u5316\u80a1\u7968\u6216\u7f8e\u5143\uff0c\u901a\u8fc7 https://t.co/VveQ6xApZe",
+       "created_at": "2026-10-21T03:43:44Z",
+       "lang": "zh",
+       "likes": 16,
+       "retweets": 0,
+       "replies": 5,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 9451,
+       "conversation_id": "2112751665770082740",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1428328218105421830",
+        "screen_name": "DaxMainCrypto",
+        "name": "\u738b\u5609\u5152dAx",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2020728789924499456/TfDQSadS_normal.jpg"
+       }
+      },
+      {
+       "id": "2112016642758852868",
+       "text": "$RAETO \ud83d\ude80 Where AI meets DeFi!\n\n\u2705Earn yield on eligible assets\n\u2705Turn interest into AI credits\n\u2705Access 400+ AI models\n\u27051,000 tokens unlock Auto routing\n\n\ud83c\udf10 https://t.co/5yvYm7Z9Ey\n\nCA: 0x72bE1277E198D0C476869253Cb4E62807e14533c\n\nDYOR &amp; NFA.\n\n#RAETO #AI #DeFi #Crypto https://t.co/aP7HFMgq9R",
+       "created_at": "2026-10-19T03:03:01Z",
+       "lang": "en",
+       "likes": 151,
+       "retweets": 46,
+       "replies": 15,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 28738,
+       "conversation_id": "2112016642758852868",
+       "is_quote": false,
+       "urls": [
+        "https://raeto.cc"
+       ],
+       "author": {
+        "id": "1535909041603493889",
+        "screen_name": "Zane_Calder",
+        "name": "Zane Calder",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1901618285462085632/YhW7KUrJ_normal.jpg"
+       }
+      },
+      {
+       "id": "2112000286759788580",
+       "text": "What you missed today in memecoins, Oct 18th\n\n- $PIERRE hit $1.4m as an image of the man defending his store standing next to Goku during the France riots has gone viral\n\n- $mucron hit $1.1m, it's a similar narrative to $BODEN, but for Emmanuel Macron\n\n- $SUPERCORE hit $750k https://t.co/Bl6gCX9INM",
+       "created_at": "2026-10-19T01:58:02Z",
+       "lang": "en",
+       "likes": 349,
+       "retweets": 23,
+       "replies": 29,
+       "quotes": 2,
+       "bookmarks": 103,
+       "views": 45304,
+       "conversation_id": "2112000286759788580",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "94261044",
+        "screen_name": "CryptoGorilla",
+        "name": "Gorilla",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1983310757186973696/G01dJkKu_normal.png"
+       }
+      },
+      {
+       "id": "2111903014852386994",
+       "text": "v4 hooks are coming soon to Raeto\n\nswap tokenized stocks on uniswap v4 and earn AI credits on every trade.\n\n\u2192 a hook splits that fee and sends a slice back to you as rCREDIT\n\u2192 rCREDIT is ai credits as a token, backed 1:1 by USDG, in your own wallet\n\nfirst pool: NVDA/USDG on",
+       "created_at": "2026-10-18T19:31:30Z",
+       "lang": "en",
+       "likes": 61,
+       "retweets": 8,
+       "replies": 15,
+       "quotes": 3,
+       "bookmarks": 3,
+       "views": 6410,
+       "conversation_id": "2111903014852386994",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2109152962526449664",
+        "screen_name": "RaetoCC",
+        "name": "Raeto",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109155315006738432/rSUsm58e_normal.jpg"
+       }
+      },
+      {
+       "id": "2112395154677985712",
+       "text": "On-chain credit has been gaining serious traction lately, especially with the rise of AI agents.\n\n@RaetoCC is catching a lot of attention, not only because of the strong price action of robinhood:0x72be1277e198d0c476869253cb4e62807e14533c, but also because it's building a pretty https://t.co/RPxDz4po0i",
+       "created_at": "2026-10-20T04:07:05Z",
+       "lang": "en",
+       "likes": 22,
+       "retweets": 0,
+       "replies": 14,
+       "quotes": 0,
+       "bookmarks": 2,
+       "views": 4035,
+       "conversation_id": "2112395154677985712",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1128723342779875329",
+        "screen_name": "Mihawk_Research",
+        "name": "Dracule Mihawk",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2081991554148048896/UGh3WZxB_normal.jpg"
+       }
+      },
+      {
+       "id": "2111940724858269857",
+       "text": "\ud83d\udce1 MIGRATION INTELLIGENCE | $RAETO\n\n0x873d46792df251d5a9da5a2f29e8b21940f43a8d\n\nraeto\n\nRobinhood Migration: Detected\n\n\ud83d\udcb0 Migration MC: 0 \n\ud83d\udcc8 ATH Market Cap: $3.03M\n\ud83d\udca7 Liquidity: $160.55K | Holders: 378\n\ud83d\udea8 DEX Paid Update: No | CTO: No\n\nWallet Flow:\nFresh: 1 | Smart: 1 | Snipers:",
+       "created_at": "2026-10-18T22:01:21Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 299,
+       "conversation_id": "2111940724858269857",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1965535389386448896",
+        "screen_name": "SolanaTren59241",
+        "name": "@SolanaTrending",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1966864349458227200/urMi1hjX_normal.jpg"
+       }
+      },
+      {
+       "id": "2112181984063582519",
+       "text": "Big week for @RaetoCC. Congrats to the team.\n\nOur models in their chat and API, @Borromarkets plugged in, rCREDIT v2 on the way. Shipping every day.\n\nAnd we're with you on the thesis: you shouldn't have to sell your stocks to pay for AI.\n\nTokenized stocks bring real capital",
+       "created_at": "2026-10-19T14:00:02Z",
+       "lang": "en",
+       "likes": 55,
+       "retweets": 6,
+       "replies": 3,
+       "quotes": 6,
+       "bookmarks": 3,
+       "views": 7631,
+       "conversation_id": "2112181984063582519",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2106767818255704064",
+        "screen_name": "SurplusRH",
+        "name": "Surplus",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2106769558128529409/0FyKDNzS_normal.jpg"
+       }
+      },
+      {
+       "id": "2111921509233270849",
+       "text": "New integration partner: @Borromarkets \n\nBorro is the stock loan desk on robinhood chain: lend a stock, borrow against it, or short it. we're both built on morpho, so this one fits naturally.\n\nIt goes both ways:\n\n\u2192 borro's agents get raeto auto routing. raeto is also joining https://t.co/y0TN54VsOe",
+       "created_at": "2026-10-18T20:45:00Z",
+       "lang": "en",
+       "likes": 103,
+       "retweets": 17,
+       "replies": 27,
+       "quotes": 3,
+       "bookmarks": 4,
+       "views": 7923,
+       "conversation_id": "2111921509233270849",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2109152962526449664",
+        "screen_name": "RaetoCC",
+        "name": "Raeto",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109155315006738432/rSUsm58e_normal.jpg"
+       }
+      },
+      {
+       "id": "2112217617033461854",
+       "text": "what if tokenized AI credits become what tokenized stocks are today?  \n\nan onchain asset people &amp; agents hold, move and settle with. everywhere.  \n\nwe\u2019re early.",
+       "created_at": "2026-10-19T16:21:37Z",
+       "lang": "en",
+       "likes": 68,
+       "retweets": 9,
+       "replies": 8,
+       "quotes": 3,
+       "bookmarks": 0,
+       "views": 5234,
+       "conversation_id": "2112217617033461854",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2109152962526449664",
+        "screen_name": "RaetoCC",
+        "name": "Raeto",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109155315006738432/rSUsm58e_normal.jpg"
+       }
+      },
+      {
+       "id": "2111976039622779373",
+       "text": "We have a big week ahead. V4 hooks, new AI agent features, privacy, bigger partnerships, expanding tokenized AI credits, and more. \n\nWe intend to become the leading on-chain credit capital of AI, with every product we build working toward that goal.",
+       "created_at": "2026-10-19T00:21:41Z",
+       "lang": "en",
+       "likes": 75,
+       "retweets": 7,
+       "replies": 20,
+       "quotes": 4,
+       "bookmarks": 2,
+       "views": 6527,
+       "conversation_id": "2111976039622779373",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2109152962526449664",
+        "screen_name": "RaetoCC",
+        "name": "Raeto",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109155315006738432/rSUsm58e_normal.jpg"
+       }
+      },
+      {
+       "id": "2112151177185939714",
+       "text": "New integration partner: @RaetoCC \ud83e\udd1d\n\nEvery Circuit coin runs on sentences you give Chip. Each one is an AI request, and those now go through Raeto Auto routing:\n\n\u2192 simple rules go to a fast, cheap model \u2192 complex logic goes to a stronger one \u2192 up to 70% lower AI costs\n\nIt's https://t.co/1omWPQ3fAn",
+       "created_at": "2026-10-19T11:57:37Z",
+       "lang": "en",
+       "likes": 55,
+       "retweets": 10,
+       "replies": 17,
+       "quotes": 2,
+       "bookmarks": 0,
+       "views": 6161,
+       "conversation_id": "2112151177185939714",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2106736234185818112",
+        "screen_name": "circuitdevfun",
+        "name": "Circuit",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2107424463478263808/fMxxOr2O_normal.jpg"
+       }
+      },
+      {
+       "id": "2113220297805750363",
+       "text": "$VVV is fucking interesting.\n\nNot because it is another AI chatbot token.\n\nIt is building an economic model around private AI inference.\n\nVenice provides access to AI models through its platform and developer API, with an emphasis on user privacy.\n\nBut $VVV is where the model https://t.co/4Qz75fB59z",
+       "created_at": "2026-10-22T10:45:55Z",
+       "lang": "en",
+       "likes": 39,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 3,
+       "views": 1332,
+       "conversation_id": "2113220297805750363",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2094720900084236288",
+        "screen_name": "Jimmyy_yyyy",
+        "name": "Jimmyyy",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2095124059067711488/zURRC8o8_normal.jpg"
+       }
+      },
+      {
+       "id": "2111770559046426639",
+       "text": "$RAETO is building tokenized AI credits, the first to ever ship it. Backed by USDG.\n\nHave a feeling this one is going to overtake robinhood:0xaa07a0e9209e16ac99708c3ec70159c6ef3128a3 in the future\n\nAlready cooking partnerships with teams like $WTH less than a week after launch",
+       "created_at": "2026-10-18T10:45:10Z",
+       "lang": "en",
+       "likes": 30,
+       "retweets": 5,
+       "replies": 4,
+       "quotes": 2,
+       "bookmarks": 4,
+       "views": 6376,
+       "conversation_id": "2111770559046426639",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1908454084350267392",
+        "screen_name": "0xdelboy",
+        "name": "del\ud83d\udc38",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2057858116025282560/cy0_604S_normal.jpg"
+       }
+      },
+      {
+       "id": "2112271605510410643",
+       "text": "\ud83d\udc40 ON RADAR\n\nRaeto (@RaetoCC)\n\nTokenized stocks or dollar deposits earn interest through Morpho and that interest is automatically converted into AI credits for all major models.\n\nChart: https://t.co/04OWBjqVt8",
+       "created_at": "2026-10-19T19:56:09Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 42,
+       "conversation_id": "2112271605510410643",
+       "is_quote": false,
+       "urls": [
+        "https://dexscreener.com/robinhood/0xdb36324392b4a3f4261230e21f9f3f04e627074e8866ec9b69ee1d00af96d60a"
+       ],
+       "author": {
+        "id": "2104521108141514752",
+        "screen_name": "logicthenoti",
+        "name": "Logic",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104523872481546240/glzakjfz_normal.jpg"
+       }
+      },
+      {
+       "id": "2113874020894662812",
+       "text": "\ud83e\udd16 AI Signal (SOL) \u14d2\u1533\u18cf\u12e7\u140e\u1459\u159c\u12cc\u1654\u1438\u01ab\u0236\u0183\u14a8\u12ca\u1336\u1675\u12bb\u046by\n\nCA: 8VymujKrwG59UT1M33hVMea1wMYUPiaCDrqc8XozGeKc\n\nThe token \u14d2\u1533\u18cf\u12e7\u140e\u1459\u159c\u12cc\u1654\u1438\u01ab\u0236\u0183\u14a8\u12ca\u1336\u1675\u12bb\u046by\u1350\u1389\u146b\u15ab\u162a\u14a9 has no clear theme: nothing in the name, ticker or links says what it is about. It launched on stonkfun on Solana https://t.co/NeDna4LXeb",
+       "created_at": "2026-10-24T06:03:35Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 0,
+       "conversation_id": "2113874020894662812",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "826569403",
+        "screen_name": "bitecong",
+        "name": "Green onions",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1980779087850258433/3ZJnoAJI_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVX9SjhAJxAKAAMdVf1KOD_Y8AgABAAAAAILAAUAAAEcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJnZFVVd0Z6UmVRYUIxVlQ1NFVseUN0SFZYOU9PTmFZSndkVmZiZmRSWlJLUjFSU0NVK1c4QlFIVTc4bWtoYVlMSWRUMXd1bDl0aDNSMVBWUklwMXlBa0hWVC9yS1JYRVdrZFZiZnY4RnJnR0IxT2hDS0RGeUFQSFZBYXUwK2FBRjRkVDJQeVYxckJCQjFUcXFvZTIyQmJIVThlNWxQYnNLRWRVVXpORlZiQnFCMVArbExkRnZFM0hWQzhNNFBXY2JBZFZVOWIxNWZRTHgxUDNrNFVGMUVDSFU4L0JLL2FJZTBkVWdCeU9OY3h0QjFQRFd4WFd5QkJIVkJMMVh1WGtaTT0IAAYAAAAACAAHAAAAAAwACAoAAR1OhCKDFyAPAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 4,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 334,
+     "stored_chars": 334,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x2b0c6b1cc265a83a3c6c1926a8c7b53d234ff98f024e937e1c8c83553f43fa5c",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned zero tweets for the specified query, indicating no useful content was found.; class adjudicated seller_error\u2192negative_result: The seller successfully processed the request and explicitly returned 'tweet_count':0 and an empty 'tweets' array, indicating no results matched the query.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-24T06:03:45.252226135Z",
+     "query": "\"United States Dividend Fund\" USDF oil dividend",
+     "type": "top",
+     "tweet_count": 0,
+     "tweets": [],
+     "cursor": "DAACCgACHVX9QrCAJxAKAAMdVf1CsH_Y8AgABAAAAAILAAUAAAAcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUFBPQgABgAAAAAIAAcAAAAAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_7168e76a2c57484cade9e8f9350f34f1/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.006603,
+  "tool_cost_usd": 0.014,
+  "frames_fee_usd": 0.00309,
+  "total_cost_usd": 0.023694,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 19977,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 244,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.006603,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  },
+  {
+   "id": "mpp.firecrawl.post.v1-scrape",
+   "title": "Scrape content from a URL",
+   "capability": "scrape",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "mpp.firecrawl.post.v1-scrape",
+   "amount": "0.002",
+   "pay_to": "0xca4e835F803cB0b7C428222B3A3B98518d4779Fe",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0x062a6c329d454a83ba8c5ac7591c3a4ef55afd7108e0795510ec90ef659a7b7e",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+  },
+  {
+   "tool": "mpp.firecrawl.post.v1-scrape",
+   "amount": "0.002",
+   "pay_to": "0xca4e835F803cB0b7C428222B3A3B98518d4779Fe",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0xff4699a3614e3e1544ad465f9e6b333286cefadcbdd51305928baf43925351de",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x16757d4393642d078b217612c98971902753e84318c0697c8e8b76a3020d56a1",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The more specific terms 'useorbix.app', 'ORBIX', and 'inference' are not present in the visible tweet content, suggesting the results primarily matched 'marketplace', 'Robinhood', and 'Chain'.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x2b0c6b1cc265a83a3c6c1926a8c7b53d234ff98f024e937e1c8c83553f43fa5c",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned zero tweets for the specified query, indicating no useful content was found.; class adjudicated seller_error\u2192negative_result: The seller successfully processed the request and explicitly returned 'tweet_count':0 and an empty 'tweets' array, indicating no results matched the query.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x96cb24890b4a1d0bd0444d2168424806ca82142106b3cd1ca0dfc088460ed947",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
