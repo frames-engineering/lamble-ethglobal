@@ -184,7 +184,9 @@ bars, bar_eid, snapshot, created = {}, {}, [], {}
 usable = lambda c: c['delivered'] or isinstance((c.get('body') or {}).get('data'), dict)
 c1_calls = [('c1', c) for c in runs['c1']['result']['calls'][1:] if usable(c)]
 for b in (b for b in BATCHES if re.fullmatch(r'c([3-9]|\d{2,})', b)):
-    c1_calls += [(b, c) for c in runs[b]['result']['calls'] if usable(c)]
+    # a retry of a call that already has usable data (the seller's refund note was wrong) is kept as a record but not counted twice
+    have = {requests[bb]['calls'][c['seq']]['args']['query'] for bb, c in c1_calls}
+    c1_calls += [(b, c) for c in runs[b]['result']['calls'] if usable(c) and requests[b]['calls'][c['seq']]['args']['query'] not in have]
 assert len(c1_calls) == len(requests['c1']['calls']) - 1, 'a c1 call has no delivery (retry it as c3)'
 for batch, c in c1_calls:
     q = requests[batch]['calls'][c['seq']]['args']['query']; data = c['body']['data']

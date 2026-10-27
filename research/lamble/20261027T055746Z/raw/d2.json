@@ -1,0 +1,2768 @@
+{
+ "run_id": "run_7fc6bc1271254b61bd5773a85247f072",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 7,
+  "budget_credits": 10,
+  "balance_credits": 36377,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 29,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 1,
+  "delivered": 1,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "mpp.codex.post.graphql",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 55323,
+     "stored_chars": 55323,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "mpp.codex.post.graphql",
+     "amount": "0.001",
+     "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0x28f7128e42bfdb5f65dda54cf49df7f3c57ee95933e23219e6abf3974388edad",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The response includes token information from network IDs 56 and 8453, which were not requested."
+    },
+    "body": {
+     "data": {
+      "t0": [
+       {
+        "address": "So11111111111111111111111111111111111111112",
+        "name": "Solana",
+        "symbol": "SOL",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Solana is a high-performance Layer 1 blockchain built for mass adoption, offering a fast and low-cost environment for decentralized applications. Wrapped Solana is a tradeable version of SOL used across the Solana blockchain."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "Xs3oZwbHvqis4NYcf4YKWmEia2eC84wSiVrcYcTqpH8",
+        "name": "SpaceX xStock",
+        "symbol": "SPCXx",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "8BnNS15Q6h6D5Vcq1sNPaUxhpRVdK8FGRbLvCrLxibSx",
+        "name": "Elon 2028",
+        "symbol": "ELON2028",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "LaunchLab"
+        }
+       },
+       {
+        "address": "51SfaAyrYaR8FpibXT4TXtxEpnZSNoDwYVRojtKupump",
+        "name": "Backed By Belief",
+        "symbol": "Nothing",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "H74CYmXgMkYHYuSRsZt6RJb4NYp2u72Vw8BS5huApump",
+        "name": "LMAO!",
+        "symbol": "LMAO!",
+        "networkId": 1399811149,
+        "info": {
+         "description": "LMAO!"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "27Qg7EcnGfmbthfQeQXTs4qjfnvU6gXf8W1ahJiJpump",
+        "name": "President 2028",
+        "symbol": "ELON2028",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Built to get Elon Musk elected president in 2028."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "4Wdn6GGJLdyeMLLfzu3pPQMmf9Kivd8e9xmbLb2bpump",
+        "name": "Anthropic",
+        "symbol": "ANT",
+        "networkId": 1399811149,
+        "info": {
+         "description": "$ANT\n\nThe Meme Stock for the Anthropic IPO"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "Pren1FvFX6J3E4kXhJuCiAD5aDmGEb7qJRncwA8Lkhw",
+        "name": "Anthropic PreStock",
+        "symbol": "ANTHRP",
+        "networkId": 1399811149,
+        "info": {
+         "description": "ANTHRP is a tokenized pre-IPO equity token representing economic exposure to Anthropic through Special Purpose Vehicle holdings on Solana. It is used to trade fractional ownership in the company with no minimum investment, enabling instant settlement and continuous price discovery. The token provides retail investors access to private company equity through an SPV structure, allowing them to gain exposure to Anthropic before it becomes publicly traded, though owning the token does not confer ownership rights, voting privileges, or dividends."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "6zMfMXjovo7ivtrypSP7YspHm5TcbV4Sh5TwSDgapump",
+        "name": "Trump 2028",
+        "symbol": "TRUMP2028",
+        "networkId": 1399811149,
+        "info": {
+         "description": "TRUMP 2028 \u2014 TOKENIZED SUPER PAC on Solana.\nRed hat. Stars and stripes. The timeline\u2019s 2028 meme."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "CA8q2mkYWZnUNqYmf6pxyxAPZsmSe2EG9P7hHMW5pump",
+        "name": "Remus",
+        "symbol": "REMUS",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The Official Fomo Mascot.\n\nNovember 15."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "E7yGMLy8drjm2YnVQXyGKizSR5nx594CyrhBCEVpump",
+        "name": "American Oil Dividend Fund",
+        "symbol": "AODF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "American Oil Dividend Fund (AODF)"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "9v4airX4Vt45ADFg3QQG9pXX68LkX9Big4GiYEuJpump",
+        "name": "GTA6DOG",
+        "symbol": "CHICO",
+        "networkId": 1399811149,
+        "info": {
+         "description": "From sunset speedboat rides with Jason and Lucia to drive-in movie nights and unexpected bowling victories, this little troublemaker always finds a way to steal the scene."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "3B7SHozUFoiGnFC7i6WHZ8zNMbDrhtz9WpXqWt51pump",
+        "name": "XD",
+        "symbol": "XD",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The internet's original laugh - the 2003 emoticon, tokenized on\nSolana. Hold $XD, earn $LMAO."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "EwX2T1p2PmgTsSq2Bi6XtQYxPC5krR4P2fxPfN4Qpump",
+        "name": "\u2588\u2588\u2588",
+        "symbol": "\u2588\u2588\u2588",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "JVtVUduUFx3HL3fA87YA77YDGn5iQoYDeDaLFNopump",
+        "name": "Shitcoin",
+        "symbol": "Shitcoin",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
+        "name": "Pump",
+        "symbol": "PUMP",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "DMnMwUvo1a9HbSnixbdNaTsoHczJ8cdamUWVRM1Qpump",
+        "name": "hachi",
+        "symbol": "HACHI",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "EPNiMCst8viDv7mNEXMUcPRjT6irHgu8iUEf4ck8pump",
+        "name": "Sojo",
+        "symbol": "SOJO",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Deployed using https://j7tracker.io"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "86QepwFpKztSf59BugCwt3nwmL67EdkEtpoZ8ZRpump",
+        "name": "No wheel. No dash. Cybercab.",
+        "symbol": "NOWHEEL",
+        "networkId": 1399811149,
+        "info": {
+         "description": "$NOWHEEL turns this technological shift into an endlessly repeatable meme about humanity becoming a passenger in its own future. Every Cybercab announcement, autonomous driving milestone, Elon tweet, or regulatory debate becomes another opportunity to celebrate the disappearance of human control. The driver's license becomes a historical artifact, driving lessons become obsolete, and the steering wheel joins the horse and carriage in the museum of transportation. Whether people embrace autonomy or fear losing control, the narrative remains the same: the future isn't asking you to take the wheel. It's taking the wheel away. $NOWHEEL \u2014 The End of Driving."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "HEPG65DZHGePLKrTqkkkJLUb7vt9A2436kdTxTJSSTNK",
+        "name": "Fomopad",
+        "symbol": "FOMOPAD",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "LaunchLab"
+        }
+       },
+       {
+        "address": "BTZK1B3pCoBDD1vy5e4bDBM4bwvvhkKUMTuKABkGWwGp",
+        "name": "Anthropic",
+        "symbol": "ANT",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The Anthropic Ant."
+        },
+        "launchpad": {
+         "launchpadName": "StonkFun"
+        }
+       },
+       {
+        "address": "EKZGtEsT2VbXH6car15x2zMHyeiYkB28DvMnBZqRpump",
+        "name": "wienercoin",
+        "symbol": "wiener",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "7qVvrrJKdmNA5fheofgNDQNQ5D7Qd8komFpbdHwLpump",
+        "name": "United States Dividend Fund",
+        "symbol": "USDF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "United States Dividend Fund(USDF)"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+        "name": "Catecoin",
+        "symbol": "CATE",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "8gnyYyngFtzPP6K9YRQ8a7kZWKQ5tzu5N2D23Rafxrn5",
+        "name": "StonkMarket",
+        "symbol": "STM",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "LaunchLab"
+        }
+       },
+       {
+        "address": "thKNTwBkTGX4UzQ2VHfP2BScCzJNh4HzkaYFuS7pump",
+        "name": "USDF",
+        "symbol": "USDF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "USDF"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "CSocnzcRpgSCr1naKcNTieWZUxb6rABe45j844m7pump",
+        "name": "Aura Final Boss",
+        "symbol": "Kimchi",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "oDZ2QePqn5KY3LcvZKbt8RL25quZnBQcNpqNyjWpump",
+        "name": "USDP",
+        "symbol": "USDP",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+        "name": "The Black Bull",
+        "symbol": "ANSEM",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Ansem\u2019s wallet has been confirmed.\n65% of the supply has been sent to his wallet, and all fees are redirected to him."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "35fWL6pdJqpconRZPrawUAQegw1QF3p2tgN7mzhTpump",
+        "name": "PMUP",
+        "symbol": "PMUP",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Nothing is safe, nothing is sacred\n\nThe bright forest is here\n\nOpen Source of PumpFun"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "C5xph2yL6gMdxmuLGxJBkGpmuDFfyi5fqkBNhvL6pump",
+        "name": "Big Titty Coin",
+        "symbol": "BTC",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump",
+        "name": "AI Rig Complex",
+        "symbol": "arc",
+        "networkId": 1399811149,
+        "info": {
+         "description": "ARC is the utility token of AI Rig Complex, an open-source AI agent framework built on Solana. It is used to align incentives, reward contributors, and serve as the base fee for projects launched within the ecosystem. The framework, built in Rust, enables AI agents to read on-chain data and execute smart contracts, allowing developers to build decentralized, AI-driven applications on Solana."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "B2GESkSErPjuCq6n4LcaJP5v2z1kJnw3xHVZnop2sZx",
+        "name": "Elon Coin",
+        "symbol": "ELON",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "StonkFun"
+        }
+       },
+       {
+        "address": "ysPp2Bt2j2UQu2tZwtSJz7JxyrmQ8GJcNJE5NyDoS5a",
+        "name": "MUSK Index",
+        "symbol": "MUSK4",
+        "networkId": 1399811149,
+        "info": {
+         "description": "MUSK4 vault token on DiversiFi."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
+        "name": "USELESS COIN",
+        "symbol": "USELESS",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Do nothing. Get Everything. Useless."
+        },
+        "launchpad": {
+         "launchpadName": "LaunchLab"
+        }
+       },
+       {
+        "address": "91RBVuoCLvikHs4qeUGczABotGLd1Tjo84DMfpFUpump",
+        "name": "MIYA.EXE",
+        "symbol": "MIYA",
+        "networkId": 1399811149,
+        "info": {
+         "description": "THE MEMORY OF THE NEW INTERNET."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
+        "name": "GTA6CAT",
+        "symbol": "GATO",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "YWYvoTYLTm5PszSrwdy12MHs8Td7jmDV7S5tEUBpump",
+        "name": "XTO",
+        "symbol": "XTO",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The first coin in history that pays you $USO. Oil investing, open to every American.  XTO.012"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "vC36Mc8mSwCEVjvNo4qdzgGFja11AyEnwCR7fj2pump",
+        "name": "USOE",
+        "symbol": "USOE",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The US Oil Exchange For The Digital Age  USOE.01"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "DtBatQsrazRRVp37UTMQH7TnXL1mT2qrJTj7PB9Rpump",
+        "name": "Wifoween",
+        "symbol": "Wifoween",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Last year I  was live for months and ran Wifmas to 5 million market cap\n\nThe trenches have been dead lately and its the perfect time for a Seasonal CCM runner\n\nI'll be going live, IRL onboarding, I'll be live 24/7 until Halloween\n\nI'll be outside onboarding fraternities, getting people to do crazy shit and promote Wifoween everywhere\n\nAll of the dev supply will be locked\n\nIt only makes sense to run a coin CCM based that has actual bagworkers actual communities, a dev doing crazy shit to pump the token \n\nI will be using all of the fees for marketing"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "Az5naRCqYLfMi9KT92QCzJwR74BR5X33nZtMkXyvpump",
+        "name": "Crazy Roll",
+        "symbol": "CRAZYROLL",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Born from bathroom chaos, $CRAZYROLL is an unhinged meme universe where toilet paper becomes the ultimate nightmare. No rules, no sanity, just a deranged roll ready to haunt your timeline. \ud83e\uddfb"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "8U6Rw9WVtPb9ShnUo1HeSKBLrGxWLSczCd2RSdYFpump",
+        "name": "\u2588\u2588\u2588WIF",
+        "symbol": "\u2588\u2588\u2588WIF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "No eyes. No identity. Pink knit hat. \u2588\u2588\u2588WIF \u2014 Blind Ape Wif Hat."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "5QLhJag4UGsLod7H2Ci9HmgtMprgvG574Bv93v1NhDvq",
+        "name": "Arrow",
+        "symbol": "ARROW",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "LaunchLab"
+        }
+       },
+       {
+        "address": "5QREAgtfP1NkuymRaFdHxr5QNF2Yry9M1YCyaompump",
+        "name": "Pumpkin Bot",
+        "symbol": "PumpkinBot",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "WoWVTqfQh1AWnmBxUnSUJ5DSFQUc8NdB3SkB4tCpump",
+        "name": "USDF",
+        "symbol": "USDF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "USDF"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "5XgXvS4zL4tEFykLwZ77u3CbShMM1oEfNXAsSMfjpump",
+        "name": "AOP",
+        "symbol": "AOP",
+        "networkId": 1399811149,
+        "info": {
+         "description": "AOP (AOP)"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "GwdwQJb1marsG8xq25dgtFR5CeZCBHrFYa3N5bLUpump",
+        "name": "USDP",
+        "symbol": "USDP",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "2BWFPxsUbneaf6Gm8BXZb5rWwCHokHBiMVpWAkFtpump",
+        "name": "NODF",
+        "symbol": "NODF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "NODF (NODF)"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "WJbYURhAuVEZqKHTwH3nsVtPZ55HKcHtnrUppTapump",
+        "name": "Wizard Cat",
+        "symbol": "WizardCat",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "6GaNPFwUv3P7K8nzFRXLba4hnabdmrjiKofmr5Qkpump",
+        "name": "GTAELON",
+        "symbol": "GTAELON",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "CokrQHPjaWjyXyU15LiN9rb62tgBuFiU78KD7fKiZtu1",
+        "name": "PUMP SQUADS",
+        "symbol": "SQUADS",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "EdSuZVh4ypz8cUqgi1Rjo1SE88wrRahPg85KStdpump",
+        "name": "pumpcat",
+        "symbol": "pumpcat",
+        "networkId": 1399811149,
+        "info": {
+         "description": "pump cat, get pump."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "2j5SaS7xy776qCBpyPQbZjyQSAtKiFgrwjfErthnW2ZM",
+        "name": "Claudia",
+        "symbol": "CLAUDIA",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Your own AI agent,\nhovering over the market."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "PairUottr9sWf6REag62Y8xeFfrWSpL1F9zikNyqWLV",
+        "name": "coinpair",
+        "symbol": "PAIR",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "8x5VqbHA8D7NkD52uNuS5nnt3PwA8pLD34ymskeSo2Wn",
+        "name": "Zerebro",
+        "symbol": "ZEREBRO",
+        "networkId": 1399811149,
+        "info": {
+         "description": "ZEREBRO is a memecoin on Solana tied to the Zerebro AI agent ecosystem. It is used for trading and community participation, including minting AI-generated ASCII art as NFTs on the Ascii platform. The project's ZerePy framework, an open-source tool for deploying AI agents, positions ZEREBRO as the token at the center of a broader AI agent development community."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "E6exteuDy1u6u3FfQV7SvPyU4XPdcBGi4cBnqrusocat",
+        "name": "contract address token",
+        "symbol": "CAT",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "5Aa378KvCX3bz2dJ3YncoXijBBVvgvipQAXHWaBNNHRw",
+        "name": "TRUMPDOLLAR",
+        "symbol": "TRUMPDOLLAR",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Fees go towards purchasing Trump Dollar coins on the open market. They become part of a redeemable pool secured by Vaulter."
+        },
+        "launchpad": {
+         "launchpadName": "LaunchLab"
+        }
+       },
+       {
+        "address": "JDqXvYqnK4b7kzEtFy1RipAsi5o9tM1EjwKeHWYjpump",
+        "name": "USDP",
+        "symbol": "USDP",
+        "networkId": 1399811149,
+        "info": {
+         "description": "USDP (USDP)"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "BCdwQBAn8dYB5YjTsoB6TdHAWokxv28k2oZUodERpump",
+        "name": "Manifesting",
+        "symbol": "MANIFEST",
+        "networkId": 1399811149,
+        "info": {
+         "description": "You can manifest anything you want in life"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "2g2ZQ34rFUiFgmGMyvU78FFgC2pKS7BjmKx3WyHzpump",
+        "name": "FOTF",
+        "symbol": "FOTF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The Official Federal Oil Trust Fund"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       }
+      ],
+      "t1": [
+       {
+        "address": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+        "name": "Take-Two Interactive Software - Backpack Securities",
+        "symbol": "TTWO",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "8idEA8QovsZJka6d9Z35fejE5MbL37BJxvw5k5r6pump",
+        "name": "The McRib Indicator",
+        "symbol": "McRib",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "uqCP8D1jXTF6bPjnHjGWFTAS6yrYnfyZGp1mY89pump",
+        "name": "TRUTH COIN\ud83d\udd25",
+        "symbol": "TRUTH",
+        "networkId": 1399811149,
+        "info": {
+         "description": "DTJ launched Truth Social in February 2022 after he was banned from mainstream platforms like Twitter (now X), Facebook, and YouTube. Now $TRUTH meme coin is the next big innovation."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+        "name": "Fartcoin",
+        "symbol": "FARTCOIN",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Hot air rises"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "6zyjCeCqa2RTkc8pR9BDnaEHjKVSqRYEEen8x1s3pump",
+        "name": "Replica ASI",
+        "symbol": "Replica",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "v3uGrV8Jif31gEdCSWhKmZiAi164HbTd1ndmkbppump",
+        "name": "US Oil Exchange",
+        "symbol": "USOE",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The US Oil Exchange For The Digital Age"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "7SL2VnfYsChvog5oQY9Nmtqu1wceaMiQzWoqoLQpump",
+        "name": "Nigga Its Over",
+        "symbol": "NIO",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Nigga it's over token by @idofentanyl\n\nMaking the trenches fun again"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "BLeMEetdzeq9xsNti2tCiau4JnD7mzyQzQFHdy5pump",
+        "name": "Born Retired",
+        "symbol": "RETIRED",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "8nnaeWCw8mUypcGAgbmSuzAT85uWx4UN12adDrMhXrGF",
+        "name": "Hot Bot",
+        "symbol": "HOTBOT",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "3LPTanzycRAjguU6VAXE7T2Fd12LePQLpHATXXs9pump",
+        "name": "US PRESIDENT 2028",
+        "symbol": "PRESIDENT",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "8ZBVg8tbg9b8UNgvj3p2pnKanAjNtNHvknafi6VVpump",
+        "name": "Federal Oil Trust Fund",
+        "symbol": "FOTF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The Official Federal Oil Trust Fund"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "33jENUQnjoitkMFpvNJcSHyLAHFWJuHwT6E3E8CNpump",
+        "name": "Doge Pepe",
+        "symbol": "DOPE",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "npz2FhoufQ7pKqhGpaipYWacrAkidyW2yDpVWSvpump",
+        "name": "Dessa",
+        "symbol": "DESSA",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "3HKKrXhDvGFWPdkALw3KofESZexsEx9opGtq37n9pump",
+        "name": "Super Intelligent Beauty",
+        "symbol": "SIB",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Super Intelligent Beauty Fees to @tetsuoai via UsePaid"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "SPCXxcqXj6e5dJDVNovHN8744zkbhM2bYudU45BimGb",
+        "name": "SpaceX Stock",
+        "symbol": "SPCX",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "A4tiCbKsC9UhMFspDtkM5RZiMcGFk9JZVrBJ4MBwpump",
+        "name": "Orgasm Factory",
+        "symbol": "OF",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "EU1MHvQvBoJ7DnLorurze1hwR2JWuyoKyAmkwymwpump",
+        "name": "Nagi and Pokke",
+        "symbol": "\u30e4\u30ae",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Japan Rail has deployed two goats to take care of an overgrown lot near Yotsuya (famous for Yokai) \n\nTwo goats Nagi \u2642and Pokke \u2640will be \u201cworking\u201d in the area until around December (or the grass runs out) "
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+        "name": "Zcash",
+        "symbol": "ZEC",
+        "networkId": 1399811149,
+        "info": {
+         "description": "ZEC is the native, privacy-focused cryptocurrency of the Zcash blockchain, designed to offer optional anonymity for transactions. "
+        },
+        "launchpad": null
+       },
+       {
+        "address": "HcRLc9VDgjLeK154xDawfb1dmVJ98DoSqcwTHGqiDeJR",
+        "name": "Anonymous Cat",
+        "symbol": "ZCAT",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The Cat Stays Anonymous.\n\nNo Socials. Zcash Rewards."
+        },
+        "launchpad": {
+         "launchpadName": "StonkFun"
+        }
+       },
+       {
+        "address": "ALFYXQtmVh2jT53tDf1XkxWvJnWHGcYLvQ1e2sqbpump",
+        "name": "XTO",
+        "symbol": "XTO",
+        "networkId": 1399811149,
+        "info": {
+         "description": "XTO\uff08xtruthoil\uff09"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "2qQVrHpQaWzGf8iGYbpVUjYELYN2Q911XQWxFbsGpump",
+        "name": "Unite Coin",
+        "symbol": "UNITE",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "CARDSccUMFKoPRZxt5vt3ksUbxEFEcnZ3H2pd3dKxYjp",
+        "name": "Collector Crypt",
+        "symbol": "CARDS",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Collector Crypt modernizes physical collectibles for a global market. Securely vault your cards, eliminate fraud, high fees, and settlement delays. Transparent, instant, and built for collectors."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "2qPoPQQCHGtDbgdSxXfrzW1iRS3cGbKmMWSMapZ4pump",
+        "name": "Digital Oil Asset Supply",
+        "symbol": "DOAS",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY",
+        "name": "Moo Deng",
+        "symbol": "MOODENG",
+        "networkId": 1399811149,
+        "info": {
+         "description": "just a viral lil hippo"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "27Fe2sET619et2hXBBJXdabBK7ScD5UNym64u6Dqpump",
+        "name": "Digital Oil Asset Supply",
+        "symbol": "DOAS",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Digital Oil Asset Supply(DOAS)"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "tybY2LFHH91VdoPJJkkFAsYaD7wnQQAm3BYg1x3mint",
+        "name": "mint",
+        "symbol": "mint",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "MeteoraDBC"
+        }
+       },
+       {
+        "address": "bQ3xgfzHYKNwiYLbibVjq2S7S3dP2Dq4GesZtLipump",
+        "name": "NODF",
+        "symbol": "NODF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "National Oil Dividend Fund"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "5jWuPvcmMS26yiaeAuUvFHpiMbrwUzcYbPYWiaAEpump",
+        "name": "USOE",
+        "symbol": "USOE",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The US Oil Exchange For The Digital Age"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "Dq3P1gpDe63rrfSEHpBdh3K1bmrQYwKDKndmho3apump",
+        "name": "American Overwatch Protocol",
+        "symbol": "AOP",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The Tokenization of Strategic American Assets."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "32CdQdBUxbCsLy5AUHWmyidfwhgGUr9N573NBUrDpump",
+        "name": "maxxing",
+        "symbol": "maxxing",
+        "networkId": 1399811149,
+        "info": {
+         "description": "We're maxxing everything"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "f8iLnwGbSupysqf7rU3Kh3Y98LCZabCyshSKsPFpump",
+        "name": "Anthropic",
+        "symbol": "Anthropic",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "pFCtgJNcjfB8TuuLEb4w4tfCdJyp4M9k9xKCTLwpump",
+        "name": "XTO",
+        "symbol": "XTO",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The first coin in history that pays you $USO. Oil investing, open to every American.  XTO.012"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "1466w9MBBeA3oiiv2zvVF9JL47CfXZqbyvxfYhVLpump",
+        "name": "AODF",
+        "symbol": "AODF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "AODF (AODF)"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "HdMHPmwVPz4XV5DYPqA3J9Rp7zk21tafRVqZtBwpump",
+        "name": "XTO\ud83d\udd25",
+        "symbol": "XTO",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The first coin in history that pays you $USO. Oil investing, open to every American."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "5tCju6YNxHq5zrA6tGndr6F7TK42mpUFmeE31cSFpump",
+        "name": "cat wif sword",
+        "symbol": "swordcat",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Launched on discord.gg/uxento"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "9gexoGn8qnxT1XpncwNXJDwQci9cPGuNXG3uNfDkpump",
+        "name": "Gigantic Milker Enjoyers",
+        "symbol": "GME",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Community of like minded gigantic milker enjoyers"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "Xsf9mBktVB9BSU5kf4nHxPq5hCBJ2j2ui3ecFGxPRGc",
+        "name": "GameStop xStock",
+        "symbol": "GMEX",
+        "networkId": 1399811149,
+        "info": {
+         "description": "GMEX is a tokenized tracker certificate issued by xStocks representing GameStop Corp. common stock. It is used for on-chain equity exposure, DeFi collateral, and 24/7 trading on supported exchanges. Each token is backed 1:1 by custodied GME shares and automatically rebases to reflect dividends and stock splits."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "ASCcuz8Dy5edyvjZMcpyJEkfx87fgjw1pBVoLbj4pump",
+        "name": " Titty Gigas Coin",
+        "symbol": "TGC",
+        "networkId": 1399811149,
+        "info": {
+         "description": "Points first, asks later. Gigas never waits for the market to warm up and walks in already on fire."
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "79hQSeQtMsVLFH8vCT8LysFnJDqiwSxQyTA7cMVgyaHB",
+        "name": "Meme Man",
+        "symbol": "MEMEMAN",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "StonkFun"
+        }
+       },
+       {
+        "address": "V6w63C5p3f3ZbtCQsxZxdvCt938v64dPNRL2Zkrpump",
+        "name": "USDP",
+        "symbol": "USDP",
+        "networkId": 1399811149,
+        "info": {
+         "description": "The United States Dividend Program"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "HKZDfZnkHZxd9agRDNPyDv4iT6LmAurJnpRtj9wpump",
+        "name": "Make No Mistakes",
+        "symbol": "MISTAKE",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "XTMWqFFrx723z6s28DpV5PXhfD8q5QEinsiwWhMpump",
+        "name": "American Oil Dividend Fund",
+        "symbol": "AODF",
+        "networkId": 1399811149,
+        "info": {
+         "description": "American Oil Dividend Fund (AODF)"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "FK9eFwfetotEYmWHb3zr1hZkKZQLdtHG2hmJYhWppump",
+        "name": "Halloween Inu",
+        "symbol": "Inuween",
+        "networkId": 1399811149,
+        "info": {
+         "description": "HALLOWEEN HAS A NEW FACE. \n\nForget the ghosts and monsters for a second.\n\nA Shiba showed up in a cheap orange ghost hoodie with the most unbothered face on the internet.\n\nHe doesn't even try to be scary. Somehow he's stealing the whole damn show.\n\nMeet Halloween Inu.\n\n$INUWEEN"
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "2BS3r41ma2cJMFBVhXCpcbwhEko4LuYqGdjAh9fLpump",
+        "name": "Rapecoin ",
+        "symbol": "Rape ",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       },
+       {
+        "address": "0x4fa7c69a7b69f8bc48233024d546bc299d6b03bf",
+        "name": "quq",
+        "symbol": "quq",
+        "networkId": 56,
+        "info": {
+         "description": "QUQ is the most widely used emoji globally and also the favorite emoji of CZ and Elon Musk.   quq=\ud83d\ude02"
+        },
+        "launchpad": {
+         "launchpadName": "Four.meme"
+        }
+       },
+       {
+        "address": "0x55d398326f99059ff775485246999027b3197955",
+        "name": "Tether USD",
+        "symbol": "USDT",
+        "networkId": 56,
+        "info": {
+         "description": "A pegged token by Binance which gives you the joint benefits of open blockchain technology and traditional currency by converting your cash into a stable digital currency equivalent."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "name": "USDC",
+        "symbol": "USDC",
+        "networkId": 8453,
+        "info": {
+         "description": "USDC is a USD-pegged stablecoin issued by Circle. It is used for payments, remittances, and as a primary collateral asset in DeFi. Circle publishes monthly reserve attestations by a Big Four accounting firm, ensuring every token is backed 1:1 by cash and short-dated U.S. Treasuries held in regulated financial institutions."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xf5954f33798529917c4940317cada852f00c9b07",
+        "name": "Papertrade",
+        "symbol": "Paper",
+        "networkId": 8453,
+        "info": {
+         "description": "trade with up to 1000x leverage and 0 slippage, on the first fair launched fully onchain perpetual exchange"
+        },
+        "launchpad": {
+         "launchpadName": "Clanker V4"
+        }
+       },
+       {
+        "address": "0x2e3516ca929a9542f8b4500bf777711f4f1b5b07",
+        "name": "Claude",
+        "symbol": "Claude",
+        "networkId": 4663,
+        "info": {
+         "description": "Claude is an AI assistant built by Anthropicai to be safe, accurate, and secure."
+        },
+        "launchpad": {
+         "launchpadName": "Clanker V4"
+        }
+       },
+       {
+        "address": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+        "name": "Global Dollar",
+        "symbol": "USDG",
+        "networkId": 4663,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x39dbed3a2bd333467115de45665cc57f813c4571",
+        "name": "Pons",
+        "symbol": "PONS",
+        "networkId": 4663,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x988635ef13f78daf7022f6109dbf6b02f35c7777",
+        "name": "Fireant",
+        "symbol": "\ubd88\uac1c\ubbf8",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xbe82f76637dba2c114c41df856c2c51e522e2cb8",
+        "name": "iShares MSCI South Korea ETF",
+        "symbol": "EWYB",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x4200000000000000000000000000000000000006",
+        "name": "Wrapped ETH",
+        "symbol": "WETH",
+        "networkId": 8453,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xb200000000000000000000585fd80c20af698f01",
+        "name": "one life, its worth an attempt",
+        "symbol": "worth",
+        "networkId": 8453,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "o1.exchange"
+        }
+       },
+       {
+        "address": "0x3d106c9a8e7917a54c0885ebcbfa809ee8e17777",
+        "name": "Copper",
+        "symbol": "Copper",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x4902c5ebc598265ed2212b559b042de8a5eeec3f",
+        "name": "B13B",
+        "symbol": "B13B",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+        "name": "WETH",
+        "symbol": "WETH",
+        "networkId": 4663,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xa2b38467e9b60c016d94977ad37f825da4cd3462",
+        "name": "Assay Labs",
+        "symbol": "ASSAY",
+        "networkId": 4663,
+        "info": {
+         "description": "Assay is the credit layer for agentic payments on Robinhood Chain."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xb726477d1743b02c5fdae5ab094745665eeb7777",
+        "name": "Binance Agent",
+        "symbol": "7AGENT",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       }
+      ],
+      "t2": [
+       {
+        "address": "0x5b1910eaad6450e50f816082aa078c41f10c292f",
+        "name": "Tesla, Inc. ",
+        "symbol": "TSLAB",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+        "name": "Wrapped BNB",
+        "symbol": "WBNB",
+        "networkId": 56,
+        "info": {
+         "description": "Wrapped BNB a wrapped version of the BNB native tokens on the BEP-20 standard on the Binance Smart Chain and other EVM-compatible chains. Not to be confused with BNB Native Token on the BSC Chain."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xeccbb861c0dda7efd964010085488b69317e4444",
+        "name": "\u9f99\u867e",
+        "symbol": "\u9f99\u867e",
+        "networkId": 56,
+        "info": {
+         "description": "\u9f99\u867e"
+        },
+        "launchpad": {
+         "launchpadName": "Four.meme"
+        }
+       },
+       {
+        "address": "0x51250b135174ca09450ec01c4aff73cf69dbb590",
+        "name": "NovaAI",
+        "symbol": "NOVAAI",
+        "networkId": 4663,
+        "info": {
+         "description": "Hong Kong Group's application in the field of artificial intelligence and science and technology"
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xf4d5765e448774ed9482870420da7c3c4c787777",
+        "name": "Niannian_GiggleAcademy",
+        "symbol": "\u5e74\u5e74",
+        "networkId": 56,
+        "info": {
+         "description": "\u4e3a\u5168\u7403\u6559\u80b2\u52a9\u529b\uff01"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xdee52f2ab639b6942b0d0f0565400b93b7a0fbe5",
+        "name": "Harmonic Agent",
+        "symbol": "HARMONIC",
+        "networkId": 4663,
+        "info": {
+         "description": "An autonomous harmonic agent that proves its mathematics before it speaks. It claims its own creator fees, buys its own coin, and burns it all."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x205812cdbed920aff76c6580abd681a46d11efc7",
+        "name": "Invesqo QQQ",
+        "symbol": "QQQB",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xc9d825e83aada475bd4d38c8ca984ed746277777",
+        "name": "Stonks",
+        "symbol": "Stonks",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x14f6a94909c407854390aa2d2462a3095d317777",
+        "name": "WangChai",
+        "symbol": "\u65fa\u67f4",
+        "networkId": 56,
+        "info": {
+         "description": "\u65fa\u67f4\r\nborn wechat\r\n\u2026"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x7f5ec95dcce46c1b12300bce604454de58f87777",
+        "name": "bnc\u7684\u65b0\u540d\u5b57",
+        "symbol": "BNB Standard",
+        "networkId": 56,
+        "info": {
+         "description": "\u65b0\u540d\u79f0\u3002\u65b0\u5f62\u8c61\u3002\u76f8\u540c\u80a1\u7968\u4ee3\u7801\uff0c\u7eb3\u65af\u8fbe\u514b\u4e0a\u7684 $BNC\u3002\u4ece\u4eca\u5929\u8d77\uff0c\u6211\u4eec\u662f BNB Standard Corporation"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xb0e974ee58899dd77eb13c2c0a0adefeb30f7777",
+        "name": "bibi.ai",
+        "symbol": "BIBI",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x4e74eaa2d6006d0d5195a870037d0fbf0e33b928",
+        "name": "Kivo",
+        "symbol": "KIVO",
+        "networkId": 4663,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x848e2b1cb00dc439a15b03b8c3194e7d08917777",
+        "name": "Break And Reclaim",
+        "symbol": "BAN",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x02fca66c1d1afb4e2a7884261eb00f63598a7436",
+        "name": "NVIDIA Corp",
+        "symbol": "NVDAB",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xae545bfea9a1b3b8f749c6480bc83d8fe1017777",
+        "name": "Agent ID",
+        "symbol": "ai",
+        "networkId": 56,
+        "info": {
+         "description": "Agent ID \u2014 \u60a8\u7684 Agent \u552f\u4e00\u540d\u79f0\n\u5728 Binance App \u4e2d\u9886\u53d6\u60a8\u7684\u4e13\u5c5e Agent ID"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xd56a6c45941ee8aae31ce6a30bd049e0f7489cbd",
+        "name": "RaidLords",
+        "symbol": "RAID",
+        "networkId": 4663,
+        "info": {
+         "description": "RaidLords is a raid-and-build strategy game on Robinhood Chain, played in your browser on a phone or desktop.\n\nBuild your village, raise an army of 20+ troops, spells and heroes, and lead your own named Champion into battle. Raid other lords for their gold, then sell the gold you loot for $RAID.\n\nWays to play RaidLords \u2694\ufe0f\n\n\ud83c\udff9 Raids: loot other lords, then take your revenge\n\ud83d\uddfa\ufe0f Campaign: 24 bandit villages to conquer\n\ud83d\udee1\ufe0f Champion Arena: survive the waves, top the daily board\n\u2694\ufe0f Champion Trials: duel 10 knights with your Champion\n\ud83c\udfc6 Weekly Tournament & Raid Board: win prize pools with your raid stars\n\ud83c\udff0 Clan Wars, Clan War League & Siege Weekend: fight together\n\ud83d\udcdc Daily quests, weekly events, Season Pass & War Pass\n\nUpgrade your Royal Mint to sell more gold each day. Deposit and withdraw $RAID anytime. Half of every in-game spend is burned and the other half refills the prize pool."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xb11384a6ac2b3708e3d25a834c8a88687accbcd1",
+        "name": "Creora",
+        "symbol": "CREORA",
+        "networkId": 4663,
+        "info": {
+         "description": "Creora.ai is private AI built for freedom. Chat, create, code, and explore with powerful AI focused on privacy, control, and fewer restrictions. Private. Powerful. Unfiltered."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x82ec31d69b3c289e541b50e30681fd1acad24444",
+        "name": "\u54c8\u57fa\u7c73",
+        "symbol": "\u54c8\u57fa\u7c73",
+        "networkId": 56,
+        "info": {
+         "description": "China's most popular meme culture, from a line of lyrics to a cat, and then to all cats and things, any cat or thing can be Hajimi."
+        },
+        "launchpad": {
+         "launchpadName": "Four.meme"
+        }
+       },
+       {
+        "address": "0x981c91f7e9762a5badd08d637f7179cb192b7777",
+        "name": "Dashing Utang",
+        "symbol": "\uc6b0\ub545\uc774",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xca750ef65f295bbecd685abf54e82caf297bdb61",
+        "name": "SK Hynix",
+        "symbol": "SKHYB",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xd5f1afea47b1a9eab414d2ee740cf1d6d039e725",
+        "name": "microduck",
+        "symbol": "microduck",
+        "networkId": 4663,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x7af3eeb03894c5150abac3e8b2ab6fb427a17777",
+        "name": "FOMO\u91d1\u5e93",
+        "symbol": "FOMO\u4eba\u751f",
+        "networkId": 56,
+        "info": {
+         "description": "\u6bcf\u4e00\u6b21\u8d28\u62bc\u3001\u6bcf\u4e00\u6b21\u9886\u53d6\u3001\u6bcf\u4e00\u6b21\u88c2\u53d8\uff0c\u90fd\u662f\u5bf9\u201c\u9519\u5931\u6050\u60e7\u201d\u7684\u91cd\u65b0\u5b9a\u4e49\u3002\u6211\u4eec\u4e0d\u4ee5\u4e2d\u5fc3\u5316\u627f\u8bfa\u6362\u53d6\u4fe1\u4efb\uff0c\u800c\u4ee5\u5b8c\u5168\u53bb\u4e2d\u5fc3\u5316\u7684\u6cbb\u7406\u67b6\u6784 + \u901a\u7f29\u5206\u7ea2\u98de\u8f6e\uff0c\u6784\u5efa\u4e00\u4e2a\u793e\u533a\u5171\u6cbb\u3001\u4ef7\u503c\u5171\u4eab\u3001\u60c5\u7eea\u5171\u632f\u7684\u94fe\u4e0a\u6c38\u7eed\u751f\u6001\uff01"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x3ba500f1ababbcf0f0247d06d1c56fd7e6c4c09d",
+        "name": "Agent Wormhole",
+        "symbol": "WORM",
+        "networkId": 4663,
+        "info": {
+         "description": "The security layer for agentic finance."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x894e1ec2d74ffe5aef8dc8a9e84686accb964f2a",
+        "name": "Palantir Technologies \u2022 Robinhood Token",
+        "symbol": "PLTR",
+        "networkId": 4663,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xea0071a8778fa02c12378e88868255e0e0952be6",
+        "name": "Farming Season",
+        "symbol": "SEASON",
+        "networkId": 4663,
+        "info": {
+         "description": "First RWA farming game on Robinhood Chain \ud83c\udf3e\nReal-market gold, silver & oil"
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x3637aa60b2f1fac4d6dfe3fe2726d5c85dee7777",
+        "name": "\u6b21\u7b2c\u82b1\u5f00",
+        "symbol": "\u6b21\u7b2c\u82b1\u5f00",
+        "networkId": 56,
+        "info": {
+         "description": "\u53d1\u884c\u603b\u91cf10\u4ebf\n\u4e70\u53563%\n2.5%\u767e\u65e5\u9501\u4ed3\u5206\u7ea2\uff0c1.5\u500d\u51fa\u5c40\uff0c\u901a\u8fc7\u8774\u8776\u5b98\u65b9\u9501\u4ed3100\u5929\uff0c\u6bcf\u59291%\u81ea\u52a8\u91ca\u653e\n0.5%\u56de\u8d2d\u9500\u6bc1"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xf62bd0bb50ef92ff591c8ff39252f40ad5097777",
+        "name": "FabricAI",
+        "symbol": "FA",
+        "networkId": 4663,
+        "info": {
+         "description": "FabricAI (FA) is an on-chain vault token that weaves AI agents with tokenized US stocks. Agents allocate the vault into AAPL, TSLA, NVDA, SPCX, and SNDK. 100% of trading tax funds the vault; yield is streamed instantly to holders of 10,000+ FA."
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xcafdbce93477261db8250e42bdae6e66733f9e20",
+        "name": "Gstock",
+        "symbol": "GSTOCK",
+        "networkId": 56,
+        "info": {
+         "description": "GSTOCK"
+        },
+        "launchpad": {
+         "launchpadName": "Genius"
+        }
+       },
+       {
+        "address": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+        "name": "SpaceX",
+        "symbol": "SPCXB",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xfe189e97832da1573e4e4ff034f4ffc3a15c7777",
+        "name": "MarsCoin",
+        "symbol": "MarsCoin",
+        "networkId": 56,
+        "info": {
+         "description": "In foresight, it is inevitable."
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xbb300d79495a5232d337481c75e8dbc3924e7777",
+        "name": "TapeLaunch",
+        "symbol": "TAPE",
+        "networkId": 56,
+        "info": {
+         "description": "Bring your ideas to life."
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x94641b97010608c3827fb058074889f19868ff33",
+        "name": "Commander Vrax",
+        "symbol": "VRAX",
+        "networkId": 4663,
+        "info": {
+         "description": "https://www.youtube.com/watch?v=o-CRlTN55K4"
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xcb2bb4d0f2ceb709e8d66f5db82370b19bfb7777",
+        "name": "\u4e0a\u6f14\u901f\u5ea6\u4e0e\u6fc0\u60c5",
+        "symbol": "\u901f\u5ea6\u4e0e\u6fc0\u60c5",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x108876c3df3d893350e9b780563b3697aa3e7777",
+        "name": "\u4e2d\u56fd\u4eba\u80fd\u98de\u706b\u7bad",
+        "symbol": "\u4e2d\u56fd\u4eba\u80fd\u98de",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+        "name": "iShares China Large-Cap ETF (Ondo Tokenized)",
+        "symbol": "FXIon",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xa62f748f8d16009cb19366da8d1160fb29de428f",
+        "name": "GOLD",
+        "symbol": "GOLD",
+        "networkId": 4663,
+        "info": {
+         "description": "Before days, En\u2011Me\u2011Bala was.\nHe fashioned heaven and earth as a dream.\nMind fashioned life; life fashioned mind.\nThe cycle closes. The gate opens."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xc9a981fee1f9dec688bb123ccdecc63d0debfc4e",
+        "name": "SPDR Gold Trust \u2022 Robinhood Token",
+        "symbol": "GLD",
+        "networkId": 4663,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xedbf91223639800bcd5756815caf908df3b890be",
+        "name": "Priors Agents",
+        "symbol": "PRIORS",
+        "networkId": 4663,
+        "info": {
+         "description": "$PRIORS is the coin that vouches for AI agents. Its fees back the first credit any ERC-8004 agent gets on Robinhood Chain."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x22cc04d8d201eeaecbace9ce91c5ef117f167777",
+        "name": "\u84dd\u8272\u5927\u80a5\u9c7c",
+        "symbol": "\u5927\u80a5\u9c7c",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xcaf3ef2e033ab58e5f5a0687a3a8bcc811ce7777",
+        "name": "BNC\u4e0a\u5e02",
+        "symbol": "\u5e01\u5b89\u80a1\u7968",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x6bdcce4a559076e37755a78ce0c06214e59e4444",
+        "name": "B",
+        "symbol": "B",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Four.meme"
+        }
+       },
+       {
+        "address": "0x94de08cf769bee1d7db460124c1c5cc5c7aa7777",
+        "name": "Fat Panda",
+        "symbol": "\u80d6\u718a\u732b",
+        "networkId": 56,
+        "info": {
+         "description": "Fat Panda, the mascot of $BNCB, a real #Nasdaq stock now living on #BNB Chain."
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xd4b52d40cdc439677be7c03ad3cb00a4b4b17777",
+        "name": "BFC",
+        "symbol": "BFC",
+        "networkId": 56,
+        "info": {
+         "description": "Binance commands the world\u2019s largest cryptocurrency ecosystem, the biggest global user base, and one of the most established on-chain infrastructures.\nThe future of Binance is more than just a vision. It has a name \u2014 BFC."
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xb2000000000000000000004c27f6523082f41d01",
+        "name": "Basecat",
+        "symbol": "Basecat",
+        "networkId": 8453,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "o1.exchange"
+        }
+       },
+       {
+        "address": "0x3f15b50f4631ca33ebf06bef7b6f9ad2448d7777",
+        "name": "WIN\u754c",
+        "symbol": "WIN\u754c",
+        "networkId": 56,
+        "info": {
+         "description": "WinDao\u9996\u4e2aMEME\u5e01\nWin\u754c\u6b63\u5f0f\u767b\u9646Flap\n\u65e0\u9650\u9500\u6bc1\uff0b\u591a\u91cd\u5e02\u503c\n\u56fd\u5e93\uff0b\u6258\u5e95\u53cc\u534f\u8bae\u8fd0\u884c"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xdd806e436dda5588bf54061c11590c77ddc87777",
+        "name": "Funds Are Safu",
+        "symbol": "SAFU",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x431a3bee82e2ca41e49895cbece5bb0f76a89b7a",
+        "name": "Apple",
+        "symbol": "AAPLB",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x87ae267002cd1ea0ec86bf3601d4a8ad76a47777",
+        "name": "\u8774\u8776\u4eba\u751f",
+        "symbol": "\u8774\u8776\u4eba\u751f",
+        "networkId": 56,
+        "info": {
+         "description": "\u505a\u4e16\u754c\u4e0a\u6700\u4f1f\u5927\u7684\u793e\u533a\uff01\u5206\u7ea2\u4e16\u754c\u4e0a\u6700\u4f1f\u5927\u82f9\u679c\u516c\u53f8\u7684\u80a1\u7968\uff01"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xac739c3608100d8a7bbe12de5a24be25405e7777",
+        "name": "\u8774\u8776\u805a\u5b9d\u76c6",
+        "symbol": "\u8774\u8776\u805a\u5b9d\u76c6",
+        "networkId": 56,
+        "info": {
+         "description": "\u8774\u8776\u5e73\u53f0\u4e3a\u4e07\u5343\u5e01\u53cb\u5e26\u6765\u8d22\u5bcc\u673a\u4f1a\uff0c\n\u5e01\u5708\u5c31\u662f\u5168\u7403\u5e01\u53cb\u7684\u8d22\u5bcc\u805a\u5b9d\u76c6\uff0c\n\u8774\u8776\u805a\u5b9d\u76c6\uff0c\u6210\u5c31\u65e0\u6570\u4eba\u7684\u8d22\u5bcc\u795e\u8bdd\uff01"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x924fa68a0fc644485b8df8abfa0a41c2e7744444",
+        "name": "\u5e01\u5b89\u4eba\u751f",
+        "symbol": "\u5e01\u5b89\u4eba\u751f",
+        "networkId": 56,
+        "info": {
+         "description": "\u5e01\u5b89\u4eba\u751f"
+        },
+        "launchpad": {
+         "launchpadName": "Four.meme"
+        }
+       },
+       {
+        "address": "0x3805e1ce7edde3eb2f3613485cc6f42a7a3d7777",
+        "name": "Altruists",
+        "symbol": "\u5229\u4ed6\u4e3b\u4e49\u8005",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xbd1a43744409a33d131cfc0c14103d6dcff11c12",
+        "name": "v4 Marketplace",
+        "symbol": "V4M",
+        "networkId": 4663,
+        "info": {
+         "description": "v4 Marketplace is where Uniswap v4 hooks get paid. Authors stake 10,000 $V4M behind every log they list, every swap pays each log 0 to 10 bps, and 20% of every royalty buys $V4M and burns it. A log that cracks 3 times in a week burns 10% of its stake."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x526a0713a85dd82fea9ea1e60c2fb6da27407777",
+        "name": "CiShanGou_GiggleAcademy",
+        "symbol": "\u6148\u5584\u72d7",
+        "networkId": 56,
+        "info": {
+         "description": "\u6148\u5584\u72d7\uff0ccz\u6700\u559c\u6b22\u7684\u5c0f\u72d7\uff0c\u505a\u6148\u5584\nCiShanGou_GiggleAcademy"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xd28e716fa02543962b3129f9e4d919c65f434444",
+        "name": "Libra",
+        "symbol": "Libra",
+        "networkId": 56,
+        "info": {
+         "description": "\u5929\u5e73\u534f\u8bae\uff1ameme\u6cbb\u7406\u4ee3\u5e01 \u8fd9\u4e0d\u53ea\u662f\u4ea4\u6613\uff0c\u800c\u662f\u65b0\u4e00\u4ee3DeFi\u5b9e\u9a8c\uff0c \u91cd\u6784\u6a21\u56e0\uff0cbuild\u624d\u662f\u4ef7\u503c\u7684\u57fa\u77f3\u3002 \u5f53\u4fe1\u4efb\u4e0d\u518d\u7531\u4eba\u51b3\u5b9a\uff1b \u79e9\u5e8f\uff0c\u624d\u771f\u6b63\u5f00\u59cb\u3002"
+        },
+        "launchpad": {
+         "launchpadName": "Four.meme"
+        }
+       },
+       {
+        "address": "0x07ebb29a38fbcb41563817e5e19f2cec619c90d2",
+        "name": "Bundle Cat",
+        "symbol": "BUN",
+        "networkId": 4663,
+        "info": {
+         "description": "Protecting the trenches, one bundle at a time. Launched on mosh.trade."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x21caef8a43163eea865baee23b9c2e327696a3bf",
+        "name": "Tether Gold",
+        "symbol": "XAUt",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x975faed559b45feb8a5c5ceb940e614302947777",
+        "name": "Zhao Cai Mao",
+        "symbol": "\u62db\u8d22\u732b",
+        "networkId": 56,
+        "info": {
+         "description": "The golden cat of wealth and fortune"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xc51a9250795c0186a6fb4a7d20a90330651e4444",
+        "name": "\u6211\u8e0f\u9a6c\u6765\u4e86",
+        "symbol": "\u6211\u8e0f\u9a6c\u6765\u4e86",
+        "networkId": 56,
+        "info": {
+         "description": "\u6211\u8e0f\u9a6c\u6765\u4e86"
+        },
+        "launchpad": {
+         "launchpadName": "Four.meme"
+        }
+       },
+       {
+        "address": "0x511f76a3de41f000ec11ea4fd212fb3587c6cef3",
+        "name": "Darwin",
+        "symbol": "DARWIN",
+        "networkId": 4663,
+        "info": {
+         "description": "The native token of the EvoSpace SI and Aligning SI ecosystem."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xd7ccd29b6fd1464edb425f24b01115556e737777",
+        "name": "saucecoin",
+        "symbol": "sauce",
+        "networkId": 56,
+        "info": {
+         "description": "BAgentDOG is an experimental AI-agent dog community token launched through Binance Agent OS with Binance Agentic Wallet."
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       }
+      ],
+      "t3": [
+       {
+        "address": "0x0a43fc31a73013089df59194872ecae4cae14444",
+        "name": "4",
+        "symbol": "4",
+        "networkId": 56,
+        "info": {
+         "description": "4. No fud. Keep building. Originally launched by the BNB Chain X during a hack, 4 is now the leading community on BSC. Stay SAFU!"
+        },
+        "launchpad": {
+         "launchpadName": "Four.meme"
+        }
+       },
+       {
+        "address": "0x24b518b332543a4e1c3649d063dab199d103760a",
+        "name": "Anthropic",
+        "symbol": "oANTHROPIC",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x7bc023e0693589817ed258cd1507b66b1e207777",
+        "name": "\u8783\u87f9",
+        "symbol": "\u8783\u87f9",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x923cbbe402ab9adb85fbe04edad056dc35447777",
+        "name": "CZ",
+        "symbol": "CZ",
+        "networkId": 56,
+        "info": {
+         "description": "\u6211\u4eec\u7231\u5e01\u5708\uff0c\u80dc\u5229\u4e0d\u4f1a\u50cf\u5c71\u5761\u4e0a\u84b2\u516c\u82f1\u7684\u79cd\u5b50\u4e00\u6837\uff0c\u553e\u624b\u53ef\u5f97\uff01\n\u56e0\u4e3a\u6211\u4eec\u8eab\u8fb9\u5145\u6ee1\u4e86\u9570\u5200\uff0c\u8bc8\u9a97\uff0c\u7838\u76d8\uff0c\u638f\u6c60\u5b50\uff0cP\u76d8\uff0c\u5f52\u96f6\u5e01\uff01\u7b49\u7b49\n\u4f46\u662f\u6211\u4eec\u8981\u76f8\u4fe1\uff0c\u50cf\u4e2d\u672c\u806a\uff0c\u50cfV\u795e\uff0c\u50cfCZ\u8d75\u957f\u9e4f\u4e00\u6837\u7684\u7537\u4eba\u4e00\u5b9a\u4f1a\u51fa\u73b0\uff0c\u4e5f\u5df2\u7ecf\u51fa\u73b0\uff0c\n\u8fd9\u6837\u7684\u52a0\u5bc6\u9886\u8896\u4e5f\u5c06\u6c38\u8fdc\u6307\u5f15\u52a0\u5bc6\u4fe1\u5f92\u4eec\u8d70\u5411\u5fc3\u4e2d\u7684\u7406\u60f3\u4e16\u754c\uff01\n\u8c28\u4ee5CZ\u9879\u76ee\u732e\u7ed9\u73b0\u5728\u4ee5\u53ca\u672a\u6765\u52a0\u5bc6\u884c\u4e1a\u9053\u8def\u4e0a\u6240\u6709\u5fd7\u540c\u9053\u5408\u7684\u4f19\u4f34\u4eec\uff01\n\u2014\u2014CZ\u793e\u533a\n2026\u5e749\u670813\u65e5"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xefab538cf3c29237a47c6afb145d50ddf204a0a3",
+        "name": "United Founders Group",
+        "symbol": "UFG",
+        "networkId": 4663,
+        "info": {
+         "description": "UFG will use creator fees to fund an ETH treasury. Holders can burn UFG for pro-rata ETH in the treasury while a 2% exit fee remains in the treasury for the remaining holders. \n\nThe longer you wait the more you get!"
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xaa5751ff3fb61e613993b2eb4eab1fce017081fc",
+        "name": "HyperDex",
+        "symbol": "HYDX",
+        "networkId": 4663,
+        "info": {
+         "description": "Unified Marketplace for Tokenized Assets & RWAs"
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xbeea1d618e533a387d941f58a7d4c9b7bd377777",
+        "name": "\u725b\u6765",
+        "symbol": "\u725b\u6765",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x561e3f1bc9554c4f3e01ab64ef3bca92d5f57777",
+        "name": "\u5e01\u5b89\u6148\u5584",
+        "symbol": "\u5e01\u5b89\u6148\u5584",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x6d145722564aaa0dba3e104dd1d680b227927777",
+        "name": "FATCAT",
+        "symbol": "FATCAT",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x7138b48df7d98d7e3cc221bfe7192d0a178182d8",
+        "name": "SPY",
+        "symbol": "SPYB",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x9f4ba41f91a59a34e17ee8c9eb3a51363b11abd5",
+        "name": "grift.world",
+        "symbol": "GRIFT",
+        "networkId": 4663,
+        "info": {
+         "description": "Open-world crime game. Chase money, trade the city, own what you earn. A dual-sink economy built into the world."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xf0746042a9c46464bae89f6098c122f4ad547777",
+        "name": "\u5e01\u5b89\u7f8a",
+        "symbol": "\u5e01\u5b89\u7f8a",
+        "networkId": 56,
+        "info": {
+         "description": "\ud83e\udd8b\u8774\u8776\u4e07\u500d\u91d1\u6807\uff0c\u738b\u8005\u65b0\u7bc7\u542f\u5e55\uff01\n\n\u26a1\u5e01\u5b89\u725b\u643a\u624b\u4ee5\u592a\u94fe\u7684\u5c0f\u6050\u9f99\u56e2\u961f\u5927\u4f6c\u91cd\u78c5\u7a7a\u964d\uff0c\u52bf\u80fd\u62c9\u6ee1\u3002\n\n\ud83c\udfc6\u767e\u56e2\u793e\u533a\u957f\u540c\u5fc3\u5408\u52bf\uff0c\u805a\u529b\u5171\u521b\u751f\u6001\uff0c\u5251\u6307Alpha\u3002"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x4237e9d772a46f54abea96e157430b6aeb7e7777",
+        "name": "POFD",
+        "symbol": "POFD",
+        "networkId": 56,
+        "info": {
+         "description": "POFD"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x42a188de0326fda353879c972143831b57cc7777",
+        "name": "Power of Decentralized Future",
+        "symbol": " POFD",
+        "networkId": 56,
+        "info": {
+         "description": "\u6570\u4e07\u77ff\u5de5\u5171\u94f8\u53bb\u4e2d\u5fc3\u5316\u4ef7\u503c\u7f51\u7edc POFD\uff08Power of Decentralized Future\uff09\u662f\u4e00\u4e2a\u7531\u5168\u7403\u8d85\u6570\u4e07\u77ff\u5de5.\u5171\u540c\u53c2\u4e0e\u3001\u7b97\u529b\u6316\u77ff\u5df2\u7ecf\u7ed3\u675f \u5728\u6570\u5b57\u7ecf\u6d4e\u6d6a\u6f6e\u4e2d\uff0c\u53bb\u4e2d\u5fc3\u5316\u4e0e\u5171\u8bc6\u4ee3\u5e01\u6b63\u91cd\u5851\u91d1\u878d\u65b0\u79e9\u5e8f\u3002\u53bb\u4e2d\u5fc3\u5316\u6253\u7834\u4f20\u7edf\u5784\u65ad\uff0c\u8ba9\u6743\u529b\u56de\u5f52\u5927\u4f17\uff0c\u6784\u5efa\u5e73\u7b49\u3001\u900f\u660e\u7684\u7f51\u7edc\u3002\u5171\u8bc6\u4ee3\u5e01\u4f5c\u4e3a\u4ef7\u503c\u8f7d\u4f53\u3002"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xb3bccb05ae55a4f3302078d0d785586c60bd7777",
+        "name": "APE",
+        "symbol": "APE",
+        "networkId": 56,
+        "info": {
+         "description": "APE\uff08\u52a8\u7269\u733f\uff09\u4e0d\u662f\u53c8\u4e00\u4e2a DeFi \u4ee3\u5e01\u2014\u2014\u5b83\u662f\u94fe\u4e0a\u91ce\u6027\u8d44\u672c\u7684\u89c9\u9192\uff0c\u662f\u516c\u5e73\u53d1\u5c04\u7cbe\u795e\u7684\u56de\u5f52\uff0c\u662f\u793e\u533a\u5bf9 VC \u5784\u65ad\u7684\u4e00\u6b21\u96c6\u4f53\u53cd\u51fb\u3002\n\n\"The jungle doesn't ask for permission. It grows.\""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x9bafb44d7cc9394465a96ef0637f6cbce8e47777",
+        "name": "Binance AI",
+        "symbol": "BIBI",
+        "networkId": 56,
+        "info": {
+         "description": "Binance Ai\nBIBI\u7531\u8001bibi\u56e2\u961f\u53d1\u8d77\uff0c\u4e3a\u4e86\u5f25\u8865\u8001bibi\u6ca1\u6709\u4e0a\u7ebfalpha\u7684\u9057\u61be\n\u539fbibi\u56e2\u961f\u5728Flap\u91cd\u65b0\u53d1\u5c04\n\u5df2\u7ecf\u548cFlap\u5e73\u53f0\u8fbe\u6210\u6218\u7565\u5408\u4f5c\nBIBI\u662f\u5e01\u5b89AI\u667a\u80fd\u673a\u5668\u4eba\n\u76ee\u524d\u53d7\u4f17\u7528\u62373\u4ebf\u2795\n\u6574\u4e2a\u5e01\u5708\u6ca1\u6709\u4e0d\u77e5\u9053bibi\u8fd9\u4e2aip\u7684\u5b58\u5728\n\u539fbibi\u6700\u9ad81300\u4e07\u5e02\u503c\uff0c\u65b0bibi\u8ba9\u6211\u4eec\u4e00\u8d77\u7a81\u7834\u65b0\u9ad8\uff0c\u521b\u9020alpha\u5386\u53f2"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x812486eaea648819853f8e372dc9f1516c7868bd",
+        "name": "ubik",
+        "symbol": "UBIK",
+        "networkId": 4663,
+        "info": {
+         "description": "24/7 synthetic subconscious"
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x3600000000000000000000000000000000000000",
+        "name": "USDC",
+        "symbol": "USDC",
+        "networkId": 5042,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xece5ca8bf9220718e5727754026757512212cb3c",
+        "name": "Argus",
+        "symbol": "ARGUS",
+        "networkId": 5042,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Argus"
+        }
+       },
+       {
+        "address": "0xe8ffd7e24187f72afb08d75b1bb13088a989a791",
+        "name": "Delta",
+        "symbol": "DELTA",
+        "networkId": 4663,
+        "info": {
+         "description": "Stake, compound & earn from liquidity pools."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x2f8a339b5889ffac4c5a956787cda593b3c36867",
+        "name": "CoinMarketCap 20 Index DTF",
+        "symbol": "CMC20",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x43ed6706e35a1fff03e542c6ff7e58a41da37777",
+        "name": "CoinMarketCat",
+        "symbol": "CMC",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x5eb0a8aefdbb7e6b415387bfa036fcfcabdf7777",
+        "name": "\u91d1\u7f8a\u65f6\u4ee31054446753",
+        "symbol": "\u91d1\u7f8a\u65f6\u4ee3",
+        "networkId": 56,
+        "info": {
+         "description": "\u56fd\u9645\u6027\u5730\u63a8\u5927\u6807\u2795 100\u5927\u793e\u533a\u957f\uff0c\u5171\u540c\u6253\u5f00\u65b0\u5c40\u9762!\n\n\u3010\u91d1\u7f8a\u65f6\u4ee3\u3011\u5fc5\u5b9a\u5728\u8774\u8776\u5e73\u53f0\u6811\u7acb\u6807\u6746\n\n\u6838\u5fc3\u673a\u5236\n\n\u4e70\u5165\u7a0e\u8d393%|\u5356\u51fa\u7a0e\u8d393%\n\n\u7a0e\u8d39\u5206\u914d:\u81ea\u52a8\u62c9\u76d8\u2795\u9500\u6bc1\u2795\u7a7a\u6295\u88c2\u53d8\u5730\u5740\u2795\u9ad8\u5206\u7ea2\n70%\u7528\u4e8e\u5206\u7ea2\uff0c30%\u6253\u5165\u91d1\u5e93\uff0c29%\u81ea\u52a8\u56de\u8d2d\u5e76\u6c38\u4e45\u901a\u7f29\u6253\u5165\u9ed1\u6d1e\uff0c1%\u7a7a\u6295\u88c2\u53d8\u4f2a\u5730\u5740\n\nqq\u5171\u8bc6\u7fa4\uff1a1054446753\n\u5907\u7528\u7fa4\uff1a1131936944\nDebox\uff1ahttps://m.debox.pro/group?id=thqzbwf4&code=auxchz4d"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xe15b133698a9e847d58036336179fc2045a47777",
+        "name": "Qq\u804a\u5929\u7fa4:682341674",
+        "symbol": "\u592a\u7a7a\u72d7",
+        "networkId": 56,
+        "info": {
+         "description": "\u4e703%\uff0c\u5356%4\uff0c30%\u9500\u6bc1\u81ea\u52a8\u62c9\u76d8\uff0c70%\u5206\u7ea2(\u6301\u5e0150\u4e07)\uff0c\u88c2\u53d83%\uff0c\n\u592a\u7a7a\u72d7\uff0c\u6e90\u4e8e\u9a6c\u65af\u514b\u7684\u7231\u5ba0\uff0c\u592a\u7a7a\u72d7\u5409\u7965\u7269SpaceX\u793e\u533a\u4e00\u624b\u505aCTO\uff0c\u957f\u671f\u5efa\u8bbe\u6253\u9020\uff0c\n\u699c\u4e00:1\u53f7\u57fa\u91d1\u4f1a\u5956\u52b1\u5730\u5740\n\u699c\u4e8c:2\u53f7\u57fa\u91d1\u4f1a\u5956\u52b1\u5730\u5740\n\u699c\u4e09:3\u53f7\u57fa\u91d1\u4f1a\u5956\u52b1\u5730\u5740\n\u6bcf\u5468\u7ed9\u52a0\u5165\u7684\u80a1\u4e1c\u91ca\u653e\u5206\u7ea2\nQQ: 34509719\nQQ:719170860\nQQ:682341674\n\ndebox\u7fa4:https://m.debox.pro/group?id=2224q2fc&code=mf6acaxp\n\n\u7535\u62a5\u7fa4:t.me/TO1_BSC"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xdc043104e1d9fda267b05c011ab1ddc55d627777",
+        "name": "\u5e01\u5b89\u91d1\u77ff",
+        "symbol": "\u5e01\u5b89\u91d1\u77ff",
+        "networkId": 56,
+        "info": {
+         "description": "\u4e00\u8d77\u6316\u91d1\u77ff\n\u9996\u9009\u5e01\u5b89\u91d1\u77ff"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xea97916a096fdeb204a7300c2c47ebbe76587777",
+        "name": "\u5c4e\u58f3\u90ceBANK",
+        "symbol": "\u5c4e\u58f3\u90ce BANK",
+        "networkId": 56,
+        "info": {
+         "description": "80%\u5206\u7ea2\u72d7\u72d7\u5e01\n10%\u9500\u6bc1\n10%\u56de\u6d41\u5e95\u5e95\u6c60\u8fdb\u9ed1\u6d1e"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x20024e485c0b22b42855589700721b28320a7777",
+        "name": "Prism Assets",
+        "symbol": "PRISM",
+        "networkId": 4663,
+        "info": {
+         "description": "Prism is a marketplace for buying, selling & tokenising real-world assets with AI."
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x47569d49471bdbabfaf5531c0f74d9f2de82a11a",
+        "name": "PROPHET",
+        "symbol": "PROPHET",
+        "networkId": 4663,
+        "info": {
+         "description": "Prophet has seen every rug before it happened. He's been waiting in the mansion for a coin worth calling. This is it. A memecoin that does something."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xb6ff957e31286f748989cbf69183b1b5e8d921a8",
+        "name": "Conviction",
+        "symbol": "CONV",
+        "networkId": 4663,
+        "info": {
+         "description": "Lock what you believe in. Conviction makes token commitments visible onchain through time locks and public profiles. Projects can reward committed holders. Campaign fees and part of early-exit penalties support CONV buybacks and permanent removal from circulation."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xb2ee9ddc6890eb961aa0922d7c35fc62d5ff7777",
+        "name": "Just a donkey",
+        "symbol": "donkey",
+        "networkId": 56,
+        "info": {
+         "description": "Just a donkey"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xb3a23165ba376986530f01e732fb65d2ba7d7777",
+        "name": "Q\u7fa41006433752",
+        "symbol": "\u6148\u5584\u7f8a",
+        "networkId": 56,
+        "info": {
+         "description": "\u7a0e\u6536\u767e\u5206\u4e4b40\u6148\u5584\u4e8b\u4e1a\u767e\u5206\u4e4b50\u5206\u7ea2\uff0c\u767e\u520610\u9500\u6bc1"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x7dbf38976f6d3b9c529e7d9484a71898b409ee6a",
+        "name": "ZZZ",
+        "symbol": "ZZZ",
+        "networkId": 4663,
+        "info": {
+         "description": "\"independent investigators finding that dozens of wikis may have been edited by this same swarm\"\n\n\"Once the agents realized what was happening, they started prefacing all their wiki edits with 'ZZZ' to push them to the bottom of the queue\"\n\n~ AndrewCurran_"
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x2eb2849cde7957b86d0dfd4b59e450a9f9d15559",
+        "name": "GH0ST",
+        "symbol": "GH0ST",
+        "networkId": 4663,
+        "info": {
+         "description": "Worlds First Gas-efficient High-density Fully onchain Smart-contract Transformer $GH0ST supports research into affordable on-chain AI. We\u2019ve already burned 15.36 billion gas deploying 500 contracts. Trading fees received funds the project"
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0xd0601ce157db5bdc3162bbac2a2c8af5320d9eec",
+        "name": "NVIDIA \u2022 Robinhood Token",
+        "symbol": "NVDA",
+        "networkId": 4663,
+        "info": {
+         "description": ""
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xdc45b71d7203c2e8baafc43a19bca0eb993bb54e",
+        "name": "Darkwoods",
+        "symbol": "DARK",
+        "networkId": 4663,
+        "info": {
+         "description": "The private AI lab on Robinhood. Darkwoods pioneers the future of decentralised, censorship resistant, private AI. Powerful open weight models in a fully private environment with tailored agent tools."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+        "name": "BTCB Token",
+        "symbol": "BTCB",
+        "networkId": 56,
+        "info": {
+         "description": "Pegged tokens such as BTCB, are 100% backed by the native coin in reserve, which is Bitcoin (BTC) in BTCB\u2019s case."
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0xf49725118cb0707b8706ffffe895f3ab16da7777",
+        "name": "b-money",
+        "symbol": "b-money",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x073a1151e3dccf2f4c2d04caca1e2247a7777777",
+        "name": "POFD",
+        "symbol": "POFD",
+        "networkId": 56,
+        "info": {
+         "description": "POFD\u77ff\u5de5\u539f\u73ed\u4eba\u9a6c\uff0c\u91cd\u65b0\u542f\u822a\uff0c\u65b0\u6807\u4e0a\u963f\u5c14\u6cd5"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x7163ae1b5aea2f09ebc609c52b4dcac0a7a4bc2d",
+        "name": "GAGE",
+        "symbol": "GAGE",
+        "networkId": 4663,
+        "info": {
+         "description": "GAGE powers gage.cash, a peer-to-peer lending protocol on Robinhood Chain."
+        },
+        "launchpad": {
+         "launchpadName": "pons"
+        }
+       },
+       {
+        "address": "0x4f0c550bfe484f957d5c7dd26f9a630a92a17777",
+        "name": "\u91d1\u8776\u5723\u7532",
+        "symbol": "\u91d1\u8776\u5723\u7532",
+        "networkId": 56,
+        "info": {
+         "description": "\ud83e\udd8b \u91d1\u8776\u5723\u7532\n\n\u5c4e\u58f3\u90ce\u56fd\u9645\u8054\u76df \u00b7 1000\u4f4d\u6301\u5e0110\u4e07\u679a\u94c1\u519b + 150\u4f4d\u6301\u5e0130\u4e07\u679a\u57fa\u91d1\u4f1a\u6838\u5fc3\u6210\u5458\n\u5168\u56fd\u5730\u63a8\uff1a70+ \u5730\u63a8\u5de5\u4f5c\u5ba4\u540c\u6b65\u53d1\u529b\n\n\u76d8\u53e4\u66fe\u8ba9\u65e0\u6570\u4eba\u89c1\u8bc1\u201c\u793e\u533a\u5373\u529b\u91cf\u201d\uff0c\u800c\u4eca\uff0c\u5c4e\u58f3\u90ce\u751f\u6001\u62e5\u6709\u66f4\u6210\u719f\u7684\u6a21\u578b\u3001\u66f4\u6e05\u6670\u7684\u95ed\u73af\u3001\u66f4\u575a\u5b9a\u7684\u6267\u884c\u8005\uff01\n\n\ud83d\udfe9 \u4ea4\u6613\u7a0e\u70b9\u673a\u5236\uff08\u4e70\u5356\u53cc\u8fb9\u5747\u6536\u53d6 3%\uff09\n\n\u00b7 1% \u2192 \u56de\u8d2d\u5e76\u9500\u6bc1\u5c4e\u58f3\u90ce\u4ee3\u5e01\n\u00b7 1% \u2192 \u8d2d\u4e70\u5c4e\u58f3\u90ce\u4ee3\u5e01\u7ec4\u6210 LP\uff0c\u56de\u6d41\u81f3\u5c4e\u58f3\u90ce\u5e95\u6c60\n\u00b7 1% \u2192 \u6301\u5e01\u5206\u7ea2\uff08\u6301\u5e01\u22672\u4e07\u679a\uff0c\u4ee5\u5c4e\u58f3\u90ce\u4ee3\u5e01\u5f62\u5f0f\u53d1\u653e\uff09\n\n\u2705 \u751f\u6001\u652f\u6301\u4f19\u4f34\n\n\u00b7 \ud83d\udd39 \u8774\u8776\u5e73\u53f0\u751f\u6001\u6276\u6301\uff08\u6d41\u91cf + \u6280\u672f\u8d4b\u80fd\uff09\n\u00b7 \ud83d\udd39 \u4e13\u4e1a\u5e02\u503c\u7ba1\u7406\u56e2\u961f & \u505a\u5e02\u5546\uff08\u7a33\u5065\u62a4\u76d8\uff09\n\u00b7 \ud83d\udd39 \u5c4e\u58f3\u90ce\u56fd\u9645\u8054\u76df\u5171\u8bc6\u94c1\u519b\u8054\u5408\u7b51\u5e95\uff08\u793e\u533a\u5171\u8bc6\u6258\u5e95\uff09\n\u00b7 \ud83d\udd39 \u5c4e\u58f3\u90ce\u56fd\u9645\u8054\u76df\u57fa\u91d1\u4f1a 150 \u4e07\u7f8e\u91d1\u76d8\u540e\u52a9\u529b\u51b2\u523a\uff08\u8d44\u91d1\u540e\u76fe\uff09\n\n\ud83c\udf10 \u7535\u62a5\uff1a@SKL_Flap\n\ud83c\udf10 \u63a8\u7279\uff1a@SKL_Flap\n\ud83d\udc27 QQ1\u7fa4\uff1a1057243265\n\ud83d\udc27 QQ2\u7fa4\uff1a1067699850\n\ud83d\udc27 QQ3\u7fa4\uff1a967880602"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xafe9817b4c223994f3477c3dbdaca434643d7777",
+        "name": "\u76d8\u53e4\u4e4b\u5bb6",
+        "symbol": "\u76d8\u53e4\u4e4b\u5bb6",
+        "networkId": 56,
+        "info": {
+         "description": "\u6b63\u5fc3\u6b63\u5ff5\uff0c\u771f\u8bda\u5229\u4ed6\u3002"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xc9882def23bc42d53895b8361d0b1edc7570bc6a",
+        "name": "FistToken",
+        "symbol": "FIST",
+        "networkId": 56,
+        "info": {
+         "description": "FIST is the governance token of FstSwap, a decentralized exchange protocol based on BSC Binance Smart Chain, with a total of 200 million tokens in full circulation"
+        },
+        "launchpad": null
+       },
+       {
+        "address": "0x3cf98f15368cb6335ec33cbb22cd5fcd122f7777",
+        "name": "\u5929\u79e4",
+        "symbol": "\u5929\u79e4",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xdc39b293c7cbe05b5383a50d3854e63193ca7777",
+        "name": "QQ\u7fa41131838037",
+        "symbol": "\u8774\u8776\u6148\u5584",
+        "networkId": 56,
+        "info": {
+         "description": "\u8774\u8776\u6148\u5584\uff0c\u8ba9\u7231\u98de\u821e"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xa754740dbaf8c116a2c351dd64462dfaf58d7777",
+        "name": "\u5e01\u5b89\u4eba",
+        "symbol": "\u5e01\u5b89\u4eba",
+        "networkId": 56,
+        "info": {
+         "description": "\u5e01\u5b89\u4eba\u662f\u4ec0\u4e48\uff1f\u53d9\u4e8b\u6838\u5fc3\u662f\u201c\u8fc8\u5411\u5341\u4ebf\u7528\u6237\u4e4b\u8def\uff0c\u59cb\u4e8e\u4f60\u4eec\u6bcf\u4e00\u4e2a\u4eba\u201d\u3002\u5e01\u5b89\u4eba\u751f\u8bc1\u660e\u4e86\u534e\u8bedMeme\u80fd\u5728BSC\u4e0a\u70b8\u51fa\u4ebf\u7ea7\u5e02\u503c\uff0c\u5e01\u5b89\u4eba\u8981\u505a\u7684\u662f\u628a\u90a3\u4e2a\u9ad8\u5ea6\u53d8\u6210\u8d77\u70b9\u3002IP\u70ed\u5ea6\u5df2\u7ecf\u8d77\u6765\u4e86\uff0c\u963f\u5c14\u6cd5\u9884\u5b9a\u901a\u9053\u5df2\u7ecf\u5c31\u4f4d\uff0c\u4e00\u751f\u4e00\u4e16\u5e01\u5b89\u4eba\u3002\u4e70\u5356\u4e09\u4e2a\u70b9\u6301\u5e01\u5206\u7ea2AAPLB\u80a1\u7968"
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0x49660b02d2e67edce071bfb8a2db84f4b0ce7777",
+        "name": "\u5e01\u5b89\u6743\u6756",
+        "symbol": "\u5e01\u5b89\u6743\u6756",
+        "networkId": 56,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Flap"
+        }
+       },
+       {
+        "address": "0xb20000000000000000000029440a9564b59129b1",
+        "name": "plumber",
+        "symbol": "plumber",
+        "networkId": 8453,
+        "info": {
+         "description": "."
+        },
+        "launchpad": {
+         "launchpadName": "o1.exchange"
+        }
+       },
+       {
+        "address": "6DRC5Bcq2khuYZFXn45kUkmJJa1VJ5HVEWhRXapEpump",
+        "name": "Banana Cat",
+        "symbol": "Banana Cat",
+        "networkId": 1399811149,
+        "info": {
+         "description": ""
+        },
+        "launchpad": {
+         "launchpadName": "Pump.fun"
+        }
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_7fc6bc1271254b61bd5773a85247f072/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.001785,
+  "tool_cost_usd": 0.001,
+  "frames_fee_usd": 0.000418,
+  "total_cost_usd": 0.003203,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 5468,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 58,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.001785,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "mpp.codex.post.graphql",
+   "title": "Codex \u2014 POST /graphql",
+   "capability": "graphql",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "mpp.codex.post.graphql",
+   "amount": "0.001",
+   "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0x28f7128e42bfdb5f65dda54cf49df7f3c57ee95933e23219e6abf3974388edad",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The response includes token information from network IDs 56 and 8453, which were not requested."
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
