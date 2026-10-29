@@ -1,0 +1,1722 @@
+{
+ "run_id": "run_cf9b9d6868b8435bbedf25b373b1caeb",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 50,
+  "budget_credits": 100,
+  "balance_credits": 28061,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 20,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 5,
+  "delivered": 5,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "mpp.codex.post.graphql",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 2218,
+     "stored_chars": 2218,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "mpp.codex.post.graphql",
+     "amount": "0.001",
+     "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0x452198402bb428cc3ef3f3883ac259c086d917f78479c4d463d8e9747c8cefd0",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: Some 'createdAt' timestamps in the response are in the future relative to TODAY (2026-10-29 UTC)."
+    },
+    "body": {
+     "data": {
+      "filterTokens": {
+       "results": [
+        {
+         "pair": {
+          "address": "3pNasPQt4JxpoCuythHwdacQBNHn3F595wqhD7ufH3A6",
+          "token0": "4Wdn6GGJLdyeMLLfzu3pPQMmf9Kivd8e9xmbLb2bpump",
+          "token1": "Pren1FvFX6J3E4kXhJuCiAD5aDmGEb7qJRncwA8Lkhw",
+          "networkId": 1399811149,
+          "createdAt": 1792432051
+         },
+         "priceUSD": "1.18063005494e-4",
+         "circulatingMarketCap": "114106",
+         "change24": "-0.09135305169868302",
+         "volume24": "52648",
+         "liquidity": "18251"
+        },
+        {
+         "pair": {
+          "address": "7Day9K3GDHVysEZoNgGGgRMEDchuXRCErwv9QGq9qZWB",
+          "token0": "Pren1FvFX6J3E4kXhJuCiAD5aDmGEb7qJRncwA8Lkhw",
+          "token1": "BTZK1B3pCoBDD1vy5e4bDBM4bwvvhkKUMTuKABkGWwGp",
+          "networkId": 1399811149,
+          "createdAt": 1789168614
+         },
+         "priceUSD": "3.28686360425e-4",
+         "circulatingMarketCap": "328658",
+         "change24": "0.35348656752029045",
+         "volume24": "72110",
+         "liquidity": "32885"
+        },
+        {
+         "pair": {
+          "address": "GPp2W5Y6fuDMKV9SLd5Ag9qN36pW2gx7CHBGJT7Pgaqs",
+          "token0": "Vbj43iug1XjeuLs1MZAMZ8PYG3QBjxZtfHPEM7zpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793198326
+         },
+         "priceUSD": "5.89558810889e-4",
+         "circulatingMarketCap": "575170",
+         "change24": "9.238055552293371",
+         "volume24": "666840",
+         "liquidity": "33220"
+        },
+        {
+         "pair": {
+          "address": "0x0c13c6bdd2091adbbcf841f8e05fc11c9d86e1bc411ab3e5d8c68394f8cb3bd3",
+          "token0": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "token1": "0xead1a3bdc58c193ba5a8644447b2da40d1368fca",
+          "networkId": 4663,
+          "createdAt": 1793180338
+         },
+         "priceUSD": "1.02027081687e-4",
+         "circulatingMarketCap": "10202708",
+         "change24": "9.200234570505703",
+         "volume24": "15207269",
+         "liquidity": "160003"
+        },
+        {
+         "pair": {
+          "address": "0x6b7eb93b6267926b2c0c056016d8de556dbb487f3a0394431bf39f7a77731e2f",
+          "token0": "0x2e3516ca929a9542f8b4500bf777711f4f1b5b07",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1793076710
+         },
+         "priceUSD": "2.94985405305e-6",
+         "circulatingMarketCap": "294985",
+         "change24": "-0.9410056816606261",
+         "volume24": "141",
+         "liquidity": "14"
+        },
+        {
+         "pair": {
+          "address": "Bgf45Fjqeobgd5viMX8P8AfhiydRewEFKPd7nmcFNQRb",
+          "token0": "EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc",
+          "token1": "A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+          "networkId": 1399811149,
+          "createdAt": 1789929849
+         },
+         "priceUSD": "1.26204580295e-3",
+         "circulatingMarketCap": "1249945",
+         "change24": "1.044414119317793",
+         "volume24": "412356",
+         "liquidity": "73491"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 14063,
+     "stored_chars": 14063,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0xc0c1b4e327e5d8a76f0cb27a059da7438b37d8e452b82354e2ddddd890322d98",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x1ac0632cbeefad141b8354cec02da70cd2bd59d90e9d6c4d80a26a991a6e087d",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-29T06:02:40.636413774Z",
+     "query": "Anthropic IPO S-1 $ANT coin",
+     "type": "top",
+     "tweet_count": 20,
+     "tweets": [
+      {
+       "id": "2115677153039909227",
+       "text": "1/ @AnthropicAI's S-1 is public. Planned Nasdaq ticker: ANT.\n\nFor the first time, anyone can read what building frontier AI actually costs. A few things stood out \ud83e\uddf5 https://t.co/EcpIB2bZSd",
+       "created_at": "2026-10-29T05:28:35Z",
+       "lang": "en",
+       "likes": 20,
+       "retweets": 9,
+       "replies": 10,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 1228,
+       "conversation_id": "2115677153039909227",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1655892533283618817",
+        "screen_name": "AroNetwork",
+        "name": "ARO Network",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1929931316801482753/P0ZpullV_normal.jpg"
+       }
+      },
+      {
+       "id": "2115534648642342940",
+       "text": "\ud83e\udd16 Anthropic se prepara para salir a bolsa.\n\nLa empresa detr\u00e1s de Claude present\u00f3 su formulario S-1 ante la SEC y solicit\u00f3 cotizar en Nasdaq bajo el ticker $ANT.\n\n\u00bfQu\u00e9 se sabe hasta ahora sobre su IPO? \ud83e\uddf5\ud83d\udc47 https://t.co/tYTasbZTiI",
+       "created_at": "2026-10-28T20:02:19Z",
+       "lang": "es",
+       "likes": 6,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 1018,
+       "conversation_id": "2115534648642342940",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "211269003",
+        "screen_name": "BalanzCapital",
+        "name": "Balanz",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2082595312821035008/p04UJLU4_normal.jpg"
+       }
+      },
+      {
+       "id": "2114719589628367259",
+       "text": "Anthropic ch\u00ednh th\u1ee9c c\u00f4ng b\u1ed1 h\u1ed3 s\u01a1 S-1 IPO v\u1edbi m\u00e3 c\u1ed5 phi\u1ebfu $ANT tr\u00ean Nasdaq.\n\nC\u00f3 2 memecoin li\u00ean quan \u0111\u1ebfn Anthropic \u0111ang \u0111\u01b0\u1ee3c fomo v\u00e0 pvp\n\nCh\u1ecdn con n\u00e0o \u0111\u00e2y anh em??? https://t.co/3ksZCEob7c",
+       "created_at": "2026-10-26T14:03:34Z",
+       "lang": "vi",
+       "likes": 17,
+       "retweets": 2,
+       "replies": 11,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 4318,
+       "conversation_id": "2114719589628367259",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2062445035459883008",
+        "screen_name": "kungfu_hunter",
+        "name": "KungFu Hunter \ud83e\udd84",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2093392557774663680/nCxSveDF_normal.jpg"
+       }
+      },
+      {
+       "id": "2114757208324104505",
+       "text": "Anthropic $ANT S-1 IPO summary brief.\n\nGrowth, company risks, and the numbers behind the IPO (bookmark): https://t.co/4SZXZWo8cA",
+       "created_at": "2026-10-26T16:33:03Z",
+       "lang": "en",
+       "likes": 12,
+       "retweets": 1,
+       "replies": 5,
+       "quotes": 0,
+       "bookmarks": 8,
+       "views": 3452,
+       "conversation_id": "2114757208324104505",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1901654809536843776",
+        "screen_name": "aiedge_",
+        "name": "AI Edge",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1910271186442846208/vrYKSYRn_normal.jpg"
+       }
+      },
+      {
+       "id": "2115677112442958207",
+       "text": "For much of Asia, getting a piece of Anthropic\u2019s blockbuster IPO may prove nearly impossible.\n\nAbhishek Vishnoi looks at how investors are getting creative through proxy trades https://t.co/Pyf0C55gtm https://t.co/5cOWq4DeIP",
+       "created_at": "2026-10-29T05:28:25Z",
+       "lang": "en",
+       "likes": 4,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 12349,
+       "conversation_id": "2115677112442958207",
+       "is_quote": false,
+       "urls": [
+        "https://bloom.bg/3Up5MAA"
+       ],
+       "author": {
+        "id": "34713362",
+        "screen_name": "business",
+        "name": "Bloomberg",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1631723279676317709/-fjgaR2p_normal.jpg"
+       }
+      },
+      {
+       "id": "2114775364920844568",
+       "text": "Anthropic just filed its public S-1. Ticker: $ANT (Nasdaq)\n\n\u2022 H1 rev: $16.3B vs $4.6B in ALL of 2025\n\u2022 Net loss thru June: $80.7B (mostly accounting charges)\n\u2022 ~20% of rev from 2 customers\n\u2022 IPO eyed mid-Nov\n\nI\u2019m personally staying away from this one fellas https://t.co/DKgs1VTcV3",
+       "created_at": "2026-10-26T17:45:12Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 70,
+       "conversation_id": "2114775364920844568",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1734070144689754112",
+        "screen_name": "DiegoArmandoF06",
+        "name": "Diego Fernandez",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2020899783787864067/RAYrXG-K_normal.jpg"
+       }
+      },
+      {
+       "id": "2114710153417118191",
+       "text": "BREAKING: Anthropic officially files its S-1 registration statement for an IPO, seeking to list on the Nasdaq under the ticker symbol $ANT.\n\nFULL SUMMARY OF ANTHROPIC'S S-1 FILING:\n\n1. Anthropic posted H1 2026 revenue of $16.3 billion with a net loss of $80.7 billion\n\n2.",
+       "created_at": "2026-10-26T13:26:04Z",
+       "lang": "en",
+       "likes": 7159,
+       "retweets": 635,
+       "replies": 349,
+       "quotes": 295,
+       "bookmarks": 1295,
+       "views": 969134,
+       "conversation_id": "2114710153417118191",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "3316376038",
+        "screen_name": "KobeissiLetter",
+        "name": "The Kobeissi Letter",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1975243710846640128/fwYCe67Y_normal.jpg"
+       }
+      },
+      {
+       "id": "2114705686513033360",
+       "text": "ANTHROPIC JUST PUBLISHED ITS S-1 FOR A U.S. IPO\n\nHere's everything you need to know:\n\nThe Listing:\n\u2022 Nasdaq Global Select Market, ticker $ANT\n\u2022 Leads: Goldman Sachs, Morgan Stanley, J.P. Morgan\n\u2022 Price range and share count: not disclosed yet\n\nThe Growth:\n\u2022 H1'26 revenue: https://t.co/vr0FWasxUT",
+       "created_at": "2026-10-26T13:08:19Z",
+       "lang": "en",
+       "likes": 1997,
+       "retweets": 212,
+       "replies": 83,
+       "quotes": 81,
+       "bookmarks": 604,
+       "views": 324272,
+       "conversation_id": "2114705686513033360",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1508426880860704771",
+        "screen_name": "wallstengine",
+        "name": "Wall St Engine",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1691846947857178624/oZp5wB4r_normal.jpg"
+       }
+      },
+      {
+       "id": "2115372378700042614",
+       "text": "Anthropic IPO\n\nOn October 26, Anthropic filed an S-1 with the SEC\n\nAfter that, we can see the big picture:\n&gt; $ANT ticker\n&gt; Nasdaq Stock Exchange\n&gt; Goldman Sachs and Morgan Stanley are conducting IPOs together with 20 other banks\n&gt; The roadshow, according to media reports, may https://t.co/0kq2vprmBK",
+       "created_at": "2026-10-28T09:17:31Z",
+       "lang": "en",
+       "likes": 43,
+       "retweets": 0,
+       "replies": 14,
+       "quotes": 0,
+       "bookmarks": 11,
+       "views": 598,
+       "conversation_id": "2115372378700042614",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1896521945858117632",
+        "screen_name": "mopozeuX",
+        "name": "MopOzeu",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2082864562651422720/KFTmKbkg_normal.jpg"
+       }
+      },
+      {
+       "id": "2114706969588363532",
+       "text": "\ud83d\udea8Anthropic S1 just dropped\n\nThe IPO is coming in the next 3-4weeks\n\nThe ticker will be $ANT on the NASDAQ",
+       "created_at": "2026-10-26T13:13:25Z",
+       "lang": "en",
+       "likes": 17,
+       "retweets": 4,
+       "replies": 6,
+       "quotes": 1,
+       "bookmarks": 5,
+       "views": 676,
+       "conversation_id": "2114706969588363532",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "555216272",
+        "screen_name": "leahbluewater",
+        "name": "Leah",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2112636582050086912/lYdlafGu_normal.jpg"
+       }
+      },
+      {
+       "id": "2114724502504702431",
+       "text": "Anthropic is preparing to go public\n\nthe company behind Claude has filed an s-1 with the sec for a proposed ipo on nasdaq under the ticker $ant\n\nthis means people could soon invest in Anthropic through the stock market once the ipo is approved\n\nanother major ai company moving",
+       "created_at": "2026-10-26T14:23:05Z",
+       "lang": "en",
+       "likes": 72,
+       "retweets": 4,
+       "replies": 41,
+       "quotes": 0,
+       "bookmarks": 2,
+       "views": 1026,
+       "conversation_id": "2114724502504702431",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1882060532628205568",
+        "screen_name": "xwalii",
+        "name": "wali",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2092889841319006208/Pvw3y7W1_normal.jpg"
+       }
+      },
+      {
+       "id": "2114895552198365588",
+       "text": "What you missed today in memecoins, October 26th\n\n- $ELON2028 hit $1.2m after Elon replied to a post about the movement, however the website in the Wayback machine shows they were pushing a failed $ELON2028 token 10 days ago\n\n- The $ELON Stonk pair hit $1.2m\n\n- $ANT hit $1m as https://t.co/Cmb1EpZqwa",
+       "created_at": "2026-10-27T01:42:47Z",
+       "lang": "en",
+       "likes": 172,
+       "retweets": 7,
+       "replies": 23,
+       "quotes": 1,
+       "bookmarks": 38,
+       "views": 23288,
+       "conversation_id": "2114895552198365588",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "94261044",
+        "screen_name": "CryptoGorilla",
+        "name": "Gorilla",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1983310757186973696/G01dJkKu_normal.png"
+       }
+      },
+      {
+       "id": "2114707555154846095",
+       "text": "\ud83d\udd25 Anthropic is going public.\n\nThey just filed an S-1 for an IPO, seeking a Nasdaq listing under the ticker $ANT.\n\nOne of the biggest AI companies is about to hit the public markets. \ud83d\udc40 https://t.co/Yt6buNsRLS",
+       "created_at": "2026-10-26T13:15:45Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 45,
+       "conversation_id": "2114707555154846095",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1382716387827847173",
+        "screen_name": "Xamuel_E",
+        "name": "Xamuel",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2114998864373575680/2k6mj2PN_normal.jpg"
+       }
+      },
+      {
+       "id": "2114706912939737592",
+       "text": "\ud83d\udd25 JUST IN: Anthropic files S-1 for IPO, seeking Nasdaq listing under $ANT. https://t.co/s1rS421zNT",
+       "created_at": "2026-10-26T13:13:12Z",
+       "lang": "en",
+       "likes": 137,
+       "retweets": 20,
+       "replies": 22,
+       "quotes": 6,
+       "bookmarks": 9,
+       "views": 54605,
+       "conversation_id": "2114706912939737592",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2207129125",
+        "screen_name": "Cointelegraph",
+        "name": "Cointelegraph",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1755983593925378048/kYutau0B_normal.jpg"
+       }
+      },
+      {
+       "id": "2114714515321577490",
+       "text": "Anthropic just filed its S-1. Ticker: $ANT.\n\nH1 2025 revenue: $1.2B\nH1 2026 revenue: $16.3B\n\n13x in one year.\n\nNet loss H1 2026: $80.7B.\n\nWould you buy at IPO? https://t.co/Ue2XE2E54K",
+       "created_at": "2026-10-26T13:43:24Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 41,
+       "conversation_id": "2114714515321577490",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1286708103694684160",
+        "screen_name": "mark90533573",
+        "name": "mark",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2067339631138349056/oonLUmJj_normal.jpg"
+       }
+      },
+      {
+       "id": "2114741343297679376",
+       "text": "Anthropic perdi\u00f3 $80.7B en 6 meses\n\nY aun as\u00ed va a salir a bolsa valiendo hasta $1.5T \ud83e\udd2f\n\nHoy present\u00f3 su S-1 ante la SEC.\n\nTicker: $ANT\nBolsa: Nasdaq\nFecha: noviembre\n\nLos n\u00fameros son una locura:\n\n- Ingresos de todo 2025: $4.6B\n- Solo el Q3 de 2026: $16.8B\n- En mayo val\u00eda $965B https://t.co/GqNPaPBhln",
+       "created_at": "2026-10-26T15:30:00Z",
+       "lang": "es",
+       "likes": 12,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 2,
+       "views": 536,
+       "conversation_id": "2114741343297679376",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1500150077511196672",
+        "screen_name": "adriansanpei",
+        "name": "Adri\u00e1n (Sanpei)",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2113144148479926273/ervq0nMn_normal.jpg"
+       }
+      },
+      {
+       "id": "2115538173334057451",
+       "text": "i read Anthropic's ENTIRE S-1 so you don't have to. here's how i'd trade the IPO\n\nticker ANT. Nasdaq. 300+ pages. most people will only read the headline loss\n\nwhat actually matters:\n\n&gt; revenue went $386M in 2024 \u2192 $4.6B in 2025 \u2192 $16.3B in the first half of 2026 alone\n\n&gt; Q2 https://t.co/9p93rXmVIi",
+       "created_at": "2026-10-28T20:16:19Z",
+       "lang": "en",
+       "likes": 16,
+       "retweets": 3,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 19,
+       "views": 577,
+       "conversation_id": "2115538173334057451",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1488826339704680451",
+        "screen_name": "Dipper_pol",
+        "name": "0xDipper",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2075168169090576385/jFz7uHMQ_normal.jpg"
+       }
+      },
+      {
+       "id": "2115056935821017449",
+       "text": "Anthropic just filed for its IPO. Ticker $ANT, $16.3B revenue in H1 2026\n\nYou can't buy the stock yet. On @TxFlow_L1 its valuation already trades as a pre-IPO perp\n\n\u25ab\ufe0f ANTHROPIC perp: 1,882, 33% above OPENAI at 1,412\n\u25ab\ufe0f S-1 day: spiked to 1,958, closed at 1,879\n\u25ab\ufe0f Since trading https://t.co/Hx9NXIINDv",
+       "created_at": "2026-10-27T12:24:04Z",
+       "lang": "en",
+       "likes": 8,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 3,
+       "views": 262,
+       "conversation_id": "2115056935821017449",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1442414695038611469",
+        "screen_name": "tomjke",
+        "name": "t0mj",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2111044489993207808/gUakavmx_normal.jpg"
+       }
+      },
+      {
+       "id": "2114732114948096044",
+       "text": "\ud83d\udd30\ud83e\udd16 \u00a1ANTHROPIC PREPARA SU SALTO A WALL STREET!\n\n\ud83d\udcc8 La creadora de Claude presenta oficialmente su formulario S-1 ante la SEC para salir a bolsa.\n\n\ud83c\udfe6 Nasdaq | Ticker: $ANT\n\n\ud83d\udcb0 Precio y fecha a\u00fan por confirmar.\n\n\ud83d\udcb0 Ingresos 1S 2026: 16.300 M$\n\ud83d\udcc9 P\u00e9rdidas operativas: 693 M$\n\ud83d\udd25 https://t.co/oDugExxZq5",
+       "created_at": "2026-10-26T14:53:20Z",
+       "lang": "es",
+       "likes": 9,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 1363,
+       "conversation_id": "2114732114948096044",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1120281132434624512",
+        "screen_name": "BolsaZone",
+        "name": "BOLSAZONE",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2011741935942422528/vTDBkMYo_normal.jpg"
+       }
+      },
+      {
+       "id": "2115406027579380193",
+       "text": "Anthropic filed for Nasdaq as $ANT. $16.3B H1 revenue. $80.7B net loss. Broke down the S-1 chaos so you don't skim 300 pages \ud83d\udc47\n\nAre you buying day one, or waiting for the dip? https://t.co/3gK8IjGM50",
+       "created_at": "2026-10-28T11:31:13Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 1,
+       "replies": 2,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 67,
+       "conversation_id": "2115406027579380193",
+       "is_quote": false,
+       "urls": [
+        "https://x.com/i/article/2115403894322823168"
+       ],
+       "author": {
+        "id": "1390074740",
+        "screen_name": "Ro_Lo_Studio",
+        "name": "RoLo",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1940140900019011584/0jWjdavl_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVxs9i1AJxAKAAMdXGz2LT_Y8AgABAAAAAILAAUAAADwRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJRZFcrYkNrbHJ4NngxYlQvaUFGdEYySFZ4bEg5cVdNWDhkV1NCNS9GcmhPUjFjWlNsT1dvRnJIVmt3L1dYYW9SZ2RXUW1uZXBlQUxCMVpFZ3dmRnpBUUhWanl1NjNXQWZnZFcyNlMvWmJSNFIxWSthVy9HdUFTSFZqK1F6TmIwWnNkV1o1TXJkWlJsQjFZOFo0aEc2Q1FIVmoxcmlsVzBlOGRXK09ONmx1UUhCMVpBcnNSbTRIZkhWanl5TjViY1F3ZFdQTlJOTmJoangxYU1STzdWb0ZwCAAGAAAAAAgABwAAAAAMAAgKAAEdWPGeIRugkAAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 13616,
+     "stored_chars": 13616,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x15102a1696de7aaff5a95317e43eb05ed6f90de129a06cb2a1709cd7b9e6d4f1",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x4bf012ca2011c454dff8ef0a9a2ff47c53c3505da126087e2cff4f75c2c3006e",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-29T06:02:54.852468679Z",
+     "query": "\"Zcash Shielded Assets\" $Stamp",
+     "type": "top",
+     "tweet_count": 18,
+     "tweets": [
+      {
+       "id": "2101813906997911780",
+       "text": "Zcash Shielded Assets ($Stamp) is now verified on Moonshot. https://t.co/fCY7bvBnoA",
+       "created_at": "2026-09-20T23:20:59Z",
+       "lang": "en",
+       "likes": 274,
+       "retweets": 53,
+       "replies": 41,
+       "quotes": 6,
+       "bookmarks": 9,
+       "views": 37329,
+       "conversation_id": "2101813906997911780",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1788966273814339584",
+        "screen_name": "moonshot",
+        "name": "Moonshot",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1849891699931156480/_E6plLac_normal.jpg"
+       }
+      },
+      {
+       "id": "2101850339725242711",
+       "text": "\u26a1 \u6708\u5154\u96f7\u9706 - MoonProfile\n\nZcash Shielded Assets ($Stamp)\nhttps://t.co/ixOWqkMEDz\n\nEKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc\n\nLIQ: $364,579 | MC: $7,739,149 https://t.co/z8D8gwyBFc",
+       "created_at": "2026-09-21T01:45:46Z",
+       "lang": "nl",
+       "likes": 14,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 4213,
+       "conversation_id": "2101850339725242711",
+       "is_quote": false,
+       "urls": [
+        "https://moontok.io/solana/EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc"
+       ],
+       "author": {
+        "id": "1577135787258306565",
+        "screen_name": "MoontokListing",
+        "name": "Moontok Listing Alert",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1625878319312023554/O0-MosQC_normal.jpg"
+       }
+      },
+      {
+       "id": "2101779058661179541",
+       "text": "\ud835\udde1\ud835\uddf2\ud835\ude04 \ud835\uddd8\ud835\ude05\ud835\uddfd\ud835\uddff\ud835\uddf2\ud835\ude00\ud835\ude00 \ud835\udddf\ud835\uddf6\ud835\ude00\ud835\ude01\ud835\uddf6\ud835\uddfb\ud835\uddf4! \u26a1\ufe0f\n\nEntered Trending \ud83d\udd25 \n\nZcash Shielded Assets | $Stamp\n\nCA: EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc\n\nhttps://t.co/FX6f3FuBo5 \n\n\ud83d\udcca LIQ: $185.77K | MC: $2.21M\n\n#sol #memecoin #pumpswap https://t.co/A7v1weV0f4",
+       "created_at": "2026-09-20T21:02:31Z",
+       "lang": "und",
+       "likes": 24,
+       "retweets": 7,
+       "replies": 12,
+       "quotes": 1,
+       "bookmarks": 11,
+       "views": 12350,
+       "conversation_id": "2101779058661179541",
+       "is_quote": false,
+       "urls": [
+        "https://ntm.ai/token/EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc"
+       ],
+       "author": {
+        "id": "1572931937668325376",
+        "screen_name": "listingntm",
+        "name": "Listing | NTM.ai",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2008487593311088640/rYiCW0V4_normal.jpg"
+       }
+      },
+      {
+       "id": "2102066224540655697",
+       "text": "$Stamp HAS TWO DIFFERENT TIMELINES.\n\n$ZEC Zcash Shielded Assets | Solana $SOL SOL\n\nNOW\nA testnet burn can generate a Zcash NFT stamped with the destroyed amount. The Zcash record is currently public.\n\nLATER\nThe proposed design maps valid stamps into native shielded assets if that https://t.co/GPrMXEfpRI",
+       "created_at": "2026-09-21T16:03:37Z",
+       "lang": "en",
+       "likes": 10,
+       "retweets": 4,
+       "replies": 2,
+       "quotes": 1,
+       "bookmarks": 2,
+       "views": 702,
+       "conversation_id": "2102066224540655697",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1360896909368582145",
+        "screen_name": "SolarSignanb",
+        "name": "dj_gods",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2095864294856695808/_YH1Q1Sg_normal.jpg"
+       }
+      },
+      {
+       "id": "2115221739508572258",
+       "text": "\ud83d\ude80 LIVE AIRDROP: Zcash Shielded Assets $Stamp on Solana! Explore this memecoin token, claim free info with $SOL \n\n CA=EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc \n\n https://t.co/kyxCRIzTvR",
+       "created_at": "2026-10-27T23:18:56Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 97,
+       "conversation_id": "2115221739508572258",
+       "is_quote": false,
+       "urls": [
+        "https://claim-drops.netlify.app/?token=EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc"
+       ],
+       "author": {
+        "id": "731272781568970752",
+        "screen_name": "LizethMonArt",
+        "name": "\uff34\uff41\uff45\uff34\uff41\uff45\uff2d\uff4f\uff4e\uff21\uff52\uff54 \ud83c\udf9e\ufe0f",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2091839371984961536/wrbGVo37_normal.jpg"
+       }
+      },
+      {
+       "id": "2102015557713248506",
+       "text": "ZCash Shielded Assets $ZEC\n\n$STAMP 100x+\n\n134k -&gt; 14m\n\nEKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc https://t.co/K51FE2Tz4j",
+       "created_at": "2026-09-21T12:42:17Z",
+       "lang": "und",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 512,
+       "conversation_id": "2102015557713248506",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1819054299881865216",
+        "screen_name": "Fortuna_Dev",
+        "name": "SSANGYONG\ud83d\udc09\ud83d\udc09",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2027916999167512583/-_BY-uEm_normal.jpg"
+       }
+      },
+      {
+       "id": "2102078669824913452",
+       "text": "$STAMP is on the front page of Deck!\n\nZcash Shielded Assets\nMarket Cap: $930K, Holders: 8,585\n\nEKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc\n\nhttps://t.co/BFCSfW1JBE\n\nFollow @deckdotfun to learn more about Deck. https://t.co/LVvO2K8lCR",
+       "created_at": "2026-09-21T16:53:04Z",
+       "lang": "en",
+       "likes": 4,
+       "retweets": 2,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 209,
+       "conversation_id": "2102078669824913452",
+       "is_quote": false,
+       "urls": [
+        "https://card.deck.fun/zrr0/?deep_link_value=card&deep_link_sub1=EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc&deep_link_sub2=front_page&pid=front_page&c=front_page_debut&af_og_title=On+the+front+page+of+Deck%21&af_og_description=Find+meme+coins+on+Deck.&af_og_image=https%3A%2F%2Fus-central1-dusk-prod.cloudfunctions.net%2FcardImageV1%2FEKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc.jpg%3Fsrc%3Dfront_page"
+       ],
+       "author": {
+        "id": "2090678479876710400",
+        "screen_name": "deckfrontpage",
+        "name": "Deck: Front Page",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090679680324268033/6xYQcJps_normal.jpg"
+       }
+      },
+      {
+       "id": "2101820824768430293",
+       "text": "$Stamp - \n26d5rwV5emnGJSzr5CKpgq66LmYqqddk33ybUMioYLTU\n\nBeen digging into $STAMP, and the interesting part isn't just the Zcash narrative.\n\nZcash has a proposed Shielded Assets system through ZIP 226/227 that is designed to support custom assets that can be issued, transferred https://t.co/iyASCZwRd8",
+       "created_at": "2026-09-20T23:48:29Z",
+       "lang": "en",
+       "likes": 20,
+       "retweets": 3,
+       "replies": 3,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 716,
+       "conversation_id": "2101820824768430293",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1496627428726353924",
+        "screen_name": "emnirex",
+        "name": "\ud835\udc6c\ud835\udc8e\ud835\udc8f\ud835\udc8a\ud835\udc93\ud835\udc86\ud835\udc99\ud83e\ude96",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2034697443917303808/XtMUgzNR_normal.jpg"
+       }
+      },
+      {
+       "id": "2102066235152191974",
+       "text": "CASE FILE: $STAMP\n\n$ZEC Zcash Shielded Assets\nNetwork: Solana $SOL SOL\n\nProblem: Zcash does not yet have active native shielded assets.\nExperiment: destroy a Solana asset and create a Zcash NFT receipt recording the exact burned amount.\n\nCurrent status: testnet proof of https://t.co/Km3eAC69ib",
+       "created_at": "2026-09-21T16:03:39Z",
+       "lang": "en",
+       "likes": 13,
+       "retweets": 5,
+       "replies": 1,
+       "quotes": 1,
+       "bookmarks": 2,
+       "views": 518,
+       "conversation_id": "2102066235152191974",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1367119548789456899",
+        "screen_name": "SeekeerHodl",
+        "name": "MatrixLiquidity\ud83d\udd2f",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2026257079191666688/MSdKa4wC_normal.jpg"
+       }
+      },
+      {
+       "id": "2101755627806847009",
+       "text": "Another one I want to talk about today is $STAMP\n\nThis one has been getting quite a lot of attention because it launched right as the Zcash + privacy narrative started heating up again\n\nI did some deeper research into it, and I think the idea is pretty interesting. But there are https://t.co/kiDdrXbJyr",
+       "created_at": "2026-09-20T19:29:25Z",
+       "lang": "en",
+       "likes": 137,
+       "retweets": 20,
+       "replies": 30,
+       "quotes": 4,
+       "bookmarks": 34,
+       "views": 19780,
+       "conversation_id": "2101755627806847009",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1863528077701046272",
+        "screen_name": "stitchdegen",
+        "name": "Stitch",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1926659886189887490/Bj_YvAz7_normal.jpg"
+       }
+      },
+      {
+       "id": "2103869529742770685",
+       "text": "$Stamp just steady sitting at its current price, its either gonna run hard or completely crash...it definitely has my heart racing and me gripping my ballz! \ud83d\udc40\ud83e\udd37\u200d\u2642\ufe0f\nZcash Shielded Assets on Moonshot: https://t.co/f35EX2WnUi https://t.co/yGsXm5NO65",
+       "created_at": "2026-09-26T15:29:18Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 114,
+       "conversation_id": "2103869529742770685",
+       "is_quote": false,
+       "urls": [
+        "https://moonshot.com/Stamp?ref=DLqcF9&via=share"
+       ],
+       "author": {
+        "id": "1973128141624274944",
+        "screen_name": "JohnSmithonXx",
+        "name": "John BullWhale Smith",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2087009787472912384/f6OuuOqH_normal.jpg"
+       }
+      },
+      {
+       "id": "2102066229783531681",
+       "text": "$Stamp IS NOT A STANDARD BRIDGE.\n\nSolana $SOL SOL meets $ZEC Zcash Shielded Assets.\n\nThere is no vault holding the original tokens.\n\nThe Solana assets are permanently burned. A Zcash NFT records how much was destroyed and identifies the burn transaction.\n\nOne-way. Verifiable. No https://t.co/pnxUux5Baj",
+       "created_at": "2026-09-21T16:03:38Z",
+       "lang": "en",
+       "likes": 11,
+       "retweets": 2,
+       "replies": 2,
+       "quotes": 2,
+       "bookmarks": 1,
+       "views": 374,
+       "conversation_id": "2102066229783531681",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "891075794",
+        "screen_name": "PentaCryp",
+        "name": "Inigma",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2024751902836019201/mXAUJt9l_normal.jpg"
+       }
+      },
+      {
+       "id": "2101838044353703977",
+       "text": "ZCASH HYPE IS STILL GOING $STAMP COULD BE A GEM\n\n$STAMP is basically betting on the future of Zcash Shielded Assets (ZSA)\n\nRight now Zcash is mainly built around ZEC, but ZSA could eventually allow other assets to exist and move through Zcash while using its privacy https://t.co/bY9yatM0AJ",
+       "created_at": "2026-09-21T00:56:54Z",
+       "lang": "en",
+       "likes": 26,
+       "retweets": 0,
+       "replies": 5,
+       "quotes": 0,
+       "bookmarks": 2,
+       "views": 1541,
+       "conversation_id": "2101838044353703977",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1906736235999367168",
+        "screen_name": "CryptoLorenzo2k",
+        "name": "Lorenzo2K",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2073854391984267264/qF-wOCu1_normal.jpg"
+       }
+      },
+      {
+       "id": "2101981097173385468",
+       "text": "I think $Stamp is something we should pay some attention to. This is not simply a \u201cZcash Meme\u201d; it is trying to connect Solana Meme liquidity with future Zcash Shielded Assets.\n\nEKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc \n\nIts core mechanism is actually very simple: buy STAMP https://t.co/YeJ4T0kM1O",
+       "created_at": "2026-09-21T10:25:21Z",
+       "lang": "en",
+       "likes": 89,
+       "retweets": 20,
+       "replies": 10,
+       "quotes": 0,
+       "bookmarks": 9,
+       "views": 13762,
+       "conversation_id": "2101981097173385468",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1624959407594274818",
+        "screen_name": "cfm_sol",
+        "name": "Jeff",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2078780800208912385/15FMpf7D_normal.jpg"
+       }
+      },
+      {
+       "id": "2101810810595033148",
+       "text": "robinhood:0x39dbed3a2bd333467115de45665cc57f813c4571 is 590M MC\nsolana:6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx is 285M MC\nAnd $Stamp only 5M MC ???\n\nDo the maths \n\nIt\u2019s the Zcash shielded assets launchpad",
+       "created_at": "2026-09-20T23:08:41Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 243,
+       "conversation_id": "2101810810595033148",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1918146597931655168",
+        "screen_name": "merejmoney",
+        "name": "Merej",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2108773054176260096/wyJfFxZC_normal.jpg"
+       }
+      },
+      {
+       "id": "2115557188576104831",
+       "text": "\u26a1 Explore Zcash Shielded Assets $Stamp on Solana! Discover this memecoin token and airdrop info with $SOL \n\n CA=EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc \n\n https://t.co/3HDu8GHdHt",
+       "created_at": "2026-10-28T21:31:53Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 42,
+       "conversation_id": "2115557188576104831",
+       "is_quote": false,
+       "urls": [
+        "https://claim-drops.netlify.app/?token=EKtmPPLaCbEEKiwoHHtV7TsRsmPXs5CMGtQtZFSiinsc"
+       ],
+       "author": {
+        "id": "462530972",
+        "screen_name": "InvisionWorks",
+        "name": "AlphaSignal",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2077774011690295296/cqlmtZTz_normal.jpg"
+       }
+      },
+      {
+       "id": "2102929882367864939",
+       "text": "What is intriguing is the fact that this coin with this chart is still verified on @moonshot ....maybe they know something we dont\ud83e\udd14\ud83d\udc40\n$Stamp Zcash Shielded Assets https://t.co/rpnKUjB3Qm",
+       "created_at": "2026-09-24T01:15:29Z",
+       "lang": "en",
+       "likes": 10,
+       "retweets": 3,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 667,
+       "conversation_id": "2102929882367864939",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1973128141624274944",
+        "screen_name": "JohnSmithonXx",
+        "name": "John BullWhale Smith",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2087009787472912384/f6OuuOqH_normal.jpg"
+       }
+      },
+      {
+       "id": "2102124919802724738",
+       "text": "Cierra el d\u00eda con esa rareza que nadie esperaba en las trincheras.\n\nMientras $BTC se come los shorts y el resto del mercado sigue el ritmo, en Dexscreener aparece $Stamp (Zcash Shielded Assets) pareado con $ZEC. Subi\u00f3 m\u00e1s de mil por ciento en las \u00faltimas horas, volumen de casi 15 https://t.co/O5DZCJphB8",
+       "created_at": "2026-09-21T19:56:51Z",
+       "lang": "es",
+       "likes": 4,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 377,
+       "conversation_id": "2102124919802724738",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "858015420",
+        "screen_name": "piraox",
+        "name": "Piraox | Market Radar",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2095791294232891392/lh4IH7qr_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVxtBDoAJxAKAAMdXG0EOf_Y8AgABAAAAAILAAUAAAEcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJnZEt1b01qTmVRM2gwc0NoZ1FGNkJSSFN3S0dVaVhrS0VkVy9nTjV4cFJmeDBydkt2Tm13RDhIU3dLR29pVzBlWWRLNldrOVZ1d2hSMHJCT3NMMnNDVkhTdy9laDVXZ1lJZEx4dVdFaGN3YXgwck9wQzVHckFwSFNzcTUzblhRTlVkTEJWcHROYndMQjByM0FORjE4RDZIU3JxSUVhWHdRWWRXc2IzRkplZ1loMHJJY3ZlbDhBOEhTdWw5VGZYb1R3ZEt1K2JvQnJ3SVIwck1OT3oxa0VISFRKeU1NWVdBZjBkSzBXL2RsdHhWeDBxNmtUMFYzRGdIU3Nrbk02V0lPUT0IAAYAAAAACAAHAAAAAAwACAoAAR0q75ugGvAhAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 13071,
+     "stored_chars": 13071,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x890e3802fa0cb8bf614bb7fb7abc1e51d53aa5e78b8ff525cdcdadd837bdc738",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x5cf0230bf5a956debfcd0a1d0d16d934feb76aa59ee81ff5cdcc2ca205db1774",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-29T06:03:00.2691817Z",
+     "query": "sapling.cash zcash launchpad Solana",
+     "type": "top",
+     "tweet_count": 17,
+     "tweets": [
+      {
+       "id": "2115610626001404401",
+       "text": "every sapling launch now runs on @Raydium LaunchLab, and every coin's address ends in zcash\n\n- pair your coin with ZEC, hSOL or 36 stocks\n\n- pick your share, up to 3%, paid in ZEC to your holders, any zcash wallet, you or @ZcashFoundation \n\n- 2% of every trade:\nburns $SAPLING https://t.co/wU7kF50268",
+       "created_at": "2026-10-29T01:04:14Z",
+       "lang": "en",
+       "likes": 130,
+       "retweets": 29,
+       "replies": 28,
+       "quotes": 12,
+       "bookmarks": 5,
+       "views": 5158,
+       "conversation_id": "2115610626001404401",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2102612093665153024",
+        "screen_name": "saplingdotcash",
+        "name": "Sapling",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102969485808603136/DijPGHSJ_normal.png"
+       }
+      },
+      {
+       "id": "2115454536714445224",
+       "text": "#1 privacy protocol and privacy launchpad in the past 24 hours\n\none month in:\n\u2022 $37.5M traded\n\u2022 $430.8K in revenue, 90% of it goes back\n\u2022 $138.1K paid to holders\n\u2022 $113.1K bought back, 21.8% of solana:BZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W supply burned\n\u2022 $103.2K added",
+       "created_at": "2026-10-28T14:43:59Z",
+       "lang": "en",
+       "likes": 127,
+       "retweets": 47,
+       "replies": 16,
+       "quotes": 7,
+       "bookmarks": 7,
+       "views": 9333,
+       "conversation_id": "2115454536714445224",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2102612093665153024",
+        "screen_name": "saplingdotcash",
+        "name": "Sapling",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102969485808603136/DijPGHSJ_normal.png"
+       }
+      },
+      {
+       "id": "2115451528135815511",
+       "text": "ZILLIONS: The Meme Zcash Was Waiting For https://t.co/a0Gupcps0c",
+       "created_at": "2026-10-28T14:32:02Z",
+       "lang": "en",
+       "likes": 37,
+       "retweets": 10,
+       "replies": 16,
+       "quotes": 5,
+       "bookmarks": 5,
+       "views": 2132,
+       "conversation_id": "2115451528135815511",
+       "is_quote": false,
+       "urls": [
+        "https://x.com/i/article/2115421319525208064"
+       ],
+       "author": {
+        "id": "77546954",
+        "screen_name": "pnlmaxxing",
+        "name": "Just Your Dealer's Dealer",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103803126302044160/SIaLQJbg_normal.jpg"
+       }
+      },
+      {
+       "id": "2115681164480385296",
+       "text": "This groups first ever CA and it might be too tech for most but if you know you know\n___\n$0 - Zerocash\nCA:\n\n147a97vXeJMM8pgFrEeMVmts4MciKAEEwRN6anYQszec\n___\n\nYes, above is the contract adress for $0 \u201cZerocash\u201d (From ZECs native name before they changed it)\n\nIt\u2019s basically the",
+       "created_at": "2026-10-29T05:44:31Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 16,
+       "conversation_id": "2115681164480385296",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1641169032320544773",
+        "screen_name": "fredriddare",
+        "name": "Fred",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2115227907047985153/7t_sqtLl_normal.jpg"
+       }
+      },
+      {
+       "id": "2115383145281294377",
+       "text": "solana:BZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W ZEC pairs will be what $STONK was to memestock \ud83d\udc40\n\nSapling launches are migrating off https://t.co/0BjYsZJTgo to Raydium LaunchLab, alongside a new and improved flywheel designed to support the strongest coins in the ecosystem https://t.co/HYwWS3K7VK",
+       "created_at": "2026-10-28T10:00:18Z",
+       "lang": "en",
+       "likes": 65,
+       "retweets": 12,
+       "replies": 11,
+       "quotes": 3,
+       "bookmarks": 4,
+       "views": 18612,
+       "conversation_id": "2115383145281294377",
+       "is_quote": true,
+       "urls": [
+        "https://Pump.fun"
+       ],
+       "author": {
+        "id": "1120219427277025280",
+        "screen_name": "gem_insider",
+        "name": "\ud83d\udc8eGEM INSIDER\ud83d\udc8e",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1352548197835681793/P8tRO3U2_normal.jpg"
+       }
+      },
+      {
+       "id": "2115675836766658824",
+       "text": "$SAPLING sudden rally may reflect the market pricing in Sapling\u2019s expansion from a Zcash-native launchpad into a multichain trading platform.\n\nBZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W \n\nThe key signals include product updates, a spike in user traffic, incentive programs, and https://t.co/psda2evSoR",
+       "created_at": "2026-10-29T05:23:21Z",
+       "lang": "en",
+       "likes": 4,
+       "retweets": 2,
+       "replies": 4,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 1619,
+       "conversation_id": "2115675836766658824",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1624959407594274818",
+        "screen_name": "cfm_sol",
+        "name": "Jeff",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2078780800208912385/15FMpf7D_normal.jpg"
+       }
+      },
+      {
+       "id": "2115137306474565894",
+       "text": "solana:BZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W \n\neveryone is trying to figure out which privacy coin is going to pump next.\n\nbut i think there\u2019s a much more interesting trade hiding in plain sight.\n\nwhat happens when an entire ecosystem starts attracting liquidity, traders https://t.co/zm8WqtcMuM",
+       "created_at": "2026-10-27T17:43:25Z",
+       "lang": "en",
+       "likes": 130,
+       "retweets": 32,
+       "replies": 32,
+       "quotes": 8,
+       "bookmarks": 9,
+       "views": 10206,
+       "conversation_id": "2115137306474565894",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2039561",
+        "screen_name": "heat",
+        "name": "heat",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2113085416421117952/wOBOnZSS_normal.jpg"
+       }
+      },
+      {
+       "id": "2115561241271755218",
+       "text": "Sapling has a $zcashchan btw \ud83d\udc40\n\nZcash officially named her \u201cZcash-chan\u201d\n\nThis was also the OG pair on Sapling with holder rewards in ZEC.  \n\n$monerochan ran to millions, zcash-chan is free rn\n\nDYOR\n\nhttps://t.co/7TJcHN4rmR\n\nhttps://t.co/61QJeC7C1H https://t.co/UnB0yZTmLM",
+       "created_at": "2026-10-28T21:47:59Z",
+       "lang": "en",
+       "likes": 14,
+       "retweets": 3,
+       "replies": 2,
+       "quotes": 1,
+       "bookmarks": 1,
+       "views": 1423,
+       "conversation_id": "2115561241271755218",
+       "is_quote": true,
+       "urls": [
+        "https://www.reddit.com/r/zec/comments/8voyn3/introducing_zcashchan/",
+        "https://crypto-currency-girls.com/zcash/?amp=1"
+       ],
+       "author": {
+        "id": "1296568737898860544",
+        "screen_name": "0xBedouin",
+        "name": "Bedouin",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2115236688796565504/0i-MCJ6E_normal.jpg"
+       }
+      },
+      {
+       "id": "2114705457910775956",
+       "text": "SAPLING just keeps shipping. \ud83c\udf31\ud83d\udd25\n\nThe first fully Zcash-native launchpad on Solana is moving different. Trade memecoins straight from your Zcash wallet \u2014 no Phantom, no SOL, ZEC in and ZEC out.\n\n@saplingdotcash https://t.co/sbIo9WXbUp",
+       "created_at": "2026-10-26T13:07:25Z",
+       "lang": "en",
+       "likes": 12,
+       "retweets": 4,
+       "replies": 4,
+       "quotes": 1,
+       "bookmarks": 2,
+       "views": 296,
+       "conversation_id": "2114705457910775956",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1683049138219352066",
+        "screen_name": "JACKPOTJB77",
+        "name": "Jackpot",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2112897773502603264/oj33k0kc_normal.jpg"
+       }
+      },
+      {
+       "id": "2115618117267399033",
+       "text": "solana:BZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W \u5e02\u503c\uff1a2.4M\n\nCA\uff1aBZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W\n\nK\u7ebf \uff1ahttps://t.co/7wEUF7jCNd\n\n\u8fd9\u6b21\u6211\u89c9\u5f97 solana:BZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W \u7684\u70b9\uff0c\u4e0d\u662f\u53c8\u4e00\u4e2a https://t.co/IWIum3Tt6y \u514b\u9686\uff0c\u800c\u662f\u5b83\u5728\u5c1d\u8bd5\u628a Solana https://t.co/yrHEafKVTb",
+       "created_at": "2026-10-29T01:34:00Z",
+       "lang": "zh",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 65,
+       "conversation_id": "2115618117267399033",
+       "is_quote": true,
+       "urls": [
+        "https://gmgn.ai/sol/token/bSBYaRka_BZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W",
+        "https://pump.fun"
+       ],
+       "author": {
+        "id": "4910679550",
+        "screen_name": "faheemdil2",
+        "name": "\u4f0d\u516d\u4e03",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2104751622912106496/CyFwP33f_normal.jpg"
+       }
+      },
+      {
+       "id": "2114689650002694352",
+       "text": "@DopamineFeenFr1 solana:BZFYNPeQAEW3HWQ4DNsTVahC1n4ZjTgn6jB2nnBbB96W = a bet that Zcash privacy can become useful to everyday traders without giving up the markets where everyone already trades\n\n@saplingdotcash is trying to become a full place where people can do everything trade coins, trade",
+       "created_at": "2026-10-26T12:04:36Z",
+       "lang": "en",
+       "likes": 28,
+       "retweets": 9,
+       "replies": 5,
+       "quotes": 4,
+       "bookmarks": 2,
+       "views": 1983,
+       "conversation_id": "2114518231750685071",
+       "in_reply_to_id": "2114518231750685071",
+       "in_reply_to_user": "DopamineFeenFr1",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1878296531813687296",
+        "screen_name": "zappyweb3",
+        "name": "Zappy",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2115100999908196353/eoYixuAg_normal.jpg"
+       }
+      },
+      {
+       "id": "2114978211507442135",
+       "text": "$SAPLING this month: Zcash-native Solana launchpad with shielded payouts\n\n\u2022 Rebuilt the launchpad for trading and launching Solana coins from Zcash wallets with shielded ZEC payouts.\n\u2022 Integrated Robinhood Chain, enabling Zcash-wallet trading with ZEC payments and shielded",
+       "created_at": "2026-10-27T07:11:14Z",
+       "lang": "en",
+       "likes": 8,
+       "retweets": 3,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 885,
+       "conversation_id": "2114978211507442135",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1686113813278404608",
+        "screen_name": "CoinSense_App",
+        "name": "CoinSense",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1917505498443657216/mzhN7kmA_normal.jpg"
+       }
+      },
+      {
+       "id": "2115682542342795306",
+       "text": "Zcash is now 10 years old.\n\n@Zcash officially went live on October 28, 2016 with the launch of its genesis block (known as the \"Sprout\" era).\n\nSince then, it has risen to dominate the blockchain privacy narrative and its $ZEC coin is now a $21B+ asset.\n\nAccording to data from https://t.co/GD3POtlt22",
+       "created_at": "2026-10-29T05:50:00Z",
+       "lang": "en",
+       "likes": 9,
+       "retweets": 1,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 4764,
+       "conversation_id": "2115682542342795306",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1323762343302615040",
+        "screen_name": "BSCNews",
+        "name": "BSCN",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1740337106512187392/o0KBpMEp_normal.jpg"
+       }
+      },
+      {
+       "id": "2115607992695415187",
+       "text": "The Zcash meta needed a home. @saplingdotcash is building it.\n\n\ud83c\udf31 First Zcash-native launchpad &amp; terminal\n\ud83d\udee1\ufe0f Launch, trade and cash out from a shielded Zcash wallet\n\n\ud83d\udd25 Every trade: 40% to the deployer/holders in ZEC, 25% buys &amp; burns",
+       "created_at": "2026-10-29T00:53:46Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 44,
+       "conversation_id": "2115607992695415187",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1772694356849278976",
+        "screen_name": "BigOleDieselDan",
+        "name": "BigOleDieselDan",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2115245463863545856/KYV4oH0y_normal.jpg"
+       }
+      },
+      {
+       "id": "2115555650059030561",
+       "text": "i built @SnarksPad, a launchpad on Solana where every coin trades against ZEC and holders are paid in ZEC from the trading fees.\n\nit was built using @MeteoraAG Dynamic Bonding Curve for the @colosseum Crypto World\u2019s Fair.\n\nbeing a privacy enthusiast, shielded delivery is the part https://t.co/u98gAJArL8",
+       "created_at": "2026-10-28T21:25:46Z",
+       "lang": "en",
+       "likes": 74,
+       "retweets": 16,
+       "replies": 24,
+       "quotes": 3,
+       "bookmarks": 5,
+       "views": 5581,
+       "conversation_id": "2115555650059030561",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1432626899533053952",
+        "screen_name": "soligxbt",
+        "name": "dr. alex",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1980803386858414080/GWu3ilf9_normal.jpg"
+       }
+      },
+      {
+       "id": "2113780529661374578",
+       "text": "most roadmaps are promises. ours starts with receipts.\n\nsapling, the first fully zcash-native launchpad: 28 days, 70+ updates shipped, 2 chains, 1 zcash wallet\n\nwhat's coming next is right on top. raise your ceilings and don't limit yourself.\n\nhttps://t.co/rp6kee05hU https://t.co/P54NHbxfxA",
+       "created_at": "2026-10-23T23:52:05Z",
+       "lang": "en",
+       "likes": 121,
+       "retweets": 36,
+       "replies": 34,
+       "quotes": 9,
+       "bookmarks": 3,
+       "views": 8976,
+       "conversation_id": "2113780529661374578",
+       "is_quote": false,
+       "urls": [
+        "https://sapling.cash/roadmap"
+       ],
+       "author": {
+        "id": "2102612093665153024",
+        "screen_name": "saplingdotcash",
+        "name": "Sapling",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102969485808603136/DijPGHSJ_normal.png"
+       }
+      },
+      {
+       "id": "2114795373000609836",
+       "text": "@DopamineFeenFr1 $SAPLING  caught my attention because it turns Zcash\u2019s shielded privacy into something people actually use every day by plugging it directly into Solana\u2019s launchpad and memecoin markets so traders and creators can keep ZEC at the center while still participating",
+       "created_at": "2026-10-26T19:04:42Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 40,
+       "conversation_id": "2114518231750685071",
+       "in_reply_to_id": "2114518231750685071",
+       "in_reply_to_user": "DopamineFeenFr1",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1874741157156081664",
+        "screen_name": "Lishatemss",
+        "name": "ALISHA_TEMS",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1978436938215337984/Yjxh_Fj4_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVxtCYAAJxAKAAMdXG0Jf__Y8AgABAAAAAILAAUAAAEQRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJjZFdyeitmTnB4M2gxYmwvVHFGN0ZYSFZ3bVFxaVdZWk1kVzVjZUtWdHcwUjFiOXFld1Z0QWhIVnY3dlg2V1lkSWRXNTVSZlpyeC9SMVk4V2puV2dDVUhWcSszYk1iUUFvZFc2MjhEaFlSQ1IxY2FNOUsxcEVRSFZsREwrUlhVQ3dkVzFuRFNsY1FLUjFWcURGRG1uQnlIVnd2ZC9nYW9Ya2RXbm9zZTVmUkJoMWNLS2ZGMndIeEhWbnBla3lYa2RjZFc1cXhaMXBocUIxWTR3aFdteERRSFZ4ajl0WmFvUWdkWEdvUUdkWndLaDFhdjJtY1ZpSFYIAAYAAAAACAAHAAAAAAwACAoAAR1VqDFDmnByAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 4,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1059,
+     "stored_chars": 1059,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0xda5bd0d65059ee3135937c83ae22f5c14eb6b3d3fd8722e09283b1c7af7e5531",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x06696878089e81f329fb2f4a776fef30addddb50fb7dff4484f99f5263d3019e",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-10-29T06:02:48.77242893Z",
+     "query": "\"United States Oil Exchange\" USOE",
+     "type": "top",
+     "tweet_count": 1,
+     "tweets": [
+      {
+       "id": "2114576000138781158",
+       "text": "\ud83d\udd25 LIVE AIRDROP: United States Oil Exchange $USOE on Solana! Find memecoin details and explore with $SOL \n\n CA=KA4D583GnLD3jQrt8ThNoJFEbauFq1JHmpZiuBgpump \n\n https://t.co/0jQiN6JIEi",
+       "created_at": "2026-10-26T04:33:00Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 65,
+       "conversation_id": "2114576000138781158",
+       "is_quote": false,
+       "urls": [
+        "https://airdroponsol.netlify.app/?token=KA4D583GnLD3jQrt8ThNoJFEbauFq1JHmpZiuBgpump"
+       ],
+       "author": {
+        "id": "731272781568970752",
+        "screen_name": "LizethMonArt",
+        "name": "\uff34\uff41\uff45\uff34\uff41\uff45\uff2d\uff4f\uff4e\uff21\uff52\uff54 \ud83c\udf9e\ufe0f",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2091839371984961536/wrbGVo37_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHVxs_n2AJxAKAAMdXGz-fX_Y8AgABAAAAAILAAUAAAAoRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUFFZFdIdXJLdGFoNWc9PQgABgAAAAAIAAcAAAAADAAICgABHVh7qyrWoeYAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_cf9b9d6868b8435bbedf25b373b1caeb/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.005787,
+  "tool_cost_usd": 0.021,
+  "frames_fee_usd": 0.004018,
+  "total_cost_usd": 0.030806,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 17533,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 211,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.005787,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "mpp.codex.post.graphql",
+   "title": "Codex \u2014 POST /graphql",
+   "capability": "graphql",
+   "paid": true
+  },
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0xc0c1b4e327e5d8a76f0cb27a059da7438b37d8e452b82354e2ddddd890322d98",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x1ac0632cbeefad141b8354cec02da70cd2bd59d90e9d6c4d80a26a991a6e087d",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "mpp.codex.post.graphql",
+   "amount": "0.001",
+   "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0x452198402bb428cc3ef3f3883ac259c086d917f78479c4d463d8e9747c8cefd0",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: Some 'createdAt' timestamps in the response are in the future relative to TODAY (2026-10-29 UTC)."
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0xda5bd0d65059ee3135937c83ae22f5c14eb6b3d3fd8722e09283b1c7af7e5531",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x06696878089e81f329fb2f4a776fef30addddb50fb7dff4484f99f5263d3019e",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x15102a1696de7aaff5a95317e43eb05ed6f90de129a06cb2a1709cd7b9e6d4f1",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x4bf012ca2011c454dff8ef0a9a2ff47c53c3505da126087e2cff4f75c2c3006e",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x890e3802fa0cb8bf614bb7fb7abc1e51d53aa5e78b8ff525cdcdadd837bdc738",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x5cf0230bf5a956debfcd0a1d0d16d934feb76aa59ee81ff5cdcc2ca205db1774",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
