@@ -1,8 +1,8 @@
 // Generated offline by import-frames-snapshot.mjs.
 export const FEE_COVERAGE = {
-  "value": 3163194.39,
+  "value": 3144062.35,
   "kind": "covered subtotal",
-  "financialAnchor": "2026-10-29T00:00:00Z",
+  "financialAnchor": "2026-10-30T00:00:00Z",
   "includedSlugs": [
     "pump.fun",
     "pons",
@@ -27,10 +27,6 @@ export const FEE_COVERAGE = {
     "binance-alpha": "Execution-route fees may overlap underlying venues; no component partition"
   },
   "history30d": [
-    {
-      "time": 1790640000,
-      "value": 6197473
-    },
     {
       "time": 1790726400,
       "value": 5990672
@@ -146,6 +142,10 @@ export const FEE_COVERAGE = {
     {
       "time": 1793145600,
       "value": 3163194.39
+    },
+    {
+      "time": 1793232000,
+      "value": 3144062.35
     }
   ],
   "change30d": null,
