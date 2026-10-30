@@ -9,6 +9,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { gunzipSync } from "node:zlib";
 
+import { deployedBlocklist, resetBlocklist, scrubBlocked } from "./blocked.ts";
 import { type Chain, IdentityError, isChain, tokenIdentity } from "./core/identity.ts";
 import { isWeekId } from "./core/time.ts";
 import type { WeeklyEdition } from "./methods/weekly.ts";
@@ -51,6 +52,7 @@ const bundles = new Map<string, Record<string, unknown>>();
 export function resetCaches(): void {
   releases.clear();
   bundles.clear();
+  resetBlocklist();
 }
 
 export function publishedReleaseId(): string {
@@ -66,7 +68,10 @@ export function releaseIndex(): { releaseId: string; dataCutoff: string; publish
   return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : [];
 }
 
-/** Loads a release (the published one by default). The public file is verified against its manifest checksum. */
+/**
+ * Loads a release (the published one by default). The public file is verified against its manifest checksum, then
+ * the owner's blocklist is applied (blocked.ts); a release it changed gets an ETag that carries the blocklist tag.
+ */
 export function loadRelease(releaseId?: string): LoadedRelease {
   const id = releaseId ?? publishedReleaseId();
   if (!RELEASE_ID.test(id)) throw new BadRequest(`Not a release id: ${id}`);
@@ -77,14 +82,16 @@ export function loadRelease(releaseId?: string): LoadedRelease {
   const manifest = JSON.parse(readFileSync(path.join(dir, "manifest.json"), "utf8")) as ReleaseManifest;
   const raw = readFileSync(path.join(dir, "public.json"));
   if (sha256(raw) !== manifest.files["public.json"]?.sha256) throw new Error(`Release ${id}: public.json does not match its manifest checksum`);
-  const data = JSON.parse(raw.toString("utf8")) as ReleasePublic;
+  const parsed = JSON.parse(raw.toString("utf8")) as ReleasePublic;
+  const { matcher, tag } = deployedBlocklist();
+  const data = scrubBlocked(parsed, matcher);
   const loaded: LoadedRelease = {
     manifest,
     data,
     coins: new Map(data.coins.map((c) => [c.id, c])),
     narratives: new Map(data.narratives.map((n) => [n.slug, n])),
     launchpads: new Map(data.launchpads.map((l) => [l.slug, l])),
-    etag: `"${manifest.contentSha256.slice(0, 32)}"`,
+    etag: `"${manifest.contentSha256.slice(0, 32)}${data === parsed ? "" : `-${tag}`}"`,
   };
   releases.set(id, loaded);
   return loaded;
@@ -101,7 +108,7 @@ export function loadBundles(releaseId: string): Record<string, unknown> {
   const manifest = JSON.parse(readFileSync(path.join(dir, "manifest.json"), "utf8")) as ReleaseManifest;
   const bytes = readFileSync(file);
   if (sha256(bytes) !== manifest.files["bundles.json.gz"]?.sha256) throw new Error(`Release ${releaseId}: bundles do not match the manifest checksum`);
-  const parsed = JSON.parse(gunzipSync(bytes).toString("utf8")) as Record<string, unknown>;
+  const parsed = scrubBlocked(JSON.parse(gunzipSync(bytes).toString("utf8")) as Record<string, unknown>);
   bundles.set(releaseId, parsed);
   return parsed;
 }
@@ -242,7 +249,7 @@ export function getEdition(week: string, revision?: number): EditionDoc {
   if (!entry) throw new NotFound(`No edition for ${week}.`);
   const n = revision ?? entry.latestRevision;
   if (!Number.isInteger(n) || n < 1 || n > entry.latestRevision) throw new NotFound(`No revision ${revision} for ${week}.`);
-  return JSON.parse(readFileSync(path.join(dataRoot(), "editions", week, `r${n}.json`), "utf8"));
+  return scrubBlocked(JSON.parse(readFileSync(path.join(dataRoot(), "editions", week, `r${n}.json`), "utf8")) as EditionDoc);
 }
 
 // ---------------------------------------------------------------- changes
@@ -251,7 +258,7 @@ export function getEdition(week: string, revision?: number): EditionDoc {
 export function allChanges(): ChangeEvent[] {
   const file = path.join(dataRoot(), "changes", "events.json");
   if (!existsSync(file)) return [];
-  const events: ChangeEvent[] = JSON.parse(readFileSync(file, "utf8"));
+  const events = scrubBlocked(JSON.parse(readFileSync(file, "utf8")) as ChangeEvent[]);
   const pointerFile = path.join(dataRoot(), "releases", "published.json");
   const published = existsSync(pointerFile) ? (JSON.parse(readFileSync(pointerFile, "utf8")) as { releaseId: string }).releaseId : null;
   return events.filter(committedEvents(releaseIndex(), published));
@@ -289,7 +296,7 @@ export function listArticles(): ArticleSummary[] {
   if (!existsSync(dir)) return [];
   return readdirSync(dir)
     .filter((f) => f.endsWith(".json"))
-    .map((f) => JSON.parse(readFileSync(path.join(dir, f), "utf8")) as Article)
+    .map((f) => scrubBlocked(JSON.parse(readFileSync(path.join(dir, f), "utf8")) as Article))
     .filter(articleVisible)
     .map((a) => {
       return { slug: a.slug, title: a.title, dek: a.dek, format: a.format, publishedAt: a.publishedAt, updatedAt: a.updatedAt, dataCutoff: a.dataCutoff, releaseId: a.releaseId, review: a.review, entities: a.entities, confidence: a.confidence };
@@ -301,7 +308,7 @@ export function getArticle(slug: string): Article | null {
   assertSlug(slug);
   const file = path.join(contentRoot(), "research", `${slug}.json`);
   if (!existsSync(file)) return null;
-  const a = JSON.parse(readFileSync(file, "utf8")) as Article;
+  const a = scrubBlocked(JSON.parse(readFileSync(file, "utf8")) as Article);
   return articleVisible(a) ? a : null;
 }
 
