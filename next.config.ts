@@ -13,6 +13,7 @@ const RESEARCH_FILES = [
   "./docs/methods/*.json",
   "./docs/data/providers.json",
   "./docs/data/pricing.json",
+  "./docs/data/blocked.json",
 ];
 
 const nextConfig: NextConfig = {

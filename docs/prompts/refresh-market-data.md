@@ -150,6 +150,13 @@ Use the authorization supplied for this invocation; if none exists, complete fre
 inspection and report that paid execution needs authorization. Never print secrets
 or secret-bearing headers. No paid calls should run in page rendering or builds.
 
+Blocked sites and coins (`docs/data/blocked.json`) are the owner's decision; never edit that file. Never scrape,
+search for, cite or link a blocked host, and never add a blocked coin: record one that discovery surfaces as a
+rejected candidate with the blocked reason. A blocked coin that is a member leaves `poolUniverse` during curation
+and gets a `curation.json` `removedMembers` entry with the blocked.json reason; `plan.py collect` refuses to plan
+while one is still in `poolUniverse`. The website hides blocked entries in every published file on read
+(`src/lib/lamble/blocked.ts`).
+
 ## 1. Inspect the current implementation before collecting
 
 Read `AGENTS.md` and relevant installed Next.js docs before changing code. Inspect

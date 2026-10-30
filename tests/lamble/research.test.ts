@@ -12,11 +12,13 @@ import { articleCitations, validateArticle } from "../../src/lib/lamble/research
 import { compactUsd, percent } from "../../src/lib/format.ts";
 import { coinArticle, narrativeArticle, weeklyArticle } from "../../src/lib/lamble/research/generate.ts";
 import type { Article } from "../../src/lib/lamble/research/types.ts";
+import { scrubBlocked } from "../../src/lib/lamble/blocked.ts";
 import { articleVisible, contentRoot, editionIndex, getEdition, loadRelease } from "../../src/lib/lamble/service.ts";
 
+// Articles as the site serves them: the owner's blocklist (docs/data/blocked.json) applies to them as to the release.
 const articles = readdirSync(path.join(contentRoot(), "research"))
   .filter((f) => f.endsWith(".json"))
-  .map((f) => JSON.parse(readFileSync(path.join(contentRoot(), "research", f), "utf8")) as Article);
+  .map((f) => scrubBlocked(JSON.parse(readFileSync(path.join(contentRoot(), "research", f), "utf8")) as Article));
 
 test("the required formats exist: a weekly edition article, a coin deep dive, a narrative deep dive", () => {
   const formats = new Set(articles.map((a) => a.format));
