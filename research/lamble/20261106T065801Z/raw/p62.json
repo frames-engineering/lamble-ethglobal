@@ -1,0 +1,4136 @@
+{
+ "run_id": "run_2cf58d1119b04fc7b2e84bea1764793a",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 31,
+  "budget_credits": 37,
+  "balance_credits": 103411,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 78,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 6,
+  "delivered": 5,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 9371,
+     "stored_chars": 9371,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x7a9a54a0cce1fbf79ba160cb89a048a902ce4df7b56677f8c8b3d88f3852c6c5",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xc2f1c1cf72989ffa27eb4ae5c07c04e014528f6694d1e081f06336dbf2f2b8a2",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The returned candle data includes timestamps that extend beyond the provided 'TODAY' date, meaning it's not purely historical.",
+     "long_tail": true
+    },
+    "body": {
+     "data": [
+      {
+       "v": 254236.00337526886,
+       "o": 1.2326971442751663e-05,
+       "h": 0.00024152929406115047,
+       "l": 1.2326971442751663e-05,
+       "c": 0.0001258469347143014,
+       "t": 1790942400000
+      },
+      {
+       "v": 15292.196854733174,
+       "o": 0.0001258469347143014,
+       "h": 0.00021126557526910945,
+       "l": 0.00012181502795669685,
+       "c": 0.00014768938550374115,
+       "t": 1790985600000
+      },
+      {
+       "v": 7063.050058340295,
+       "o": 0.00014768938550374115,
+       "h": 0.0001533289540174505,
+       "l": 0.0001229835063795599,
+       "c": 0.0001229835063795599,
+       "t": 1791028800000
+      },
+      {
+       "v": 1578.3776314601105,
+       "o": 0.0001229835063795599,
+       "h": 0.0001314571601352723,
+       "l": 0.00012164082272374149,
+       "c": 0.0001314571601352723,
+       "t": 1791072000000
+      },
+      {
+       "v": 3277.671814635459,
+       "o": 0.0001314571601352723,
+       "h": 0.0001314571601352723,
+       "l": 0.00012120802610079963,
+       "c": 0.00012239262274344004,
+       "t": 1791115200000
+      },
+      {
+       "v": 1011.2463152520907,
+       "o": 0.00012239262274344004,
+       "h": 0.00012298326551193702,
+       "l": 0.00011562208276241683,
+       "c": 0.0001165979847169856,
+       "t": 1791158400000
+      },
+      {
+       "v": 4930.248293984537,
+       "o": 0.0001165979847169856,
+       "h": 0.0001165979847169856,
+       "l": 8.920304862413021e-05,
+       "c": 0.00010455091962903595,
+       "t": 1791201600000
+      },
+      {
+       "v": 2196.322808911461,
+       "o": 0.00010455091962903595,
+       "h": 0.00010455091962903595,
+       "l": 9.017922259620356e-05,
+       "c": 9.268589797480644e-05,
+       "t": 1791244800000
+      },
+      {
+       "v": 3190.65443201612,
+       "o": 9.268589797480644e-05,
+       "h": 9.268589797480644e-05,
+       "l": 7.01679781788504e-05,
+       "c": 7.273492032228852e-05,
+       "t": 1791288000000
+      },
+      {
+       "v": 8.731861145096127,
+       "o": 7.273492032228852e-05,
+       "h": 7.273492032228852e-05,
+       "l": 7.269257628348725e-05,
+       "c": 7.269257628348725e-05,
+       "t": 1791331200000
+      },
+      {
+       "v": 845.2017621598015,
+       "o": 7.269257628348725e-05,
+       "h": 7.375026229283047e-05,
+       "l": 7.101416067423136e-05,
+       "c": 7.27848671797132e-05,
+       "t": 1791374400000
+      },
+      {
+       "v": 1324.3314585970047,
+       "o": 7.27848671797132e-05,
+       "h": 7.27848671797132e-05,
+       "l": 6.0335537618122076e-05,
+       "c": 6.0754169537177863e-05,
+       "t": 1791417600000
+      },
+      {
+       "v": 3478.292761006123,
+       "o": 6.0754169537177863e-05,
+       "h": 8.260774359591695e-05,
+       "l": 6.004959207082587e-05,
+       "c": 6.62334428234009e-05,
+       "t": 1791460800000
+      },
+      {
+       "v": 506.8153306521543,
+       "o": 6.62334428234009e-05,
+       "h": 7.217181425215989e-05,
+       "l": 6.62334428234009e-05,
+       "c": 7.182564573033298e-05,
+       "t": 1791504000000
+      },
+      {
+       "v": 1451.5895305245112,
+       "o": 7.182564573033298e-05,
+       "h": 7.79118707171219e-05,
+       "l": 6.829748718677726e-05,
+       "c": 6.829748718677726e-05,
+       "t": 1791547200000
+      },
+      {
+       "v": 242.3700548536561,
+       "o": 6.829748718677726e-05,
+       "h": 6.941926128997877e-05,
+       "l": 6.793676122001855e-05,
+       "c": 6.941926128997877e-05,
+       "t": 1791590400000
+      },
+      {
+       "v": 484.77741442484773,
+       "o": 6.941926128997877e-05,
+       "h": 7.459381952233741e-05,
+       "l": 6.941926128997877e-05,
+       "c": 7.459381952233741e-05,
+       "t": 1791633600000
+      },
+      {
+       "v": 96.66743610141535,
+       "o": 7.459381952233741e-05,
+       "h": 7.606770345067606e-05,
+       "l": 7.459381952233741e-05,
+       "c": 7.606770345067606e-05,
+       "t": 1791676800000
+      },
+      {
+       "v": 1926.8324655475435,
+       "o": 7.606770345067606e-05,
+       "h": 7.93125297409208e-05,
+       "l": 6.800267641067886e-05,
+       "c": 6.935686238146476e-05,
+       "t": 1791720000000
+      },
+      {
+       "v": 947.4144118541575,
+       "o": 6.935686238146476e-05,
+       "h": 6.935686238146476e-05,
+       "l": 5.9751992060937e-05,
+       "c": 5.9751992060937e-05,
+       "t": 1791763200000
+      },
+      {
+       "v": 878.4359197588527,
+       "o": 5.9751992060937e-05,
+       "h": 5.9751992060937e-05,
+       "l": 4.897752945722964e-05,
+       "c": 4.925411659410431e-05,
+       "t": 1791806400000
+      },
+      {
+       "v": 353.4487053143163,
+       "o": 4.925411659410431e-05,
+       "h": 5.037690507265005e-05,
+       "l": 4.842241952135964e-05,
+       "c": 5.037690507265005e-05,
+       "t": 1791849600000
+      },
+      {
+       "v": 626.671258572173,
+       "o": 5.037690507265005e-05,
+       "h": 5.156050044500992e-05,
+       "l": 4.708620194313086e-05,
+       "c": 4.708620194313086e-05,
+       "t": 1791892800000
+      },
+      {
+       "v": 233.12667815552615,
+       "o": 4.708620194313086e-05,
+       "h": 4.932362487410396e-05,
+       "l": 4.708620194313086e-05,
+       "c": 4.932362487410396e-05,
+       "t": 1791936000000
+      },
+      {
+       "v": 967.4901743902326,
+       "o": 4.932362487410396e-05,
+       "h": 5.610810999976057e-05,
+       "l": 4.901002650274664e-05,
+       "c": 5.610810999976057e-05,
+       "t": 1791979200000
+      },
+      {
+       "v": 2446.886129021541,
+       "o": 5.610810999976057e-05,
+       "h": 5.610810999976057e-05,
+       "l": 3.9012655400311955e-05,
+       "c": 4.4118631770871485e-05,
+       "t": 1792022400000
+      },
+      {
+       "v": 503.7140963199282,
+       "o": 4.4118631770871485e-05,
+       "h": 4.632900944106699e-05,
+       "l": 4.396721392782522e-05,
+       "c": 4.396721392782522e-05,
+       "t": 1792065600000
+      },
+      {
+       "v": 306.72247162627167,
+       "o": 4.396721392782522e-05,
+       "h": 4.526577021849633e-05,
+       "l": 4.346925937868664e-05,
+       "c": 4.495654930833263e-05,
+       "t": 1792108800000
+      },
+      {
+       "v": 6.8303689898813635,
+       "o": 4.495654930833263e-05,
+       "h": 4.503015626705016e-05,
+       "l": 4.495654930833263e-05,
+       "c": 4.503015626705016e-05,
+       "t": 1792152000000
+      },
+      {
+       "v": 18.587160659106875,
+       "o": 4.503015626705016e-05,
+       "h": 4.503015626705016e-05,
+       "l": 4.4579069092011736e-05,
+       "c": 4.4579069092011736e-05,
+       "t": 1792195200000
+      },
+      {
+       "v": 118.79099955297686,
+       "o": 4.4579069092011736e-05,
+       "h": 4.5241560821791536e-05,
+       "l": 4.4506806720880666e-05,
+       "c": 4.5241560821791536e-05,
+       "t": 1792238400000
+      },
+      {
+       "v": 44.773100892674535,
+       "o": 4.5241560821791536e-05,
+       "h": 4.61990271144213e-05,
+       "l": 4.5241560821791536e-05,
+       "c": 4.61990271144213e-05,
+       "t": 1792281600000
+      },
+      {
+       "v": 788.5907964310381,
+       "o": 4.61990271144213e-05,
+       "h": 5.253047370525494e-05,
+       "l": 4.61990271144213e-05,
+       "c": 5.253047370525494e-05,
+       "t": 1792324800000
+      },
+      {
+       "v": 605.4229144294403,
+       "o": 5.253047370525494e-05,
+       "h": 5.646638976124568e-05,
+       "l": 5.253047370525494e-05,
+       "c": 5.527044898351246e-05,
+       "t": 1792368000000
+      },
+      {
+       "v": 271.5551765982233,
+       "o": 5.527044898351246e-05,
+       "h": 5.568591593534941e-05,
+       "l": 5.527044898351246e-05,
+       "c": 5.559100495690762e-05,
+       "t": 1792411200000
+      },
+      {
+       "v": 325.7292743004128,
+       "o": 5.559100495690762e-05,
+       "h": 5.676340043532268e-05,
+       "l": 5.461383089763091e-05,
+       "c": 5.676340043532268e-05,
+       "t": 1792497600000
+      },
+      {
+       "v": 267.7614121478888,
+       "o": 5.676340043532268e-05,
+       "h": 5.676340043532268e-05,
+       "l": 5.534690585182313e-05,
+       "c": 5.534690585182313e-05,
+       "t": 1792540800000
+      },
+      {
+       "v": 2.5922281271178553,
+       "o": 5.534690585182313e-05,
+       "h": 5.534690585182313e-05,
+       "l": 5.353964357324293e-05,
+       "c": 5.353964357324293e-05,
+       "t": 1792627200000
+      },
+      {
+       "v": 350.18392525414407,
+       "o": 5.353964357324293e-05,
+       "h": 5.505618986127075e-05,
+       "l": 5.353964357324293e-05,
+       "c": 5.505618986127075e-05,
+       "t": 1792713600000
+      },
+      {
+       "v": 52.70180665856868,
+       "o": 5.505618986127075e-05,
+       "h": 5.505618986127075e-05,
+       "l": 5.446792926498585e-05,
+       "c": 5.446792926498585e-05,
+       "t": 1792756800000
+      },
+      {
+       "v": 59.24035317172457,
+       "o": 5.446792926498585e-05,
+       "h": 5.446792926498585e-05,
+       "l": 5.40129041343868e-05,
+       "c": 5.432673304182406e-05,
+       "t": 1792800000000
+      },
+      {
+       "v": 58.519392475333404,
+       "o": 5.432673304182406e-05,
+       "h": 5.432673304182406e-05,
+       "l": 5.3620550808053714e-05,
+       "c": 5.3620550808053714e-05,
+       "t": 1792886400000
+      },
+      {
+       "v": 19.86355709546798,
+       "o": 5.3620550808053714e-05,
+       "h": 5.3620550808053714e-05,
+       "l": 5.28253105847353e-05,
+       "c": 5.28253105847353e-05,
+       "t": 1793016000000
+      },
+      {
+       "v": 35.99893134025233,
+       "o": 5.28253105847353e-05,
+       "h": 5.28253105847353e-05,
+       "l": 5.231016582310389e-05,
+       "c": 5.231016582310389e-05,
+       "t": 1793059200000
+      },
+      {
+       "v": 6210.379981563234,
+       "o": 5.231016582310389e-05,
+       "h": 5.239774051806263e-05,
+       "l": 2.4185179748243782e-05,
+       "c": 2.4185179748243782e-05,
+       "t": 1793102400000
+      },
+      {
+       "v": 1438.712167932595,
+       "o": 2.4185179748243782e-05,
+       "h": 2.4185179748243782e-05,
+       "l": 1.6845783300685614e-05,
+       "c": 1.6845783300685614e-05,
+       "t": 1793145600000
+      },
+      {
+       "v": 452.0915954654499,
+       "o": 1.6845783300685614e-05,
+       "h": 1.6845783300685614e-05,
+       "l": 1.602640972799309e-05,
+       "c": 1.6026783017680153e-05,
+       "t": 1793188800000
+      },
+      {
+       "v": 237.7798240547769,
+       "o": 1.6026783017680153e-05,
+       "h": 1.6026783017680153e-05,
+       "l": 1.4604980146507349e-05,
+       "c": 1.460641851399372e-05,
+       "t": 1793232000000
+      },
+      {
+       "v": 412.5689563741114,
+       "o": 1.460641851399372e-05,
+       "h": 1.460641851399372e-05,
+       "l": 1.3247690303806025e-05,
+       "c": 1.3632744854595572e-05,
+       "t": 1793275200000
+      },
+      {
+       "v": 98.44928177745851,
+       "o": 1.3632744854595572e-05,
+       "h": 1.3632744854595572e-05,
+       "l": 1.268141915133305e-05,
+       "c": 1.268141915133305e-05,
+       "t": 1793318400000
+      },
+      {
+       "v": 462.27354706259774,
+       "o": 1.268141915133305e-05,
+       "h": 1.268141915133305e-05,
+       "l": 1.053278235634766e-05,
+       "c": 1.053278235634766e-05,
+       "t": 1793361600000
+      },
+      {
+       "v": 145.5434621215211,
+       "o": 1.053278235634766e-05,
+       "h": 1.053278235634766e-05,
+       "l": 9.721033259166963e-06,
+       "c": 9.721033259166963e-06,
+       "t": 1793404800000
+      },
+      {
+       "v": 1709.1234023349616,
+       "o": 9.721033259166963e-06,
+       "h": 9.921879825330311e-06,
+       "l": 4.4761745028846536e-06,
+       "c": 4.479547920153423e-06,
+       "t": 1793448000000
+      },
+      {
+       "v": 555.948712437055,
+       "o": 4.479547920153423e-06,
+       "h": 4.479547920153423e-06,
+       "l": 2.9861474610932018e-06,
+       "c": 2.9914082268928136e-06,
+       "t": 1793491200000
+      },
+      {
+       "v": 0.049213314124450444,
+       "o": 2.9914082268928136e-06,
+       "h": 2.9914082268928136e-06,
+       "l": 2.9663673955448807e-06,
+       "c": 2.9663673955448807e-06,
+       "t": 1793577600000
+      },
+      {
+       "v": 163.7375015314362,
+       "o": 2.9663673955448807e-06,
+       "h": 2.9663673955448807e-06,
+       "l": 2.5751035100522356e-06,
+       "c": 2.5751035100522356e-06,
+       "t": 1793620800000
+      },
+      {
+       "v": 0.22460324294634382,
+       "o": 2.5751035100522356e-06,
+       "h": 2.5751035100522356e-06,
+       "l": 2.552541205947685e-06,
+       "c": 2.552541205947685e-06,
+       "t": 1793664000000
+      },
+      {
+       "v": 0.10554035387533184,
+       "o": 2.552541205947685e-06,
+       "h": 2.579733281859938e-06,
+       "l": 2.552541205947685e-06,
+       "c": 2.579733281859938e-06,
+       "t": 1793707200000
+      },
+      {
+       "v": 29.811561349018827,
+       "o": 2.579733281859938e-06,
+       "h": 2.6869690159177096e-06,
+       "l": 2.579733281859938e-06,
+       "c": 2.6869690159177096e-06,
+       "t": 1793793600000
+      },
+      {
+       "v": 0.7101661080729036,
+       "o": 2.6869690159177096e-06,
+       "h": 2.6869690159177096e-06,
+       "l": 2.675687440128916e-06,
+       "c": 2.675687440128916e-06,
+       "t": 1793836800000
+      },
+      {
+       "v": 142.11004289802926,
+       "o": 2.675687440128916e-06,
+       "h": 2.675687440128916e-06,
+       "l": 2.4478729968913567e-06,
+       "c": 2.4478729968913567e-06,
+       "t": 1793880000000
+      }
+     ],
+     "meta": {
+      "observedAt": 1793951029024,
+      "ageMs": 171,
+      "source": "fresh",
+      "parts": {
+       "candles": {
+        "observedAt": 1793951029024,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 178,
+     "stored_chars": 178,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_empty",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xad036ffb8ab498f699baa6b29c413d8ce391badbe2003b10e0cabba734c10036",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x6f905308130f640d1df80752061475e1db67e1ea0b7cc332cc1a00b336836a9a",
+     "delivered": true,
+     "outcome": "delivered_empty",
+     "reason": "delivered_empty: all result arrays empty (honest negative)",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "items": [],
+      "hasNextPage": false
+     },
+     "meta": {
+      "observedAt": 1793951024157,
+      "ageMs": 183,
+      "source": "fresh",
+      "parts": {
+       "tokenActivity": {
+        "observedAt": 1793951024157,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1119,
+     "stored_chars": 1119,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "seller_error",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x824230d00d0ef23fbe5f364df75eff7bc7187c0a7ab9bf87498ffda422d275c1",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xcd7d89513a0ca611e3d57e622f5dff0aa137e7cad68add2317de6d2262ba5a6e",
+     "delivered": false,
+     "outcome": "seller_error",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates that the token is unsupported and the 'market' data, which should contain price, market cap, 24h volume, and liquidity, is null.; class confirmed by adjudicator",
+     "provenance": "probation",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "market": null,
+      "statistics": {
+       "buyCount5m": 0,
+       "buyCount1": 6,
+       "buyCount4": 20,
+       "buyCount24": 34,
+       "buyVolume5m": "0",
+       "buyVolume1": "297.776080820609",
+       "buyVolume4": "1274.2656528449913",
+       "buyVolume24": "1566.7002966670939",
+       "sellCount5m": 0,
+       "sellCount1": 5,
+       "sellCount4": 13,
+       "sellCount24": 28,
+       "sellVolume5m": "0",
+       "sellVolume1": "181.83229196437455",
+       "sellVolume4": "430.7363260960925",
+       "sellVolume24": "930.0332027384903",
+       "uniqueBuys5m": 0,
+       "uniqueBuys1": 6,
+       "uniqueBuys4": 19,
+       "uniqueBuys24": 33,
+       "uniqueSells5m": 0,
+       "uniqueSells1": 4,
+       "uniqueSells4": 11,
+       "uniqueSells24": 23,
+       "holders": 763,
+       "top10HoldersPercent": 34.033973295946645,
+       "isLowFees": false
+      },
+      "warnings": {
+       "disableBuying": true,
+       "disableSelling": false,
+       "warnings": [
+        {
+         "type": "TOKEN_UNSUPPORTED",
+         "severity": "MODERATE",
+         "priority": 0,
+         "name": "Update your app",
+         "description": "Please update your app. This token is not supported on this version of the app."
+        }
+       ]
+      }
+     },
+     "meta": {
+      "observedAt": 1793951016787,
+      "ageMs": 683,
+      "source": "fresh",
+      "parts": {
+       "market": {
+        "observedAt": 1793951016787,
+        "source": "fresh"
+       },
+       "statistics": {
+        "observedAt": 1793951016787,
+        "source": "fresh"
+       },
+       "warnings": {
+        "observedAt": 1793951016787,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 51889,
+     "stored_chars": 51889,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x2728639a82cc8738759ddec37d78700502ee8708b7d0e1442867e835cd9cccbf",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x43af68fb8e363cafec6ccb9e28e8ceab36336db2a6e9343ee1489d4812211015",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+      "networkId": 56,
+      "topHolders": [
+       {
+        "user": {
+         "id": "0174f6c5-4276-5975-9966-6730bbd2f469",
+         "address": "ABWoMgdGEBFunVtgus7YfowaiZNrKDTQ3sN8vhim5Ygy",
+         "evmAddress": "0x346be40b8e1843590eb50fa11b8604ff7184c843",
+         "createdAt": "2026-09-16T02:34:02.200Z",
+         "displayName": "goldfinch",
+         "userHandle": "wintherun",
+         "profilePictureLink": null,
+         "description": "10k$ to 500k$ ride",
+         "following": 78,
+         "followers": 79,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 896,
+         "numTrades": 414,
+         "totalVolume": 219340.087539,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "fa01cb8a-b90d-459f-b6e5-4cb1de535340",
+        "sumSwapOpen": 31118654.53,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 31118654.53,
+        "price": 2.202930212592118e-05,
+        "value": 685.522,
+        "pnl": 98.1527,
+        "unrealizedPnl": 98.1527,
+        "realizedPnl": 0,
+        "costBasis": 587.37,
+        "averageEntryPrice": 1.88752e-05,
+        "comment": {
+         "id": "t2-5c5f247aac878739d6ec58b59e1ed91199c16b52c5f5e49acdde742196679105-5715bc96",
+         "userId": "0174f6c5-4276-5975-9966-6730bbd2f469",
+         "tradeId": "fa01cb8a-b90d-459f-b6e5-4cb1de535340",
+         "comment": "orbio of bnb chain\nFreew hereee......",
+         "priceUsdAtCreation": 1.70651367438e-05,
+         "marketCapAtCreation": 16972.776823963344,
+         "fdvAtCreation": 17065.136743799998,
+         "createdAt": "2026-11-06T05:50:18.668Z",
+         "parentId": null,
+         "numLikes": 2,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 2
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [
+          {
+           "id": "bd37af39-993b-5894-8c0e-1a6ba2ec8a85",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/a6426b8981c84ac104b02deea97ebf57_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          }
+         ],
+         "olderThesis": 0,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "orbio of bnb chain\nFreew hereee......",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 55606,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "d767bbc0-a26a-5797-976c-5c764989bf63",
+         "address": "4Ro9Jxgjmro9AkoD4gho7UgxNKcKqWFggKjTW5EMjDh1",
+         "evmAddress": "0x6d0d8ff39ccc0f03d1de93485719987d9f770a19",
+         "createdAt": "2025-10-05T05:45:13.190Z",
+         "displayName": "wrinkly",
+         "userHandle": "notwrinkly",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/5a34bc2b2baa2e6eb9bf3553d1debdd5_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": null,
+         "following": 28,
+         "followers": 952,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 497,
+         "numTrades": 175,
+         "totalVolume": 3998649.093982,
+         "private": false,
+         "thumbhash": "zZgKHwr6mqV6dndnd8h3eGiJt5+H+nkH",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "762e2423-9e94-48ad-91c5-e44d7ae5bc5c",
+        "sumSwapOpen": 30417669.73,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 30417669.73,
+        "price": 2.202930212592118e-05,
+        "value": 670.08,
+        "pnl": -6491.16,
+        "unrealizedPnl": -6491.16,
+        "realizedPnl": 0,
+        "costBasis": 7161.24,
+        "averageEntryPrice": 0.00023543,
+        "comment": {
+         "id": "t2-dedf3ac33c2158f0bef48a407476867363a8f86b787223f34b0b481ba17bb447-37e63ece",
+         "userId": "d767bbc0-a26a-5797-976c-5c764989bf63",
+         "tradeId": "762e2423-9e94-48ad-91c5-e44d7ae5bc5c",
+         "comment": "\u2018complete with tokenized inference\u2019 wow thanks M!",
+         "priceUsdAtCreation": 0.000310714042959,
+         "marketCapAtCreation": 310714.042959,
+         "fdvAtCreation": 310714.042959,
+         "createdAt": "2026-10-01T11:28:53.824Z",
+         "parentId": null,
+         "numLikes": 31,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 31
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [
+          {
+           "id": "0540cdd2-1f90-523c-9e86-dbd11d87c1cf",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/9be20b2172e3c48ac96e51b25584f28f_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+           "clanBadge": {
+            "type": "clan",
+            "title": "Is This Not Insane",
+            "text": "Awarded for being in a clan",
+            "image": "https://prod-fomo-profile-pics.s3.amazonaws.com/a9c0020fbdc39a2335e3ef34df1a1f4f.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+            "metadata": {
+             "clanId": "28a770ec-ed27-4cbc-b6cc-9a37fe9900fd",
+             "memberType": "member"
+            }
+           }
+          },
+          {
+           "id": "ebb7d8ea-65b1-5286-8a88-b0ea548d8f92",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/0201dee5795c4775b8a0819d7b1f3554_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          },
+          {
+           "id": "a999b6b7-1d87-5873-b7e1-2038cdd5b4fd",
+           "profilePictureLink": null
+          }
+         ],
+         "olderThesis": 1,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "\u2018complete with tokenized inference\u2019 wow thanks M!",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 558133,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "d56df08b-462c-5418-b683-2cb10b971c0e",
+         "address": "EPjWtFu8xEPh9uGUrbiwNspXKzwDhPbiVXf4Qfa1qvbg",
+         "evmAddress": "0xbe97c9b85bdcbb9db03d08e988c2a3b692877c4b",
+         "createdAt": "2026-08-12T03:45:34.614Z",
+         "displayName": "69",
+         "userHandle": "luver",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/dcc035ce8270cb52f918c8fd26fbe875_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "i don't carry a grand but thats who i roll with",
+         "following": 21,
+         "followers": 11610,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 406,
+         "numTrades": 212,
+         "totalVolume": 2099300.681915,
+         "private": false,
+         "thumbhash": "GtgNDwIJl5h4iHaDeniHeIh5mJBHC3kG",
+         "coverPhotoLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/9d7425f0d808913fae1ac3b6b4eb89bc.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "coverPhotoThumbhash": "Xc0AAoCHh4d3iPiHh4iPd/c=",
+         "twitter": null,
+         "clan": {
+          "id": "e5857909-6100-4425-869f-681beb2be75b",
+          "name": "Grand",
+          "iconLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/f66a1bca3d6f5d27bdc814f24c213cb4.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+          "iconThumbhash": "lfcJBwAHiGd4eHiCd1d4aHeIdXA4B4YC"
+         },
+         "clanBadge": {
+          "type": "clan",
+          "title": "Grand",
+          "text": "Awarded for being in a clan",
+          "image": "https://prod-fomo-profile-pics.s3.amazonaws.com/f66a1bca3d6f5d27bdc814f24c213cb4.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+          "metadata": {
+           "clanId": "e5857909-6100-4425-869f-681beb2be75b",
+           "memberType": "member"
+          }
+         }
+        },
+        "tradeId": "576d58bb-881b-4802-b8e7-913b42a9f06d",
+        "sumSwapOpen": 24097967.69,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 24097967.69,
+        "price": 2.202930212592118e-05,
+        "value": 530.861,
+        "pnl": -6109.53,
+        "unrealizedPnl": -6109.53,
+        "realizedPnl": 0,
+        "costBasis": 6640.39,
+        "averageEntryPrice": 0.000275558,
+        "comment": {
+         "id": "t2-f80513966c1ad98b1fc739388e5a07e9ddb540b77daeb0eda7cfd973b11a087f-bee10c5c",
+         "userId": "d56df08b-462c-5418-b683-2cb10b971c0e",
+         "tradeId": "576d58bb-881b-4802-b8e7-913b42a9f06d",
+         "comment": "hello east",
+         "priceUsdAtCreation": 0.000310714042959,
+         "marketCapAtCreation": 310714.042959,
+         "fdvAtCreation": 310714.042959,
+         "createdAt": "2026-10-01T11:28:29.545Z",
+         "parentId": null,
+         "numLikes": 24,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 24
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [
+          {
+           "id": "a999b6b7-1d87-5873-b7e1-2038cdd5b4fd",
+           "profilePictureLink": null
+          },
+          {
+           "id": "522bd2b3-690d-50a9-b31e-58c97f0ad368",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/1431930ac22a526ddf596c751bedf1ea_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          },
+          {
+           "id": "c7d60c1c-3fbe-57d1-a24e-6c13fe7a15d7",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/5c212aaee2fd8b79d9bad380977be608_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          }
+         ],
+         "olderThesis": 0,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "hello east",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 304897,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "5c0fc79b-c204-5eea-b86a-f0ed102e36fa",
+         "address": "9QWZhySZ3UqXR6pEfk43w3w8c8udGeLv8jcvWjgn1cCH",
+         "evmAddress": "0xa3b952d9aa23eb251fb5aa43918bd1298c598fa8",
+         "createdAt": "2026-07-26T20:36:56.519Z",
+         "displayName": "nbs\ud801\ude5a",
+         "userHandle": "onchaincutie",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/1863450b427ccc1111100971ced0ad13_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "retired onchain cutie \u0b68\u09ce\ud83d\udc97\ud83c\udf38",
+         "following": 125,
+         "followers": 16593,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 3480,
+         "numTrades": 1915,
+         "totalVolume": 4756645.631317172,
+         "private": false,
+         "thumbhash": "JwgOBwCvrZRkaYqHamWIl2eIdwELB5cC",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "85a07fbe-df2f-49f1-b2bf-99fc33976a27",
+        "sumSwapOpen": 23242639.7,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 23242639.7,
+        "price": 2.202930212592118e-05,
+        "value": 512.019,
+        "pnl": -885.11,
+        "unrealizedPnl": -885.11,
+        "realizedPnl": 0,
+        "costBasis": 1397.13,
+        "averageEntryPrice": 6.01106e-05,
+        "comment": {
+         "id": "t2-2ab3726ed0a8032e690eea55f1723c5b0b029d3649b6064df97d86a2b82e1e15-116e4919",
+         "userId": "5c0fc79b-c204-5eea-b86a-f0ed102e36fa",
+         "tradeId": "85a07fbe-df2f-49f1-b2bf-99fc33976a27",
+         "comment": "another rt nice",
+         "priceUsdAtCreation": 5.8570422357e-05,
+         "marketCapAtCreation": 58569.651174300925,
+         "fdvAtCreation": 58570.422356999996,
+         "createdAt": "2026-10-11T11:38:32.330Z",
+         "parentId": null,
+         "numLikes": 3,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 3
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": 137,
+         "topLikers": [
+          {
+           "id": "d0275e89-5e81-58ac-926a-76338c0de725",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/fe618b2b1dde5ef15c9a2e95551236b4_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          },
+          {
+           "id": "fafd4e69-6833-5cf1-b50a-2d30ca3aa637",
+           "profilePictureLink": null
+          },
+          {
+           "id": "780ad631-20cc-51e8-abd6-5dc3b30b494f",
+           "profilePictureLink": null
+          }
+         ],
+         "olderThesis": 2,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "another rt nice",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 419020,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "298ceb86-f503-5893-ac0e-61e9f2af2171",
+         "address": "3YcmLc46orjD72SZ9Wz5ytKdy7yUijrbPNU2yEkPT5HA",
+         "evmAddress": "0x63afa8044479cabd908ccc709f93dd4994498eb6",
+         "createdAt": "2026-09-14T13:38:33.989Z",
+         "displayName": "ketakapital",
+         "userHandle": "ketakapital",
+         "profilePictureLink": null,
+         "description": "lines go up",
+         "following": 6,
+         "followers": 395,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 1252,
+         "numTrades": 589,
+         "totalVolume": 653067.32663,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "105ffe8c-9317-45cc-aa98-aa97bb5bae9e",
+        "sumSwapOpen": 20394499.42,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 20394499.42,
+        "price": 2.202930212592118e-05,
+        "value": 449.277,
+        "pnl": -1155.53,
+        "unrealizedPnl": -1155.53,
+        "realizedPnl": 0,
+        "costBasis": 1604.8,
+        "averageEntryPrice": 7.86881e-05,
+        "comment": {
+         "id": "t2-d574aa0c0b5cf593c81e27e103ea166b74ddc894a8188bfb0cf0688c88ae5320-15faf8a4",
+         "userId": "298ceb86-f503-5893-ac0e-61e9f2af2171",
+         "tradeId": "105ffe8c-9317-45cc-aa98-aa97bb5bae9e",
+         "comment": "team are moving at a crazy rate. cloned orbio, agency, and www in under a week.\n\nmight stake half soon, rewards too juicy to ignore.",
+         "priceUsdAtCreation": 0.00103142010333,
+         "marketCapAtCreation": 1031412.3739108564,
+         "fdvAtCreation": 1031420.1033300001,
+         "createdAt": "2026-10-04T08:02:42.011Z",
+         "parentId": null,
+         "numLikes": 6,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 6
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": 111,
+         "topLikers": [
+          {
+           "id": "522bd2b3-690d-50a9-b31e-58c97f0ad368",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/1431930ac22a526ddf596c751bedf1ea_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          },
+          {
+           "id": "78468f4e-dadb-56f2-9bdd-362b6716af0a",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/c6579bd0b81d67e889a88c60d671047a_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          },
+          {
+           "id": "86462442-c464-5348-8015-b7fae32dff99",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/1665fa95348629436e9aa4dac119fb3f_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          }
+         ],
+         "olderThesis": 1,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "team are moving at a crazy rate. cloned orbio, agency, and www in under a week.\n\nmight stake half soon, rewards too juicy to ignore.",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 226673,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "eaa3cebe-2a5e-5c0f-ba2d-ea0e4831dba9",
+         "address": "AEY57uAcunid8UMjVop6ikowLS8EXzFbxxzCuX7sZJxE",
+         "evmAddress": "0xe089f1734c118486d2a02952ab5bba6ccc7e7268",
+         "createdAt": "2026-04-22T05:22:43.681Z",
+         "displayName": "KeenExactMoth",
+         "userHandle": "KeenExactMoth",
+         "profilePictureLink": null,
+         "description": null,
+         "following": 3,
+         "followers": 60,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 334,
+         "numTrades": 140,
+         "totalVolume": 52228.702347,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "ba723963-9225-4ef3-9c39-edf4cb515b22",
+        "sumSwapOpen": 23817055.65,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 19972285.74,
+        "price": 2.202930212592118e-05,
+        "value": 439.976,
+        "pnl": -2849.71,
+        "unrealizedPnl": -2503.74,
+        "realizedPnl": -345.976,
+        "costBasis": 3510.39,
+        "averageEntryPrice": 0.00014739,
+        "comment": {
+         "id": "t2-3b39b8fbea198bcf5cd7eed4355b38256f310864a2bc512d02d320752184c765-bd37a662",
+         "userId": "eaa3cebe-2a5e-5c0f-ba2d-ea0e4831dba9",
+         "tradeId": "ba723963-9225-4ef3-9c39-edf4cb515b22",
+         "comment": "\u597d\u6cf0\u514b",
+         "priceUsdAtCreation": 0.000222589570803,
+         "marketCapAtCreation": 222587.68085944763,
+         "fdvAtCreation": 222589.570803,
+         "createdAt": "2026-10-06T02:07:28.342Z",
+         "parentId": null,
+         "numLikes": 3,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 3
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [
+          {
+           "id": "48bbd3b6-faf3-567d-8ded-768ad44848f3",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/46e11598676a3d3052a9ad7fb5b61d1e_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          },
+          {
+           "id": "d0275e89-5e81-58ac-926a-76338c0de725",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/fe618b2b1dde5ef15c9a2e95551236b4_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          },
+          {
+           "id": "218a8c45-c037-52d5-a2df-954773e11b29",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/917b0bb02c83c5a0dd88a430c2a209b3_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          }
+         ],
+         "olderThesis": 0,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "\u597d\u6cf0\u514b",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": {
+          "language": "en",
+          "text": "high-tech",
+          "shortCommentSegments": [
+           {
+            "text": "high-tech",
+            "link": null,
+            "provider": null
+           }
+          ]
+         }
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 406178,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "9af3a64d-ed0b-5817-ad8d-2f9b7319efea",
+         "address": "G1tXDoR5j7dYaTeuMX7N2Kz3NaJ8KTWgTk4LYxcFumkT",
+         "evmAddress": "0x9ff3d201a26d40f0d066d0a31ab95499a0fbaaef",
+         "createdAt": "2026-09-20T04:38:49.474Z",
+         "displayName": "Toiletpot",
+         "userHandle": "Toiletpot",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/b2f531644a4650c8b3c50ded86baf82e_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "Fomo so bad with slippage\ndon\u2019t follow me i\u2019m a toiletpot",
+         "following": 338,
+         "followers": 157,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 1550,
+         "numTrades": 925,
+         "totalVolume": 707191.350191,
+         "private": false,
+         "thumbhash": "JUoKJoL6mHZzmIl3d7dZxmd5BHZVUFg=",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "11bad12a-02c0-4f1c-ab8b-65beccec9db7",
+        "sumSwapOpen": 8224269.58,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 8224269.58,
+        "price": 2.202930212592118e-05,
+        "value": 181.174,
+        "pnl": -149.147,
+        "unrealizedPnl": -149.147,
+        "realizedPnl": 0,
+        "costBasis": 330.322,
+        "averageEntryPrice": 4.01642e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 92272,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "408a1dde-746f-5019-9cdb-45a718edf549",
+         "address": "J1LqAanwAXn4kRAchLx8DCwvtgHZch3vR2rhnBzYMBcs",
+         "evmAddress": "0x7a8c3c680d448bf862db9a455b15a416dddb3274",
+         "createdAt": "2026-08-30T15:55:36.400Z",
+         "displayName": "GGxyz",
+         "userHandle": "GGxyz",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/26b64f65b4bd5785c7ffc8c9f3c23f0f_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "Don't Panic.",
+         "following": 131,
+         "followers": 49,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 1406,
+         "numTrades": 737,
+         "totalVolume": 145755.886304,
+         "private": false,
+         "thumbhash": "lEkSNYg5V3iKiHdwiWhndEl7gJcH",
+         "coverPhotoLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/16baa1ea999351f5effaf3907072ee7f.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "coverPhotoThumbhash": "UggGAoAwhpl4iHmIMIUnBKo=",
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "2fa4d540-b509-4b06-8904-846a03135503",
+        "sumSwapOpen": 5068447.55,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 5068447.55,
+        "price": 2.202930212592118e-05,
+        "value": 111.654,
+        "pnl": -87.0054,
+        "unrealizedPnl": -87.0054,
+        "realizedPnl": 0,
+        "costBasis": 198.66,
+        "averageEntryPrice": 3.91954e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 103733,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "e3820167-7151-5be6-a6e6-8fe0ca533168",
+         "address": "F5A7sVWJUjDfL1cM9kSeqryZEJVXfdadfQbBcu8Efc4Q",
+         "evmAddress": "0x6814b84535ffcd52fd24e917946ec2c0368cf8c7",
+         "createdAt": "2026-08-30T13:42:40.675Z",
+         "displayName": "winnable69",
+         "userHandle": "winnable69",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/38d455ff2c01e2e69703f887ad46232c_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "$20 and a Dream.\nI\u2019m noob hunting tokens",
+         "following": 125,
+         "followers": 735,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 2630,
+         "numTrades": 1152,
+         "totalVolume": 64707.752214,
+         "private": false,
+         "thumbhash": "YHsGPwj1e2WaZ3dzithIeHeHeZ+I94oI",
+         "coverPhotoLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/fb0626d53f484d5bf4d8f7e2f8a9fcb4.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "coverPhotoThumbhash": "XjcCCoRyioWddwfHB5hWkGk=",
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "46858ad4-9e48-4266-a998-91ad8a7107f7",
+        "sumSwapOpen": 4685212.98,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 4685212.98,
+        "price": 2.202930212592118e-05,
+        "value": 103.212,
+        "pnl": 4.47527,
+        "unrealizedPnl": 4.47527,
+        "realizedPnl": 0,
+        "costBasis": 98.7367,
+        "averageEntryPrice": 2.10741e-05,
+        "comment": {
+         "id": "t2-81409bfa27cebcbe93e50df7f2d145bf7f71999d1bcccbedd7cba60a358ffb28-8d889263",
+         "userId": "e3820167-7151-5be6-a6e6-8fe0ca533168",
+         "tradeId": "46858ad4-9e48-4266-a998-91ad8a7107f7",
+         "comment": "Dev Is cooking behind the scene\n\nhttps://x.com/SUANdotBID/status/2118581236918542429?a=OX9cnXMc6pUZKw2PK6A&s=20",
+         "priceUsdAtCreation": 1.70651367438e-05,
+         "marketCapAtCreation": 16972.776823963344,
+         "fdvAtCreation": 17065.136743799998,
+         "createdAt": "2026-11-06T05:54:49.978Z",
+         "parentId": null,
+         "numLikes": 3,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 3
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [
+          {
+           "id": "0174f6c5-4276-5975-9966-6730bbd2f469",
+           "profilePictureLink": null
+          },
+          {
+           "id": "bd37af39-993b-5894-8c0e-1a6ba2ec8a85",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/a6426b8981c84ac104b02deea97ebf57_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          }
+         ],
+         "olderThesis": 0,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "Dev Is cooking behind the scene\n\n",
+           "link": null,
+           "provider": null
+          },
+          {
+           "text": "https://x.com/SUANdotBID/status/2118581236918542429?a=OX9cnXMc6pUZKw2PK6A&s=20",
+           "link": "https://x.com/SUANdotBID/status/2118581236918542429?a=OX9cnXMc6pUZKw2PK6A&s=20",
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 22957,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "48bbd3b6-faf3-567d-8ded-768ad44848f3",
+         "address": "B18BTHeczA1pjAwS1u1p6unfDTbFpxnDD2CawTDf8gTW",
+         "evmAddress": "0x3cc5a5e816f866b530a06a9f3108cad1f2815edb",
+         "createdAt": "2026-06-16T09:17:36.491Z",
+         "displayName": "narcissist",
+         "userHandle": "Saintofsatoshii",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/46e11598676a3d3052a9ad7fb5b61d1e_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "millionaire monk",
+         "following": 78,
+         "followers": 127,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 213,
+         "numTrades": 160,
+         "totalVolume": 51158.12691,
+         "private": false,
+         "thumbhash": "KDkSDwT3iId9h3WGdol4l3h4eACWKHAK",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "987bba50-94b6-4777-99f4-a0f030d65ebd",
+        "sumSwapOpen": 2679742.01,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 2679742.01,
+        "price": 2.202930212592118e-05,
+        "value": 59.0328,
+        "pnl": -158.208,
+        "unrealizedPnl": -158.208,
+        "realizedPnl": 0,
+        "costBasis": 217.241,
+        "averageEntryPrice": 8.10677e-05,
+        "comment": {
+         "id": "t2-cb383bc715aaceb0b02ec1a4012e82dc68fd30cfe418251936fb1a78cdca607b-021a00f6",
+         "userId": "48bbd3b6-faf3-567d-8ded-768ad44848f3",
+         "tradeId": "987bba50-94b6-4777-99f4-a0f030d65ebd",
+         "comment": "https://x.com/suandotbid/status/2116026629751185837?s=46 hella bullish on this",
+         "priceUsdAtCreation": 4.47751606849e-05,
+         "marketCapAtCreation": 44692.56712816017,
+         "fdvAtCreation": 44775.1606849,
+         "createdAt": "2026-10-30T04:39:58.539Z",
+         "parentId": null,
+         "numLikes": 0,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 0
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [],
+         "olderThesis": 10,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "https://x.com/suandotbid/status/2116026629751185837?s=46",
+           "link": "https://x.com/suandotbid/status/2116026629751185837?s=46",
+           "provider": null
+          },
+          {
+           "text": " hella bullish on this",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 624565,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "76b3753a-2251-5f21-8af8-94ccb3476fe5",
+         "address": "EvGPriVsqwqH21UTNELxi9P259E2eWFNwwwffuYoQLVQ",
+         "evmAddress": "0xbcd4fd137e27d6140e8023d1a428f66fa4351483",
+         "createdAt": "2026-09-06T08:06:27.215Z",
+         "displayName": "Jets",
+         "userHandle": "dizon_brylle",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/2112ad41d365af632e9b10f4f4a94e3b_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": null,
+         "following": 9,
+         "followers": 9,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 397,
+         "numTrades": 240,
+         "totalVolume": 16079.671657,
+         "private": false,
+         "thumbhash": "oZcFDwb4Z5iJdomPhXZ3SId6iUEICHQC",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "7727ae28-2c30-4227-9116-818d0f69fe2d",
+        "sumSwapOpen": 2267575.33,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 2267575.33,
+        "price": 2.202930212592118e-05,
+        "value": 49.9531,
+        "pnl": 0.466446,
+        "unrealizedPnl": 0.466446,
+        "realizedPnl": 0,
+        "costBasis": 49.4867,
+        "averageEntryPrice": 2.18236e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 22006,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "22e222b7-4f8f-590b-a6c1-9cade5609539",
+         "address": "3xp67byeXbgg6r1LnyZDLfAqMaaWWp4tSWqV6aNFwDqx",
+         "evmAddress": "0xe8116b2e68b4bafe132c2bf2105f5b996291789a",
+         "createdAt": "2026-07-26T15:28:31.883Z",
+         "displayName": "checha78",
+         "userHandle": "checha78",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/e2d8908af0ff6034405ca70c85385d68_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": null,
+         "following": 18,
+         "followers": 4,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 563,
+         "numTrades": 335,
+         "totalVolume": 66836.230849,
+         "private": false,
+         "thumbhash": "+gcGBwDXt1iUiHl0domIyHeNn5Cm9pUF",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "1f7cd359-0690-480d-b880-506003a31646",
+        "sumSwapOpen": 1738583.54,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 1738583.54,
+        "price": 2.202930212592118e-05,
+        "value": 38.2998,
+        "pnl": -341.922,
+        "unrealizedPnl": -341.922,
+        "realizedPnl": 0,
+        "costBasis": 380.222,
+        "averageEntryPrice": 0.000218696,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 146291,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "736a53ae-4597-5726-9b0c-30937102802b",
+         "address": "BowytrcLXagCSNzsiUPvfC3odqA8fc4vSNMmzMvbJGrN",
+         "evmAddress": "0x83403bc22951235ca83e24091c00ca690915449b",
+         "createdAt": "2026-09-04T18:03:45.856Z",
+         "displayName": "HotItchyCanid",
+         "userHandle": "HotItchyCanid",
+         "profilePictureLink": null,
+         "description": "",
+         "following": 47,
+         "followers": 5,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 947,
+         "numTrades": 471,
+         "totalVolume": 15944.920148,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "71e92094-9741-4be8-a23a-eb5e093074e6",
+        "sumSwapOpen": 5051853.5,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 1715533.24,
+        "price": 2.202930212592118e-05,
+        "value": 37.792,
+        "pnl": -391.293,
+        "unrealizedPnl": -193.467,
+        "realizedPnl": -197.826,
+        "costBasis": 681.005,
+        "averageEntryPrice": 0.000134803,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 170603,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "bd37af39-993b-5894-8c0e-1a6ba2ec8a85",
+         "address": "2ftZqzXeJebfcW2SiZvAEnP1ZGMubQJ73PhrSreHW78C",
+         "evmAddress": "0x17119d5244d6cc832c2032105caef3d1a6639f38",
+         "createdAt": "2026-09-02T02:29:35.690Z",
+         "displayName": "SaveMe",
+         "userHandle": "coletskie",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/a6426b8981c84ac104b02deea97ebf57_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": null,
+         "following": 26,
+         "followers": 19,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 801,
+         "numTrades": 303,
+         "totalVolume": 8304.43105,
+         "private": false,
+         "thumbhash": "oggODwL8hnc9iKiZhoaJl3iJiGBpCJYG",
+         "coverPhotoLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/7ca24a0c90c2eae7ef8755f21d4fb812.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "coverPhotoThumbhash": "3DgGCoRVQZrAd9mVKeAHOI0=",
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "5a0b9bf2-7759-441f-bf1f-56c56ebcb491",
+        "sumSwapOpen": 1332155.9,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 1332155.9,
+        "price": 2.202930212592118e-05,
+        "value": 29.3465,
+        "pnl": 0.260772,
+        "unrealizedPnl": 0.260772,
+        "realizedPnl": 0,
+        "costBasis": 29.0857,
+        "averageEntryPrice": 2.18336e-05,
+        "comment": {
+         "id": "t2-231da0884fa5421200a097f9b79b7bb9805a1ced61c392bdd879cd86e0aaea7a-039a686c",
+         "userId": "bd37af39-993b-5894-8c0e-1a6ba2ec8a85",
+         "tradeId": "5a0b9bf2-7759-441f-bf1f-56c56ebcb491",
+         "comment": "Tek is working",
+         "priceUsdAtCreation": 2.18825092231e-05,
+         "marketCapAtCreation": 21764.076723670736,
+         "fdvAtCreation": 21882.509223099998,
+         "createdAt": "2026-11-06T06:03:18.890Z",
+         "parentId": null,
+         "numLikes": 2,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 2
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [
+          {
+           "id": "0174f6c5-4276-5975-9966-6730bbd2f469",
+           "profilePictureLink": null
+          }
+         ],
+         "olderThesis": 0,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "Tek is working",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 132761,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "c221b5a8-e4de-5720-a6bd-9bc76e1756c3",
+         "address": "FoByfLKmiSaHzasF5rNryFD4zhsNfRJeoMNTWeMSm8Y2",
+         "evmAddress": "0x3b5844cc09e4ca1bb7e65294d50a64115cec2546",
+         "createdAt": "2026-08-10T12:20:47.802Z",
+         "displayName": "\u0110 Crypto Bro\ud83d\udc68\u200d\ud83d\udcbb\ud83d\udcc8",
+         "userHandle": "StatesOfMemes",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/abac5c3e2ee94fcc8d7a9fcd363fecad_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "Aspiring & grinding to make my first $1M on FOMO. If you share the same mindset, lets grind together!\nDegen|Marketing| Crypto Content Writer| Community Mod|",
+         "following": 10,
+         "followers": 13,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 499,
+         "numTrades": 287,
+         "totalVolume": 28800.387558,
+         "private": false,
+         "thumbhash": "XhgKFwL2h5hthpaNilh5p4iHuqr5VH8N",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "ee6d6d5b-8566-4fb8-9050-d6b6f0e5c00f",
+        "sumSwapOpen": 1140411.42,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 1140411.42,
+        "price": 2.202930212592118e-05,
+        "value": 25.1225,
+        "pnl": -24.6026,
+        "unrealizedPnl": -24.6026,
+        "realizedPnl": 0,
+        "costBasis": 49.725,
+        "averageEntryPrice": 4.36027e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 295564,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "0fe2f292-3dc0-50ba-bd2a-29ddc7602720",
+         "address": "ofX55CC2Q3iu4JZdx2jyzY2Fej914Ew7cHL8oVbCfyL",
+         "evmAddress": "0xd06e5dc74517ae7fde0783be5f0883be49dfa588",
+         "createdAt": "2026-10-06T09:00:34.055Z",
+         "displayName": "lokiloki123",
+         "userHandle": "lokiloki123",
+         "profilePictureLink": null,
+         "description": "meowyawa",
+         "following": 13,
+         "followers": 12,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 10,
+         "numTrades": 3,
+         "totalVolume": 190.823162,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "8faa4f67-6d2b-42a7-a9b9-087bfa9fe1ec",
+        "sumSwapOpen": 770115.03,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 770115.03,
+        "price": 2.202930212592118e-05,
+        "value": 16.9651,
+        "pnl": -35.622,
+        "unrealizedPnl": -35.622,
+        "realizedPnl": 0,
+        "costBasis": 52.5871,
+        "averageEntryPrice": 6.82847e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 101269,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "49e8c424-a507-5216-a0e7-c4c7f26923ea",
+         "address": "3taRbkDXmLMa2HfxA3HeGfAsCBvFEaEViYTWENELETc1",
+         "evmAddress": "0x67500e36c47491ff09237055c546be6caed82a3d",
+         "createdAt": "2026-09-01T05:05:46.816Z",
+         "displayName": "WhereIsDoug",
+         "userHandle": "WhereIsDoug",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/42e7e4f98cd9dac01daeb781e49d2e46_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "Ceasers Palace",
+         "following": 62,
+         "followers": 80,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 4312,
+         "numTrades": 1491,
+         "totalVolume": 1219172.552665,
+         "private": false,
+         "thumbhash": "VhgSDwS4loefeYd4h5aGiHh4mIQIGXYA",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "15b0252f-3fb2-4714-aef0-50a5abe65fab",
+        "sumSwapOpen": 607475.9,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 607475.9,
+        "price": 2.202930212592118e-05,
+        "value": 13.3823,
+        "pnl": -36.1341,
+        "unrealizedPnl": -36.1341,
+        "realizedPnl": 0,
+        "costBasis": 49.5164,
+        "averageEntryPrice": 8.15117e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 125981,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "fb868651-770d-540f-a234-e5c0474234a6",
+         "address": "HiwBCdj52KSKxeyUU7p5ozUpqHA1EPKBp6ju8iT4tHJK",
+         "evmAddress": "0x9f3afd04e6c88d418160cc80ebce11f177a3f74c",
+         "createdAt": "2026-02-10T14:55:27.867Z",
+         "displayName": "icklemyballs",
+         "userHandle": "icklemyballs",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/137f32a974883a43d12ba33caf48c1ae_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "Blinded by the light, revved up like a deuce, another runner in the night.",
+         "following": 57,
+         "followers": 34,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 2477,
+         "numTrades": 849,
+         "totalVolume": 44466.813624,
+         "private": false,
+         "thumbhash": "pucNBwCJh2mKiHd/h2d3t3iG+nToW3AM",
+         "coverPhotoLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/e038dc469135f8a463eed1c7d2698586.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "coverPhotoThumbhash": "lEcGOoRQV7eAl8pnYHdIgHY=",
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "17ec4181-a5ce-4484-8d00-6fd5bdad3567",
+        "sumSwapOpen": 3779693.94,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 605952.76,
+        "price": 2.202930212592118e-05,
+        "value": 13.3487,
+        "pnl": -379.842,
+        "unrealizedPnl": -70.5523,
+        "realizedPnl": -309.29,
+        "costBasis": 523.342,
+        "averageEntryPrice": 0.000138461,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 302165,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "0579fd9f-d904-5f60-97d5-a6a5090a3b59",
+         "address": "3qowCnvNiEA3oceh1VFVFA8sWnYZ7gsPKcHrEnMUeZFq",
+         "evmAddress": "0x7bf0020d53e0d79de787d51553f288007b365265",
+         "createdAt": "2026-09-05T14:37:59.075Z",
+         "displayName": "WarMate-Crypto",
+         "userHandle": "WarMate",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/fc2b63af84e7f58875b5121b79098696_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": ".",
+         "following": 9,
+         "followers": 169,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 1819,
+         "numTrades": 662,
+         "totalVolume": 331848.331336,
+         "private": false,
+         "thumbhash": "jzYOFwYIeGd7d4ZyiDeXSJiIiE/HCYgC",
+         "coverPhotoLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/aa712b76826e76d24a5af4d9e111298b.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "coverPhotoThumbhash": "EuYJGoQHanZ5mUaHt4C4Dkk=",
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "13819092-8c56-4725-9499-77467fa8415e",
+        "sumSwapOpen": 9507769.96,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 528288.08,
+        "price": 2.202930212592118e-05,
+        "value": 11.6378,
+        "pnl": -204.157,
+        "unrealizedPnl": -10.8188,
+        "realizedPnl": -193.338,
+        "costBasis": 404.16,
+        "averageEntryPrice": 4.25084e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 163733,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "2808f26b-11e9-5cc6-b5c7-d7c35649a068",
+         "address": "FDiCFV8vAQcusa53iHn7AoZm6SCgNCEFk9FcL77croen",
+         "evmAddress": "0x668af14141ddb4af51c6b3d69a3b60fd3ae9ad93",
+         "createdAt": "2026-06-30T05:14:20.452Z",
+         "displayName": "POPO",
+         "userHandle": "Popo11",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/1618d1b5f885c7c76926fafd5858ab23_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "",
+         "following": 47,
+         "followers": 9,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 87,
+         "numTrades": 35,
+         "totalVolume": 1161.863728,
+         "private": false,
+         "thumbhash": "BggGDwAIWGV1mHhxeZl3R4eZl0AXCXQB",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "e9be59cd-f32e-4787-a5b2-4f5619d7bb1f",
+        "sumSwapOpen": 611944.64,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 454472.78,
+        "price": 2.202930212592118e-05,
+        "value": 10.0117,
+        "pnl": -58.2392,
+        "unrealizedPnl": -69.1483,
+        "realizedPnl": 10.9091,
+        "costBasis": 106.588,
+        "averageEntryPrice": 0.00017418,
+        "comment": {
+         "id": "t2-bc68d02ac9d04b0c29238e449d8a17faef65faa387ed94cc33458b9e058db6dd-7f4b0cbe",
+         "userId": "2808f26b-11e9-5cc6-b5c7-d7c35649a068",
+         "tradeId": "e9be59cd-f32e-4787-a5b2-4f5619d7bb1f",
+         "comment": "What do we think this could go to?",
+         "priceUsdAtCreation": 0.000801669226919,
+         "marketCapAtCreation": 801669.2269189999,
+         "fdvAtCreation": 801669.2269189999,
+         "createdAt": "2026-10-03T05:42:01.289Z",
+         "parentId": null,
+         "numLikes": 1,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 1
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [
+          {
+           "id": "780ad631-20cc-51e8-abd6-5dc3b30b494f",
+           "profilePictureLink": null
+          }
+         ],
+         "olderThesis": 1,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "What do we think this could go to?",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 156201,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "b0042243-591f-58f7-afe9-9d495b8774fa",
+         "address": "DmG4VKBcfU46EqcjRWX6kKqeZSnoAaBVrxiyeuJHHzL4",
+         "evmAddress": "0x5a5184c2d25d3a412fce77d4ccb8612c5cc7b5c0",
+         "createdAt": "2026-09-11T03:56:56.587Z",
+         "displayName": "MYSTERSWABE",
+         "userHandle": "YUSHINCRYPTO",
+         "profilePictureLink": null,
+         "description": null,
+         "following": 12,
+         "followers": 4,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 292,
+         "numTrades": 133,
+         "totalVolume": 6006.634515,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "c5f66084-97e9-4481-b135-a49927298c88",
+        "sumSwapOpen": 450475.89,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 450475.89,
+        "price": 2.202930212592118e-05,
+        "value": 9.92367,
+        "pnl": -0.0263304,
+        "unrealizedPnl": -0.0263304,
+        "realizedPnl": 0,
+        "costBasis": 9.95,
+        "averageEntryPrice": 2.20878e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 46482,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "0e03a3e7-8788-5d3f-8e29-de7a41bd2923",
+         "address": "49FpiHomcK96m9PuXvhmm4jGRcHvrnLXRWQjkiaChNry",
+         "evmAddress": "0x6a4887c32913c314244470e47635c078f4eb47a8",
+         "createdAt": "2026-08-15T16:21:49.913Z",
+         "displayName": "umenchiem",
+         "userHandle": "umenchiem",
+         "profilePictureLink": null,
+         "description": null,
+         "following": 111,
+         "followers": 18,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 123,
+         "numTrades": 126,
+         "totalVolume": 6816.828988,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "c0e33e85-4614-4db6-a4bd-be8c05678143",
+        "sumSwapOpen": 431765.08,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 431765.08,
+        "price": 2.202930212592118e-05,
+        "value": 9.51148,
+        "pnl": -59.8083,
+        "unrealizedPnl": -59.8083,
+        "realizedPnl": 0,
+        "costBasis": 69.3198,
+        "averageEntryPrice": 0.00016055,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 256486,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "7521b488-5f26-5d9f-837b-4165af794bff",
+         "address": "5soYocTvBNe8cbmrUhMYwsZy2ZjTuS7rrjkL8oVy4yE8",
+         "evmAddress": "0x995bf5c8ca9e274acd73e138ec67a9120b08cb94",
+         "createdAt": "2026-09-25T00:31:03.042Z",
+         "displayName": "Domondz",
+         "userHandle": "Domondz",
+         "profilePictureLink": null,
+         "description": null,
+         "following": 6,
+         "followers": 0,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 4,
+         "numTrades": 4,
+         "totalVolume": 64.180109,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "a3d87842-e2cc-4e99-9e39-90660eceb879",
+        "sumSwapOpen": 389897.35,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 389897.35,
+        "price": 2.202930212592118e-05,
+        "value": 8.58917,
+        "pnl": -22.4033,
+        "unrealizedPnl": -22.4033,
+        "realizedPnl": 0,
+        "costBasis": 30.9925,
+        "averageEntryPrice": 7.94888e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 1181214,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "c4c31dee-66cd-59b0-b7a0-f32e0bc74990",
+         "address": "DiiS1tjF47Ag7AK4KAtZVGHPurRY629jZmi9tEsuL9nn",
+         "evmAddress": "0x6e0f087e1bd6e9a3ca8c59cf735912b231f8a6a5",
+         "createdAt": "2026-09-14T01:26:57.287Z",
+         "displayName": "RippinTiger",
+         "userHandle": "RippinTiger",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/136865dfb66c75ce805e8f0c44e817b2_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "",
+         "following": 1,
+         "followers": 2,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 25,
+         "numTrades": 55,
+         "totalVolume": 7063.436449,
+         "private": false,
+         "thumbhash": "FSkKFwIMclhikpd3nkhWiIllo5AWCWcC",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "0caa1f34-fcef-4ca6-9128-8c7ca51cb361",
+        "sumSwapOpen": 385726.4,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 385726.4,
+        "price": 2.202930212592118e-05,
+        "value": 8.49728,
+        "pnl": -313.151,
+        "unrealizedPnl": -313.151,
+        "realizedPnl": 0,
+        "costBasis": 321.648,
+        "averageEntryPrice": 0.000833876,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 35232,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "5e1cf515-c91d-5840-a4ba-362c1ccc8a92",
+         "address": "4JGXEpPYYaoMcBpdDi3mym9esHKoc1PsLhRGaqFfU5nr",
+         "evmAddress": "0xa7621be512ada1db81ee222baf629870b6d3ed51",
+         "createdAt": "2026-08-31T02:11:27.977Z",
+         "displayName": "LowRareMole",
+         "userHandle": "RareDialed",
+         "profilePictureLink": null,
+         "description": "",
+         "following": 73,
+         "followers": 16,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 2667,
+         "numTrades": 896,
+         "totalVolume": 222066.369432,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "b66f4c5b-d98a-41a6-b6f6-0185960d29f6",
+        "sumSwapOpen": 366866.57,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 289426.38,
+        "price": 2.202930212592118e-05,
+        "value": 6.37586,
+        "pnl": -65.2228,
+        "unrealizedPnl": -122.406,
+        "realizedPnl": 57.1834,
+        "costBasis": 163.24,
+        "averageEntryPrice": 0.000444957,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 28618,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "2242da58-2f9a-5f67-a3cc-41aa8878a49f",
+         "address": "3ZseyUNYnZ4shoeLj2PGRwAMuMZu7Y1UBNKwcAyM35eG",
+         "evmAddress": "0x5be6ea844315564acfbde761fb25793f67beb2b1",
+         "createdAt": "2026-10-01T03:34:43.032Z",
+         "displayName": "Squito",
+         "userHandle": "TheMosquito",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/1953d7a801fe5e522bd4bd4c1341a716_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "Coming to a backyard near you soon. plz don\u2019t swat. let me live, let me eat.",
+         "following": 7,
+         "followers": 18,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 83,
+         "numTrades": 66,
+         "totalVolume": 87952.132302,
+         "private": false,
+         "thumbhash": "pCgSFwTnt5Z2aXd/d2WHqGd4iYAIGXgA",
+         "coverPhotoLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/58ff3baac750ed4b8cc653c3982e38f5.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "coverPhotoThumbhash": "VWoGGoQDXliNh1iKAHkkkGg=",
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "15b49858-d988-411d-a010-2be76a783f24",
+        "sumSwapOpen": 271467.61,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 271467.61,
+        "price": 2.202930212592118e-05,
+        "value": 5.98024,
+        "pnl": -93.0982,
+        "unrealizedPnl": -93.0982,
+        "realizedPnl": 0,
+        "costBasis": 99.0784,
+        "averageEntryPrice": 0.000364973,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": null,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "03e6344e-b83b-53bc-8736-315c68996d14",
+         "address": "47fn6BoYYEARcUGRbVuT18kKi8j9Sgs7wWCmRSgCJFK9",
+         "evmAddress": "0x42165207bbecb0af7fb6f06058a84463d8920a8c",
+         "createdAt": "2026-07-17T11:51:03.523Z",
+         "displayName": "dy01",
+         "userHandle": "dy01",
+         "profilePictureLink": null,
+         "description": "just nothing...",
+         "following": 7,
+         "followers": 5,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 195,
+         "numTrades": 127,
+         "totalVolume": 3248.207844,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "3959f6d7-b949-4713-9ad1-700601379641",
+        "sumSwapOpen": 271286.71,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 271286.71,
+        "price": 2.202930212592118e-05,
+        "value": 5.97626,
+        "pnl": -0.0146886,
+        "unrealizedPnl": -0.0146886,
+        "realizedPnl": 0,
+        "costBasis": 5.99095,
+        "averageEntryPrice": 2.20834e-05,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 21144,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "aed4c9ba-2236-5846-9d7d-98cb3bb0d2ef",
+         "address": "3aoJW8Phfe3auDKWFmgKHyGPpNJRNPTsercxiDBaWhMi",
+         "evmAddress": "0x90f548070ef14339356bc5bf56a466a949dfa429",
+         "createdAt": "2026-09-24T14:49:11.468Z",
+         "displayName": "Dillpickle2013",
+         "userHandle": "Dillpickle2013",
+         "profilePictureLink": null,
+         "description": null,
+         "following": 4,
+         "followers": 4,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 35,
+         "numTrades": 21,
+         "totalVolume": 4461.609926,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "a4f49b10-5346-42d7-93a6-c58d2634d906",
+        "sumSwapOpen": 251121.75,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 251121.75,
+        "price": 2.202930212592118e-05,
+        "value": 5.53204,
+        "pnl": -293.326,
+        "unrealizedPnl": -293.326,
+        "realizedPnl": 0,
+        "costBasis": 298.858,
+        "averageEntryPrice": 0.00119009,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 248332,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "7745cf6b-3ee1-5d87-9468-a10e9120c31d",
+         "address": "HMLmZDQ9ddWaSCseo9qnkEJcGTc9ZTJuG3qHDV7MGJCC",
+         "evmAddress": "0x603f826ad75c5fe32a39c60d5570f792e621e221",
+         "createdAt": "2026-08-31T17:35:35.769Z",
+         "displayName": "watchMeDance",
+         "userHandle": "watchMeDance",
+         "profilePictureLink": null,
+         "description": null,
+         "following": 2,
+         "followers": 6,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 374,
+         "numTrades": 192,
+         "totalVolume": 22651.187082,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "5fa2d2be-feda-457d-bc65-dcabc261b8ba",
+        "sumSwapOpen": 246835.88,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 246835.88,
+        "price": 2.202930212592118e-05,
+        "value": 5.43762,
+        "pnl": -172.863,
+        "unrealizedPnl": -172.863,
+        "realizedPnl": 0,
+        "costBasis": 178.301,
+        "averageEntryPrice": 0.000722346,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 155506,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "1726ec70-5edf-5ccf-96c9-e387acb96069",
+         "address": "mCiT8bRZnBtt27gpZXWXL7EMy2H4kDxXSKj3PMzpUBh",
+         "evmAddress": "0xaabab71d06a285a408f7e265a8b932cc9daee207",
+         "createdAt": "2026-09-11T17:37:00.761Z",
+         "displayName": "Gman",
+         "userHandle": "GmanRozor",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/6c5268a3b20bf7f44f0d01c07f3ac987_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "Broke millennial with dead-end job trying to take care of his family",
+         "following": 130,
+         "followers": 9,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 183,
+         "numTrades": 109,
+         "totalVolume": 1931.083456,
+         "private": false,
+         "thumbhash": "y/cNFwIHiLh3d4eHeHeIaIeHV/EqiX8D",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "7fe065ee-0f41-4fe8-8650-1852cadf2984",
+        "sumSwapOpen": 313931.32,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 214566.43,
+        "price": 2.202930212592118e-05,
+        "value": 4.72674,
+        "pnl": 92.3358,
+        "unrealizedPnl": -1.86787,
+        "realizedPnl": 94.2037,
+        "costBasis": 9.64856,
+        "averageEntryPrice": 3.07346e-05,
+        "comment": {
+         "id": "t2-935510d28540b43537ad67cff0789f15b48ae85c87feafcb04df1f463452197c-37a14e0b",
+         "userId": "1726ec70-5edf-5ccf-96c9-e387acb96069",
+         "tradeId": "7fe065ee-0f41-4fe8-8650-1852cadf2984",
+         "comment": "AI influencers boys to the moon.\nhttps://x.com/SUANdotBID/status/2106770784798801944",
+         "priceUsdAtCreation": 0.000589606242805,
+         "marketCapAtCreation": 589601.2366292253,
+         "fdvAtCreation": 589606.2428049999,
+         "createdAt": "2026-10-04T17:32:47.060Z",
+         "parentId": null,
+         "numLikes": 2,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 2
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [
+          {
+           "id": "f77f35d7-7579-540c-b28d-ffbbdaca80cf",
+           "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/665599de6ecc4fa1b122bbc585a6b7e7_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww"
+          },
+          {
+           "id": "2ec57a30-b423-57b2-b66a-5e289bafce06",
+           "profilePictureLink": null
+          }
+         ],
+         "olderThesis": 27,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "AI influencers boys to the moon.\n",
+           "link": null,
+           "provider": null
+          },
+          {
+           "text": "https://x.com/SUANdotBID/status/2106770784798801944",
+           "link": "https://x.com/SUANdotBID/status/2106770784798801944",
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 21109,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "555de9e2-3adf-5764-8c9e-eb383a2dbf79",
+         "address": "276BH1R74sayLewGV3cG7Gx4tM1QLmNLGBwJBsQumn6V",
+         "evmAddress": "0x0b47514dd4d7a3fddee63432835e3ddcec6f515b",
+         "createdAt": "2026-09-05T15:06:21.514Z",
+         "displayName": "dogecool",
+         "userHandle": "dogecool",
+         "profilePictureLink": null,
+         "description": null,
+         "following": 5,
+         "followers": 1,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 105,
+         "numTrades": 66,
+         "totalVolume": 19420.718255,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "ba98a9db-cfa0-414d-9769-7415c2777110",
+        "sumSwapOpen": 186158.47,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 186158.47,
+        "price": 2.202930212592118e-05,
+        "value": 4.10094,
+        "pnl": -144.543,
+        "unrealizedPnl": -144.543,
+        "realizedPnl": 0,
+        "costBasis": 148.644,
+        "averageEntryPrice": 0.000798483,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 97107,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "1473e700-dd6a-599c-b0f4-b5b47dcfd775",
+         "address": "B8ubbWGJ762jEN9bk3F5yrNq28BCnNe8cK1PUjNT8eZ4",
+         "evmAddress": "0x0a9f517341011dbabe0e0e775fedb3cdebd1a991",
+         "createdAt": "2026-09-24T07:11:01.975Z",
+         "displayName": "FinalMildMole",
+         "userHandle": "FinalMildMole",
+         "profilePictureLink": null,
+         "description": null,
+         "following": 13,
+         "followers": 4,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 132,
+         "numTrades": 80,
+         "totalVolume": 6752.519913,
+         "private": false,
+         "thumbhash": null,
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "e54378e1-db78-4a90-ac8d-b89295c7b688",
+        "sumSwapOpen": 149503.26,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 149503.26,
+        "price": 2.202930212592118e-05,
+        "value": 3.29346,
+        "pnl": -31.258,
+        "unrealizedPnl": -31.258,
+        "realizedPnl": 0,
+        "costBasis": 34.5514,
+        "averageEntryPrice": 0.000231108,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 124190,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "d08025f5-8a4b-5e76-ba83-76b04e15eb86",
+         "address": "AUCpfvtyb5gxNvRMCuume782n3NmWJ7E7tMN266qNg8o",
+         "evmAddress": "0xdc7d56b31b8ecbd47b15d1a2bc5fcde42269c381",
+         "createdAt": "2026-08-30T20:34:31.873Z",
+         "displayName": "m1rroq",
+         "userHandle": "m1rroq",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/6c085cc455e54bf20c7aa894fe8af493_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "First to know - First to grow \ud83e\udd1d",
+         "following": 59,
+         "followers": 5,
+         "activated": false,
+         "verified": false,
+         "isReferred": true,
+         "isRestricted": false,
+         "swapCount": 87,
+         "numTrades": 58,
+         "totalVolume": 8477.16486,
+         "private": false,
+         "thumbhash": "zfcFDYAP9G2WRbhWdWd2YvOvTf/b",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "d3546adf-fc70-49fb-9dcf-09682c3d5cab",
+        "sumSwapOpen": 133264.14,
+        "sumTransferIn": 0,
+        "isExternallyReceived": false,
+        "humanAmount": 133264.14,
+        "price": 2.202930212592118e-05,
+        "value": 2.93572,
+        "pnl": -96.1968,
+        "unrealizedPnl": -96.1968,
+        "realizedPnl": 0,
+        "costBasis": 99.1326,
+        "averageEntryPrice": 0.00074388,
+        "comment": null,
+        "showComment": true,
+        "averageHoldTimeSeconds": 526551,
+        "isDev": false
+       },
+       {
+        "user": {
+         "id": "dd6efae8-fa35-5fe0-818f-871880881876",
+         "address": "5bpKGp65snQtSS8FzkVSQHNd7T9dyK4rAAAMWcQf15Ap",
+         "evmAddress": "0xdfeeeba8dacca409007ce72a995cd03604f3fca5",
+         "createdAt": "2026-08-14T03:34:20.088Z",
+         "displayName": "NeatBackShark",
+         "userHandle": "NeatBackShark",
+         "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/784f25336a16a56a25a75262f9364a0c_small.jpg?k=310gfQS2OYdk8LynpHrPw58Ww",
+         "description": "",
+         "following": 20,
+         "followers": 4,
+         "activated": false,
+         "verified": false,
+         "isReferred": false,
+         "isRestricted": false,
+         "swapCount": 80,
+         "numTrades": 51,
+         "totalVolume": 2277.033058,
+         "private": false,
+         "thumbhash": "dRgGDwL355lsioWJhoZ3mHeHiXBpB5QD",
+         "coverPhotoLink": null,
+         "coverPhotoThumbhash": null,
+         "twitter": null,
+         "clan": null
+        },
+        "tradeId": "0ee29971-86d3-4b81-b4c1-68faf35c4bea",
+        "sumSwapOpen": 75895.34,
+        "sumTransferIn": 34089.66,
+        "isExternallyReceived": false,
+        "humanAmount": 109985,
+        "price": 2.202930212592118e-05,
+        "value": 2.42289,
+        "pnl": -48.9477,
+        "unrealizedPnl": -48.9477,
+        "realizedPnl": 0,
+        "costBasis": 51.3706,
+        "averageEntryPrice": 0.000467069,
+        "comment": {
+         "id": "t2-83b7a022fed3755f9d46ed7ba95ecbf2fee93b7532c6a79f7eba7eb462f54e91-a239d824",
+         "userId": "dd6efae8-fa35-5fe0-818f-871880881876",
+         "tradeId": "0ee29971-86d3-4b81-b4c1-68faf35c4bea",
+         "comment": "This is a great project.\nYou can go to the official website and try out its features. \nIt will hit ATH again soon.",
+         "priceUsdAtCreation": 0.000246649724139,
+         "marketCapAtCreation": 246647.62990765687,
+         "fdvAtCreation": 246649.724139,
+         "createdAt": "2026-10-06T06:10:10.156Z",
+         "parentId": null,
+         "numLikes": 0,
+         "numReposts": 0,
+         "repostOfCommentId": null,
+         "tokenAddress": "0xc561dc47b9c1c036e77ecffdde66b8f451847777",
+         "networkId": 56,
+         "reactions": {
+          "counts": {
+           "likeCount": 0
+          },
+          "reactions": {
+           "like": false,
+           "repost": false
+          }
+         },
+         "viewCount": null,
+         "topLikers": [],
+         "olderThesis": 0,
+         "newerThesis": 0,
+         "shortCommentSegments": [
+          {
+           "text": "This is a great project.\nYou can go to the official website and try out its features. \nIt will hit ATH again soon.",
+           "link": null,
+           "provider": null
+          }
+         ],
+         "translation": null
+        },
+        "numReplies": 0,
+        "showComment": true,
+        "averageHoldTimeSeconds": 156834,
+        "isDev": false
+       }
+      ],
+      "totalHolders": 200
+     },
+     "meta": {
+      "observedAt": 1793951016705,
+      "ageMs": 559,
+      "source": "fresh",
+      "parts": {
+       "holders": {
+        "observedAt": 1793951016705,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 4,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 11176,
+     "stored_chars": 11176,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x9d08359c9069993c7ef9a8d2f613acac01006b25820fd04296c0695c409e8579",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xadddb47990f4b4da2a5b6a0aedba92276d0c24dafca08f0ff87423adc3bc1eb0",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "data": [
+      {
+       "v": 996847.1281174944,
+       "o": 4.399040767373727e-06,
+       "h": 0.0005075979848270406,
+       "l": 4.399040767373727e-06,
+       "c": 0.0002942743650005975,
+       "t": 1790812800000
+      },
+      {
+       "v": 218890.89735526213,
+       "o": 0.0002942743650005975,
+       "h": 0.00029764211153511966,
+       "l": 3.762988262147421e-05,
+       "c": 6.0087964816429714e-05,
+       "t": 1790856000000
+      },
+      {
+       "v": 238244.54573746028,
+       "o": 6.0087964816429714e-05,
+       "h": 0.0003833741962892625,
+       "l": 5.179363021499451e-05,
+       "c": 0.00026268090471283476,
+       "t": 1790899200000
+      },
+      {
+       "v": 91265.29387358992,
+       "o": 0.00026268090471283476,
+       "h": 0.00029734614660509025,
+       "l": 8.745557517891523e-05,
+       "c": 9.592580948338939e-05,
+       "t": 1790942400000
+      },
+      {
+       "v": 927797.5328044741,
+       "o": 9.592580948338939e-05,
+       "h": 0.0012848095028178748,
+       "l": 9.468923413285452e-05,
+       "c": 0.0005949591243710612,
+       "t": 1790985600000
+      },
+      {
+       "v": 824019.016026185,
+       "o": 0.0005949591243710612,
+       "h": 0.0016708599370344878,
+       "l": 0.00029612865730707487,
+       "c": 0.0010447853482939786,
+       "t": 1791028800000
+      },
+      {
+       "v": 592744.5920147889,
+       "o": 0.0010447853482939786,
+       "h": 0.001769154689847962,
+       "l": 0.0006778271739761347,
+       "c": 0.0009956178259542567,
+       "t": 1791072000000
+      },
+      {
+       "v": 266778.6081083669,
+       "o": 0.0009956178259542567,
+       "h": 0.001013426336937577,
+       "l": 0.0004708797663944539,
+       "c": 0.000512981948405429,
+       "t": 1791115200000
+      },
+      {
+       "v": 200107.54339840077,
+       "o": 0.000512981948405429,
+       "h": 0.0005858645144577822,
+       "l": 0.00026696032073837066,
+       "c": 0.00027059585464671505,
+       "t": 1791158400000
+      },
+      {
+       "v": 146660.3813619998,
+       "o": 0.00027059585464671505,
+       "h": 0.0002870402617305576,
+       "l": 0.00010750882829147988,
+       "c": 0.0001410384399657027,
+       "t": 1791201600000
+      },
+      {
+       "v": 172067.05470833555,
+       "o": 0.0001410384399657027,
+       "h": 0.0005479973022365106,
+       "l": 0.00013997434017497934,
+       "c": 0.0002566229332473835,
+       "t": 1791244800000
+      },
+      {
+       "v": 33431.06429521728,
+       "o": 0.0002566229332473835,
+       "h": 0.00031130621669533975,
+       "l": 0.00023230528788631313,
+       "c": 0.00028396189939448386,
+       "t": 1791288000000
+      },
+      {
+       "v": 57218.679881730655,
+       "o": 0.00028396189939448386,
+       "h": 0.00028396189939448386,
+       "l": 0.00012602892707974417,
+       "c": 0.00017936296565352765,
+       "t": 1791331200000
+      },
+      {
+       "v": 20716.528119543204,
+       "o": 0.00017936296565352765,
+       "h": 0.00017936296565352765,
+       "l": 0.0001295185210583647,
+       "c": 0.00013973950593471347,
+       "t": 1791374400000
+      },
+      {
+       "v": 18706.725365250073,
+       "o": 0.00013973950593471347,
+       "h": 0.00017909659280597906,
+       "l": 0.00010001774384025483,
+       "c": 0.00011045717010602691,
+       "t": 1791417600000
+      },
+      {
+       "v": 23117.938889990728,
+       "o": 0.00011045717010602691,
+       "h": 0.00011563047919355524,
+       "l": 5.1383577640284433e-05,
+       "c": 6.614901908031578e-05,
+       "t": 1791460800000
+      },
+      {
+       "v": 3121.049367758007,
+       "o": 6.614901908031578e-05,
+       "h": 8.593153855457446e-05,
+       "l": 6.236996508358152e-05,
+       "c": 8.388040588660071e-05,
+       "t": 1791504000000
+      },
+      {
+       "v": 10379.320225379159,
+       "o": 8.388040588660071e-05,
+       "h": 8.92595842279729e-05,
+       "l": 5.291470609152608e-05,
+       "c": 5.519620676043574e-05,
+       "t": 1791547200000
+      },
+      {
+       "v": 11060.11750894201,
+       "o": 5.519620676043574e-05,
+       "h": 8.317310767598836e-05,
+       "l": 4.6437076028158964e-05,
+       "c": 6.16178017183172e-05,
+       "t": 1791590400000
+      },
+      {
+       "v": 7210.473733620658,
+       "o": 6.16178017183172e-05,
+       "h": 7.52959359685874e-05,
+       "l": 5.272383047064778e-05,
+       "c": 6.192171192769486e-05,
+       "t": 1791633600000
+      },
+      {
+       "v": 15420.148172964875,
+       "o": 6.192171192769486e-05,
+       "h": 0.00010718780332624576,
+       "l": 5.632507526902107e-05,
+       "c": 0.00010162251402978953,
+       "t": 1791676800000
+      },
+      {
+       "v": 12150.92512049086,
+       "o": 0.00010162251402978953,
+       "h": 0.00010540812287760637,
+       "l": 6.671916367143239e-05,
+       "c": 7.313028479952359e-05,
+       "t": 1791720000000
+      },
+      {
+       "v": 14385.86578321659,
+       "o": 7.313028479952359e-05,
+       "h": 7.321465274110542e-05,
+       "l": 4.2630602617601636e-05,
+       "c": 4.910608833368729e-05,
+       "t": 1791763200000
+      },
+      {
+       "v": 3031.004300677004,
+       "o": 4.910608833368729e-05,
+       "h": 4.910608833368729e-05,
+       "l": 4.079061699668493e-05,
+       "c": 4.26846394041703e-05,
+       "t": 1791806400000
+      },
+      {
+       "v": 12338.919700024817,
+       "o": 4.26846394041703e-05,
+       "h": 4.587736926035444e-05,
+       "l": 2.7265298513357446e-05,
+       "c": 3.148579152734083e-05,
+       "t": 1791849600000
+      },
+      {
+       "v": 13783.280917479908,
+       "o": 3.148579152734083e-05,
+       "h": 6.291752611847861e-05,
+       "l": 3.148579152734083e-05,
+       "c": 5.738449057389149e-05,
+       "t": 1791892800000
+      },
+      {
+       "v": 3725.7016284453166,
+       "o": 5.738449057389149e-05,
+       "h": 5.780272183645688e-05,
+       "l": 4.241633893758384e-05,
+       "c": 4.2474955280281494e-05,
+       "t": 1791936000000
+      },
+      {
+       "v": 2454.045038245381,
+       "o": 4.2474955280281494e-05,
+       "h": 4.272766622142002e-05,
+       "l": 3.3616729322405994e-05,
+       "c": 3.653883398585768e-05,
+       "t": 1791979200000
+      },
+      {
+       "v": 1799.6590446361495,
+       "o": 3.653883398585768e-05,
+       "h": 4.064272736857495e-05,
+       "l": 3.653883398585768e-05,
+       "c": 3.69689417041431e-05,
+       "t": 1792022400000
+      },
+      {
+       "v": 894.7959670077513,
+       "o": 3.69689417041431e-05,
+       "h": 3.814593332545955e-05,
+       "l": 3.6193361718722755e-05,
+       "c": 3.6799971926412024e-05,
+       "t": 1792065600000
+      },
+      {
+       "v": 959.9169247587452,
+       "o": 3.6799971926412024e-05,
+       "h": 3.899852674714217e-05,
+       "l": 3.6105237089770614e-05,
+       "c": 3.8689949431028034e-05,
+       "t": 1792108800000
+      },
+      {
+       "v": 616.0976920640541,
+       "o": 3.8689949431028034e-05,
+       "h": 4.051210941355254e-05,
+       "l": 3.7790500850070736e-05,
+       "c": 4.045121345568279e-05,
+       "t": 1792152000000
+      },
+      {
+       "v": 4695.9111543755025,
+       "o": 4.045121345568279e-05,
+       "h": 4.047717836916244e-05,
+       "l": 2.5512938754879467e-05,
+       "c": 2.6484436227817045e-05,
+       "t": 1792195200000
+      },
+      {
+       "v": 9622.272672226036,
+       "o": 2.6484436227817045e-05,
+       "h": 5.4285298019118673e-05,
+       "l": 2.6484436227817045e-05,
+       "c": 3.813741225883749e-05,
+       "t": 1792238400000
+      },
+      {
+       "v": 1084.2172024336403,
+       "o": 3.813741225883749e-05,
+       "h": 3.821345466205173e-05,
+       "l": 3.3769672501410816e-05,
+       "c": 3.4649952697568174e-05,
+       "t": 1792281600000
+      },
+      {
+       "v": 1288.9973457714914,
+       "o": 3.4649952697568174e-05,
+       "h": 3.6174297941119946e-05,
+       "l": 3.2088329371366385e-05,
+       "c": 3.367505368167796e-05,
+       "t": 1792324800000
+      },
+      {
+       "v": 2586.4048471546266,
+       "o": 3.367505368167796e-05,
+       "h": 3.504782125178064e-05,
+       "l": 2.893342705710902e-05,
+       "c": 2.963754526344622e-05,
+       "t": 1792368000000
+      },
+      {
+       "v": 809.3030941254108,
+       "o": 2.963754526344622e-05,
+       "h": 3.140911384295096e-05,
+       "l": 2.9396409554650862e-05,
+       "c": 3.101074882439741e-05,
+       "t": 1792411200000
+      },
+      {
+       "v": 129.4864570818071,
+       "o": 3.101074882439741e-05,
+       "h": 3.125989452931127e-05,
+       "l": 3.078377510159333e-05,
+       "c": 3.108578286352229e-05,
+       "t": 1792454400000
+      },
+      {
+       "v": 608.7837272290639,
+       "o": 3.108578286352229e-05,
+       "h": 3.408492993897944e-05,
+       "l": 3.108578286352229e-05,
+       "c": 3.382754911673777e-05,
+       "t": 1792497600000
+      },
+      {
+       "v": 853.9313249363345,
+       "o": 3.382754911673777e-05,
+       "h": 3.457354109843722e-05,
+       "l": 3.2686936706281366e-05,
+       "c": 3.328343353538505e-05,
+       "t": 1792540800000
+      },
+      {
+       "v": 3013.0219145817846,
+       "o": 3.328343353538505e-05,
+       "h": 3.86186272441429e-05,
+       "l": 3.2453325795059736e-05,
+       "c": 3.741899332488177e-05,
+       "t": 1792584000000
+      },
+      {
+       "v": 2642.4307524563824,
+       "o": 3.741899332488177e-05,
+       "h": 3.830897675104309e-05,
+       "l": 3.215304461075087e-05,
+       "c": 3.499212710960191e-05,
+       "t": 1792627200000
+      },
+      {
+       "v": 1986.301077281491,
+       "o": 3.499212710960191e-05,
+       "h": 3.499212710960191e-05,
+       "l": 2.713138759134646e-05,
+       "c": 2.713138759134646e-05,
+       "t": 1792670400000
+      },
+      {
+       "v": 599.2485498990302,
+       "o": 2.713138759134646e-05,
+       "h": 2.7931652855406374e-05,
+       "l": 2.6329131310035322e-05,
+       "c": 2.6329131310035322e-05,
+       "t": 1792713600000
+      },
+      {
+       "v": 2746.417272071523,
+       "o": 2.6329131310035322e-05,
+       "h": 2.7084145171228395e-05,
+       "l": 2.1701789645070405e-05,
+       "c": 2.1701789645070405e-05,
+       "t": 1792756800000
+      },
+      {
+       "v": 1272.8974744354696,
+       "o": 2.1701789645070405e-05,
+       "h": 2.3498496899227647e-05,
+       "l": 1.9401644638807222e-05,
+       "c": 1.9434639624341502e-05,
+       "t": 1792800000000
+      },
+      {
+       "v": 2084.651062699332,
+       "o": 1.9434639624341502e-05,
+       "h": 1.9471653831913138e-05,
+       "l": 1.4032532185303276e-05,
+       "c": 1.679674725827016e-05,
+       "t": 1792843200000
+      },
+      {
+       "v": 628.1975735548925,
+       "o": 1.679674725827016e-05,
+       "h": 1.7101717414168644e-05,
+       "l": 1.5194125388918216e-05,
+       "c": 1.5194125388918216e-05,
+       "t": 1792886400000
+      },
+      {
+       "v": 614.9692582268046,
+       "o": 1.5194125388918216e-05,
+       "h": 1.5194125388918216e-05,
+       "l": 1.3727337101762207e-05,
+       "c": 1.4279825004177934e-05,
+       "t": 1792929600000
+      },
+      {
+       "v": 2932.6350295013285,
+       "o": 1.4279825004177934e-05,
+       "h": 1.958612798375381e-05,
+       "l": 1.2185835883729891e-05,
+       "c": 1.6836125545433264e-05,
+       "t": 1792972800000
+      },
+      {
+       "v": 767.7898305110464,
+       "o": 1.6836125545433264e-05,
+       "h": 1.7895824673448234e-05,
+       "l": 1.6038033015985644e-05,
+       "c": 1.60542291374193e-05,
+       "t": 1793016000000
+      },
+      {
+       "v": 783.4387956610649,
+       "o": 1.60542291374193e-05,
+       "h": 1.7141686390833613e-05,
+       "l": 1.5710240539621116e-05,
+       "c": 1.5710240539621116e-05,
+       "t": 1793059200000
+      },
+      {
+       "v": 975.0994396980874,
+       "o": 1.5710240539621116e-05,
+       "h": 1.7519995996841317e-05,
+       "l": 1.5233905804407498e-05,
+       "c": 1.5233905804407498e-05,
+       "t": 1793102400000
+      },
+      {
+       "v": 2588.379796484418,
+       "o": 1.5233905804407498e-05,
+       "h": 2.2770005037392863e-05,
+       "l": 1.5154630469481786e-05,
+       "c": 2.2033916311279126e-05,
+       "t": 1793145600000
+      },
+      {
+       "v": 12706.2573848791,
+       "o": 2.2033916311279126e-05,
+       "h": 6.402885043234311e-05,
+       "l": 2.104329350541294e-05,
+       "c": 3.7577771835998356e-05,
+       "t": 1793188800000
+      },
+      {
+       "v": 81904.5068360284,
+       "o": 3.7577771835998356e-05,
+       "h": 0.00013759919200570191,
+       "l": 3.083973162345024e-05,
+       "c": 5.484931000543652e-05,
+       "t": 1793232000000
+      },
+      {
+       "v": 7730.108352402946,
+       "o": 5.484931000543652e-05,
+       "h": 6.742084547842535e-05,
+       "l": 4.9083026849318034e-05,
+       "c": 4.9083026849318034e-05,
+       "t": 1793275200000
+      },
+      {
+       "v": 19958.723826618952,
+       "o": 4.9083026849318034e-05,
+       "h": 8.191597398818003e-05,
+       "l": 3.471780908435115e-05,
+       "c": 6.332591831743586e-05,
+       "t": 1793318400000
+      },
+      {
+       "v": 5792.414103410482,
+       "o": 6.332591831743586e-05,
+       "h": 6.332591831743586e-05,
+       "l": 3.996226103959252e-05,
+       "c": 4.089501907917375e-05,
+       "t": 1793361600000
+      },
+      {
+       "v": 1633.024391851565,
+       "o": 4.089501907917375e-05,
+       "h": 4.607715523860968e-05,
+       "l": 4.036893851533209e-05,
+       "c": 4.049877348658827e-05,
+       "t": 1793404800000
+      },
+      {
+       "v": 987.723820570903,
+       "o": 4.049877348658827e-05,
+       "h": 4.1533833850142374e-05,
+       "l": 3.929873953147779e-05,
+       "c": 4.049832654224121e-05,
+       "t": 1793448000000
+      },
+      {
+       "v": 6538.969740549577,
+       "o": 4.049832654224121e-05,
+       "h": 4.847440206873774e-05,
+       "l": 3.21776544536395e-05,
+       "c": 3.659378871912028e-05,
+       "t": 1793491200000
+      },
+      {
+       "v": 3490.7471235861594,
+       "o": 3.659378871912028e-05,
+       "h": 4.194788592788786e-05,
+       "l": 3.277354591401678e-05,
+       "c": 4.001719155810973e-05,
+       "t": 1793534400000
+      },
+      {
+       "v": 4473.0685637574,
+       "o": 4.001719155810973e-05,
+       "h": 4.001719155810973e-05,
+       "l": 2.3390763078110738e-05,
+       "c": 2.5621381977473995e-05,
+       "t": 1793577600000
+      },
+      {
+       "v": 1545.2949306562944,
+       "o": 2.5621381977473995e-05,
+       "h": 2.7681363198042775e-05,
+       "l": 2.489174260172905e-05,
+       "c": 2.489174260172905e-05,
+       "t": 1793620800000
+      },
+      {
+       "v": 1542.3520368291288,
+       "o": 2.489174260172905e-05,
+       "h": 2.6724906657550415e-05,
+       "l": 2.3768465777122008e-05,
+       "c": 2.3768465777122008e-05,
+       "t": 1793664000000
+      },
+      {
+       "v": 1324.0375512442536,
+       "o": 2.3768465777122008e-05,
+       "h": 2.3768465777122008e-05,
+       "l": 1.9897420302080404e-05,
+       "c": 2.056591711862317e-05,
+       "t": 1793707200000
+      },
+      {
+       "v": 1088.0173229279972,
+       "o": 2.056591711862317e-05,
+       "h": 2.425626373763435e-05,
+       "l": 2.035164438352186e-05,
+       "c": 2.3671078778874074e-05,
+       "t": 1793750400000
+      },
+      {
+       "v": 970.7399246882742,
+       "o": 2.3671078778874074e-05,
+       "h": 2.3671078778874074e-05,
+       "l": 2.0505274877210424e-05,
+       "c": 2.1637643286734515e-05,
+       "t": 1793793600000
+      },
+      {
+       "v": 667.3176883149084,
+       "o": 2.1637643286734515e-05,
+       "h": 2.1637643286734515e-05,
+       "l": 1.9475591355138478e-05,
+       "c": 1.9912528020472166e-05,
+       "t": 1793836800000
+      },
+      {
+       "v": 1182.5162368550996,
+       "o": 1.9912528020472166e-05,
+       "h": 2.0392747518049813e-05,
+       "l": 1.7585936099772067e-05,
+       "c": 1.7707673917850275e-05,
+       "t": 1793880000000
+      },
+      {
+       "v": 1706.7408319482186,
+       "o": 1.7707673917850275e-05,
+       "h": 2.2059391647635604e-05,
+       "l": 1.7083917187529714e-05,
+       "c": 2.1942633478913278e-05,
+       "t": 1793923200000
+      }
+     ],
+     "meta": {
+      "observedAt": 1793951016787,
+      "ageMs": 167,
+      "source": "fresh",
+      "parts": {
+       "candles": {
+        "observedAt": 1793951016787,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 5,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 15744,
+     "stored_chars": 15744,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xb9fb2c2cb1a703d7cbd03f8540cb4c525d7adac4bc7ea21128c2eabc64f63093",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x3b28871465b4fe56f614c6f284081035bcb1e053ef21fa4bc26d1ff8907dcd0f",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "items": [
+       {
+        "type": "swap_sell",
+        "id": "50b58cd8-d149-429f-82ed-cd866523210e",
+        "tradeId": "56537dce-d0c2-4c78-9b34-24a88ed59ed0",
+        "createdAt": "2026-11-06T06:59:40.000Z",
+        "userId": "93c95f88-ad02-5ebf-90c9-feaf816faba5",
+        "displayName": "Atlll",
+        "userHandle": "Atlll",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/e63bdf2b26b12495ca64c06da7a62972_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 123.35,
+        "marketCap": 20697.1,
+        "fdv": 20809.7,
+        "price": 2.08097e-05,
+        "displayPriceUsd": 2.08097e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "19f90635-7360-4643-9cd2-7f8d13db0bd0",
+        "tradeId": "5a0b9bf2-7759-441f-bf1f-56c56ebcb491",
+        "createdAt": "2026-11-06T06:01:50.000Z",
+        "userId": "bd37af39-993b-5894-8c0e-1a6ba2ec8a85",
+        "displayName": "SaveMe",
+        "userHandle": "coletskie",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/a6426b8981c84ac104b02deea97ebf57_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 16.7,
+        "marketCap": 22591.7,
+        "fdv": 22714.6,
+        "price": 2.27146e-05,
+        "displayPriceUsd": 2.27146e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "29373b81-f673-4ba5-947f-41f09c29d092",
+        "tradeId": "c5f66084-97e9-4481-b135-a49927298c88",
+        "createdAt": "2026-11-06T05:55:20.000Z",
+        "userId": "b0042243-591f-58f7-afe9-9d495b8774fa",
+        "displayName": "MYSTERSWABE",
+        "userHandle": "YUSHINCRYPTO",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 10,
+        "marketCap": 22178,
+        "fdv": 22298.6,
+        "price": 2.22986e-05,
+        "displayPriceUsd": 2.22986e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "86b45b6f-924f-4d91-bbae-43a8bb963fea",
+        "tradeId": "7727ae28-2c30-4227-9116-818d0f69fe2d",
+        "createdAt": "2026-11-06T05:55:20.000Z",
+        "userId": "76b3753a-2251-5f21-8af8-94ccb3476fe5",
+        "displayName": "Jets",
+        "userHandle": "dizon_brylle",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/2112ad41d365af632e9b10f4f4a94e3b_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 25,
+        "marketCap": 21373.8,
+        "fdv": 21490.2,
+        "price": 2.14902e-05,
+        "displayPriceUsd": 2.14902e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "d17e2933-2899-474f-b68f-fdd391f45db9",
+        "tradeId": "7727ae28-2c30-4227-9116-818d0f69fe2d",
+        "createdAt": "2026-11-06T05:55:05.000Z",
+        "userId": "76b3753a-2251-5f21-8af8-94ccb3476fe5",
+        "displayName": "Jets",
+        "userHandle": "dizon_brylle",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/2112ad41d365af632e9b10f4f4a94e3b_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 25,
+        "marketCap": 21242.4,
+        "fdv": 21358,
+        "price": 2.1358e-05,
+        "displayPriceUsd": 2.1358e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "d78594d7-9d24-402c-b4c6-83efda663a33",
+        "tradeId": "46858ad4-9e48-4266-a998-91ad8a7107f7",
+        "createdAt": "2026-11-06T05:53:45.000Z",
+        "userId": "e3820167-7151-5be6-a6e6-8fe0ca533168",
+        "displayName": "winnable69",
+        "userHandle": "winnable69",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/38d455ff2c01e2e69703f887ad46232c_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 62.42,
+        "marketCap": 21276.8,
+        "fdv": 21392.5,
+        "price": 2.13926e-05,
+        "displayPriceUsd": 2.13926e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "05b8f618-85a1-4ffc-a693-cf7f04850213",
+        "tradeId": "5a0b9bf2-7759-441f-bf1f-56c56ebcb491",
+        "createdAt": "2026-11-06T05:53:00.000Z",
+        "userId": "bd37af39-993b-5894-8c0e-1a6ba2ec8a85",
+        "displayName": "SaveMe",
+        "userHandle": "coletskie",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/a6426b8981c84ac104b02deea97ebf57_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 12.54,
+        "marketCap": 21138.4,
+        "fdv": 21253.4,
+        "price": 2.12534e-05,
+        "displayPriceUsd": 2.12534e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "369f7951-f16b-47cb-a128-54437b88c398",
+        "tradeId": "46858ad4-9e48-4266-a998-91ad8a7107f7",
+        "createdAt": "2026-11-06T05:52:30.000Z",
+        "userId": "e3820167-7151-5be6-a6e6-8fe0ca533168",
+        "displayName": "winnable69",
+        "userHandle": "winnable69",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/38d455ff2c01e2e69703f887ad46232c_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 36.82,
+        "marketCap": 20965.4,
+        "fdv": 21079.5,
+        "price": 2.10794e-05,
+        "displayPriceUsd": 2.10794e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "440a8d93-0b28-42b3-8d2b-01d74a1f7421",
+        "tradeId": "fa01cb8a-b90d-459f-b6e5-4cb1de535340",
+        "createdAt": "2026-11-06T05:49:00.000Z",
+        "userId": "0174f6c5-4276-5975-9966-6730bbd2f469",
+        "displayName": "goldfinch",
+        "userHandle": "wintherun",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 295.31,
+        "marketCap": 19750.2,
+        "fdv": 19857.7,
+        "price": 1.98577e-05,
+        "displayPriceUsd": 1.98577e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "62156edf-f3e0-4f07-aa57-2b2c5ab2bcf1",
+        "tradeId": "fa01cb8a-b90d-459f-b6e5-4cb1de535340",
+        "createdAt": "2026-11-06T05:48:35.000Z",
+        "userId": "0174f6c5-4276-5975-9966-6730bbd2f469",
+        "displayName": "goldfinch",
+        "userHandle": "wintherun",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 295.31,
+        "marketCap": 18251.3,
+        "fdv": 18350.6,
+        "price": 1.83506e-05,
+        "displayPriceUsd": 1.83506e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "3f1607c4-6395-4ef6-82a0-dc3f058c38e3",
+        "tradeId": "3a04818e-45a2-49f2-9c3d-b26126d37ac6",
+        "createdAt": "2026-11-05T23:19:25.000Z",
+        "userId": "78468f4e-dadb-56f2-9bdd-362b6716af0a",
+        "displayName": "wolowolo",
+        "userHandle": "wolowolo",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/c6579bd0b81d67e889a88c60d671047a_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 69.14,
+        "marketCap": 17122.3,
+        "fdv": 17215.5,
+        "price": 1.72155e-05,
+        "displayPriceUsd": 1.72155e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "2919a51d-b857-4116-9128-28c99fdc6fce",
+        "tradeId": "71e92094-9741-4be8-a23a-eb5e093074e6",
+        "createdAt": "2026-11-05T10:10:50.000Z",
+        "userId": "736a53ae-4597-5726-9b0c-30937102802b",
+        "displayName": "HotItchyCanid",
+        "userHandle": "HotItchyCanid",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 11.13,
+        "marketCap": 19256.8,
+        "fdv": 19361.6,
+        "price": 1.93616e-05,
+        "displayPriceUsd": 1.93616e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "f57c1dbb-332f-413d-ae76-18ac0f9eed0c",
+        "tradeId": "56537dce-d0c2-4c78-9b34-24a88ed59ed0",
+        "createdAt": "2026-11-05T10:10:30.000Z",
+        "userId": "93c95f88-ad02-5ebf-90c9-feaf816faba5",
+        "displayName": "Atlll",
+        "userHandle": "Atlll",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/e63bdf2b26b12495ca64c06da7a62972_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 22.61,
+        "marketCap": 19891.9,
+        "fdv": 20000.2,
+        "price": 2.00002e-05,
+        "displayPriceUsd": 2.00002e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "c536a07f-ce9f-469c-9031-ae2adea3db75",
+        "tradeId": "56537dce-d0c2-4c78-9b34-24a88ed59ed0",
+        "createdAt": "2026-11-05T08:04:25.000Z",
+        "userId": "93c95f88-ad02-5ebf-90c9-feaf816faba5",
+        "displayName": "Atlll",
+        "userHandle": "Atlll",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/e63bdf2b26b12495ca64c06da7a62972_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 50,
+        "marketCap": 19556,
+        "fdv": 19662.4,
+        "price": 1.96624e-05,
+        "displayPriceUsd": 1.96624e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "307eee6e-3d02-4142-a663-b734e9fd9e3c",
+        "tradeId": "5d9f7194-3ab5-45e4-87f1-88497d26d789",
+        "createdAt": "2026-11-05T01:43:50.000Z",
+        "userId": "1d86976c-6a58-5cbb-881e-3860247f9a5f",
+        "displayName": "kfcram",
+        "userHandle": "kfcram",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/21a8d5e7cd89f77c539f510f8990f958_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 190.63,
+        "marketCap": 20422.8,
+        "fdv": 20533.9,
+        "price": 2.05339e-05,
+        "displayPriceUsd": 2.05339e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "d5b50d38-a3d4-4484-b0bd-ff09650b4075",
+        "tradeId": "17ec4181-a5ce-4484-8d00-6fd5bdad3567",
+        "createdAt": "2026-11-04T23:43:10.000Z",
+        "userId": "fb868651-770d-540f-a234-e5c0474234a6",
+        "displayName": "icklemyballs",
+        "userHandle": "icklemyballs",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/137f32a974883a43d12ba33caf48c1ae_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 12.82,
+        "marketCap": 20931.4,
+        "fdv": 21045.3,
+        "price": 2.10453e-05,
+        "displayPriceUsd": 2.10453e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "c4b4b00f-f3dc-4231-aed7-ec216e6fbcf9",
+        "tradeId": "17ec4181-a5ce-4484-8d00-6fd5bdad3567",
+        "createdAt": "2026-11-04T23:39:15.000Z",
+        "userId": "fb868651-770d-540f-a234-e5c0474234a6",
+        "displayName": "icklemyballs",
+        "userHandle": "icklemyballs",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/137f32a974883a43d12ba33caf48c1ae_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 16.99,
+        "marketCap": 22293.9,
+        "fdv": 22415.2,
+        "price": 2.24152e-05,
+        "displayPriceUsd": 2.24152e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "a402fdc3-cc11-4bd5-9190-d637350645d7",
+        "tradeId": "59a71a10-bba1-4716-9595-94e16ed0ebbb",
+        "createdAt": "2026-11-04T22:02:10.000Z",
+        "userId": "b84de5c0-0444-5f8a-8345-f12931bc4c9a",
+        "displayName": "IdealSorryFlea",
+        "userHandle": "IdealSorryFlea",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 21.12,
+        "marketCap": 20692.6,
+        "fdv": 20805.2,
+        "price": 2.08052e-05,
+        "displayPriceUsd": 2.08052e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "81edf49e-c506-4094-a861-188c0e6cd30b",
+        "tradeId": "56537dce-d0c2-4c78-9b34-24a88ed59ed0",
+        "createdAt": "2026-11-04T08:03:40.000Z",
+        "userId": "93c95f88-ad02-5ebf-90c9-feaf816faba5",
+        "displayName": "Atlll",
+        "userHandle": "Atlll",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/e63bdf2b26b12495ca64c06da7a62972_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 104.48,
+        "marketCap": 24128.3,
+        "fdv": 24259.6,
+        "price": 2.42596e-05,
+        "displayPriceUsd": 2.42596e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "8013e0a6-a003-4dd0-9e07-d9445fbb2ebd",
+        "tradeId": "3a04818e-45a2-49f2-9c3d-b26126d37ac6",
+        "createdAt": "2026-11-02T15:01:25.000Z",
+        "userId": "78468f4e-dadb-56f2-9bdd-362b6716af0a",
+        "displayName": "wolowolo",
+        "userHandle": "wolowolo",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/c6579bd0b81d67e889a88c60d671047a_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 15,
+        "marketCap": 27192.3,
+        "fdv": 27340.2,
+        "price": 2.73402e-05,
+        "displayPriceUsd": 2.73402e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "b12b1b3b-7ae1-417e-8019-30b1cad2e760",
+        "tradeId": "17715602-7cfa-4b3f-a6ab-02d93dbb537f",
+        "createdAt": "2026-11-01T18:05:30.000Z",
+        "userId": "343db5f7-a209-5634-8ef3-c0fb8a591af3",
+        "displayName": "px",
+        "userHandle": "px25",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/300cbecc5914845233c835b2e277d5f9_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 150.77,
+        "marketCap": 40535.3,
+        "fdv": 40755.9,
+        "price": 4.07559e-05,
+        "displayPriceUsd": 4.07559e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "cbe32600-a0f2-4089-babd-dae8fcda888b",
+        "tradeId": "17715602-7cfa-4b3f-a6ab-02d93dbb537f",
+        "createdAt": "2026-11-01T17:52:10.000Z",
+        "userId": "343db5f7-a209-5634-8ef3-c0fb8a591af3",
+        "displayName": "px",
+        "userHandle": "px25",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/300cbecc5914845233c835b2e277d5f9_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 153.69,
+        "marketCap": 40266,
+        "fdv": 40485.1,
+        "price": 4.04851e-05,
+        "displayPriceUsd": 4.04851e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "765cebe9-6b55-43d2-a9e6-7ec62e2e808f",
+        "tradeId": "31205a41-fa42-4968-ae15-b6881a578628",
+        "createdAt": "2026-11-01T14:50:10.000Z",
+        "userId": "75aa8699-6766-5b3f-8f9a-99115459ed06",
+        "displayName": "somaliTrader$",
+        "userHandle": "crypto2030",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/6378e0b44faa343fbb58a55397623c93_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 11.68,
+        "marketCap": 40928.6,
+        "fdv": 41151.3,
+        "price": 4.11513e-05,
+        "displayPriceUsd": 4.11513e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "b1f48321-7678-4324-9734-0661d15bffe2",
+        "tradeId": "31205a41-fa42-4968-ae15-b6881a578628",
+        "createdAt": "2026-11-01T14:14:45.000Z",
+        "userId": "75aa8699-6766-5b3f-8f9a-99115459ed06",
+        "displayName": "somaliTrader$",
+        "userHandle": "crypto2030",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/6378e0b44faa343fbb58a55397623c93_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 11.5,
+        "marketCap": 38136.9,
+        "fdv": 38344.4,
+        "price": 3.83444e-05,
+        "displayPriceUsd": 3.83444e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "2c913288-41cc-4e50-9e35-0a70af38bf16",
+        "tradeId": "2fa4d540-b509-4b06-8904-846a03135503",
+        "createdAt": "2026-11-01T09:53:40.000Z",
+        "userId": "408a1dde-746f-5019-9cdb-45a718edf549",
+        "displayName": "GGxyz",
+        "userHandle": "GGxyz",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/26b64f65b4bd5785c7ffc8c9f3c23f0f_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 100,
+        "marketCap": 34782.6,
+        "fdv": 34971.9,
+        "price": 3.49719e-05,
+        "displayPriceUsd": 3.49719e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "8db1820a-4268-494e-9c40-44cd09429ac7",
+        "tradeId": "ee6d6d5b-8566-4fb8-9050-d6b6f0e5c00f",
+        "createdAt": "2026-10-31T05:44:05.000Z",
+        "userId": "c221b5a8-e4de-5720-a6bd-9bc76e1756c3",
+        "displayName": "\u0110 Crypto Bro\ud83d\udc68\u200d\ud83d\udcbb\ud83d\udcc8",
+        "userHandle": "StatesOfMemes",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/abac5c3e2ee94fcc8d7a9fcd363fecad_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 50,
+        "marketCap": 43824.6,
+        "fdv": 44063,
+        "price": 4.4063e-05,
+        "displayPriceUsd": 4.4063e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "500ddb2c-044c-4246-9875-1128debe50e2",
+        "tradeId": "02e9589f-4993-4676-a512-534e70ff9f83",
+        "createdAt": "2026-10-30T22:46:25.000Z",
+        "userId": "75aa8699-6766-5b3f-8f9a-99115459ed06",
+        "displayName": "somaliTrader$",
+        "userHandle": "crypto2030",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/6378e0b44faa343fbb58a55397623c93_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 10.83,
+        "marketCap": 38655.6,
+        "fdv": 38866,
+        "price": 3.8866e-05,
+        "displayPriceUsd": 3.8866e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_sell",
+        "id": "5dde91a3-34b8-4693-a836-14a67e30fcdf",
+        "tradeId": "782de213-120c-4e28-aca1-9e5234f7838a",
+        "createdAt": "2026-10-30T11:26:50.000Z",
+        "userId": "c221b5a8-e4de-5720-a6bd-9bc76e1756c3",
+        "displayName": "\u0110 Crypto Bro\ud83d\udc68\u200d\ud83d\udcbb\ud83d\udcc8",
+        "userHandle": "StatesOfMemes",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/abac5c3e2ee94fcc8d7a9fcd363fecad_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 94.89,
+        "marketCap": 77026,
+        "fdv": 77445.2,
+        "price": 7.74452e-05,
+        "displayPriceUsd": 7.74452e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "8885d9cd-97bf-412e-a312-d2468a4900a1",
+        "tradeId": "debf5a59-42c1-4461-9a26-0b9667b9a893",
+        "createdAt": "2026-10-30T11:25:35.000Z",
+        "userId": "b48c26eb-0688-5d9d-9d1b-157acd8590a8",
+        "displayName": "zizonnn",
+        "userHandle": "zizonnn",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 10.35,
+        "marketCap": 68584.3,
+        "fdv": 68957.5,
+        "price": 6.89574e-05,
+        "displayPriceUsd": 6.89574e-05,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "1a6bbe17-cd3f-4cf8-990a-e8ff79a82604",
+        "tradeId": "02e9589f-4993-4676-a512-534e70ff9f83",
+        "createdAt": "2026-10-30T11:09:05.000Z",
+        "userId": "75aa8699-6766-5b3f-8f9a-99115459ed06",
+        "displayName": "somaliTrader$",
+        "userHandle": "crypto2030",
+        "profilePictureLink": "https://prod-fomo-profile-pics.s3.amazonaws.com/6378e0b44faa343fbb58a55397623c93_small.jpg?k=3100fJUBQCsikuRDXrNnPBmsg",
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 12.84,
+        "marketCap": 44551,
+        "fdv": 44793.4,
+        "price": 4.47934e-05,
+        "displayPriceUsd": 4.47934e-05,
+        "isDev": false
+       }
+      ],
+      "hasNextPage": false
+     },
+     "meta": {
+      "observedAt": 1793951016806,
+      "ageMs": 595,
+      "source": "fresh",
+      "parts": {
+       "tokenActivity": {
+        "observedAt": 1793951016806,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_2cf58d1119b04fc7b2e84bea1764793a/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.010096,
+  "tool_cost_usd": 0.005,
+  "frames_fee_usd": 0.002264,
+  "total_cost_usd": 0.017361,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 31571,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 250,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.010096,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "title": "Historical USD candles for one token as FOMO charts it: t (bucket start, unix ms",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "title": "The FOMO users holding the most of a token: each holder's FOMO handle and id, to",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "title": "The token's trade tape as FOMO shows it: recent buys, sells and transfers by FOM",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "title": "Current FOMO market panel for one token (price, market cap, 24h volume, liquidit",
+   "capability": "token",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x2728639a82cc8738759ddec37d78700502ee8708b7d0e1442867e835cd9cccbf",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x43af68fb8e363cafec6ccb9e28e8ceab36336db2a6e9343ee1489d4812211015",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xb9fb2c2cb1a703d7cbd03f8540cb4c525d7adac4bc7ea21128c2eabc64f63093",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x3b28871465b4fe56f614c6f284081035bcb1e053ef21fa4bc26d1ff8907dcd0f",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xad036ffb8ab498f699baa6b29c413d8ce391badbe2003b10e0cabba734c10036",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x6f905308130f640d1df80752061475e1db67e1ea0b7cc332cc1a00b336836a9a",
+   "delivered": true,
+   "outcome": "delivered_empty",
+   "reason": "delivered_empty: all result arrays empty (honest negative)",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x9d08359c9069993c7ef9a8d2f613acac01006b25820fd04296c0695c409e8579",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xadddb47990f4b4da2a5b6a0aedba92276d0c24dafca08f0ff87423adc3bc1eb0",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x824230d00d0ef23fbe5f364df75eff7bc7187c0a7ab9bf87498ffda422d275c1",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xcd7d89513a0ca611e3d57e622f5dff0aa137e7cad68add2317de6d2262ba5a6e",
+   "delivered": false,
+   "outcome": "seller_error",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates that the token is unsupported and the 'market' data, which should contain price, market cap, 24h volume, and liquidity, is null.; class confirmed by adjudicator",
+   "provenance": "probation",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x7a9a54a0cce1fbf79ba160cb89a048a902ce4df7b56677f8c8b3d88f3852c6c5",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xc2f1c1cf72989ffa27eb4ae5c07c04e014528f6694d1e081f06336dbf2f2b8a2",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The returned candle data includes timestamps that extend beyond the provided 'TODAY' date, meaning it's not purely historical.",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
