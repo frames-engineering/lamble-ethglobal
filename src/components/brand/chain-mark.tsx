@@ -39,14 +39,14 @@ export function ChainStack({ chains, max = 4, size = 16, className }: ChainStack
   const rest = chains.length - shown.length;
   return (
     <AvatarGroup
-      className={cn("-space-x-1.5 *:data-[slot=avatar]:ring-card", className)}
+      className={cn("-space-x-1.5 *:data-[slot=avatar]:ring-background", className)}
       aria-label={chains.map((c) => chainInfo(c).name).join(", ")}
     >
       {shown.map((c) => (
         <ChainMark key={c} chain={c} size={size} title={false} />
       ))}
       {rest > 0 && (
-        <AvatarGroupCount className={cn(BOX[size], FONT[size], "ring-card tabular-nums")} aria-hidden>
+        <AvatarGroupCount className={cn(BOX[size], FONT[size], "ring-background tabular-nums")} aria-hidden>
           +{rest}
         </AvatarGroupCount>
       )}
