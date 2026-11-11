@@ -65,24 +65,27 @@ export function NarrativeExplorer({ narratives }: { narratives: FeaturedNarrativ
               tabIndex={on ? 0 : -1}
               onClick={() => setSelected(i)}
               onKeyDown={(e) => onKey(e, i)}
-              className={`relative flex w-64 shrink-0 items-start gap-3 border-r border-line px-4 py-3.5 text-left transition-colors duration-150 last:border-r-0 lg:w-auto lg:border-r-0 lg:border-b lg:last:border-b-0 ${
+              className={`relative flex w-64 shrink-0 flex-col border-r border-line px-4 py-3.5 text-left transition-colors duration-150 last:border-r-0 lg:w-auto lg:border-r-0 lg:border-b lg:last:border-b-0 ${
                 on
                   ? "bg-active after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-high lg:after:inset-x-auto lg:after:inset-y-0 lg:after:left-0 lg:after:h-auto lg:after:w-0.5"
                   : "hover:bg-hover"
               }`}
             >
-              <span className={`font-mono w-3 pt-px text-xs text-med`}>{i + 1}</span>
-              <span className="min-w-0 flex-1">
-                <span className="line-clamp-2 text-sm leading-snug font-medium">{x.title}</span>
-                <span className="mt-1.5 flex items-center gap-2 text-xs text-med">
-                  <TrendTag trend={x.trend} />
-                  <span className="font-mono">{money(x.volume7d)}</span>
+              {/* The rank gets its own line above the row, so the title takes the full width and the sparkline lines up with it. */}
+              <span className="mb-1 font-mono text-xs text-med">{i + 1}</span>
+              <span className="flex items-start gap-3">
+                <span className="min-w-0 flex-1">
+                  <span className="line-clamp-2 text-sm leading-snug font-medium">{x.title}</span>
+                  <span className="mt-1.5 flex items-center gap-2 text-xs text-med">
+                    <TrendTag trend={x.trend} />
+                    <span className="font-mono">{money(x.volume7d)}</span>
+                  </span>
                 </span>
-              </span>
-              <span className="flex shrink-0 flex-col items-end gap-1.5 pt-0.5">
-                <Sparkline id={`ex-${x.slug}`} points={x.daily} width={56} height={18} fill={false} strokeWidth={1.25} className="text-med" />
-                <span className={`font-mono text-xs`}>
-                  <Change value={x.change7d} empty={x.trend === "new" ? "new" : "—"} />
+                <span className="flex shrink-0 flex-col items-end gap-1.5 pt-0.5">
+                  <Sparkline id={`ex-${x.slug}`} points={x.daily} width={56} height={18} fill={false} strokeWidth={1.25} className="text-med" />
+                  <span className={`font-mono text-xs`}>
+                    <Change value={x.change7d} empty={x.trend === "new" ? "new" : "—"} />
+                  </span>
                 </span>
               </span>
             </button>
