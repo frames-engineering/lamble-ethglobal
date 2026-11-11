@@ -22,7 +22,6 @@ import { type ReactNode, useId, useState } from "react";
 
 import { FramesMark } from "@/components/brand/frames-mark";
 import { Logo } from "@/components/brand/logo";
-import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { FRAMES_URL } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
@@ -156,9 +155,6 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
           <span className="mt-1 block text-xs leading-snug text-med">Connect AIs to any paid endpoints</span>
           <span className="sr-only"> (opens in a new tab)</span>
         </a>
-        <div className="flex items-center justify-end pr-1 pl-2">
-          <ThemeToggle />
-        </div>
       </div>
     </div>
   );

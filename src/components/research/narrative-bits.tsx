@@ -11,7 +11,8 @@ export const TREND_LABEL: Record<NarrativePublic["trend"], string> = {
   new: "New",
   rising: "Rising",
   steady: "Steady",
-  fading: "Fading",
+  // The data says "fading"; the site says Cooling, the blue end of the status scale (docs/design/narrative-status-2026-11.md).
+  fading: "Cooling",
   unknown: "Trend unknown",
   not_collected: "Not collected",
 };
@@ -23,11 +24,14 @@ const LIFECYCLE_DOT: Record<NarrativePublic["lifecycle"]["state"], string> = {
   retired: "bg-low",
 };
 
-/** The one definition of trend dots; the overview's TrendTag (components/overview/format) renders these too. */
+/**
+ * The one definition of trend dots, for tables and meta lines (TrendTag in components/overview/format renders
+ * these too). Same temperature scale as the overview's status spine: hot for new, green for rising, blue for cooling.
+ */
 const TREND_DOT: Record<NarrativePublic["trend"], string> = {
   rising: "bg-positive",
-  new: "bg-link",
-  fading: "bg-negative",
+  new: "bg-hot",
+  fading: "bg-link",
   steady: "bg-med",
   unknown: "border border-med",
   not_collected: "bg-low",
