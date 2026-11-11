@@ -141,12 +141,6 @@ export default function OverviewPage() {
         <Section
           id="launchpads"
           title="Launchpad fees"
-          description={
-            <>
-              Fees earned by the {fees.venues} launchpads whose fee streams don&rsquo;t overlap, per settled UTC day.
-              {fees.leader && ` ${fees.leader.name} took ${Math.round(fees.leader.share * 100)}% of the last day.`}
-            </>
-          }
           aside={<MoreLink href="/launchpads">All launchpads</MoreLink>}
         >
           <div className="rounded-sm border border-line p-4 md:p-5">
@@ -157,7 +151,7 @@ export default function OverviewPage() {
         <Section
           id="tokens"
           title="Trending tokens"
-          description="Every token LAMBLE collects, with the narrative it trades under. Very high turnover against market cap can include wash or bot trading."
+          description="Very high turnover against market cap can include wash or bot trading."
           aside={<MoreLink href="/coins">All coins</MoreLink>}
         >
           <TrendingTokens tokens={tokens} />
@@ -166,7 +160,6 @@ export default function OverviewPage() {
         <Section
           id="research"
           title="Latest research"
-          description="Generated from each release; every citation and chart is checked before publishing."
           aside={<MoreLink href="/research">All research</MoreLink>}
         >
           <ul className="grid gap-3 sm:grid-cols-2">

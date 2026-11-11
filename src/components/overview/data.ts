@@ -40,7 +40,7 @@ export function overviewData() {
 
   // Launchpad fees, daily: the non-overlapping streams that make up the fee subtotal, the top five by 30-day fees on their own.
   const included = data.launchpads.filter((l) => l.feeSubtotal.included);
-  const { placed, rest, series, top } = stackSeries(included, sum30, OWN_SERIES);
+  const { placed, rest, series } = stackSeries(included, sum30, OWN_SERIES);
   const days: FeeDay[] = m.feeSubtotal.history30d.map((p, i) => ({
     time: p.time,
     total: p.value,
@@ -49,10 +49,6 @@ export function overviewData() {
       ...(rest.length ? [rest.reduce((a, l) => a + (l.metrics.history30d[i]?.value ?? 0), 0)] : []),
     ],
   }));
-  // Share of the last settled day taken by the 30-day leader, for the section's one-line read.
-  const lastDay = days[days.length - 1];
-  const topIndex = placed.findIndex((p) => p.venue === top);
-  const leader = top && topIndex >= 0 && lastDay?.total ? { name: top.name, share: (lastDay.parts[topIndex] ?? 0) / lastDay.total } : null;
 
   // Featured narratives, each with the tokens carrying its last 24 hours.
   const featured = data.narratives
@@ -126,8 +122,6 @@ export function overviewData() {
       latest: m.feeSubtotal.value,
       change7dPct: m.feeSubtotal.change7dPct,
       scope: m.feeSubtotal.scope,
-      venues: included.length,
-      leader,
       series,
       days,
     },
