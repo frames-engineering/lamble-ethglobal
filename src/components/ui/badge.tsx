@@ -3,9 +3,9 @@ import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
-/** Pill badge (pen "Status Badge"): soft background + accent text, 12px/500. */
+/** Pill badge: soft background + accent text, 12px/500, 20px tall. */
 const badgeVariants = cva(
-  "group/badge inline-flex h-[22px] w-fit shrink-0 items-center justify-center gap-1.5 overflow-hidden whitespace-nowrap rounded-full border border-transparent px-2 text-xs font-semibold leading-none transition-colors focus-visible:ring-1 focus-visible:ring-focus [&>svg]:pointer-events-none [&>svg]:size-3",
+  "group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1.5 overflow-hidden whitespace-nowrap rounded-full border border-transparent px-2 text-xs font-medium leading-none transition-colors focus-visible:ring-1 focus-visible:ring-focus [&>svg]:pointer-events-none [&>svg]:size-3",
   {
     variants: {
       variant: {

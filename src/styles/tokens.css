@@ -1,19 +1,12 @@
 /*
- * Backpack Exchange — design tokens
- * Extracted 2026-09-26 from https://backpack.exchange/markets and /trade/SOL_USD
+ * LAMBLE design tokens.
  *
- * Source of truth: the site's own Tailwind v4 `@theme` block and its
- * `[data-theme="dark"]` / `[data-theme="light"]` custom properties, read
- * directly from the live stylesheets (not sampled from pixels).
+ * Structure and names come from the Backpack Exchange extraction of 2026-09-26; the values were replaced in
+ * the November 2026 overhaul (docs/design/overhaul-2026-11.md, usage in docs/design/system.md): warm
+ * near-neutral surfaces, hairline borders, Geist and Geist Mono, tighter radii, and chart hues per brand.
+ * Charts (evilcharts) read the --color-viz-* steps as CSS variables, so every chart follows the theme.
  *
- * Dark is the default theme (the site ships dark in `@theme` and applies
- * light via `[data-theme="light"]` on <html>).
- *
- * Font: Inter (variable). The site loads it from
- *   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
- *
- * Not included: react-toastify variables, onboarding/stocks-landing page
- * one-offs, and Tailwind's default gray-* palette (defined but rarely used).
+ * Dark is the default theme; light applies through `[data-theme="light"]` on <html>.
  */
 
 :root {
@@ -73,84 +66,119 @@
   --color-rank-challenger: #7c62f2;
 
   /* ── Semantic: surfaces (dark) ────────────────────────────────────── */
-  --color-base-background-l0: #0e0f14; /* page */
-  --color-base-background-l1: #14151b; /* panels, cards */
-  --color-base-background-l2: #191a20; /* insets, tab tracks */
-  --color-base-background-l3: #202127; /* inputs, active tabs, secondary buttons */
-  --color-base-background-l4: #383a45;
-  --color-card-bg: #14151b;
-  --color-card-border: #14151b;
+  /* Overhaul 2026-11 (docs/design/overhaul-2026-11.md): warm near-neutral grays after Dune. */
+  --color-base-background-l0: #0e0e0d; /* page */
+  --color-base-background-l1: #1c1c1b; /* sidebar, filled cards */
+  --color-base-background-l2: #161615; /* insets, tab tracks */
+  --color-base-background-l3: #252523; /* inputs, active tabs, secondary buttons, card hover */
+  --color-base-background-l4: #383837;
+  --color-base-active: #ffffff14; /* selected nav item, pressed segment */
+  --color-card-bg: #1c1c1b;
+  --color-card-border: #2b2b2a;
   --color-card-inset-bg: var(--color-base-background-l2);
   --color-card-nested-1: var(--color-base-background-l3);
   --color-card-nested-2: var(--color-base-background-l2);
-  --color-row-hover: #202127;
-  --color-overlay-background: #20212766;
+  --color-row-hover: #ffffff0b;
+  --color-overlay-background: #00000080;
   --color-overlay-border: #ffffff05;
-  --color-base-shadow: #0e0f14;
+  --color-base-shadow: #0e0e0d;
 
   /* ── Semantic: text & icons (dark) ────────────────────────────────── */
-  --color-high-emphasis: #f4f4f6;
-  --color-med-emphasis: #969faf;
-  --color-low-emphasis: #75798a;
-  --color-base-icon: #75798a;
-  --color-base-icon-hover: #969faf;
+  --color-high-emphasis: #fafaf9;
+  --color-med-emphasis: #a1a1a0;
+  --color-low-emphasis: #80807f;
+  --color-base-icon: #80807f;
+  --color-base-icon-hover: #a1a1a0;
   --color-ivory: #f4f4f6;
   --color-slate-foam: #75798a;
   --color-mint-foam: #7accc7;
   --color-soft-red: #f88484;
 
   /* ── Semantic: borders (dark) ─────────────────────────────────────── */
-  --color-base-divider: #ffffff1a;
-  --color-base-border-extra-light: #ffffff0d;
-  --color-base-border-light: #202127;
-  --color-base-border-med: #ffffff26;
-  --color-base-border-focus: #c8c9d0;
+  /* Dark mode: solid hairlines recede; alpha borders glow. */
+  --color-base-divider: #2b2b2a;
+  --color-base-border-extra-light: #1f1f1e;
+  --color-base-border-light: #2b2b2a;
+  --color-base-border-med: #40403f;
+  --color-base-border-focus: #a1a1a0;
 
   /* ── Semantic: accents (dark) ─────────────────────────────────────── */
-  --color-accent-blue: #4c94ff;
-  --color-accent-blue-background: #0057eb33;
-  --color-accent-green: var(--color-green-500);
-  --color-accent-purple: #e17aff;
-  --color-accent-purple-background: #2c243c;
+  --color-accent-blue: #5dbee9;
+  --color-accent-blue-background: #5dbee926;
+  --color-accent-green: #61cb7c;
+  --color-accent-purple: #b699eb;
+  --color-accent-purple-background: #b699eb24;
   --color-switch-knob: var(--color-base-400);
 
   /* ── Semantic: buy / positive (dark) ──────────────────────────────── */
-  --color-green-text: #00c278;
-  --color-green-icon: #00c278;
-  --color-green-border: #00c27866;
-  --color-green-background-transparent: #00c27814;
-  --color-green-background-solid: #122322;
-  --color-green-depth: #18372c; /* order-book depth bars */
-  --color-green-primary-button-background: var(--color-green-500);
-  --color-green-primary-button-text: #14151b;
-  --color-green-secondary-button-background: #142d25;
-  --color-green-secondary-button-text: #00c278;
+  --color-green-text: #61cb7c;
+  --color-green-icon: #61cb7c;
+  --color-green-border: #61cb7c66;
+  --color-green-background-transparent: #61cb7c14;
+  --color-green-background-solid: #61cb7c1f;
+  --color-green-depth: #61cb7c33;
+  --color-green-primary-button-background: #61cb7c;
+  --color-green-primary-button-text: #0e0e0d;
+  --color-green-secondary-button-background: #61cb7c1f;
+  --color-green-secondary-button-text: #61cb7c;
 
   /* ── Semantic: sell / negative (dark) ─────────────────────────────── */
-  --color-red-text: #fd4b4e;
-  --color-red-border: #ea383b80;
-  --color-red-background-transparent: #ea383b1f;
-  --color-red-background-solid: #351a1f;
-  --color-red-depth: #422024;
-  --color-red-primary-button-background: var(--color-red-500);
-  --color-red-primary-button-text: #14151b;
-  --color-red-secondary-button-background: #351a1f;
+  --color-red-text: #f57373;
+  --color-red-border: #f5737380;
+  --color-red-background-transparent: #f573731f;
+  --color-red-background-solid: #f5737324;
+  --color-red-depth: #f5737333;
+  --color-red-primary-button-background: #f57373;
+  --color-red-primary-button-text: #0e0e0d;
+  --color-red-secondary-button-background: #f5737324;
 
   /* ── Semantic: warning (dark) ─────────────────────────────────────── */
-  --color-yellow-text: #efa411;
-  --color-yellow-background-transparent: #efa41114;
-  --color-yellow-background-solid: #26201a;
-  --color-yellow-primary-button-background: #eab308;
-  --color-yellow-primary-button-text: #14151b;
-  --color-yellow-secondary-button-background: #efa4111f;
-  --color-yellow-secondary-button-text: #efa411;
+  --color-yellow-text: #edb345;
+  --color-yellow-background-transparent: #edb34514;
+  --color-yellow-background-solid: #edb3451f;
+  --color-yellow-primary-button-background: #edb345;
+  --color-yellow-primary-button-text: #0e0e0d;
+  --color-yellow-secondary-button-background: #edb3451f;
+  --color-yellow-secondary-button-text: #edb345;
 
   /* ── Semantic: buttons & controls (dark) ──────────────────────────── */
-  --color-button-primary-background: #fff;
-  --color-button-primary-text: #14151b;
-  --color-button-secondary-background: #202127;
-  --color-button-secondary-text: #f4f4f6;
-  --color-segmented-button-active: #2a2b32;
+  --color-button-primary-background: #fafaf9;
+  --color-button-primary-text: #0e0e0d;
+  --color-button-secondary-background: #252523;
+  --color-button-secondary-text: #fafaf9;
+  --color-segmented-button-active: #ffffff14;
+
+  /* ── Charts (both themes set below) ───────────────────────────────── */
+  /* Chart hues (docs/design/charts.md). One even-weight family per hue, so a brand keeps its hue on every
+     chart (pump.fun is always green: research/colors LAUNCHPAD_HUE). Validated with the dataviz palette
+     checks on 2026-11-10 against #0e0e0d: the fees stack (green, gold, pink, blue, coral), the generic
+     order (1–7) and the gauge bands (violet, sky, gold, coral) pass CVD separation and contrast. */
+  --color-viz-green: #2eaf6b;
+  --color-viz-gold: #c28914;
+  --color-viz-orange: #d8732b;
+  --color-viz-coral: #d03830;
+  --color-viz-pink: #d45c91;
+  --color-viz-violet: #9163d5;
+  --color-viz-blue: #5684da;
+  --color-viz-sky: #3e9dca;
+  --color-viz-teal: #18a7a1;
+  /* "Others" and the rest of a whole: neutral, never a hue. */
+  --color-viz-0: #636360;
+  /* Generic categorical order for series that aren't brands; 1 is the single-series accent. */
+  --color-viz-1: var(--color-viz-blue);
+  --color-viz-2: var(--color-viz-coral);
+  --color-viz-3: var(--color-viz-violet);
+  --color-viz-4: var(--color-viz-green);
+  --color-viz-5: var(--color-viz-gold);
+  --color-viz-6: var(--color-viz-sky);
+  --color-viz-7: var(--color-viz-pink);
+  /* Ranked parts of one whole: shades of the first color, strongest first. */
+  --color-viz-r1: oklch(0.741 0.11 264.3);
+  --color-viz-r2: oklch(0.62 0.12 264.3);
+  --color-viz-r3: oklch(0.5 0.11 264.3);
+  --color-viz-r4: oklch(0.4 0.08 264.3);
+  /* Bars behind table values. */
+  --color-viz-bar: #ffffff14;
   --color-binary-tab-track-bg: var(--color-base-background-l2);
 
   /* Weekend-market promo gradient (dark) */
@@ -176,18 +204,19 @@
   --color-avatar-bg-13: #1f252b;  --color-avatar-text-13: #a3b5cf;
 
   /* ── Typography ───────────────────────────────────────────────────── */
-  --font-sans: InterVariable, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --font-feature-settings: "calt", "cv01", "cv03", "cv04", "cv09", "liga";
+  /* Geist for UI, Geist Mono for figures and addresses (next/font provides both); Geist Pixel for page titles only. */
+  --font-sans: Geist, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-feature-settings: "calt", "liga";
 
-  /* Backpack shifts Tailwind's weight scale down one step, and differs per theme */
-  --font-weight-thin: 50;
-  --font-weight-light: 200;
-  --font-weight-normal: 300;   /* light theme: 400 */
-  --font-weight-medium: 400;   /* light theme: 450 */
-  --font-weight-semibold: 500;
-  --font-weight-bold: 600;
-  --font-weight-extrabold: 700;
+  /* Same scale in both themes. Semibold sits at 550 so headings stay quiet in Geist. */
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 650;
+  --font-weight-extrabold: 750;
 
   --text-3xs: 0.5625rem;                                     /*  9px */
   --text-2xs: 0.6875rem;                                     /* 11px */
@@ -219,13 +248,14 @@
   --spacing: 0.25rem;
 
   /* ── Radius ───────────────────────────────────────────────────────── */
-  --radius-xs: 0.125rem;  /*  2px */
-  --radius-sm: 0.25rem;   /*  4px  checkboxes */
-  --radius-md: 0.375rem;  /*  6px  chip tabs */
-  --radius-lg: 0.5rem;    /*  8px  buttons, inputs, nav items — most used */
-  --radius-xl: 0.75rem;   /* 12px  large buttons, buy/sell toggle, compact cards */
-  --radius-2xl: 1rem;     /* 16px  hero cards */
-  --radius-3xl: 1.5rem;
+  /* Tight, as on Dune: bordered cards and tables 3–5px, pills for chips and primary buttons. */
+  --radius-xs: 0.125rem;  /*  2px  bars */
+  --radius-sm: 0.1875rem; /*  3px  tables, bordered cards */
+  --radius-md: 0.25rem;   /*  4px  nav items, chip tabs */
+  --radius-lg: 0.3125rem; /*  5px  inputs, filled cards — most used */
+  --radius-xl: 0.375rem;  /*  6px  panels */
+  --radius-2xl: 0.5rem;   /*  8px  sheets, dialogs */
+  --radius-3xl: 0.75rem;
   --radius-full: 9999px;  /* pills, avatars — second most used */
 
   /* ── Shadows (heavier than Tailwind defaults, tuned for dark UI) ──── */
@@ -266,91 +296,107 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --font-weight-normal: 400;
-  --font-weight-medium: 450;
-
-  --color-base-950: #f8f8f9;
+  --color-base-950: #fcfcfb;
   --color-yellow-500: #d97706;
 
   /* Surfaces */
-  --color-base-background-l0: #f8f8f9;
-  --color-base-background-l1: #eeeff1;
-  --color-base-background-l2: #eaecf4;
-  --color-base-background-l3: #e6e7ed;
-  --color-base-background-l4: #cacfd9;
-  --color-card-bg: #fff;
-  --color-card-border: #0f172a14;
-  --color-card-inset-bg: var(--color-base-background-l0);
+  --color-base-background-l0: #fcfcfb;
+  --color-base-background-l1: #f3f3f2;
+  --color-base-background-l2: #f0f0ef;
+  --color-base-background-l3: #e8e8e6;
+  --color-base-background-l4: #d1d1cf;
+  --color-base-active: #00000012;
+  --color-card-bg: #f3f3f2;
+  --color-card-border: #e1e1df;
+  --color-card-inset-bg: var(--color-base-background-l2);
   --color-card-nested-1: var(--color-base-background-l0);
   --color-card-nested-2: var(--color-base-background-l1);
-  --color-row-hover: var(--color-base-background-l1);
+  --color-row-hover: #0000000a;
   --color-overlay-background: #0000004d;
   --color-overlay-border: #0f172a08;
   --color-base-shadow: #00000026;
 
   /* Text & icons */
-  --color-high-emphasis: #14151b;
-  --color-med-emphasis: #5d606f;
-  --color-low-emphasis: #75798a;
-  --color-base-icon: #383a45;
-  --color-base-icon-hover: #202127;
+  --color-high-emphasis: #161615;
+  --color-med-emphasis: #636361;
+  --color-low-emphasis: #757572;
+  --color-base-icon: #636361;
+  --color-base-icon-hover: #161615;
   --color-ivory: #030712;
   --color-slate-foam: #383a45;
   --color-mint-foam: #059669;
   --color-soft-red: #ef4444;
 
-  /* Borders */
-  --color-base-divider: #0f172a14;
-  --color-base-border-extra-light: #0f172a0a;
-  --color-base-border-light: #e6e7ed;
-  --color-base-border-med: #0f172a24;
-  --color-base-border-focus: #383a45;
+  /* Borders: light mode keeps solid hairlines too, one step off the page. */
+  --color-base-divider: #e1e1df;
+  --color-base-border-extra-light: #ededeb;
+  --color-base-border-light: #e1e1df;
+  --color-base-border-med: #cececc;
+  --color-base-border-focus: #636361;
 
   /* Accents */
-  --color-accent-blue: var(--color-blue-600);
-  --color-accent-blue-background: #0057eb1a;
-  --color-accent-green: var(--color-green-600);
-  --color-accent-purple: #9b34ef;
-  --color-accent-purple-background: #ede9fe;
+  --color-accent-blue: #0068a7;
+  --color-accent-blue-background: #0068a71a;
+  --color-accent-green: #1d7d3e;
+  --color-accent-purple: #7541b8;
+  --color-accent-purple-background: #7541b81a;
   --color-switch-knob: var(--color-base-50);
 
   /* Buy / positive */
-  --color-green-text: #00794b;
-  --color-green-icon: #10b981;
-  --color-green-border: #05966973;
-  --color-green-background-transparent: #0596691f;
-  --color-green-background-solid: var(--color-green-100);
-  --color-green-depth: #b7e8d8;
-  --color-green-primary-button-background: var(--color-green-600);
+  --color-green-text: #1d7d3e;
+  --color-green-icon: #1d7d3e;
+  --color-green-border: #1d7d3e73;
+  --color-green-background-transparent: #1d7d3e14;
+  --color-green-background-solid: #1d7d3e1a;
+  --color-green-depth: #1d7d3e33;
+  --color-green-primary-button-background: #1d7d3e;
   --color-green-primary-button-text: #fff;
-  --color-green-secondary-button-background: var(--color-green-100);
-  --color-green-secondary-button-text: #00794b;
+  --color-green-secondary-button-background: #1d7d3e1a;
+  --color-green-secondary-button-text: #1d7d3e;
 
   /* Sell / negative */
-  --color-red-text: #d20032;
-  --color-red-border: #dc262680;
-  --color-red-background-transparent: #dc26261f;
-  --color-red-background-solid: var(--color-red-100);
-  --color-red-depth: #f5c7cb;
-  --color-red-primary-button-background: var(--color-red-600);
+  --color-red-text: #ba343c;
+  --color-red-border: #ba343c80;
+  --color-red-background-transparent: #ba343c1a;
+  --color-red-background-solid: #ba343c1a;
+  --color-red-depth: #ba343c33;
+  --color-red-primary-button-background: #ba343c;
   --color-red-primary-button-text: #fff;
-  --color-red-secondary-button-background: var(--color-red-100);
+  --color-red-secondary-button-background: #ba343c1a;
 
   /* Warning */
-  --color-yellow-text: #b15700;
-  --color-yellow-background-transparent: #b157001f;
-  --color-yellow-background-solid: #fef9c3;
-  --color-yellow-primary-button-background: #d97706;
+  --color-yellow-text: #a06604;
+  --color-yellow-background-transparent: #a066041a;
+  --color-yellow-background-solid: #a066041a;
+  --color-yellow-primary-button-background: #a06604;
   --color-yellow-primary-button-text: #fff;
-  --color-yellow-secondary-button-background: #b157001a;
-  --color-yellow-secondary-button-text: #b15700;
+  --color-yellow-secondary-button-background: #a066041a;
+  --color-yellow-secondary-button-text: #a06604;
 
   /* Buttons & controls */
-  --color-button-primary-background: #14151b;
-  --color-button-primary-text: #f8f8f9;
-  --color-button-secondary-background: #e6e7ed;
-  --color-button-secondary-text: #14151b;
-  --color-segmented-button-active: #cacfd9;
+  --color-button-primary-background: #161615;
+  --color-button-primary-text: #fcfcfb;
+  --color-button-secondary-background: #e8e8e6;
+  --color-button-secondary-text: #161615;
+  --color-segmented-button-active: #00000012;
+
+  /* Chart hues: the same families stepped for the light page, validated against #fcfcfb. The numbered
+     slots alias these names (dark block above), so they follow without being redeclared. */
+  --color-viz-green: #167645;
+  --color-viz-gold: #bc8519;
+  --color-viz-orange: #cb6620;
+  --color-viz-coral: #c53829;
+  --color-viz-pink: #bc3e79;
+  --color-viz-violet: #763ebd;
+  --color-viz-blue: #3263c3;
+  --color-viz-sky: #3590bf;
+  --color-viz-teal: #248b88;
+  --color-viz-0: #868683;
+  --color-viz-r1: oklch(0.52 0.15 264.3);
+  --color-viz-r2: oklch(0.64 0.12 264.3);
+  --color-viz-r3: oklch(0.76 0.08 264.3);
+  --color-viz-r4: oklch(0.86 0.05 264.3);
+  --color-viz-bar: #00000012;
   --color-binary-tab-track-bg: var(--color-base-background-l1);
 
   /* Weekend-market promo gradient */
