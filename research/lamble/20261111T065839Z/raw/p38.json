@@ -1,0 +1,4849 @@
+{
+ "run_id": "run_3d37d9fef76f4532a3593d21d80e21b7",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 37,
+  "budget_credits": 62,
+  "balance_credits": 85075,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 58,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 10,
+  "delivered": 6,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1044,
+     "stored_chars": 1044,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xa3817f6eeee74efce2e04612a7660597f2997c6f7b1c60c8a706b1c80e9423d0",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xff04ea97124438d4b05c1d50c2c3e8cc4ac74a77ae45b2cb1169abe3c703526e",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "items": [
+       {
+        "type": "swap_sell",
+        "id": "cbe07b09-c87b-44da-ba4e-4d687e704ce9",
+        "tradeId": "16dfa3a6-6b14-4b4c-bd00-f2ec1aaeb1b7",
+        "createdAt": "2026-11-05T18:42:25.000Z",
+        "userId": "9ae1dc56-6627-5515-a248-67f397d521c1",
+        "displayName": "FitAlertGuan",
+        "userHandle": "FitAlertGuan",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 44.61,
+        "marketCap": 10204300,
+        "fdv": 10204300,
+        "price": 0.000102043,
+        "displayPriceUsd": 0.000102043,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "7e89acaa-0602-46ba-9b1c-36e3a845413b",
+        "tradeId": "16dfa3a6-6b14-4b4c-bd00-f2ec1aaeb1b7",
+        "createdAt": "2026-11-05T18:32:50.000Z",
+        "userId": "9ae1dc56-6627-5515-a248-67f397d521c1",
+        "displayName": "FitAlertGuan",
+        "userHandle": "FitAlertGuan",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 44.81,
+        "marketCap": 10204300,
+        "fdv": 10204300,
+        "price": 0.000102043,
+        "displayPriceUsd": 0.000102043,
+        "isDev": false
+       }
+      ],
+      "hasNextPage": false
+     },
+     "meta": {
+      "observedAt": 1794381510888,
+      "ageMs": 233,
+      "source": "fresh",
+      "parts": {
+       "tokenActivity": {
+        "observedAt": 1794381510888,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.pump-x4o2-com-v1-coin-mint",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 76,
+     "stored_chars": 76,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "caller_error",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.pump-x4o2-com-v1-coin-mint",
+     "amount": "0",
+     "authorized_amount": "0.001",
+     "settlement": "unconfirmed",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "valid_before": "2026-11-11T07:23:29.000Z",
+     "auth_nonce": "0x00c4fc3e3fa5a6b286e3fd8c87def3b563d4226d18e6befe186345c69ff229c0",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "",
+     "delivered": false,
+     "outcome": "caller_error",
+     "reason": "upstream error: error field present; class adjudicated seller_error\u2192caller_error: The seller rejected the request because the provided identifier or parameters were unknown or invalid.",
+     "long_tail": true
+    },
+    "body": {
+     "error": "rejected",
+     "message": "Unknown or invalid identifier or parameters"
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.pump-x4o2-com-v1-coin-mint-trades",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 83570,
+     "stored_chars": 83570,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.pump-x4o2-com-v1-coin-mint-trades",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xec8d1f4d22f4459dcea4157a25fe6c35bf980be30391e15007ec2f0ff2c48703",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xe61d9a485aad4a56f9d6a7afcc1f9ad6d7b5183021fc643e0ea4d6befc382d29",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "trades": [
+       {
+        "ordinalKey": "467554272-265-606-1794278112000",
+        "blockId": "467554272",
+        "txIndex": 265,
+        "eventIndex": 606,
+        "blockTimeMs": 1794278112000,
+        "txId": "529nyGVTtPpGsftjGi2aVsgzYaFWZEjxepKLQkP1f5Cg2SvDaWH28VST69Vjo7AJ8YaLdArff9T8b8RDv38fBh5x",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "CBgUvNhNzJZvDDuCr5oMc5QrLnoJvLv5gVRu77jgWLkH"
+        },
+        "baseAmount": {
+         "raw": "10385815246772",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "205155534",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.00000171361619808",
+        "priceQuote": "0.000000019968094292",
+        "quotePriceUsd": "85.8177136482",
+        "valueUsd": "17.605978870155559138",
+        "valueNative": "0.205155534"
+       },
+       {
+        "ordinalKey": "467383030-80-602-1794241352000",
+        "blockId": "467383030",
+        "txIndex": 80,
+        "eventIndex": 602,
+        "blockTimeMs": 1794241352000,
+        "txId": "3i696LjX4q5nMNN4NSft5xzEw96FtxFg38Rgj4ZTfRhskDeMNqep57URXXnyr28oAdyAuNHKZEk8cyRKM3HYxCo8",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "2V6prMiCFiMYUU4UbS2msxCfSWNUbHd8BeJB6pZcCeis"
+        },
+        "baseAmount": {
+         "raw": "4443034315209",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "86132617",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.0000017005951933",
+        "priceQuote": "0.00000001954113605",
+        "quotePriceUsd": "87.0264240966",
+        "valueUsd": "7.495813655592019663",
+        "valueNative": "0.086132617"
+       },
+       {
+        "ordinalKey": "467355922-124-501-1794235528000",
+        "blockId": "467355922",
+        "txIndex": 124,
+        "eventIndex": 501,
+        "blockTimeMs": 1794235528000,
+        "txId": "3A5deA48gYbZEaRjcLTF1PEYCNkYTupoUY5B5xhCqGcQmcCqLAa6UTNunyZeeNdGU4QfiVYUVCaoFSuiot1mwC3V",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "mh1YWQmEpfGaJxXUjCbR6pLroGR3Dr428XACCfBphzD"
+        },
+        "baseAmount": {
+         "raw": "1182396530000",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "23056143",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000001722610817808",
+        "priceQuote": "0.000000019722063508",
+        "quotePriceUsd": "87.34434999999999",
+        "valueUsd": "2.013823823842049769",
+        "valueNative": "0.023056143"
+       },
+       {
+        "ordinalKey": "467336054-70-801-1794231271000",
+        "blockId": "467336054",
+        "txIndex": 70,
+        "eventIndex": 801,
+        "blockTimeMs": 1794231271000,
+        "txId": "5popSykmhYaRNDMUpYTLFtAyWBzqfZfJ73WYqiHZAGQQpHq5sqTAU2zNQb5nuccdQt7sCWprEjPQ8ramrUpKZhHC",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "mh1YWQmEpfGaJxXUjCbR6pLroGR3Dr428XACCfBphzD"
+        },
+        "baseAmount": {
+         "raw": "1200402572094",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "23703702",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000001711587486433",
+        "priceQuote": "0.000000019771138805",
+        "quotePriceUsd": "86.57",
+        "valueUsd": "2.05202948214",
+        "valueNative": "0.023703702"
+       },
+       {
+        "ordinalKey": "467321806-226-804-1794228216000",
+        "blockId": "467321806",
+        "txIndex": 226,
+        "eventIndex": 804,
+        "blockTimeMs": 1794228216000,
+        "txId": "5DJTinxK6Ls3zAd6HAKVooSeMQyFnbMzpKxGF4nzdtQ8ZEZUK6adoBWVLCNVQfyjKGvLkzy3zt7LwTqFQy3EBu3k",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "2V6prMiCFiMYUU4UbS2msxCfSWNUbHd8BeJB6pZcCeis"
+        },
+        "baseAmount": {
+         "raw": "4443034315209",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "87221735",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.00000170856785805",
+        "priceQuote": "0.0000000197218163",
+        "quotePriceUsd": "86.6333927874",
+        "valueUsd": "7.556314827853514139",
+        "valueNative": "0.087221735"
+       },
+       {
+        "ordinalKey": "467321703-134-606-1794228195000",
+        "blockId": "467321703",
+        "txIndex": 134,
+        "eventIndex": 606,
+        "blockTimeMs": 1794228195000,
+        "txId": "4W7YyTm6TMBZpMSggQXm2C6oUK7Zz9NMLPWswbUX5Q2GHmiKBFLj4yMUk8CMhRaC36nEFHURZEy2RSqDZKsfq4TM",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "3mSxgi1qpYC6Hcez7YAPA7VUXJX9wHUp3wF7u1n2WWhc"
+        },
+        "baseAmount": {
+         "raw": "29914708967059",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "567002468",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000001693678543607",
+        "priceQuote": "0.000000019540856161",
+        "quotePriceUsd": "86.67371222705",
+        "valueUsd": "49.144208743459126359",
+        "valueNative": "0.567002468"
+       },
+       {
+        "ordinalKey": "467319265-122-702-1794227672000",
+        "blockId": "467319265",
+        "txIndex": 122,
+        "eventIndex": 702,
+        "blockTimeMs": 1794227672000,
+        "txId": "4pDtctYQBh7g3DYWSdMULoqubpwc41mrVsizTA3CkoAmVEy6C7NYGoDt4QvWoy9prcobCNobdmLZyrZ6bnfV4qca",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "A7copEg9UX19viRA4Dn4aSKKEJbsUEsZYBwyYAteueum"
+        },
+        "baseAmount": {
+         "raw": "29920622709905",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "560025582",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000001593858097887",
+        "priceQuote": "0.000000018384818771",
+        "quotePriceUsd": "86.69425125734999",
+        "valueUsd": "48.550998516451665527",
+        "valueNative": "0.560025582"
+       },
+       {
+        "ordinalKey": "467317509-15-606-1794227297000",
+        "blockId": "467317509",
+        "txIndex": 15,
+        "eventIndex": 606,
+        "blockTimeMs": 1794227297000,
+        "txId": "6xLmpC4z3RkrSWUEJbWzDPPhJaZBWQR2s4qfGesifbBoRk297N533Vin9w95yig6N5UgzLKuPGkkmp6GzC6qLkk",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "A7copEg9UX19viRA4Dn4aSKKEJbsUEsZYBwyYAteueum"
+        },
+        "baseAmount": {
+         "raw": "29920622709905",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "567111109",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000001692030103501",
+        "priceQuote": "0.00000001954085697",
+        "quotePriceUsd": "86.58935",
+        "valueUsd": "49.10578230608915",
+        "valueNative": "0.567111109"
+       },
+       {
+        "ordinalKey": "467317115-41-4-1794227213000",
+        "blockId": "467317115",
+        "txIndex": 41,
+        "eventIndex": 4,
+        "blockTimeMs": 1794227213000,
+        "txId": "4Qz3v7d3s8kibsuqdH5iDtqj7SKjooF3EAmAZpKbvitV1UP9nzGHNCCXhwp2FqDKLw6q2XRUyy9PUewKidvLFmP",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "yyQWDmHwJoaCqF9fAJT1WoFQpuTBQXNab3sAkPUGAmf"
+        },
+        "baseAmount": {
+         "raw": "436721841224951",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "14115059636",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.00000159148540225",
+        "priceQuote": "0.000000018384594483",
+        "quotePriceUsd": "86.56625",
+        "valueUsd": "1221.887781214885",
+        "valueNative": "14.115059636"
+       },
+       {
+        "ordinalKey": "467317038-34-3-1794227196000",
+        "blockId": "467317038",
+        "txIndex": 34,
+        "eventIndex": 3,
+        "blockTimeMs": 1794227196000,
+        "txId": "4aTjyAWSApZpH9Sndt8yYzRCXtx5en8v7gj8eexpYWfqQUp8ej4vMgT9b3nH3q2n1ZQQVBdybcTaS8jLH99TqZZe",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "yyQWDmHwJoaCqF9fAJT1WoFQpuTBQXNab3sAkPUGAmf"
+        },
+        "baseAmount": {
+         "raw": "364518854000160",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "59999999280",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000005039765091975",
+        "priceQuote": "0.000000058276654625",
+        "quotePriceUsd": "86.47999999999999",
+        "valueUsd": "5188.7999377344",
+        "valueNative": "59.99999928"
+       },
+       {
+        "ordinalKey": "467280784-177-3-1794219421000",
+        "blockId": "467280784",
+        "txIndex": 177,
+        "eventIndex": 3,
+        "blockTimeMs": 1794219421000,
+        "txId": "4sRJYMH8BCNyEN7KcFGSt27ZJEkyc8CyKjHLus522QtfXqC4tF633dncntTEw7mC4swfnBbJrBC8Dkr4H79XtbJE",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "6sDfNL1CTsjgF29cWdQwJUp5XkeYgvKn2ZmmNM9CBgRf"
+        },
+        "baseAmount": {
+         "raw": "5549491281655",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "2697727655",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000041108196527237",
+        "priceQuote": "0.000000478050411043",
+        "quotePriceUsd": "85.99134228854997",
+        "valueUsd": "231.981222182392297872",
+        "valueNative": "2.697727655"
+       },
+       {
+        "ordinalKey": "467280784-151-3-1794219421000",
+        "blockId": "467280784",
+        "txIndex": 151,
+        "eventIndex": 3,
+        "blockTimeMs": 1794219421000,
+        "txId": "4ZYvKvQvE71jzH6RNgmphFSt2PrZCCS644gkpqvwu9xe2JD9KfAsH8ada7jpaNPd2cta3QQknCbyjBve8DvjVpWz",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "Duyi9wqez1Wqyzad7wkUAmXkwsPyY9gFhJmNav5GTaLH"
+        },
+        "baseAmount": {
+         "raw": "3735514985322",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "1906633060",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000043577368809987",
+        "priceQuote": "0.000000506439674513",
+        "quotePriceUsd": "86.04651452680001",
+        "valueUsd": "164.059129294567136008",
+        "valueNative": "1.90663306"
+       },
+       {
+        "ordinalKey": "467280784-139-3-1794219421000",
+        "blockId": "467280784",
+        "txIndex": 139,
+        "eventIndex": 3,
+        "blockTimeMs": 1794219421000,
+        "txId": "42M5VvUMN6mfhGpPR3Za35pxFWz5XvNQ4gWZzErseMp4njBtFh7epqPxeShQJbXMczQuu3z85u52suWHryNZDZ19",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "e9cLMvGN1YvKvYbEPfxrXJ8YQwueYiCFv1wpquezQbP"
+        },
+        "baseAmount": {
+         "raw": "2449719219139",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "1292522151",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.00004531728299109",
+        "priceQuote": "0.000000526998204528",
+        "quotePriceUsd": "85.99134228855",
+        "valueUsd": "111.145714702173895745",
+        "valueNative": "1.292522151"
+       },
+       {
+        "ordinalKey": "467280784-134-3-1794219421000",
+        "blockId": "467280784",
+        "txIndex": 134,
+        "eventIndex": 3,
+        "blockTimeMs": 1794219421000,
+        "txId": "3EPX6quJiWsdhyz3pE779TFmpN8XojEK6RYG3BBibAS6AFdHcQkfG6ZQQNovUn2YKM37fN9twrtPpnaaFzA4xBNz",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "58aPH3PCmGW2rxjiDNoNKp4gYRrbdZBcueBXSusdnN12"
+        },
+        "baseAmount": {
+         "raw": "3482191761502",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "1897827576",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000046565604116619",
+        "priceQuote": "0.000000541167813393",
+        "quotePriceUsd": "86.04651452679998",
+        "valueUsd": "163.301448087645631036",
+        "valueNative": "1.897827576"
+       },
+       {
+        "ordinalKey": "467280784-91-3-1794219421000",
+        "blockId": "467280784",
+        "txIndex": 91,
+        "eventIndex": 3,
+        "blockTimeMs": 1794219421000,
+        "txId": "5rvFc7dcTWojsu1JzQczzM2eJ9tawNaZrvwQWSGXeoMftUoKKkycNHvaR3CUPY1ANNJYa5PVpsc2aJMJbimbdjf9",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "CfEzXPeNLHvcW9xi7Q8yDFoogyFZP9f86rWBisHxrfeG"
+        },
+        "baseAmount": {
+         "raw": "3606065434225",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "2044335336",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048385184302736",
+        "priceQuote": "0.000000562314285114",
+        "quotePriceUsd": "86.0465145268",
+        "valueUsd": "175.907930186774559004",
+        "valueNative": "2.044335336"
+       },
+       {
+        "ordinalKey": "467280744-181-3-1794219412000",
+        "blockId": "467280744",
+        "txIndex": 181,
+        "eventIndex": 3,
+        "blockTimeMs": 1794219412000,
+        "txId": "41tVLVK1LzBGnZJYhgd8eWvF96qtGsGJQeyUdKDN5zF9EFf4fQxoir4YQ3nuASPxmqd7XTjrNrvDnRxhFG5Xpmwb",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "xJcQHnAwZbWmjir65oKvjAvc7njcUHxbUdVfhDv8uKd"
+        },
+        "baseAmount": {
+         "raw": "155439256291",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "90004058",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.00005035198170387",
+        "priceQuote": "0.000000585547106997",
+        "quotePriceUsd": "85.99134228854999",
+        "valueUsd": "7.739569758836506035",
+        "valueNative": "0.090004058"
+       },
+       {
+        "ordinalKey": "467280423-360-3-1794219342000",
+        "blockId": "467280423",
+        "txIndex": 360,
+        "eventIndex": 3,
+        "blockTimeMs": 1794219342000,
+        "txId": "5MmjfHwkGh8qGV6m5NTEp5MLZtS5qsz4M5aZ2h8Wk2mmZTqqp9aURs9Duwuv3uD6X1p6J8NfN1BtBxRMgecvbC6Q",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "29YnypMzEiKd5GGkLgX2GgdTco5J5bWg6P8pTYSM6UeD"
+        },
+        "baseAmount": {
+         "raw": "43128923030",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "25001125",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050455245506338",
+        "priceQuote": "0.000000586580765963",
+        "quotePriceUsd": "86.01585396930001",
+        "valueUsd": "2.150493117068215462",
+        "valueNative": "0.025001125"
+       },
+       {
+        "ordinalKey": "467280100-380-5-1794219273000",
+        "blockId": "467280100",
+        "txIndex": 380,
+        "eventIndex": 5,
+        "blockTimeMs": 1794219273000,
+        "txId": "Xi5kHKuX2dZBWrgENQPW6NxeBRo9WouyM6oE6PBGM7sBqhxuJSwibBUeQiDb6hFLMG4HfH6fCLHRqi44q7LWzmP",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "85Lk3GknTaEg6fqy4axeFfqFShSDK9uU2V9pPzqxFseF"
+        },
+        "baseAmount": {
+         "raw": "134809922330",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "80003612",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050458915393683",
+        "priceQuote": "0.000000586868055288",
+        "quotePriceUsd": "85.98",
+        "valueUsd": "6.87871055976",
+        "valueNative": "0.080003612"
+       },
+       {
+        "ordinalKey": "467279769-166-5-1794219203000",
+        "blockId": "467279769",
+        "txIndex": 166,
+        "eventIndex": 5,
+        "blockTimeMs": 1794219203000,
+        "txId": "65xbEonHNJqZFUMHXoGE8RV63SXcYcg9N9UNBfT1XufpPgyEdYjdMtwSeX1JHn8WgxAx9ruxqpzzWLhd2wzNMm4X",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "ATzoHs3LvQFYY3VHU8c9vEowzVDGw1njdZ83GoZbvJ7k"
+        },
+        "baseAmount": {
+         "raw": "253326896734",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "150006781",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050373606083702",
+        "priceQuote": "0.000000585968968593",
+        "quotePriceUsd": "85.96633744045",
+        "valueUsd": "12.895533553801683691",
+        "valueNative": "0.150006781"
+       },
+       {
+        "ordinalKey": "467279452-198-5-1794219134000",
+        "blockId": "467279452",
+        "txIndex": 198,
+        "eventIndex": 5,
+        "blockTimeMs": 1794219134000,
+        "txId": "36txUoUuJUf94Phjjoqi3fVKaz8ZzA2CVrqhwz1FoHLdo9YUtFtdkNtqnyQQvpEe5NjtMNE2uFmGCXGFn2gdZ97s",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "5t8E1DCVyDFkwMdW3wFf1vwcHupPRvaw6WE9yiuuLMUY"
+        },
+        "baseAmount": {
+         "raw": "271020791197",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "160007242",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050224089999586",
+        "priceQuote": "0.00000058428503621",
+        "quotePriceUsd": "85.95819999999999",
+        "valueUsd": "13.7539345092844",
+        "valueNative": "0.160007242"
+       },
+       {
+        "ordinalKey": "467279127-67-5-1794219064000",
+        "blockId": "467279127",
+        "txIndex": 67,
+        "eventIndex": 5,
+        "blockTimeMs": 1794219064000,
+        "txId": "3doXN41j5agKxBtkPKJLxqP1Vy1PdmRZP5Npihpdai152NYPKVAc9gHkCCAWnwnbM14aKifEGUSzQ1jS8pmCb5HN",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "EAUNabzBQwKsjyk69qjRniBiiWoRTN32X9upre3Ku7Vu"
+        },
+        "baseAmount": {
+         "raw": "135823230092",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "80003625",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050216593041208",
+        "priceQuote": "0.000000582491509583",
+        "quotePriceUsd": "86.21000000000001",
+        "valueUsd": "6.8971125112500008",
+        "valueNative": "0.080003625"
+       },
+       {
+        "ordinalKey": "467278808-197-3-1794218995000",
+        "blockId": "467278808",
+        "txIndex": 197,
+        "eventIndex": 3,
+        "blockTimeMs": 1794218995000,
+        "txId": "PJB3nH8pKe31XKWAvhgB9iZWrSENMfa3ScNmqF5yLu4xkyHs3NBMAcKcGghqSgybBCMgcHz8xbjhbf1xtV5djec",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "4y3q2rhfvMPoZ1x19ThSoBJ1NHXGSB67s8taw4rhqXfY"
+        },
+        "baseAmount": {
+         "raw": "73065367064",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "42001899",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050110292353448",
+        "priceQuote": "0.000000581595779404",
+        "quotePriceUsd": "86.16",
+        "valueUsd": "3.61888361784",
+        "valueNative": "0.042001899"
+       },
+       {
+        "ordinalKey": "467278485-323-3-1794218926000",
+        "blockId": "467278485",
+        "txIndex": 323,
+        "eventIndex": 3,
+        "blockTimeMs": 1794218926000,
+        "txId": "2HLwpZM82CE6Ct8hvJV7G4EpVV1r9xSCMeXu7s14e5yNWx9FQANfCivDBEaoiTPsgjxeZwPTKWLw2WCJHK9dLrsT",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "5Q9sVMsdcJ8sMYDTg19TgmpXMdxDy4EsGccsoEA7HRPd"
+        },
+        "baseAmount": {
+         "raw": "133796604503",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "77003482",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050112869256357",
+        "priceQuote": "0.000000582076413124",
+        "quotePriceUsd": "86.09328281725",
+        "valueUsd": "6.629482553739019664",
+        "valueNative": "0.077003482"
+       },
+       {
+        "ordinalKey": "467278166-214-5-1794218856000",
+        "blockId": "467278166",
+        "txIndex": 214,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218856000,
+        "txId": "2igEPSxNeT63HxkiWhU3p9KVgdcnQZ9XDe9Jcjp4rUaaTLrBVGH4NKQE9Ay31Tp1ssFdPS81SEcieSyW1hyibVvw",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "x8nMEKP1uZWSWWBLqtUU8AgVrMjvKZHzqsjVXeuSq3Z"
+        },
+        "baseAmount": {
+         "raw": "169675770770",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "100004530",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050165863195228",
+        "priceQuote": "0.000000582958091182",
+        "quotePriceUsd": "86.05397875764999",
+        "valueUsd": "8.605787700288772154",
+        "valueNative": "0.10000453"
+       },
+       {
+        "ordinalKey": "467277845-141-5-1794218787000",
+        "blockId": "467277845",
+        "txIndex": 141,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218787000,
+        "txId": "2x7gDU6WkWmK74gimNWLmNFAYNoyxmYCXgXsT9vJG2SgEY7gxFkpS6VbfLF5ygfBPmuqEU3rifUHpQVNtc3L76fY",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "BbK5VJcvwSYhg5FhH98nVrayzK1E7E8pqgmd4FaqSQbA"
+        },
+        "baseAmount": {
+         "raw": "238095376226",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "140006350",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050096259140771",
+        "priceQuote": "0.000000581838085258",
+        "quotePriceUsd": "86.1",
+        "valueUsd": "12.054546735",
+        "valueNative": "0.14000635"
+       },
+       {
+        "ordinalKey": "467277521-180-5-1794218718000",
+        "blockId": "467277521",
+        "txIndex": 180,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218718000,
+        "txId": "3VowZJLzfTvtzWN987nUKDCypYa755BH8osCEH3KM9NDHoKU4tho1XFh8xaAbXuVjnaQpTq2FjMFV3PVxZgTxqhc",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "A6nGCzyzNFq9HNuDCbBRweFrqQxMyAndXT8Wu5k2mMgs"
+        },
+        "baseAmount": {
+         "raw": "68145186999",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "40001816",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050004929605865",
+        "priceQuote": "0.000000580271884025",
+        "quotePriceUsd": "86.175",
+        "valueUsd": "3.4471564938",
+        "valueNative": "0.040001816"
+       },
+       {
+        "ordinalKey": "467277193-52-5-1794218648000",
+        "blockId": "467277193",
+        "txIndex": 52,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218648000,
+        "txId": "4EiwNEVRaSMJg6oH72VQJTZiaqQt9nBpa61VicW5ZezRqv8sXDAi6MegFw2Q3A35mWynskGVGtE3y3uX6xEABNRb",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "9DSNhuxZkaBCZ9mGufv7sqXJ83JKKBoyFq6MdhXoKdMg"
+        },
+        "baseAmount": {
+         "raw": "102316366012",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "60002725",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050004089499678",
+        "priceQuote": "0.000000579824785478",
+        "quotePriceUsd": "86.24",
+        "valueUsd": "5.174635004",
+        "valueNative": "0.060002725"
+       },
+       {
+        "ordinalKey": "467276864-296-3-1794218578000",
+        "blockId": "467276864",
+        "txIndex": 296,
+        "eventIndex": 3,
+        "blockTimeMs": 1794218578000,
+        "txId": "uvKiyC67sjMK5nvXDJCP5jcFueyD6ftaMFVAcM8RRfPLonG6VFgLqWNFzgz9bHk89nGPHAHxDpLkMZdjqgLEhkB",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "8A2GvVCZHMuJDEvn4BFsibiEodtAdf9DT4jYBTC3jGC4"
+        },
+        "baseAmount": {
+         "raw": "270481571594",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "155007024",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049952072203602",
+        "priceQuote": "0.000000579154460331",
+        "quotePriceUsd": "86.25",
+        "valueUsd": "13.36935582",
+        "valueNative": "0.155007024"
+       },
+       {
+        "ordinalKey": "467276538-51-5-1794218509000",
+        "blockId": "467276538",
+        "txIndex": 51,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218509000,
+        "txId": "2oSdsLehNfZj6VjEvNXinwKRVTMyjLxN9gypeoj2cxXtFrgD2xzyvu4YEyNDae28qt1KCZnNxjLVPGFKN73AgCaN",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "BCCmThZu8rv4TevbHfEeohs7R62ux2xNFDLY7ttvui3M"
+        },
+        "baseAmount": {
+         "raw": "51046452029",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "30001361",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050138161799685",
+        "priceQuote": "0.000000580925497181",
+        "quotePriceUsd": "86.30738716580001",
+        "valueUsd": "2.589339079327932653",
+        "valueNative": "0.030001361"
+       },
+       {
+        "ordinalKey": "467275885-70-5-1794218370000",
+        "blockId": "467275885",
+        "txIndex": 70,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218370000,
+        "txId": "1soqv75sjPRU2jHTfeYJKuX6UUpMPE79iHdNraCxvzcp1Vi8gGp5ZtFa2czoXLcuU6zPpqERzYKJpzGyAiEBXt8",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "GiyzJa5mhCUZzGMv3eNHjQ4PEPhuQLYkcinhoDFfdAYS"
+        },
+        "baseAmount": {
+         "raw": "68120967780",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "40001815",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050168433256926",
+        "priceQuote": "0.000000580478145788",
+        "quotePriceUsd": "86.42605000879999",
+        "valueUsd": "3.457198863632765571",
+        "valueNative": "0.040001815"
+       },
+       {
+        "ordinalKey": "467275565-87-5-1794218301000",
+        "blockId": "467275565",
+        "txIndex": 87,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218301000,
+        "txId": "3wp4e5HpgYxU78qenAZiq7rvrTHQ7MYjGegmUFi1dMyeXBLgDTZCdW3MX5fTCri2K9kXEB6Fj8SHx6weHaSnKJhF",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "AtrhrUPdWY7XLevHs85uTupqMhrfCzoun2HXLrMtswry"
+        },
+        "baseAmount": {
+         "raw": "204678489733",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "120005451",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050121295971558",
+        "priceQuote": "0.000000580030966492",
+        "quotePriceUsd": "86.41141398815",
+        "valueUsd": "10.369840707195649405",
+        "valueNative": "0.120005451"
+       },
+       {
+        "ordinalKey": "467275238-103-5-1794218231000",
+        "blockId": "467275238",
+        "txIndex": 103,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218231000,
+        "txId": "5Udw7zhtVKNo62gcH8jtvXppJxprXb5qQUuVhnZ5r66kB4juV6Nc7XQ1127AGaBHvPNXYJWYvw7hKQnN64tBbDnK",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "4y3q2rhfvMPoZ1x19ThSoBJ1NHXGSB67s8taw4rhqXfY"
+        },
+        "baseAmount": {
+         "raw": "34159125500",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "20000909",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000050056424333207",
+        "priceQuote": "0.000000578690460837",
+        "quotePriceUsd": "86.49948067355001",
+        "valueUsd": "1.730068241498932456",
+        "valueNative": "0.020000909"
+       },
+       {
+        "ordinalKey": "467274918-111-5-1794218162000",
+        "blockId": "467274918",
+        "txIndex": 111,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218162000,
+        "txId": "4bYhA3QCyUmsjoybSa3k2KTCYn1qTwYQ4ZBdgzhQBT3Pxrhc1x5ZvRrfgeGzy1LuvdMSU56sJdk8dvQBARt3ywdF",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "APeZa3swaWEMk3PHDwBD8JVHpouNqwNviBHKhhMciQp3"
+        },
+        "baseAmount": {
+         "raw": "102556565356",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "60002728",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.0000500721203093",
+        "priceQuote": "0.000000578467193961",
+        "quotePriceUsd": "86.56",
+        "valueUsd": "5.19383613568",
+        "valueNative": "0.060002728"
+       },
+       {
+        "ordinalKey": "467274590-157-5-1794218093000",
+        "blockId": "467274590",
+        "txIndex": 157,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218093000,
+        "txId": "5fyzwNnLTZuJeU32XVhaQwPG41iwmd6xaAU5De4aoyriMSv6iGFS3HsaXSkNyz29oVRVKZaJusH9aycjoZVb7vA1",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "C1s56wPqRraSeggYJmWPUXr5wiJXBVs4rtGeqTWTgtmV"
+        },
+        "baseAmount": {
+         "raw": "51322832999",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "30001365",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049997294361672",
+        "priceQuote": "0.000000577797651382",
+        "quotePriceUsd": "86.53080233550001",
+        "valueUsd": "2.596042184610187957",
+        "valueNative": "0.030001365"
+       },
+       {
+        "ordinalKey": "467274264-185-5-1794218023000",
+        "blockId": "467274264",
+        "txIndex": 185,
+        "eventIndex": 5,
+        "blockTimeMs": 1794218023000,
+        "txId": "3kFBptiTnAR4jAveqAqBgWpMW5vBsMwpUMPAUC5ipoDMsLqYLoH8f6uFKzqz7E6N6cct6L3L11wrRUR7rMyomBBZ",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "BbK5VJcvwSYhg5FhH98nVrayzK1E7E8pqgmd4FaqSQbA"
+        },
+        "baseAmount": {
+         "raw": "257061173043",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "150006830",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049957405791508",
+        "priceQuote": "0.000000577463025382",
+        "quotePriceUsd": "86.51186932435",
+        "valueUsd": "12.97737127471998531",
+        "valueNative": "0.15000683"
+       },
+       {
+        "ordinalKey": "467273943-39-5-1794217954000",
+        "blockId": "467273943",
+        "txIndex": 39,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217954000,
+        "txId": "3zqRfg1FDzyNqGBMmvZAUg3zv5KedABMCSmxevkyi3XKmhUviELYFFVcZ5vt3pLscceaNAU2ycKbDXLCYMfky3Td",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "JCT9RvXRmxVPcgBvtkVQ7ToLSHxr45rNUm2fBiYSQ5v8"
+        },
+        "baseAmount": {
+         "raw": "171788762952",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "100004558",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049759888184901",
+        "priceQuote": "0.000000575791346735",
+        "quotePriceUsd": "86.41999999999999",
+        "valueUsd": "8.64239390236",
+        "valueNative": "0.100004558"
+       },
+       {
+        "ordinalKey": "467273621-35-5-1794217885000",
+        "blockId": "467273621",
+        "txIndex": 35,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217885000,
+        "txId": "1AZhu4K94L5mDnpecAn5dMYkEgTLXZRxGxuPVLwvZdFMA5Lqhs8Y9KjgxhU6iTpY1u6s2B8QSKGpZ99rcXd1fo8",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "8x7qtHoPwFoyMBWi1JHZeB9M4JPHbBYzU8iatYKR3iTu"
+        },
+        "baseAmount": {
+         "raw": "103232951471",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "60002737",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049646453099408",
+        "priceQuote": "0.000000574678239372",
+        "quotePriceUsd": "86.39",
+        "valueUsd": "5.18363644943",
+        "valueNative": "0.060002737"
+       },
+       {
+        "ordinalKey": "467273297-88-5-1794217816000",
+        "blockId": "467273297",
+        "txIndex": 88,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217816000,
+        "txId": "3ccu96sgtw3DKRwdHkBKCFv8q89BLa763ZQ45sFa1ghkDf5FEzbZZhSpQmPxEdXD3p2UMVC3EkUgLU3bPPZ3fwq5",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "3inzcARWRHjFNV1DxeEk27GSBVmxjpyLh5pAbM5zTaax"
+        },
+        "baseAmount": {
+         "raw": "120590208848",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "70003195",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049614893311011",
+        "priceQuote": "0.00000057401089149",
+        "quotePriceUsd": "86.43545627194999",
+        "valueUsd": "6.05075810031928888",
+        "valueNative": "0.070003195"
+       },
+       {
+        "ordinalKey": "467272968-219-3-1794217746000",
+        "blockId": "467272968",
+        "txIndex": 219,
+        "eventIndex": 3,
+        "blockTimeMs": 1794217746000,
+        "txId": "31cZ7zyK8tqboHJCweJ7w8w8qVeKJ5qwYzoj1Mo2mYj8o7fWsFLeyxy82bEHdyDCe4k78mt9RAYuGgSdR3fMzpmD",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "3ZypHcb3EkA5qz4BpLgXRUmsk7uVhLAPCkiS1zUF93sY"
+        },
+        "baseAmount": {
+         "raw": "223970053985",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "127005786",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049584637929021",
+        "priceQuote": "0.000000573232808427",
+        "quotePriceUsd": "86.5",
+        "valueUsd": "10.986000489",
+        "valueNative": "0.127005786"
+       },
+       {
+        "ordinalKey": "467272639-28-3-1794217676000",
+        "blockId": "467272639",
+        "txIndex": 28,
+        "eventIndex": 3,
+        "blockTimeMs": 1794217676000,
+        "txId": "DjHCbBL4AnMARuoMce8T4s65wUBm44CdXqAKY86kECwpWQaaGS8o8F8V7vEdrR8rJYK13aAuVrNA9DVWnMhy4KG",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "58aPH3PCmGW2rxjiDNoNKp4gYRrbdZBcueBXSusdnN12"
+        },
+        "baseAmount": {
+         "raw": "51063793305",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "29001320",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049646285195664",
+        "priceQuote": "0.000000574676295817",
+        "quotePriceUsd": "86.39",
+        "valueUsd": "2.5054240348",
+        "valueNative": "0.02900132"
+       },
+       {
+        "ordinalKey": "467272319-230-5-1794217607000",
+        "blockId": "467272319",
+        "txIndex": 230,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217607000,
+        "txId": "3cAPvoU46DQLiJ7fCtsWhgvUHyCpVAkZQzWab2yoDotdNkQmfGD7Pf2JP7aqDviEQxEqL4e42dxvJPWPW5yztPqB",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "8dpm9qK5xib9zf8uGFj8wiWKFreXyMFXucPj5e3ZUD2e"
+        },
+        "baseAmount": {
+         "raw": "120381404734",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "70003193",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049697782901661",
+        "priceQuote": "0.000000575006165702",
+        "quotePriceUsd": "86.42999999999999",
+        "valueUsd": "6.05037597099",
+        "valueNative": "0.070003193"
+       },
+       {
+        "ordinalKey": "467271993-163-5-1794217537000",
+        "blockId": "467271993",
+        "txIndex": 163,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217537000,
+        "txId": "2EW2G4Qc37RCsDN6ouNBak6nAeVeGvsKJUTznbjDBiFwfo2nJegvbwatXvjJbBKGEKUb6NNXKNisnrEq7itnZUdd",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "EusdRycxejVaCZdp9KV3TLjj7goYXBZVQ93xw7v6KLs"
+        },
+        "baseAmount": {
+         "raw": "155016148212",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "90004108",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049637983004664",
+        "priceQuote": "0.000000574227406442",
+        "quotePriceUsd": "86.4430754223",
+        "valueUsd": "7.780231896160834808",
+        "valueNative": "0.090004108"
+       },
+       {
+        "ordinalKey": "467271672-169-3-1794217468000",
+        "blockId": "467271672",
+        "txIndex": 169,
+        "eventIndex": 3,
+        "blockTimeMs": 1794217468000,
+        "txId": "47A3rGwPNgMenV5iWFeyyQndpeQwgN5JSt7b5gzCPdooWkXV1se57erfuwbBJ1tT3caxsz2uHsL8GzDXHaFYbPtV",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "91AYmQRVzpcCySUNpV89Sb2rphAPFfUrLeeSnuc7ps72"
+        },
+        "baseAmount": {
+         "raw": "104120142906",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "59002690",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049602787393734",
+        "priceQuote": "0.000000573226919046",
+        "quotePriceUsd": "86.53255062795",
+        "valueUsd": "5.105653259610239185",
+        "valueNative": "0.05900269"
+       },
+       {
+        "ordinalKey": "467271353-136-5-1794217399000",
+        "blockId": "467271353",
+        "txIndex": 136,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217399000,
+        "txId": "3j3DacmekezpMcZygRWJjzof7NvaSo7K11gqK5zwzda6E3zaL3jGiRfvtv92iAPQ8ihEqHv1VAk47DY57kA9Gj4v",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "GTS7ChbmVBLPH21DRjZufS4M3SMeMKg2yD91pPiCMeWe"
+        },
+        "baseAmount": {
+         "raw": "51671695987",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "30001370",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049769317586189",
+        "priceQuote": "0.000000573897287997",
+        "quotePriceUsd": "86.7216462371",
+        "valueUsd": "2.601768195768344827",
+        "valueNative": "0.03000137"
+       },
+       {
+        "ordinalKey": "467271019-152-5-1794217329000",
+        "blockId": "467271019",
+        "txIndex": 152,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217329000,
+        "txId": "3jNC7RV395dqo7trAk3f8qXMEjnQhfhMTknqjq1cNojVWpZ6qi3qsQS7FdYgKjLY1qz5A9ah3mrGcJhiUjon3Kf2",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "Duyi9wqez1Wqyzad7wkUAmXkwsPyY9gFhJmNav5GTaLH"
+        },
+        "baseAmount": {
+         "raw": "293375062612",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "170007767",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049783310459733",
+        "priceQuote": "0.000000573563790901",
+        "quotePriceUsd": "86.7964666693",
+        "valueUsd": "14.756073481937620453",
+        "valueNative": "0.170007767"
+       },
+       {
+        "ordinalKey": "467270691-73-5-1794217259000",
+        "blockId": "467270691",
+        "txIndex": 73,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217259000,
+        "txId": "4Pe4GcomaviRAtpoCFz2amu28F5Cv55q79tyLtkLLNLQwJSDyh9aCzVF8WZkb8K1twY5PGDJo9W9w6nHDrKSnDUY",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "HVKh9NLBkuZsiH4mXhNY1N3SkjnppEaVK9jbEuGKJUve"
+        },
+        "baseAmount": {
+         "raw": "259665437701",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "150006865",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049536342780891",
+        "priceQuote": "0.000000571675801635",
+        "quotePriceUsd": "86.65111001574999",
+        "valueUsd": "12.998261362232756623",
+        "valueNative": "0.150006865"
+       },
+       {
+        "ordinalKey": "467270369-187-5-1794217190000",
+        "blockId": "467270369",
+        "txIndex": 187,
+        "eventIndex": 5,
+        "blockTimeMs": 1794217190000,
+        "txId": "59HjsyDYZVZG39hfhMQ8ouxKDxhgm4LyBZLPRMLKjJbqv5D954b4hHHeoiPQuQKzRj2XmvVVtRp1NoTWZZkPbUjf",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "3WKnsit2wpMLDMcfZwdGWbNH2S3a1iJheAN76eT6uP9Z"
+        },
+        "baseAmount": {
+         "raw": "34679231629",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "20000916",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.00004940281834944",
+        "priceQuote": "0.000000570012510962",
+        "quotePriceUsd": "86.66970882099999",
+        "valueUsd": "1.733473565873280036",
+        "valueNative": "0.020000916"
+       },
+       {
+        "ordinalKey": "467270045-48-3-1794217120000",
+        "blockId": "467270045",
+        "txIndex": 48,
+        "eventIndex": 3,
+        "blockTimeMs": 1794217120000,
+        "txId": "2ygqkt63FYut4X4nZft7TEA5MyCVXM12HyQm14cfd3eoogGWhDjTWYNB3zXLbqLzbcpjWhWZufdZXZ1acsGqRBa3",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "EVBy7rCvWzwmVC9pVXd428zK9HoZzesgVHdP6TmrwWW5"
+        },
+        "baseAmount": {
+         "raw": "67478775151",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "38001737",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049516455018667",
+        "priceQuote": "0.000000569790921916",
+        "quotePriceUsd": "86.90285",
+        "valueUsd": "3.30245925025045",
+        "valueNative": "0.038001737"
+       },
+       {
+        "ordinalKey": "467269715-64-3-1794217050000",
+        "blockId": "467269715",
+        "txIndex": 64,
+        "eventIndex": 3,
+        "blockTimeMs": 1794217050000,
+        "txId": "25tZSf8eRED47ED8XJuHL7ctL67ctym72q8RnyNbxdn8RotGmBwZtwiGe1FRmN6neSbmTPjXzgo6EA6PAEZbJ5z8",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "t16YM5xWHN71FTbqqekfSgxdPzj3jVRSNRvjWywNcW3"
+        },
+        "baseAmount": {
+         "raw": "232234366952",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "131005984",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049495847481928",
+        "priceQuote": "0.000000570221346242",
+        "quotePriceUsd": "86.80111295035",
+        "valueUsd": "11.371465214355744894",
+        "valueNative": "0.131005984"
+       },
+       {
+        "ordinalKey": "467269396-221-5-1794216981000",
+        "blockId": "467269396",
+        "txIndex": 221,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216981000,
+        "txId": "3T5rqUPS9wDarBRrf38airex4wgqtQHbnvdT5m8QU416N4aPLUSYbGAMRPZMdreMNv2kZG13qnTYjvPyNK1JGZK5",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "Bhmtf4wnjyPvLj2z66dnKDPMWVXURhFrT1K1iXC3pq5K"
+        },
+        "baseAmount": {
+         "raw": "294328995949",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "170007780",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049591456623433",
+        "priceQuote": "0.00000057170642511",
+        "quotePriceUsd": "86.74287089545",
+        "valueUsd": "14.746962911762066601",
+        "valueNative": "0.17000778"
+       },
+       {
+        "ordinalKey": "467269083-51-3-1794216914000",
+        "blockId": "467269083",
+        "txIndex": 51,
+        "eventIndex": 3,
+        "blockTimeMs": 1794216914000,
+        "txId": "2DbmE3Pt1diRJCuqh8taf6jJW71uXczdkGohqHFXdDDHdPniHF1udBrYHsZYnj7nL9hr1QRNrpyhdczV9zPcRii4",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "4MUgfmkfBVFe1gmFGcMMmJp5QAXHX8FEFX7BbTu6L8rD"
+        },
+        "baseAmount": {
+         "raw": "186320619139",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "105004798",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049369333742472",
+        "priceQuote": "0.000000569821488255",
+        "quotePriceUsd": "86.64",
+        "valueUsd": "9.09761569872",
+        "valueNative": "0.105004798"
+       },
+       {
+        "ordinalKey": "467268743-39-3-1794216842000",
+        "blockId": "467268743",
+        "txIndex": 39,
+        "eventIndex": 3,
+        "blockTimeMs": 1794216842000,
+        "txId": "3BoBFy7joVFnqgwamcA9NdhuHegQBtmTJWGwsTC39f6EwJGNHSdXU6m4zLYwP34aXVHvae7A1JMtUR7jMkrftR52",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "FG8p3yzz5ohqrcR7mBgDRLCzF6oskcNm844iRRSAZsvL"
+        },
+        "baseAmount": {
+         "raw": "306139836086",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "173007894",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049471472118622",
+        "priceQuote": "0.000000571011251108",
+        "quotePriceUsd": "86.63834910889999",
+        "valueUsd": "14.989118318967565656",
+        "valueNative": "0.173007894"
+       },
+       {
+        "ordinalKey": "467268421-129-5-1794216773000",
+        "blockId": "467268421",
+        "txIndex": 129,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216773000,
+        "txId": "58KKNgce4y53oVLi3UzZkRsyPZbYFahAYFzsBU2PY2P7Wfe4kDo2rkP5s1RdXAE5EoYCwfgUAwendyhaWgUEM7zq",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "C7hSpoXkuLnr5AdCw3d9vJSdcKDrMadnuwmD8VFsm2zq"
+        },
+        "baseAmount": {
+         "raw": "207200839224",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "120005484",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049673310250675",
+        "priceQuote": "0.000000572974236608",
+        "quotePriceUsd": "86.6937936769",
+        "valueUsd": "10.403730669992524119",
+        "valueNative": "0.120005484"
+       },
+       {
+        "ordinalKey": "467268098-162-3-1794216703000",
+        "blockId": "467268098",
+        "txIndex": 162,
+        "eventIndex": 3,
+        "blockTimeMs": 1794216703000,
+        "txId": "31Gm2L6GRjW1gEJzT67K28CJAwBNPcNB8Zs6M9mu8LooeHu7D4c36HfcAArDDAEwVAnMuemqv5Sc6GkEaGrAXmtn",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "HQXwzmByswQKyrCtaudssnoCnPMmQv1NDb6ZAuDqnLAn"
+        },
+        "baseAmount": {
+         "raw": "21245572771",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "12000546",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049575214093438",
+        "priceQuote": "0.000000571641889015",
+        "quotePriceUsd": "86.72425",
+        "valueUsd": "1.0407383514405",
+        "valueNative": "0.012000546"
+       },
+       {
+        "ordinalKey": "467267771-130-5-1794216634000",
+        "blockId": "467267771",
+        "txIndex": 130,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216634000,
+        "txId": "27P3D49szMmoL8jQMXLmULxCA7ei6DcskQodk3ZumVLHtMQntjAm97zpcE2Aug3EnkcHaYDWC3wq895zxvnuQ7sa",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "GhaX4n8hg8SnxFXUYJMkeu96JdtJn7mw2cFBonYZmwYE"
+        },
+        "baseAmount": {
+         "raw": "259618986801",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "150006865",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049544565122795",
+        "priceQuote": "0.00000057177801642",
+        "quotePriceUsd": "86.65",
+        "valueUsd": "12.99809485225",
+        "valueNative": "0.150006865"
+       },
+       {
+        "ordinalKey": "467267454-86-5-1794216565000",
+        "blockId": "467267454",
+        "txIndex": 86,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216565000,
+        "txId": "5tnwWSbbFvVedrUTpynQBZmtXLQqbkL3VWMLmNyT9WdnYwfeL3N4qYhesRswMtvanLxntPcxh6APQnqmb6fDHbP5",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "3cym3iC4H1uKCDGKUA3RfHPip77cVnwPUkrvANGezehN"
+        },
+        "baseAmount": {
+         "raw": "173500187586",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "100004582",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049343415337103",
+        "priceQuote": "0.000000570114561953",
+        "quotePriceUsd": "86.55",
+        "valueUsd": "8.6553965721",
+        "valueNative": "0.100004582"
+       },
+       {
+        "ordinalKey": "467267130-126-3-1794216496000",
+        "blockId": "467267130",
+        "txIndex": 126,
+        "eventIndex": 3,
+        "blockTimeMs": 1794216496000,
+        "txId": "5D3oZLU2ZoxaQW4wCLuxkrYRm3cBXULCscT9zfEFeAraQyzHCQkBGCJik5WP1bPkAA2iYipQ7jTJWRyEcmQvNBzz",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "HSh6pYaU1cyQL8i2KmaUFNo9dxv6YEZ7eh9QT32eYMQC"
+        },
+        "baseAmount": {
+         "raw": "81790861916",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "46002105",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049244786796261",
+        "priceQuote": "0.000000569006937425",
+        "quotePriceUsd": "86.54514305055",
+        "valueUsd": "3.981258757851421407",
+        "valueNative": "0.046002105"
+       },
+       {
+        "ordinalKey": "467266805-227-5-1794216426000",
+        "blockId": "467266805",
+        "txIndex": 227,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216426000,
+        "txId": "4YxLNtUbVBFKzvAD9mxo9CDexDQ8LZTeV7nu74GFHnmgvd3fpYvEJvc1waRGGdpp5fzzfyV9FC6mLsa8ijqAKNfN",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "J6zfMkDr7PWHfHkcvipUobgo7KFcD4Z3xPhSXEaFNJkM"
+        },
+        "baseAmount": {
+         "raw": "225848816615",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "130005960",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049247055442396",
+        "priceQuote": "0.000000569527644759",
+        "quotePriceUsd": "86.47",
+        "valueUsd": "11.2416153612",
+        "valueNative": "0.13000596"
+       },
+       {
+        "ordinalKey": "467266485-15-5-1794216356000",
+        "blockId": "467266485",
+        "txIndex": 15,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216356000,
+        "txId": "nZaHsRhSgTxoX17GJcJAfnazqAZ15PrNS151U9rMxFJnQPsnE4Pjmii9V5BBL3dMZscQZjwvR6GPenjDeuWxg2b",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "CBQ5UdKShrYATwDn4Mbk9iBLJ4jMeQQNpjiDCW3ko7J6"
+        },
+        "baseAmount": {
+         "raw": "121847798220",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "70003212",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.00004908700917984",
+        "priceQuote": "0.000000568088682088",
+        "quotePriceUsd": "86.40729999999999",
+        "valueUsd": "6.048788540247599299",
+        "valueNative": "0.070003212"
+       },
+       {
+        "ordinalKey": "467266158-72-3-1794216287000",
+        "blockId": "467266158",
+        "txIndex": 72,
+        "eventIndex": 3,
+        "blockTimeMs": 1794216287000,
+        "txId": "3Lk6prxN7TubWUNqHxRvjRV1w6wbfuc2EyNd63UXoVQYyq7VmW1sZ7sBGXQVX1gpdxoEPcGi5MHTcW5V9hyEhj5i",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "Csrc8MLfRcJzVtu3iKsULb8DmXzkBAwUhL99ezT6SVpd"
+        },
+        "baseAmount": {
+         "raw": "130150707605",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "73003343",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049103916015317",
+        "priceQuote": "0.000000567314609384",
+        "quotePriceUsd": "86.55499999999999",
+        "valueUsd": "6.318804353365",
+        "valueNative": "0.073003343"
+       },
+       {
+        "ordinalKey": "467265836-121-5-1794216218000",
+        "blockId": "467265836",
+        "txIndex": 121,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216218000,
+        "txId": "4ipitVcAsCtfUjC1S2UwhXxfWqiFMNgjc7aJRbuS1UVgwMobwJ1GKBD1PHuQc42CdAp4LUv8aoEnppHBrWUuBcjd",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "A6nGCzyzNFq9HNuDCbBRweFrqQxMyAndXT8Wu5k2mMgs"
+        },
+        "baseAmount": {
+         "raw": "121836824124",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "70003212",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049165747467459",
+        "priceQuote": "0.000000568139832966",
+        "quotePriceUsd": "86.538110188",
+        "valueUsd": "6.057945673569923856",
+        "valueNative": "0.070003212"
+       },
+       {
+        "ordinalKey": "467265518-46-5-1794216148000",
+        "blockId": "467265518",
+        "txIndex": 46,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216148000,
+        "txId": "5ndnHVzis4miyqP4qYHVuvAtcAZT8uGd6YMJofSiUsKXtiJee82KMuuUTyciZeuQ6Prru4V3ENXFgRyMQf5yyn5A",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "x8nMEKP1uZWSWWBLqtUU8AgVrMjvKZHzqsjVXeuSq3Z"
+        },
+        "baseAmount": {
+         "raw": "279109418784",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "160007352",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049133800790839",
+        "priceQuote": "0.000000567365724313",
+        "quotePriceUsd": "86.5998749753",
+        "valueUsd": "13.856616678328818405",
+        "valueNative": "0.160007352"
+       },
+       {
+        "ordinalKey": "467265193-35-5-1794216079000",
+        "blockId": "467265193",
+        "txIndex": 35,
+        "eventIndex": 5,
+        "blockTimeMs": 1794216079000,
+        "txId": "5FuJWQQhQ8NsfkddUUfyrNey57QQXqwWYt7xRRkLfxHvthMvxBv88Usr87U6A9HB9Qqkn86JecAA4BrbDgrCgqcq",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "6W1YTTk4PS2XPFC16HRPbjW3ENwFVDnXxBrD1W4RKaQV"
+        },
+        "baseAmount": {
+         "raw": "297510298491",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "170007822",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049011921720305",
+        "priceQuote": "0.00000056559831193",
+        "quotePriceUsd": "86.655",
+        "valueUsd": "14.73202781541",
+        "valueNative": "0.170007822"
+       },
+       {
+        "ordinalKey": "467264874-80-3-1794216009000",
+        "blockId": "467264874",
+        "txIndex": 80,
+        "eventIndex": 3,
+        "blockTimeMs": 1794216009000,
+        "txId": "3cwcN8CJdpgiBPArvZNFrFingvN6hZcMfgdoU3o7HaJuCToAE2jh6uj4ushAFKDQfBDQEou6TMyWMKWZKF29na8c",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "CR9SUBJU7ta7MUZ4ZMfEUKdSJmsCUacof5KzqY9kdD7N"
+        },
+        "baseAmount": {
+         "raw": "175791709951",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "98004503",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048890509267702",
+        "priceQuote": "0.000000563723454047",
+        "quotePriceUsd": "86.7278253489",
+        "valueUsd": "8.499717419589746096",
+        "valueNative": "0.098004503"
+       },
+       {
+        "ordinalKey": "467264550-24-3-1794215940000",
+        "blockId": "467264550",
+        "txIndex": 24,
+        "eventIndex": 3,
+        "blockTimeMs": 1794215940000,
+        "txId": "3v7LmwgFRBC2VyEsgxKWTKK6911GEApxgiqu4domxa1M5uoz9fsjenrbFHU2YK7Hhj5tmpziZxmNz4mHa6odrFM",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "vTMJkr3yL9ep71NF4ZdYp4C4RqR2CX7E14z1i8FivJi"
+        },
+        "baseAmount": {
+         "raw": "180813582325",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "101004637",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049058448889535",
+        "priceQuote": "0.000000564827921217",
+        "quotePriceUsd": "86.8555661763",
+        "valueUsd": "8.772814933066659503",
+        "valueNative": "0.101004637"
+       },
+       {
+        "ordinalKey": "467264228-80-5-1794215870000",
+        "blockId": "467264228",
+        "txIndex": 80,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215870000,
+        "txId": "2nwycFqZfiLMeNAex2BgFjGeQxQDCPTm64CUHFQAwzCL9YUGE2GCgWWDLJVgTnqgKZkU3xJSPyQg7FaqxYE2e7Nr",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "6Y9iEw3XK5x8kryrSytAwPJNTpog6TBz89nbkLKEWdju"
+        },
+        "baseAmount": {
+         "raw": "69867903444",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "40001839",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049134129217093",
+        "priceQuote": "0.00000056596733074",
+        "quotePriceUsd": "86.81442646664999",
+        "valueUsd": "3.472736710396271769",
+        "valueNative": "0.040001839"
+       },
+       {
+        "ordinalKey": "467264124-238-5-1794215847000",
+        "blockId": "467264124",
+        "txIndex": 238,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215847000,
+        "txId": "2AD2PsAFA3oQosk2rdAaPYCu8k4S9rVnULZHa8FFCN7Y56a2HFRzzRrQRzmG2i6S3wqWDMgo9mXMZuTXg4UwicQ2",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "Aq9yfMfK8LsBa3xRfPE6BSdEvcTVfbdUahzENBQzYrdf"
+        },
+        "baseAmount": {
+         "raw": "297548499696",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "170007823",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049110257229446",
+        "priceQuote": "0.00000056552576266",
+        "quotePriceUsd": "86.83999999999999",
+        "valueUsd": "14.76347934932",
+        "valueNative": "0.170007823"
+       },
+       {
+        "ordinalKey": "467263988-222-3-1794215819000",
+        "blockId": "467263988",
+        "txIndex": 222,
+        "eventIndex": 3,
+        "blockTimeMs": 1794215819000,
+        "txId": "3e6k5czAVAUyoADGY4jnpwHc5kwZP7ciWiWP9GTNKRpeMbB8CodgmAFru38tGu1HwVknLyHJ88HTCr8KbNWZUrGc",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "xJcQHnAwZbWmjir65oKvjAvc7njcUHxbUdVfhDv8uKd"
+        },
+        "baseAmount": {
+         "raw": "105888562963",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "59002713",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048921509264639",
+        "priceQuote": "0.000000563651017556",
+        "quotePriceUsd": "86.79396956779999",
+        "valueUsd": "5.121079676539636851",
+        "valueNative": "0.059002713"
+       },
+       {
+        "ordinalKey": "467263853-99-5-1794215790000",
+        "blockId": "467263853",
+        "txIndex": 99,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215790000,
+        "txId": "27wkreG7YLZ2YVzvFWJ8NYds7p6FHkjDjUBi76WhvmJijwuP4amRWNNDCutnaQ7VTQytqNEP2Y4n32jX3L3ReeaF",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "ApHHicvbq4sX2sFoQEPu67YTfVPwiTLjQzAbiBsxmQxb"
+        },
+        "baseAmount": {
+         "raw": "280619135816",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "160007371",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000049005182520161",
+        "priceQuote": "0.000000564315782129",
+        "quotePriceUsd": "86.84",
+        "valueUsd": "13.89504009764",
+        "valueNative": "0.160007371"
+       },
+       {
+        "ordinalKey": "467263720-128-5-1794215762000",
+        "blockId": "467263720",
+        "txIndex": 128,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215762000,
+        "txId": "5gg8brfLKbnDVaeKTjWhuegzUiuraEtaPc5rYyJPD4fMRiBAXqgZdURyRQJMDiEh29cyEe8aNjEYanqLy9QhscG2",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "3ZypHcb3EkA5qz4BpLgXRUmsk7uVhLAPCkiS1zUF93sY"
+        },
+        "baseAmount": {
+         "raw": "52713860693",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "30001383",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048790231776152",
+        "priceQuote": "0.000000562553116293",
+        "quotePriceUsd": "86.72999999999999",
+        "valueUsd": "2.60201994759",
+        "valueNative": "0.030001383"
+       },
+       {
+        "ordinalKey": "467263589-41-5-1794215733000",
+        "blockId": "467263589",
+        "txIndex": 41,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215733000,
+        "txId": "4ChqtxmtmtXyqkeGM6dzaWHV9A6rR4unSFXKDcZTDnEuVyrQLcw3KMJxhK8F9kxp8BhT1WbYdoHQurtDUj74UhQG",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "CfEzXPeNLHvcW9xi7Q8yDFoogyFZP9f86rWBisHxrfeG"
+        },
+        "baseAmount": {
+         "raw": "299297983294",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "170007846",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048733482991938",
+        "priceQuote": "0.000000562222923303",
+        "quotePriceUsd": "86.68",
+        "valueUsd": "14.73628009128",
+        "valueNative": "0.170007846"
+       },
+       {
+        "ordinalKey": "467263454-71-5-1794215704000",
+        "blockId": "467263454",
+        "txIndex": 71,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215704000,
+        "txId": "39tNo6GPSgwQDhCy9rDCtRVkptP1v12j3622YE7Z49pWqvf655QTB6g778y8VwxWeUP853dEBvQvCcZC9rZjVmCL",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "ApHHicvbq4sX2sFoQEPu67YTfVPwiTLjQzAbiBsxmQxb"
+        },
+        "baseAmount": {
+         "raw": "229548825476",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "130006009",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048596670936124",
+        "priceQuote": "0.000000560353657378",
+        "quotePriceUsd": "86.725",
+        "valueUsd": "11.274771130525",
+        "valueNative": "0.130006009"
+       },
+       {
+        "ordinalKey": "467263328-125-5-1794215677000",
+        "blockId": "467263328",
+        "txIndex": 125,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215677000,
+        "txId": "67qcjvjo6wnvA7sgQuTfbFWyeqmkncvgPdSHEQpSiPX3jcNkEVcJm9Q34AiNW3UkJEY5FwEbm4MPokuZLbSJGvef",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "8ekz3XuH4iS86x1y2CJbrVe4J4iU12k7aVounFTsuZAX"
+        },
+        "baseAmount": {
+         "raw": "106143244858",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "60002776",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048469992208949",
+        "priceQuote": "0.000000558926317037",
+        "quotePriceUsd": "86.7198246557",
+        "valueUsd": "5.203430213575244223",
+        "valueNative": "0.060002776"
+       },
+       {
+        "ordinalKey": "467263185-65-5-1794215647000",
+        "blockId": "467263185",
+        "txIndex": 65,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215647000,
+        "txId": "BBYHK47EcP2a7EkDadDML9kDbnru8iPKcHjhP8DM7q4hf3gWnG2Ej2hU5RPcThWiiJB7kXgNuaHs7JEXKers4zs",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "FG8p3yzz5ohqrcR7mBgDRLCzF6oskcNm844iRRSAZsvL"
+        },
+        "baseAmount": {
+         "raw": "177183757267",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "100004630",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048410150009811",
+        "priceQuote": "0.000000558268158077",
+        "quotePriceUsd": "86.7148686691",
+        "valueUsd": "8.671888356751937933",
+        "valueNative": "0.10000463"
+       },
+       {
+        "ordinalKey": "467263054-183-5-1794215619000",
+        "blockId": "467263054",
+        "txIndex": 183,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215619000,
+        "txId": "4FNe6Ckigf1kxKk9XtrwkjyQULh5xcw4h8myFasvX29q2UKCAG8s1ymqHbwzjZsdt63s7jBhTiYgM2bb5KEyQkZ8",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "CEh2hvXKLBxSVPRcmnay9V5wDaZgJ2sMAHZztZGD9cwf"
+        },
+        "baseAmount": {
+         "raw": "266429972126",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "150006954",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048303172027666",
+        "priceQuote": "0.000000557172086978",
+        "quotePriceUsd": "86.69345280665001",
+        "valueUsd": "13.004620787268317444",
+        "valueNative": "0.150006954"
+       },
+       {
+        "ordinalKey": "467262921-40-3-1794215590000",
+        "blockId": "467262921",
+        "txIndex": 40,
+        "eventIndex": 3,
+        "blockTimeMs": 1794215590000,
+        "txId": "2isWMKzxB2RUKr2puxQYLabjvr7HZ8Yb8Apo9biD7rS6nhgdEF6bpGnU1eg5ZLAP7tXE3BZ3CEK2BvX2PXk59fu5",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "xJcQHnAwZbWmjir65oKvjAvc7njcUHxbUdVfhDv8uKd"
+        },
+        "baseAmount": {
+         "raw": "274709525740",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "151006986",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048170006062479",
+        "priceQuote": "0.00000055552999726",
+        "quotePriceUsd": "86.71",
+        "valueUsd": "13.09381575606",
+        "valueNative": "0.151006986"
+       },
+       {
+        "ordinalKey": "467262789-119-5-1794215562000",
+        "blockId": "467262789",
+        "txIndex": 119,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215562000,
+        "txId": "3rBtmxLVWo4jMBAjnnELBjJNchyELrpsG4KMiH6sbW5cFfgRjSG4LmdX9urMuAxo3B429JhUSA4xWiomswtqy28g",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "G1jwrLmuu74KeF8pRpcPNRipcGVgF5hMXzw5UhLMEbPX"
+        },
+        "baseAmount": {
+         "raw": "177517270781",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "100004634",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048310960534145",
+        "priceQuote": "0.000000557219844684",
+        "quotePriceUsd": "86.7",
+        "valueUsd": "8.6704017678",
+        "valueNative": "0.100004634"
+       },
+       {
+        "ordinalKey": "467262660-77-3-1794215534000",
+        "blockId": "467262660",
+        "txIndex": 77,
+        "eventIndex": 3,
+        "blockTimeMs": 1794215534000,
+        "txId": "yin25rUdeJ6RxdUunZT3wST2vE1898aLRGBTF9Njp5fCH3G6YL4nREuVHwGV5quqp4M6fSTLwBEie2rv6JKau5k",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "BXqvx2tWcqvq8FeJ1gwqXDskaAcP127wY5Vm6gRjBUZz"
+        },
+        "baseAmount": {
+         "raw": "312513873577",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "172007952",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048219011283569",
+        "priceQuote": "0.000000556124799275",
+        "quotePriceUsd": "86.70537862434999",
+        "valueUsd": "14.914014604559020831",
+        "valueNative": "0.172007952"
+       },
+       {
+        "ordinalKey": "467262522-82-5-1794215505000",
+        "blockId": "467262522",
+        "txIndex": 82,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215505000,
+        "txId": "4pxPdjhYVtNqR2SvjH4c1qibJ38cPaHXAY6XhpHGWJJYMRRC51HmkXRfSRRkLXkaXdB1bB3ivjGoz9LKuRNkjAwp",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "EAUNabzBQwKsjyk69qjRniBiiWoRTN32X9upre3Ku7Vu"
+        },
+        "baseAmount": {
+         "raw": "266010085362",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "150006948",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048426888337955",
+        "priceQuote": "0.000000558050896425",
+        "quotePriceUsd": "86.7786229681",
+        "valueUsd": "13.017396383087382358",
+        "valueNative": "0.150006948"
+       },
+       {
+        "ordinalKey": "467262389-53-3-1794215476000",
+        "blockId": "467262389",
+        "txIndex": 53,
+        "eventIndex": 3,
+        "blockTimeMs": 1794215476000,
+        "txId": "2uU9TYinrMfgCPhiXsJ39aAYm3nTFMmi3L58Q1yu2EggxFMTSBDEYATRmaHsFmGQ2WAm3ZhmbruCQ17nRo74Sqz1",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "HQXwzmByswQKyrCtaudssnoCnPMmQv1NDb6ZAuDqnLAn"
+        },
+        "baseAmount": {
+         "raw": "285157842536",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "157007257",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048284276827516",
+        "priceQuote": "0.00000055640750194",
+        "quotePriceUsd": "86.7786229681",
+        "valueUsd": "13.624873558458579501",
+        "valueNative": "0.157007257"
+       },
+       {
+        "ordinalKey": "467262254-85-5-1794215447000",
+        "blockId": "467262254",
+        "txIndex": 85,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215447000,
+        "txId": "x8gRktEcrEVbRbsFkYT5khX43LpfmtHjBzzZgdSUnpoendHFjNpAK43ga2n2F4bZp8jKSsWD6NdcgXU5eg9kWEn",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "AjcssPVXS2sQHUo2jQbxRy2SLTeuygLZtJzNaDgMnbmC"
+        },
+        "baseAmount": {
+         "raw": "88564525594",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "50002314",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048452037635642",
+        "priceQuote": "0.000000558165944763",
+        "quotePriceUsd": "86.8057933133",
+        "valueUsd": "4.340490534270726976",
+        "valueNative": "0.050002314"
+       },
+       {
+        "ordinalKey": "467262123-58-5-1794215419000",
+        "blockId": "467262123",
+        "txIndex": 58,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215419000,
+        "txId": "VTqzJEX1SxWeJxApo8ZHkQAgLu7JNrbg97RwDZP9mRaRrdUANnF8CqBs4oA7J6gfNzwXKc68eDL11TaWcwNRTB6",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "6W1YTTk4PS2XPFC16HRPbjW3ENwFVDnXxBrD1W4RKaQV"
+        },
+        "baseAmount": {
+         "raw": "35450173766",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "20000926",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048475477290753",
+        "priceQuote": "0.000000557617819727",
+        "quotePriceUsd": "86.93315668154999",
+        "valueUsd": "1.738743633734087115",
+        "valueNative": "0.020000926"
+       },
+       {
+        "ordinalKey": "467261992-169-5-1794215390000",
+        "blockId": "467261992",
+        "txIndex": 169,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215390000,
+        "txId": "4exxqk4A7QytECbjgaML6Pez8hufb8p6e5JMtByoef18G91RzAKJVZbMGStnTkv9H9jVfs4n6zwhSVdnahLtoXPQ",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "HTRp3vHztwFdfa9PfcoaJTsZLQ6ezRXrAHfsdgszCUyp"
+        },
+        "baseAmount": {
+         "raw": "177460299235",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "100004633",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048455271895539",
+        "priceQuote": "0.000000557398645063",
+        "quotePriceUsd": "86.93109020745001",
+        "valueUsd": "8.693511772485931115",
+        "valueNative": "0.100004633"
+       },
+       {
+        "ordinalKey": "467261863-120-5-1794215362000",
+        "blockId": "467261863",
+        "txIndex": 120,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215362000,
+        "txId": "2JFGg1Xweot8xcT9kZvwPDFFfz5eM3JrMzqTXnMWhhgGUyuAp4XvrfSiZ8v7yaoWaYJbM1NEvPH2Lc8RrHxLnBjC",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "G1jwrLmuu74KeF8pRpcPNRipcGVgF5hMXzw5UhLMEbPX"
+        },
+        "baseAmount": {
+         "raw": "160013095200",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "90004173",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048365019059936",
+        "priceQuote": "0.000000556303416838",
+        "quotePriceUsd": "86.94",
+        "valueUsd": "7.82496280062",
+        "valueNative": "0.090004173"
+       },
+       {
+        "ordinalKey": "467261729-185-5-1794215333000",
+        "blockId": "467261729",
+        "txIndex": 185,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215333000,
+        "txId": "3Nqir4BFQgMXnsHVrY5viobExrwfffSvJhGdfKi5iMmh8Gm73MwnDNwFMLVM8MZ2ugeV2D8JysvXko7pJGMWQMqr",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "8ekz3XuH4iS86x1y2CJbrVe4J4iU12k7aVounFTsuZAX"
+        },
+        "baseAmount": {
+         "raw": "71207976310",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "40001857",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048321142232754",
+        "priceQuote": "0.000000555318631413",
+        "quotePriceUsd": "87.01516480679999",
+        "valueUsd": "3.480768179433046227",
+        "valueNative": "0.040001857"
+       },
+       {
+        "ordinalKey": "467261596-238-5-1794215304000",
+        "blockId": "467261596",
+        "txIndex": 238,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215304000,
+        "txId": "2nc77oJGvc2MDC2xHwDZoac1gYgt5XdHBwxi37yaGsNwe5SuyQpmD1diCPj8Nm3XkyoBpQ9s2z1ubw3hUCLAjzHV",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "3d5DMP45XWeA67hb7FDvvJ39KabPPWgNhKruNmnrAknp"
+        },
+        "baseAmount": {
+         "raw": "35625030046",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "20000928",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048269118098149",
+        "priceQuote": "0.000000554881228855",
+        "quotePriceUsd": "86.99000000000001",
+        "valueUsd": "1.73988072672",
+        "valueNative": "0.020000928"
+       },
+       {
+        "ordinalKey": "467261462-103-5-1794215276000",
+        "blockId": "467261462",
+        "txIndex": 103,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215276000,
+        "txId": "3DgxqvgAs5Qe8jZC9iT17bGejMkFeejmWhFT9W1QFU3aUowvim41nu6ZwokdRTrcG2wC3Gsf76wQfy8bKeSoNJjJ",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "AjcssPVXS2sQHUo2jQbxRy2SLTeuygLZtJzNaDgMnbmC"
+        },
+        "baseAmount": {
+         "raw": "249769229799",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "140006504",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048269512082885",
+        "priceQuote": "0.000000554662592161",
+        "quotePriceUsd": "87.025",
+        "valueUsd": "12.1840660106",
+        "valueNative": "0.140006504"
+       },
+       {
+        "ordinalKey": "467261329-34-5-1794215248000",
+        "blockId": "467261329",
+        "txIndex": 34,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215248000,
+        "txId": "2mMoMPxLwJy66RJnYMk8yTJxTiTbSixXuYuh6CkxR3fkSC5MLbyk1LvkG9XC1Cb9P8CBWLqDxfg92P6AQCXytvEi",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "HSh6pYaU1cyQL8i2KmaUFNo9dxv6YEZ7eh9QT32eYMQC"
+        },
+        "baseAmount": {
+         "raw": "71489363544",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "40001860",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.00004809234415241",
+        "priceQuote": "0.000000553133339386",
+        "quotePriceUsd": "86.9453000352",
+        "valueUsd": "3.477973719666065472",
+        "valueNative": "0.04000186"
+       },
+       {
+        "ordinalKey": "467261195-95-5-1794215219000",
+        "blockId": "467261195",
+        "txIndex": 95,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215219000,
+        "txId": "3NMyCYz9GYxdbNiVZfgSRcDHDJtpjaPmHSaZKkCCb3UV8ihgYJBFPDfDsgZmwaTHzCQSQkvsfuGLMFgKt4JSwBbH",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "G1jwrLmuu74KeF8pRpcPNRipcGVgF5hMXzw5UhLMEbPX"
+        },
+        "baseAmount": {
+         "raw": "161057749882",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "90004187",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000048078013639131",
+        "priceQuote": "0.000000552696797584",
+        "quotePriceUsd": "86.9880445287",
+        "valueUsd": "7.829288226525441666",
+        "valueNative": "0.090004187"
+       },
+       {
+        "ordinalKey": "467261063-57-5-1794215190000",
+        "blockId": "467261063",
+        "txIndex": 57,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215190000,
+        "txId": "43zHJvkkVXXkHRewVJAEzUH2B2P2M7fgKk6ZJED9Ao1PjnfdUp3P5h6JNchiZ62WfAAvrZH83LHXV9iipzEyQ9JW",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "GhaX4n8hg8SnxFXUYJMkeu96JdtJn7mw2cFBonYZmwYE"
+        },
+        "baseAmount": {
+         "raw": "287033438900",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "160007455",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047945548872782",
+        "priceQuote": "0.0000005517152077",
+        "quotePriceUsd": "86.90271394295",
+        "valueUsd": "13.905082090604444692",
+        "valueNative": "0.160007455"
+       },
+       {
+        "ordinalKey": "467260929-216-5-1794215162000",
+        "blockId": "467260929",
+        "txIndex": 216,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215162000,
+        "txId": "5fQ62Mrb8oyCr4Xa68o2tzMzQuFZmVxSn4wKEbZ5BDBHDBGZTbHNqCMFQFFXNzekAYSqEHccGDn4HqGUPmgw1JgD",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "AwFQS2dcSpFeLufeFpJiMaW9UL1fzaSdch88TadCBFP6"
+        },
+        "baseAmount": {
+         "raw": "251900848981",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "140006532",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047843845766162",
+        "priceQuote": "0.000000549972310288",
+        "quotePriceUsd": "86.99319015005",
+        "valueUsd": "12.179614860525060126",
+        "valueNative": "0.140006532"
+       },
+       {
+        "ordinalKey": "467260794-33-5-1794215133000",
+        "blockId": "467260794",
+        "txIndex": 33,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215133000,
+        "txId": "5Cze5mBgSh1X5bT8VL3DUgzcXfgZ9ZV77FsFhLNZkD3FpVw2ozTqdcUU5X9Qa8JbYCZTRTSuEy8DaLKjefS6ETe5",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "8ekz3XuH4iS86x1y2CJbrVe4J4iU12k7aVounFTsuZAX"
+        },
+        "baseAmount": {
+         "raw": "108171506542",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "60002802",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047719562779018",
+        "priceQuote": "0.000000548449534704",
+        "quotePriceUsd": "87.00811972564999",
+        "valueUsd": "5.220730980290471271",
+        "valueNative": "0.060002802"
+       },
+       {
+        "ordinalKey": "467260663-142-5-1794215104000",
+        "blockId": "467260663",
+        "txIndex": 142,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215104000,
+        "txId": "41GGxfCtSmkKD53mdygJdjLioby9zGt9RCRto36EgduecN1bBBpMgrN6SqKFkxf6wXtnZNd7rkUbNXLuDUWVm3Aq",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "AsGAc2ZS6UoWagrEwXUNc23aAPCwP2mVKW1rygQQmDee"
+        },
+        "baseAmount": {
+         "raw": "90241279500",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "50002336",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047698431665645",
+        "priceQuote": "0.000000547797562435",
+        "quotePriceUsd": "87.07309951065",
+        "valueUsd": "4.353858378292956878",
+        "valueNative": "0.050002336"
+       },
+       {
+        "ordinalKey": "467260534-83-5-1794215077000",
+        "blockId": "467260534",
+        "txIndex": 83,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215077000,
+        "txId": "61GETkm6H4NMdu9HpYHBmGLBZgFsnVNFte4ATtCDDaRstJ6iFzQ8ngun5H5ssSEUocLLiGFdpjWj1hoZBs1Zcw3C",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "7rdk45ic1hiH3eRpDxpEaiGQQYA9uaTJEK8Dj5UwCDnU"
+        },
+        "baseAmount": {
+         "raw": "216944912697",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "120005612",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047636647998677",
+        "priceQuote": "0.000000547254548128",
+        "quotePriceUsd": "87.046600456",
+        "valueUsd": "10.446080560241759072",
+        "valueNative": "0.120005612"
+       },
+       {
+        "ordinalKey": "467260268-246-5-1794215018000",
+        "blockId": "467260268",
+        "txIndex": 246,
+        "eventIndex": 5,
+        "blockTimeMs": 1794215018000,
+        "txId": "3kLWvmB6N4jT9RCeevZxo5wjckcLqoXfxaBorZetiJ64VLavveqnbP2CHN3tTyanRChkWhJXhp15sboWzQsNDLMf",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "HQXwzmByswQKyrCtaudssnoCnPMmQv1NDb6ZAuDqnLAn"
+        },
+        "baseAmount": {
+         "raw": "90564343987",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "50002340",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047568252491123",
+        "priceQuote": "0.000000545843969343",
+        "quotePriceUsd": "87.14624537914999",
+        "valueUsd": "4.357516191171687211",
+        "valueNative": "0.05000234"
+       },
+       {
+        "ordinalKey": "467260131-313-3-1794214990000",
+        "blockId": "467260131",
+        "txIndex": 313,
+        "eventIndex": 3,
+        "blockTimeMs": 1794214990000,
+        "txId": "2fQKRWbcbBp25j25ABGB5heTQg3Wv6qK7m7qPDWeGDVo26scQn1cprLELW64ZYba2uZiC1aMqY6ppjkNzRPX5nJU",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "8TCUAX94ZiinuiAcAtQCq4sFKZRdQfXXGgiChjWr2pzH"
+        },
+        "baseAmount": {
+         "raw": "118720116302",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "64002990",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047535822689068",
+        "priceQuote": "0.000000545301923397",
+        "quotePriceUsd": "87.1734",
+        "valueUsd": "5.579358248466",
+        "valueNative": "0.06400299"
+       },
+       {
+        "ordinalKey": "467259993-105-5-1794214961000",
+        "blockId": "467259993",
+        "txIndex": 105,
+        "eventIndex": 5,
+        "blockTimeMs": 1794214961000,
+        "txId": "3qUmj5sg4ju4LXkVU5PP4qF4hcxhCFNWZksMiMfNHSUKfkBiMbwRHqgLCateLdoYcXqNZnsBRfwrMhTnZBNLXS19",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "Gh8oYJ96XdjMhTUaeXMvP91JqkbLYb469BFy7R3HaXx5"
+        },
+        "baseAmount": {
+         "raw": "199299450431",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "110005151",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047565899767625",
+        "priceQuote": "0.000000546011230964",
+        "quotePriceUsd": "87.1152406217",
+        "valueUsd": "9.583125198991442376",
+        "valueNative": "0.110005151"
+       },
+       {
+        "ordinalKey": "467259867-61-3-1794214933000",
+        "blockId": "467259867",
+        "txIndex": 61,
+        "eventIndex": 3,
+        "blockTimeMs": 1794214933000,
+        "txId": "cw6UXKUwvEcP2MyDe2i5oxxGgrYxDwLPrHuk7u3cez3jzscbQD2kT1svXtPN9sXFjULC6NkFCqvTiKAfda48eDo",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "sell",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "5LshGeYUq3xxV6mtcTrM2hU6S65odN4uuNjv1fRm81pM"
+        },
+        "baseAmount": {
+         "raw": "306032936478",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "165007709",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047368457365645",
+        "priceQuote": "0.00000054481890047",
+        "quotePriceUsd": "86.9434913597",
+        "valueUsd": "14.346346321725391927",
+        "valueNative": "0.165007709"
+       },
+       {
+        "ordinalKey": "467259731-114-5-1794214904000",
+        "blockId": "467259731",
+        "txIndex": 114,
+        "eventIndex": 5,
+        "blockTimeMs": 1794214904000,
+        "txId": "5nXmLdT6N4umFU7PAZsQPwinAyg4xr5p29qGpqSFagp2iVPVe8JBWA6Kxrn8sRcD4rRZu4qQVt8MJ182NJFFRMTu",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "e9cLMvGN1YvKvYbEPfxrXJ8YQwueYiCFv1wpquezQbP"
+        },
+        "baseAmount": {
+         "raw": "108528168247",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "60002806",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047509153092943",
+        "priceQuote": "0.000000546647717097",
+        "quotePriceUsd": "86.91",
+        "valueUsd": "5.21484386946",
+        "valueNative": "0.060002806"
+       },
+       {
+        "ordinalKey": "467259595-182-5-1794214876000",
+        "blockId": "467259595",
+        "txIndex": 182,
+        "eventIndex": 5,
+        "blockTimeMs": 1794214876000,
+        "txId": "4LfA6jQ5gJrLntx4EVf1BGzYm1SueWRc5qgBxhFYt4kAJ9Rtx3inNPYyAPFFCH2wXfxriVcEbP8sJ6BWPySxFCht",
+        "legIndex": 0,
+        "late": false,
+        "isBackfill": false,
+        "side": "buy",
+        "kind": "swap",
+        "venue": "pump_amm",
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        },
+        "trader": {
+         "address": "BaCRYLYsSEiJN5tZ4TsprVzejB9VBQ7FhsnHZgcn6VQq"
+        },
+        "baseAmount": {
+         "raw": "54312585588",
+         "decimals": 6
+        },
+        "quoteAmount": {
+         "raw": "30001404",
+         "decimals": 9
+        },
+        "quote": {
+         "id": "So11111111111111111111111111111111111111112",
+         "decimals": 9
+        },
+        "priceUsd": "0.000047452583004368",
+        "priceQuote": "0.000000545996812845",
+        "quotePriceUsd": "86.91",
+        "valueUsd": "2.60742202164",
+        "valueNative": "0.030001404"
+       }
+      ],
+      "aggregates": {
+       "buys": 67,
+       "sells": 33,
+       "buyVolumeUsd": "627.113604373988",
+       "sellVolumeUsd": "7501.302142513035",
+       "netBase": {
+        "raw": "-773471325519397",
+        "decimals": 6
+       },
+       "asOf": "467554272-265-606-1794278112000"
+      },
+      "cursor": "AQA0YSFz_ICVdwA7T8OhAQAAGjAwMDQ2NzU1NDI3MjAwMDI2NTAwMDAwNjA2YFOKv6EBAAAaMDAwNDY3MjU5NTk1MDAwMTgyMDAwMDAwMDV6YlzAc4SzxQ",
+      "source": "indexed"
+     },
+     "meta": {
+      "observedAt": 1794381510099,
+      "ageMs": 234,
+      "source": "fresh",
+      "parts": {
+       "trades": {
+        "observedAt": 1794381510099,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "bazaar.pump-x4o2-com-v1-coin-mint-candles",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 3510,
+     "stored_chars": 3510,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.pump-x4o2-com-v1-coin-mint-candles",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x3169bcd3f83dd597f92a319a6b4dab18c222d4e7a7dd21500f7c8417e85feb34",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x01ee9acc355dbcb646799f31b2587ffbe8bbf666da5456ced31cf6315eab905c",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The response only provided 9 daily candles, whereas the request asked for 30.",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "candles": [
+       {
+        "openTimeMs": 1793577600000,
+        "open": "0.000038928709162116",
+        "high": "0.002628521775196937",
+        "low": "0.000038928709162116",
+        "close": "0.001723321008924299",
+        "volumeUsd": "189352.387200629215144693",
+        "trades": 43944,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       },
+       {
+        "openTimeMs": 1793664000000,
+        "open": "0.001723321008924299",
+        "high": "0.001870522116961805",
+        "low": "0.000699772242865066",
+        "close": "0.001281022333193057",
+        "volumeUsd": "95147.360809440768956002",
+        "trades": 7547,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       },
+       {
+        "openTimeMs": 1793750400000,
+        "open": "0.001281022333193057",
+        "high": "0.001289047041651869",
+        "low": "0.000357895873989474",
+        "close": "0.000661025930712521",
+        "volumeUsd": "64158.205905415543178337",
+        "trades": 3117,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       },
+       {
+        "openTimeMs": 1793836800000,
+        "open": "0.000661025930712521",
+        "high": "0.000705859078010488",
+        "low": "0.000064009728987717",
+        "close": "0.000077964996591991",
+        "volumeUsd": "70134.258910722329110716",
+        "trades": 12785,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       },
+       {
+        "openTimeMs": 1793923200000,
+        "open": "0.000077964996591991",
+        "high": "0.000214723238175049",
+        "low": "0.000077964996591991",
+        "close": "0.000214723238175049",
+        "volumeUsd": "33063.928900293047371031",
+        "trades": 2386,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       },
+       {
+        "openTimeMs": 1794009600000,
+        "open": "0.000214723238175049",
+        "high": "0.000259874841259773",
+        "low": "0.000140130484177629",
+        "close": "0.000183166009924373",
+        "volumeUsd": "15347.246587498692722188",
+        "trades": 1257,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       },
+       {
+        "openTimeMs": 1794096000000,
+        "open": "0.000183166009924373",
+        "high": "0.000223967609959649",
+        "low": "0.000114676094401884",
+        "close": "0.00012680372819071",
+        "volumeUsd": "15067.349943314237318102",
+        "trades": 1275,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       },
+       {
+        "openTimeMs": 1794182400000,
+        "open": "0.00012680372819071",
+        "high": "0.000132851887928977",
+        "low": "0.00000159148540225",
+        "close": "0.000001690658461221",
+        "volumeUsd": "25625.493376579416803845",
+        "trades": 2200,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       },
+       {
+        "openTimeMs": 1794268800000,
+        "open": "0.000001690658461221",
+        "high": "0.00000171361619808",
+        "low": "0.000001690658461221",
+        "close": "0.000001711081161363",
+        "volumeUsd": "17.623287917555780697",
+        "trades": 2,
+        "final": true,
+        "isCorrection": false,
+        "pool": {
+         "chainId": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
+         "address": "CZ5bkCYu7cajLGFGigwQFD5ZpkwGcCQDgNdvSfTPYMK1"
+        }
+       }
+      ],
+      "hasOlder": false,
+      "source": "indexed",
+      "served": {
+       "res": "1d",
+       "measure": "price_usd"
+      },
+      "graduatedAt": "464386743-194-7-1793599251000",
+      "supplyUsed": "1000000000",
+      "createdMs": 1793599251000
+     },
+     "meta": {
+      "observedAt": 1794381510196,
+      "ageMs": 260,
+      "source": "fresh",
+      "parts": {
+       "candles": {
+        "observedAt": 1794381510196,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 4,
+    "tool_id": "bazaar.pump-x4o2-com-v1-coin-mint-holders",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 3297,
+     "stored_chars": 3297,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.pump-x4o2-com-v1-coin-mint-holders",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xdf7feb461453818a00ddb7c0f6d07afe3d0ca1a63eb2abe3461b93e5525b72b5",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xa7bb1724ff6de9e8f1eca4750cbfd61378bba9c509871be2f62c5381f89bf3a4",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "positions": [
+       {
+        "coinMint": "DB71YyPjp63CQ4idDrUTMGXVBfzf1mDiEACLNP5cpump",
+        "chainId": 1399811149,
+        "userId": "467ceda3-f00d-4453-9bc2-a3003b1fdf14",
+        "userName": "parentalcrab335",
+        "profileImage": "https://socialimages.pump.fun/profile-images/pumpatar/2/Amber~Body-3-Yellow-wand~Face-11~Glasses-black~Cap-Red~Bracelet-green~Bowtie-Indigo.webp",
+        "walletAddress": "BG16FVjGQdkQbS16T4NYtFTeY1fmrfekKJxRhyX2SeeX",
+        "isVerified": false,
+        "verifiedBadgeVisible": true,
+        "resolvedAvatarDecoration": null,
+        "xUsername": null,
+        "accountKind": "person",
+        "amountHeld": 5584.28349,
+        "pnlUsd": -0.3689705388485991,
+        "pnlPercentage": -97.47204463314753,
+        "realizedPnlUsd": 0,
+        "costBasisAmount": 5584.28349,
+        "costBasisUsd": 0.37853985749173713,
+        "amountBoughtUsd": 0.37853985749173713,
+        "receiptBasisUsd": 0,
+        "amountBought": 5584.28349,
+        "callout": null,
+        "lowQuality": false
+       },
+       {
+        "coinMint": "DB71YyPjp63CQ4idDrUTMGXVBfzf1mDiEACLNP5cpump",
+        "chainId": 1399811149,
+        "userId": "1ccbe2b6-3b58-4433-a53b-9f4e085721c4",
+        "userName": "CaffeLatte",
+        "profileImage": "https://socialimages.pump.fun/profile-images/pumpatar/2/Cyan~Body-3-Indigo-glass~Face-1~Sunglasses~Chef_s-Hat~Bracelet-green~Winter-Scarf.webp",
+        "walletAddress": "75Xe4QdY5vydbm3TBP58b6Nhx2tf1uGpp1iXAPSYycv2",
+        "isVerified": false,
+        "verifiedBadgeVisible": true,
+        "resolvedAvatarDecoration": null,
+        "xUsername": null,
+        "accountKind": "person",
+        "amountHeld": 513.882569,
+        "pnlUsd": -0.9877625170258504,
+        "pnlPercentage": -99.91092867777901,
+        "realizedPnlUsd": 0,
+        "costBasisAmount": 513.882569,
+        "costBasisUsd": 0.9886431145200001,
+        "amountBoughtUsd": 0.9886431145200001,
+        "receiptBasisUsd": 0,
+        "amountBought": 513.882569,
+        "callout": null,
+        "lowQuality": false
+       },
+       {
+        "coinMint": "DB71YyPjp63CQ4idDrUTMGXVBfzf1mDiEACLNP5cpump",
+        "chainId": 1399811149,
+        "userId": "17e9fd03-a83d-4aee-89db-e138ddcec0c3",
+        "userName": "usadollar",
+        "profileImage": "https://socialimages.pump.fun/profile-images/17e9fd03-a83d-4aee-89db-e138ddcec0c3/66d34473-9acc-46d8-851b-b39db606d23a",
+        "walletAddress": "6Ns7soYgfDW24e1hsHgwGxGqUGgdXGZxi6hSUiZvWnju",
+        "isVerified": false,
+        "verifiedBadgeVisible": true,
+        "resolvedAvatarDecoration": null,
+        "xUsername": null,
+        "accountKind": "person",
+        "amountHeld": 468.34438,
+        "pnlUsd": -0.8128203796341521,
+        "pnlPercentage": -99.90135940442791,
+        "realizedPnlUsd": 0,
+        "costBasisAmount": 468.34438,
+        "costBasisUsd": 0.8136229421500001,
+        "amountBoughtUsd": 0.8136229421500001,
+        "receiptBasisUsd": 0,
+        "amountBought": 468.34438,
+        "callout": null,
+        "lowQuality": false
+       },
+       {
+        "coinMint": "DB71YyPjp63CQ4idDrUTMGXVBfzf1mDiEACLNP5cpump",
+        "chainId": 1399811149,
+        "userId": "ef5f998e-7856-4740-b316-21b2548ebaf6",
+        "userName": "ThornWalnutTail",
+        "profileImage": "https://socialimages.pump.fun/profile-images/pumpatar/2/Cyan~Body-2-Blue~Face-2~Glasses-black~Durag-Yellow~Bracelet-green~Scarf-Green.webp",
+        "walletAddress": "H4sy5hHhW6eixJHP65BpN7AQwFzQ7nCzZxFqqxG8Rsg9",
+        "isVerified": false,
+        "verifiedBadgeVisible": true,
+        "resolvedAvatarDecoration": null,
+        "xUsername": null,
+        "accountKind": "person",
+        "amountHeld": 141.317111,
+        "pnlUsd": -0.4981058130597967,
+        "pnlPercentage": -99.9514067876328,
+        "realizedPnlUsd": 0,
+        "costBasisAmount": 141.317111,
+        "costBasisUsd": 0.4983479763502722,
+        "amountBoughtUsd": 0.4983479763502722,
+        "receiptBasisUsd": 0,
+        "amountBought": 141.317111,
+        "callout": null,
+        "lowQuality": false
+       }
+      ],
+      "totalCount": 4,
+      "hasMore": false
+     },
+     "meta": {
+      "observedAt": 1794381510114,
+      "ageMs": 133,
+      "source": "fresh",
+      "parts": {
+       "positions": {
+        "observedAt": 1794381510114,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 5,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 259,
+     "stored_chars": 259,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xf610f62762d67d97cd570f4ee27245f39ce0f3538d7ba06ba81c7ce445958e67",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x0f4b4fef82b325059cf34e7fb4f0efeec64d454f4ecff548d5e402794085deea",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned an empty list of top holders and a total of zero holders, indicating no relevant data was found for the requested token address.; class adjudicated seller_error\u2192negative_result: The tool successfully processed the request and explicitly returned zero top holders, indicating no matches were found for the given token address.",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "tokenAddress": "DB71YyPjp63CQ4idDrUTMGXVBfzf1mDiEACLNP5cpump",
+      "networkId": 1399811149,
+      "topHolders": [],
+      "totalHolders": 0
+     },
+     "meta": {
+      "observedAt": 1794381518600,
+      "ageMs": 381,
+      "source": "fresh",
+      "parts": {
+       "holders": {
+        "observedAt": 1794381518600,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 6,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1013,
+     "stored_chars": 1013,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xa48740d74f59d8e91dfb32ec759d4d2fc1e1d413ff4388a2690447c73acab5e6",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x85ffd1c34944a492bb8ba71e5ddb755940e1eaeb7b5d791534a75482b9e0777e",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates that the token is unsupported and provides no market data such as price, market cap, 24h volume, or liquidity, which were the primary requested outputs.; class adjudicated seller_error\u2192negative_result: The seller processed the request and explicitly stated that the requested token is unsupported, which means no market data can be provided for it.",
+     "provenance": "probation",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "market": null,
+      "statistics": {
+       "buyCount5m": 0,
+       "buyCount1": 0,
+       "buyCount4": 0,
+       "buyCount24": 0,
+       "buyVolume5m": "0",
+       "buyVolume1": "0",
+       "buyVolume4": "0",
+       "buyVolume24": "0",
+       "sellCount5m": 0,
+       "sellCount1": 0,
+       "sellCount4": 0,
+       "sellCount24": 0,
+       "sellVolume5m": "0",
+       "sellVolume1": "0",
+       "sellVolume4": "0",
+       "sellVolume24": "0",
+       "uniqueBuys5m": 0,
+       "uniqueBuys1": 0,
+       "uniqueBuys4": 0,
+       "uniqueBuys24": 0,
+       "uniqueSells5m": 0,
+       "uniqueSells1": 0,
+       "uniqueSells4": 0,
+       "uniqueSells24": 0,
+       "holders": 5201,
+       "top10HoldersPercent": 99.99176188426557,
+       "isLowFees": false
+      },
+      "warnings": {
+       "disableBuying": true,
+       "disableSelling": false,
+       "warnings": [
+        {
+         "type": "TOKEN_UNSUPPORTED",
+         "severity": "MODERATE",
+         "priority": 0,
+         "name": "Update your app",
+         "description": "Please update your app. This token is not supported on this version of the app."
+        }
+       ]
+      }
+     },
+     "meta": {
+      "observedAt": 1794381511304,
+      "ageMs": 235,
+      "source": "fresh",
+      "parts": {
+       "market": {
+        "observedAt": 1794381511304,
+        "source": "fresh"
+       },
+       "statistics": {
+        "observedAt": 1794381511304,
+        "source": "fresh"
+       },
+       "warnings": {
+        "observedAt": 1794381511304,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 7,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 251,
+     "stored_chars": 251,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x64e7201d64b506291b66e858b35d8f005355c6447aade1465eb1344ee487da60",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x0fde0b7b22d226b14fb2bcb4f26a0304f717bac8083a937b9b2494467397d78b",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates no holders were found for the requested token and chain, thus no content was delivered.; class adjudicated seller_error\u2192negative_result: The tool processed the request and honestly reported zero top holders for the given address, which is a valid answer indicating no results.",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "tokenAddress": "0xf289e29aac29f039cc51041763c477c7f5a2b504",
+      "networkId": 4663,
+      "topHolders": [],
+      "totalHolders": 0
+     },
+     "meta": {
+      "observedAt": 1794381510310,
+      "ageMs": 296,
+      "source": "fresh",
+      "parts": {
+       "holders": {
+        "observedAt": 1794381510310,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 8,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 142,
+     "stored_chars": 142,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_empty",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x71e49310bea7834eda78240166ce76f5cf7e0a1eeb55734f8e8d22342b7390d6",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xb39a95eeb5e1185164335d5feb822cbaf1b26a72fb923875f846bebb52cc973e",
+     "delivered": true,
+     "outcome": "delivered_empty",
+     "reason": "delivered_empty: envelope-only body (no substantive payload)",
+     "long_tail": true
+    },
+    "body": {
+     "data": [],
+     "meta": {
+      "observedAt": 1794381510359,
+      "ageMs": 726,
+      "source": "fresh",
+      "parts": {
+       "candles": {
+        "observedAt": 1794381510359,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 9,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1041,
+     "stored_chars": 1041,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x0bdef5ee8447a822f3db6291439f0dce052911912c0a10223f96438ff76a50ca",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x792df276508503ded24d153ee2f1b337cd489832579dca590c3a0f3db63accdb",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "items": [
+       {
+        "type": "swap_buy",
+        "id": "1781b69c-7c90-40cc-b332-0372c058ad7d",
+        "tradeId": "7768a264-91df-4a71-8795-f20dcff271ee",
+        "createdAt": "2026-11-05T01:18:00.000Z",
+        "userId": "02f9bb45-7829-53db-a707-e694ad052777",
+        "displayName": "aidanjonas",
+        "userHandle": "aidanjonas",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 20.05,
+        "marketCap": 10327700,
+        "fdv": 10327700,
+        "price": 0.000103277,
+        "displayPriceUsd": 0.000103277,
+        "isDev": false
+       },
+       {
+        "type": "swap_buy",
+        "id": "d4f76fc8-9def-4d6b-b455-307483f9eade",
+        "tradeId": "d211d629-8067-4d31-8bc9-34a9a7457b76",
+        "createdAt": "2026-11-04T23:46:45.000Z",
+        "userId": "7439c57d-5f4f-5135-b9c6-0db0aae14baa",
+        "displayName": "FullWildFinch",
+        "userHandle": "FullWildFinch",
+        "profilePictureLink": null,
+        "verified": false,
+        "twitter": null,
+        "usdAmount": 10.47,
+        "marketCap": 10338200,
+        "fdv": 10338200,
+        "price": 0.000103382,
+        "displayPriceUsd": 0.000103382,
+        "isDev": false
+       }
+      ],
+      "hasNextPage": false
+     },
+     "meta": {
+      "observedAt": 1794381515662,
+      "ageMs": 109,
+      "source": "fresh",
+      "parts": {
+       "tokenActivity": {
+        "observedAt": 1794381515662,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_3d37d9fef76f4532a3593d21d80e21b7/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.006041,
+  "tool_cost_usd": 0.006,
+  "frames_fee_usd": 0.001806,
+  "total_cost_usd": 0.013847,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 16446,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 443,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.006041,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.pump-x4o2-com-v1-coin-mint",
+   "title": "One pump.fun coin in full: its metadata and bonding-curve/AMM state (coins-v3), ",
+   "capability": "coin",
+   "paid": true
+  },
+  {
+   "id": "bazaar.pump-x4o2-com-v1-coin-mint-trades",
+   "title": "The coin's trade tape as pump.fun shows it: the most recent buys and sells with ",
+   "capability": "coin",
+   "paid": true
+  },
+  {
+   "id": "bazaar.pump-x4o2-com-v1-coin-mint-holders",
+   "title": "The largest positions in a coin as pump.fun tracks them: each holder's wallet, p",
+   "capability": "coin",
+   "paid": true
+  },
+  {
+   "id": "bazaar.pump-x4o2-com-v1-coin-mint-candles",
+   "title": "Historical candles for one coin from pump.fun's own chart data: open, high, low,",
+   "capability": "coin",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "title": "The FOMO users holding the most of a token: each holder's FOMO handle and id, to",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "title": "Historical USD candles for one token as FOMO charts it: t (bucket start, unix ms",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "title": "The token's trade tape as FOMO shows it: recent buys, sells and transfers by FOM",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "title": "Current FOMO market panel for one token (price, market cap, 24h volume, liquidit",
+   "capability": "token",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x71e49310bea7834eda78240166ce76f5cf7e0a1eeb55734f8e8d22342b7390d6",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xb39a95eeb5e1185164335d5feb822cbaf1b26a72fb923875f846bebb52cc973e",
+   "delivered": true,
+   "outcome": "delivered_empty",
+   "reason": "delivered_empty: envelope-only body (no substantive payload)",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.pump-x4o2-com-v1-coin-mint-holders",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xdf7feb461453818a00ddb7c0f6d07afe3d0ca1a63eb2abe3461b93e5525b72b5",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xa7bb1724ff6de9e8f1eca4750cbfd61378bba9c509871be2f62c5381f89bf3a4",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.pump-x4o2-com-v1-coin-mint",
+   "amount": "0",
+   "authorized_amount": "0.001",
+   "settlement": "unconfirmed",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "valid_before": "2026-11-11T07:23:29.000Z",
+   "auth_nonce": "0x00c4fc3e3fa5a6b286e3fd8c87def3b563d4226d18e6befe186345c69ff229c0",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "",
+   "delivered": false,
+   "outcome": "caller_error",
+   "reason": "upstream error: error field present; class adjudicated seller_error\u2192caller_error: The seller rejected the request because the provided identifier or parameters were unknown or invalid.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.pump-x4o2-com-v1-coin-mint-trades",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xec8d1f4d22f4459dcea4157a25fe6c35bf980be30391e15007ec2f0ff2c48703",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xe61d9a485aad4a56f9d6a7afcc1f9ad6d7b5183021fc643e0ea4d6befc382d29",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.pump-x4o2-com-v1-coin-mint-candles",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x3169bcd3f83dd597f92a319a6b4dab18c222d4e7a7dd21500f7c8417e85feb34",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x01ee9acc355dbcb646799f31b2587ffbe8bbf666da5456ced31cf6315eab905c",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The response only provided 9 daily candles, whereas the request asked for 30.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xa3817f6eeee74efce2e04612a7660597f2997c6f7b1c60c8a706b1c80e9423d0",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xff04ea97124438d4b05c1d50c2c3e8cc4ac74a77ae45b2cb1169abe3c703526e",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x64e7201d64b506291b66e858b35d8f005355c6447aade1465eb1344ee487da60",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x0fde0b7b22d226b14fb2bcb4f26a0304f717bac8083a937b9b2494467397d78b",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates no holders were found for the requested token and chain, thus no content was delivered.; class adjudicated seller_error\u2192negative_result: The tool processed the request and honestly reported zero top holders for the given address, which is a valid answer indicating no results.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x0bdef5ee8447a822f3db6291439f0dce052911912c0a10223f96438ff76a50ca",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x792df276508503ded24d153ee2f1b337cd489832579dca590c3a0f3db63accdb",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xa48740d74f59d8e91dfb32ec759d4d2fc1e1d413ff4388a2690447c73acab5e6",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x85ffd1c34944a492bb8ba71e5ddb755940e1eaeb7b5d791534a75482b9e0777e",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates that the token is unsupported and provides no market data such as price, market cap, 24h volume, or liquidity, which were the primary requested outputs.; class adjudicated seller_error\u2192negative_result: The seller processed the request and explicitly stated that the requested token is unsupported, which means no market data can be provided for it.",
+   "provenance": "probation",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xf610f62762d67d97cd570f4ee27245f39ce0f3538d7ba06ba81c7ce445958e67",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x0f4b4fef82b325059cf34e7fb4f0efeec64d454f4ecff548d5e402794085deea",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned an empty list of top holders and a total of zero holders, indicating no relevant data was found for the requested token address.; class adjudicated seller_error\u2192negative_result: The tool successfully processed the request and explicitly returned zero top holders, indicating no matches were found for the given token address.",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
