@@ -31,10 +31,9 @@ component isn't needed.
 
 ## Marks
 
-- **Corners:** square. Bars, stacked segments, legend and tooltip swatches, and table value bars all have
-  radius 0. The tooltip card keeps `rounded-sm`.
-- **The one exception** is the trench gauge. Marcelo asked for the CoinMarketCap fear & greed look, so its
-  bands stay thin, rounded and gapped (`cornerRadius={8}`, a 4-point gap).
+- **Corners:** square. Bars, stacked segments, gauge bands, legend and tooltip swatches, and table value bars
+  all have radius 0. The tooltip card keeps `rounded-sm`. The trench gauge got no exception: its bands touch,
+  and its marker rides the dotted scale inside the ring.
 - **Gaps:** none inside a stack, and color parts the segments. Columns keep ECharts' default 20% category gap.
 - **Lines:** 1.5px, solid, straight between points (no smoothing, which invents values between samples).
 - **Area wash:** the series color fading from 16% opacity at the line to 0 at the baseline.
