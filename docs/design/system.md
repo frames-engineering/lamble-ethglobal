@@ -80,4 +80,13 @@ buttons, inputs, badges, chips, segmented controls, tooltips and sheets. `rounde
 nested in a padded 3px container (a segmented control's buttons) and for tiny logos. `rounded-full` only for
 circles: status dots, avatars, token marks, the switch. tokens.css collapses `rounded-md`…`rounded-3xl` to the
 same 3px so shadcn components conform, but write `rounded-sm`. Charts follow their own square standard
-([charts.md](charts.md)). Rules and dividers span the content column, never the page gutters. No card shadows. Hover transitions 150ms on color/background only; `Button` presses to 0.96.
+([charts.md](charts.md)). Rules and dividers span the content column, never the page gutters. No card shadows.
+
+Motion: hover transitions 150ms on color/background only; `Button` presses to 0.96. Only the overview has a
+first-load entrance, there to make the page feel quick: the opening blocks (title, then lede and trench
+index, then actions, section tabs, key figures and the narratives) rise 8px and fade in 60ms apart with
+`rise-0`…`rise-5` (`PageHeader enter` for the header), all done in under 0.7s. Below the narratives nothing
+animates, and nothing animates on scroll. The trench gauge's marker sweeps from 0 to the score along its
+dotted scale (700ms), the score counts up in step with it (a CSS counter), and the band label rises in as
+the marker lands. It's all CSS in `globals.css`, so it runs at first paint without JavaScript, and
+`prefers-reduced-motion` turns all of it off.

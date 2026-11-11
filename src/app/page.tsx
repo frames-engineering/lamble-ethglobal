@@ -42,7 +42,9 @@ export default function OverviewPage() {
   return (
     <>
       <Container>
+        {/* First load plays a short entrance down to the narratives (rise-0 … rise-5); everything below is static. */}
         <PageHeader
+          enter
           title="The Trenches"
           description="What’s moving in the memecoin trenches: the narratives drawing volume, the tokens carrying them and the launchpads they come from. Refreshed daily; every figure is dated and sourced."
           aside={trench && <TrenchIndexBlock index={trench} />}
@@ -56,9 +58,9 @@ export default function OverviewPage() {
         />
         <p className="mt-4 text-xs text-med lg:hidden">Data through {formatDateTime(release.dataCutoff)}</p>
 
-        <SectionTabs sections={SECTIONS} className="mt-8" />
+        <SectionTabs sections={SECTIONS} className="mt-8 rise-3" />
 
-        <section id="overview" aria-label="Overview" className="pt-8">
+        <section id="overview" aria-label="Overview" className="pt-8 rise-4">
           <KeyFigures>
             <KeyFigure
               label={
@@ -131,6 +133,7 @@ export default function OverviewPage() {
           id="narratives"
           title="Trending narratives"
           aside={<MoreLink href="/narratives">All narratives</MoreLink>}
+          className="rise-5"
         >
           <NarrativeExplorer narratives={featured} />
         </Section>

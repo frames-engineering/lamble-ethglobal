@@ -94,7 +94,12 @@ export function MoreLink({ href, children, className }: { href: string; children
 /**
  * `aside` takes the right of the header (a headline visual, such as the overview's trench index). With one, the
  * lede narrows and the actions move under it, so the title block reads as one column beside the aside.
+ *
+ * `enter` plays the overview's first-load entrance: title, then lede and aside, then actions and meta, each a
+ * step of the `rise-*` utility (globals.css). Other pages render static.
  */
+const RISE = ["rise-0", "rise-1", "rise-2"] as const;
+
 export function PageHeader({
   eyebrow,
   title,
@@ -102,6 +107,7 @@ export function PageHeader({
   meta,
   actions,
   aside,
+  enter = false,
 }: {
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -109,19 +115,21 @@ export function PageHeader({
   meta?: ReactNode;
   actions?: ReactNode;
   aside?: ReactNode;
+  enter?: boolean;
 }) {
+  const rise = (step: 0 | 1 | 2) => (enter ? RISE[step] : undefined);
   return (
     <header className="pt-10 pb-2 md:pt-14">
-      {eyebrow && <p className="mb-3 text-xs text-med">{eyebrow}</p>}
+      {eyebrow && <p className={cn("mb-3 text-xs text-med", rise(0))}>{eyebrow}</p>}
       <div className={cn("flex flex-col gap-5 md:flex-row md:justify-between", aside ? "md:items-center md:gap-10" : "md:items-end")}>
         <div className="min-w-0">
-          <h1 className="font-display text-4xl leading-[1.1] text-balance text-high md:text-5xl">{title}</h1>
-          {description && <div className={cn("mt-3 text-base text-pretty text-med", aside ? "max-w-[50ch]" : "max-w-[62ch]")}>{description}</div>}
-          {aside && actions && <div className="mt-6 flex flex-wrap gap-2">{actions}</div>}
+          <h1 className={cn("font-display text-4xl leading-[1.1] text-balance text-high md:text-5xl", rise(0))}>{title}</h1>
+          {description && <div className={cn("mt-3 text-base text-pretty text-med", aside ? "max-w-[50ch]" : "max-w-[62ch]", rise(1))}>{description}</div>}
+          {aside && actions && <div className={cn("mt-6 flex flex-wrap gap-2", rise(2))}>{actions}</div>}
         </div>
-        {aside ? <div className="shrink-0">{aside}</div> : actions && <div className="flex shrink-0 flex-wrap gap-2">{actions}</div>}
+        {aside ? <div className={cn("shrink-0", rise(1))}>{aside}</div> : actions && <div className={cn("flex shrink-0 flex-wrap gap-2", rise(2))}>{actions}</div>}
       </div>
-      {meta && <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-med">{meta}</div>}
+      {meta && <div className={cn("mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-med", rise(2))}>{meta}</div>}
     </header>
   );
 }

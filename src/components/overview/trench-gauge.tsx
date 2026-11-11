@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { type CSSProperties, useMemo } from "react";
 
 import { EChartsPieChart } from "@/components/evilcharts/charts/echarts-pie-chart";
 import type { ChartConfig } from "@/components/evilcharts/ui/echarts-chart";
@@ -23,6 +23,8 @@ const OUTER = 95;
 const TRACK = 37;
 const STEP = 2.5;
 const DOTS = Array.from({ length: 100 / STEP + 1 }, (_, i) => point(i * STEP, TRACK));
+/** The marker is drawn at 0 and turned to the score, so the load sweep (globals.css gauge-sweep) can run along the scale. */
+const ZERO = point(0, TRACK);
 
 /**
  * Band colors from cold to hot, from the named chart hues (research/colors): frozen violet, cold sky, warm gold,
@@ -46,8 +48,9 @@ function point(score: number, r: number) {
 
 /**
  * The trench index as a banded arc (evilcharts pie sectors) over a dotted scale, a marker on the scale at the
- * score, the number in the middle and the band under it. The canvas is decorative; the label carries the reading for assistive
- * tech.
+ * score, the number in the middle and the band under it. On first paint the marker sweeps up from 0 while the
+ * number counts up with it, and the band rises in as it lands (CSS only; reduced motion shows it at rest).
+ * The canvas is decorative; the label carries the reading for assistive tech.
  */
 export function TrenchGauge({ score, band, bands, label }: { score: number; band: string; bands: GaugeBand[]; label: string }) {
   const { data, config } = useMemo(() => {
@@ -61,11 +64,16 @@ export function TrenchGauge({ score, band, bands, label }: { score: number; band
     // Sectors are laid counterclockwise from the lower right, so the hottest band goes first.
     return { data: rows.reverse(), config: cfg };
   }, [bands]);
-  const marker = point(Math.min(100, Math.max(0, score)), TRACK);
+  // Score 0 sits at the lower left; a positive CSS rotate turns clockwise on screen, toward 100 at the lower right.
+  const turn = round((SWEEP * Math.min(100, Math.max(0, score))) / 100);
+  // The count is a CSS counter (globals.css gauge-count), which takes integers only. Its box is sized to the final
+  // digit count so the number doesn't shift sideways as it passes 9.
+  const shown = Math.round(score);
+  const count = { "--gauge-n": shown, minWidth: `${String(shown).length}ch` } as CSSProperties;
 
   return (
     <div role="img" aria-label={label} className="relative mx-auto aspect-square w-full max-w-56">
-      <EChartsPieChart data={data} config={config} dataKey="value" nameKey="band" className="pointer-events-none h-full w-full">
+      <EChartsPieChart data={data} config={config} dataKey="value" nameKey="band" className="gauge-bands pointer-events-none h-full w-full">
         <EChartsPieChart.Pie innerRadius={`${INNER}%`} outerRadius={`${OUTER}%`} paddingAngle={0} startAngle={START - SWEEP} endAngle={START} />
       </EChartsPieChart>
 
@@ -74,12 +82,14 @@ export function TrenchGauge({ score, band, bands, label }: { score: number; band
           <circle key={i} cx={p.x} cy={p.y} r={0.55} className="fill-low" />
         ))}
         {/* On the dotted scale; the background-colored ring clears the dots beside it. */}
-        <circle cx={marker.x} cy={marker.y} r={2.6} className="fill-high stroke-background" strokeWidth={1.6} />
+        <g className="gauge-sweep" style={{ rotate: `${turn}deg` }}>
+          <circle cx={ZERO.x} cy={ZERO.y} r={2.6} className="fill-high stroke-background" strokeWidth={1.6} />
+        </g>
       </svg>
 
       <div aria-hidden className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center pt-6">
-        <span className="font-mono text-5xl leading-none font-medium text-high">{score}</span>
-        <span className="mt-2 text-sm text-med">{band}</span>
+        <span className="gauge-count text-center font-mono text-5xl leading-none font-medium text-high" style={count} />
+        <span className="gauge-label mt-2 text-sm text-med">{band}</span>
       </div>
     </div>
   );

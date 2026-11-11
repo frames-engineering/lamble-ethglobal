@@ -243,3 +243,90 @@
     clip-path: inset(0 0 0 0);
   }
 }
+
+/*
+ * Overview first load (docs/design/system.md, Motion): the opening blocks rise 8px and fade in, each 60ms after
+ * the one before (`rise-0` … `rise-5`), done in under 0.7s. Pure CSS, so it runs at first paint without waiting
+ * for JavaScript and never replays while the page is up. `translate` rather than `transform`, so it composes with
+ * the buttons' press scale. Reduced motion skips it. (Not `enter`: tw-animate-css owns that keyframe name.)
+ */
+@utility rise-* {
+  animation: rise-in 350ms var(--ease-decelerate) both;
+  animation-delay: calc(--value(integer) * 60ms);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+/*
+ * The trench gauge on load: the marker sweeps from 0 to the score along the dotted scale, decisive at the start
+ * and settling at the end, and the score counts up in step with it (same delay, duration and curve); the band
+ * label rises in as the marker lands; the bands fade in when their canvas mounts. Resting values are inline
+ * (`rotate`, `--gauge-n`), so without the animation everything simply sits at the score.
+ */
+@property --gauge-n {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+@utility gauge-count {
+  counter-reset: gauge-n var(--gauge-n);
+  animation: gauge-count 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+  &::after {
+    content: counter(gauge-n);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@utility gauge-label {
+  animation: gauge-label 300ms var(--ease-decelerate) 620ms both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@keyframes gauge-count {
+  from {
+    --gauge-n: 0;
+  }
+}
+@keyframes gauge-label {
+  from {
+    opacity: 0;
+    translate: 0 4px;
+  }
+}
+@utility gauge-sweep {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: gauge-sweep 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@utility gauge-bands {
+  & canvas {
+    animation: soft-fade 240ms var(--ease-decelerate) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    & canvas {
+      animation: none;
+    }
+  }
+}
+@keyframes gauge-sweep {
+  from {
+    rotate: 0deg;
+  }
+}
+@keyframes soft-fade {
+  from {
+    opacity: 0;
+  }
+}

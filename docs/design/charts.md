@@ -39,6 +39,8 @@ component isn't needed.
 - **Area wash:** the series color fading from 16% opacity at the line to 0 at the baseline.
 - **Gaps in data:** a missing point stays a gap and is never drawn as zero.
 - **Motion:** none. Charts render in place, with no wipes, staggered grow-ins or re-animation on a range change.
+  The one exception is the trench gauge on the overview's first load: its marker sweeps from 0 to the score
+  while the number counts up with it, and the bands fade in (see Motion in [system.md](system.md)).
 
 ## Axes, tooltip, legend
 
