@@ -54,7 +54,11 @@ Headings use `font-medium`, not `font-semibold`. Numbers in columns are right-al
 Text `text-high` / `text-med` / `text-low`. Surfaces: `bg-background` (page), `bg-surface-1` or `bg-card`
 (sidebar, filled cards), `bg-surface-3` (filled-card hover), `bg-hover` (row hover), `bg-active` (selected).
 Lines: `border-line`. Meaning: `text-positive` / `text-negative` for up and down only, `text-link` for links
-and "new". Charts: `bg-chart-r1…r4` (ranked parts of one whole), `bg-chart-0` (the rest of it),
+and young tokens. Narrative status is a temperature scale: heat for New (`bg-hot` as a dot), green for Rising,
+blue for Cooling (the label for the data's `fading`), no color for Steady. In the overview's explorer it is the
+status spine (`TrendSpine`, with `TrendLabel` for the open narrative's header); in tables and meta lines it is
+the dot and word (`TrendBadge`). Decision record: [narrative-status-2026-11.md](narrative-status-2026-11.md).
+Charts: `bg-chart-r1…r4` (ranked parts of one whole), `bg-chart-0` (the rest of it),
 `bg-chart-bar` (bars behind table values). Chart series colors, including each launchpad's fixed brand hue,
 come from `research/colors.ts`; the rules are in [charts.md](charts.md).
 

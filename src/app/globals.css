@@ -92,6 +92,8 @@
   --color-negative: var(--color-red-text);
   --color-warning: var(--color-yellow-text);
   --color-link: var(--color-accent-blue);
+  /* A new narrative's dot: the middle of the status spine's heat gradient (docs/design/narrative-status-2026-11.md). */
+  --color-hot: var(--color-orange-500);
   --color-violet: var(--color-accent-purple);
   --color-positive-soft: var(--color-green-secondary-button-background);
   --color-negative-soft: var(--color-red-background-solid);
@@ -328,5 +330,162 @@
 @keyframes soft-fade {
   from {
     opacity: 0;
+  }
+}
+
+/*
+ * Narrative status spine (docs/design/narrative-status-2026-11.md): the strip down the leading edge of each row
+ * in the overview's explorer. Layout, lettering and the plain fills are Tailwind classes in
+ * components/overview/trend-spine; these utilities carry what classes can't: the vertical lettering, the moving
+ * textures, the load entrance and the beam. All of it is clip-path, translate or a motion path on a 20px strip,
+ * and reduced motion stills it.
+ */
+
+/* Lettered bottom to top, like a book's spine: the word climbs. */
+@utility spine-label {
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+}
+
+/*
+ * Load entrance: New drops in from the top, Rising climbs from the bottom, 50ms apart by row (--i), starting
+ * as the narratives section rises in (rise-5, 300ms). A clip wipe, like chart-reveal.
+ */
+@utility spine-drop {
+  animation: spine-drop 320ms var(--ease-decelerate) both;
+  animation-delay: calc(var(--i, 0) * 50ms + 400ms);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@utility spine-climb {
+  animation: spine-climb 320ms var(--ease-decelerate) both;
+  animation-delay: calc(var(--i, 0) * 50ms + 400ms);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@keyframes spine-drop {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes spine-climb {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/*
+ * New: the hot end of the scale that Cooling's blue closes. The colors are bright in both themes, so the ink
+ * is a fixed dark rather than the page color. On the strip they drift upward, like heat does: one 180px tile
+ * that starts and ends on the same color, moved by its own height, so the loop has no seam.
+ */
+@utility spine-heat {
+  background: linear-gradient(in oklch to top, var(--color-pink-500), var(--color-orange-500), var(--color-yellow-400));
+  color: var(--color-base-900);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 -180px;
+    background: linear-gradient(in oklch to top, var(--color-pink-500), var(--color-orange-500), var(--color-yellow-400), var(--color-orange-500), var(--color-pink-500)) 0 0 / 100% 180px repeat-y;
+    animation: spine-heat 9s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::before {
+      animation: none;
+    }
+  }
+}
+@utility spine-heat-flat {
+  background: linear-gradient(in oklch to right, var(--color-pink-500), var(--color-orange-500), var(--color-yellow-400));
+  color: var(--color-base-900);
+}
+@keyframes spine-heat {
+  to {
+    translate: 0 -180px;
+  }
+}
+
+/* Rising: chevrons flow up the strip at a constant 10px a second. One 10px tile, moved by its own height. */
+@utility spine-flow-up {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 -10px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='10'%3E%3Cpath d='M0 10L10 0L20 10V15L10 5L0 15ZM0 0L10-10L20 0V5L10-5L0 5Z' fill-opacity='.14'/%3E%3C/svg%3E") 0 0 / 20px 10px repeat-y;
+    animation: spine-flow 1s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::before {
+      animation: none;
+    }
+  }
+}
+@keyframes spine-flow {
+  to {
+    translate: 0 -10px;
+  }
+}
+
+/* Cooling: the same chevrons pointing down, in the strip's own ink, and still. */
+@utility spine-chevrons-down {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0.16;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='10'%3E%3Cpath d='M0 0L10 10L20 0V5L10 15L0 5ZM0-10L10 0L20-10V-5L10 5L0-5Z'/%3E%3C/svg%3E") 0 0 / 20px 10px repeat-y;
+  }
+}
+
+/*
+ * The beam on New: a streak of white light lapping the strip's edge. The element is masked down to a ring as
+ * thick as the beam; a square with a comet gradient rides the strip's outline on a motion path, head first,
+ * and only the slice that crosses the ring shows. The path's corners are rounded by the beam's length so the
+ * streak turns instead of snapping; the ring itself stays square. Without motion, or without offset-path
+ * rect(), there is no beam: one that doesn't travel is a stray dash in a corner.
+ */
+@utility spine-beam {
+  --beam-lap: 3s;
+  --beam-length: 44px;
+  --beam-width: 1.5px;
+  position: absolute;
+  inset: 0;
+  padding: var(--beam-width);
+  overflow: hidden;
+  pointer-events: none;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--beam-length);
+    aspect-ratio: 1;
+    background: linear-gradient(to left, var(--color-white), rgb(255 255 255 / 0.55) 40%, transparent);
+    offset-path: rect(0 auto auto 0 round var(--beam-length));
+    offset-anchor: 100% 50%;
+    animation: spine-beam var(--beam-lap) linear infinite;
+  }
+  @supports not (offset-path: rect(0 auto auto 0)) {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+@keyframes spine-beam {
+  to {
+    offset-distance: 100%;
   }
 }

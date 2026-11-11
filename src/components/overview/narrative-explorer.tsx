@@ -8,7 +8,8 @@ import { ChainMark } from "@/components/brand/chain-mark";
 import { Sparkline } from "@/components/charts/sparkline";
 import { AreaChart } from "@/components/overview/area-chart";
 import type { FeaturedNarrative } from "@/components/overview/data";
-import { Change, TrendTag, age, isNew, money } from "@/components/overview/format";
+import { Change, age, isNew, money } from "@/components/overview/format";
+import { TrendLabel, TrendSpine, hasTrendLabel } from "@/components/overview/trend-spine";
 import { coinHref } from "@/components/research/links";
 import { Segmented } from "@/components/ui/segmented";
 import type { ChainId } from "@/lib/data/types";
@@ -65,21 +66,21 @@ export function NarrativeExplorer({ narratives }: { narratives: FeaturedNarrativ
               tabIndex={on ? 0 : -1}
               onClick={() => setSelected(i)}
               onKeyDown={(e) => onKey(e, i)}
-              className={`relative flex w-64 shrink-0 flex-col border-r border-line px-4 py-3.5 text-left transition-colors duration-150 last:border-r-0 lg:w-auto lg:border-r-0 lg:border-b lg:last:border-b-0 ${
+              // The leading 32px is the status spine's (20px) and its gap. The selected row's bar sits on the edge that
+              // meets the panel on desktop, leaving the leading edge to the spine.
+              className={`relative flex w-64 shrink-0 flex-col border-r border-line py-3.5 pr-4 pl-8 text-left transition-colors duration-150 last:border-r-0 lg:w-auto lg:border-r-0 lg:border-b lg:last:border-b-0 ${
                 on
-                  ? "bg-active after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-high lg:after:inset-x-auto lg:after:inset-y-0 lg:after:left-0 lg:after:h-auto lg:after:w-0.5"
+                  ? "bg-active after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-high lg:after:inset-x-auto lg:after:inset-y-0 lg:after:right-0 lg:after:h-auto lg:after:w-0.5"
                   : "hover:bg-hover"
               }`}
             >
+              <TrendSpine trend={x.trend} index={i} />
               {/* The rank gets its own line above the row, so the title takes the full width and the sparkline lines up with it. */}
               <span className="mb-1 font-mono text-xs text-med">{i + 1}</span>
               <span className="flex items-start gap-3">
                 <span className="min-w-0 flex-1">
                   <span className="line-clamp-2 text-sm leading-snug font-medium">{x.title}</span>
-                  <span className="mt-1.5 flex items-center gap-2 text-xs text-med">
-                    <TrendTag trend={x.trend} />
-                    <span className="font-mono">{money(x.volume7d)}</span>
-                  </span>
+                  <span className="mt-1.5 block font-mono text-xs text-med">{money(x.volume7d)}</span>
                 </span>
                 <span className="flex shrink-0 flex-col items-end gap-1.5 pt-0.5">
                   <Sparkline id={`ex-${x.slug}`} points={x.daily} width={56} height={18} fill={false} strokeWidth={1.25} className="text-med" />
@@ -96,8 +97,12 @@ export function NarrativeExplorer({ narratives }: { narratives: FeaturedNarrativ
       <div role="tabpanel" id={`${base}-panel`} aria-labelledby={`${base}-tab-${selected}`} className="min-w-0 p-4 md:p-6">
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-med">
           <p className="flex flex-wrap items-center gap-x-2">
-            <TrendTag trend={n.trend} />
-            <span aria-hidden>·</span>
+            {hasTrendLabel(n.trend) && (
+              <>
+                <TrendLabel trend={n.trend} />
+                <span aria-hidden>·</span>
+              </>
+            )}
             {n.coins} coins
             <span aria-hidden>·</span>
             tracked since {day(n.since)}
