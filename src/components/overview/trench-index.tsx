@@ -2,7 +2,6 @@ import { TrenchGauge } from "@/components/overview/trench-gauge";
 import { InfoTip } from "@/components/ui/info-tip";
 import { TRENCH_BANDS, type TrenchIndex, WEIGHTS } from "@/lib/lamble/methods/trench-index";
 
-const DAY = new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric" });
 const pct = (w: number) => `${Math.round(w * 100)}%`;
 
 /** 1st, 2nd, 3rd, 11th, 81st. */
@@ -14,19 +13,19 @@ function ordinal(v: number): string {
 
 /**
  * The trench index for the overview header: how busy the trenches are against their own past, as a gauge. It
- * answers the first question of a daily visit (is it hot or dead today?) before the narratives say where the
+ * answers the first question of a daily visit (is it hot or frozen today?) before the narratives say where the
  * heat is. The three parts, their weights and today's scores sit under the ⓘ.
  */
 export function TrenchIndexBlock({ index }: { index: TrenchIndex }) {
-  const day = DAY.format(new Date(`${index.asOf}T00:00:00Z`));
   const { fees, breadth, launches } = index;
 
   return (
     <div className="flex w-full flex-col items-center md:w-56">
-      <p className="flex items-center gap-1.5 text-xs text-med">
-        Trench index, {day}
+      {/* No date here: the top bar already shows the release's data cutoff. */}
+      <p className="mb-4 flex items-center gap-1.5 text-xs text-med">
+        Trench index
         <InfoTip label="How the trench index is scored">
-          <span className="block">How busy the trenches are against their own past: 0 is dead, 100 is peak euphoria.</span>
+          <span className="block">How busy the trenches are against their own past: 0 is frozen, 100 is peak euphoria.</span>
           <span className="mt-2 block">
             Launchpad fees, 7d ({pct(WEIGHTS.fees)}): {fees.score}. The {ordinal(fees.pct90)} percentile of the last 90 days and the{" "}
             {ordinal(fees.pct365)} of the last year.

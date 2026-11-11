@@ -1,5 +1,5 @@
 /**
- * Trench index: one 0–100 read on how busy the trenches are against their own recent past. 0 is dead, 100 is
+ * Trench index: one 0–100 read on how busy the trenches are against their own recent past. 0 is frozen, 100 is
  * peak euphoria. Pure: the service hands it daily fee rows and launch snapshots already in the release.
  *
  *   fees      50%  7-day launchpad fees (the non-overlapping fee subtotal), percentile against the last
@@ -19,7 +19,7 @@ export const WEIGHTS = { fees: 0.5, breadth: 0.25, launches: 0.25 } as const;
 
 /** Bands of the 0–100 scale, low to high. `from` is inclusive. */
 export const TRENCH_BANDS = [
-  { id: "dead", label: "Dead", from: 0 },
+  { id: "frozen", label: "Frozen", from: 0 }, // not "Dead": the bands read as a temperature, coldest first
   { id: "cold", label: "Cold", from: 25 },
   { id: "warm", label: "Warm", from: 50 },
   { id: "hot", label: "Hot", from: 75 },

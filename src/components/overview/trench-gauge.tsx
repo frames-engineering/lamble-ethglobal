@@ -25,10 +25,10 @@ const STEP = 2.5;
 const DOTS = Array.from({ length: 100 / STEP + 1 }, (_, i) => point(i * STEP, TRACK));
 
 /**
- * Band colors from cold to hot, from the named chart hues (research/colors): dead violet, cold sky, warm gold,
+ * Band colors from cold to hot, from the named chart hues (research/colors): frozen violet, cold sky, warm gold,
  * hot coral. Matched by band id so a reordered scale keeps its meaning.
  */
-const COLOR: Record<string, VizHue> = { dead: "violet", cold: "sky", warm: "gold", hot: "coral" };
+const COLOR: Record<string, VizHue> = { frozen: "violet", cold: "sky", warm: "gold", hot: "coral" };
 
 /**
  * Three decimals: the server's and the browser's trig can differ in the last digit, which breaks hydration.
