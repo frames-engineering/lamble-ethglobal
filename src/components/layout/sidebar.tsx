@@ -2,6 +2,7 @@
 
 import { Dialog } from "@base-ui/react/dialog";
 import {
+  ArrowUpRightIcon,
   BookOpenIcon,
   BracesIcon,
   ChartCandlestickIcon,
@@ -19,9 +20,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type ReactNode, useId, useState } from "react";
 
+import { FramesMark } from "@/components/brand/frames-mark";
 import { Logo } from "@/components/brand/logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { FRAMES_URL, LAUNCH_BOT_URL } from "@/lib/links";
+import { FRAMES_URL } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
 export const PRIMARY: { href: string; label: string; icon: LucideIcon }[] = [
@@ -135,23 +137,26 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
         </div>
       </nav>
       <div className="flex shrink-0 flex-col gap-3 p-2">
-        <div className="rounded-lg bg-background p-3">
-          <p className="text-sm font-medium text-high">Launching a token?</p>
-          <p className="mt-0.5 text-xs leading-snug text-med">The LAMBLE bot compares launch venues for you in Telegram.</p>
-          <a
-            href={LAUNCH_BOT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 flex h-8 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground transition-[opacity,scale] duration-150 ease-out hover:opacity-90 active:scale-[0.96]"
-          >
-            Open the launch bot
-          </a>
-        </div>
-        <div className="flex items-center justify-between pr-1 pl-2">
-          <a href={FRAMES_URL} target="_blank" rel="noopener noreferrer" className="flex h-8 items-center gap-1.5 text-xs text-med transition-colors duration-150 hover:text-high">
-            <span aria-hidden className="size-1.5 rounded-full bg-positive" />
-            Powered by Frames
-          </a>
+        {/* The whole card is the link: no separate button. The arrow says it leaves the site. */}
+        <a
+          href={FRAMES_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block rounded-sm bg-background p-3 transition-colors duration-150 outline-none hover:bg-hover focus-visible:ring-1 focus-visible:ring-focus"
+        >
+          <span className="flex items-center justify-between text-xs text-med">
+            Data powered by
+            <ArrowUpRightIcon aria-hidden className="size-3.5 text-low transition-colors duration-150 group-hover:text-high" />
+          </span>
+          {/* The logo sits beside the name like a favicon beside a URL; the line on what Frames does goes under. */}
+          <span className="mt-2 flex items-center gap-1.5">
+            <FramesMark className="size-4 rounded-xs" />
+            <span className="text-sm leading-tight font-medium text-high">Frames.ag</span>
+          </span>
+          <span className="mt-1 block text-xs leading-snug text-med">Connect AIs to any paid endpoints</span>
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+        <div className="flex items-center justify-end pr-1 pl-2">
           <ThemeToggle />
         </div>
       </div>
