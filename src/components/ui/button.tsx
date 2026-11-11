@@ -4,7 +4,7 @@ import { cn } from "cn"
 
 /**
  * Button, tuned to the token system (docs/design/overhaul-2026-11.md):
- * primary = white pill on the dark page (ink pill in light), outline = hairline pill, ghost for icons,
+ * primary = white on the dark page (ink in light), outline = hairline border, ghost for icons; all 3px corners,
  * sizes 32 / 36 / 40px, weight 500, hover opacity .9, a 0.96 press.
  */
 const buttonVariants = cva(
@@ -22,16 +22,16 @@ const buttonVariants = cva(
         link: "text-link underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-8 rounded-full px-3",
-        default: "h-9 rounded-full px-4",
-        lg: "h-10 rounded-full px-5",
-        icon: "size-8 rounded-md",
-        "icon-sm": "size-7 rounded-md",
-        "icon-lg": "size-10 rounded-md",
+        sm: "h-8 rounded-sm px-3",
+        default: "h-9 rounded-sm px-4",
+        lg: "h-10 rounded-sm px-5",
+        icon: "size-8 rounded-sm",
+        "icon-sm": "size-7 rounded-sm",
+        "icon-lg": "size-10 rounded-sm",
       },
     },
     compoundVariants: [
-      { variant: ["text", "link"], size: ["sm", "default", "lg"], class: "h-8 rounded-md px-0" },
+      { variant: ["text", "link"], size: ["sm", "default", "lg"], class: "h-8 rounded-sm px-0" },
     ],
     defaultVariants: {
       variant: "default",

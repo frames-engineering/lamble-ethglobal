@@ -37,8 +37,9 @@ export function SectionTabs({ sections, className }: { sections: readonly (reado
 
   return (
     // Sticky against the page column: render it as a direct child of the Container, never inside a wrapper
-    // that ends with it, or there is nowhere to stick.
-    <nav aria-label="On this page" className={cn("sticky top-14 z-20 -mx-5 border-b border-line bg-background px-5 md:-mx-10 md:px-10 lg:top-0", className)}>
+    // that ends with it, or there is nowhere to stick. Its rule spans the content column, like the sections
+    // under it, never the gutters.
+    <nav aria-label="On this page" className={cn("sticky top-14 z-20 border-b border-line bg-background lg:top-0", className)}>
       <ul className="flex h-12 items-stretch gap-6 overflow-x-auto scrollbar-none">
         {sections.map(([id, label]) => (
           <li key={id} className="flex">

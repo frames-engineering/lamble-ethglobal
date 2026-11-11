@@ -2,9 +2,17 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-/** A page's three or four headline numbers in bordered cells (docs/design/system.md). Holds KeyFigure cells. */
-export function KeyFigures({ children, className }: { children: ReactNode; className?: string }) {
-  return <dl className={cn("grid grid-cols-2 border-t border-l border-line md:grid-cols-4", className)}>{children}</dl>;
+/**
+ * A page's three or four headline numbers in bordered cells (docs/design/system.md). Holds KeyFigure cells.
+ * The frame carries the outer border and the 3px corners; each cell draws its right and bottom hairline, and
+ * the grid runs 1px past the frame on those sides so the outermost hairlines tuck under the frame's border.
+ */
+export function KeyFigures({ children, columns = 4, className }: { children: ReactNode; columns?: 3 | 4; className?: string }) {
+  return (
+    <div className={cn("overflow-hidden rounded-sm border border-line", className)}>
+      <dl className={cn("-mr-px -mb-px grid grid-cols-2", columns === 3 ? "md:grid-cols-3" : "md:grid-cols-4")}>{children}</dl>
+    </div>
+  );
 }
 
 /** One cell: the figure first, then what it is, then one line of context (as-of time, basis, change). */

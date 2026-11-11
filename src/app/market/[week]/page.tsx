@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 
 import { Container } from "@/components/layout/container";
 import { Change, money } from "@/components/overview/format";
-import { BarFigure, KeyFigure } from "@/components/research/figures";
+import { BarFigure, KeyFigure, KeyFigures } from "@/components/research/figures";
 import { AgentAccess } from "@/components/research/agent-access";
 import { FORMAT_LABEL } from "@/components/research/article-bits";
 import { CoinLabel, EvidenceList } from "@/components/research/links";
@@ -172,7 +172,7 @@ export default async function EditionPage({ params, searchParams }: { params: Pr
         }
       />
 
-      <dl className="mt-8 grid grid-cols-2 border-t border-l border-line md:grid-cols-4">
+      <KeyFigures className="mt-8">
         <KeyFigure
           label={
             <>
@@ -228,7 +228,7 @@ export default async function EditionPage({ params, searchParams }: { params: Pr
         >
           {`${e.breadth.advancing} of ${e.breadth.withPrices}`}
         </KeyFigure>
-      </dl>
+      </KeyFigures>
 
       {(failed.length > 0 || entry.revisions.length > 1) && (
         <div className="mt-4 flex flex-col gap-2">

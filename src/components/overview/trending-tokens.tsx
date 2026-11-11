@@ -78,7 +78,7 @@ export function TrendingTokens({ tokens }: { tokens: TrendingToken[] }) {
                         <Link href={coinHref(t.chain, t.address)} className={`font-medium ${LINK}`}>
                           {t.symbol ?? `${t.address.slice(0, 6)}…`}
                         </Link>
-                        {isNew(t.ageDays) && <span className="rounded-full bg-link-soft px-1.5 text-[10px] leading-4 font-medium text-link sm:hidden">New</span>}
+                        {isNew(t.ageDays) && <span className="rounded-xs bg-link-soft px-1.5 text-[10px] leading-4 font-medium text-link sm:hidden">New</span>}
                       </span>
                       {t.name && t.name !== t.symbol && (
                         <span title={t.name} className="max-w-24 truncate text-xs text-med sm:max-w-36">

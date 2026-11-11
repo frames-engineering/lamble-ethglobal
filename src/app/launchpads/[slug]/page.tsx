@@ -8,7 +8,7 @@ import { ChainStack } from "@/components/brand/chain-mark";
 import { LetterMark } from "@/components/brand/letter-mark";
 import { Container } from "@/components/layout/container";
 import { Change, money } from "@/components/overview/format";
-import { KeyFigure } from "@/components/research/figures";
+import { KeyFigure, KeyFigures } from "@/components/research/figures";
 import { FORMAT_LABEL } from "@/components/research/article-bits";
 import { AgentAccess } from "@/components/research/agent-access";
 import { SeriesChart } from "@/components/research/charts";
@@ -146,7 +146,7 @@ export default async function LaunchpadPage({ params }: { params: Promise<Params
         }
       />
 
-      <dl className="mt-8 grid grid-cols-2 border-t border-l border-line md:grid-cols-4">
+      <KeyFigures className="mt-8">
         <KeyFigure
           label={`Fees, ${lastDay ? DAY.format(new Date(lastDay.time * 1000)) : "last settled day"}`}
           sub={vsPrior(l.metrics.h24.change, "day")}
@@ -171,7 +171,7 @@ export default async function LaunchpadPage({ params }: { params: Promise<Params
           {l.indexed ? formatValue(l.indexed.created24, "count") : "—"}
         </KeyFigure>
         <KeyFigure label="Tracked coins from it" sub={narratives.length ? `in ${narratives.length} narrative${narratives.length === 1 ? "" : "s"}` : "in no tracked narrative"}>{String(l.coins.length)}</KeyFigure>
-      </dl>
+      </KeyFigures>
 
       <Section id="fees" title="Daily fees" description={`What traders and launchers paid on ${l.name} each settled UTC day, and how much of it the venue kept or paid creators. ${p.provenance?.scope ? `DefiLlama: ${p.provenance.scope}.` : "DefiLlama daily values."}`}>
         <Panel>

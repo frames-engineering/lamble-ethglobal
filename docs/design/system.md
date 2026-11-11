@@ -68,12 +68,16 @@ extra props. Time series go through `SeriesChart` (`research/charts.tsx`), and t
 
 ## Controls
 
-`Button` (pills; `variant="outline"` for secondary) for actions, and `<Link className={buttonVariants(…)}>` for
+`Button` (`variant="outline"` for secondary) for actions, and `<Link className={buttonVariants(…)}>` for
 navigation that should look like a button (Base UI's `nativeButton={false}` would announce a link as a button),
-`Badge` (status pills), `Segmented` (`ui/segmented`, two or three views of one thing), `InfoTip`
+`Badge` (status labels), `Segmented` (`ui/segmented`, two or three views of one thing), `InfoTip`
 (`ui/info-tip`, scope notes beside a figure's label), `MoreLink` (a section's onward link).
 
 ## Shapes and motion
 
-`rounded-sm` for bordered cards and tables, `rounded-lg` for filled cards and inputs, `rounded-full` for pills.
-No card shadows. Hover transitions 150ms on color/background only; `Button` presses to 0.96.
+One radius for every component: `rounded-sm` (3px, almost square), on cards, tables, key-figure grids,
+buttons, inputs, badges, chips, segmented controls, tooltips and sheets. `rounded-xs` (2px) only for an item
+nested in a padded 3px container (a segmented control's buttons) and for tiny logos. `rounded-full` only for
+circles: status dots, avatars, token marks, the switch. tokens.css collapses `rounded-md`…`rounded-3xl` to the
+same 3px so shadcn components conform, but write `rounded-sm`. Charts follow their own square standard
+([charts.md](charts.md)). Rules and dividers span the content column, never the page gutters. No card shadows. Hover transitions 150ms on color/background only; `Button` presses to 0.96.

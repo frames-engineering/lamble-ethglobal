@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { KeyFigure } from "@/components/research/figures";
+import { KeyFigure, KeyFigures } from "@/components/research/figures";
 import { AgentAccess } from "@/components/research/agent-access";
 import { SeriesChart } from "@/components/research/charts";
 import { SERIES } from "@/components/research/colors";
@@ -193,7 +193,7 @@ function CoinResearch({ coin, release }: { coin: CoinPublic; release: ReleasePub
       />
 
       <section id="market" aria-label="Market" className="pt-8">
-        <dl className="grid grid-cols-2 border-t border-l border-line md:grid-cols-4">
+        <KeyFigures>
           <KeyFigure label="Price" sub={asOf(coin.market.price.asOf)}>
             <MeasureValue measure={coin.market.price} format="price" className="flex-wrap gap-y-1" />
           </KeyFigure>
@@ -206,7 +206,7 @@ function CoinResearch({ coin, release }: { coin: CoinPublic; release: ReleasePub
           <KeyFigure label="Volume, rolling 24h" sub="All pools, as reported">
             <MeasureValue measure={coin.market.volume24hRolling} format="usd" className="flex-wrap gap-y-1" />
           </KeyFigure>
-        </dl>
+        </KeyFigures>
         <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3">
           <Stat label="Price change, rolling 24h">
             <MeasureValue measure={coin.market.priceChange24hRolling} format="signed-percent" tone />

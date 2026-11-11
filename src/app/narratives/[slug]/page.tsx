@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ChainMark } from "@/components/brand/chain-mark";
 import { Container } from "@/components/layout/container";
 import { Change, money } from "@/components/overview/format";
-import { KeyFigure } from "@/components/research/figures";
+import { KeyFigure, KeyFigures } from "@/components/research/figures";
 import { AgentAccess } from "@/components/research/agent-access";
 import { SeriesChart } from "@/components/research/charts";
 import { WatchButton } from "@/components/research/client";
@@ -240,7 +240,7 @@ export default async function NarrativePage({ params }: { params: Promise<Params
         </Note>
       )}
 
-      <dl className="mt-8 grid grid-cols-2 border-t border-l border-line md:grid-cols-4">
+      <KeyFigures className="mt-8">
         <KeyFigure label="Volume, 7d" sub="Last 7 days of data">
           <MeasureValue measure={a.volume7d} format="usd" className="flex-wrap" />
         </KeyFigure>
@@ -256,7 +256,7 @@ export default async function NarrativePage({ params }: { params: Promise<Params
         <KeyFigure label="Coins" sub={`${n.memberCounts.collected} measured daily`}>
           {n.memberCounts.open}
         </KeyFigure>
-      </dl>
+      </KeyFigures>
       <p className="mt-3 max-w-[72ch] text-xs leading-relaxed text-pretty text-med">{a.volumeScope}</p>
       {a.caveat && (
         <Note tone="warning" className="mt-3">

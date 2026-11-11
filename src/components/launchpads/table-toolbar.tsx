@@ -22,7 +22,7 @@ interface TableToolbarProps {
 }
 
 /** Chain chips as pills, pressed on the active background like Segmented. */
-const CHIP = "h-7 rounded-full border-line px-3 font-normal aria-pressed:border-transparent aria-pressed:bg-active data-pressed:border-transparent data-pressed:bg-active hover:bg-hover";
+const CHIP = "h-7 rounded-sm border-line px-3 font-normal aria-pressed:border-transparent aria-pressed:bg-active data-pressed:border-transparent data-pressed:bg-active hover:bg-hover";
 
 export function TableToolbar({ query, onQuery, chains, onChains, availableChains, tf, onTf }: TableToolbarProps) {
   return (

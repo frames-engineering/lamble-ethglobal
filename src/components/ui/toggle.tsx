@@ -6,7 +6,7 @@ import { cn } from "cn"
 
 /** Chip toggle (matches Segmented): a pill, 12px, med → high, pressed = bg-active. */
 const toggleVariants = cva(
-  "group/toggle inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-transparent text-xs text-med transition-colors duration-150 outline-none select-none hover:text-high focus-visible:ring-1 focus-visible:ring-focus disabled:pointer-events-none disabled:opacity-50 aria-pressed:bg-active aria-pressed:text-high data-pressed:bg-active data-pressed:text-high [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
+  "group/toggle inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-sm border border-transparent text-xs text-med transition-colors duration-150 outline-none select-none hover:text-high focus-visible:ring-1 focus-visible:ring-focus disabled:pointer-events-none disabled:opacity-50 aria-pressed:bg-active aria-pressed:text-high data-pressed:bg-active data-pressed:text-high [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
   {
     variants: {
       variant: {

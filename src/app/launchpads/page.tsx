@@ -5,7 +5,7 @@ import { launchpadHistory } from "@/components/launchpads/history";
 import { LaunchpadsTable } from "@/components/launchpads/launchpads-table";
 import { Container } from "@/components/layout/container";
 import { Change } from "@/components/overview/format";
-import { KeyFigure } from "@/components/research/figures";
+import { KeyFigure, KeyFigures } from "@/components/research/figures";
 import { AgentAccess } from "@/components/research/agent-access";
 import { PageHeader, Section } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
@@ -47,7 +47,7 @@ export default function LaunchpadsPage() {
         }
       />
 
-      <dl className="mt-8 grid grid-cols-2 border-t border-l border-line md:grid-cols-4">
+      <KeyFigures className="mt-8">
         <KeyFigure
           label={
             <>
@@ -100,7 +100,7 @@ export default function LaunchpadsPage() {
         >
           {String(data.launchpads.length)}
         </KeyFigure>
-      </dl>
+      </KeyFigures>
 
       <Section
         id="venues"

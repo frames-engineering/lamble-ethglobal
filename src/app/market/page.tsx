@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Container } from "@/components/layout/container";
 import { Change, TrendTag, money } from "@/components/overview/format";
-import { BarFigure, KeyFigure } from "@/components/research/figures";
+import { BarFigure, KeyFigure, KeyFigures } from "@/components/research/figures";
 import { ChangeList } from "@/components/research/changes";
 import { SeriesChart } from "@/components/research/charts";
 import { SERIES } from "@/components/research/colors";
@@ -182,7 +182,7 @@ export default function MarketPage() {
         description={`Fees for the last settled UTC day (to ${formatDate(m.feeSubtotal.anchor)}), and trading and launches over the rolling 24 hours to each coin's latest snapshot.`}
         aside={daily ? <MoreLink href={`/research/${daily.slug}`}>Daily facts</MoreLink> : undefined}
       >
-        <dl className="grid grid-cols-2 border-t border-l border-line md:grid-cols-4">
+        <KeyFigures>
           <KeyFigure
             label={
               <>
@@ -213,7 +213,7 @@ export default function MarketPage() {
             {formatValue(m.indexed.created24, "count")}
           </KeyFigure>
           <KeyFigure label="Completions, rolling 24h" sub={`${m.indexed.completionVenues} venues report completions`}>{formatValue(m.indexed.completed24, "count")}</KeyFigure>
-        </dl>
+        </KeyFigures>
 
         <Panel
           title="Fee subtotal, 30 settled days"
@@ -320,7 +320,7 @@ export default function MarketPage() {
         description={`${formatDateTime(m.rolling7d.start)} to ${formatDateTime(m.rolling7d.end)}.`}
         aside={<MoreLink href="/narratives">All narratives</MoreLink>}
       >
-        <dl className="grid grid-cols-2 border-t border-l border-line md:grid-cols-3">
+        <KeyFigures columns={3}>
           <KeyFigure label="Narrative volume" sub="Collected coins, each counted once">{compactUsd(m.rolling7d.narrativeVolume, 2)}</KeyFigure>
           <KeyFigure label="Fee subtotal, 7 settled days">{compactUsd(m.rolling7d.fees, 2)}</KeyFigure>
           <KeyFigure
@@ -333,7 +333,7 @@ export default function MarketPage() {
           >
             {compactUsd(m.creatorEarnings.value7d, 2)}
           </KeyFigure>
-        </dl>
+        </KeyFigures>
 
         <Panel title="Narratives by 7-day volume" description="Collected narratives. Volume overlaps where a coin is in more than one narrative; the weekly editions show the deduplicated total." className="mt-4">
           <Table>

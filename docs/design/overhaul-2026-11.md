@@ -14,8 +14,9 @@ tehcscreener.com), **Dune** (after dune.com/discover and dune.com/data/stablecoi
   Pixel is the Square cut from the `geist` package (one weight, 500). Geist Pixel replaced the interim
   system serif (Iowan Old Style, Charter, Georgia) on 2026-11-10.
 - **Color:** warm near-neutral grays, hairline borders instead of shadows, and white as the only accent
-  (primary buttons are white pills). Color appears only in chart series and up/down figures. The chart
-  series palette passed the colorblind and contrast validator in both themes.
+  (primary buttons are white, with the shared 3px corners since 2026-11-11). Color appears only in chart
+  series and up/down figures. The chart series palette passed the colorblind and contrast validator in
+  both themes.
 - **Overview (`/`):** title and intro with a Methodology button. Then the four stats; the trending
   narratives explorer (ranked list, plus the selected narrative's 7D hourly or 30D daily volume, "why it's
   moving" and the tokens carrying it); launchpad fees stacked by launchpad; trending tokens, sortable by
