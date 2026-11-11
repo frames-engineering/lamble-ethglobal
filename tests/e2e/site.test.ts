@@ -102,7 +102,7 @@ test("website and API agree on the same entities in the same release", async () 
 test("desktop: navigate, filter coins by narrative, keep a watchlist across reloads", async () => {
   const page = await open("/");
   await shot(page, "home-desktop");
-  await page.getByRole("button", { name: "Explore coins" }).first().click();
+  await page.getByRole("link", { name: "All coins" }).first().click();
   await page.waitForURL(/\/coins$/);
   const narrative = (await getJson("/api/v1/narratives?limit=500")).data.items.find((n: { lifecycle: string }) => n.lifecycle === "collected");
   await page.locator('select[name="narrative"]').selectOption(narrative.slug);
@@ -126,7 +126,7 @@ test("desktop: navigate, filter coins by narrative, keep a watchlist across relo
 test("mobile: menu navigation and no horizontal overflow on research pages", async () => {
   const page = await open("/", 390);
   await page.getByRole("button", { name: "Open menu" }).click();
-  await page.getByRole("link", { name: "Narratives" }).first().click();
+  await page.locator('[role="dialog"] a[href="/narratives"]').click();
   await page.waitForURL(/\/narratives$/);
   await shot(page, "narratives-mobile");
   await page.close();

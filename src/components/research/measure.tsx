@@ -85,8 +85,8 @@ export function MeasureValue({
   const toneClass = tone && value !== null ? (value > 0 ? "text-positive" : value < 0 ? "text-negative" : "text-med") : "";
   const title = [measure.note, measure.coverage?.scope].filter(Boolean).join(" ") || undefined;
   return (
-    <span className={cn("inline-flex items-baseline gap-2", className)} title={title}>
-      <span className={cn("tabular-nums", has ? "text-high" : "text-med", toneClass)}>{formatValue(value, format)}</span>
+    <span className={cn("inline-flex flex-wrap items-baseline gap-x-2 gap-y-1", className)} title={title}>
+      <span className={cn("font-mono", has ? "text-high" : "text-med", toneClass)}>{formatValue(value, format)}</span>
       {showState && measure.state !== "observed" && measure.state !== "derived" && <StateBadge state={measure.state} title={title} />}
       {title && <span className="sr-only">{title}</span>}
     </span>
@@ -96,9 +96,9 @@ export function MeasureValue({
 export function Stat({ label, children, sub, className, title }: { label: string; children: React.ReactNode; sub?: React.ReactNode; className?: string; title?: string }) {
   return (
     <div className={cn("min-w-0", className)} title={title}>
-      <dt className="text-2xs text-med">{label}</dt>
+      <dt className="text-xs text-med">{label}</dt>
       <dd className="mt-1 text-sm text-high">{children}</dd>
-      {sub !== undefined && <dd className="mt-0.5 text-2xs text-med">{sub}</dd>}
+      {sub !== undefined && <dd className="mt-0.5 text-xs text-med">{sub}</dd>}
     </div>
   );
 }

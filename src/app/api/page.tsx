@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import { Container } from "@/components/layout/container";
-import { PoweredByFrames } from "@/components/layout/site-header";
+import { PoweredByFrames } from "@/components/brand/powered-by-frames";
 import { CopyBlock } from "@/components/research/client";
 import { ExternalLink } from "@/components/research/links";
-import { Note, PageHeader, Panel } from "@/components/research/panel";
-import { Badge } from "@/components/ui/badge";
+import { Note, PageHeader, Panel, Section } from "@/components/research/panel";
+import { buttonVariants } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { apiPaths } from "@/lib/lamble/api/paths";
 import { displayPrice } from "@/lib/lamble/api/prices";
@@ -20,6 +21,13 @@ export const metadata: Metadata = {
   description: "LAMBLE's structured research API: free discovery of identity, coverage, schema and price; fixed-price research bundles paid per request with x402 or MPP; a cursor changes feed. How to use it with Frames.",
   alternates: { canonical: "/api" },
 };
+
+/** Inline code in prose: paths, headers, tool names. */
+function Code({ children }: { children: ReactNode }) {
+  return <code className="rounded-sm bg-surface-2 px-1 py-0.5 font-mono text-xs text-high">{children}</code>;
+}
+
+const PROSE_LIST = "flex max-w-[72ch] flex-col gap-2 pl-5 text-sm leading-relaxed text-med marker:text-low";
 
 export default function ApiPage() {
   const { data } = loadRelease();
@@ -63,12 +71,21 @@ If no LAMBLE tool is listed, stop and tell me. Do not substitute another provide
         eyebrow="Agents"
         title="Research API"
         description={
-          <div className="flex flex-col gap-3">
-            <p>
-              The same releases the website renders, as structured JSON. Discovery is free: identity, coverage, availability, schema and price. Research bundles are fixed-price precomputed files paid per request with x402 or MPP — no account, no subscription. Serving a request never calls a data provider.
-            </p>
-            <PoweredByFrames className="self-start" />
-          </div>
+          <p>
+            The same releases the website renders, as structured JSON. Discovery is free: identity, coverage, availability, schema and price. Research bundles are fixed-price precomputed files paid per request with x402 or MPP — no account, no subscription. Serving a request never calls a data provider.
+          </p>
+        }
+        actions={
+          <>
+            {/* The two files an agent builder reaches for first; plain links, since they are not pages. */}
+            <a href={apiPaths.openapi()} className={buttonVariants({ variant: "outline", size: "sm" })}>
+              OpenAPI
+            </a>
+            <a href="/llms.txt" className={buttonVariants({ variant: "outline", size: "sm" })}>
+              llms.txt
+            </a>
+            <PoweredByFrames />
+          </>
         }
         meta={
           <span>
@@ -76,116 +93,119 @@ If no LAMBLE tool is listed, stop and tell me. Do not substitute another provide
           </span>
         }
       />
-      <div className="flex flex-col gap-4 pb-8">
-        <Panel id="setup" title="Use it from an agent connected to Frames" description="Frames is a gateway that lets an agent search a catalog of paid tools and pay per call from one balance.">
-          <ol className="flex list-decimal flex-col gap-3 pl-5 text-sm leading-relaxed text-med">
-            <li>
-              Create a Frames account and connect your agent to the Frames MCP server{" "}
-              {FRAMES_MCP_URL ? (
-                <>
-                  at <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-xs">{FRAMES_MCP_URL}</code>
-                </>
-              ) : (
-                <>using the connection details in your Frames account</>
-              )}
-              . Start at <ExternalLink href={FRAMES_URL}>{FRAMES_URL.replace(/^https:\/\//, "")}</ExternalLink>.
-            </li>
-            <li>
-              Frames exposes free tools to search the catalog and read a tool&apos;s descriptor (<code className="font-mono text-xs">frames_search_tools</code>, <code className="font-mono text-xs">frames_get_tool</code>,{" "}
-              <code className="font-mono text-xs">frames_probe_tools</code>) and a paid tool to invoke (<code className="font-mono text-xs">frames_invoke_tools</code>), which takes a spending cap per run.
-            </li>
-            <li>
-              {FRAMES_LISTED ? (
-                <>LAMBLE&apos;s endpoints are listed in the Frames catalog. Ask your agent to search for them, then set a budget before it invokes anything.</>
-              ) : (
-                <>
-                  <span className="text-high">LAMBLE is not yet listed in the Frames catalog.</span> Until it is, an agent connected to Frames will not find it by search; use the endpoints directly with any x402 or MPP client (below).
-                </>
-              )}
-            </li>
-          </ol>
-          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <CopyBlock label="Prompt: agent with Frames" text={framesPrompt} />
-            <CopyBlock label="Prompt: any agent with an x402 or MPP wallet" text={discoveryPrompt} />
-          </div>
-        </Panel>
 
-        <Panel id="endpoints" title="Endpoints" description="All paths are under /api/v1. Data responses share one envelope: schemaVersion, the release they read (id, dataCutoff, methodVersions), generatedAt, dataThrough (last source time per series), interval (cadence and period covered) and links. Bundles add evidence and an export section saying which parts are withheld and why.">
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Request</TableHead>
-                  <TableHead>Access</TableHead>
-                  <TableHead>Returns</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rows.map((r) => {
-                  const price = r.kind ? displayPrice(r.kind) : null;
-                  const sellable = r.kind ? exportPlan(r.kind, catalog).sellable : true;
-                  return (
-                    <TableRow key={r.path}>
-                      <TableCell className="font-mono text-xs whitespace-nowrap text-high">
-                        {r.method} {r.path}
-                      </TableCell>
-                      <TableCell>
-                        {r.access === "free" ? (
-                          <Badge variant="positive">Free</Badge>
-                        ) : !sellable ? (
-                          <Badge variant="outline" title="Main content derives from sources whose redistribution rights are not reviewed; the endpoint answers 403.">
-                            Not for sale yet
-                          </Badge>
-                        ) : (
-                          <Badge variant="warning">{price ? `$${price.usd}${price.approved ? "" : " test"}` : "Paid"}</Badge>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-xs text-med">{r.what}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </div>
-          <div className="mt-4">
-            <CopyBlock label="HTTP" text={curl} />
-          </div>
-        </Panel>
-
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <Panel id="payment" title="How payment works">
-            <ol className="flex list-decimal flex-col gap-2 pl-5 text-xs leading-relaxed text-med">
-              <li>A paid request without payment returns 402 with an offer: resource, parameters, the release it is pinned to, price, expiry and the accepted protocols. The same response carries the x402 PAYMENT-REQUIRED header and the MPP WWW-Authenticate: Payment challenge for each configured protocol.</li>
-              <li>Retry with the payment credential. The server verifies and settles through the protocol (x402 facilitator, or MPP on Tempo) before releasing the bundle; a client-supplied transaction hash is never accepted as proof.</li>
-              <li>The paid response carries the protocol receipt and a Lamble-Capability token. The token re-downloads the same bundle for the access period without paying again; keep it private.</li>
-              <li>A payment credential is single use. Retrying the same credential after a lost response returns the same bundle within a short window, never a second charge.</li>
-            </ol>
-          </Panel>
-          <Panel id="policy" title="Access, refunds and rights">
-            <ul className="flex list-disc flex-col gap-2 pl-5 text-xs leading-relaxed text-med">
-              <li>A purchase is one bundle of one release. A later release is a new resource; nothing re-bills automatically.</li>
-              <li>No automatic refunds. If delivery fails after settlement, the capability token (returned even on a delivery error) or an operator review recovers access.</li>
-              <li>Components derived from a source whose usage rights have not been reviewed are withheld from paid bundles and listed as withheld; a bundle with nothing exportable is not offered for sale.</li>
-              <li>
-                Prices shown as &ldquo;test&rdquo; are not final: they await a cost benchmark and owner approval. See{" "}
-                <Link href="/sources" className="text-link hover:underline">
-                  sources
-                </Link>{" "}
-                for recorded rights.
-              </li>
-            </ul>
-          </Panel>
+      <Section id="setup" title="Use it from an agent connected to Frames" description="Frames is a gateway that lets an agent search a catalog of paid tools and pay per call from one balance.">
+        <ol className={`list-decimal ${PROSE_LIST}`}>
+          <li>
+            Create a Frames account and connect your agent to the Frames MCP server{" "}
+            {FRAMES_MCP_URL ? (
+              <>
+                at <Code>{FRAMES_MCP_URL}</Code>
+              </>
+            ) : (
+              <>using the connection details in your Frames account</>
+            )}
+            . Start at <ExternalLink href={FRAMES_URL}>{FRAMES_URL.replace(/^https:\/\//, "")}</ExternalLink>.
+          </li>
+          <li>
+            Frames exposes free tools to search the catalog and read a tool&apos;s descriptor (<Code>frames_search_tools</Code>, <Code>frames_get_tool</Code>, <Code>frames_probe_tools</Code>) and a paid tool to invoke (<Code>frames_invoke_tools</Code>), which takes a spending cap per run.
+          </li>
+          <li>
+            {FRAMES_LISTED ? (
+              <>LAMBLE&apos;s endpoints are listed in the Frames catalog. Ask your agent to search for them, then set a budget before it invokes anything.</>
+            ) : (
+              <>
+                <span className="text-high">LAMBLE is not yet listed in the Frames catalog.</span> Until it is, an agent connected to Frames will not find it by search; use the endpoints directly with any x402 or MPP client (below).
+              </>
+            )}
+          </li>
+        </ol>
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <CopyBlock label="Prompt: agent with Frames" text={framesPrompt} />
+          <CopyBlock label="Prompt: any agent with an x402 or MPP wallet" text={discoveryPrompt} />
         </div>
+      </Section>
 
-        <Panel id="changes" title="Changes feed" description="Monitor without paying: every published change gets a sequence number on one global cursor.">
-          <p className="text-xs leading-relaxed text-med">
-            Poll <code className="font-mono text-high">{apiPaths.changes(0)}</code> with the last <code className="font-mono">nextCursor</code> you saw. Filter with <code className="font-mono">entity=</code> (coin or narrative ids) and <code className="font-mono">type=</code>. Events reconstructed from retained runs are marked <code className="font-mono">reconstructed: true</code>.
-          </p>
+      <Section
+        id="endpoints"
+        title="Endpoints"
+        description="All paths are under /api/v1. Data responses share one envelope: schemaVersion, the release they read (id, dataCutoff, methodVersions), generatedAt, dataThrough (last source time per series), interval (cadence and period covered) and links. Bundles add evidence and an export section saying which parts are withheld and why."
+      >
+        <Panel>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Request</TableHead>
+                <TableHead>Access</TableHead>
+                <TableHead>Returns</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {rows.map((r) => {
+                const price = r.kind ? displayPrice(r.kind) : null;
+                const sellable = r.kind ? exportPlan(r.kind, catalog).sellable : true;
+                return (
+                  <TableRow key={r.path}>
+                    <TableCell className="font-mono text-xs text-high">
+                      <span className="mr-2 text-low">{r.method}</span>
+                      {r.path}
+                    </TableCell>
+                    <TableCell className="text-xs">
+                      {r.access === "free" ? (
+                        <span className="text-med">Free</span>
+                      ) : !sellable ? (
+                        <span className="text-low" title="Main content derives from sources whose redistribution rights are not reviewed; the endpoint answers 403.">
+                          Not for sale yet
+                        </span>
+                      ) : price ? (
+                        <>
+                          <span className="font-mono text-high">${price.usd}</span>
+                          {!price.approved && <span className="ml-1.5 text-low">test</span>}
+                        </>
+                      ) : (
+                        <span className="text-high">Paid</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="min-w-64 whitespace-normal text-med">{r.what}</TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
         </Panel>
-        <Note>
-          Machine-readable: <a href={apiPaths.openapi()} className="text-link hover:underline">OpenAPI</a> · <a href="/llms.txt" className="text-link hover:underline">llms.txt</a>. The API returns research data, not advice; missing values are labelled, never zero.
-        </Note>
-      </div>
+        <CopyBlock label="HTTP" text={curl} className="mt-4" />
+        <Note className="mt-4">The API returns research data, not advice; missing values are labelled, never zero.</Note>
+      </Section>
+
+      <Section id="payment" title="How payment works">
+        <ol className={`list-decimal ${PROSE_LIST}`}>
+          <li>A paid request without payment returns 402 with an offer: resource, parameters, the release it is pinned to, price, expiry and the accepted protocols. The same response carries the x402 PAYMENT-REQUIRED header and the MPP WWW-Authenticate: Payment challenge for each configured protocol.</li>
+          <li>Retry with the payment credential. The server verifies and settles through the protocol (x402 facilitator, or MPP on Tempo) before releasing the bundle; a client-supplied transaction hash is never accepted as proof.</li>
+          <li>The paid response carries the protocol receipt and a Lamble-Capability token. The token re-downloads the same bundle for the access period without paying again; keep it private.</li>
+          <li>A payment credential is single use. Retrying the same credential after a lost response returns the same bundle within a short window, never a second charge.</li>
+        </ol>
+      </Section>
+
+      <Section id="policy" title="Access, refunds and rights">
+        <ul className={`list-disc ${PROSE_LIST}`}>
+          <li>A purchase is one bundle of one release. A later release is a new resource; nothing re-bills automatically.</li>
+          <li>No automatic refunds. If delivery fails after settlement, the capability token (returned even on a delivery error) or an operator review recovers access.</li>
+          <li>Components derived from a source whose usage rights have not been reviewed are withheld from paid bundles and listed as withheld; a bundle with nothing exportable is not offered for sale.</li>
+          <li>
+            Prices shown as &ldquo;test&rdquo; are not final: they await a cost benchmark and owner approval. See{" "}
+            <Link href="/sources" className="text-link hover:underline">
+              sources
+            </Link>{" "}
+            for recorded rights.
+          </li>
+        </ul>
+      </Section>
+
+      <Section id="changes" title="Changes feed" description="Monitor without paying: every published change gets a sequence number on one global cursor.">
+        <p className="max-w-[72ch] text-sm leading-relaxed text-med">
+          Poll <Code>{apiPaths.changes(0)}</Code> with the last <Code>nextCursor</Code> you saw. Filter with <Code>entity=</Code> (coin or narrative ids) and <Code>type=</Code>. Events reconstructed from retained runs are marked <Code>reconstructed: true</Code>.
+        </p>
+      </Section>
     </Container>
   );
 }

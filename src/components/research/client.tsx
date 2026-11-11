@@ -36,10 +36,10 @@ export function CopyBlock({ text, label, className }: { text: string; label: str
   return (
     <div className={cn("min-w-0 rounded-lg bg-surface-2", className)}>
       <div className="flex items-center justify-between gap-2 border-b border-line px-3 py-2">
-        <span className="text-2xs text-med">{label}</span>
+        <span className="text-xs text-med">{label}</span>
         <CopyButton text={text} />
       </div>
-      <pre className="max-h-64 overflow-auto px-3 py-2 font-mono text-2xs leading-relaxed whitespace-pre-wrap text-med [overflow-wrap:anywhere]">{text}</pre>
+      <pre className="max-h-64 overflow-auto px-3 py-2 font-mono text-xs leading-relaxed whitespace-pre-wrap text-med [overflow-wrap:anywhere]">{text}</pre>
     </div>
   );
 }
