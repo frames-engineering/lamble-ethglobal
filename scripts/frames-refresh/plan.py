@@ -27,6 +27,10 @@ panels (run after collect) writes:
           fomo.holders. Other coins on FOMO networks: fomo.token, fomo.holders, fomo.candles (12h),
           fomo.activity.
 Each batch gets a stable idempotency key derived from the run id.
+Blocked sites and coins (docs/data/blocked.json) are never requested. A blocked host in dailyEvidence stops planning.
+discover leaves blocked coins out of the constituent snapshot; collect refuses to plan until the run's curation has
+removed them from poolUniverse (with a removedMembers entry); panels skip them. write() refuses any request that
+names a blocked host or coin address.
 """
 import datetime as dt, json, math, pathlib, sys
 
@@ -49,10 +53,19 @@ SEARCH = {'fin': search_ids('defillama.fees'), 'codex': search_ids('codex.token-
 BAR_FIELDS, MAX_ALIASES = codex_bar_fields()  # jobs.json codexBars: t volume, plus o h l c when ohlcEnabled
 BAR_SELECTION = '{' + ' '.join(BAR_FIELDS) + '}'
 SNAPSHOT_FIELDS = 'results{pair{address token0 token1 networkId createdAt} priceUSD circulatingMarketCap change24 volume24 liquidity}'
+BLOCKED = json.loads((ROOT / 'docs/data/blocked.json').read_text())
+BLOCKED_TOKENS = {t['tokenId']: t['reason'] for t in BLOCKED['tokens']}
+BLOCKED_TERMS = [h['host'].lower() for h in BLOCKED['hosts']] + [t.split(':', 1)[1].lower() for t in BLOCKED_TOKENS]
+
+
+def names_blocked(value):
+    text = json.dumps(value).lower()
+    return [b for b in BLOCKED_TERMS if b in text]
 
 
 def write(batch, calls, search, max_usd):
     assert 1 <= len(calls) <= 10
+    assert not names_blocked(calls), f'{batch} would request blocked {names_blocked(calls)} (docs/data/blocked.json)'
     req = dict(calls=calls, search_ids=search, idempotency_key=f'lamble-{run.name}-{batch}', max_usd=max_usd)
     (run / f'raw/{batch}-request.json').write_text(json.dumps(req, separators=(',', ':')) + '\n')
 
@@ -62,7 +75,12 @@ def snapshot(universe):
     return dict(id=CODEX, args=dict(query='{filterTokens(tokens:[' + tokens + f'],limit:{min(200, 2 * len(universe))}){{{SNAPSHOT_FIELDS}}}}}'))
 
 
-universe = reg['poolUniverse']
+pages = [u for u in reg['dailyEvidence']['pages'] if names_blocked(u)]
+assert not pages, f'dailyEvidence.pages holds blocked sites (docs/data/blocked.json): {pages}. Remove them, then plan again.'
+held = {u['tokenId']: BLOCKED_TOKENS[u['tokenId']] for u in reg['poolUniverse'] if u['tokenId'] in BLOCKED_TOKENS}
+assert not (held and stage == 'collect'), (f'poolUniverse holds blocked coins (docs/data/blocked.json): {held}. Remove each from '
+                                          'poolUniverse and record it in curation.json removedMembers with that reason, then plan again.')
+universe = [u for u in reg['poolUniverse'] if u['tokenId'] not in BLOCKED_TOKENS]
 if stage == 'discover':
     d = reg['discovery']; calls = []
     for group, names in d['sweepGroups'].items():  # one call per chain group so busy chains do not crowd out the rest
@@ -106,7 +124,7 @@ elif stage == 'panels':
         return []
     collected = [(u['chain'], u['address'], u.get('originLaunchpadSlug')) for u in universe]
     seen = {(c, a) for c, a, _ in collected}
-    others = sorted((t for t in json.loads((prior / 'tokens.json').read_text()) if (t['chain'], t['address']) not in seen),
+    others = sorted((t for t in json.loads((prior / 'tokens.json').read_text()) if (t['chain'], t['address']) not in seen and not names_blocked(t['address'])),
                     key=lambda t: (-(t.get('mcapUsd') or 0), t['chain'], t['address']))
     queue = [(1, *c) for c in collected] + [(2, t['chain'], t['address'], t.get('originLaunchpadSlug')) for t in others]
     planned, spent, skipped, tiers = [], 0.0, 0, {1: 0, 2: 0}

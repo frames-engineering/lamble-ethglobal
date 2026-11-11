@@ -80,8 +80,10 @@ test("the daily panels plan fits the credit ceiling, the catalog limits and Fram
     const ceiling = jobs.jobs.find((j) => j.id === "x4o2-coin-panels")!.budget.maxCreditsPerRun;
     assert.equal(out.ceilingCredits, ceiling);
     assert.ok(out.plannedCredits <= ceiling);
-    const registry = JSON.parse(readFileSync(path.join(root, "docs/prompts/refresh-market-data.sources.json"), "utf8")) as { poolUniverse: unknown[] };
-    assert.equal(out.coins.collected, registry.poolUniverse.length, "every daily-collected coin is planned before any other");
+    const registry = JSON.parse(readFileSync(path.join(root, "docs/prompts/refresh-market-data.sources.json"), "utf8")) as { poolUniverse: { tokenId: string }[] };
+    const blocked = new Set((JSON.parse(readFileSync(path.join(root, "docs/data/blocked.json"), "utf8")) as { tokens: { tokenId: string }[] }).tokens.map((t) => t.tokenId));
+    const collected = registry.poolUniverse.filter((u) => !blocked.has(u.tokenId));
+    assert.equal(out.coins.collected, collected.length, "every daily-collected coin that is not blocked is planned before any other");
     const prior = new Map<string, number>();
     let reserved = 0;
     const keys = new Set<string>();

@@ -1,0 +1,722 @@
+{
+ "run_id": "run_cd658e04ba90437a9d0e0d461d2a066b",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 31,
+  "budget_credits": 62,
+  "balance_credits": 109708,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 85,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 10,
+  "delivered": 5,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 178,
+     "stored_chars": 178,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_empty",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xccb998eb93d40450329f07c7ba5777f36b13883d963ee34afd280f0bb01991cc",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x5e7d380028921f23762b1f2d5ad3fd000154104772606cd9e361ed4b55da2ad9",
+     "delivered": true,
+     "outcome": "delivered_empty",
+     "reason": "delivered_empty: all result arrays empty (honest negative)",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "items": [],
+      "hasNextPage": false
+     },
+     "meta": {
+      "observedAt": 1793863552659,
+      "ageMs": 111,
+      "source": "fresh",
+      "parts": {
+       "tokenActivity": {
+        "observedAt": 1793863552659,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1013,
+     "stored_chars": 1013,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "seller_error",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xb9b2e98898786d1f277415dc1867f52f84659c335ed140888075725e0b6468e3",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x0a006a84ff52ec9594f769ac59ebdc7e64ff45c05b53468be313945325091660",
+     "delivered": false,
+     "outcome": "seller_error",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates that the token is unsupported and the market data (price, market cap, volume, liquidity) is null, failing to deliver the core requested information.; class confirmed by adjudicator",
+     "provenance": "probation",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "market": null,
+      "statistics": {
+       "buyCount5m": 0,
+       "buyCount1": 0,
+       "buyCount4": 0,
+       "buyCount24": 0,
+       "buyVolume5m": "0",
+       "buyVolume1": "0",
+       "buyVolume4": "0",
+       "buyVolume24": "0",
+       "sellCount5m": 0,
+       "sellCount1": 0,
+       "sellCount4": 0,
+       "sellCount24": 0,
+       "sellVolume5m": "0",
+       "sellVolume1": "0",
+       "sellVolume4": "0",
+       "sellVolume24": "0",
+       "uniqueBuys5m": 0,
+       "uniqueBuys1": 0,
+       "uniqueBuys4": 0,
+       "uniqueBuys24": 0,
+       "uniqueSells5m": 0,
+       "uniqueSells1": 0,
+       "uniqueSells4": 0,
+       "uniqueSells24": 0,
+       "holders": 5019,
+       "top10HoldersPercent": 99.99847906262983,
+       "isLowFees": false
+      },
+      "warnings": {
+       "disableBuying": true,
+       "disableSelling": false,
+       "warnings": [
+        {
+         "type": "TOKEN_UNSUPPORTED",
+         "severity": "MODERATE",
+         "priority": 0,
+         "name": "Update your app",
+         "description": "Please update your app. This token is not supported on this version of the app."
+        }
+       ]
+      }
+     },
+     "meta": {
+      "observedAt": 1793863549551,
+      "ageMs": 452,
+      "source": "fresh",
+      "parts": {
+       "market": {
+        "observedAt": 1793863549551,
+        "source": "fresh"
+       },
+       "statistics": {
+        "observedAt": 1793863549551,
+        "source": "fresh"
+       },
+       "warnings": {
+        "observedAt": 1793863549551,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 250,
+     "stored_chars": 250,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x6069ffd03c7b74953892824fb0eff5ef704920ca879c2988a1e0bed772f5e1bb",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x9ff0d318ada828c133fbc009df4c5b440c180e1f2ffd21eb85f6cb31fef7abd7",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned an empty list of top holders and a total of 0 holders, indicating no relevant data was found for the requested token address.; class adjudicated seller_error\u2192negative_result: The tool successfully processed the request and explicitly returned an empty list of top holders and a total of zero holders, indicating nothing matched.",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "tokenAddress": "0xbb409a0d7f33ff798eb5ddf3fb52203884d01b07",
+      "networkId": 8453,
+      "topHolders": [],
+      "totalHolders": 0
+     },
+     "meta": {
+      "observedAt": 1793863556589,
+      "ageMs": 44,
+      "source": "fresh",
+      "parts": {
+       "holders": {
+        "observedAt": 1793863556589,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 289,
+     "stored_chars": 289,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x8494b999f9b0dfaf4ca668f70862940b802d02ce42fd1d4d3bd51baf9f8d3c71",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x66171a4a4ae09cea7796387c830124d61781be5d44d72d8b957669de93bb3f86",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "data": [
+      {
+       "v": 0.05535027754704911,
+       "o": 0.000473635163972696,
+       "h": 0.000473635163972696,
+       "l": 0.00030982504397752795,
+       "c": 0.00030982504397752795,
+       "t": 1792713600000
+      }
+     ],
+     "meta": {
+      "observedAt": 1793863551325,
+      "ageMs": 136,
+      "source": "fresh",
+      "parts": {
+       "candles": {
+        "observedAt": 1793863551325,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 4,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 178,
+     "stored_chars": 178,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_empty",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x12e66355b2c74c97f7f84c1a3f6eff733d500325686afa565b4aab18d6456f15",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x14cb03c18cc6e156ab3d81e74907a9ffb359295b44da29da0201784a0af0e01f",
+     "delivered": true,
+     "outcome": "delivered_empty",
+     "reason": "delivered_empty: all result arrays empty (honest negative)",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "items": [],
+      "hasNextPage": false
+     },
+     "meta": {
+      "observedAt": 1793863549872,
+      "ageMs": 209,
+      "source": "fresh",
+      "parts": {
+       "tokenActivity": {
+        "observedAt": 1793863549872,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 5,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1013,
+     "stored_chars": 1013,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "seller_error",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0xfec75d6c4e163c10b2bf611fcbefdb9569a9f5c7e8d8bdf105d3f3d54cd971ca",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xb72908bd729654de1c2114ed61d43b2b2f4176ade455b92164c03d8222ac2be1",
+     "delivered": false,
+     "outcome": "seller_error",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates that the token is unsupported and provides no market data such as price, market cap, 24h volume, or liquidity.; class confirmed by adjudicator",
+     "provenance": "probation",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "market": null,
+      "statistics": {
+       "buyCount5m": 0,
+       "buyCount1": 0,
+       "buyCount4": 0,
+       "buyCount24": 0,
+       "buyVolume5m": "0",
+       "buyVolume1": "0",
+       "buyVolume4": "0",
+       "buyVolume24": "0",
+       "sellCount5m": 0,
+       "sellCount1": 0,
+       "sellCount4": 0,
+       "sellCount24": 0,
+       "sellVolume5m": "0",
+       "sellVolume1": "0",
+       "sellVolume4": "0",
+       "sellVolume24": "0",
+       "uniqueBuys5m": 0,
+       "uniqueBuys1": 0,
+       "uniqueBuys4": 0,
+       "uniqueBuys24": 0,
+       "uniqueSells5m": 0,
+       "uniqueSells1": 0,
+       "uniqueSells4": 0,
+       "uniqueSells24": 0,
+       "holders": 2200,
+       "top10HoldersPercent": 99.99864171332987,
+       "isLowFees": false
+      },
+      "warnings": {
+       "disableBuying": true,
+       "disableSelling": false,
+       "warnings": [
+        {
+         "type": "TOKEN_UNSUPPORTED",
+         "severity": "MODERATE",
+         "priority": 0,
+         "name": "Update your app",
+         "description": "Please update your app. This token is not supported on this version of the app."
+        }
+       ]
+      }
+     },
+     "meta": {
+      "observedAt": 1793863558434,
+      "ageMs": 237,
+      "source": "fresh",
+      "parts": {
+       "market": {
+        "observedAt": 1793863558434,
+        "source": "fresh"
+       },
+       "statistics": {
+        "observedAt": 1793863558435,
+        "source": "fresh"
+       },
+       "warnings": {
+        "observedAt": 1793863558435,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 6,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 250,
+     "stored_chars": 250,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x86c0d0d2bdd173412a8dc242f862b6c71ea6a79b7b04e5be75c70aef7ae65454",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x89595c1878d1df4cc4e1829b1f75238ddadc896bbaee6a5a12924f8a27a2ec8c",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned an empty list of top holders and a total of zero holders for the specified token address and chain.; class adjudicated seller_error\u2192negative_result: The seller successfully processed the request and explicitly returned zero matching holders for the provided token address.",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "tokenAddress": "0xead1a3bdc58c193ba5a8644447b2da40d1368fca",
+      "networkId": 4663,
+      "topHolders": [],
+      "totalHolders": 0
+     },
+     "meta": {
+      "observedAt": 1793863549536,
+      "ageMs": 44,
+      "source": "fresh",
+      "parts": {
+       "holders": {
+        "observedAt": 1793863549536,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 7,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 142,
+     "stored_chars": 142,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_empty",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x0545a5ef46d0197bbfb40b90d4642316262fd2a614e7c72389ccf206f12f3cf3",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xefaaff7bb6a124f6427884ac131e0990e0fed38d1cbf87ba9d5f36fe1fa45246",
+     "delivered": true,
+     "outcome": "delivered_empty",
+     "reason": "delivered_empty: envelope-only body (no substantive payload)",
+     "long_tail": true
+    },
+    "body": {
+     "data": [],
+     "meta": {
+      "observedAt": 1793863549860,
+      "ageMs": 281,
+      "source": "fresh",
+      "parts": {
+       "candles": {
+        "observedAt": 1793863549860,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 8,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 178,
+     "stored_chars": 178,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_empty",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+     "amount": "0.001",
+     "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+     "auth_nonce": "0x5e6c49296640fb0c7058936df528fccd2b8789e2b8fd1ded458751b1ebea2713",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x0511ede34c947d123f8cdd2bc62b6b15eba394cc078aab231cdbda72e86195d3",
+     "delivered": true,
+     "outcome": "delivered_empty",
+     "reason": "delivered_empty: all result arrays empty (honest negative)",
+     "long_tail": true
+    },
+    "body": {
+     "data": {
+      "items": [],
+      "hasNextPage": false
+     },
+     "meta": {
+      "observedAt": 1793863551328,
+      "ageMs": 210,
+      "source": "fresh",
+      "parts": {
+       "tokenActivity": {
+        "observedAt": 1793863551328,
+        "source": "fresh"
+       }
+      }
+     }
+    }
+   },
+   {
+    "seq": 9,
+    "tool_id": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+    "delivered": false,
+    "refundable": false,
+    "charged_usd": 0,
+    "body": {
+     "error": "tool_charged_no_delivery_this_run",
+     "reason": "bazaar.fomo-x4o2-com-v1-token-chain-address already took payment but returned nothing this run \u2014 it will not be paid again; use a different tool"
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_cd658e04ba90437a9d0e0d461d2a066b/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.002536,
+  "tool_cost_usd": 0.005,
+  "frames_fee_usd": 0.00113,
+  "total_cost_usd": 0.008667,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 5780,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 321,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.002536,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "title": "The FOMO users holding the most of a token: each holder's FOMO handle and id, to",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "title": "Current FOMO market panel for one token (price, market cap, 24h volume, liquidit",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "title": "The token's trade tape as FOMO shows it: recent buys, sells and transfers by FOM",
+   "capability": "token",
+   "paid": true
+  },
+  {
+   "id": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "title": "Historical USD candles for one token as FOMO charts it: t (bucket start, unix ms",
+   "capability": "token",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x12e66355b2c74c97f7f84c1a3f6eff733d500325686afa565b4aab18d6456f15",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x14cb03c18cc6e156ab3d81e74907a9ffb359295b44da29da0201784a0af0e01f",
+   "delivered": true,
+   "outcome": "delivered_empty",
+   "reason": "delivered_empty: all result arrays empty (honest negative)",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x0545a5ef46d0197bbfb40b90d4642316262fd2a614e7c72389ccf206f12f3cf3",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xefaaff7bb6a124f6427884ac131e0990e0fed38d1cbf87ba9d5f36fe1fa45246",
+   "delivered": true,
+   "outcome": "delivered_empty",
+   "reason": "delivered_empty: envelope-only body (no substantive payload)",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x5e6c49296640fb0c7058936df528fccd2b8789e2b8fd1ded458751b1ebea2713",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x0511ede34c947d123f8cdd2bc62b6b15eba394cc078aab231cdbda72e86195d3",
+   "delivered": true,
+   "outcome": "delivered_empty",
+   "reason": "delivered_empty: all result arrays empty (honest negative)",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-activity",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xccb998eb93d40450329f07c7ba5777f36b13883d963ee34afd280f0bb01991cc",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x5e7d380028921f23762b1f2d5ad3fd000154104772606cd9e361ed4b55da2ad9",
+   "delivered": true,
+   "outcome": "delivered_empty",
+   "reason": "delivered_empty: all result arrays empty (honest negative)",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-candles",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x8494b999f9b0dfaf4ca668f70862940b802d02ce42fd1d4d3bd51baf9f8d3c71",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x66171a4a4ae09cea7796387c830124d61781be5d44d72d8b957669de93bb3f86",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x86c0d0d2bdd173412a8dc242f862b6c71ea6a79b7b04e5be75c70aef7ae65454",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x89595c1878d1df4cc4e1829b1f75238ddadc896bbaee6a5a12924f8a27a2ec8c",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned an empty list of top holders and a total of zero holders for the specified token address and chain.; class adjudicated seller_error\u2192negative_result: The seller successfully processed the request and explicitly returned zero matching holders for the provided token address.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xb9b2e98898786d1f277415dc1867f52f84659c335ed140888075725e0b6468e3",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x0a006a84ff52ec9594f769ac59ebdc7e64ff45c05b53468be313945325091660",
+   "delivered": false,
+   "outcome": "seller_error",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates that the token is unsupported and the market data (price, market cap, volume, liquidity) is null, failing to deliver the core requested information.; class confirmed by adjudicator",
+   "provenance": "probation",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address-holders",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0x6069ffd03c7b74953892824fb0eff5ef704920ca879c2988a1e0bed772f5e1bb",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x9ff0d318ada828c133fbc009df4c5b440c180e1f2ffd21eb85f6cb31fef7abd7",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned an empty list of top holders and a total of 0 holders, indicating no relevant data was found for the requested token address.; class adjudicated seller_error\u2192negative_result: The tool successfully processed the request and explicitly returned an empty list of top holders and a total of zero holders, indicating nothing matched.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "amount": "0.001",
+   "pay_to": "0x46E18AA644CFF035Aec1cb9ca412900aAe78E928",
+   "auth_nonce": "0xfec75d6c4e163c10b2bf611fcbefdb9569a9f5c7e8d8bdf105d3f3d54cd971ca",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xb72908bd729654de1c2114ed61d43b2b2f4176ade455b92164c03d8222ac2be1",
+   "delivered": false,
+   "outcome": "seller_error",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The response indicates that the token is unsupported and provides no market data such as price, market cap, 24h volume, or liquidity.; class confirmed by adjudicator",
+   "provenance": "probation",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.fomo-x4o2-com-v1-token-chain-address",
+   "amount": "0",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "",
+   "delivered": false,
+   "reason": "tool_charged_no_delivery_this_run"
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}

@@ -1,0 +1,143 @@
+{
+ "run_id": "run_43fe2649e1d046ce97846e460508352b",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 7,
+  "budget_credits": 20,
+  "balance_credits": 32405,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 25,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 1,
+  "delivered": 1,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "mpp.codex.post.graphql",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1191,
+     "stored_chars": 1191,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "mpp.codex.post.graphql",
+     "amount": "0.001",
+     "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0x3f2d2ed8a319b5ef0ebc38e4ab2fe635219fa94938a775387b3628e6a87c52e6",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    "body": {
+     "data": {
+      "filterTokens": {
+       "results": [
+        {
+         "pair": {
+          "address": "3pNasPQt4JxpoCuythHwdacQBNHn3F595wqhD7ufH3A6",
+          "token0": "4Wdn6GGJLdyeMLLfzu3pPQMmf9Kivd8e9xmbLb2bpump",
+          "token1": "Pren1FvFX6J3E4kXhJuCiAD5aDmGEb7qJRncwA8Lkhw",
+          "networkId": 1399811149,
+          "createdAt": 1792432051
+         },
+         "token": "[redacted]",
+         "priceUSD": "1.30646939299e-4",
+         "circulatingMarketCap": "126268",
+         "change24": "-0.28983924029094105",
+         "volume24": "137064",
+         "liquidity": "19246"
+        },
+        {
+         "pair": {
+          "address": "7Day9K3GDHVysEZoNgGGgRMEDchuXRCErwv9QGq9qZWB",
+          "token0": "Pren1FvFX6J3E4kXhJuCiAD5aDmGEb7qJRncwA8Lkhw",
+          "token1": "BTZK1B3pCoBDD1vy5e4bDBM4bwvvhkKUMTuKABkGWwGp",
+          "networkId": 1399811149,
+          "createdAt": 1789168614
+         },
+         "token": "[redacted]",
+         "priceUSD": "2.45804032848e-4",
+         "circulatingMarketCap": "245783",
+         "change24": "-0.4485022470789599",
+         "volume24": "127268",
+         "liquidity": "31308"
+        },
+        {
+         "pair": {
+          "address": "0x6b7eb93b6267926b2c0c056016d8de556dbb487f3a0394431bf39f7a77731e2f",
+          "token0": "0x2e3516ca929a9542f8b4500bf777711f4f1b5b07",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1793076710
+         },
+         "token": "[redacted]",
+         "priceUSD": "4.33669928231e-6",
+         "circulatingMarketCap": "433670",
+         "change24": "-0.9587949549436934",
+         "volume24": "8684",
+         "liquidity": "14"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_43fe2649e1d046ce97846e460508352b/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.000485,
+  "tool_cost_usd": 0.001,
+  "frames_fee_usd": 0.000223,
+  "total_cost_usd": 0.001707,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 1382,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 28,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.000485,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "mpp.codex.post.graphql",
+   "title": "Codex \u2014 POST /graphql",
+   "capability": "graphql",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "mpp.codex.post.graphql",
+   "amount": "0.001",
+   "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0x3f2d2ed8a319b5ef0ebc38e4ab2fe635219fa94938a775387b3628e6a87c52e6",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
