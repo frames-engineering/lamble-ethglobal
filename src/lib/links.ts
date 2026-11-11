@@ -1,6 +1,10 @@
 /** Opens the bot with a draft; the user still sends the message in Telegram. */
 export const LAUNCH_BOT_URL = `https://t.me/wenlamblebot?text=${encodeURIComponent("I want to launch a token")}`;
 
+/** Frames' community channels, linked from the status bar. */
+export const TELEGRAM_URL = "https://t.me/framesag";
+export const X_URL = "https://x.com/framesag";
+
 /** Frames' public site. Configurable because the product URL is owned outside this repository. */
 export const FRAMES_URL = process.env.NEXT_PUBLIC_FRAMES_URL ?? "https://frames.ag";
 

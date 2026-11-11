@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import { SiteFooter } from "@/components/layout/footer";
 import { MobileBar, Sidebar } from "@/components/layout/sidebar";
-import { TopBar } from "@/components/layout/top-bar";
+import { StatusBar } from "@/components/layout/status-bar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NotFound, loadRelease } from "@/lib/lamble/service";
 import { SITE_URL } from "@/lib/links";
@@ -54,7 +54,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-/** The published release's cutoff for the top bar; absent until a release exists. */
+/** The published release's cutoff for the status bar; absent until a release exists. */
 function dataCutoff(): string | null {
   try {
     return loadRelease().data.dataCutoff;
@@ -67,7 +67,7 @@ function dataCutoff(): string | null {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${geistPixel.variable} h-full`}>
-      <body className="min-h-full">
+      <body className="min-h-full [--status-h:2.25rem]">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <TooltipProvider delay={150}>
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-surface-3 focus:px-3 focus:py-2 focus:text-sm">
@@ -75,15 +75,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </a>
             <div className="flex min-h-svh">
               <Sidebar />
-              <div className="flex min-w-0 flex-1 flex-col">
+              {/* Bottom padding keeps the last line of every page clear of the fixed status bar. */}
+              <div className="flex min-w-0 flex-1 flex-col pb-(--status-h)">
                 <MobileBar />
-                <TopBar cutoff={dataCutoff()} />
                 <main id="main" className="flex-1">
                   {children}
                 </main>
                 <SiteFooter />
               </div>
             </div>
+            <StatusBar cutoff={dataCutoff()} />
           </TooltipProvider>
         </ThemeProvider>
       </body>
