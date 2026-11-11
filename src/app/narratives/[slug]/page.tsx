@@ -2,20 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ChainMark } from "@/components/brand/chain-mark";
 import { Container } from "@/components/layout/container";
+import { Change, money } from "@/components/overview/format";
+import { KeyFigure, KeyFigures } from "@/components/research/figures";
 import { AgentAccess } from "@/components/research/agent-access";
 import { SeriesChart } from "@/components/research/charts";
 import { WatchButton } from "@/components/research/client";
 import { SERIES } from "@/components/research/colors";
-import { CoinLabel, EvidenceItem } from "@/components/research/links";
+import { EvidenceItem, coinHref } from "@/components/research/links";
 import { MeasureValue, Stat, formatValue } from "@/components/research/measure";
-import { LIFECYCLE_LABEL, LifecycleBadge, TrendBadge, shownChange } from "@/components/research/narrative-bits";
-import { EmptyState, Note, PageHeader, Panel } from "@/components/research/panel";
+import { LIFECYCLE_LABEL, TrendBadge, shownChange } from "@/components/research/narrative-bits";
+import { EmptyState, Note, PageHeader, Panel, Section } from "@/components/research/panel";
 import { formatDate, formatDateTime } from "@/components/research/time";
-import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { apiPaths } from "@/lib/lamble/api/paths";
-import type { Evidence, NarrativePublic } from "@/lib/lamble/release/types";
+import type { ChainId } from "@/lib/data/types";
+import type { Evidence, NarrativeMemberPublic, NarrativePublic } from "@/lib/lamble/release/types";
 import { BadRequest, articlesFor, editionIndex, getEdition, loadRelease } from "@/lib/lamble/service";
 
 type Params = { slug: string };
@@ -52,19 +54,137 @@ function editionsWith(slug: string) {
     .reverse();
 }
 
-function EvidenceGroup({ title, items, empty }: { title: string; items: Evidence[]; empty: string }) {
+function EvidencePanel({ title, items, empty }: { title: string; items: Evidence[]; empty: string }) {
   return (
-    <div>
-      <p className="mb-2 text-2xs font-medium tracking-wide text-med uppercase">{title}</p>
+    <Panel title={title}>
       {items.length ? (
-        <ul className="flex flex-col gap-1.5">
+        <ul className="flex flex-col gap-2">
           {items.slice(0, 10).map((e) => (
             <EvidenceItem key={e.id} evidence={e} />
           ))}
         </ul>
       ) : (
-        <p className="text-xs text-low">{empty}</p>
+        <p className="text-xs text-med">{empty}</p>
       )}
+    </Panel>
+  );
+}
+
+const COLLECTION_LABEL: Record<NarrativeMemberPublic["collection"], string> = {
+  collected: "Collected",
+  collection_paused: "Collection paused",
+  inactive: "Inactive",
+  ended: "Ended",
+};
+
+// Table idiom of the overview's trending tokens (components/overview/trending-tokens).
+const TH = "h-9 px-2 text-xs font-normal whitespace-nowrap text-med first:pl-3 last:pr-3 sm:px-3 sm:first:pl-4 sm:last:pr-4";
+const TD = "px-2 py-2.5 first:pl-3 last:pr-3 sm:px-3 sm:first:pl-4 sm:last:pr-4";
+const LINK = "underline-offset-4 decoration-med/50 hover:underline";
+const FIG = `${TD} text-right font-mono text-[13px] whitespace-nowrap`;
+
+/**
+ * The coins carrying the narrative, by 7-day volume, with bars to compare them at a glance. Members no longer
+ * measured daily say so under their name, which is why their figures are empty. Phones keep the coin, its 7-day
+ * volume and its return; the other columns join as the content column widens (sidebar from lg, so lg ≈ md).
+ */
+function MembersTable({ members }: { members: NarrativeMemberPublic[] }) {
+  const max = Math.max(1, ...members.map((m) => m.volume7d ?? 0));
+  return (
+    <div className="overflow-x-auto rounded-sm border border-line">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-line text-left">
+            <th scope="col" className={TH}>
+              Coin
+            </th>
+            <th scope="col" className={`${TH} hidden xl:table-cell`}>
+              Origin
+            </th>
+            <th scope="col" className={`${TH} hidden xl:table-cell`}>
+              Member since
+            </th>
+            <th scope="col" className={`${TH} text-right`}>
+              Volume, 7d
+            </th>
+            <th scope="col" className={`${TH} hidden text-right md:table-cell`}>
+              Share, 7d
+            </th>
+            <th scope="col" className={`${TH} hidden text-right sm:table-cell`}>
+              Volume, 24h
+            </th>
+            <th scope="col" className={`${TH} text-right`}>
+              Return, 7d
+            </th>
+            <th scope="col" className={`${TH} hidden text-right md:table-cell`}>
+              Market cap
+            </th>
+            <th scope="col" className={`${TH} hidden text-right xl:table-cell`}>
+              Liquidity
+            </th>
+            <th scope="col" className={`${TH} hidden text-right 2xl:table-cell`}>
+              Price
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {members.map((m) => {
+            const [chain, ...rest] = m.tokenId.split(":");
+            const address = rest.join(":");
+            return (
+              <tr key={m.intervalId} className="border-b border-line transition-colors duration-150 last:border-0 hover:bg-hover">
+                <td className={TD}>
+                  <span className="flex min-w-0 items-center gap-2">
+                    <ChainMark chain={chain as ChainId} size={16} />
+                    <span className="flex min-w-0 flex-col">
+                      <span className="flex min-w-0 flex-col sm:flex-row sm:items-baseline sm:gap-2">
+                        <Link href={coinHref(chain!, address)} className={`font-medium whitespace-nowrap text-high ${LINK}`}>
+                          {m.symbol ?? `${address.slice(0, 6)}…`}
+                        </Link>
+                        {m.name && m.name !== m.symbol && (
+                          <span title={m.name} className="max-w-24 truncate text-xs text-med xl:max-w-36">
+                            {m.name}
+                          </span>
+                        )}
+                      </span>
+                      {m.collection !== "collected" && (
+                        <span className="text-xs text-med">
+                          {COLLECTION_LABEL[m.collection]}
+                          {m.observedThrough && ` through ${formatDate(m.observedThrough)}`}
+                        </span>
+                      )}
+                    </span>
+                  </span>
+                </td>
+                <td className={`${TD} hidden text-xs whitespace-nowrap text-med xl:table-cell`}>
+                  {m.originVenue ? (
+                    <Link href={`/launchpads/${m.originVenue}`} className={`hover:text-high ${LINK}`}>
+                      {m.originVenue}
+                    </Link>
+                  ) : (
+                    "—"
+                  )}
+                </td>
+                <td className={`${TD} hidden text-xs whitespace-nowrap text-med xl:table-cell`}>{formatDate(m.effectiveFrom)}</td>
+                <td className={TD}>
+                  <div className="relative ml-auto h-6 w-full max-w-40 sm:min-w-28">
+                    <span aria-hidden className="absolute inset-y-0 left-0 hidden bg-chart-bar sm:block" style={{ width: `${((m.volume7d ?? 0) / max) * 100}%` }} />
+                    <span className="relative flex h-full items-center justify-end font-mono text-[13px] sm:pr-2">{money(m.volume7d)}</span>
+                  </div>
+                </td>
+                <td className={`${FIG} hidden md:table-cell`}>{m.share7d === null ? "—" : formatValue(100 * m.share7d, "percent")}</td>
+                <td className={`${FIG} hidden sm:table-cell`}>{money(m.volume24h)}</td>
+                <td className={FIG}>
+                  <Change value={m.return7d === null ? null : 100 * m.return7d} />
+                </td>
+                <td className={`${FIG} hidden md:table-cell`}>{money(m.marketCap)}</td>
+                <td className={`${FIG} hidden xl:table-cell`}>{money(m.liquidity)}</td>
+                <td className={`${FIG} hidden 2xl:table-cell`}>{formatValue(m.price, "price")}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -80,13 +200,14 @@ export default async function NarrativePage({ params }: { params: Promise<Params
   const a = n.activity;
   const hourlySummary = `Hourly member volume for the 7 days ending ${formatDateTime(a.lastObservedAt)}; hours with any member unobserved are gaps.`;
   const dailySummary = `Daily member volume for 30 UTC days; the current basket is applied to earlier days (reconstructed), so this is not what was known on each day.`;
+  const titleOf = (slug: string) => data.narratives.find((x) => x.slug === slug)?.title ?? slug;
 
   return (
     <Container>
       <PageHeader
         eyebrow={
           <span className="inline-flex items-center gap-2">
-            <Link href="/narratives" className="hover:text-high">
+            <Link href="/narratives" className="transition-colors duration-150 hover:text-high">
               Narratives
             </Link>
             {n.category && (
@@ -98,198 +219,184 @@ export default async function NarrativePage({ params }: { params: Promise<Params
           </span>
         }
         title={n.title}
-        description={
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <LifecycleBadge state={n.lifecycle.state} />
-              <TrendBadge trend={n.trend} />
-              {n.featured.featured && <Badge variant="link">Featured #{n.featured.rank}</Badge>}
-            </div>
-            {n.summary && <p>{n.summary}</p>}
-          </div>
-        }
         actions={<WatchButton id={`narrative:${n.slug}`} label="narrative" />}
         meta={
           <>
+            {/* "Not collected" would repeat the lifecycle line beside it. */}
+            {n.trend !== "not_collected" && <TrendBadge trend={n.trend} />}
+            {n.featured.featured && <span>Featured #{n.featured.rank}</span>}
             <span>First observed {formatDate(n.firstObservedAt)}</span>
             <span>
               {LIFECYCLE_LABEL[n.lifecycle.state]} since {formatDate(n.lifecycle.since)}
             </span>
-            <span>Data cutoff {formatDateTime(data.dataCutoff)}</span>
+            <span className="lg:hidden">Data through {formatDateTime(data.dataCutoff)}</span>
           </>
         }
       />
-      <div className="flex flex-col gap-4 pb-8">
-        {n.lifecycle.state !== "collected" && n.lifecycle.reason && <Note tone="warning">{n.lifecycle.reason}</Note>}
 
-        <Panel id="activity" title="Activity" description={a.volumeScope}>
-          <dl className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <Stat label="Volume, last 24h of data">
-              <MeasureValue measure={a.volume24h} format="usd" />
-            </Stat>
-            <Stat label="Volume, last 7 days of data">
-              <MeasureValue measure={a.volume7d} format="usd" />
-            </Stat>
-            <Stat label="Volume, 30 days">
-              <MeasureValue measure={a.volume30d} format="usd" />
-            </Stat>
-            <Stat label="Week over week" sub={change === null ? (n.trend === "new" ? "Not shown: first observed this week" : n.trend === "not_collected" ? "Not shown: not collected" : "Insufficient data") : "Last 7 complete days vs the 7 before"}>
-              <span className="tabular-nums">{change === null ? "—" : formatValue(change, "signed-percent")}</span>
-            </Stat>
-          </dl>
-          {a.caveat && (
-            <Note tone="warning" className="mt-4">
-              {a.caveat}
-            </Note>
-          )}
-          <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-divider pt-4 sm:grid-cols-4">
-            <Stat label="Members' market cap (circulating)" sub={`${n.market.withMarketCap} of ${n.market.of} open members with a current value`}>
-              <span className="tabular-nums">{formatValue(n.market.marketCap, "usd")}</span>
-            </Stat>
-            <Stat label="Members' liquidity (top pairs)" sub={`${n.market.withLiquidity} of ${n.market.of} members`}>
-              <span className="tabular-nums">{formatValue(n.market.liquidity, "usd")}</span>
-            </Stat>
-            <Stat label="Median member return, 7d" sub="Snapshot to snapshot">
-              <span className="tabular-nums">{formatValue(n.market.medianReturn7d, "ratio-percent")}</span>
-            </Stat>
-            <Stat label="Snapshots from" sub={n.market.newest ? `to ${formatDateTime(n.market.newest)}` : undefined}>
-              {formatDateTime(n.market.oldest)}
-            </Stat>
-          </dl>
-          <p className="mt-2 text-2xs leading-relaxed text-med">{n.market.note}</p>
-          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <SeriesChart series={[{ id: "h", label: "Hourly volume", color: SERIES.link, points: a.hourly }]} format="usd" tickFormat="hour" kind="area" summary={hourlySummary} />
-            <SeriesChart series={[{ id: "d", label: "Daily volume", color: SERIES.positive, points: a.daily }]} format="usd" kind="area" summary={dailySummary} />
+      {n.lifecycle.state !== "collected" && n.lifecycle.reason && (
+        <Note tone="warning" className="mt-6">
+          {n.lifecycle.reason}
+        </Note>
+      )}
+
+      <KeyFigures className="mt-8">
+        <KeyFigure label="Volume, 7d" sub="Last 7 days of data">
+          <MeasureValue measure={a.volume7d} format="usd" className="flex-wrap" />
+        </KeyFigure>
+        <KeyFigure
+          label="vs prior week"
+          sub={change === null ? (n.trend === "new" ? "Not shown: first observed this week" : n.trend === "not_collected" ? "Not shown: not collected" : "Insufficient data") : "Last 7 complete days vs the 7 before"}
+        >
+          <Change value={change} />
+        </KeyFigure>
+        <KeyFigure label="Volume, 24h" sub="Last 24 hours of data">
+          <MeasureValue measure={a.volume24h} format="usd" className="flex-wrap" />
+        </KeyFigure>
+        <KeyFigure label="Coins" sub={`${n.memberCounts.collected} measured daily`}>
+          {n.memberCounts.open}
+        </KeyFigure>
+      </KeyFigures>
+      <p className="mt-3 max-w-[72ch] text-xs leading-relaxed text-pretty text-med">{a.volumeScope}</p>
+      {a.caveat && (
+        <Note tone="warning" className="mt-3">
+          {a.caveat}
+        </Note>
+      )}
+
+      {n.story && (
+        <Section id="story" title={n.lifecycle.state === "collected" ? "Why it’s moving" : "Latest reading"} description={n.story.observedAt ? `Observed ${formatDateTime(n.story.observedAt)}.` : undefined}>
+          <div className="flex max-w-[72ch] flex-col gap-3 text-sm leading-relaxed text-pretty">
+            {n.story.notice && <p className="text-high">{n.story.notice}</p>}
+            {n.story.interpretation && <p className="text-med">{n.story.interpretation}</p>}
           </div>
-        </Panel>
+          {n.story.evidence && data.evidence[n.story.evidence] && (
+            <ul className="mt-4">
+              <EvidenceItem evidence={data.evidence[n.story.evidence]!} />
+            </ul>
+          )}
+        </Section>
+      )}
 
-        {n.story && (
-          <Panel title="What it is now" description={n.story.observedAt ? `Observed ${formatDateTime(n.story.observedAt)}.` : undefined}>
-            {n.story.notice && <p className="text-sm leading-relaxed text-high">{n.story.notice}</p>}
-            {n.story.interpretation && <p className="mt-2 text-xs leading-relaxed text-med">{n.story.interpretation}</p>}
-            {n.story.evidence && data.evidence[n.story.evidence] && (
-              <ul className="mt-3">
-                <EvidenceItem evidence={data.evidence[n.story.evidence]!} />
-              </ul>
-            )}
+      <Section
+        id="members"
+        title={`Members (${n.memberCounts.open} open${n.memberCounts.ended ? `, ${n.memberCounts.ended} ended` : ""})`}
+        description="Membership is a classification of what a coin is. Collection status says whether it is still measured daily."
+      >
+        {members.length ? <MembersTable members={members} /> : <EmptyState title="No members recorded" />}
+      </Section>
+
+      <Section id="activity" title="Volume">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <Panel title="Hourly, last 7 days">
+            <SeriesChart series={[{ id: "h", label: "Hourly volume", color: SERIES.accent, points: a.hourly }]} format="usd" tickFormat="hour" kind="area" summary={hourlySummary} />
           </Panel>
-        )}
+          <Panel
+            title="Daily, last 30 days"
+            aside={
+              <span className="text-xs text-med">
+                30-day total <MeasureValue measure={a.volume30d} format="usd" className="text-sm" />
+              </span>
+            }
+          >
+            <SeriesChart series={[{ id: "d", label: "Daily volume", color: SERIES.accent, points: a.daily }]} format="usd" kind="area" summary={dailySummary} />
+          </Panel>
+        </div>
+      </Section>
 
-        <Panel id="members" title={`Members (${n.memberCounts.open} open${n.memberCounts.ended ? `, ${n.memberCounts.ended} ended` : ""})`} description="Membership is a classification of what a coin is. Collection status says whether it is still measured daily.">
-          {members.length ? (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Coin</TableHead>
-                    <TableHead>Member since</TableHead>
-                    <TableHead>Collection</TableHead>
-                    <TableHead className="text-right">Vol 24h</TableHead>
-                    <TableHead className="text-right">Vol 7d</TableHead>
-                    <TableHead className="text-right">Share 7d</TableHead>
-                    <TableHead className="text-right">Return 7d</TableHead>
-                    <TableHead className="text-right">Price</TableHead>
-                    <TableHead className="text-right">Mkt cap</TableHead>
-                    <TableHead className="text-right">Liquidity</TableHead>
-                    <TableHead>Origin</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {members.map((m) => {
-                    const [chain, ...rest] = m.tokenId.split(":");
-                    return (
-                      <TableRow key={m.intervalId}>
-                        <TableCell>
-                          <CoinLabel chain={chain!} address={rest.join(":")} symbol={m.symbol} name={m.name} />
-                        </TableCell>
-                        <TableCell className="tabular-nums">{formatDate(m.effectiveFrom)}</TableCell>
-                        <TableCell className="text-xs whitespace-nowrap text-med">
-                          {m.collection.replace("_", " ")}
-                          {m.observedThrough && <span className="block text-low">through {formatDate(m.observedThrough)}</span>}
-                        </TableCell>
-                        <TableCell className="text-right tabular-nums">{formatValue(m.volume24h, "usd")}</TableCell>
-                        <TableCell className="text-right tabular-nums">{formatValue(m.volume7d, "usd")}</TableCell>
-                        <TableCell className="text-right tabular-nums">{m.share7d === null ? "—" : formatValue(100 * m.share7d, "percent")}</TableCell>
-                        <TableCell className="text-right tabular-nums">{formatValue(m.return7d, "ratio-percent")}</TableCell>
-                        <TableCell className="text-right tabular-nums">{formatValue(m.price, "price")}</TableCell>
-                        <TableCell className="text-right tabular-nums">{formatValue(m.marketCap, "usd")}</TableCell>
-                        <TableCell className="text-right tabular-nums">{formatValue(m.liquidity, "usd")}</TableCell>
-                        <TableCell className="text-xs text-med">
-                          {m.originVenue ? (
-                            <Link href={`/launchpads/${m.originVenue}`} className="hover:text-high hover:underline">
-                              {m.originVenue}
-                            </Link>
-                          ) : (
-                            "—"
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </div>
-          ) : (
-            <EmptyState title="No members recorded" />
-          )}
-          <dl className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <Stat label="Largest member's share" sub="7-day volume">
-              {n.concentration.top1Share === null ? "—" : formatValue(100 * n.concentration.top1Share, "percent")}
-            </Stat>
-            <Stat label="HHI" sub="0–10,000; higher is more concentrated">
-              {n.concentration.hhi === null ? "—" : formatValue(n.concentration.hhi, "count")}
-            </Stat>
-            <Stat label="Advancing" sub="Members with a positive 7d return, of those with prices">
-              {n.breadth.withPrices ? `${n.breadth.advancing} of ${n.breadth.withPrices}` : "No priced members"}
-            </Stat>
-            <Stat label="Shared members">
-              {n.overlap.length ? (
-                <span className="flex flex-col gap-0.5">
-                  {n.overlap.map((o) => (
-                    <Link key={o.narrativeSlug} href={`/narratives/${o.narrativeSlug}`} className="text-xs text-link hover:underline">
-                      {o.tokens} with {o.narrativeSlug}
-                    </Link>
-                  ))}
-                </span>
-              ) : (
-                "None"
-              )}
-            </Stat>
-          </dl>
-        </Panel>
+      {n.summary && (
+        <Section id="about" title="What it is">
+          <p className="max-w-[72ch] text-sm leading-relaxed text-pretty text-high">{n.summary}</p>
+        </Section>
+      )}
 
-        <Panel title="Evidence" description={n.evidence.note}>
-          <div className="grid gap-6 lg:grid-cols-3">
-            <EvidenceGroup title="Project claims" items={n.evidence.projectClaims} empty="None recorded." />
-            <EvidenceGroup title="Independent sources" items={n.evidence.independent} empty="No independent reporting recorded." />
-            <EvidenceGroup title="Posts (sample)" items={n.evidence.posts} empty="No posts recorded." />
-          </div>
-        </Panel>
+      <Section id="breadth" title="Concentration and market" description="Whether a few coins carry the volume, and the members’ latest market snapshots.">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <Panel title="Concentration">
+            <dl className="grid grid-cols-2 gap-x-4 gap-y-5">
+              <Stat label="Largest member's share" sub="7-day volume">
+                <span className="font-mono">{n.concentration.top1Share === null ? "—" : formatValue(100 * n.concentration.top1Share, "percent")}</span>
+              </Stat>
+              <Stat label="HHI" sub="0–10,000; higher is more concentrated">
+                <span className="font-mono">{n.concentration.hhi === null ? "—" : formatValue(n.concentration.hhi, "count")}</span>
+              </Stat>
+              <Stat label="Advancing" sub="Members with a positive 7d return, of those with prices">
+                {n.breadth.withPrices ? (
+                  <span className="font-mono">
+                    {n.breadth.advancing} of {n.breadth.withPrices}
+                  </span>
+                ) : (
+                  "No priced members"
+                )}
+              </Stat>
+              <Stat label="Shared members">
+                {n.overlap.length ? (
+                  <span className="flex flex-col gap-0.5">
+                    {n.overlap.map((o) => (
+                      <Link key={o.narrativeSlug} href={`/narratives/${o.narrativeSlug}`} className="text-xs text-link hover:underline">
+                        {o.tokens} with {titleOf(o.narrativeSlug)}
+                      </Link>
+                    ))}
+                  </span>
+                ) : (
+                  "None"
+                )}
+              </Stat>
+            </dl>
+          </Panel>
+          <Panel title="Members’ market">
+            <dl className="grid grid-cols-2 gap-x-4 gap-y-5">
+              <Stat label="Market cap (circulating)" sub={`${n.market.withMarketCap} of ${n.market.of} open members with a current value`}>
+                <span className="font-mono">{formatValue(n.market.marketCap, "usd")}</span>
+              </Stat>
+              <Stat label="Liquidity (top pairs)" sub={`${n.market.withLiquidity} of ${n.market.of} members`}>
+                <span className="font-mono">{formatValue(n.market.liquidity, "usd")}</span>
+              </Stat>
+              <Stat label="Median member return, 7d" sub="Snapshot to snapshot">
+                <span className="font-mono">{formatValue(n.market.medianReturn7d, "ratio-percent")}</span>
+              </Stat>
+              <Stat label="Snapshots from" sub={n.market.newest ? `to ${formatDateTime(n.market.newest)}` : undefined}>
+                {formatDateTime(n.market.oldest)}
+              </Stat>
+            </dl>
+            <p className="mt-4 text-xs leading-relaxed text-med">{n.market.note}</p>
+          </Panel>
+        </div>
+      </Section>
 
+      <Section id="evidence" title="Evidence" description={n.evidence.note}>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <EvidencePanel title="Project claims" items={n.evidence.projectClaims} empty="None recorded." />
+          <EvidencePanel title="Independent sources" items={n.evidence.independent} empty="No independent reporting recorded." />
+          <EvidencePanel title="Posts (sample)" items={n.evidence.posts} empty="No posts recorded." />
+        </div>
+      </Section>
+
+      <Section id="history" title="History">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <Panel title="Lifecycle">
             <ol className="flex flex-col gap-3">
               {n.lifecycle.history.map((h) => (
-                <li key={`${h.state}-${h.from}`} className="text-xs leading-relaxed">
+                <li key={`${h.state}-${h.from}`} className="text-sm">
                   <span className="text-high">{LIFECYCLE_LABEL[h.state as NarrativePublic["lifecycle"]["state"]] ?? h.state}</span>
-                  <span className="ml-2 text-low tabular-nums">
+                  <span className="ml-2 text-xs text-med tabular-nums">
                     {formatDate(h.from)} → {h.to ? formatDate(h.to) : "now"}
                   </span>
-                  {h.reason && <p className="mt-1 text-med">{h.reason}</p>}
+                  {h.reason && <p className="mt-1 text-xs leading-relaxed text-med">{h.reason}</p>}
                 </li>
               ))}
             </ol>
           </Panel>
-          <Panel title="In the weekly editions and research">
+          <Panel title="Weekly editions and research">
             {editions.length ? (
               <ul className="flex flex-col gap-2">
                 {editions.map((e) => (
                   <li key={e.id} className="flex items-center justify-between gap-3 text-sm">
-                    <Link href={`/market/${e.id}`} className="text-high hover:underline">
+                    <Link href={`/market/${e.id}`} className={`font-mono text-high ${LINK}`}>
                       {e.id}
                     </Link>
-                    <span className="text-xs text-med tabular-nums">
-                      {formatValue(e.volume.observed, "usd")}
+                    <span className="text-xs text-med">
+                      <span className="font-mono text-high">{formatValue(e.volume.observed, "usd")}</span>
                       {e.volume.complete ? "" : " partial"} · {e.trend.replace("_", " ")}
                     </span>
                   </li>
@@ -299,28 +406,28 @@ export default async function NarrativePage({ params }: { params: Promise<Params
               <p className="text-xs text-med">Not in a published weekly edition yet.</p>
             )}
             {articles.length > 0 && (
-              <ul className="mt-4 flex flex-col gap-2 border-t border-divider pt-4">
+              <ul className="mt-4 flex flex-col gap-3 border-t border-line pt-4">
                 {articles.map((x) => (
                   <li key={x.slug}>
-                    <Link href={`/research/${x.slug}`} className="text-sm text-high hover:underline">
+                    <Link href={`/research/${x.slug}`} className={`text-sm text-high ${LINK}`}>
                       {x.title}
                     </Link>
-                    <p className="text-2xs text-med">{formatDate(x.publishedAt)}</p>
+                    <p className="mt-0.5 text-xs text-med">{formatDate(x.publishedAt)}</p>
                   </li>
                 ))}
               </ul>
             )}
           </Panel>
         </div>
+      </Section>
 
-        <AgentAccess
-          subject={`the ${n.title} narrative (${n.slug})`}
-          discoveryPath={apiPaths.narrative(n.slug)}
-          paidPath={apiPaths.narrativeBundle(n.slug)}
-          kind="narrative-bundle"
-          contents="The paid narrative bundle adds every membership interval with evidence, per-member hourly and daily series, version history and lifecycle records, pinned to one release."
-        />
-      </div>
+      <AgentAccess
+        subject={`the ${n.title} narrative (${n.slug})`}
+        discoveryPath={apiPaths.narrative(n.slug)}
+        paidPath={apiPaths.narrativeBundle(n.slug)}
+        kind="narrative-bundle"
+        contents="The paid narrative bundle adds every membership interval with evidence, per-member hourly and daily series, version history and lifecycle records, pinned to one release."
+      />
     </Container>
   );
 }

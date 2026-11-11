@@ -1,41 +1,47 @@
 "use client";
 
 import { ArrowUpRightIcon } from "lucide-react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 
 import { ChainStack } from "@/components/brand/chain-mark";
 import { LetterMark } from "@/components/brand/letter-mark";
-import { ChartSkeleton } from "@/components/charts/chart-skeleton";
 import { hasCurve } from "@/components/launchpads/columns";
-import { Delta } from "@/components/shared/delta";
+import { Change } from "@/components/overview/format";
+import { SeriesChart } from "@/components/research/charts";
+import { launchpadColor } from "@/components/research/colors";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { InfoTip } from "@/components/ui/info-tip";
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import type { Launchpad } from "@/lib/data/types";
 import { bps, compactNumber, compactUsd, int, percent, usd } from "@/lib/format";
 
-const HistoryChart = dynamic(() => import("@/components/charts/history-chart").then((m) => m.HistoryChart), {
-  ssr: false,
-  loading: () => <ChartSkeleton height={180} />,
-});
+const LINK = "transition-colors duration-150 hover:text-high";
 
-function Stat({ label, value, sub, title }: { label: string; value: ReactNode; sub?: ReactNode; title?: string }) {
+function Stat({ label, value, sub, mono = true }: { label: ReactNode; value: ReactNode; sub?: ReactNode; mono?: boolean }) {
   return (
-    <div title={title}>
-      <dt className="text-2xs text-med">{label}</dt>
-      <dd className="mt-0.5 flex items-baseline gap-2 text-sm tabular-nums text-high">
-        {value}
-        {sub !== undefined && <span className="text-xs text-med">{sub}</span>}
-      </dd>
+    <div className="min-w-0">
+      <dt className="flex items-center gap-1.5 text-xs text-med">{label}</dt>
+      <dd className={`mt-1 text-base text-high ${mono ? "font-mono" : ""}`}>{value}</dd>
+      {sub !== undefined && <dd className="mt-0.5 text-xs text-med">{sub}</dd>}
     </div>
   );
 }
 
-function Label({ children }: { children: ReactNode }) {
-  return <p className="mb-2 text-2xs font-medium tracking-widest text-med uppercase">{children}</p>;
+function Block({ title, aside, children }: { title: string; aside?: ReactNode; children: ReactNode }) {
+  return (
+    <section className="border-t border-line pt-5">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h3 className="text-sm font-medium text-high">{title}</h3>
+        {aside}
+      </div>
+      {children}
+    </section>
+  );
 }
+
+const share = (part: number | null | undefined, fees: number | null) => percent(fees !== null && fees > 0 && part != null ? (part / fees) * 100 : null, { digits: 0 });
 
 interface LaunchpadDetailSheetProps {
   launchpad: Launchpad | null;
@@ -64,115 +70,132 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
                 <LetterMark name={lp.name} color={lp.brandColor} size={40} src={lp.logoSrc} />
                 <div className="min-w-0">
                   <SheetTitle>{lp.name}</SheetTitle>
-                  <SheetDescription className="flex items-center gap-2">
-                    <ChainStack chains={lp.chains} size={13} max={6} />
-                    <a
-                      href={lp.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="truncate transition-colors hover:text-link"
-                    >
+                  <SheetDescription className="mt-0.5 flex items-center gap-2 text-xs">
+                    {lp.chains.length > 0 && <ChainStack chains={lp.chains} size={13} max={6} className="*:data-[slot=avatar]:ring-surface-1" />}
+                    <a href={lp.url} target="_blank" rel="noopener noreferrer" className={`truncate ${LINK}`}>
                       {lp.domain}
                     </a>
+                    {lp.twitter && (
+                      <a href={`https://x.com/${lp.twitter}`} target="_blank" rel="noopener noreferrer" className={`truncate ${LINK}`}>
+                        @{lp.twitter}
+                      </a>
+                    )}
                   </SheetDescription>
                 </div>
               </div>
             </SheetHeader>
 
             <div className="flex flex-col gap-6 p-5">
-              <p className="text-sm leading-relaxed text-med">{lp.description}</p>
-
-              {lp.bestFor.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {lp.bestFor.map((t) => (
-                    <Badge key={t} variant="neutral">
-                      {t}
-                    </Badge>
-                  ))}
+              {(lp.description || lp.bestFor.length > 0) && (
+                <div className="flex flex-col gap-3">
+                  {lp.description && <p className="text-sm leading-relaxed text-pretty text-med">{lp.description}</p>}
+                  {lp.bestFor.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {lp.bestFor.map((t) => (
+                        <Badge key={t} variant="outline">
+                          {t}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 
-              <div>
-                <div className="mb-2 flex items-center justify-between">
-                  <Label>Daily fees · 30 days</Label>
-                  <Delta value={lp.metrics.d30.change} className="text-xs" />
-                </div>
-                <HistoryChart
-                  series={[{ id: lp.slug, label: "Fees", color: lp.brandColor, points: lp.metrics.history30d }]}
+              <Block
+                title="Daily fees, 30 days"
+                aside={
+                  <span className="font-mono text-xs">
+                    <Change value={lp.metrics.d30.change} />
+                  </span>
+                }
+              >
+                <SeriesChart
+                  series={[{ id: lp.slug, label: "Fees", color: launchpadColor(lp.slug), points: lp.metrics.history30d }]}
                   kind="area"
-                  range="ALL"
                   height={180}
-                  format={(v) => compactUsd(v)}
-                  tickFormat="day"
+                  format="usd"
+                  summary={`Daily fees for ${lp.name} over the last 30 settled UTC days.`}
                 />
-              </div>
+              </Block>
 
-              <div>
-                <Label>Activity</Label>
-                <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
-                  <Stat label="Fees 24h" value={compactUsd(lp.metrics.h24.fees)} sub={<Delta value={lp.metrics.h24.change} />} />
-                  <Stat label="Fees 7d" value={compactUsd(lp.metrics.d7.fees)} sub={<Delta value={lp.metrics.d7.change} />} />
+              <Block title="Activity">
+                <dl className="grid grid-cols-2 gap-x-4 gap-y-4">
+                  <Stat label="Fees 24h" value={compactUsd(lp.metrics.h24.fees)} sub={<><Change value={lp.metrics.h24.change} /> vs prior</>} />
+                  <Stat label="Fees 7d" value={compactUsd(lp.metrics.d7.fees)} sub={<><Change value={lp.metrics.d7.change} /> vs prior</>} />
                   <Stat label="Fees 30d" value={compactUsd(lp.metrics.d30.fees)} />
-                  <Stat
-                    label="Revenue 7d"
-                    value={compactUsd(lp.metrics.d7.revenue)}
-                    sub={`${percent(lp.metrics.d7.fees !== null && lp.metrics.d7.fees > 0 && lp.metrics.d7.revenue !== null ? (lp.metrics.d7.revenue / lp.metrics.d7.fees) * 100 : null, { digits: 0 })} of fees`}
-                  />
-                  {(['d7', 'd30'] as const).map((tf) => {
+                  <Stat label="Revenue 7d" value={compactUsd(lp.metrics.d7.revenue)} sub={`${share(lp.metrics.d7.revenue, lp.metrics.d7.fees)} of fees`} />
+                  {(["d7", "d30"] as const).map((tf) => {
                     const m = lp.metrics[tf];
+                    const label = `Creator earnings ${tf === "d7" ? "7d" : "30d"}`;
                     return (
                       <Stat
                         key={tf}
-                        label={`Creator earnings ${tf === 'd7' ? '7d' : '30d'}`}
-                        title={lp.provenance?.methodology?.SupplySideRevenue ?? 'Supply-side revenue under the source methodology.'}
+                        label={
+                          <>
+                            {label}
+                            {tf === "d7" && <InfoTip label="How this venue defines creator earnings">{lp.provenance?.methodology?.SupplySideRevenue ?? "Supply-side revenue under the source methodology."}</InfoTip>}
+                          </>
+                        }
                         value={compactUsd(m.supplySide ?? null)}
-                        sub={`${percent(m.fees !== null && m.fees > 0 && m.supplySide != null ? (m.supplySide / m.fees) * 100 : null, { digits: 0 })} of fees`}
+                        sub={`${share(m.supplySide, m.fees)} of fees`}
                       />
                     );
                   })}
-                  <Stat label={lp.activityObservation ? 'Indexed launches 24h' : 'Launched 24h'} value={int(lp.metrics.launched24h ?? lp.activityObservation?.indexedCreated24 ?? null)} sub={`7d avg ${compactNumber(lp.metrics.launched7dAvg ?? lp.activityObservation?.indexed7dAvg ?? null)}`} />
+                  <Stat
+                    label={
+                      <>
+                        {lp.activityObservation ? "Indexed launches 24h" : "Launched 24h"}
+                        {lp.activityObservation && <InfoTip label="About indexed launch counts">{lp.activityObservation.coverage}</InfoTip>}
+                      </>
+                    }
+                    value={int(lp.metrics.launched24h ?? lp.activityObservation?.indexedCreated24 ?? null)}
+                    sub={`7d avg ${compactNumber(lp.metrics.launched7dAvg ?? lp.activityObservation?.indexed7dAvg ?? null)}`}
+                  />
                   {hasCurve(lp) !== false ? (
-                    <Stat label={lp.activityObservation ? 'Indexed completions 24h' : 'Graduated 24h'} value={int(lp.metrics.graduated24h ?? lp.activityObservation?.indexedCompleted24 ?? null)} sub={`${percent(lp.metrics.graduationRate7d ?? lp.activityObservation?.indexed7dCompletionRate ?? null)} rate`} />
+                    <Stat
+                      label={lp.activityObservation ? "Indexed completions 24h" : "Graduated 24h"}
+                      value={int(lp.metrics.graduated24h ?? lp.activityObservation?.indexedCompleted24 ?? null)}
+                      sub={`${percent(lp.metrics.graduationRate7d ?? lp.activityObservation?.indexed7dCompletionRate ?? null)} completions / launches, 7d`}
+                    />
                   ) : (
                     <Stat label="Graduated 24h" value="—" sub="no bonding curve" />
                   )}
                 </dl>
-                {lp.provenance?.methodology?.SupplySideRevenue && (
-                  <p className="mt-3 text-xs leading-relaxed text-med"><span className="text-high">Creator earnings</span> (source definition): {lp.provenance.methodology.SupplySideRevenue}</p>
-                )}
-              </div>
+              </Block>
 
-              <div>
-                <Label>Fee model</Label>
-                <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
-                  <Stat label="Bonding curve" value={hasCurve(lp) === null ? "Unknown / version dependent" : hasCurve(lp) ? "Yes" : "No"} />
+              <Block title="Fee model">
+                <dl className="grid grid-cols-2 gap-x-4 gap-y-4">
+                  <Stat label="Bonding curve" mono={false} value={hasCurve(lp) === null ? "Unknown / version dependent" : hasCurve(lp) ? "Yes" : "No"} />
                   <Stat label="Swap fee" value={bps(fm.tradingFeeBps)} />
                   <Stat label="Creator share" value={percent(fm.creatorShareBps === null ? null : fm.creatorShareBps / 100, { digits: 0 })} sub="of fees" />
-                  <Stat label="Launch cost" value={fm.launchCostUsd === 0 ? "Free" : usd(fm.launchCostUsd)} />
-                  <Stat label="Graduation" value={hasCurve(lp) === false ? "Not applicable" : usd(fm.graduationTargetUsd)} sub={hasCurve(lp) ? "mcap" : undefined} />
-                  <Stat label="Graduates to" value={<span className="normal-nums">{lp.graduatesTo ?? "Unknown"}</span>} />
+                  <Stat label="Launch cost" mono={fm.launchCostUsd !== 0} value={fm.launchCostUsd === 0 ? "Free" : usd(fm.launchCostUsd)} />
+                  <Stat label="Graduation" mono={hasCurve(lp) !== false} value={hasCurve(lp) === false ? "Not applicable" : usd(fm.graduationTargetUsd)} sub={hasCurve(lp) ? "mcap" : undefined} />
+                  <Stat label="Graduates to" mono={false} value={lp.graduatesTo ?? "Unknown"} />
                 </dl>
-                {fm.note && <p className="mt-3 text-xs leading-relaxed text-med">{fm.note}</p>}
-              </div>
+                {fm.note && <p className="mt-4 text-xs leading-relaxed text-med">{fm.note}</p>}
+              </Block>
 
-              {lp.routingNotes.length > 0 && <div>
-                <Label>Why LAMBLE would route here</Label>
-                <ul className="flex flex-col gap-1.5 text-sm leading-snug text-med">
-                  {lp.routingNotes.map((n) => (
-                    <li key={n} className="flex gap-2">
-                      <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-med" />
-                      <span>{n}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>}
+              {lp.routingNotes.length > 0 && (
+                <Block title="Why LAMBLE would route here">
+                  <ul className="flex flex-col gap-1.5 text-sm leading-snug text-med">
+                    {lp.routingNotes.map((n) => (
+                      <li key={n} className="flex gap-2">
+                        <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-med" />
+                        <span>{n}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Block>
+              )}
             </div>
 
             <SheetFooter className="flex-row">
-              <Button nativeButton={false} render={<Link href={`/launchpads/${lp.slug}`} />} className="flex-1">Research page</Button>
-              <Button variant="secondary" nativeButton={false} render={<a href={lp.url} target="_blank" rel="noopener noreferrer" />}>
+              <Button nativeButton={false} render={<Link href={`/launchpads/${lp.slug}`} />} className="flex-1">
+                Research page
+              </Button>
+              <Button variant="outline" nativeButton={false} render={<a href={lp.url} target="_blank" rel="noopener noreferrer" />}>
                 Website
-                <ArrowUpRightIcon data-icon="inline-end" />
+                <ArrowUpRightIcon aria-hidden className="text-med" />
               </Button>
             </SheetFooter>
           </>

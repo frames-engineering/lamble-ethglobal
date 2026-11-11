@@ -5,7 +5,7 @@ import { SearchIcon, XIcon } from "lucide-react";
 import { ChainMark } from "@/components/brand/chain-mark";
 import { TIMEFRAMES } from "@/components/launchpads/columns";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Segmented } from "@/components/ui/segmented";
 import { Toggle } from "@/components/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { chainInfo } from "@/lib/data/chains";
@@ -21,57 +21,39 @@ interface TableToolbarProps {
   onTf: (tf: Timeframe) => void;
 }
 
+/** Chain chips as pills, pressed on the active background like Segmented. */
+const CHIP = "h-7 rounded-sm border-line px-3 font-normal aria-pressed:border-transparent aria-pressed:bg-active data-pressed:border-transparent data-pressed:bg-active hover:bg-hover";
+
 export function TableToolbar({ query, onQuery, chains, onChains, availableChains, tf, onTf }: TableToolbarProps) {
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="relative">
-          <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-med" />
-          <Input
-            value={query}
-            onChange={(e) => onQuery(e.target.value)}
-            placeholder="Search launchpads"
-            aria-label="Search launchpads"
-            className="w-48 pr-8 pl-8 sm:w-56"
-          />
+      <div className="flex items-center justify-between gap-3">
+        <div className="relative min-w-0 flex-1 sm:max-w-64">
+          <SearchIcon aria-hidden className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-med" />
+          <Input value={query} onChange={(e) => onQuery(e.target.value)} placeholder="Search launchpads" aria-label="Search launchpads" className="pr-8 pl-9" />
           {query && (
             <button
               type="button"
               onClick={() => onQuery("")}
               aria-label="Clear search"
-              className="absolute top-1/2 right-2 grid size-5 -translate-y-1/2 place-items-center rounded text-med hover:text-high"
+              className="absolute top-1/2 right-2 grid size-5 -translate-y-1/2 place-items-center rounded-full text-med transition-colors duration-150 before:absolute before:-inset-2 hover:text-high"
             >
-              <XIcon className="size-3.5" />
+              <XIcon aria-hidden className="size-3.5" />
             </button>
           )}
         </div>
-        <Tabs value={tf} onValueChange={(v) => onTf(v as Timeframe)}>
-          <TabsList variant="chips" aria-label="Timeframe">
-            {TIMEFRAMES.map((t) => (
-              <TabsTrigger key={t.id} value={t.id} className="h-7 px-2.5 text-xs">
-                {t.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+        <Segmented label="Timeframe" options={TIMEFRAMES} value={tf} onChange={onTf} />
       </div>
 
-      {/* Phones: one row that scrolls sideways, bleeding into the card's padding (the -my/py keeps focus rings
-          inside the clip). From md it wraps like before. */}
-      <div className="-mx-4 -my-1 flex items-center gap-2 overflow-x-auto px-4 py-1 scrollbar-none md:mx-0 md:my-0 md:flex-wrap md:overflow-visible md:px-0 md:py-0">
-        <Toggle pressed={chains.length === 0} onPressedChange={() => onChains([])}>
-          All
+      {/* Phones: one row that scrolls sideways to the screen edge (the -my/py keeps focus rings inside the clip). */}
+      <div className="-mx-5 -my-1 flex items-center gap-1.5 overflow-x-auto px-5 py-1 scrollbar-none md:mx-0 md:my-0 md:flex-wrap md:overflow-visible md:px-0 md:py-0">
+        <Toggle variant="outline" pressed={chains.length === 0} onPressedChange={() => onChains([])} className={CHIP}>
+          All chains
         </Toggle>
-        <ToggleGroup
-          multiple
-          value={chains}
-          onValueChange={(v) => onChains(v as ChainId[])}
-          aria-label="Filter by chain"
-          className="flex-nowrap md:flex-wrap"
-        >
+        <ToggleGroup variant="outline" multiple value={chains} onValueChange={(v) => onChains(v as ChainId[])} aria-label="Filter by chain" className="flex-nowrap gap-1.5 md:flex-wrap">
           {availableChains.map((c) => (
-            <ToggleGroupItem key={c} value={c} className="pl-1">
-              <ChainMark chain={c} size={20} title={false} />
+            <ToggleGroupItem key={c} value={c} className={`${CHIP} pl-1.5`}>
+              <ChainMark chain={c} size={16} title={false} />
               {chainInfo(c).name}
             </ToggleGroupItem>
           ))}

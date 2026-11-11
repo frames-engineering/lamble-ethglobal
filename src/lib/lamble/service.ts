@@ -11,7 +11,8 @@ import { gunzipSync } from "node:zlib";
 
 import { deployedBlocklist, resetBlocklist, scrubBlocked } from "./blocked.ts";
 import { type Chain, IdentityError, isChain, tokenIdentity } from "./core/identity.ts";
-import { isWeekId } from "./core/time.ts";
+import { DAY, isWeekId } from "./core/time.ts";
+import { type DailyValue, type TrenchIndex, computeTrenchIndex } from "./methods/trench-index.ts";
 import type { WeeklyEdition } from "./methods/weekly.ts";
 import type { Article } from "./research/types.ts";
 import { committedEvents } from "./release/changes.ts";
@@ -47,11 +48,13 @@ export interface LoadedRelease {
 
 const releases = new Map<string, LoadedRelease>();
 const bundles = new Map<string, Record<string, unknown>>();
+const trenchIndexes = new Map<string, TrenchIndex | null>();
 
 /** Drops cached releases (tests, or an operator reload after publication on a long-running server). */
 export function resetCaches(): void {
   releases.clear();
   bundles.clear();
+  trenchIndexes.clear();
   resetBlocklist();
 }
 
@@ -97,7 +100,11 @@ export function loadRelease(releaseId?: string): LoadedRelease {
   return loaded;
 }
 
-/** Paid bundle content. Only the API fulfillment path calls this; pages never do. */
+/**
+ * Paid bundle content, served whole by the API fulfillment path. Pages show two parts of it: each fee-subtotal
+ * launchpad's daily fees and revenue (getLaunchpadHistory, launchpads route) and the trench index derived from
+ * them. Evidence graphs, provenance-level series and coin histories stay API-only.
+ */
 export function loadBundles(releaseId: string): Record<string, unknown> {
   if (!RELEASE_ID.test(releaseId)) throw new BadRequest(`Not a release id: ${releaseId}`);
   const cached = bundles.get(releaseId);
@@ -111,6 +118,84 @@ export function loadBundles(releaseId: string): Record<string, unknown> {
   const parsed = scrubBlocked(JSON.parse(gunzipSync(bytes).toString("utf8")) as Record<string, unknown>);
   bundles.set(releaseId, parsed);
   return parsed;
+}
+
+// ---------------------------------------------------------------- launchpad history, trench index
+
+/** Bundle daily rows: [dayStart, valueUsd, availableAt, evidence, revisionOf], one row per settled day. */
+type DailyRow = [number, number | null, ...unknown[]];
+
+/** A launchpad's daily fees or revenue from the bundle, oldest first. Days without a value are left out. */
+function bundleDaily(releaseId: string, slug: string, kind: "fees" | "revenue"): DailyValue[] {
+  const pads = (loadBundles(releaseId).launchpads ?? {}) as Record<string, Partial<Record<"fees" | "revenue", DailyRow[]>>>;
+  return (pads[slug]?.[kind] ?? []).flatMap(([day, value]) => (value === null ? [] : [{ day, value }]));
+}
+
+/** Coins created in the trailing 24 hours, per launchpad, one snapshot per UTC day (the day's last). */
+export function launchSnapshots(releaseId?: string): Map<string, DailyValue[]> {
+  const out = new Map<string, DailyValue[]>();
+  for (const l of loadRelease(releaseId).data.launchpads) {
+    const byDay = new Map<number, { at: number; value: number }>();
+    for (const snap of l.indexed?.history ?? []) {
+      const at = Date.parse(snap.asOf) / 1000;
+      const day = at - (at % DAY);
+      if ((byDay.get(day)?.at ?? -Infinity) < at) byDay.set(day, { at, value: snap.created24 });
+    }
+    if (byDay.size) out.set(l.slug, [...byDay].sort(([a], [b]) => a - b).map(([day, { value }]) => ({ day, value })));
+  }
+  return out;
+}
+
+export interface LaunchpadHistory {
+  /** The last settled UTC day (day start, seconds). */
+  asOfDay: number;
+  /** The fee-subtotal launchpads (streams that don't overlap), each with its full daily history. */
+  venues: { slug: string; name: string; fees: DailyValue[]; revenue: DailyValue[] }[];
+}
+
+/**
+ * Daily fees and revenue for the fee-subtotal launchpads over the bundle's whole history, for the launchpads
+ * route. The public file holds only 30 days of fees and no daily revenue, so this reads the bundle. Null when
+ * the release has no settled fee day.
+ */
+export function getLaunchpadHistory(releaseId?: string): LaunchpadHistory | null {
+  const { manifest, data, launchpads } = loadRelease(releaseId);
+  const anchor = data.market.feeSubtotal.anchor;
+  if (!anchor) return null;
+  const asOfDay = Date.parse(anchor) / 1000 - DAY;
+  const settled = (rows: DailyValue[]) => rows.filter((r) => r.day <= asOfDay);
+  return {
+    asOfDay,
+    venues: data.market.feeSubtotal.included.map((slug) => ({
+      slug,
+      name: launchpads.get(slug)?.name ?? slug,
+      fees: settled(bundleDaily(manifest.releaseId, slug, "fees")),
+      revenue: settled(bundleDaily(manifest.releaseId, slug, "revenue")),
+    })),
+  };
+}
+
+/**
+ * The trench index (methods/trench-index) for a release: fee history from the bundle (getLaunchpadHistory),
+ * launch snapshots from the public file. Null when the release lacks the history to score its last day.
+ */
+export function getTrenchIndex(releaseId?: string): TrenchIndex | null {
+  const id = loadRelease(releaseId).manifest.releaseId;
+  if (trenchIndexes.has(id)) return trenchIndexes.get(id) ?? null;
+
+  const history = getLaunchpadHistory(id);
+  let result: TrenchIndex | null = null;
+  if (history) {
+    const totals = new Map<number, number>();
+    for (const rows of launchSnapshots(id).values()) for (const { day, value } of rows) totals.set(day, (totals.get(day) ?? 0) + value);
+    result = computeTrenchIndex({
+      asOfDay: history.asOfDay,
+      venueFees: Object.fromEntries(history.venues.map((v) => [v.slug, v.fees])),
+      launches: [...totals].map(([day, value]) => ({ day, value })),
+    });
+  }
+  trenchIndexes.set(id, result);
+  return result;
 }
 
 // ---------------------------------------------------------------- coins

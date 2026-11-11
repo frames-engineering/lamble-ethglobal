@@ -6,7 +6,9 @@
  *   bundles.json    paid API additions: provenance-level series, full histories, evidence graph, method inputs
  *   changes.json    change events this release introduced, numbered on one global cursor
  *
- * The website reads public.json only. bundles.json is read only by the paid fulfillment path.
+ * The website renders public.json, plus two parts of bundles.json: launchpad daily fee and revenue history
+ * (service getLaunchpadHistory) and the trench index derived from it. Everything else in bundles.json is
+ * served only by the paid fulfillment path.
  */
 import type { Chain } from "../core/identity.ts";
 import type { DataState, Measure } from "../core/measure.ts";

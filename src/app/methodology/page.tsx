@@ -6,9 +6,11 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { Container } from "@/components/layout/container";
+import { SectionTabs } from "@/components/layout/section-tabs";
 import { formatValue } from "@/components/research/measure";
-import { Note, PageHeader, Panel } from "@/components/research/panel";
-import { Badge } from "@/components/ui/badge";
+import { Note, PageHeader, Panel, Section } from "@/components/research/panel";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import { loadRelease } from "@/lib/lamble/service";
 
 export const metadata: Metadata = {
@@ -38,7 +40,25 @@ function humanize(key: string): string {
     .replace(/^./, (c) => c.toUpperCase());
 }
 
-/** Renders a method document generically: the JSON in docs/methods is the single source for code and page. */
+/** A definition table: term on the left (stacked on phones), its meaning on the right, hairlines between rows. */
+function Defs({ children }: { children: ReactNode }) {
+  return <dl className="flex flex-col divide-y divide-line">{children}</dl>;
+}
+
+function Def({ term, children }: { term: ReactNode; children: ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 gap-1.5 py-4 first:pt-0 last:pb-0 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6">
+      <dt className="text-sm font-medium text-high">{term}</dt>
+      <dd className="max-w-[72ch] min-w-0 text-sm leading-relaxed text-med">{children}</dd>
+    </div>
+  );
+}
+
+/**
+ * Renders a method document generically: the JSON in docs/methods is the single source for code and page.
+ * Top-level keys become a definition table; deeper objects nest under a hairline rule, lists of records
+ * sit on dividers.
+ */
 function Value({ v, depth }: { v: Json; depth: number }): ReactNode {
   if (v === null) return <span className="text-low">none</span>;
   if (typeof v === "string") return <span className="whitespace-pre-line">{v}</span>;
@@ -46,21 +66,32 @@ function Value({ v, depth }: { v: Json; depth: number }): ReactNode {
   if (Array.isArray(v)) {
     if (v.every((x) => typeof x === "string" || typeof x === "number")) return <span>{v.join(", ")}</span>;
     return (
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col divide-y divide-line">
         {v.map((x, i) => (
-          <li key={i} className="rounded-lg bg-surface-2 p-3">
-            <Value v={x} depth={depth + 1} />
+          <li key={i} className="py-3 first:pt-0 last:pb-0">
+            <Value v={x} depth={depth} />
           </li>
         ))}
       </ul>
     );
   }
+  if (depth === 0) {
+    return (
+      <Defs>
+        {Object.entries(v).map(([k, x]) => (
+          <Def key={k} term={humanize(k)}>
+            <Value v={x} depth={1} />
+          </Def>
+        ))}
+      </Defs>
+    );
+  }
   return (
-    <dl className={depth === 0 ? "flex flex-col gap-4" : "flex flex-col gap-2"}>
+    <dl className={cn("flex flex-col gap-3", depth > 1 && "border-l border-line pl-3")}>
       {Object.entries(v).map(([k, x]) => (
-        <div key={k} className={depth === 0 ? "" : "grid gap-1 md:grid-cols-[12rem_1fr]"}>
-          <dt className={depth === 0 ? "mb-1 text-xs font-semibold text-high" : "text-2xs font-medium text-med"}>{humanize(k)}</dt>
-          <dd className="text-xs leading-relaxed text-med">
+        <div key={k} className="min-w-0">
+          <dt className="text-xs font-medium text-high">{humanize(k)}</dt>
+          <dd className="mt-0.5">
             <Value v={x} depth={depth + 1} />
           </dd>
         </div>
@@ -85,92 +116,133 @@ interface Evaluation {
   horizons: { horizonSeconds: number; all: HorizonStats; baselines: Record<string, HorizonStats>; claim: string }[];
 }
 
+const STATES: [string, string][] = [
+  ["Observed", "Read from a source by a validated capability, with its own as-of time."],
+  ["Derived", "Computed by a published method from observed values; the inputs are in the bundle."],
+  ["Stale", "A value older than its maximum age at the release cutoff. Shown with its age, never refreshed silently."],
+  ["Insufficient data", "The method applies but its inputs are incomplete. Never shown as zero."],
+  ["Unavailable", "No validated, enabled capability provides the input. Never shown as zero."],
+  ["Not applicable", "The measure does not apply (for example the bottoming test outside a drawdown)."],
+  ["Availability time", "When an observation was first committed to the research record. Historical views use only observations available at their cutoff, so later data never rewrites what was known."],
+  ["Releases", "Each release is immutable and content-addressed; the website and the API read the same release. A correction is a new release, and weekly editions get a new revision."],
+];
+
+/** Keys the section header already shows (the method id is the section itself). */
+const SHOWN_ABOVE = ["method", "version", "status"];
+
 export default function MethodologyPage() {
   const { data, manifest } = loadRelease();
   const docs = DOCS.map((d) => ({ ...d, doc: readDoc(d.file) }));
   const evaluation = data.evaluation as Evaluation;
+  const sections: [string, string][] = [["states", "Data states"], ...docs.map((d): [string, string] => [d.id, d.title]), ["evaluation", "Forward evaluation"]];
   return (
     <Container>
       <PageHeader
-        eyebrow="Method"
         title="Methodology"
         description={<p>Every figure on this site comes from a versioned method applied to observations that were available at the time. The documents below are the same files the code reads; a method change bumps its version and earlier outputs keep the version they were computed with.</p>}
         meta={
-          <span>
-            Methods in release {data.releaseId}: {Object.entries(manifest.methodVersions).map(([k, v]) => `${k} ${v}`).join(" · ")}
-          </span>
+          <>
+            <span>
+              Methods in release <code className="font-mono">{data.releaseId}</code>
+            </span>
+            {Object.entries(manifest.methodVersions).map(([k, v]) => (
+              <span key={k}>
+                {k} <code className="font-mono">{v}</code>
+              </span>
+            ))}
+          </>
         }
       />
-      <nav aria-label="On this page" className="mb-4 flex flex-wrap gap-2 text-xs">
-        {[["states", "Data states"], ...docs.map((d) => [d.id, d.title]), ["evaluation", "Forward evaluation"]].map(([id, t]) => (
-          <a key={id} href={`#${id}`} className="rounded-full border border-line-med px-3 py-1 text-med hover:text-high">
-            {t}
-          </a>
-        ))}
-      </nav>
-      <div className="flex flex-col gap-4 pb-8">
-        <Panel id="states" title="Data states and time">
-          <dl className="grid gap-3 text-xs leading-relaxed text-med md:grid-cols-2">
-            {[
-              ["Observed", "Read from a source by a validated capability, with its own as-of time."],
-              ["Derived", "Computed by a published method from observed values; the inputs are in the bundle."],
-              ["Stale", "A value older than its maximum age at the release cutoff. Shown with its age, never refreshed silently."],
-              ["Insufficient data", "The method applies but its inputs are incomplete. Never shown as zero."],
-              ["Unavailable", "No validated, enabled capability provides the input. Never shown as zero."],
-              ["Not applicable", "The measure does not apply (for example the bottoming test outside a drawdown)."],
-              ["Availability time", "When an observation was first committed to the research record. Historical views use only observations available at their cutoff, so later data never rewrites what was known."],
-              ["Releases", "Each release is immutable and content-addressed; the website and the API read the same release. A correction is a new release, and weekly editions get a new revision."],
-            ].map(([k, v]) => (
-              <div key={k}>
-                <dt className="font-semibold text-high">{k}</dt>
-                <dd>{v}</dd>
-              </div>
+
+      {/* A long page of four method documents: the tab row keeps them in reach and follows the scroll. */}
+      <SectionTabs sections={sections} className="mt-8" />
+
+      <Section id="states" title="Data states and time" description="The label every figure carries, and which observations a figure may use.">
+        <Panel>
+          <Defs>
+            {STATES.map(([k, v]) => (
+              <Def key={k} term={k}>
+                {v}
+              </Def>
             ))}
-          </dl>
+          </Defs>
         </Panel>
-        {docs.map((d) => (
-          <Panel
+      </Section>
+
+      {docs.map((d) => {
+        // A plain-text summary becomes the section's lede; version and status sit beside the title.
+        const summary = typeof d.doc.summary === "string" ? d.doc.summary : undefined;
+        const shownAbove = summary ? [...SHOWN_ABOVE, "summary"] : SHOWN_ABOVE;
+        return (
+          <Section
             key={d.id}
             id={d.id}
             title={d.title}
+            description={summary}
             aside={
-              <span className="flex items-center gap-2">
-                <Badge variant="outline">{String(d.doc.version)}</Badge>
-                <Badge variant={d.doc.status === "active" ? "positive" : "neutral"}>{String(d.doc.status)}</Badge>
+              <span className="text-xs text-med">
+                <code className="font-mono">{String(d.doc.version)}</code> · {String(d.doc.status)}
               </span>
             }
           >
-            <Value v={Object.fromEntries(Object.entries(d.doc).filter(([k]) => !["method", "version", "status"].includes(k)))} depth={0} />
-          </Panel>
-        ))}
-        <Panel id="evaluation" title="Forward evaluation" description={`Harness ${evaluation.version}. Signals are scored only after their horizon passes, net of a ${formatValue(100 * (evaluation.assumptions.roundTripCost ?? 0), "percent")} round-trip cost, against a naive baseline. A claim needs at least 30 outcomes.`}>
-          <p className="text-sm text-high">{evaluation.signals} bottoming signal(s) at stage 1 or higher so far.</p>
-          <ul className="mt-3 flex flex-col gap-3">
-            {evaluation.horizons.map((h) => {
-              const base = Object.entries(h.baselines)[0];
-              return (
-                <li key={h.horizonSeconds} className="rounded-lg bg-surface-2 p-3 text-xs leading-relaxed text-med">
-                  <p className="font-semibold text-high">Horizon {h.horizonSeconds / 86_400} day(s)</p>
-                  <p className="mt-1">{h.claim}</p>
-                  {base && (
-                    <p className="mt-1">
-                      Baseline &ldquo;{base[0]}&rdquo;: n={base[1].n}, median net return {formatValue(base[1].medianNetReturn === null ? null : 100 * base[1].medianNetReturn, "signed-percent")}, failure rate{" "}
-                      {formatValue(base[1].failureRate === null ? null : 100 * base[1].failureRate, "percent")} (confidence {base[1].confidence}).
-                    </p>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          <Note className="mt-3">
-            None of these figures is a forecast or a recommendation. The bottoming test describes what has been observed in a drawdown; see{" "}
-            <Link href="/sources" className="text-link hover:underline">
-              sources
-            </Link>{" "}
-            for which inputs exist today.
-          </Note>
+            <Panel>
+              <Value v={Object.fromEntries(Object.entries(d.doc).filter(([k]) => !shownAbove.includes(k)))} depth={0} />
+            </Panel>
+          </Section>
+        );
+      })}
+
+      <Section
+        id="evaluation"
+        title="Forward evaluation"
+        description={
+          <>
+            Harness <code className="font-mono">{evaluation.version}</code>. Signals are scored only after their horizon passes, net of a {formatValue(100 * (evaluation.assumptions.roundTripCost ?? 0), "percent")} round-trip cost, against a naive baseline. A claim needs at least 30 outcomes.
+          </>
+        }
+      >
+        <Panel>
+          <p className="text-sm text-high">
+            <span className="font-mono">{evaluation.signals}</span> bottoming signal(s) at stage 1 or higher so far.
+          </p>
+          <Table className="mt-3">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Horizon</TableHead>
+                <TableHead>Claim</TableHead>
+                <TableHead>Baseline</TableHead>
+                <TableHead className="text-right">n</TableHead>
+                <TableHead className="text-right">Median net return</TableHead>
+                <TableHead className="text-right">Failure rate</TableHead>
+                <TableHead>Confidence</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {evaluation.horizons.map((h) => {
+                const base = Object.entries(h.baselines)[0];
+                return (
+                  <TableRow key={h.horizonSeconds}>
+                    <TableCell className="align-top">{h.horizonSeconds / 86_400} day(s)</TableCell>
+                    <TableCell className="max-w-80 min-w-56 align-top whitespace-normal text-med">{h.claim}</TableCell>
+                    <TableCell className="align-top text-med">{base ? `“${base[0]}”` : "—"}</TableCell>
+                    <TableCell className="text-right align-top font-mono">{base ? base[1].n : "—"}</TableCell>
+                    <TableCell className="text-right align-top font-mono">{base ? formatValue(base[1].medianNetReturn === null ? null : 100 * base[1].medianNetReturn, "signed-percent") : "—"}</TableCell>
+                    <TableCell className="text-right align-top font-mono">{base ? formatValue(base[1].failureRate === null ? null : 100 * base[1].failureRate, "percent") : "—"}</TableCell>
+                    <TableCell className="align-top text-med">{base ? base[1].confidence : "—"}</TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
         </Panel>
-      </div>
+        <Note className="mt-4">
+          None of these figures is a forecast or a recommendation. The bottoming test describes what has been observed in a drawdown; see{" "}
+          <Link href="/sources" className="text-link hover:underline">
+            sources
+          </Link>{" "}
+          for which inputs exist today.
+        </Note>
+      </Section>
     </Container>
   );
 }

@@ -4,17 +4,33 @@ import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
 
 import "./globals.css";
-import { Footer } from "@/components/layout/footer";
-import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/footer";
+import { MobileBar, Sidebar } from "@/components/layout/sidebar";
+import { TopBar } from "@/components/layout/top-bar";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { NotFound, loadRelease } from "@/lib/lamble/service";
 import { SITE_URL } from "@/lib/links";
 
-// Self-hosted Inter variable (https://rsms.me/inter): no build-time fetch, full cv01/cv03/cv04/cv09 feature set.
-const inter = localFont({
-  src: "../fonts/InterVariable.woff2",
-  variable: "--font-inter",
+// Self-hosted Geist and Geist Mono variable (https://vercel.com/font): no build-time fetch.
+const geist = localFont({
+  src: "../fonts/GeistVariable.woff2",
+  variable: "--font-geist",
   weight: "100 900",
   display: "swap",
+});
+const geistMono = localFont({
+  src: "../fonts/GeistMonoVariable.woff2",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+  display: "swap",
+});
+// Geist Pixel (Square cut, from the `geist` package): page titles only. It ships in a single weight.
+const geistPixel = localFont({
+  src: "../fonts/GeistPixelSquare.woff2",
+  variable: "--font-geist-pixel",
+  weight: "500",
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 const description =
@@ -33,25 +49,41 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0e0f14",
+  themeColor: "#0e0e0d",
   width: "device-width",
   initialScale: 1,
 };
 
+/** The published release's cutoff for the top bar; absent until a release exists. */
+function dataCutoff(): string | null {
+  try {
+    return loadRelease().data.dataCutoff;
+  } catch (e) {
+    if (e instanceof NotFound) return null;
+    throw e;
+  }
+}
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} h-full`}>
-      <body className="flex min-h-full flex-col">
+    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${geistPixel.variable} h-full`}>
+      <body className="min-h-full">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <TooltipProvider delay={150}>
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-surface-3 focus:px-3 focus:py-2 focus:text-sm">
               Skip to content
             </a>
-            <SiteHeader />
-            <main id="main" className="flex-1">
-              {children}
-            </main>
-            <Footer />
+            <div className="flex min-h-svh">
+              <Sidebar />
+              <div className="flex min-w-0 flex-1 flex-col">
+                <MobileBar />
+                <TopBar cutoff={dataCutoff()} />
+                <main id="main" className="flex-1">
+                  {children}
+                </main>
+                <SiteFooter />
+              </div>
+            </div>
           </TooltipProvider>
         </ThemeProvider>
       </body>

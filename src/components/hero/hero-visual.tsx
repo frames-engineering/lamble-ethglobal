@@ -142,7 +142,7 @@ const ShaderLabComposition = dynamic(
 /** How long the outgoing cut keeps rendering under the incoming one: the blur-in's length (hero-media-enter). */
 const CROSSFADE_MS = 1600;
 
-/** Full-bleed hero media: the Shader Lab composition over the launch video, dissolving into the page at the bottom. */
+/** The lambo: the Shader Lab composition over the launch video, filling its box. Callers mask the edges. */
 export function HeroVisual({ className }: { className?: string }) {
   const mounted = useMounted();
   const { resolvedTheme } = useTheme();
@@ -182,7 +182,7 @@ export function HeroVisual({ className }: { className?: string }) {
   const surfaces = [outgoing, shown].filter((t): t is Theme => t !== null);
 
   return (
-    <div aria-hidden className={cn("overflow-hidden mask-fade-b", className)}>
+    <div aria-hidden className={cn("overflow-hidden", className)}>
       {surfaces.map((cut) =>
         showShader ? (
           <ShaderLabComposition

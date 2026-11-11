@@ -3,35 +3,35 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
 /**
- * Button, tuned to the token system:
- * primary = white on ink (dark) / ink on white (light), secondary = surface-3,
- * sizes 32 / 40 / 44px, radius 8 / 12 / 8, weight 500, hover opacity .9.
+ * Button, tuned to the token system (docs/design/overhaul-2026-11.md):
+ * primary = white on the dark page (ink in light), outline = hairline border, ghost for icons; all 3px corners,
+ * sizes 32 / 36 / 40px, weight 500, hover opacity .9, a 0.96 press.
  */
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap border border-transparent text-sm font-semibold transition-[background-color,color,opacity,border-color,box-shadow] duration-150 outline-none select-none focus-visible:ring-1 focus-visible:ring-focus disabled:pointer-events-none disabled:opacity-80 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap border border-transparent text-sm font-medium transition-[background-color,color,opacity,border-color,box-shadow,scale] duration-150 ease-out outline-none select-none focus-visible:ring-1 focus-visible:ring-focus active:not-disabled:scale-[0.96] disabled:pointer-events-none disabled:opacity-80 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:opacity-90",
         secondary: "bg-secondary text-secondary-foreground hover:bg-surface-4/60",
-        positive: "bg-positive-solid text-[#14151b] hover:opacity-90",
-        outline: "border-line-med bg-transparent text-high hover:bg-surface-3",
+        positive: "bg-positive-solid text-primary-foreground hover:opacity-90",
+        outline: "border-line bg-transparent text-high hover:bg-hover",
         ghost:
-          "text-med hover:bg-surface-3 hover:text-high aria-expanded:bg-surface-3 aria-expanded:text-high data-popup-open:bg-surface-3 data-popup-open:text-high",
+          "text-med hover:bg-hover hover:text-high aria-expanded:bg-hover aria-expanded:text-high data-popup-open:bg-hover data-popup-open:text-high",
         text: "text-link hover:opacity-90",
         link: "text-link underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-8 rounded-lg px-3",
-        default: "h-10 rounded-xl px-4",
-        lg: "h-11 rounded-lg px-5",
-        icon: "size-8 rounded-lg",
-        "icon-sm": "size-7 rounded-md",
-        "icon-lg": "size-10 rounded-xl",
+        sm: "h-8 rounded-sm px-3",
+        default: "h-9 rounded-sm px-4",
+        lg: "h-10 rounded-sm px-5",
+        icon: "size-8 rounded-sm",
+        "icon-sm": "size-7 rounded-sm",
+        "icon-lg": "size-10 rounded-sm",
       },
     },
     compoundVariants: [
-      { variant: ["text", "link"], size: ["sm", "default", "lg"], class: "h-8 rounded-lg px-0" },
+      { variant: ["text", "link"], size: ["sm", "default", "lg"], class: "h-8 rounded-sm px-0" },
     ],
     defaultVariants: {
       variant: "default",

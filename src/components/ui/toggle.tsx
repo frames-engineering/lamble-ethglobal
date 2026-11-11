@@ -4,18 +4,18 @@ import { Toggle as TogglePrimitive } from "@base-ui/react/toggle"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
-/** Chip toggle (Backpack range-tab look): rounded, 12px, med → high, pressed = surface-3. */
+/** Chip toggle (matches Segmented): a pill, 12px, med → high, pressed = bg-active. */
 const toggleVariants = cva(
-  "group/toggle inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-transparent text-xs font-medium text-med transition-colors outline-none select-none hover:bg-surface-3 hover:text-high focus-visible:ring-1 focus-visible:ring-focus disabled:pointer-events-none disabled:opacity-50 aria-pressed:bg-surface-3 aria-pressed:text-high data-pressed:bg-surface-3 data-pressed:text-high [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
+  "group/toggle inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-sm border border-transparent text-xs text-med transition-colors duration-150 outline-none select-none hover:text-high focus-visible:ring-1 focus-visible:ring-focus disabled:pointer-events-none disabled:opacity-50 aria-pressed:bg-active aria-pressed:text-high data-pressed:bg-active data-pressed:text-high [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
   {
     variants: {
       variant: {
         default: "bg-transparent",
-        outline: "border-line-med bg-transparent aria-pressed:border-transparent data-pressed:border-transparent",
+        outline: "border-line bg-transparent aria-pressed:border-transparent data-pressed:border-transparent",
       },
       size: {
         default: "h-7 px-2.5",
-        sm: "h-6 px-2 text-2xs",
+        sm: "h-6 px-2",
         lg: "h-8 px-3",
       },
     },

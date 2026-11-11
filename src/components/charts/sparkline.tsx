@@ -7,7 +7,7 @@ interface SparklineProps {
   height?: number;
   /** Stroke color. Defaults to currentColor so the parent decides the tone. */
   color?: string;
-  /** Draw a soft gradient fill under the line. */
+  /** Draw a soft gradient fill under the line. Off by default: table sparklines are bare lines (docs/design/charts.md). */
   fill?: boolean;
   strokeWidth?: number;
   className?: string;
@@ -49,7 +49,7 @@ export function Sparkline({
   width = 96,
   height = 28,
   color,
-  fill = true,
+  fill = false,
   strokeWidth = 1.5,
   className,
   id,

@@ -33,7 +33,7 @@ export function CoinLabel({
     </>
   );
   return link ? (
-    <Link href={coinHref(chain, address)} className={cn("inline-flex min-w-0 items-center gap-2 rounded hover:underline focus-visible:ring-1 focus-visible:ring-focus focus-visible:outline-none", className)}>
+    <Link href={coinHref(chain, address)} className={cn("inline-flex max-w-full min-w-0 items-center gap-2 rounded hover:underline focus-visible:ring-1 focus-visible:ring-focus focus-visible:outline-none", className)}>
       {body}
     </Link>
   ) : (
@@ -44,7 +44,7 @@ export function CoinLabel({
 /** Short address with the full value in the title; the canonical address is always available to copy. */
 export function Address({ value, className }: { value: string; className?: string }) {
   return (
-    <code title={value} className={cn("rounded bg-surface-2 px-1.5 py-0.5 font-mono text-2xs break-all text-med", className)}>
+    <code title={value} className={cn("rounded-xs bg-surface-2 px-1.5 py-0.5 font-mono text-xs break-all text-med", className)}>
       {value}
     </code>
   );
@@ -96,7 +96,7 @@ export function EvidenceList({ ids, index, limit = 8 }: { ids: string[]; index: 
       {items.slice(0, limit).map((e) => (
         <EvidenceItem key={e.id} evidence={e} />
       ))}
-      {items.length > limit && <li className="text-2xs text-med">+{items.length - limit} more in the API bundle.</li>}
+      {items.length > limit && <li className="text-xs text-med">+{items.length - limit} more in the API bundle.</li>}
     </ul>
   );
 }

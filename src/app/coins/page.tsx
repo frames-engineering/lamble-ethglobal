@@ -4,8 +4,9 @@ import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { type CoinRow, CoinTable } from "@/components/research/coin-table";
 import { formatValue } from "@/components/research/measure";
-import { Note, PageHeader, Panel } from "@/components/research/panel";
+import { PageHeader, Panel } from "@/components/research/panel";
 import { formatDateTime } from "@/components/research/time";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CHAIN_NAME, type Chain } from "@/lib/lamble/core/identity";
 import type { CoinPublic } from "@/lib/lamble/release/types";
@@ -78,7 +79,9 @@ function row(c: CoinPublic): CoinRow {
   };
 }
 
-const selectClass = "h-9 w-full rounded-lg border border-line bg-surface-3 px-2 text-sm text-high focus-visible:border-link focus-visible:outline-none";
+// 16px on phones so iOS does not zoom into the field; 14px from md up, matching Input.
+const selectClass = "h-9 w-full rounded-lg border border-line bg-background px-2 text-base text-high focus-visible:border-med focus-visible:outline-none md:text-sm";
+const labelClass = "flex min-w-0 flex-col gap-1.5 text-xs text-med";
 
 export default async function CoinsPage({ searchParams }: { searchParams: Promise<Search> }) {
   const sp = await searchParams;
@@ -92,114 +95,96 @@ export default async function CoinsPage({ searchParams }: { searchParams: Promis
 
   return (
     <Container>
-      <PageHeader
-        eyebrow="Research"
-        title="Coins"
-        description={
-          <p>
-            {data.coins.length} coins tracked, {data.market.tracked.collected} collected in the latest daily run. A coin stays on record after collection stops; its last values are marked stale rather than removed. Missing values are shown as a dash, never as zero.
-          </p>
-        }
-        meta={
-          <>
-            <span>Data cutoff {formatDateTime(data.dataCutoff)}</span>
-            <span>
-              Release <code className="font-mono">{data.releaseId}</code>
-            </span>
-          </>
-        }
-      />
-      <div className="flex flex-col gap-4 pb-8">
-        <Panel>
-          <form method="get" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" role="search" aria-label="Filter coins">
-            <label className="flex flex-col gap-1 text-2xs text-med">
-              Search
-              <Input name="q" defaultValue={f.q ?? ""} placeholder="Symbol, name or address" />
-            </label>
-            <label className="flex flex-col gap-1 text-2xs text-med">
-              Chain
-              <select name="chain" defaultValue={f.chain ?? ""} className={selectClass}>
-                <option value="">All chains</option>
-                {chains.map((c) => (
-                  <option key={c} value={c}>
-                    {CHAIN_NAME[c as Chain] ?? c}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="flex flex-col gap-1 text-2xs text-med">
-              Narrative
-              <select name="narrative" defaultValue={f.narrative ?? ""} className={selectClass}>
-                <option value="">Any narrative</option>
-                {narratives.map((n) => (
-                  <option key={n.slug} value={n.slug}>
-                    {n.title}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="flex flex-col gap-1 text-2xs text-med">
-              Collection
-              <select name="collection" defaultValue={f.collection ?? ""} className={selectClass}>
-                <option value="">Any status</option>
-                {Object.entries(COLLECTION).map(([k, v]) => (
-                  <option key={k} value={k}>
-                    {v}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="flex flex-col gap-1 text-2xs text-med">
-              Bottoming test
-              <select name="bottoming" defaultValue={f.bottoming ?? ""} className={selectClass}>
-                <option value="">Any state</option>
-                {Object.entries(BOTTOMING).map(([k, v]) => (
-                  <option key={k} value={k}>
-                    {v}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="flex flex-col gap-1 text-2xs text-med">
-              Minimum liquidity (USD)
-              <Input name="minLiquidity" type="number" min={0} step="any" defaultValue={f.minLiquidity ?? ""} />
-            </label>
-            <label className="flex flex-col gap-1 text-2xs text-med">
-              Created within (days)
-              <Input name="maxAgeDays" type="number" min={0} step={1} defaultValue={f.maxAgeDays ?? ""} />
-            </label>
-            <div className="grid grid-cols-[1fr_auto] items-end gap-2">
-              <label className="flex flex-col gap-1 text-2xs text-med">
-                Sort
-                <select name="sort" defaultValue={f.sort} className={selectClass}>
-                  {Object.entries(SORTS).map(([k, v]) => (
-                    <option key={k} value={k}>
-                      {v}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button type="submit" className="h-9 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground hover:opacity-90 focus-visible:ring-1 focus-visible:ring-focus focus-visible:outline-none">
-                Apply
-              </button>
-            </div>
-          </form>
-          {filtered && (
-            <p className="mt-3 text-xs text-med">
-              {coins.length} of {data.coins.length} coins match.{" "}
-              <Link href="/coins" className="text-link hover:underline">
-                Clear filters
-              </Link>
-            </p>
-          )}
-        </Panel>
-        <Panel>
-          <CoinTable rows={coins.map(row)} />
-        </Panel>
-        <Note>
-          Price, market cap and liquidity are the latest Codex snapshot; market cap is circulating, not fully diluted. Rolling 24h volume is as reported across all pools. The 7-day change compares snapshot prices about seven days apart and is missing when no such pair exists. Holders counts the holder-analysis components with a value, out of nine.
-        </Note>
-      </div>
+      <PageHeader title="Coins" description={`${data.coins.length} coins tracked, ${data.market.tracked.collected} collected in the latest daily run.`} />
+      {/* The top bar carries the cutoff on desktop. */}
+      <p className="mt-4 text-xs text-med lg:hidden">Data through {formatDateTime(data.dataCutoff)}</p>
+
+      <form method="get" role="search" aria-label="Filter coins" className="mt-8 grid gap-x-3 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+        <label className={labelClass}>
+          Search
+          <Input name="q" defaultValue={f.q ?? ""} placeholder="Symbol, name or address" />
+        </label>
+        <label className={labelClass}>
+          Chain
+          <select name="chain" defaultValue={f.chain ?? ""} className={selectClass}>
+            <option value="">All chains</option>
+            {chains.map((c) => (
+              <option key={c} value={c}>
+                {CHAIN_NAME[c as Chain] ?? c}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className={labelClass}>
+          Narrative
+          <select name="narrative" defaultValue={f.narrative ?? ""} className={selectClass}>
+            <option value="">Any narrative</option>
+            {narratives.map((n) => (
+              <option key={n.slug} value={n.slug}>
+                {n.title}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className={labelClass}>
+          Collection
+          <select name="collection" defaultValue={f.collection ?? ""} className={selectClass}>
+            <option value="">Any status</option>
+            {Object.entries(COLLECTION).map(([k, v]) => (
+              <option key={k} value={k}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className={labelClass}>
+          Bottoming test
+          <select name="bottoming" defaultValue={f.bottoming ?? ""} className={selectClass}>
+            <option value="">Any state</option>
+            {Object.entries(BOTTOMING).map(([k, v]) => (
+              <option key={k} value={k}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className={labelClass}>
+          Minimum liquidity (USD)
+          <Input name="minLiquidity" type="number" min={0} step="any" defaultValue={f.minLiquidity ?? ""} />
+        </label>
+        <label className={labelClass}>
+          Created within (days)
+          <Input name="maxAgeDays" type="number" min={0} step={1} defaultValue={f.maxAgeDays ?? ""} />
+        </label>
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-end gap-2">
+          <label className={labelClass}>
+            Sort
+            <select name="sort" defaultValue={f.sort} className={selectClass}>
+              {Object.entries(SORTS).map(([k, v]) => (
+                <option key={k} value={k}>
+                  {v}
+                </option>
+              ))}
+            </select>
+          </label>
+          <Button type="submit">Apply</Button>
+        </div>
+      </form>
+      {filtered && (
+        <p className="mt-4 text-sm text-med">
+          {coins.length} of {data.coins.length} coins match.{" "}
+          <Link href="/coins" className="text-link hover:underline">
+            Clear filters
+          </Link>
+        </p>
+      )}
+
+      <Panel className="mt-6">
+        <CoinTable rows={coins.map(row)} />
+      </Panel>
+      <p className="mt-3 max-w-[72ch] text-xs leading-relaxed text-pretty text-med">
+        A coin stays on record after collection stops; its last values are marked stale rather than removed. Missing values are shown as a dash, never as zero. Price, market cap and liquidity are the latest Codex snapshot; market cap is circulating, not fully diluted. Rolling 24h volume is as reported across all pools. The 7-day change compares snapshot prices about seven days apart and is missing when no such pair exists. Holders counts the holder-analysis components with a value, out of nine.
+      </p>
     </Container>
   );
 }

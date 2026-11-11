@@ -1,223 +1,194 @@
+import { ArrowRightIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
-import { Sparkline } from "@/components/charts/sparkline";
-import { type HeroStat, ResearchHero } from "@/components/hero/research-hero";
+import { ChainMark } from "@/components/brand/chain-mark";
+import { LamboStrip } from "@/components/hero/lambo-strip";
 import { Container } from "@/components/layout/container";
-import { FORMAT_LABEL, REVIEW_LABEL } from "@/components/research/article-bits";
-import { ChangeList } from "@/components/research/changes";
-import { CoinLabel } from "@/components/research/links";
-import { formatValue } from "@/components/research/measure";
-import { LifecycleBadge, TrendBadge, shownChange } from "@/components/research/narrative-bits";
-import { Panel } from "@/components/research/panel";
-import { formatDate, formatDateTime } from "@/components/research/time";
-import { Badge } from "@/components/ui/badge";
-import { editionIndex, getEdition, latestChanges, listArticles, loadRelease } from "@/lib/lamble/service";
-import { LAUNCH_BOT_URL } from "@/lib/links";
+import { SectionTabs } from "@/components/layout/section-tabs";
+import { overviewData } from "@/components/overview/data";
+import { FeesChart } from "@/components/overview/fees-chart";
+import { Change } from "@/components/overview/format";
+import { NarrativeExplorer } from "@/components/overview/narrative-explorer";
+import { TrenchIndexBlock } from "@/components/overview/trench-index";
+import { TrendingTokens } from "@/components/overview/trending-tokens";
+import { KeyFigure, KeyFigures } from "@/components/research/figures";
+import { coinHref } from "@/components/research/links";
+import { MoreLink, PageHeader, Section } from "@/components/research/panel";
+import { formatDateTime } from "@/components/research/time";
+import { buttonVariants } from "@/components/ui/button";
+import { InfoTip } from "@/components/ui/info-tip";
+import type { ChainId } from "@/lib/data/types";
+import { compactUsd } from "@/lib/format";
+import { getTrenchIndex, loadRelease } from "@/lib/lamble/service";
 
-export default function HomePage() {
-  const { data } = loadRelease();
-  const m = data.market;
-  const latest = editionIndex()[0] ?? null;
-  const edition = latest ? getEdition(latest.id) : null;
-  const featured = data.narratives.filter((n) => n.featured.featured).sort((a, b) => (a.featured.rank ?? 99) - (b.featured.rank ?? 99));
-  const movers = data.coins
-    .filter((c) => c.collection.status === "collected" && c.market.volume24hRolling.value !== null)
-    .sort((a, b) => b.market.volume24hRolling.value! - a.market.volume24hRolling.value!)
-    .slice(0, 8);
-  const venues = [...data.launchpads].sort((a, b) => (b.metrics.d7.fees ?? -1) - (a.metrics.d7.fees ?? -1)).slice(0, 6);
-  const articles = listArticles().slice(0, 4);
-  const changes = latestChanges(8);
-  const daily = listArticles().find((a) => a.format === "daily") ?? null;
+const SECTIONS = [
+  ["overview", "Overview"],
+  ["narratives", "Narratives"],
+  ["launchpads", "Launchpads"],
+  ["tokens", "Tokens"],
+  ["research", "Research"],
+] as const;
 
-  const stats: HeroStat[] = [
-    { label: "Fee subtotal, last settled day", value: formatValue(m.feeSubtotal.value, "usd"), sub: `${m.feeSubtotal.included.length} non-overlapping venues · ${formatDate(m.feeSubtotal.anchor)}` },
-    { label: "Coins created, rolling 24h", value: formatValue(m.indexed.created24, "count"), sub: `Codex beta, ${m.indexed.creationVenues} venues` },
-    { label: "Narrative volume, 7 days", value: formatValue(m.rolling7d.narrativeVolume, "usd"), sub: `${m.tracked.collectedNarratives} collected narratives` },
-    { label: "Coins tracked", value: formatValue(m.tracked.coins, "count"), sub: `${m.tracked.collected} collected in the latest run` },
-  ];
+const DAY = new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric" });
+const HOTTEST = "text-high underline-offset-4 decoration-med/50 hover:underline";
+
+export default function OverviewPage() {
+  const { data: release } = loadRelease();
+  const { fees, stats, featured, tokens, research } = overviewData();
+  const lastDay = fees.days[fees.days.length - 1];
+  const trench = getTrenchIndex();
 
   return (
     <>
-      <ResearchHero stats={stats} edition={latest ? { id: latest.id, href: `/market/${latest.id}` } : null} />
       <Container>
-        <div className="flex flex-col gap-4 py-8">
-          <p className="text-2xs text-med">
-            Release <code className="font-mono">{data.releaseId}</code> · data cutoff {formatDateTime(data.dataCutoff)}
-          </p>
+        {/* First load plays a short entrance down to the narratives (rise-0 … rise-5); everything below is static. */}
+        <PageHeader
+          enter
+          title="The Trenches"
+          description="What’s moving in the memecoin trenches: the narratives drawing volume, the tokens carrying them and the launchpads they come from. Refreshed daily; every figure is dated and sourced."
+          aside={trench && <TrenchIndexBlock index={trench} />}
+          actions={
+            // How narratives are picked and volume is counted is the first question a trend list raises.
+            <Link href="/methodology" className={buttonVariants({ variant: "outline" })}>
+              Methodology
+              <ArrowRightIcon aria-hidden className="size-3.5 text-med" />
+            </Link>
+          }
+        />
+        <p className="mt-4 text-xs text-med lg:hidden">Data through {formatDateTime(release.dataCutoff)}</p>
 
-          {edition && (
-            <Panel
-              title={edition.title}
-              description={`${formatDate(edition.interval.start)} – ${formatDate(Date.parse(edition.interval.end) / 1000 - 1)}, as known at ${formatDateTime(edition.dataCutoff)}.`}
-              aside={
-                <Link href={`/market/${edition.id}`} className="text-xs text-link hover:underline">
-                  Read the edition
-                </Link>
+        <SectionTabs sections={SECTIONS} className="mt-8 rise-3" />
+
+        <section id="overview" aria-label="Overview" className="pt-8 rise-4">
+          <KeyFigures>
+            <KeyFigure
+              label={
+                <>
+                  Launchpad fees, {lastDay ? DAY.format(new Date(lastDay.time * 1000)) : "last day"}
+                  <InfoTip label="What launchpad fees include">{fees.scope}</InfoTip>
+                </>
+              }
+              sub={
+                <>
+                  <Change value={fees.change7dPct} /> last 7d vs prior 7d
+                </>
               }
             >
-              <dl className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                <div>
-                  <dt className="text-2xs text-med">Fee subtotal</dt>
-                  <dd className="mt-1 text-lg text-high tabular-nums">{formatValue(edition.market.feeSubtotal.value, "usd")}</dd>
-                  <dd className="text-2xs text-med">{formatValue(edition.market.feeSubtotal.changePct, "signed-percent")} vs {edition.comparison.id}</dd>
-                </div>
-                <div>
-                  <dt className="text-2xs text-med">Creator earnings</dt>
-                  <dd className="mt-1 text-lg text-high tabular-nums">{formatValue(edition.market.creatorEarnings.value, "usd")}</dd>
-                  <dd className="text-2xs text-med">{formatValue(edition.market.creatorEarnings.changePct, "signed-percent")}</dd>
-                </div>
-                <div>
-                  <dt className="text-2xs text-med">Narrative volume (deduplicated)</dt>
-                  <dd className="mt-1 text-lg text-high tabular-nums">{formatValue(edition.dedup.totalVolume, "usd")}</dd>
-                  <dd className="text-2xs text-med">{edition.narratives.length} narratives</dd>
-                </div>
-                <div>
-                  <dt className="text-2xs text-med">Status</dt>
-                  <dd className="mt-1">
-                    <Badge variant={edition.status === "complete" ? "positive" : "warning"}>{edition.status}</Badge>
-                  </dd>
-                  <dd className="mt-1 text-2xs text-med">revision {edition.revision}</dd>
-                </div>
-              </dl>
-            </Panel>
-          )}
-
-          <Panel
-            title="What changed"
-            description={`${changes.total} change event(s) since the previous release${changes.reconstructed ? " (reconstructed against a rebuilt baseline)" : ""}; the most significant first. Agents read the same feed from /api/v1/changes?since=${changes.fromSeq - 1}.`}
-            aside={
-              daily ? (
-                <Link href={`/research/${daily.slug}`} className="text-xs text-link hover:underline">
-                  Daily note
-                </Link>
-              ) : undefined
-            }
-          >
-            <ChangeList events={changes.events} />
-          </Panel>
-
-          <section aria-labelledby="featured">
-            <div className="mb-3 flex items-end justify-between">
-              <h2 id="featured" className="text-base font-semibold text-high">
-                Featured narratives
-              </h2>
-              <Link href="/narratives" className="text-xs text-link hover:underline">
-                All narratives
-              </Link>
-            </div>
-            <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {featured.map((n) => {
-                const change = shownChange(n);
-                return (
-                  <li key={n.id} className="flex flex-col gap-3 rounded-xl bg-card p-4 shadow-sm light:shadow-black/8">
-                    <div className="flex items-center gap-2">
-                      <LifecycleBadge state={n.lifecycle.state} />
-                      <TrendBadge trend={n.trend} />
-                    </div>
-                    <h3 className="text-sm font-semibold text-high">
-                      <Link href={`/narratives/${n.slug}`} className="hover:underline">
-                        {n.title}
-                      </Link>
-                    </h3>
-                    <div className="flex items-end justify-between gap-3">
-                      <div className="text-xs text-med">
-                        <span className="block text-base text-high tabular-nums">{formatValue(n.activity.volume7d.value, "usd")}</span>7-day volume · {n.memberCounts.open} coins
-                        {change !== null && <span className="block">{formatValue(change, "signed-percent")} week over week</span>}
-                      </div>
-                      <Sparkline points={n.activity.daily} width={112} height={36} className="text-link" fill />
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <Panel
-              title="Most traded tracked coins, rolling 24h"
-              aside={
-                <Link href="/coins" className="text-xs text-link hover:underline">
-                  All coins
-                </Link>
-              }
-            >
-              <ul className="flex flex-col gap-2">
-                {movers.map((c) => (
-                  <li key={c.id} className="flex items-center justify-between gap-3 text-sm">
-                    <CoinLabel chain={c.chain} address={c.address} symbol={c.symbol} name={c.name} />
-                    <span className="shrink-0 text-xs text-med tabular-nums">
-                      {formatValue(c.market.volume24hRolling.value, "usd")}
-                      <span className={c.market.priceChange24hRolling.value === null ? "" : c.market.priceChange24hRolling.value >= 0 ? "ml-2 text-positive" : "ml-2 text-negative"}>{formatValue(c.market.priceChange24hRolling.value, "signed-percent")}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-3 text-2xs text-med">Volume as reported across all pools; very high turnover relative to market cap can include wash or bot trading.</p>
-            </Panel>
-            <Panel
-              title="Launchpads by 7-day fees"
-              aside={
-                <Link href="/launchpads" className="text-xs text-link hover:underline">
-                  All launchpads
-                </Link>
-              }
-            >
-              <ul className="flex flex-col gap-2">
-                {venues.map((l) => (
-                  <li key={l.slug} className="flex items-center justify-between gap-3 text-sm">
-                    <Link href={`/launchpads/${l.slug}`} className="text-high hover:underline">
-                      {l.name}
+              {compactUsd(fees.latest, 2)}
+            </KeyFigure>
+            <KeyFigure
+              label="Narratives tracked"
+              sub={
+                stats.narratives.hottest && (
+                  <span className="block truncate">
+                    Hottest:{" "}
+                    <Link href={stats.narratives.hottest.href} title={stats.narratives.hottest.title} className={HOTTEST}>
+                      {stats.narratives.hottest.title}
                     </Link>
-                    <span className="text-xs text-med tabular-nums">
-                      {formatValue(l.metrics.d7.fees, "usd")}
-                      <span className="ml-2">{formatValue(l.metrics.d7.change, "signed-percent")}</span>
-                      {!l.feeSubtotal.included && <span className="ml-2 text-low">overlaps</span>}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </Panel>
-          </div>
-
-          <Panel
-            title="Latest research"
-            aside={
-              <Link href="/research" className="text-xs text-link hover:underline">
-                All research
-              </Link>
-            }
-          >
-            {articles.length ? (
-              <ul className="grid gap-3 md:grid-cols-2">
-                {articles.map((a) => (
-                  <li key={a.slug} className="rounded-lg bg-surface-2 p-3">
-                    <div className="flex flex-wrap items-center gap-2 text-2xs text-med">
-                      <span>{FORMAT_LABEL[a.format]}</span>
-                      <span>·</span>
-                      <span>{formatDate(a.publishedAt)}</span>
-                      <span>·</span>
-                      <span>{REVIEW_LABEL[a.review.status]}</span>
-                    </div>
-                    <Link href={`/research/${a.slug}`} className="mt-1 block text-sm font-semibold text-high hover:underline">
-                      {a.title}
+                  </span>
+                )
+              }
+            >
+              {String(stats.narratives.tracked)}
+            </KeyFigure>
+            <KeyFigure
+              label="Launchpads tracked"
+              sub={
+                stats.launchpads.hottest && (
+                  <span className="inline-flex items-center gap-1.5">
+                    Hottest:
+                    {stats.launchpads.hottest.logo && (
+                      <Image src={stats.launchpads.hottest.logo} alt="" width={14} height={14} unoptimized className="size-3.5 rounded-xs outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10" />
+                    )}
+                    <Link href={stats.launchpads.hottest.href} className={HOTTEST}>
+                      {stats.launchpads.hottest.name}
                     </Link>
-                    <p className="mt-1 line-clamp-2 text-xs text-med">{a.dek}</p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-xs text-med">No articles published yet.</p>
-            )}
-          </Panel>
+                  </span>
+                )
+              }
+            >
+              {String(stats.launchpads.tracked)}
+            </KeyFigure>
+            <KeyFigure
+              label="Coins tracked"
+              sub={
+                stats.coins.hottest && (
+                  <span className="inline-flex items-center gap-1.5">
+                    Hottest:
+                    <ChainMark chain={stats.coins.hottest.chain as ChainId} size={13} />
+                    <Link href={coinHref(stats.coins.hottest.chain, stats.coins.hottest.address)} className={HOTTEST}>
+                      {stats.coins.hottest.symbol}
+                    </Link>
+                  </span>
+                )
+              }
+            >
+              {String(stats.coins.tracked)}
+            </KeyFigure>
+          </KeyFigures>
+        </section>
 
-          <div className="flex flex-col items-start gap-2 rounded-xl border border-line-med p-4 text-sm text-med md:flex-row md:items-center md:justify-between">
-            <span>Launching a token? The LAMBLE launch bot compares venues for your launch in Telegram.</span>
-            <a href={LAUNCH_BOT_URL} target="_blank" rel="noopener noreferrer" className="text-link hover:underline">
-              Open the launch bot
-            </a>
+        <Section
+          id="narratives"
+          title="Trending narratives"
+          aside={<MoreLink href="/narratives">All narratives</MoreLink>}
+          className="rise-5"
+        >
+          <NarrativeExplorer narratives={featured} />
+        </Section>
+
+        <Section
+          id="launchpads"
+          title="Launchpad fees"
+          aside={<MoreLink href="/launchpads">All launchpads</MoreLink>}
+        >
+          <div className="rounded-sm border border-line p-4 md:p-5">
+            <FeesChart series={fees.series} days={fees.days} />
           </div>
-        </div>
+        </Section>
+
+        <Section
+          id="tokens"
+          title="Trending tokens"
+          description="Very high turnover against market cap can include wash or bot trading."
+          aside={<MoreLink href="/coins">All coins</MoreLink>}
+        >
+          <TrendingTokens tokens={tokens} />
+        </Section>
+
+        <Section
+          id="research"
+          title="Latest research"
+          aside={<MoreLink href="/research">All research</MoreLink>}
+        >
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {research.map((a) => {
+              // Daily notes are titled "Daily facts, Oct 27, 2026": the eyebrow already says the first half.
+              const stripped = a.title.toLowerCase().startsWith(a.kind.toLowerCase()) ? a.title.slice(a.kind.length).replace(/^[\s,:–-]+/, "") : "";
+              return (
+                <li key={a.slug}>
+                  <Link href={`/research/${a.slug}`} className="flex h-full flex-col rounded-lg bg-card p-5 transition-colors duration-150 hover:bg-surface-3">
+                    <span className="text-2xs font-medium tracking-[0.08em] text-med uppercase">{a.kind}</span>
+                    <span className="mt-2 text-base font-medium text-balance text-high">{stripped || a.title}</span>
+                    {a.dek && <span className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-med">{a.dek}</span>}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </Section>
       </Container>
+
+      <footer className="mt-20">
+        <Container>
+          <div className="flex flex-col gap-2 border-t border-line pt-6 text-xs text-med sm:flex-row sm:items-center sm:justify-between">
+            <p>LAMBLE publishes research on the crypto trenches, not investment advice.</p>
+            <p>Data through {formatDateTime(release.dataCutoff)}</p>
+          </div>
+        </Container>
+        <LamboStrip />
+      </footer>
     </>
   );
 }

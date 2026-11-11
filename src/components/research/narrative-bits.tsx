@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
 import type { NarrativePublic } from "@/lib/lamble/release/types";
+import { cn } from "@/lib/utils";
 
 export const LIFECYCLE_LABEL: Record<NarrativePublic["lifecycle"]["state"], string> = {
   collected: "Collected",
@@ -16,13 +16,39 @@ export const TREND_LABEL: Record<NarrativePublic["trend"], string> = {
   not_collected: "Not collected",
 };
 
+/** Filled while measured daily, a ring while paused, faint once retired. Not colored: lifecycle is not up or down. */
+const LIFECYCLE_DOT: Record<NarrativePublic["lifecycle"]["state"], string> = {
+  collected: "bg-high",
+  collection_paused: "border border-med",
+  retired: "bg-low",
+};
+
+/** The one definition of trend dots; the overview's TrendTag (components/overview/format) renders these too. */
+const TREND_DOT: Record<NarrativePublic["trend"], string> = {
+  rising: "bg-positive",
+  new: "bg-link",
+  fading: "bg-negative",
+  steady: "bg-med",
+  unknown: "border border-med",
+  not_collected: "bg-low",
+};
+
+/** A dot and a word: quiet enough for a table cell, a page's meta line or a list row. Inherits size and color. */
+function DotLabel({ dot, children }: { dot: string; children: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+      <span aria-hidden className={cn("size-1.5 shrink-0 rounded-full", dot)} />
+      {children}
+    </span>
+  );
+}
+
 export function LifecycleBadge({ state }: { state: NarrativePublic["lifecycle"]["state"] }) {
-  return <Badge variant={state === "collected" ? "positive" : "neutral"}>{LIFECYCLE_LABEL[state]}</Badge>;
+  return <DotLabel dot={LIFECYCLE_DOT[state]}>{LIFECYCLE_LABEL[state]}</DotLabel>;
 }
 
 export function TrendBadge({ trend }: { trend: NarrativePublic["trend"] }) {
-  const variant = trend === "rising" ? "positive" : trend === "fading" ? "negative" : trend === "new" ? "violet" : "outline";
-  return <Badge variant={variant}>{TREND_LABEL[trend]}</Badge>;
+  return <DotLabel dot={TREND_DOT[trend]}>{TREND_LABEL[trend]}</DotLabel>;
 }
 
 /**

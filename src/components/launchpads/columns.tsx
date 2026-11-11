@@ -1,59 +1,37 @@
-import { ArrowUpRightIcon, FlameIcon, MoreVerticalIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { ChainStack } from "@/components/brand/chain-mark";
 import { LetterMark } from "@/components/brand/letter-mark";
 import { Sparkline } from "@/components/charts/sparkline";
-import { Delta } from "@/components/shared/delta";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Change, money } from "@/components/overview/format";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { chainInfo } from "@/lib/data/chains";
 import type { Launchpad, Timeframe } from "@/lib/data/types";
-import { compactNumber, compactUsd, int, percent } from "@/lib/format";
-import { cn } from "@/lib/utils";
+import { int, percent } from "@/lib/format";
 
-export const TIMEFRAMES: { id: Timeframe; label: string }[] = [
-  { id: "h24", label: "24h" },
-  { id: "d7", label: "7d" },
-  { id: "d30", label: "30d" },
-];
+export const TIMEFRAMES = [
+  ["h24", "24h"],
+  ["d7", "7d"],
+  ["d30", "30d"],
+] as const satisfies readonly (readonly [Timeframe, string])[];
 export const TF_LABEL: Record<Timeframe, string> = { h24: "24h", d7: "7d", d30: "30d" };
 
-/** 7d fee change, percent, that earns the Trending badge. */
-const TRENDING_BADGE_THRESHOLD = 25;
-
-export type ColumnId =
-  | "launchpad"
-  | "chains"
-  | "fees"
-  | "revenue"
-  | "creators"
-  | "launched"
-  | "graduated"
-  | "trend"
-  | "actions";
+export type ColumnId = "launchpad" | "fees" | "change" | "revenue" | "creators" | "launched" | "graduated" | "trend";
 
 export interface CellContext {
   tf: Timeframe;
-  medianGradRate: number;
-  onOpen: (slug: string) => void;
+  /** Largest fee figure in the timeframe, across every venue: the scale for the bars behind the fee column. */
+  maxFees: number;
 }
 
 export interface Column {
   id: ColumnId;
   header: (ctx: CellContext) => string;
+  /** Scope note shown in an InfoTip beside the header. */
   hint?: string;
   align: "left" | "right";
   sortable: boolean;
-  /** Order on phones, decided once at mount (design-system/components/table.md). */
+  /** Order on phones, decided once at mount. */
   mobileRank: number;
   sortValue?: (row: Launchpad, ctx: CellContext) => number | string | null;
   cell: (row: Launchpad, ctx: CellContext) => ReactNode;
@@ -64,25 +42,25 @@ export function hasCurve(row: Launchpad): boolean | null {
   return row.hasBondingCurve ?? null;
 }
 
-function Stack({
-  primary,
-  secondary,
-  align = "right",
-}: {
-  primary: ReactNode;
-  secondary?: ReactNode;
-  align?: "left" | "right";
-}) {
+const FIGURE = "font-mono text-[13px]";
+
+/** A figure with a smaller muted ratio after it (share of fees, completion rate), on one line. */
+function WithRatio({ value, ratio }: { value: ReactNode; ratio: string }) {
   return (
-    <div className={cn("flex flex-col gap-0.5", align === "right" ? "items-end" : "items-start")}>
-      <span className="text-high">{primary}</span>
-      {secondary !== undefined && <span className="text-2xs text-med">{secondary}</span>}
-    </div>
+    <span className="inline-flex items-baseline justify-end gap-2">
+      <span className={FIGURE}>{value}</span>
+      <span className="w-10 text-right font-mono text-xs text-med">{ratio}</span>
+    </span>
   );
 }
 
-function stop(e: React.SyntheticEvent) {
-  e.stopPropagation();
+/** Indexed counts are Codex beta observations, marked ≈ so they never read as complete event counts. */
+function Indexed({ value }: { value: number }) {
+  return (
+    <>
+      <span className="text-med">≈</span> {int(value)}
+    </>
+  );
 }
 
 export const COLUMNS: Column[] = [
@@ -95,64 +73,56 @@ export const COLUMNS: Column[] = [
     sortValue: (row) => row.name.toLowerCase(),
     className: "min-w-[200px]",
     cell: (row) => (
-      <div className="flex items-center gap-3 py-1">
-        <LetterMark name={row.name} color={row.brandColor} size={34} src={row.logoSrc} />
-        <div className="min-w-0 max-w-[168px]">
-          <div className="flex items-center gap-2">
-            <span className="text-sm whitespace-nowrap text-high">{row.name}</span>
-            {row.metrics.d7.change !== null && row.metrics.d7.change >= TRENDING_BADGE_THRESHOLD && (
-              <Badge variant="positive" className="h-[18px] gap-1 px-1.5 text-2xs">
-                <FlameIcon />
-                Trending
-              </Badge>
+      <div className="flex items-center gap-2.5">
+        <LetterMark name={row.name} color={row.brandColor} size={24} src={row.logoSrc} />
+        <span className="font-medium whitespace-nowrap text-high">{row.name}</span>
+        <Tooltip>
+          <TooltipTrigger render={<span className="inline-flex cursor-help" />}>
+            {row.chains.length ? (
+              <ChainStack chains={row.chains} max={3} size={16} className="*:data-[slot=avatar]:ring-background" />
+            ) : (
+              <span className="text-xs text-med">chains unverified</span>
             )}
-          </div>
-          <a
-            href={row.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={stop}
-            className="block truncate text-xs text-med transition-colors hover:text-link"
-          >
-            {row.domain}
-          </a>
-        </div>
+          </TooltipTrigger>
+          <TooltipContent>{row.chains.map((c) => chainInfo(c).name).join(" · ") || "Supported chains not verified; see financial coverage in details"}</TooltipContent>
+        </Tooltip>
       </div>
-    ),
-  },
-  {
-    id: "chains",
-    header: () => "Chains",
-    align: "left",
-    sortable: true,
-    mobileRank: 4,
-    sortValue: (row) => row.chains.length,
-    cell: (row) => (
-      <Tooltip>
-        <TooltipTrigger render={<span className="inline-flex cursor-help" />}>
-          {row.chains.length ? <ChainStack chains={row.chains} max={4} size={20} /> : <span className="text-med">—</span>}
-        </TooltipTrigger>
-        <TooltipContent>{row.chains.map((c) => chainInfo(c).name).join(" · ") || "Supported chains not verified; see financial coverage in details"}</TooltipContent>
-      </Tooltip>
     ),
   },
   {
     id: "fees",
     header: (ctx) => `Fees ${TF_LABEL[ctx.tf]}`,
-    hint: "Fees paid by traders and launchers on the venue. Where the flow is.",
     align: "right",
     sortable: true,
     mobileRank: 1,
     sortValue: (row, ctx) => row.metrics[ctx.tf].fees,
     cell: (row, ctx) => {
-      const m = row.metrics[ctx.tf];
-      return <Stack primary={compactUsd(m.fees)} secondary={<Delta value={m.change} />} />;
+      const fees = row.metrics[ctx.tf].fees;
+      return (
+        <div className="relative ml-auto h-6 w-full max-w-36 sm:min-w-28">
+          <span aria-hidden className="absolute inset-y-0 left-0 hidden bg-chart-bar sm:block" style={{ width: `${((fees ?? 0) / ctx.maxFees) * 100}%` }} />
+          <span className={`${FIGURE} relative flex h-full items-center justify-end sm:pr-2`}>{money(fees)}</span>
+        </div>
+      );
     },
+  },
+  {
+    id: "change",
+    header: () => "vs prior",
+    align: "right",
+    sortable: true,
+    mobileRank: 2,
+    sortValue: (row, ctx) => row.metrics[ctx.tf].change,
+    cell: (row, ctx) => (
+      <span className={FIGURE}>
+        <Change value={row.metrics[ctx.tf].change} />
+      </span>
+    ),
   },
   {
     id: "revenue",
     header: (ctx) => `Revenue ${TF_LABEL[ctx.tf]}`,
-    hint: "Revenue under the source methodology; may include tokenholder flows. See details.",
+    hint: "Revenue under the source methodology; may include tokenholder flows. See details. The smaller figure is revenue as a share of fees.",
     align: "right",
     sortable: true,
     mobileRank: 5,
@@ -160,13 +130,13 @@ export const COLUMNS: Column[] = [
     cell: (row, ctx) => {
       const m = row.metrics[ctx.tf];
       const take = m.fees !== null && m.fees > 0 && m.revenue !== null ? (m.revenue / m.fees) * 100 : null;
-      return <Stack primary={compactUsd(m.revenue)} secondary={`${percent(take, { digits: 0 })} of fees`} />;
+      return <WithRatio value={money(m.revenue)} ratio={percent(take, { digits: 0 })} />;
     },
   },
   {
     id: "creators",
     header: (ctx) => `Creators ${TF_LABEL[ctx.tf]}`,
-    hint: "Fees paid out to coin creators under the source methodology (DefiLlama supply-side revenue). Some venues also count holder, referrer or trader payouts; see details.",
+    hint: "Fees paid out to coin creators under the source methodology (DefiLlama supply-side revenue). Some venues also count holder, referrer or trader payouts; see details. The smaller figure is the share of fees.",
     align: "right",
     sortable: true,
     mobileRank: 6,
@@ -174,7 +144,7 @@ export const COLUMNS: Column[] = [
     cell: (row, ctx) => {
       const m = row.metrics[ctx.tf];
       const share = m.fees !== null && m.fees > 0 && m.supplySide != null ? (m.supplySide / m.fees) * 100 : null;
-      return <Stack primary={compactUsd(m.supplySide ?? null)} secondary={`${percent(share, { digits: 0 })} of fees`} />;
+      return <WithRatio value={money(m.supplySide ?? null)} ratio={percent(share, { digits: 0 })} />;
     },
   },
   {
@@ -183,36 +153,28 @@ export const COLUMNS: Column[] = [
     hint: "New tokens created in 24 hours. ≈ denotes Codex beta indexed observations; event completeness and exact cutoffs are not independently verified.",
     align: "right",
     sortable: true,
-    mobileRank: 3,
+    mobileRank: 4,
     sortValue: (row) => row.metrics.launched24h ?? row.activityObservation?.indexedCreated24 ?? null,
     cell: (row) => (
-      <Stack
-        primary={row.metrics.launched24h !== null ? int(row.metrics.launched24h) : row.activityObservation ? `≈ ${int(row.activityObservation.indexedCreated24)}` : '—'}
-        secondary={`7d avg ${compactNumber(row.metrics.launched7dAvg ?? row.activityObservation?.indexed7dAvg ?? null)}`}
-      />
+      <span className={FIGURE}>
+        {row.metrics.launched24h !== null ? int(row.metrics.launched24h) : row.activityObservation ? <Indexed value={row.activityObservation.indexedCreated24} /> : <span className="text-med">—</span>}
+      </span>
     ),
   },
   {
     id: "graduated",
     header: () => "Graduated 24h",
-    hint: "Bonding-curve completions, separate from migration. ≈ denotes Codex beta indexed observations. Rate uses completions / launches over 7 days, not a cohort success rate.",
+    hint: "Bonding-curve completions, separate from migration. ≈ denotes Codex beta indexed observations. The smaller figure is completions over launches across 7 days: a period ratio, not the probability that a coin graduates. Sorts by that ratio.",
     align: "right",
     sortable: true,
-    mobileRank: 2,
+    mobileRank: 3,
     sortValue: (row) => (hasCurve(row) === false ? null : row.metrics.graduationRate7d ?? row.activityObservation?.indexed7dCompletionRate ?? null),
-    cell: (row, ctx) => {
-      if (hasCurve(row) === false) return <Stack primary="—" secondary="no curve" />;
+    cell: (row) => {
+      if (hasCurve(row) === false) return <span className="text-xs text-med">no curve</span>;
       const rate = row.metrics.graduationRate7d ?? row.activityObservation?.indexed7dCompletionRate ?? null;
-      return (
-        <Stack
-          primary={row.metrics.graduated24h !== null ? int(row.metrics.graduated24h) : row.activityObservation?.indexedCompleted24 != null ? `≈ ${int(row.activityObservation.indexedCompleted24)}` : '—'}
-          secondary={
-            <span className={rate !== null && rate >= ctx.medianGradRate ? "text-positive" : undefined}>
-              {percent(rate)} grad rate
-            </span>
-          }
-        />
-      );
+      const count =
+        row.metrics.graduated24h !== null ? int(row.metrics.graduated24h) : row.activityObservation?.indexedCompleted24 != null ? <Indexed value={row.activityObservation.indexedCompleted24} /> : <span className="text-med">—</span>;
+      return <WithRatio value={count} ratio={percent(rate)} />;
     },
   },
   {
@@ -222,53 +184,9 @@ export const COLUMNS: Column[] = [
     sortable: true,
     mobileRank: 7,
     sortValue: (row) => row.metrics.d30.change,
-    cell: (row) => {
-      const change = row.metrics.d30.change;
-      const up = change !== null && change >= 0;
-      return (
-        <div className="flex justify-end">
-          <Sparkline
-            points={row.metrics.history30d}
-            width={80}
-            height={26}
-            className={cn("h-[26px] w-20", change === null ? "text-med" : up ? "text-positive" : "text-negative")}
-            id={row.slug}
-          />
-        </div>
-      );
-    },
-  },
-  {
-    id: "actions",
-    header: () => "",
-    align: "right",
-    sortable: false,
-    mobileRank: 8,
-    cell: (row, ctx) => (
-      <div className="flex items-center justify-end gap-2" onClick={stop} onKeyDown={stop}>
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={<Button type="button" variant="ghost" size="icon" aria-label={`More actions for ${row.name}`} />}
-          >
-            <MoreVerticalIcon />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => ctx.onOpen(row.slug)}>Details</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem render={<a href={row.url} target="_blank" rel="noopener noreferrer" />}>
-              Website
-              <ArrowUpRightIcon className="ml-auto size-4" />
-            </DropdownMenuItem>
-            {row.twitter && (
-              <DropdownMenuItem
-                render={<a href={`https://x.com/${row.twitter}`} target="_blank" rel="noopener noreferrer" />}
-              >
-                X profile
-                <ArrowUpRightIcon className="ml-auto size-4" />
-              </DropdownMenuItem>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
+    cell: (row) => (
+      <div className="flex justify-end">
+        <Sparkline id={`lp-${row.slug}`} points={row.metrics.history30d} width={80} height={20} fill={false} strokeWidth={1.25} className="text-med" />
       </div>
     ),
   },
