@@ -186,7 +186,8 @@ c1_calls = [('c1', c) for c in runs['c1']['result']['calls'][1:] if usable(c)]
 for b in (b for b in BATCHES if re.fullmatch(r'c([3-9]|\d{2,})', b)):
     # a retry of a call that already has usable data (the seller's refund note was wrong) is kept as a record but not counted twice
     have = {requests[bb]['calls'][c['seq']]['args']['query'] for bb, c in c1_calls}
-    c1_calls += [(b, c) for c in runs[b]['result']['calls'] if usable(c) and requests[b]['calls'][c['seq']]['args']['query'] not in have]
+    c1_calls += [(b, c) for c in runs[b]['result']['calls'] if usable(c) and requests[b]['calls'][c['seq']]['args']['query'] not in have
+                 and 'resolution:"1D"' not in requests[b]['calls'][c['seq']]['args']['query']]  # daily retries belong to c2, below
 assert len(c1_calls) == len(requests['c1']['calls']) - 1, 'a c1 call has no delivery (retry it as c3)'
 for batch, c in c1_calls:
     q = requests[batch]['calls'][c['seq']]['args']['query']; data = c['body']['data']
@@ -236,8 +237,15 @@ for u in universe:
 D = T // 86400 * 86400; DAYS = list(range(D - 30 * 86400, D, 86400)); daily, daily_eid, reconcile = {}, {}, []
 RECONCILE_TOLERANCE = 0.02  # daily bars and hourly sums come from the same index seconds apart; larger gaps mean a broken window
 if DAILY:
-    for c in runs['c2']['result']['calls']:
-        q = requests['c2']['calls'][c['seq']]['args']['query']; data = c['body']['data']
+    # A c2 call skipped for budget (delivered false, no body data) may be re-requested in a later c batch (c3, c4...), like c1's.
+    c2_calls = [('c2', c) for c in runs['c2']['result']['calls'] if usable(c)]
+    for b in (b for b in BATCHES if re.fullmatch(r'c([3-9]|\d{2,})', b)):
+        have = {requests[bb]['calls'][c['seq']]['args']['query'] for bb, c in c2_calls}
+        c2_calls += [(b, c) for c in runs[b]['result']['calls'] if usable(c) and 'resolution:"1D"' in requests[b]['calls'][c['seq']]['args']['query']
+                     and requests[b]['calls'][c['seq']]['args']['query'] not in have]
+    assert len(c2_calls) == len(requests['c2']['calls']), 'a c2 call has no delivery (retry it as c3)'
+    for batch, c in c2_calls:
+        q = requests[batch]['calls'][c['seq']]['args']['query']; data = c['body']['data']
         for alias, addr, net, frm, to in re.findall(r'(q\d+):getTokenBars\(symbol:"(\w+):(\d+)",from:(\d+),to:(\d+)', q):
             assert (int(frm), int(to)) == (D - 31 * 86400, D - 1)
             tid = tid_of.get((addr, int(net)))
@@ -252,7 +260,7 @@ if DAILY:
                                                    basis='Entire day precedes the token creation time; the token did not exist.'))
                 assert v is not None, (tid, iso(t), 'unexpected missing daily bucket')
                 v = float(v); assert v >= 0; out.append(dict(time=t, value=v))
-            assert tid not in daily; daily[tid] = out; daily_eid[tid] = eid[('c2', c['seq'])]
+            assert tid not in daily; daily[tid] = out; daily_eid[tid] = eid[(batch, c['seq'])]
     assert set(daily) == {u['tokenId'] for u in universe}, 'every constituent needs daily bars'
     for tid, pts in daily.items():
         hourly = {p['time']: p['value'] for p in series[tid]}
