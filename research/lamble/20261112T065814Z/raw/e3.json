@@ -1,0 +1,1095 @@
+{
+ "run_id": "run_084356cfdc7d4446acfb6e86da934c6e",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 22,
+  "budget_credits": 100,
+  "balance_credits": 84645,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 58,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 3,
+  "delivered": 2,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 309,
+     "stored_chars": 309,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x1abf8a0ef5cecfa4d82b6bfac5078ce8515eebd053fb951a92459920cb851763",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x89d92166578a963547d83ec0a94628af86fb09a63c628a73ded94b039a08c76d",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool executed the query but returned no tweets, indicating no content matching the request was found.; class adjudicated seller_error\u2192negative_result: The seller successfully processed the request and explicitly stated that zero tweets matched the provided search criteria.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-12T07:05:53.158995752Z",
+     "query": "from:elonmusk son casino",
+     "type": "top",
+     "tweet_count": 0,
+     "tweets": [],
+     "cursor": "DAACCgACHW6BsDkAJxAKAAMdboGwOP_Y8AgABAAAAAILAAUAAAAcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUFBPQgABgAAAAAIAAcAAAAAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12419,
+     "stored_chars": 12419,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x7df638dee691c3409ec498d31fb4083841970ef698fca9ef3e8cb14b3d1da686",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xebb470890e21387c59f96e00e4c32b2b39e84624df1ae8766470a1b7b26fba73",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-12T07:06:08.349750053Z",
+     "query": "Saxon Musk $MAX memecoin Elon unfollowed",
+     "type": "top",
+     "tweet_count": 18,
+     "tweets": [
+      {
+       "id": "2120643951816581185",
+       "text": "Elon Musk son, Saxon Musk, has launched a memecoin called $MAX",
+       "created_at": "2026-11-11T22:24:52Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 26,
+       "conversation_id": "2120643951816581185",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2035296266276720640",
+        "screen_name": "moneymonsol",
+        "name": "Money Magnet",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2035296427782414336/rrD1Y0pH_normal.jpg"
+       }
+      },
+      {
+       "id": "2120732431665733918",
+       "text": "Lmao, this guy might have been scammed by Elon Musk's son\n\nHe threw $78,100 into $MAX, a memecoin supposedly launched by Saxon Musk\n\nThen Elon unfollowed the account, and the token crashed over 86% from its peak\n\nNow he's sitting on a $56,798 loss (-72.72%)\n\nMeanwhile, CT is https://t.co/IcAfZr3knP",
+       "created_at": "2026-11-12T04:16:27Z",
+       "lang": "en",
+       "likes": 27,
+       "retweets": 4,
+       "replies": 9,
+       "quotes": 0,
+       "bookmarks": 12,
+       "views": 6587,
+       "conversation_id": "2120732431665733918",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1745763891559235584",
+        "screen_name": "goatyishere",
+        "name": "Goaty",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2118492734088425472/3nr3-Y-u_normal.jpg"
+       }
+      },
+      {
+       "id": "2120656073405411712",
+       "text": "while you were sleeping drama's stirred up the trenches \u2193\n\n\u27a5 elon musk's son saxon musk apparently launched a memecoin $MAX\n\n\u27a5 he uploaded a video on X confirming that the account was not hacked and it's not a scam\n\n\u27a5 token ran to $13.6m mcap in about an hour with 10k+ https://t.co/bmysj4CTY1",
+       "created_at": "2026-11-11T23:13:02Z",
+       "lang": "en",
+       "likes": 15,
+       "retweets": 0,
+       "replies": 12,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 563,
+       "conversation_id": "2120656073405411712",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "939161967612137472",
+        "screen_name": "FarhanOnChain",
+        "name": "Farhan\u26a1",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2027844615676825602/Tlz44zaz_normal.jpg"
+       }
+      },
+      {
+       "id": "2120655574882713852",
+       "text": "Saxon Musk, Elon Musk's son, launched a memecoin called $MAX https://t.co/3KvmsBD4aT",
+       "created_at": "2026-11-11T23:11:03Z",
+       "lang": "en",
+       "likes": 216,
+       "retweets": 21,
+       "replies": 25,
+       "quotes": 5,
+       "bookmarks": 41,
+       "views": 31990,
+       "conversation_id": "2120655574882713852",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "94261044",
+        "screen_name": "CryptoGorilla",
+        "name": "Gorilla",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1983310757186973696/G01dJkKu_normal.png"
+       }
+      },
+      {
+       "id": "2120769560555188348",
+       "text": "ELON MUSK'S SON LAUNCHING A MEMECOIN?\n\nA mysterious X account (@ChainChomp131), claiming to be Saxon James Musk, has sparked speculation after launching a Pumpfun token inspired by his dog, Max.\n\nHere's what happened:\nThe account claims to be one of Elon's triplet sons and https://t.co/xAz4xrZiJi",
+       "created_at": "2026-11-12T06:43:59Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 129,
+       "conversation_id": "2120769560555188348",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "609464731",
+        "screen_name": "PrimeNine4",
+        "name": "PrimeNine",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2093243473256472576/R40_1Gn7_normal.jpg"
+       }
+      },
+      {
+       "id": "2120772764919300254",
+       "text": "two things scare me about the whole saxon musk situation: \n\n- ai has gotten so good that at first nobody even thought it could be ai\n\n- we're in such a bad spot that we can actually believe elon musk's son would launch his own memecoin\n\nabsolute cinema https://t.co/FN886G8vpd",
+       "created_at": "2026-11-12T06:56:43Z",
+       "lang": "en",
+       "likes": 5,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 66,
+       "conversation_id": "2120772764919300254",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1244266055859568641",
+        "screen_name": "alyxalyx",
+        "name": "alyx",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2120444190660120576/gPGf4D1G_normal.jpg"
+       }
+      },
+      {
+       "id": "2120704347981992258",
+       "text": "THIS IS NEXT LEVEL \ud83d\ude02\n\n@ChainChomp131, an account claiming to be @elonmusk\u2019s son Saxon, launches $MAX a memecoin of his dog\n\nfollowed by @elonmusk and his mom @mayemusk \n\nspent days posting absolute gibberish before all this\n\n$MAX hits $13.7M, now ~$2M (-86%)\n\nposts a \u201cHave fun\u201d https://t.co/zJXejVLQe3",
+       "created_at": "2026-11-12T02:24:51Z",
+       "lang": "en",
+       "likes": 45,
+       "retweets": 6,
+       "replies": 14,
+       "quotes": 3,
+       "bookmarks": 10,
+       "views": 6336,
+       "conversation_id": "2120704347981992258",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1478555106652086280",
+        "screen_name": "solana_sailor",
+        "name": "Sailor",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2069183141130928128/x3jhXL9o_normal.jpg"
+       }
+      },
+      {
+       "id": "2120699836328751599",
+       "text": "$Max MC: 2.4M\n\n5qaP7oKUqKffwwo5DaEqDoTtsBLMpdbQTxEkCDaTpump\n\nchart:\nhttps://t.co/9PAPwIvBYd\n\nThis time, $MAX\u2019s story comes from Elon Musk\u2019s son, Saxon James Musk.\n\nSaxon posted dog-related content on X, and discussion about creating a meme coin started to appear. The community https://t.co/mIG411slGo",
+       "created_at": "2026-11-12T02:06:56Z",
+       "lang": "en",
+       "likes": 5,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 743,
+       "conversation_id": "2120699836328751599",
+       "is_quote": false,
+       "urls": [
+        "https://gmgn.ai/sol/token/bSBYaRka_5qaP7oKUqKffwwo5DaEqDoTtsBLMpdbQTxEkCDaTpump"
+       ],
+       "author": {
+        "id": "1480134314528440320",
+        "screen_name": "0xkakaa",
+        "name": "memeprophet",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1872969433783959552/FF_wtSE8_normal.jpg"
+       }
+      },
+      {
+       "id": "2120773360061956189",
+       "text": "Gm gm fams\n\nThe $MAX lore is getting ridiculous\n\nOne rumour about Elon Musk\u2019s son and people started trading like they had a seat at the Musk family dinner\n\nNow the chart is down bad and everyone suddenly wants proof\n\nMoral of this story: never let a billionaire\u2019s family tree https://t.co/ceBfxkQkco",
+       "created_at": "2026-11-12T06:59:05Z",
+       "lang": "en",
+       "likes": 10,
+       "retweets": 3,
+       "replies": 4,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 1019,
+       "conversation_id": "2120773360061956189",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "567059880",
+        "screen_name": "hackapreneur",
+        "name": "Justin Wu",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2102966636768817152/qs60M9zR_normal.jpg"
+       }
+      },
+      {
+       "id": "2120706451425399075",
+       "text": "$MAX down to $1.5m after Elon unfollowed Saxon\n\nNow that the volume vamp is over, $mihao bounced to $20m and $DacityCoin just hit a new ATH of $8.7m https://t.co/Ydq3ayvqI9",
+       "created_at": "2026-11-12T02:33:13Z",
+       "lang": "en",
+       "likes": 50,
+       "retweets": 1,
+       "replies": 17,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 8381,
+       "conversation_id": "2120706451425399075",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "94261044",
+        "screen_name": "CryptoGorilla",
+        "name": "Gorilla",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1983310757186973696/G01dJkKu_normal.png"
+       }
+      },
+      {
+       "id": "2120636934246580369",
+       "text": "\ud83d\udea8 ELON MUSK\u2019S SON JUST LAUNCHED A MEMECOIN \ud83d\udea8\n\nSaxon James Musk (@ChainChomp131) \u2014 one of Elon\u2019s actual kids (triplet from 2006) \u2014 just dropped $MAX for his dog Max.\n\nElon followed the account yesterday. Grimes and Shivon already follow it.\n\nHe posted \u201cHave fun.\u201d with a short https://t.co/L41YljL4tF",
+       "created_at": "2026-11-11T21:56:59Z",
+       "lang": "en",
+       "likes": 14,
+       "retweets": 1,
+       "replies": 3,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 1303,
+       "conversation_id": "2120636934246580369",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2103227248488644609",
+        "screen_name": "Dyor_Yeti",
+        "name": "Yeti Dyor",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2109057883094568960/m93vdBxy_normal.jpg"
+       }
+      },
+      {
+       "id": "2120678998607081612",
+       "text": "When you realize who's behind the launch of Elon Musk's son Saxon's memecoin \ud83e\udee1\n-MAX https://t.co/1KPkHe04U9",
+       "created_at": "2026-11-12T00:44:08Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 79,
+       "conversation_id": "2120678998607081612",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1030079737790717952",
+        "screen_name": "_iam_mrj",
+        "name": "Mr J\ud83d\ude0e",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2095821978493919238/KiZQrMJ5_normal.jpg"
+       }
+      },
+      {
+       "id": "2120771236120998005",
+       "text": "\u9a6c\u65af\u514b\u7684\u513f\u5b50\uff0c\u53d1\u5e01\u4e86\u3002\n\n\u4ece\u96f6\u52301370\u4e07\u7f8e\u5143\uff0c\u53ea\u7528\u4e8630\u5206\u949f\u3002\n\n\u7136\u540e\uff0c\u9a6c\u65af\u514b\u53d6\u5173\u4e86\u3002\n\n\u4ef7\u683c\u77ac\u95f4\u5d29\u4e8686%\u3002\n\n\u8fd9\u5c31\u662fMAX\u7684\u6545\u4e8b\u3002\u4e00\u4e2a\u7591\u4f3c\u5c5e\u4e8eSaxon James Musk\u7684\u8d26\u53f7\uff0c@ChainChomp131\uff0c\u51cc\u6668\u4e94\u70b9\u53d1\u4e86\u8fd9\u4e2aMeme\u5e01\u3002\u5e02\u503c\u4e00\u5ea6\u51b2\u78341300\u4e07\u7f8e\u5143\u3002\n\n\u7136\u540e\u9a6c\u65af\u514b\u70b9\u4e86\u53d6\u5173\u3002 https://t.co/qlocjErlEL",
+       "created_at": "2026-11-12T06:50:39Z",
+       "lang": "zh",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 36,
+       "conversation_id": "2120771236120998005",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1880973654676402176",
+        "screen_name": "YAYACA11",
+        "name": "YAYA Trade Log",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1880974008235220992/6oV0GJ79_normal.jpg"
+       }
+      },
+      {
+       "id": "2120646051434578354",
+       "text": "Elon Musks son just rugged a memecoin?\n\n$MAX getting nuked \ud83d\ude2d\ud83d\ude2d\n\nStop buying celebrity token \n\nBuy into community that grind daily https://t.co/oSiW5CilU6",
+       "created_at": "2026-11-11T22:33:13Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 2,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 1909,
+       "conversation_id": "2120646051434578354",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1856155494206857216",
+        "screen_name": "hailey_cryptoo",
+        "name": "Hailey Welch",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2087448530923192322/NcYMNUlD_normal.jpg"
+       }
+      },
+      {
+       "id": "2120769312638030244",
+       "text": "\u3010\u52a0\u5bc6\u5e02\u573a\u7a81\u53d1\u3011\u9a6c\u65af\u514b\u53d6\u5173\u7591\u4f3c\u513f\u5b50\u8d26\u53f7\uff0cMeme \u5e01 MAX \u66b4\u8dcc86.4%\uff011300\u4e07\u7f8e\u5143\u5e02\u503c\u795e\u8bdd\u8fc5\u901f\u7834\u706d\n\n\u4e00\u573a\u56f4\u7ed5\u9a6c\u65af\u514b\u5bb6\u65cf\u8eab\u4efd\u5c55\u5f00\u7684\u52a0\u5bc6\u5e02\u573a\u72c2\u6b22\uff0c\u7a81\u7136\u8fce\u6765\u53cd\u8f6c\u3002\n\n\u4e00\u4e2a\u81ea\u79f0\u4e0e\u9a6c\u65af\u514b\u513f\u5b50\u6709\u5173\u8054\u7684 X \u8d26\u53f7\uff0c\u56e0\u4e3a\u9a6c\u65af\u514b\u7684\u4e00\u6b21\u5173\u6ce8\uff0c\u8fc5\u901f\u6210\u4e3a\u5e02\u573a\u7126\u70b9\u3002\n\n\u968f\u540e\uff0c\u8be5\u8d26\u53f7\u5173\u8054\u7684 Meme \u5e01 MAX https://t.co/2Q0GYkDuf5",
+       "created_at": "2026-11-12T06:43:00Z",
+       "lang": "zh",
+       "likes": 4,
+       "retweets": 0,
+       "replies": 4,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 71,
+       "conversation_id": "2120769312638030244",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1654004495997624321",
+        "screen_name": "fafafa_ai",
+        "name": "fafafa_ai\uff08\u79d2\u56de\u7c89\uff09",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2108802874645901313/tDLNa577_normal.jpg"
+       }
+      },
+      {
+       "id": "2120693327414583724",
+       "text": "\ud83d\udea8INSANE: Elon Musk\u2019s son Saxon Launches $MAX. \n\nIs it real or fake? Here\u2019s what I found..\n\n@elonmusk @ChainChomp131 https://t.co/qsA2vWS3nN",
+       "created_at": "2026-11-12T01:41:04Z",
+       "lang": "en",
+       "likes": 36,
+       "retweets": 8,
+       "replies": 12,
+       "quotes": 1,
+       "bookmarks": 7,
+       "views": 9694,
+       "conversation_id": "2120693327414583724",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1450837801449050114",
+        "screen_name": "cryptojourneyrs",
+        "name": "Rodney",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2066266406497193984/1bqFTAg3_normal.jpg"
+       }
+      },
+      {
+       "id": "2120710180417753470",
+       "text": "NEW: Elon Musk's son launches $MAX memecoin\n\nIt is positioned as a meme coin for crypto enthusiasts\n\nCrazy price action follows the launch https://t.co/NPBGcYmDQF",
+       "created_at": "2026-11-12T02:48:02Z",
+       "lang": "en",
+       "likes": 6,
+       "retweets": 1,
+       "replies": 2,
+       "quotes": 1,
+       "bookmarks": 2,
+       "views": 465,
+       "conversation_id": "2120710180417753470",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1799555672859631616",
+        "screen_name": "carlxenn",
+        "name": "Carlxen",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1948066864279539715/6YMTWbH__normal.jpg"
+       }
+      },
+      {
+       "id": "2120688382099501197",
+       "text": "\ud83d\udea8 ALERT: $MAX Runs to $13M Amid Identity Confusion\n\nA Solana memecoin, $MAX, surged to nearly $13M market cap within an hour after an X account claiming to be Saxon James Musk pointed users to its https://t.co/8c7DJ5eUIw page.\n\nElon follows the account, but identity, deployment, https://t.co/aCg18lvuLO",
+       "created_at": "2026-11-12T01:21:25Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 247,
+       "conversation_id": "2120688382099501197",
+       "is_quote": false,
+       "urls": [
+        "https://pump.fun"
+       ],
+       "author": {
+        "id": "343917723",
+        "screen_name": "QCatCapital",
+        "name": "QCat Capital",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2070916453361225728/juZ_YE_U_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHW6BvoGAJxAKAAMdboG-gX_Y8AgABAAAAAILAAUAAAD8RW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJVZGJrTklGaGNSSXgxdUJGVW5sd0RKSFc0VkFuZldBUHdkYmoxRDQ1cXg3eDF1ZkszVFduQjhIVzR5MlA1V3NJMGRia2FzVDFyUmZoMXVERmtlRjhHeUhXNDNXR29XWWF3ZGJueDBHbGJScEIxdWZqUHkyN0IxSFc0cVVEcWJNSXdkYm9BaWQ1ckFYUjF1Q25CREc2QkJIVzRWZG9vYXNZQWRibitYNWxhQW5oMXVCQTViVjBDUkhXNFFqcythc1hjZGJoRUsyMXZSSVIxdVFWNVhGOUZDSFc1YTZSVVdJUjQ9CAAGAAAAAAgABwAAAAAMAAgKAAEdbgQOW1dAkQAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 13871,
+     "stored_chars": 13871,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x6373f21ddf32b26660115cdc338f6d270d653d6dbe184ceb635611daef461631",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x9dc7ca1b70308200a772ca167fcf58a2e3c798a65f908c9914e66e283ff373a7",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-12T07:06:01.312518906Z",
+     "query": "Madison Huang Nvidia next CEO",
+     "type": "top",
+     "tweet_count": 20,
+     "tweets": [
+      {
+       "id": "2120652247012958666",
+       "text": "BREAKING: Jensen Huang's daughter, Madison Huang, emerges as the leading candidate to become Nvidia's next CEO.\n\nSee all candidates: https://t.co/Ijsq636OPo https://t.co/597e31lFlw",
+       "created_at": "2026-11-11T22:57:50Z",
+       "lang": "en",
+       "likes": 7206,
+       "retweets": 754,
+       "replies": 870,
+       "quotes": 534,
+       "bookmarks": 1002,
+       "views": 1469476,
+       "conversation_id": "2120652247012958666",
+       "is_quote": false,
+       "urls": [
+        "https://polymarket.com/r/NVDA"
+       ],
+       "author": {
+        "id": "1261335549215989760",
+        "screen_name": "Polymarket",
+        "name": "Polymarket",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2005664281002491904/bz2ZO_nU_normal.jpg"
+       }
+      },
+      {
+       "id": "2120648765665120312",
+       "text": "Breaking: Nvidia\u2019s board is preparing to oust CEO Jensen Huang after he had two extramarital affairs, including one with a suspected Chinese spy. https://t.co/Pjsu5j87CF https://t.co/mrsySLr8sd",
+       "created_at": "2026-11-11T22:44:00Z",
+       "lang": "en",
+       "likes": 3420,
+       "retweets": 1122,
+       "replies": 623,
+       "quotes": 1087,
+       "bookmarks": 494,
+       "views": 1241357,
+       "conversation_id": "2120648765665120312",
+       "is_quote": false,
+       "urls": [
+        "https://on.wsj.com/4jcpr01"
+       ],
+       "author": {
+        "id": "3108351",
+        "screen_name": "WSJ",
+        "name": "The Wall Street Journal",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/971415515754266624/zCX0q9d5_normal.jpg"
+       }
+      },
+      {
+       "id": "2120659587250708914",
+       "text": "Jensen Huang entering the Nvidia office https://t.co/sR0QRL61qr",
+       "created_at": "2026-11-11T23:27:00Z",
+       "lang": "en",
+       "likes": 30743,
+       "retweets": 2031,
+       "replies": 575,
+       "quotes": 253,
+       "bookmarks": 5482,
+       "views": 1030544,
+       "conversation_id": "2120659587250708914",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1982757033347817472",
+        "screen_name": "eurofounder",
+        "name": "Matthias Schmidt",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1982803467744747520/QtzH5zmw_normal.jpg"
+       }
+      },
+      {
+       "id": "2120757302433059318",
+       "text": "\ud83d\udea8 BREAKING: Nvidia succession watch just took an unexpected turn.\n\nJensen Huang\u2019s daughter, Madison Huang, is reportedly emerging as a leading candidate to become Nvidia\u2019s next CEO.\n\nIf true, this could mark one of the biggest leadership transitions in tech history.\n\n#NVIDIA #AI https://t.co/yUDM6PLnga",
+       "created_at": "2026-11-12T05:55:17Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 129,
+       "conversation_id": "2120757302433059318",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2237419927",
+        "screen_name": "thesociety_x",
+        "name": "The Society",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2119502034818772992/Eyc6_-eZ_normal.jpg"
+       }
+      },
+      {
+       "id": "2120668911829975390",
+       "text": "\ud83d\udea8 BREAKING: KIMBERLY POWELL REPORTEDLY BREAKS DOWN IN TEARS AS SHE ADDRESSES ALLEGATIONS LINKING HER TO NVIDIA CEO JENSEN HUANG!\n\n\u201cI am deeply hurt by everything that has happened. America has misunderstood this situation, and I never imagined that my professional relationship https://t.co/pxzMSy2zhe",
+       "created_at": "2026-11-12T00:04:03Z",
+       "lang": "en",
+       "likes": 402,
+       "retweets": 85,
+       "replies": 51,
+       "quotes": 18,
+       "bookmarks": 158,
+       "views": 217482,
+       "conversation_id": "2120668911829975390",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "836353636133384192",
+        "screen_name": "BrimsCr7",
+        "name": "Brims",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2063337153795436544/51yxaD_K_normal.jpg"
+       }
+      },
+      {
+       "id": "2120713191894171853",
+       "text": "Jensen Huang's daughter, Madison Huang, has emerged as a possible candidate to become Nvidia's next CEO\n\nShe already holds a senior role at the company, but Nvidia has not officially named a successor amid growing uncertainty over her father's future https://t.co/mCbQNbLw1Q",
+       "created_at": "2026-11-12T03:00:00Z",
+       "lang": "en",
+       "likes": 299,
+       "retweets": 8,
+       "replies": 7,
+       "quotes": 2,
+       "bookmarks": 28,
+       "views": 22461,
+       "conversation_id": "2120713191894171853",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1485068728412913666",
+        "screen_name": "interesting_aIl",
+        "name": "Interesting AF",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1739919942223347712/nC3oBLdU_normal.jpg"
+       }
+      },
+      {
+       "id": "2120674116688568395",
+       "text": "\ud83d\udea8 Polymarket is betting Jensen Huang\u2019s daughter could be the one REPLACING HIM at Nvidia.\n\nMadison Huang leads the next-CEO market at 12%, ahead of Lisa Su and internal executives. \n\nShe already works at the company in a senior product role. \n\nWith no clear succession plan and https://t.co/Hg3CUYorin",
+       "created_at": "2026-11-12T00:24:44Z",
+       "lang": "en",
+       "likes": 479,
+       "retweets": 77,
+       "replies": 84,
+       "quotes": 15,
+       "bookmarks": 45,
+       "views": 112013,
+       "conversation_id": "2120674116688568395",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1319287761048723458",
+        "screen_name": "MarioNawfal",
+        "name": "Mario Nawfal",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1938244629071015936/UwtzYY-R_normal.jpg"
+       }
+      },
+      {
+       "id": "2120696663035801886",
+       "text": "Who will lead NVIDIA next after Jensen Huang? \n\nIan Buck, Colette Kress, Rene Haas, Jay Puri, Lisa Su or Madison Huang? Who\u2019s your pick? #NVIDIA #NextCEO #JensenHuang #AI #TechNews https://t.co/1fMACNtCh9",
+       "created_at": "2026-11-12T01:54:19Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 346,
+       "conversation_id": "2120696663035801886",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1925006423420977152",
+        "screen_name": "Nitz_MEXC",
+        "name": "Nitz | BD Leader",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1930852464435015680/uoIj5PkQ_normal.jpg"
+       }
+      },
+      {
+       "id": "2119810715259425248",
+       "text": "\ud83d\udea8 NVIDIA AI Day Seoul turns chaotic as reporters shout and scuffle while grilling executives on Madison Huang (Jensen Huang\u2019s daughter) canceling her Korea trip. \n\nOfficials dodge the questions and abruptly shut the event, slipping out the back door amid \u201cfamily reasons\u201d talk.",
+       "created_at": "2026-11-09T15:13:53Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 2,
+       "views": 955,
+       "conversation_id": "2119810715259425248",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1971606242390126593",
+        "screen_name": "nini02x",
+        "name": "\u2736",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2117736661006393344/DOE39A8U_normal.jpg"
+       }
+      },
+      {
+       "id": "2119240092065866217",
+       "text": "A planned visit to Korea by Madison Huang, a senior director at Nvidia and the daughter of CEO Jensen Huang, has been abruptly canceled, sources said Saturday.\n\nhttps://t.co/2rb4bPjhKK",
+       "created_at": "2026-11-08T01:26:26Z",
+       "lang": "en",
+       "likes": 243,
+       "retweets": 81,
+       "replies": 8,
+       "quotes": 6,
+       "bookmarks": 46,
+       "views": 61840,
+       "conversation_id": "2119240092065866217",
+       "is_quote": false,
+       "urls": [
+        "https://www.koreatimes.co.kr/business/companies/20261107/nvidia-ceos-daughter-cancels-planned-visit-to-korea-sources?prnewsidx=9204b88b-dafd-11f1-953b-02c589f5fd29"
+       ],
+       "author": {
+        "id": "552548889",
+        "screen_name": "koreatimescokr",
+        "name": "The Korea Times",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1115108193896554496/ZF01WGXs_normal.png"
+       }
+      },
+      {
+       "id": "2120755175136665630",
+       "text": "In newly released footage from Bloomberg on their latest trip with Jensen Huang, he is asked about his succession plan at Nvidia:\n\n\u201cThe CEO should be as mentally flexible as possible. You have to hold yourself accountable. You have agency. The pressure of being the CEO is high https://t.co/D9WRiwj8EB",
+       "created_at": "2026-11-12T05:46:50Z",
+       "lang": "en",
+       "likes": 651,
+       "retweets": 27,
+       "replies": 72,
+       "quotes": 2,
+       "bookmarks": 105,
+       "views": 77437,
+       "conversation_id": "2120755175136665630",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1468103131737247748",
+        "screen_name": "amitisinvesting",
+        "name": "amit",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1691241014659301377/yybT0mFC_normal.jpg"
+       }
+      },
+      {
+       "id": "2120666874912338336",
+       "text": "I\u2019ll be her manstress",
+       "created_at": "2026-11-11T23:55:57Z",
+       "lang": "en",
+       "likes": 4758,
+       "retweets": 83,
+       "replies": 94,
+       "quotes": 4,
+       "bookmarks": 63,
+       "views": 71516,
+       "conversation_id": "2120666874912338336",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2452070935",
+        "screen_name": "sircalebhammer",
+        "name": "Caleb Hammer",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2008939849156337664/HMjQ2_k8_normal.jpg"
+       }
+      },
+      {
+       "id": "2120668785502028081",
+       "text": "\ud83d\udea8 BREAKING: Jensen Huang caught upscaling behind his wife's back again https://t.co/KfNkN591J0",
+       "created_at": "2026-11-12T00:03:33Z",
+       "lang": "en",
+       "likes": 4638,
+       "retweets": 342,
+       "replies": 123,
+       "quotes": 57,
+       "bookmarks": 420,
+       "views": 149114,
+       "conversation_id": "2120668785502028081",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1831435289341894656",
+        "screen_name": "IntCyberDigest",
+        "name": "International Cyber Digest",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1831435438562615296/imkSFey2_normal.jpg"
+       }
+      },
+      {
+       "id": "2119950133316219353",
+       "text": "Jika Jensen tumbang maka cewek cantik blasteran ini calon trilliuner berikutnya!\n\nMadison Huang, Senior Director NVIDIA dan putri Jensen Huang, kalau di Indo udah jadi bintang iklan gaes!\n\nBegitu skandal selingkuh bokapnya dengan spy China terkuak, dia gercep. Gossipnya doi ganti https://t.co/w6JTI8uZUK",
+       "created_at": "2026-11-10T00:27:53Z",
+       "lang": "in",
+       "likes": 1276,
+       "retweets": 156,
+       "replies": 33,
+       "quotes": 10,
+       "bookmarks": 417,
+       "views": 257623,
+       "conversation_id": "2119950133316219353",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1765208517236113408",
+        "screen_name": "AnakJakselAI",
+        "name": "AnakJaksel.AI",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1765213808199626752/p_XCeN_H_normal.png"
+       }
+      },
+      {
+       "id": "2120662611272298939",
+       "text": "\u203c\ufe0f BREAKING: Nvidia CEO Jensen Huang had a second affair, this time with Kimberly Powell, vice president of health care.\n\nWe found some photos of her. She is obviously married and has kids...\n\nPoor guy... Poor kids... https://t.co/TEw1egmzSJ",
+       "created_at": "2026-11-11T23:39:01Z",
+       "lang": "en",
+       "likes": 1679,
+       "retweets": 172,
+       "replies": 103,
+       "quotes": 40,
+       "bookmarks": 364,
+       "views": 195470,
+       "conversation_id": "2120662611272298939",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1831435289341894656",
+        "screen_name": "IntCyberDigest",
+        "name": "International Cyber Digest",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1831435438562615296/imkSFey2_normal.jpg"
+       }
+      },
+      {
+       "id": "2120662264567251136",
+       "text": "What happens if Jensen Huang gets FIRED as Nvidia CEO?\n\nNvidia's board is reportedly preparing to remove him, with NO named successor.\n\nA lot more than one job is on the line.\n\n1. Nvidia is the engine of the AI boom.\n\nIt controls an estimated 80% of the AI chip market.\n\nIts data",
+       "created_at": "2026-11-11T23:37:38Z",
+       "lang": "en",
+       "likes": 95,
+       "retweets": 13,
+       "replies": 14,
+       "quotes": 2,
+       "bookmarks": 16,
+       "views": 24204,
+       "conversation_id": "2120662264567251136",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "906230721513181184",
+        "screen_name": "coinbureau",
+        "name": "Coin Bureau",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2079205918093508608/-xApH7AJ_normal.jpg"
+       }
+      },
+      {
+       "id": "2120678880084173022",
+       "text": "If Madison Huang becomes the new Nvidia CEO, will $NVDA gap up?",
+       "created_at": "2026-11-12T00:43:39Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 366,
+       "conversation_id": "2120678880084173022",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "381071318",
+        "screen_name": "liorsela",
+        "name": "Lior",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2028875968816062464/Q-TiYZFO_normal.jpg"
+       }
+      },
+      {
+       "id": "2119867612767109420",
+       "text": "Here's why I don't quite buy the Jensen Huang scandal .And no, I don't exonerate him from anything  \ud83d\udc47\ud83c\udffb\n\n1. The now viral clip online happened in a popular restaurant in Taipei, Taiwan where Madison Huang, Jensen's daughter, Lori Huang,  wife and Spencer Huang, son, were all https://t.co/9UnKxnxPoD",
+       "created_at": "2026-11-09T18:59:58Z",
+       "lang": "en",
+       "likes": 4962,
+       "retweets": 699,
+       "replies": 406,
+       "quotes": 206,
+       "bookmarks": 3623,
+       "views": 2228845,
+       "conversation_id": "2119867612767109420",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2384049668",
+        "screen_name": "KarenFactsLover",
+        "name": "Karen Woods \u6797\u7237",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1581722621120585733/j_B6ap6o_normal.jpg"
+       }
+      },
+      {
+       "id": "2119787271910293636",
+       "text": "Acara NVIDIA di Seoul mendadak ricuh gara-gara pertanyaan soal putri Jensen Huang, sampai petinggi perusahaan memilih kabur lewat pintu belakang.\n\nPada 9 November 2026, acara NVIDIA AI Day Seoul mendadak jadi sorotan setelah Madison Huang, putri sulung Jensen Huang sekaligus",
+       "created_at": "2026-11-09T13:40:44Z",
+       "lang": "in",
+       "likes": 168,
+       "retweets": 22,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 56,
+       "views": 20026,
+       "conversation_id": "2119787271910293636",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1631305271992811520",
+        "screen_name": "zooyeaoh",
+        "name": "mar.",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2063127039469858816/ZLW1IpnZ_normal.jpg"
+       }
+      },
+      {
+       "id": "2120662496897863739",
+       "text": "The likely new Ceo of Nvidia. Madison Huang. https://t.co/Q1PUEqjkmC",
+       "created_at": "2026-11-11T23:38:33Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 216,
+       "conversation_id": "2120662496897863739",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1692712827570499584",
+        "screen_name": "EverIntrigued",
+        "name": "Everintrigued",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1692715049884819456/mplbwauF_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHW6Bt49AJxAKAAMdboG3jz_Y8AgABAAAAAILAAUAAADwRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJRZGF2OUs3WnVBaEIxdU9tRU1tdkVlSFc0TzBSTFhFRGdkYmhIN28xZGh5aDF1SDBsMkZuR2dIV3RJWEwzV3dTd2RiaHRPSUJjUU94MXVHeGdJRzBEQUhXdVRhZzNhOGRrZGJtK1lkWmVnSGgxdUtqU2lGeURlSFc0aEJrNGJnVEVkYXhTZFFoclI0QjF1SVNPMzF3RmVIVzV4aDhKV2tmWWRiaGlvcTVyaHNoMXVTV2w1VmtETkhXa05vckZhSWVrZGJpWGZrWlpnU3gxdUcyakJWbkc3CAAGAAAAAAgABwAAAAAMAAgKAAEdaQ2isVoh6QAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_084356cfdc7d4446acfb6e86da934c6e/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.003493,
+  "tool_cost_usd": 0.01,
+  "frames_fee_usd": 0.002024,
+  "total_cost_usd": 0.015516,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 10492,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 138,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.003493,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x1abf8a0ef5cecfa4d82b6bfac5078ce8515eebd053fb951a92459920cb851763",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x89d92166578a963547d83ec0a94628af86fb09a63c628a73ded94b039a08c76d",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool executed the query but returned no tweets, indicating no content matching the request was found.; class adjudicated seller_error\u2192negative_result: The seller successfully processed the request and explicitly stated that zero tweets matched the provided search criteria.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x6373f21ddf32b26660115cdc338f6d270d653d6dbe184ceb635611daef461631",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x9dc7ca1b70308200a772ca167fcf58a2e3c798a65f908c9914e66e283ff373a7",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x7df638dee691c3409ec498d31fb4083841970ef698fca9ef3e8cb14b3d1da686",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xebb470890e21387c59f96e00e4c32b2b39e84624df1ae8766470a1b7b26fba73",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}

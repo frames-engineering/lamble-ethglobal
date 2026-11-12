@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import test from 'node:test';
 import { createHash } from 'node:crypto';
 import { LAUNCHPADS, NARRATIVES, SNAPSHOT } from '../src/lib/data/snapshots/frames.ts';
@@ -268,14 +268,21 @@ test('creator earnings are recomputed from raw supply-side bodies and stay unkno
 });
 
 test('30-day narrative charts sum raw daily all-pool bars and reconcile with hourly sums', () => {
-  const dailyCalls = readJson(narrativeRun('raw/c2-request.json')).calls;
   const bars = new Map();
-  for (const call of readJson(narrativeRun('raw/c2.json')).result.calls) {
-    for (const [, alias, address, network] of dailyCalls[call.seq].args.query.matchAll(/(q\d+):getTokenBars\(symbol:"(\w+):(\d+)"/g)) {
-      const member = registry.poolUniverse.find((p) => p.address === address && p.networkId === Number(network));
-      if (member) bars.set(member.tokenId, call.body.data[alias]);
+  // c2 holds the daily bars; a c2 call that was not paid (batch cap) is re-requested in a later c batch (c3, c4...), as normalize.py reads it.
+  const retries = readdirSync(narrativeRun('raw')).filter((f) => /^c([3-9]|\d{2,})\.json$/.test(f)).map((f) => f.slice(0, -5));
+  for (const batch of ['c2', ...retries]) {
+    const dailyCalls = readJson(narrativeRun(`raw/${batch}-request.json`)).calls;
+    for (const call of readJson(narrativeRun(`raw/${batch}.json`)).result.calls) {
+      const query = dailyCalls[call.seq].args.query;
+      if (!call.body?.data || !query.includes('resolution:"1D"')) continue;
+      for (const [, alias, address, network] of query.matchAll(/(q\d+):getTokenBars\(symbol:"(\w+):(\d+)"/g)) {
+        const member = registry.poolUniverse.find((p) => p.address === address && p.networkId === Number(network));
+        if (member && !bars.has(member.tokenId)) bars.set(member.tokenId, call.body.data[alias]);
+      }
     }
   }
+  for (const p of registry.poolUniverse) assert(bars.get(p.tokenId), `${p.tokenId} has no daily bars`);
   const zeros = new Set(readJson(narrativeRun('precreation-zero-provenance.json')).filter((z) => z.resolution === '1D').map((z) => `${z.tokenId}:${z.time}`));
   const tokens = new Map(readJson(narrativeRun('tokens.json')).map((t) => [t.id, t]));
   const daily = (tokenId, day) => {
