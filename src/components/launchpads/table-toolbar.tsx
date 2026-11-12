@@ -27,16 +27,16 @@ const CHIP = "h-7 rounded-sm border-line px-3 font-normal aria-pressed:border-tr
 export function TableToolbar({ query, onQuery, chains, onChains, availableChains, tf, onTf }: TableToolbarProps) {
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-between gap-3">
-        <div className="relative min-w-0 flex-1 sm:max-w-64">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="relative min-w-48 flex-1 sm:max-w-64">
           <SearchIcon aria-hidden className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-med" />
-          <Input value={query} onChange={(e) => onQuery(e.target.value)} placeholder="Search launchpads" aria-label="Search launchpads" className="pr-8 pl-9" />
+          <Input value={query} onChange={(e) => onQuery(e.target.value)} placeholder="Search launchpads" aria-label="Search launchpads" enterKeyHint="search" autoCapitalize="none" autoCorrect="off" spellCheck={false} className="pr-8 pl-9" />
           {query && (
             <button
               type="button"
               onClick={() => onQuery("")}
               aria-label="Clear search"
-              className="absolute top-1/2 right-2 grid size-5 -translate-y-1/2 place-items-center rounded-full text-med transition-colors duration-150 before:absolute before:-inset-2 hover:text-high"
+              className="absolute top-1/2 right-2 grid size-5 -translate-y-1/2 place-items-center rounded-full text-med transition-colors duration-150 before:absolute before:-inset-2 pointer-coarse:before:-inset-3 hover:text-high"
             >
               <XIcon aria-hidden className="size-3.5" />
             </button>
@@ -45,8 +45,8 @@ export function TableToolbar({ query, onQuery, chains, onChains, availableChains
         <Segmented label="Timeframe" options={TIMEFRAMES} value={tf} onChange={onTf} />
       </div>
 
-      {/* Phones: one row that scrolls sideways to the screen edge (the -my/py keeps focus rings inside the clip). */}
-      <div className="-mx-5 -my-1 flex items-center gap-1.5 overflow-x-auto px-5 py-1 scrollbar-none md:mx-0 md:my-0 md:flex-wrap md:overflow-visible md:px-0 md:py-0">
+      {/* Phones: one row that scrolls sideways to the screen edge (the -my/py keeps focus rings and the chips' taller hit areas inside the clip). */}
+      <div className="-mx-5 -my-2 flex items-center gap-1.5 overflow-x-auto overscroll-x-contain px-5 py-2 scrollbar-none md:mx-0 md:my-0 md:flex-wrap md:overflow-visible md:px-0 md:py-0">
         <Toggle variant="outline" pressed={chains.length === 0} onPressedChange={() => onChains([])} className={CHIP}>
           All chains
         </Toggle>

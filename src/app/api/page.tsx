@@ -8,6 +8,7 @@ import { CopyBlock } from "@/components/research/client";
 import { ExternalLink } from "@/components/research/links";
 import { Note, PageHeader, Panel, Section } from "@/components/research/panel";
 import { buttonVariants } from "@/components/ui/button";
+import { InfoTip } from "@/components/ui/info-tip";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { apiPaths } from "@/lib/lamble/api/paths";
 import { displayPrice } from "@/lib/lamble/api/prices";
@@ -154,8 +155,9 @@ If no LAMBLE tool is listed, stop and tell me. Do not substitute another provide
                       {r.access === "free" ? (
                         <span className="text-med">Free</span>
                       ) : !sellable ? (
-                        <span className="text-low" title="Main content derives from sources whose redistribution rights are not reviewed; the endpoint answers 403.">
+                        <span className="inline-flex items-center gap-1.5 text-low">
                           Not for sale yet
+                          <InfoTip label="Why this endpoint is not for sale yet">Main content derives from sources whose redistribution rights are not reviewed; the endpoint answers 403.</InfoTip>
                         </span>
                       ) : price ? (
                         <>

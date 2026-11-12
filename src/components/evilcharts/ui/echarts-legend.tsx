@@ -99,30 +99,44 @@ export function LegendOverlay({
   style,
 }: LegendOverlayProps) {
   const legendJustify =
-    align === "left" ? "justify-start" : align === "center" ? "justify-center" : "justify-end";
+    align === "left"
+      ? "justify-start"
+      : align === "center"
+        ? "justify-center"
+        : "justify-start sm:justify-end"; // LAMBLE: left-aligned where it wraps
 
+  // LAMBLE: the row wraps on narrow screens, and clickable entries are real
+  // buttons whose -mx-2/px-2 hit areas meet their neighbours' without overlap.
   return (
-    <div style={style} className={`flex items-center gap-4 select-none ${legendJustify}`}>
+    <div style={style} className={`flex flex-wrap items-center gap-x-4 select-none ${legendJustify}`}>
       {seriesKeys.map((key) => {
         const item = config[key];
         const colorsCount = item ? getColorsCount(item) : 1;
         const isSelected =
           (selectedKey === null || selectedKey === key) &&
           (hoveredKey === null || hoveredKey === key);
-        return (
-          // No entrance here — the Recharts legend appears instantly, and a
-          // fade-in reads as disconnected from the canvas draw-in.
-          <div
-            key={key}
-            className={`flex items-center gap-1.5 transition-opacity ${
-              !isSelected ? "opacity-30" : ""
-            } ${isClickable ? "cursor-pointer" : ""}`}
-            onClick={() => {
-              if (isClickable) onToggle(key);
-            }}
-          >
+        const content = (
+          <>
             <LegendIndicator variant={variant} dataKey={key} colorsCount={colorsCount} />
             {item?.label}
+          </>
+        );
+        const dim = !isSelected ? "opacity-30" : "";
+        // No entrance here — the Recharts legend appears instantly, and a
+        // fade-in reads as disconnected from the canvas draw-in.
+        return isClickable ? (
+          <button
+            key={key}
+            type="button"
+            aria-pressed={selectedKey === key}
+            onClick={() => onToggle(key)}
+            className={`-mx-2 flex min-h-6 cursor-pointer items-center gap-1.5 rounded-sm px-2 whitespace-nowrap transition-opacity outline-none focus-visible:ring-2 focus-visible:ring-ring pointer-coarse:min-h-11 ${dim}`}
+          >
+            {content}
+          </button>
+        ) : (
+          <div key={key} className={`flex min-h-6 items-center gap-1.5 whitespace-nowrap transition-opacity ${dim}`}>
+            {content}
           </div>
         );
       })}

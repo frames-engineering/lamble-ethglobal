@@ -5,10 +5,11 @@ import { cn } from "cn"
 /**
  * Button, tuned to the token system (docs/design/overhaul-2026-11.md):
  * primary = white on the dark page (ink in light), outline = hairline border, ghost for icons; all 3px corners,
- * sizes 32 / 36 / 40px, weight 500, hover opacity .9, a 0.96 press.
+ * sizes 32 / 36 / 40px, weight 500, hover opacity .9, a 0.96 press. On touch screens a 44px-tall pseudo-element
+ * extends the hit area without changing the look.
  */
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap border border-transparent text-sm font-medium transition-[background-color,color,opacity,border-color,box-shadow,scale] duration-150 ease-out outline-none select-none focus-visible:ring-1 focus-visible:ring-focus active:not-disabled:scale-[0.96] disabled:pointer-events-none disabled:opacity-80 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button relative inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap border border-transparent text-sm font-medium transition-[background-color,color,opacity,border-color,box-shadow,scale] duration-150 ease-out outline-none select-none focus-visible:ring-1 focus-visible:ring-focus active:not-disabled:scale-[0.96] disabled:pointer-events-none disabled:opacity-80 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 pointer-coarse:before:absolute pointer-coarse:before:inset-x-0 pointer-coarse:before:top-1/2 pointer-coarse:before:h-11 pointer-coarse:before:-translate-y-1/2",
   {
     variants: {
       variant: {

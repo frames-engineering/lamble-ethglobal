@@ -39,6 +39,8 @@ export const LAMBLE_CHART = {
   tooltipRoundness: "sm" as const,
   legendVariant: "square" as const,
   animation: false, // charts render in place; no wipes or staggered grow-ins
+  legendInFlow: true, // a top legend sits above the canvas and wraps, instead of overlaying the plot
+  axisHideOverlap: true, // category labels that would collide are dropped, even with an explicit interval
 } as const;
 
 // Theme selectors mirror the repo's <ChartStyle>: light is the bare root, dark is `.dark`.

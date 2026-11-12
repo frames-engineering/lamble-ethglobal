@@ -77,6 +77,25 @@ navigation that should look like a button (Base UI's `nativeButton={false}` woul
 `Badge` (status labels), `Segmented` (`ui/segmented`, two or three views of one thing), `InfoTip`
 (`ui/info-tip`, scope notes beside a figure's label), `MoreLink` (a section's onward link).
 
+## Phones
+
+- **Hit areas:** 44px on touch, visuals unchanged. Extend with a pseudo-element (`before:absolute before:-inset-*`),
+  scoped to `pointer-coarse:` when the extension would crowd a desktop layout. `Button` and `Toggle` already do it;
+  drawer rows are `h-11 lg:h-9`.
+- **Pressed state:** `globals.css` dims links, buttons and tabs to 0.6 while pressed on touch screens (zero
+  specificity, so a component's own `:active` wins) and turns off the grey tap flash. Don't add per-component
+  tap highlights.
+- **Safe areas:** the viewport is `viewport-fit=cover`; use `--safe-t/r/b/l` (from `env(safe-area-inset-*)`) on
+  anything fixed to a screen edge: the body pads left and right, sheets and the drawer pad their own edges.
+- **Status bar:** pinned along the bottom from `lg`; below that it's an ordinary strip at the end of the page
+  that wraps instead of truncating.
+- **Horizontal scrollers** take `overscroll-x-contain`, and keep the active item in view by scrolling the row
+  itself (`row.scrollTo`), never `scrollIntoView`, which can move the page.
+- **Hover-only content:** nothing a reader needs lives in a `title` attribute or a `Tooltip`. Use `InfoTip`,
+  which opens on tap (pass `trigger` to open it from icons other than the ⓘ).
+- **Inputs:** 16px on phones; search fields get `enterKeyHint="search"`, no autocapitalize, autocorrect or
+  spellcheck; number fields get `inputMode`.
+
 ## Shapes and motion
 
 One radius for every component: `rounded-sm` (3px, almost square), on cards, tables, key-figure grids,

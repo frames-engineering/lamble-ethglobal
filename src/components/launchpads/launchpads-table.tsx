@@ -92,7 +92,7 @@ export function LaunchpadsTable({ launchpads }: { launchpads: Launchpad[] }) {
                         <button
                           type="button"
                           onClick={() => toggleSort(c.id)}
-                          className={cn("inline-flex items-center gap-1 whitespace-nowrap transition-colors duration-150 select-none hover:text-high focus-visible:text-high focus-visible:underline focus-visible:outline-none", sorted && "text-high")}
+                          className={cn("relative inline-flex items-center gap-1 whitespace-nowrap transition-colors before:absolute before:-inset-x-1.5 before:-inset-y-2 pointer-coarse:before:-inset-y-3.5 duration-150 select-none hover:text-high focus-visible:text-high focus-visible:underline focus-visible:outline-none", sorted && "text-high")}
                         >
                           {sorted && (sort.dir === "desc" ? <ArrowDownIcon className="size-3" aria-hidden /> : <ArrowUpIcon className="size-3" aria-hidden />)}
                           <span>{label}</span>

@@ -4,7 +4,7 @@ import { ChainStack } from "@/components/brand/chain-mark";
 import { LetterMark } from "@/components/brand/letter-mark";
 import { Sparkline } from "@/components/charts/sparkline";
 import { Change, money } from "@/components/overview/format";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { InfoTip } from "@/components/ui/info-tip";
 import { chainInfo } from "@/lib/data/chains";
 import type { Launchpad, Timeframe } from "@/lib/data/types";
 import { int, percent } from "@/lib/format";
@@ -76,16 +76,19 @@ export const COLUMNS: Column[] = [
       <div className="flex items-center gap-2.5">
         <LetterMark name={row.name} color={row.brandColor} size={24} src={row.logoSrc} />
         <span className="font-medium whitespace-nowrap text-high">{row.name}</span>
-        <Tooltip>
-          <TooltipTrigger render={<span className="inline-flex cursor-help" />}>
-            {row.chains.length ? (
+        {/* A popover, not a tooltip, so a tap shows the chain names on phones. */}
+        <InfoTip
+          label={row.chains.length ? `Chains: ${row.chains.map((c) => chainInfo(c).name).join(", ")}` : "Chains unverified"}
+          trigger={
+            row.chains.length ? (
               <ChainStack chains={row.chains} max={3} size={16} className="*:data-[slot=avatar]:ring-background" />
             ) : (
               <span className="text-xs text-med">chains unverified</span>
-            )}
-          </TooltipTrigger>
-          <TooltipContent>{row.chains.map((c) => chainInfo(c).name).join(" · ") || "Supported chains not verified; see financial coverage in details"}</TooltipContent>
-        </Tooltip>
+            )
+          }
+        >
+          {row.chains.map((c) => chainInfo(c).name).join(" · ") || "Supported chains not verified; see financial coverage in details"}
+        </InfoTip>
       </div>
     ),
   },

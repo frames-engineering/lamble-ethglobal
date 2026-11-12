@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -10,6 +10,18 @@ import { cn } from "@/lib/utils";
  */
 export function SectionTabs({ sections, className }: { sections: readonly (readonly [id: string, label: string])[]; className?: string }) {
   const [active, setActive] = useState(sections[0]?.[0] ?? "");
+  const list = useRef<HTMLUListElement>(null);
+
+  // On phones the row scrolls sideways: keep the current tab in view. Scrolls the row only, never the page.
+  useEffect(() => {
+    const row = list.current;
+    const tab = row?.querySelector<HTMLElement>('[aria-current="location"]');
+    if (!row || !tab) return;
+    const left = tab.offsetLeft - row.offsetLeft;
+    if (left < row.scrollLeft || left + tab.offsetWidth > row.scrollLeft + row.clientWidth) {
+      row.scrollTo({ left: Math.max(0, left - 24), behavior: "smooth" });
+    }
+  }, [active]);
 
   useEffect(() => {
     let frame = 0;
@@ -39,8 +51,8 @@ export function SectionTabs({ sections, className }: { sections: readonly (reado
     // Sticky against the page column: render it as a direct child of the Container, never inside a wrapper
     // that ends with it, or there is nowhere to stick. Its rule spans the content column, like the sections
     // under it, never the gutters.
-    <nav aria-label="On this page" className={cn("sticky top-14 z-20 border-b border-line bg-background lg:top-0", className)}>
-      <ul className="flex h-12 items-stretch gap-6 overflow-x-auto scrollbar-none">
+    <nav aria-label="On this page" data-section-tabs className={cn("sticky top-14 z-20 border-b border-line bg-background lg:top-0", className)}>
+      <ul ref={list} className="relative flex h-12 items-stretch gap-6 overflow-x-auto overscroll-x-contain scrollbar-none">
         {sections.map(([id, label]) => (
           <li key={id} className="flex">
             <a

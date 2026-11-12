@@ -96,12 +96,12 @@ export default function OverviewPage() {
               label="Launchpads tracked"
               sub={
                 stats.launchpads.hottest && (
-                  <span className="inline-flex items-center gap-1.5">
-                    Hottest:
+                  <span className="flex max-w-full min-w-0 items-center gap-1.5">
+                    <span className="shrink-0">Hottest:</span>
                     {stats.launchpads.hottest.logo && (
-                      <Image src={stats.launchpads.hottest.logo} alt="" width={14} height={14} unoptimized className="size-3.5 rounded-xs outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10" />
+                      <Image src={stats.launchpads.hottest.logo} alt="" width={14} height={14} unoptimized className="size-3.5 shrink-0 rounded-xs outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10" />
                     )}
-                    <Link href={stats.launchpads.hottest.href} className={HOTTEST}>
+                    <Link href={stats.launchpads.hottest.href} className={`min-w-0 truncate ${HOTTEST}`}>
                       {stats.launchpads.hottest.name}
                     </Link>
                   </span>
@@ -114,10 +114,10 @@ export default function OverviewPage() {
               label="Coins tracked"
               sub={
                 stats.coins.hottest && (
-                  <span className="inline-flex items-center gap-1.5">
-                    Hottest:
+                  <span className="flex max-w-full min-w-0 items-center gap-1.5">
+                    <span className="shrink-0">Hottest:</span>
                     <ChainMark chain={stats.coins.hottest.chain as ChainId} size={13} />
-                    <Link href={coinHref(stats.coins.hottest.chain, stats.coins.hottest.address)} className={HOTTEST}>
+                    <Link href={coinHref(stats.coins.hottest.chain, stats.coins.hottest.address)} className={`min-w-0 truncate ${HOTTEST}`}>
                       {stats.coins.hottest.symbol}
                     </Link>
                   </span>

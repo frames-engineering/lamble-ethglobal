@@ -46,11 +46,15 @@ component isn't needed.
 
 - **Grid:** horizontal hairlines only, solid, in the border token. No vertical grid, no axis lines, no tick dots.
 - **Axis labels:** Geist Mono 11px in muted ink. Y labels are compact (`$3.3M`). X labels: one per UTC day on
-  hourly data, and one a week (counted back from the latest day) on daily data longer than two weeks.
+  hourly data, and one a week (counted back from the latest day) on daily data longer than two weeks. Labels
+  that would still collide (a phone-width chart) are dropped (`hideOverlap`).
 - **Tooltip:** a solid 1px crosshair on time charts, and a card with the period, square swatches, labels in
   muted ink and figures in mono. Figures carry one more digit than the axis (`$3.29M` against `$3.3M`).
-- **Legend:** only with two or more series, with square swatches at the top right. On stacked charts it's
-  clickable to single out one entity. A single series has no legend: the panel heading names it.
+- **Legend:** only with two or more series, with square swatches, in its own row above the canvas: right-aligned
+  on one line on desktop, left-aligned and wrapping on phones, so it never covers the plot or runs off the edge.
+  On stacked charts its entries are buttons (`aria-pressed`, 44px tall on touch) that single out one entity.
+  Charts with a legend get a taller box on phones (`h-88 sm:h-72`) so the wrapped rows don't eat the plot. A
+  single series has no legend: the panel heading names it.
 
 ## Color
 
@@ -98,7 +102,9 @@ The files in `src/components/evilcharts` came from the `@evilcharts` registry an
 marked `LAMBLE`:
 
 - `LAMBLE_CHART` defaults: stroke width and variant, area wash, bar radius, stack gap, grid line, tick dots,
-  axis font and size, tooltip roundness, legend variant, animation.
+  axis font and size, tooltip roundness, legend variant, animation, `legendInFlow` (a top legend is a static
+  row above the canvas instead of an overlay, and the grid drops its 42px band) and `axisHideOverlap`.
+- The legend (`ui/echarts-legend.tsx`) wraps, and clickable entries are `<button>`s.
 - `resolveColors` returns `fontMono`, because canvas text can't read CSS variables.
 - The tooltip has square swatches, `shadow-md` and a solid 1px crosshair.
 - Charts redraw on `data-theme` changes and take a `valueFormatter`, and the area chart takes `XAxis

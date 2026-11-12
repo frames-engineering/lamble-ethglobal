@@ -155,11 +155,22 @@
   * {
     @apply border-border outline-ring/50;
   }
+  :root {
+    /* Safe-area insets (notch, home indicator) once viewport-fit=cover is on; 0 elsewhere. */
+    --safe-t: env(safe-area-inset-top, 0px);
+    --safe-r: env(safe-area-inset-right, 0px);
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-l: env(safe-area-inset-left, 0px);
+  }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* No grey flash on tap (touch feedback comes from the pressed state below), no font inflation in landscape. */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   body {
     @apply bg-background text-foreground;
@@ -167,13 +178,37 @@
     /* Research text carries long unbroken identifiers (addresses, episode and release ids). */
     overflow-wrap: break-word;
   }
-  /* Clears the sticky phone bar (and the overview's section tabs); on desktop only the tabs. */
-  section[id] {
-    scroll-margin-top: 7rem;
+  /* No double-tap-zoom wait on controls. Pull-to-refresh stays: this is a scrolling document. */
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  summary,
+  [role="tab"],
+  [role="button"] {
+    touch-action: manipulation;
   }
-  @media (min-width: 64rem) {
-    section[id] {
-      scroll-margin-top: 4.5rem;
+  /* A long press on a control shouldn't select its label. Links and text stay selectable. */
+  button,
+  [role="tab"] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  /* Touch-only pressed state, at zero specificity so any component's own :active wins. */
+  @media (hover: none) {
+    :where(a, button, summary, [role="tab"], [role="button"]):active {
+      opacity: 0.6;
+    }
+  }
+  /* Clears the sticky phone bar, plus the section tabs on pages that have them; on desktop only the tabs. */
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+  @media (max-width: 63.999rem) {
+    html:has([data-section-tabs]) section[id] {
+      scroll-margin-top: 7rem;
     }
   }
   ::selection {

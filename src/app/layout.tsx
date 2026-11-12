@@ -7,6 +7,7 @@ import "./globals.css";
 import { SiteFooter } from "@/components/layout/footer";
 import { MobileBar, Sidebar } from "@/components/layout/sidebar";
 import { StatusBar } from "@/components/layout/status-bar";
+import { ThemeColor } from "@/components/layout/theme-color";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NotFound, loadRelease } from "@/lib/lamble/service";
 import { SITE_URL } from "@/lib/links";
@@ -46,12 +47,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/", types: { "application/rss+xml": "/research/feed.xml", "application/atom+xml": "/research/atom.xml" } },
   openGraph: { title: "LAMBLE — Trenches research", description, siteName: "LAMBLE", type: "website" },
   twitter: { card: "summary_large_image", title: "LAMBLE — Trenches research", description },
+  // Prices, supplies and timestamps are digit runs iOS would otherwise turn into phone and date links.
+  formatDetection: { telephone: false, date: false, address: false, email: false },
 };
 
 export const viewport: Viewport = {
   themeColor: "#0e0e0d",
   width: "device-width",
   initialScale: 1,
+  // Edge to edge on notched phones; the --safe-* insets keep content clear.
+  viewportFit: "cover",
 };
 
 /** The published release's cutoff for the status bar; absent until a release exists. */
@@ -67,16 +72,17 @@ function dataCutoff(): string | null {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${geistPixel.variable} h-full`}>
-      <body className="min-h-full [--status-h:2.25rem]">
+      <body className="min-h-full pr-(--safe-r) pl-(--safe-l) [--status-h:calc(2.25rem+var(--safe-b))]">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          <ThemeColor />
           <TooltipProvider delay={150}>
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-surface-3 focus:px-3 focus:py-2 focus:text-sm">
               Skip to content
             </a>
             <div className="flex min-h-svh">
               <Sidebar />
-              {/* Bottom padding keeps the last line of every page clear of the fixed status bar. */}
-              <div className="flex min-w-0 flex-1 flex-col pb-(--status-h)">
+              {/* Bottom padding keeps the last line of every page clear of the status bar, fixed from lg up. */}
+              <div className="flex min-w-0 flex-1 flex-col lg:pb-(--status-h)">
                 <MobileBar />
                 <main id="main" className="flex-1">
                   {children}

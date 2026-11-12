@@ -104,7 +104,7 @@ export function HistoryChart({
         xDataKey="day"
         stackType={view === "share" ? "percent" : "stacked"}
         valueFormatter={view === "share" ? share : fmt}
-        className={range ? "h-96" : "h-72 md:h-80"}
+        className={range ? "h-104 sm:h-96" : "h-88 sm:h-72 md:h-80"}
       >
         <EChartsBarChart.Grid />
         <EChartsBarChart.XAxis dataKey="day" tickFormatter={(v) => tick(v.split(SEP)[0] ?? v, latestYear)} />

@@ -836,7 +836,8 @@ function buildChartLayout({
     grid: {
       left: 8,
       right: 8,
-      top: legendTop ? 42 : 16,
+      // LAMBLE: an in-flow legend takes its own row, so the plot needs no band for it
+      top: legendTop && !LAMBLE_CHART.legendInFlow ? 42 : 16,
       bottom: 8 + brushGap + (legendBottom ? 34 : 0),
     },
     brushBottom: legendBottom ? 34 : 6,
@@ -912,6 +913,7 @@ function buildMainAxes(ctx: OptionBuildContext): { xAxis: XAxisOption; yAxis: YA
       color: axisLabelColor,
       fontFamily: tokens.fontMono,
       fontSize: LAMBLE_CHART.axisFontSize,
+      hideOverlap: LAMBLE_CHART.axisHideOverlap,
       margin: 8,
       formatter: catFormatter
         ? (value: string, index: number) => catFormatter(value, index)
@@ -2155,7 +2157,11 @@ export function EChartsBarChart<TData extends Record<string, unknown>>({
 
   // ── Legend overlay position ──────────────────────────────────────────────────
   // Insets match the Recharts legend's breathing room inside the plot frame.
-  const legendStyle: CSSProperties = {
+  // LAMBLE: with legendInFlow a top legend is a flex row above the canvas, so it
+  // wraps on narrow screens and can never cover the plot.
+  const legendStyle: CSSProperties = LAMBLE_CHART.legendInFlow && legendSlot.verticalAlign === "top"
+    ? { position: "static", order: -1, flexShrink: 0, padding: "8px 16px 0" }
+    : {
     position: "absolute",
     left: 16,
     right: 16,

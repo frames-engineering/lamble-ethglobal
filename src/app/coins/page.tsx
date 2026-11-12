@@ -102,7 +102,7 @@ export default async function CoinsPage({ searchParams }: { searchParams: Promis
       <form method="get" role="search" aria-label="Filter coins" className="mt-8 grid gap-x-3 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
         <label className={labelClass}>
           Search
-          <Input name="q" defaultValue={f.q ?? ""} placeholder="Symbol, name or address" />
+          <Input name="q" defaultValue={f.q ?? ""} placeholder="Symbol, name or address" enterKeyHint="search" autoCapitalize="none" autoCorrect="off" spellCheck={false} />
         </label>
         <label className={labelClass}>
           Chain
@@ -150,11 +150,11 @@ export default async function CoinsPage({ searchParams }: { searchParams: Promis
         </label>
         <label className={labelClass}>
           Minimum liquidity (USD)
-          <Input name="minLiquidity" type="number" min={0} step="any" defaultValue={f.minLiquidity ?? ""} />
+          <Input name="minLiquidity" type="number" inputMode="decimal" min={0} step="any" defaultValue={f.minLiquidity ?? ""} />
         </label>
         <label className={labelClass}>
           Created within (days)
-          <Input name="maxAgeDays" type="number" min={0} step={1} defaultValue={f.maxAgeDays ?? ""} />
+          <Input name="maxAgeDays" type="number" inputMode="numeric" min={0} step={1} defaultValue={f.maxAgeDays ?? ""} />
         </label>
         <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-end gap-2">
           <label className={labelClass}>

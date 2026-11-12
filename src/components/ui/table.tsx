@@ -9,7 +9,7 @@ import { cn } from "cn"
  */
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
-    <div data-slot="table-container" className="relative w-full overflow-x-auto">
+    <div data-slot="table-container" className="relative w-full overflow-x-auto overscroll-x-contain">
       <table
         data-slot="table"
         className={cn("min-w-full border-collapse text-sm leading-[1.5] font-normal text-high", className)}

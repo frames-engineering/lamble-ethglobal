@@ -314,8 +314,11 @@ export default async function EditionPage({ params, searchParams }: { params: Pr
                     <Change value={v.feesChangePct} />
                   </TableCell>
                   <TableCell className={FIG}>{share(v.shareOfSubtotal)}</TableCell>
-                  <TableCell className={FIG} title={v.creatorEarningsDefinition ?? undefined}>
-                    {money(v.creatorEarnings)}
+                  <TableCell className={FIG}>
+                    <span className="inline-flex items-center gap-1.5">
+                      {money(v.creatorEarnings)}
+                      {v.creatorEarningsDefinition && <InfoTip label={`How ${v.name} creator earnings are defined`}>{v.creatorEarningsDefinition}</InfoTip>}
+                    </span>
                   </TableCell>
                 </TableRow>
               ))}

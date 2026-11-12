@@ -43,8 +43,10 @@ export function StatusBar({ cutoff }: { cutoff: string | null }) {
   const untilNext = now !== null && known ? cut + CADENCE_MS - now : null;
 
   return (
-    // Starts where the 240px sidebar ends (lg:left-60), so it only ever spans the content column.
-    <footer className="fixed right-0 bottom-0 left-0 z-30 flex h-(--status-h) items-center justify-between gap-4 border-t border-line bg-background px-3 text-xs text-med lg:left-60 lg:px-4">
+    // Desktop: pinned, starting where the 240px sidebar ends (lg:left-60) so it only spans the content column.
+    // Below lg it is an ordinary strip at the end of the page that wraps instead of truncating, so it never
+    // squeezes a phone screen. Its bottom padding clears the home indicator either way.
+    <footer className="z-30 flex items-center justify-between gap-x-4 border-t border-line bg-background px-3 text-xs text-med max-lg:min-h-11 max-lg:flex-wrap max-lg:gap-y-2 max-lg:pt-2 max-lg:pb-[calc(0.5rem+var(--safe-b))] lg:fixed lg:right-0 lg:bottom-0 lg:left-60 lg:h-(--status-h) lg:px-4 lg:pb-(--safe-b)">
       <div className="flex min-w-0 items-center gap-4 self-stretch tabular-nums">
         {live && (
           // The dot alone says it; the word stays for screen readers. It sits a step closer to the text it qualifies.
@@ -66,7 +68,7 @@ export function StatusBar({ cutoff }: { cutoff: string | null }) {
         )}
       </div>
       <div className="flex shrink-0 items-center gap-4 self-stretch">
-        <div className="-mx-1 flex items-center">
+        <div className="-mx-1 flex items-center max-lg:mx-0 max-lg:gap-5">
           <Social href={TELEGRAM_URL} label="Frames on Telegram" path={TELEGRAM} />
           <Social href={X_URL} label="Frames on X" path={X} />
         </div>
@@ -77,7 +79,7 @@ export function StatusBar({ cutoff }: { cutoff: string | null }) {
           href={FRAMES_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 transition-colors duration-150 hover:text-high"
+          className="flex items-center gap-1.5 transition-colors duration-150 hover:text-high max-lg:min-h-11"
         >
           <span className="hidden sm:inline">Powered by</span>
           <FramesMark className="size-3.5 rounded-xs" />
@@ -102,7 +104,7 @@ function Social({ href, label, path }: { href: string; label: string; path: stri
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${label} (opens in a new tab)`}
-      className="flex size-6 items-center justify-center rounded-xs text-med transition-colors duration-150 outline-none hover:text-high focus-visible:ring-1 focus-visible:ring-focus"
+      className="relative flex size-6 items-center justify-center rounded-xs text-med max-lg:before:absolute max-lg:before:-inset-2.5 transition-colors duration-150 outline-none hover:text-high focus-visible:ring-1 focus-visible:ring-focus"
     >
       <svg aria-hidden viewBox="0 0 24 24" className="size-3.5 fill-current">
         <path d={path} />
@@ -133,7 +135,7 @@ function ThemeSwitch() {
             aria-label={label}
             onClick={() => setTheme(value)}
             className={cn(
-              "flex size-5 items-center justify-center rounded-xs transition-colors duration-150 outline-none focus-visible:ring-1 focus-visible:ring-focus",
+              "relative flex size-5 items-center justify-center rounded-xs transition-colors max-lg:size-8 max-lg:before:absolute max-lg:before:inset-x-0 max-lg:before:-inset-y-1.5 duration-150 outline-none focus-visible:ring-1 focus-visible:ring-focus",
               active ? "bg-surface-3 text-high" : "text-low hover:text-high",
             )}
           >

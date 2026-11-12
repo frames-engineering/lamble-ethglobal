@@ -46,7 +46,7 @@ export function FeesChart({ series, days }: { series: FeeSeries[]; days: FeeDay[
 
   return (
     <figure>
-      <EChartsBarChart data={rows} config={config} xDataKey="day" stackType="stacked" valueFormatter={chartMoney} className="h-72 md:h-80">
+      <EChartsBarChart data={rows} config={config} xDataKey="day" stackType="stacked" valueFormatter={chartMoney} className="h-88 sm:h-72 md:h-80">
         <EChartsBarChart.Grid />
         <EChartsBarChart.XAxis dataKey="day" tickFormatter={(v) => v.split(SEP)[0] ?? v} />
         <EChartsBarChart.YAxis tickFormatter={(v) => compactUsd(Number(v))} />

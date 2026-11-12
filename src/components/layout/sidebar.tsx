@@ -84,7 +84,7 @@ function Group({ label, icon: Icon, links, pathname, onNavigate }: (typeof GROUP
   const id = useId();
   return (
     <div>
-      <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)} className={cn(ITEM, IDLE, "h-9 w-full")}>
+      <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)} className={cn(ITEM, IDLE, "h-11 w-full lg:h-9")}>
         <Icon aria-hidden className="size-4 shrink-0" />
         <span className="flex-1 text-left">{label}</span>
         <ChevronDownIcon aria-hidden className={cn("size-4 shrink-0 transition-transform duration-150 ease-out", open && "rotate-180")} />
@@ -94,7 +94,7 @@ function Group({ label, icon: Icon, links, pathname, onNavigate }: (typeof GROUP
           const current = !href.includes("#") && isActive(pathname, href);
           return (
             <li key={href}>
-              <NavLink href={href} onNavigate={onNavigate} current={current} className={cn(ITEM, "h-8", current ? "bg-active text-high" : IDLE)}>
+              <NavLink href={href} onNavigate={onNavigate} current={current} className={cn(ITEM, "h-11 lg:h-8", current ? "bg-active text-high" : IDLE)}>
                 {text}
               </NavLink>
             </li>
@@ -115,13 +115,13 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
           <Logo className="h-3.5" />
         </Link>
       </div>
-      <nav aria-label="Primary" className="min-h-0 flex-1 overflow-y-auto px-2 pb-4">
+      <nav aria-label="Primary" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 pb-4">
         <ul className="flex flex-col gap-0.5">
           {PRIMARY.map(({ href, label, icon: Icon }) => {
             const current = isActive(pathname, href);
             return (
               <li key={href}>
-                <Link href={href} onClick={onNavigate} aria-current={current ? "page" : undefined} className={cn(ITEM, "h-9 font-medium", current ? "bg-active text-high" : IDLE)}>
+                <Link href={href} onClick={onNavigate} aria-current={current ? "page" : undefined} className={cn(ITEM, "h-11 font-medium lg:h-9", current ? "bg-active text-high" : IDLE)}>
                   <Icon aria-hidden className="size-4 shrink-0" />
                   {label}
                 </Link>
@@ -174,7 +174,7 @@ export function MobileBar() {
   const [open, setOpen] = useState(false);
   return (
     <div className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-background px-5 lg:hidden">
-      <Link href="/" aria-label="LAMBLE home" className="flex items-center">
+      <Link href="/" aria-label="LAMBLE home" className="relative flex items-center before:absolute before:-inset-x-2 before:-inset-y-4">
         <Logo className="h-3" />
       </Link>
       <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -183,9 +183,9 @@ export function MobileBar() {
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 z-40 bg-overlay transition-opacity duration-200 ease-out data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 motion-reduce:transition-none" />
-          <Dialog.Popup className="fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] bg-surface-1 text-sm text-high outline-none transition-transform duration-250 ease-[cubic-bezier(0.32,0.72,0,1)] data-[ending-style]:-translate-x-full data-[ending-style]:duration-200 data-[starting-style]:-translate-x-full motion-reduce:transition-none">
+          <Dialog.Popup className="fixed inset-y-0 left-0 z-50 w-[calc(18rem+var(--safe-l))] max-w-[85vw] bg-surface-1 pt-(--safe-t) pb-(--safe-b) pl-(--safe-l) text-sm text-high outline-none transition-transform duration-250 ease-[cubic-bezier(0.32,0.72,0,1)] data-[ending-style]:-translate-x-full data-[ending-style]:duration-200 data-[starting-style]:-translate-x-full motion-reduce:transition-none">
             <Dialog.Title className="sr-only">Menu</Dialog.Title>
-            <Dialog.Close aria-label="Close menu" className="absolute top-1.5 right-1.5 flex size-11 items-center justify-center rounded-md text-med hover:text-high">
+            <Dialog.Close aria-label="Close menu" className="absolute top-[calc(0.375rem+var(--safe-t))] right-1.5 flex size-11 items-center justify-center rounded-md text-med hover:text-high">
               <XIcon aria-hidden className="size-5" />
             </Dialog.Close>
             <SidebarBody onNavigate={() => setOpen(false)} />

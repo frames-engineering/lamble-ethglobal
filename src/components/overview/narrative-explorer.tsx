@@ -2,7 +2,7 @@
 
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
-import { type KeyboardEvent, useId, useRef, useState } from "react";
+import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 
 import { ChainMark } from "@/components/brand/chain-mark";
 import { Sparkline } from "@/components/charts/sparkline";
@@ -31,7 +31,18 @@ export function NarrativeExplorer({ narratives }: { narratives: FeaturedNarrativ
   const [range, setRange] = useState<(typeof RANGES)[number][0]>("7d");
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const base = useId();
+  const list = useRef<HTMLDivElement>(null);
   const n = narratives[selected];
+
+  // Below lg the tab list scrolls sideways: bring the selected tab into view. Scrolls the list only, never the
+  // page (scrollIntoView would).
+  useEffect(() => {
+    const row = list.current;
+    const tab = tabs.current[selected];
+    if (!row || !tab || row.scrollWidth <= row.clientWidth) return;
+    const left = tab.getBoundingClientRect().left - row.getBoundingClientRect().left + row.scrollLeft;
+    if (left < row.scrollLeft || left + tab.offsetWidth > row.scrollLeft + row.clientWidth) row.scrollTo({ left, behavior: "smooth" });
+  }, [selected]);
   if (!n) return null;
 
   function onKey(e: KeyboardEvent<HTMLButtonElement>, i: number) {
@@ -49,7 +60,7 @@ export function NarrativeExplorer({ narratives }: { narratives: FeaturedNarrativ
 
   return (
     <div className="overflow-hidden rounded-sm border border-line lg:grid lg:grid-cols-[minmax(0,18.5rem)_minmax(0,1fr)]">
-      <div role="tablist" aria-label="Trending narratives" aria-orientation="vertical" className="flex overflow-x-auto border-b border-line scrollbar-none lg:flex-col lg:overflow-visible lg:border-r lg:border-b-0">
+      <div role="tablist" aria-label="Trending narratives" aria-orientation="vertical" ref={list} className="flex snap-x snap-proximity overflow-x-auto overscroll-x-contain border-b border-line scrollbar-none lg:snap-none lg:flex-col lg:overflow-visible lg:border-r lg:border-b-0">
         {narratives.map((x, i) => {
           const on = i === selected;
           return (
@@ -68,7 +79,7 @@ export function NarrativeExplorer({ narratives }: { narratives: FeaturedNarrativ
               onKeyDown={(e) => onKey(e, i)}
               // The leading 32px is the status spine's (20px) and its gap. The selected row's bar sits on the edge that
               // meets the panel on desktop, leaving the leading edge to the spine.
-              className={`relative flex w-64 shrink-0 flex-col border-r border-line py-3.5 pr-4 pl-8 text-left transition-colors duration-150 last:border-r-0 lg:w-auto lg:border-r-0 lg:border-b lg:last:border-b-0 ${
+              className={`relative flex w-64 shrink-0 snap-start flex-col border-r border-line py-3.5 pr-4 pl-8 text-left transition-colors duration-150 last:border-r-0 lg:w-auto lg:border-r-0 lg:border-b lg:last:border-b-0 ${
                 on
                   ? "bg-active after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-high lg:after:inset-x-auto lg:after:inset-y-0 lg:after:right-0 lg:after:h-auto lg:after:w-0.5"
                   : "hover:bg-hover"
@@ -107,7 +118,7 @@ export function NarrativeExplorer({ narratives }: { narratives: FeaturedNarrativ
             <span aria-hidden>·</span>
             tracked since {day(n.since)}
           </p>
-          <Link href={`/narratives/${n.slug}`} className="relative inline-flex items-center gap-1 transition-colors duration-150 before:absolute before:-inset-2 hover:text-high">
+          <Link href={`/narratives/${n.slug}`} className="relative inline-flex items-center gap-1 transition-colors duration-150 before:absolute before:-inset-2 pointer-coarse:before:-inset-y-3.5 hover:text-high">
             Open narrative
             <ArrowRightIcon aria-hidden className="size-3.5" />
           </Link>
@@ -165,8 +176,8 @@ export function NarrativeExplorer({ narratives }: { narratives: FeaturedNarrativ
                   >
                     <span className="flex min-w-0 items-center gap-2">
                       <span aria-hidden className="size-2 shrink-0" style={{ background: `var(--color-viz-r${i + 1})` }} />
-                      <ChainMark chain={t.chain as ChainId} size={16} />
-                      <span className="font-medium">{t.symbol}</span>
+                      <ChainMark chain={t.chain as ChainId} size={16} className="shrink-0" />
+                      <span className="min-w-0 truncate font-medium">{t.symbol}</span>
                       {t.name && t.name !== t.symbol && <span className="hidden truncate text-xs text-med sm:inline">{t.name}</span>}
                     </span>
                     <span className={`font-mono text-right text-xs ${isNew(t.ageDays) ? "text-link" : "text-med"}`}>{age(t.ageDays)}</span>

@@ -80,7 +80,7 @@ export function Section({
 /** "All narratives →": the one onward link a section or panel offers. */
 export function MoreLink({ href, children, className }: { href: string; children: ReactNode; className?: string }) {
   return (
-    <Link href={href} className={cn("relative inline-flex items-center gap-1 text-sm text-med transition-colors duration-150 before:absolute before:-inset-2 hover:text-high", className)}>
+    <Link href={href} className={cn("relative inline-flex items-center gap-1 text-sm text-med transition-colors duration-150 before:absolute before:-inset-2 pointer-coarse:before:-inset-y-3 hover:text-high", className)}>
       {children}
       <ArrowRightIcon aria-hidden className="size-3.5" />
     </Link>

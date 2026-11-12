@@ -13,7 +13,7 @@ import { launchpadColor } from "@/components/research/colors";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { InfoTip } from "@/components/ui/info-tip";
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetBody, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import type { Launchpad } from "@/lib/data/types";
 import { bps, compactNumber, compactUsd, int, percent, usd } from "@/lib/format";
 
@@ -62,21 +62,22 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
         if (!open) onClose();
       }}
     >
-      <SheetContent side="right" className="gap-0 overflow-y-auto">
+      <SheetContent side="right" className="gap-0">
         {lp && fm && (
           <>
-            <SheetHeader>
+            {/* The header and footer stay put; only the body between them scrolls. */}
+            <SheetHeader className="border-b border-divider pb-4">
               <div className="flex items-center gap-3 pr-8">
                 <LetterMark name={lp.name} color={lp.brandColor} size={40} src={lp.logoSrc} />
                 <div className="min-w-0">
                   <SheetTitle>{lp.name}</SheetTitle>
                   <SheetDescription className="mt-0.5 flex items-center gap-2 text-xs">
                     {lp.chains.length > 0 && <ChainStack chains={lp.chains} size={13} max={6} className="*:data-[slot=avatar]:ring-surface-1" />}
-                    <a href={lp.url} target="_blank" rel="noopener noreferrer" className={`truncate ${LINK}`}>
+                    <a href={lp.url} target="_blank" rel="noopener noreferrer" className={`min-w-0 truncate ${LINK}`}>
                       {lp.domain}
                     </a>
                     {lp.twitter && (
-                      <a href={`https://x.com/${lp.twitter}`} target="_blank" rel="noopener noreferrer" className={`truncate ${LINK}`}>
+                      <a href={`https://x.com/${lp.twitter}`} target="_blank" rel="noopener noreferrer" className={`min-w-0 truncate ${LINK}`}>
                         @{lp.twitter}
                       </a>
                     )}
@@ -85,7 +86,7 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
               </div>
             </SheetHeader>
 
-            <div className="flex flex-col gap-6 p-5">
+            <SheetBody className="flex flex-col gap-6 p-5">
               {(lp.description || lp.bestFor.length > 0) && (
                 <div className="flex flex-col gap-3">
                   {lp.description && <p className="text-sm leading-relaxed text-pretty text-med">{lp.description}</p>}
@@ -187,7 +188,7 @@ export function LaunchpadDetailSheet({ launchpad, onClose }: LaunchpadDetailShee
                   </ul>
                 </Block>
               )}
-            </div>
+            </SheetBody>
 
             <SheetFooter className="flex-row">
               <Button nativeButton={false} render={<Link href={`/launchpads/${lp.slug}`} />} className="flex-1">

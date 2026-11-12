@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ChainMark } from "@/components/brand/chain-mark";
 import { useWatchlist } from "@/components/research/client";
 import { EmptyState } from "@/components/research/panel";
+import { InfoTip } from "@/components/ui/info-tip";
 import { Switch } from "@/components/ui/switch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { ChainId } from "@/lib/data/types";
@@ -65,8 +66,11 @@ export function CoinTable({ rows }: { rows: CoinRow[] }) {
               <TableHead className="text-right">Liquidity</TableHead>
               <TableHead className="text-right">Mcap</TableHead>
               <TableHead className="text-right">7d</TableHead>
-              <TableHead className="text-right" title="Holder-analysis components with a value, of nine">
-                Holders
+              <TableHead className="text-right">
+                <span className="inline-flex items-center gap-1.5">
+                  Holders
+                  <InfoTip label="What the holders count means">Holder-analysis components with a value, of nine.</InfoTip>
+                </span>
               </TableHead>
               <TableHead>Bottoming</TableHead>
               <TableHead>Collection</TableHead>
@@ -81,7 +85,7 @@ export function CoinTable({ rows }: { rows: CoinRow[] }) {
                     onClick={() => toggle(r.id)}
                     aria-pressed={has(r.id)}
                     aria-label={has(r.id) ? `Stop watching ${r.symbol}` : `Watch ${r.symbol}`}
-                    className="rounded p-1 text-med transition-colors duration-150 hover:text-high focus-visible:ring-1 focus-visible:ring-focus focus-visible:outline-none"
+                    className="relative rounded p-1 text-med transition-colors before:absolute before:-inset-2.5 duration-150 hover:text-high focus-visible:ring-1 focus-visible:ring-focus focus-visible:outline-none"
                   >
                     <StarIcon className={cn("size-4", has(r.id) && "fill-current text-warning")} />
                   </button>
