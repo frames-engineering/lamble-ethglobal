@@ -57,6 +57,12 @@ bodies. On `amount_exceeds_cap` (a seller price change), re-quote with `frames_p
    - **Every cluster gets a decision** in `curation.json` `clusterDecisions`
      (`created`, `assigned`, `rejected` or `deferred`, with a reason and, for created or
      assigned, the `narrativeId`). `normalize.py` fails without one.
+   - **Read the hourly scout's leads first** (`data/live/spotted.json`, `docs/prompts/scout.md`). Every lead
+     with status `confirmed` is a priority lead: the scout found a post about its story since the last daily run.
+     Re-check it with today's story searches and record its decision under the lead's id (the same `k-<word>` or
+     `k-sym-<TICKER>` id `discover.py` gives) even when it is not among today's clusters; the scout's posts are
+     leads, and the narrative still needs today's own evidence refs. The scout reads the decision back: created or
+     assigned shows the lead as tracked, rejected hides it. New coins the scout listed are ordinary candidates.
    - **Create a narrative whenever a story meets the bar** (`newNarrative`): three or more
      constituents with metadata naming the story, $500K+ combined 24h volume, and one
      independent public source (news or official page/post). Up to `maxNewPerRun` per day

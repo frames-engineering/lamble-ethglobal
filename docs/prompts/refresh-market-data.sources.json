@@ -1506,7 +1506,18 @@
       "memecoin meta"
     ],
     "maxClusters": 16,
-    "maxClusterWordShare": 8
+    "maxClusterWordShare": 8,
+    "scout": {
+      "freshWindowHours": 6,
+      "newCoinHours": 24,
+      "maxCoins": 30,
+      "keepConfirmedHours": 36,
+      "keepTrackedHours": 24,
+      "rememberDecisionsHours": 24,
+      "recheckAfterHours": 6,
+      "recheckVolumeMultiple": 2,
+      "note": "Hourly scout (docs/prompts/scout.md, scripts/frames-refresh/scout.py). plan.py scout writes the d1 sweep above plus a <group>_fresh alias per chain group: tokens created within freshWindowHours with 24h volume above narrativeRules.addMember.minVolume24Usd, so new coins surface hours old instead of waiting for recentMinVolumeUsd. A new coin is listed while its first pool is at most newCoinHours old and it meets the addMember bar without a quarantine flag. A theme cluster is shown only after an X search in the same scout run finds a public source for its story (status confirmed), or once the daily run tracks it (tracked). Confirmed leads stay listed keepConfirmedHours after they were last seen, tracked ones keepTrackedHours; rejected and deferred decisions are remembered rememberDecisionsHours so the same theme is not paid for again, and are re-checked only after recheckAfterHours (rejected ones also need recheckVolumeMultiple times the volume they were rejected at)."
+    }
   },
   "narrativeRules": {
     "newNarrative": {

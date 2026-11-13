@@ -5,7 +5,12 @@ Usage:
   python3 scripts/frames-refresh/plan.py research/lamble/<UTC-YYYYMMDDTHHMMSSZ> discover
   python3 scripts/frames-refresh/plan.py research/lamble/<same run> collect
   python3 scripts/frames-refresh/plan.py research/lamble/<same run> panels [--prior research/lamble/<run>]
+  python3 scripts/frames-refresh/plan.py research/scout/<UTC-YYYYMMDDTHHMMSSZ> scout
 
+scout (the hourly scout, docs/prompts/scout.md; scout.py start calls it) writes only d1: the discover sweep plus,
+      per chain group, a <group>_fresh alias for tokens created within discovery.scout.freshWindowHours whose 24h
+      volume is above narrativeRules.addMember.minVolume24Usd. No evidence batch: story checks are planned by
+      scout.py for themes not decided before.
 discover (run first) writes:
   d1  Codex: per chain group, top tokens by 24h volume and newly created tokens on the
       covered launchpads; a trending ranking; a market snapshot of every constituent
@@ -38,7 +43,10 @@ from catalog import JOBS, billed_usd, capability, codex_bar_fields, search_ids, 
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 run = pathlib.Path(sys.argv[1]).resolve(); stage = sys.argv[2]
-assert stage in ('discover', 'collect', 'panels'), 'stage must be discover, collect or panels'
+assert stage in ('discover', 'collect', 'panels', 'scout'), 'stage must be discover, collect, panels or scout'
+# Scout runs live in research/scout/ and get their own idempotency-key prefix, so they never share a key with a daily run.
+KEY = f'lamble-scout-{run.name}' if run.parent.name == 'scout' else f'lamble-{run.name}'
+assert stage != 'scout' or run.parent.name == 'scout', 'scout runs belong in research/scout/<UTC-YYYYMMDDTHHMMSSZ>'
 runtime = dt.datetime.strptime(run.name, '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc)
 NOW = int(runtime.timestamp())
 T = NOW // 3600 * 3600 - 3600  # one complete-hour safety margin
@@ -66,7 +74,7 @@ def names_blocked(value):
 def write(batch, calls, search, max_usd):
     assert 1 <= len(calls) <= 10
     assert not names_blocked(calls), f'{batch} would request blocked {names_blocked(calls)} (docs/data/blocked.json)'
-    req = dict(calls=calls, search_ids=search, idempotency_key=f'lamble-{run.name}-{batch}', max_usd=max_usd)
+    req = dict(calls=calls, search_ids=search, idempotency_key=f'{KEY}-{batch}', max_usd=max_usd)
     (run / f'raw/{batch}-request.json').write_text(json.dumps(req, separators=(',', ':')) + '\n')
 
 
@@ -81,20 +89,29 @@ held = {u['tokenId']: BLOCKED_TOKENS[u['tokenId']] for u in reg['poolUniverse'] 
 assert not (held and stage == 'collect'), (f'poolUniverse holds blocked coins (docs/data/blocked.json): {held}. Remove each from '
                                           'poolUniverse and record it in curation.json removedMembers with that reason, then plan again.')
 universe = [u for u in reg['poolUniverse'] if u['tokenId'] not in BLOCKED_TOKENS]
-if stage == 'discover':
+if stage in ('discover', 'scout'):
     d = reg['discovery']; calls = []
+    sc = d['scout'] if stage == 'scout' else None
     for group, names in d['sweepGroups'].items():  # one call per chain group so busy chains do not crowd out the rest
         n = json.dumps(names)
+        # Hourly scout only: coins launched in the last few hours that already trade above the member bar.
+        fresh = (f'{group}_fresh:filterTokens(filters:{{launchpadName:{n},liquidity:{{gt:{d["minLiquidityUsd"]}}},'
+                 f'volume24:{{gt:{reg["narrativeRules"]["addMember"]["minVolume24Usd"]}}},createdAt:{{gt:{NOW - sc["freshWindowHours"] * 3600}}}}},'
+                 f'rankings:[{{attribute:volume24,direction:DESC}}],limit:{d["sweepLimit"]}){{{SNAPSHOT_FIELDS}}} ') if sc else ''
         calls.append(dict(id=CODEX, args=dict(query=(
             f'{{ {group}_active:filterTokens(filters:{{launchpadName:{n},liquidity:{{gt:{d["minLiquidityUsd"]}}}}},'
             f'rankings:[{{attribute:volume24,direction:DESC}}],limit:{d["sweepLimit"]}){{{SNAPSHOT_FIELDS}}} '
             f'{group}_recent:filterTokens(filters:{{launchpadName:{n},liquidity:{{gt:{d["minLiquidityUsd"]}}},volume24:{{gt:{d["recentMinVolumeUsd"]}}},'
-            f'createdAt:{{gt:{NOW - d["recentWindowHours"] * 3600}}}}},rankings:[{{attribute:volume24,direction:DESC}}],limit:{d["sweepLimit"]}){{{SNAPSHOT_FIELDS}}} }}'))))
+            f'createdAt:{{gt:{NOW - d["recentWindowHours"] * 3600}}}}},rankings:[{{attribute:volume24,direction:DESC}}],limit:{d["sweepLimit"]}){{{SNAPSHOT_FIELDS}}} '
+            f'{fresh}}}'))))
     every = json.dumps(d['codexLaunchpadNames'])
     calls.append(dict(id=CODEX, args=dict(query=f'{{ trending:filterTokens(filters:{{launchpadName:{every},liquidity:{{gt:{d["minLiquidityUsd"]}}}}},'
                                                  f'rankings:[{{attribute:trendingScore24,direction:DESC}}],limit:{d["trendingLimit"]}){{{SNAPSHOT_FIELDS}}} }}')))
     calls.append(snapshot(universe))
     write('d1', calls, SEARCH['codex'], 0.04)
+    if stage == 'scout':
+        print(json.dumps(dict(run=run.name, stage=stage, batches=['d1'], calls=len(calls))))
+        raise SystemExit
     ev = [dict(id=SCRAPE, args=dict(url=u, formats=['markdown'])) for u in reg['dailyEvidence']['pages']]
     ev += [dict(id=XSEARCH, args=dict(words=w)) for w in reg['dailyEvidence']['xSearches'] + d.get('trendQueries', [])]
     assert len(ev) <= 10, 'dailyEvidence pages + xSearches + discovery.trendQueries exceed one batch of 10; trim the registry'

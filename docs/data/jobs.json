@@ -1,9 +1,9 @@
 {
   "$schema": "./jobs.schema.json",
   "jobsVersion": 1,
-  "updatedAt": "2026-10-19T16:22:44Z",
+  "updatedAt": "2026-11-13T02:37:50Z",
   "policy": {
-    "budgets": "Ceilings here bound what a job may request; they are not spending authorization by themselves. On 2026-10-20 the owner approved, in session, up to 5,000 credits ($5) per daily run across paid jobs: daily-refresh up to 1,200 and x4o2-coin-panels up to 3,800. A paid job runs only under an approval supplied with the invocation (the scheduled routine's prompt, or LAMBLE_FRAMES_BUDGET_ID and LAMBLE_FRAMES_BUDGET_USD for the programmatic collector). Without one, paid jobs plan and stop. 5,000 credits a day is about 150,000 a month, above the 90,000 monthly grant: purchased credits are needed before the grant runs out.",
+    "budgets": "Ceilings here bound what a job may request; they are not spending authorization by themselves. On 2026-10-20 the owner approved, in session, up to 5,000 credits ($5) per daily run across paid jobs: daily-refresh up to 1,200 and x4o2-coin-panels up to 3,800. A paid job runs only under an approval supplied with the invocation (the scheduled routine's prompt, or LAMBLE_FRAMES_BUDGET_ID and LAMBLE_FRAMES_BUDGET_USD for the programmatic collector). Without one, paid jobs plan and stop. 5,000 credits a day is about 150,000 a month, above the 90,000 monthly grant: purchased credits are needed before the grant runs out. The hourly scout has its own ceilings (job scout: maxCreditsPerRun and maxCreditsPerDay, summed across the day's scout runs from data/live/scout-ledger.json); they are separate from dailyCreditCeiling, which bounds one daily run.",
     "schedules": "scheduleStatus says what is actually running: active-external (installed outside this repository and observed through its commits), configured (cron and runbook ready, nothing installed), manual (run by an operator). No job in this repository installs a scheduler.",
     "writers": "Jobs with the same writerGroup take the same lock (scripts/lamble/lock.ts); daily and weekly writers never overlap.",
     "serving": "Page views, builds and API reads never run a job and never make a paid call."
@@ -100,6 +100,42 @@
       "writerGroup": "research-runs",
       "outputs": [
         "research/lamble/<run>/raw/x*.json"
+      ]
+    },
+    {
+      "id": "scout",
+      "kind": "paid-collection",
+      "description": "Hourly scout for new coins and new narratives: the discovery sweep (plan.py scout, with a fresh-launch window) and token names, the same theme clustering as the daily run (discover.py), and an X story check only for themes not decided before. Publishes data/live/spotted.json, which the home page shows as Just spotted. No fees, bars or panels; narrative membership still changes only in the daily refresh.",
+      "cadence": "hourly",
+      "cron": "26 * * * *",
+      "scheduleStatus": "configured",
+      "scheduleEvidence": "Procedure and routine prompt in docs/prompts/scout.md. Nothing in this repository installs a schedule; the owner installs the routine once this is on main.",
+      "capabilities": [
+        "codex.token-discovery",
+        "codex.token-metadata",
+        "codex.token-snapshot",
+        "x.search"
+      ],
+      "scope": "Covered launchpads in discovery.sweepGroups; theme clusters by narrativeRules.newNarrative; story checks capped per run.",
+      "budget": {
+        "maxCreditsPerRun": 100,
+        "maxCreditsPerDay": 2500,
+        "typicalCredits": "about 31 per run (4 sweep calls and 1 names call at 6.15 credits); up to about 85 with three story searches and two follow-ups at 10.75 credits",
+        "authorization": "routine prompt; maxCreditsPerDay is summed across the day's scout runs from data/live/scout-ledger.json before any call"
+      },
+      "pagination": {
+        "maxStorySearchesPerRun": 3,
+        "maxFollowUpsPerRun": 2,
+        "maxCallsPerBatch": 10
+      },
+      "freshness": {
+        "maxAgeSeconds": 10800
+      },
+      "writerGroup": "scout",
+      "outputs": [
+        "research/scout/<run>/",
+        "data/live/spotted.json",
+        "data/live/scout-ledger.json"
       ]
     },
     {
