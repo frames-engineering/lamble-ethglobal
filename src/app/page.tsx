@@ -9,7 +9,7 @@ import { SectionTabs } from "@/components/layout/section-tabs";
 import { overviewData } from "@/components/overview/data";
 import { FeesChart } from "@/components/overview/fees-chart";
 import { Change } from "@/components/overview/format";
-import { JustSpotted } from "@/components/overview/just-spotted";
+import { JustSpotted, SpottedAside } from "@/components/overview/just-spotted";
 import { NarrativeExplorer } from "@/components/overview/narrative-explorer";
 import { TrenchIndexBlock } from "@/components/overview/trench-index";
 import { TrendingTokens } from "@/components/overview/trending-tokens";
@@ -26,7 +26,7 @@ import { loadSpotted } from "@/lib/lamble/site/spotted";
 
 const SECTIONS = [
   ["overview", "Overview"],
-  ["spotted", "Just spotted"],
+  ["spotted", "Live Monitor"],
   ["narratives", "Narratives"],
   ["launchpads", "Launchpads"],
   ["tokens", "Tokens"],
@@ -139,9 +139,8 @@ export default function OverviewPage() {
         {spotted && (
           <Section
             id="spotted"
-            title="Just spotted"
-            description="What the hourly scout found on the covered launchpads since the daily refresh: observations, not reviewed and not investment advice."
-            aside={<span className="text-xs text-med">Scanned {formatDateTime(spotted.generatedAt)}</span>}
+            title={<span className="font-display text-2xl md:text-3xl">Live Monitor</span>}
+            aside={<SpottedAside spotted={spotted} />}
             className="rise-5"
           >
             <JustSpotted spotted={spotted} launchpadNames={launchpadNames} />
@@ -150,7 +149,7 @@ export default function OverviewPage() {
 
         <Section
           id="narratives"
-          title="Trending narratives"
+          title={<span className="font-display text-2xl md:text-3xl">Trending Narratives</span>}
           aside={<MoreLink href="/narratives">All narratives</MoreLink>}
           className="rise-5"
         >

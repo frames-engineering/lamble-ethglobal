@@ -32,6 +32,9 @@ export const CHAIN_ORDER: ChainId[] = [
   "unichain",
 ];
 
+/** Whether a chain id from data has an icon and a name here; ChainMark needs one. */
+export const isChainId = (v: string): v is ChainId => Object.hasOwn(CHAINS, v);
+
 export function chainInfo(id: ChainId): ChainInfo {
   return CHAINS[id];
 }

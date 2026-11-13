@@ -4,7 +4,7 @@ The daily refresh (`docs/prompts/refresh-market-data.md`) finds new coins and na
 starts at 09:00 UTC reached the site the next morning. The scout closes that gap. Every hour it re-runs the cheap
 part of discovery (the launchpad sweep and token names), groups candidates into themes exactly as the daily run
 does, pays for an X search only for themes nobody has decided yet, and publishes what it found to
-`data/live/spotted.json`. The home page shows it as **Just spotted**.
+`data/live/spotted.json`. The home page shows it as **Live Monitor**.
 
 The scout does **not** collect fees, bars or panels, and it never changes narrative membership. The registry, the
 releases and the narratives stay the daily run's job; the daily run reads the scout's confirmed leads first.

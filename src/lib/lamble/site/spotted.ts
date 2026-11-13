@@ -20,6 +20,8 @@ import { resolveFromRoot } from "../server/io.ts";
 export const SPOTTED_SCHEMA = "lamble-spotted-v1";
 /** Three missed hourly runs: older than this, the section says the scout has paused instead of listing old finds. */
 export const SPOTTED_STALE_SECONDS = 3 * 3600;
+/** The scout's cadence: the next scan is expected this long after the last one (runs land at about :17, sometimes skip). */
+export const SPOTTED_INTERVAL_SECONDS = 3600;
 
 export interface SpottedCoin {
   tokenId: string;
@@ -53,7 +55,8 @@ export interface SpottedLead {
   size: number;
   combinedVolume24Usd: number;
   launchpads: string[];
-  members: { tokenId: string; symbol: string; name: string; volume24Usd: number; launchpadSlug: string | null }[];
+  /** At most 12 per theme (the scout truncates), by 24h volume. `ageHours` is hours since the coin's first pool, when known. */
+  members: { tokenId: string; symbol: string; name: string; volume24Usd: number; launchpadSlug: string | null; ageHours: number | null }[];
   firstSpottedAt: string;
   lastSeenAt: string;
   checkedAt: string | null;
@@ -124,7 +127,7 @@ function source(v: unknown): SpottedSource | null {
 function lead(v: unknown): SpottedLead | null {
   if (!isObj(v) || (v.status !== "confirmed" && v.status !== "tracked")) return null;
   if (!str(v.id) || !str(v.keyword) || !num(v.combinedVolume24Usd) || !time(v.firstSpottedAt) || !time(v.lastSeenAt) || !Array.isArray(v.members)) return null;
-  const members = v.members.flatMap((m) => (isObj(m) && str(m.tokenId) && str(m.symbol) && num(m.volume24Usd) ? [{ tokenId: m.tokenId, symbol: m.symbol, name: typeof m.name === "string" ? m.name : "", volume24Usd: m.volume24Usd, launchpadSlug: strOrNull(m.launchpadSlug) }] : []));
+  const members = v.members.flatMap((m) => (isObj(m) && str(m.tokenId) && str(m.symbol) && num(m.volume24Usd) ? [{ tokenId: m.tokenId, symbol: m.symbol, name: typeof m.name === "string" ? m.name : "", volume24Usd: m.volume24Usd, launchpadSlug: strOrNull(m.launchpadSlug), ageHours: num(m.ageHours) ? m.ageHours : null }] : []));
   const sources = (Array.isArray(v.sources) ? v.sources : []).map(source).filter((s): s is SpottedSource => s !== null);
   const out: SpottedLead = {
     id: v.id,
@@ -210,7 +213,7 @@ export function loadSpotted(now: number = Date.now() / 1000): Spotted | null {
     delete doc.seen; // first-spotted memory for the scout, not published content
     return parseSpotted(scrubBlocked(doc), now);
   } catch (err) {
-    console.warn(`spotted: ${file} is not usable (${(err as Error).message}); the Just spotted section is hidden.`);
+    console.warn(`spotted: ${file} is not usable (${(err as Error).message}); the Live Monitor section is hidden.`);
     return null;
   }
 }

@@ -17,7 +17,7 @@ Usage (the full procedure is docs/prompts/scout.md):
       Optional, after raw/e1.json is saved: plans raw/e2-request.json, at most maxFollowUpsPerRun X searches.
   python3 scripts/frames-refresh/scout.py publish <run>
       Validates <run>/decisions.json against the posts actually saved in raw/e1.json and raw/e2.json, then writes
-      data/live/spotted.json (what the home page shows as Just spotted) and adds the run's billed credits to
+      data/live/spotted.json (what the home page shows as Live Monitor) and adds the run's billed credits to
       data/live/scout-ledger.json.
   python3 scripts/frames-refresh/scout.py record <run>
       For a run that stops after a paid call without publishing: adds its billed credits to the ledger only, so the

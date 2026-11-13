@@ -64,7 +64,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section id={id} aria-labelledby={id ? `${id}-title` : undefined} className={cn("min-w-0 pt-12", className)}>
+    <section id={id} aria-labelledby={id ? `${id}-title` : undefined} className={cn("min-w-0 pt-16", className)}>
       <div className="flex items-end justify-between gap-4">
         <h2 id={id ? `${id}-title` : undefined} className="flex items-center gap-1.5 text-xl font-medium text-high">
           {title}

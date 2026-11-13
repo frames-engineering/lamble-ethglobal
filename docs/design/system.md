@@ -27,9 +27,10 @@ minimal footer. The overview renders its own footer with the lambo. Pages render
 </Container>
 ```
 
-- **PageHeader** (`research/panel`): the only place Geist Pixel (`font-display`) appears. A long summary belongs in a Section's
-  body, not in the lede.
-- **Section**: page-level blocks, `pt-12` apart. One onward link at most, in `aside`.
+- **PageHeader** (`research/panel`): Geist Pixel (`font-display`) for the page title. The only other place it appears is
+  the overview's two live sections, Live Monitor and Trending Narratives, whose Section titles are set in it. A long
+  summary belongs in a Section's body, not in the lede.
+- **Section**: page-level blocks, `pt-16` apart. One onward link at most, in `aside`.
 - **Panel**: a bordered card (`rounded-sm border border-line`, no fill, no shadow). Don't nest Panels.
 - **Key-figure grid**: cells `border-r border-b border-line p-4 md:p-5`, figure `font-mono text-2xl`, label
   `text-sm text-med`, an optional `text-xs` sub-line. Use for a page's three or four headline numbers.
@@ -40,7 +41,7 @@ minimal footer. The overview renders its own footer with the lambo. Pages render
 | Role | Classes |
 | --- | --- |
 | Page title | `PageHeader` (font-display, 36/48px) |
-| Section heading | `text-xl font-medium` |
+| Section heading | `text-xl font-medium` (the overview's Live Monitor and Trending Narratives: `font-display text-2xl md:text-3xl`, Title Case; Live Monitor's two parts are `text-xl` subheadings whose scope note folds behind an ⓘ, `InfoHeading`) |
 | Panel heading | `text-base font-medium` |
 | Body | `text-sm` (lede `text-base text-med`) |
 | Captions, labels | `text-xs text-med` |
@@ -58,6 +59,13 @@ and young tokens. Narrative status is a temperature scale: heat for New (`bg-hot
 blue for Cooling (the label for the data's `fading`), no color for Steady. In the overview's explorer it is the
 status spine (`TrendSpine`, with `TrendLabel` for the open narrative's header); in tables and meta lines it is
 the dot and word (`TrendBadge`). Decision record: [narrative-status-2026-11.md](narrative-status-2026-11.md).
+Just spotted speaks the same language through the shared primitives (`Spine`, `SpineLabel` in
+`overview/spine.tsx`; tones heat, violet, positive, cool, warning, plain). Lead cards carry a strip: Potential
+Narrative (violet, its own drifting gradient so it never reads as New; the data's `confirmed`; the beam only on
+leads from the latest scan) and Narrative Confirmed (Rising's green with chevrons flowing up; the data's
+`tracked`). New coin rows show a small flat label after the name and contract, only for New (heat, first seen in
+the latest scan) and Running (green); its `InfoTip` states the rule. Churning is still checked before Running, so a
+caution is never shown as Running, but neither it nor Ageing out is shown. Rules: `lib/lamble/site/spotted-status.ts`.
 Charts: `bg-chart-r1…r4` (ranked parts of one whole), `bg-chart-0` (the rest of it),
 `bg-chart-bar` (bars behind table values). Chart series colors, including each launchpad's fixed brand hue,
 come from `research/colors.ts`; the rules are in [charts.md](charts.md).
@@ -74,7 +82,7 @@ extra props. Time series go through `SeriesChart` (`research/charts.tsx`), and t
 
 `Button` (`variant="outline"` for secondary) for actions, and `<Link className={buttonVariants(…)}>` for
 navigation that should look like a button (Base UI's `nativeButton={false}` would announce a link as a button),
-`Badge` (status labels), `Segmented` (`ui/segmented`, two or three views of one thing), `InfoTip`
+`Badge` (status labels), `Segmented` (`ui/segmented`, a few views of one thing: ranges, sort orders, or a category filter such as Just spotted's coin statuses, scrolling in its own row when it could outgrow a phone), `InfoTip`
 (`ui/info-tip`, scope notes beside a figure's label), `MoreLink` (a section's onward link).
 
 ## Phones
