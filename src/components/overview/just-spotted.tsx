@@ -2,11 +2,12 @@ import Link from "next/link";
 
 import { ChainMark } from "@/components/brand/chain-mark";
 import { money } from "@/components/overview/format";
+import { ScoutFreshness } from "@/components/overview/scout-freshness";
 import { ExternalLink } from "@/components/research/links";
 import { formatDateTime } from "@/components/research/time";
 import { Badge } from "@/components/ui/badge";
 import type { ChainId } from "@/lib/data/types";
-import type { Spotted, SpottedLead } from "@/lib/lamble/site/spotted";
+import { SPOTTED_STALE_SECONDS, type Spotted, type SpottedLead } from "@/lib/lamble/site/spotted";
 
 const ROWS = 10;
 const TH = "h-9 px-2 text-xs font-normal whitespace-nowrap text-med first:pl-3 last:pr-3 sm:px-3 sm:first:pl-4 sm:last:pr-4";
@@ -34,106 +35,108 @@ const short = (address: string) => (address.length > 12 ? `${address.slice(0, 4)
  */
 export function JustSpotted({ spotted, launchpadNames }: { spotted: Spotted; launchpadNames: Record<string, string> }) {
   const pad = (slug: string | null) => (slug ? (launchpadNames[slug] ?? slug) : "—");
-  if (spotted.stale) {
-    return (
-      <p className="rounded-sm border border-line p-4 text-sm text-med">
-        The hourly scout has not reported since {formatDateTime(spotted.generatedAt)}, so nothing is listed here. The daily refresh above is unaffected.
-      </p>
-    );
-  }
+  const paused = (
+    <p className="rounded-sm border border-line p-4 text-sm text-med">
+      The hourly scout has not reported since {formatDateTime(spotted.generatedAt)}, so nothing is listed here. The daily refresh is unaffected.
+    </p>
+  );
+  // Stale at build: say so. Fresh at build: the reader's clock re-checks, because nothing rebuilds the page if the scout stops.
+  if (spotted.stale) return paused;
   const rows = spotted.coins.slice(0, ROWS);
   const max = Math.max(1, ...rows.map((c) => c.volume24Usd));
   const { memberBar, newNarrative, newCoinHours } = spotted.rules;
 
   return (
-    <div className="grid gap-8">
-      <div>
-        <h3 className="text-sm font-medium text-high">Possible new narratives</h3>
-        <p className="mt-1 max-w-[72ch] text-xs text-med">
-          At least {newNarrative.minConstituents} coins sharing a theme with {money(newNarrative.minCombinedVolume24Usd)}+ combined 24h volume, shown only once a public post about the story was found. Posts are claims, not verification.
-        </p>
-        {spotted.leads.length ? (
-          <ul className="mt-3 grid gap-3 lg:grid-cols-2">
-            {spotted.leads.map((l) => (
-              <LeadCard key={l.id} lead={l} reference={spotted.generatedAt} pad={pad} />
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-3 rounded-sm border border-line p-4 text-sm text-med">No new theme has passed the source check since the daily refresh.</p>
-        )}
-      </div>
+    <ScoutFreshness generatedAt={spotted.generatedAt} maxAgeSeconds={SPOTTED_STALE_SECONDS} paused={paused}>
+      <div className="grid gap-8">
+        <div>
+          <h3 className="text-sm font-medium text-high">Possible new narratives</h3>
+          <p className="mt-1 max-w-[72ch] text-xs text-med">
+            At least {newNarrative.minConstituents} coins sharing a theme with {money(newNarrative.minCombinedVolume24Usd)}+ combined 24h volume, shown only once a public post about the story was found. Posts are claims, not verification.
+          </p>
+          {spotted.leads.length ? (
+            <ul className="mt-3 grid gap-3 lg:grid-cols-2">
+              {spotted.leads.map((l) => (
+                <LeadCard key={l.id} lead={l} reference={spotted.generatedAt} pad={pad} />
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 rounded-sm border border-line p-4 text-sm text-med">No new theme has passed the source check since the daily refresh.</p>
+          )}
+        </div>
 
-      <div>
-        <h3 className="text-sm font-medium text-high">New coins</h3>
-        <p className="mt-1 max-w-[72ch] text-xs text-med">
-          Coins on the covered launchpads whose first pool is under {newCoinHours} hours old, with {money(memberBar.minVolume24Usd)}+ 24h volume or {money(memberBar.minMcapUsd)}+ market cap, and no extreme price, turnover or market-cap flag. Not yet tracked; very high turnover can include wash or bot trading.
-        </p>
-        {rows.length ? (
-          <div className="mt-3 overflow-x-auto rounded-sm border border-line">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-line text-left">
-                  <th scope="col" className={`${TH} max-sm:pl-3`}>
-                    Token
-                  </th>
-                  <th scope="col" className={`${TH} hidden md:table-cell`}>
-                    Launchpad
-                  </th>
-                  <th scope="col" className={`${TH} hidden text-right sm:table-cell`} title="Time since the coin's first pool opened, at the scout run">
-                    Age
-                  </th>
-                  <th scope="col" className={`${TH} text-right`}>
-                    Volume, 24h
-                  </th>
-                  <th scope="col" className={`${TH} hidden text-right lg:table-cell`}>
-                    Market cap
-                  </th>
-                  <th scope="col" className={`${TH} hidden text-right sm:table-cell`}>
-                    First spotted
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((c) => (
-                  <tr key={c.tokenId} className="border-b border-line transition-colors duration-150 last:border-0 hover:bg-hover">
-                    <td className={`${TD} max-sm:pl-3`}>
-                      <span className="flex min-w-0 items-center gap-2">
-                        <ChainMark chain={c.chain as ChainId} size={16} />
-                        <span className="flex min-w-0 flex-col sm:flex-row sm:items-baseline sm:gap-2">
-                          <span title={c.address} className="font-medium text-high">
-                            {c.symbol}
-                          </span>
-                          {c.name && c.name !== c.symbol && (
-                            <span title={c.name} className="max-w-24 truncate text-xs text-med sm:max-w-36">
-                              {c.name}
-                            </span>
-                          )}
-                          <code title={c.address} className="hidden font-mono text-[11px] text-med xl:inline">
-                            {short(c.address)}
-                          </code>
-                        </span>
-                      </span>
-                    </td>
-                    <td className={`${TD} hidden text-xs text-med md:table-cell`}>{pad(c.launchpadSlug)}</td>
-                    <td className={`${TD} font-mono hidden text-right text-xs text-link sm:table-cell`}>{poolAge(c.ageHours)}</td>
-                    <td className={TD}>
-                      <div className="relative ml-auto h-6 w-full max-w-40 sm:min-w-28">
-                        <span aria-hidden className="absolute inset-y-0 left-0 hidden bg-chart-bar sm:block" style={{ width: `${(c.volume24Usd / max) * 100}%` }} />
-                        <span className="font-mono relative flex h-full items-center justify-end text-[13px] sm:pr-2">{money(c.volume24Usd)}</span>
-                      </div>
-                    </td>
-                    <td className={`${TD} font-mono hidden text-right text-[13px] lg:table-cell`}>{money(c.mcapUsd)}</td>
-                    <td className={`${TD} font-mono hidden text-right text-xs whitespace-nowrap text-med sm:table-cell`}>{when(c.firstSpottedAt, spotted.generatedAt)}</td>
+        <div>
+          <h3 className="text-sm font-medium text-high">New coins</h3>
+          <p className="mt-1 max-w-[72ch] text-xs text-med">
+            Coins on the covered launchpads whose first pool is under {newCoinHours} hours old, with {money(memberBar.minVolume24Usd)}+ 24h volume or {money(memberBar.minMcapUsd)}+ market cap, and no extreme price, turnover or market-cap flag. Not yet tracked; very high turnover can include wash or bot trading.
+          </p>
+          {rows.length ? (
+            <div className="mt-3 overflow-x-auto rounded-sm border border-line">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-line text-left">
+                    <th scope="col" className={`${TH} max-sm:pl-3`}>
+                      Token
+                    </th>
+                    <th scope="col" className={`${TH} hidden md:table-cell`}>
+                      Launchpad
+                    </th>
+                    <th scope="col" className={`${TH} hidden text-right sm:table-cell`} title="Time since the coin's first pool opened, at the scout run">
+                      Age
+                    </th>
+                    <th scope="col" className={`${TH} text-right`}>
+                      Volume, 24h
+                    </th>
+                    <th scope="col" className={`${TH} hidden text-right lg:table-cell`}>
+                      Market cap
+                    </th>
+                    <th scope="col" className={`${TH} hidden text-right sm:table-cell`}>
+                      First spotted
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p className="mt-3 rounded-sm border border-line p-4 text-sm text-med">No new coin cleared the bar in the latest scan.</p>
-        )}
+                </thead>
+                <tbody>
+                  {rows.map((c) => (
+                    <tr key={c.tokenId} className="border-b border-line transition-colors duration-150 last:border-0 hover:bg-hover">
+                      <td className={`${TD} max-sm:pl-3`}>
+                        <span className="flex min-w-0 items-center gap-2">
+                          <ChainMark chain={c.chain as ChainId} size={16} />
+                          <span className="flex min-w-0 flex-col sm:flex-row sm:items-baseline sm:gap-2">
+                            <span title={c.address} className="font-medium text-high">
+                              {c.symbol}
+                            </span>
+                            {c.name && c.name !== c.symbol && (
+                              <span title={c.name} className="max-w-24 truncate text-xs text-med sm:max-w-36">
+                                {c.name}
+                              </span>
+                            )}
+                            <code title={c.address} className="hidden font-mono text-[11px] text-med xl:inline">
+                              {short(c.address)}
+                            </code>
+                          </span>
+                        </span>
+                      </td>
+                      <td className={`${TD} hidden text-xs text-med md:table-cell`}>{pad(c.launchpadSlug)}</td>
+                      <td className={`${TD} font-mono hidden text-right text-xs text-link sm:table-cell`}>{poolAge(c.ageHours)}</td>
+                      <td className={TD}>
+                        <div className="relative ml-auto h-6 w-full max-w-40 sm:min-w-28">
+                          <span aria-hidden className="absolute inset-y-0 left-0 hidden bg-chart-bar sm:block" style={{ width: `${(c.volume24Usd / max) * 100}%` }} />
+                          <span className="font-mono relative flex h-full items-center justify-end text-[13px] sm:pr-2">{money(c.volume24Usd)}</span>
+                        </div>
+                      </td>
+                      <td className={`${TD} font-mono hidden text-right text-[13px] lg:table-cell`}>{money(c.mcapUsd)}</td>
+                      <td className={`${TD} font-mono hidden text-right text-xs whitespace-nowrap text-med sm:table-cell`}>{when(c.firstSpottedAt, spotted.generatedAt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="mt-3 rounded-sm border border-line p-4 text-sm text-med">No new coin cleared the bar in the latest scan.</p>
+          )}
+        </div>
       </div>
-    </div>
+    </ScoutFreshness>
   );
 }
 

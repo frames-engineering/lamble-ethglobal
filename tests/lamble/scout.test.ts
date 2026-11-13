@@ -240,6 +240,66 @@ test("the day's scout budget is enforced before any call", () => {
   }
 });
 
+test("spend is recorded even when a run stops before publishing", () => {
+  const s = sandbox();
+  try {
+    const t = BASE_T + 3600;
+    const day = new Date(t * 1000).toISOString().slice(0, 10);
+    const run = startRun(s, t);
+    syntheticSweep(run); // d1 paid (25 credits), then the run stops: no names, no publish
+    const rec = s.py("record", run);
+    assert.equal(rec.status, 0, rec.stderr);
+    assert.equal(json(path.join(s.live, "scout-ledger.json")).days[day].runs[runName(t)], 25);
+    assert.equal(JSON.parse(s.py("start", "--at", runName(t + 3600)).stdout).spentCredits, 25, "the next run sees the spend");
+    // A paid run this checkout never recorded is counted by the next start.
+    syntheticSweep(path.join(s.scouts, runName(t + 3600)));
+    assert.equal(JSON.parse(s.py("start", "--at", runName(t + 7200)).stdout).spentCredits, 50);
+  } finally {
+    s.done();
+  }
+});
+
+test("a remembered theme becomes tracked only when one narrative took at least half its coins", () => {
+  const s = sandbox();
+  try {
+    const active = new Set(json(path.join(baseline, "narratives.json")).map((n: { id: string }) => n.id));
+    const byNarrative = new Map<string, string[]>();
+    for (const u of registry.poolUniverse as { tokenId: string; narrativeId: string }[]) if (active.has(u.narrativeId)) byNarrative.set(u.narrativeId, [...(byNarrative.get(u.narrativeId) ?? []), u.tokenId]);
+    const narratives = [...byNarrative.keys()].sort();
+    const big = narratives.find((n) => byNarrative.get(n)!.length >= 2)!;
+    assert.ok(narratives.length >= 3 && big, "fixture needs three active narratives, one with two coins");
+    const t = BASE_T + 3600;
+    const at = (x: number) => new Date(x * 1000).toISOString().replace(/\.\d{3}Z$/, "Z");
+    const remembered = (id: string, members: string[]) => ({
+      id, keyword: id, status: "rejected", size: members.length, combinedVolume24Usd: 900000, launchpads: ["pump.fun"], chains: ["solana"], overlapsNarratives: [],
+      members: members.map((m) => ({ tokenId: m, symbol: "X", name: "", volume24Usd: 300000, launchpadSlug: "pump.fun", ageHours: 3 })),
+      firstSpottedAt: at(t - 7200), lastSeenAt: at(t - 3600), checkedAt: at(t - 3600), volumeAtCheck: 900000, reason: "No story in the posts.", decidedBy: "scout",
+      title: null, sourceSays: null, sources: [], narrativeId: null, narrativeSlug: null, narrativeTitle: null,
+    });
+    const others = narratives.filter((n) => n !== big).slice(0, 2);
+    mkdirSync(s.live, { recursive: true });
+    writeFileSync(path.join(s.live, "spotted.json"), JSON.stringify({ schema: "lamble-spotted-v1", generatedAt: at(t - 3600), scoutRun: runName(t - 3600), leads: [
+      remembered("k-spread", [byNarrative.get(big)![0]!, byNarrative.get(others[0]!)![0]!, byNarrative.get(others[1]!)![0]!]),
+      remembered("k-joined", [byNarrative.get(big)![0]!, byNarrative.get(big)![1]!, "solana:NotTrackedAnywhere111111111111111111111"]),
+    ], coins: [], seen: { coins: {} } }));
+    const run = startRun(s, t);
+    syntheticSweep(run);
+    s.py("names", run);
+    syntheticNames(run);
+    const out = JSON.parse(s.py("check", run).stdout);
+    answer(run, "e1", () => ({ tweets: [] }), 11);
+    writeFileSync(path.join(run, "decisions.json"), JSON.stringify(Object.fromEntries(out.toDecide.map((x: { clusterId: string }) => [x.clusterId, { decision: "deferred", reason: "No posts in this fixture." }]))));
+    const pub = s.py("publish", run);
+    assert.equal(pub.status, 0, pub.stderr);
+    const leads = Object.fromEntries(json(path.join(s.live, "spotted.json")).leads.map((l: { id: string }) => [l.id, l]));
+    assert.equal(leads["k-spread"].status, "rejected", "one coin in each of three narratives says nothing about this theme");
+    assert.equal(leads["k-joined"].status, "tracked");
+    assert.equal(leads["k-joined"].narrativeId, big);
+  } finally {
+    s.done();
+  }
+});
+
 test("a source naming a blocked site is refused", { skip: blocked.hosts.length === 0 }, () => {
   const s = sandbox();
   try {

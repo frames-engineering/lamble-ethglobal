@@ -19,6 +19,9 @@ Usage (the full procedure is docs/prompts/scout.md):
       Validates <run>/decisions.json against the posts actually saved in raw/e1.json and raw/e2.json, then writes
       data/live/spotted.json (what the home page shows as Just spotted) and adds the run's billed credits to
       data/live/scout-ledger.json.
+  python3 scripts/frames-refresh/scout.py record <run>
+      For a run that stops after a paid call without publishing: adds its billed credits to the ledger only, so the
+      day's budget counts every paid batch. start also records earlier unrecorded runs of the day in this checkout.
 
 What is public (src/lib/lamble/site/spotted.ts): new coins, which are observations (a covered launchpad, a first pool at
 most newCoinHours old, the addMember bar met with no quarantine flag); and theme clusters only once a public source for
@@ -166,7 +169,12 @@ def story_query(cluster):
 def start(args):
     at = args.at or dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     if not RUN_RE.match(at): fail('--at must be YYYYMMDDTHHMMSSZ')
-    led = load_ledger(); day = day_of(ts(at)); spent = spent_on(led, day); worst = worst_case_credits(); cap = JOB['budget']['maxCreditsPerDay']
+    day = day_of(ts(at))
+    for d in sorted(SCOUTS.iterdir()) if SCOUTS.exists() else []:  # a run in this checkout that paid but never published or recorded
+        if RUN_RE.match(d.name) and d.name < at and day_of(ts(d.name)) == day and d.name not in load_ledger()['days'].get(day, {}).get('runs', {}) \
+                and any((d / f'raw/{b}.json').exists() for b in ('d1', 'd2', 'e1', 'e2')):
+            record_run(d)
+    led = load_ledger(); spent = spent_on(led, day); worst = worst_case_credits(); cap = JOB['budget']['maxCreditsPerDay']
     if spent + worst > cap:
         print(json.dumps(dict(status='refused', reason='scout day budget', day=day, spentCredits=spent, worstCaseCredits=worst, maxCreditsPerDay=cap)))
         sys.exit(1)
@@ -368,10 +376,13 @@ def publish(args):
         lead = dict(m)
         state = prior_state(cid, memory, daily)
         if state: settle(lead, state)
+        # Tracked only when ONE narrative took at least half its coins: coins spread over several narratives say nothing about
+        # this theme, and must not make an unchecked or rejected theme public.
         hits = [tracked_tokens[x['tokenId']] for x in lead['members'] if x['tokenId'] in tracked_tokens]
-        if lead['status'] != 'tracked' and lead['members'] and len(hits) * 2 >= len(lead['members']):  # the daily run took most of its coins
-            lead.update(status='tracked', narrativeId=max(set(hits), key=hits.count), checkedAt=iso(now), decidedBy='daily',
-                        reason='Most of its coins joined a tracked narrative in the daily refresh.')
+        top = max(set(hits), key=lambda n: (hits.count(n), n)) if hits else None
+        if lead['status'] != 'tracked' and top and hits.count(top) * 2 >= len(lead['members']):
+            lead.update(status='tracked', narrativeId=top, checkedAt=iso(now), decidedBy='daily',
+                        reason='At least half of its coins joined this narrative in the daily refresh.')
         seen, checked = from_iso(lead['lastSeenAt']), from_iso(lead['checkedAt']) if lead.get('checkedAt') else None
         if (lead['status'] == 'confirmed' and keep(seen, CFG['keepConfirmedHours'])) or (lead['status'] == 'tracked' and keep(checked or seen, CFG['keepTrackedHours'])) \
                 or (lead['status'] in ('rejected', 'deferred') and keep(checked, CFG['rememberDecisionsHours'])):
@@ -409,18 +420,41 @@ def publish(args):
                seen=dict(coins=dict(sorted(seen_coins.items()))))
     check_output(out)
 
-    billed = {}
-    for resp, _ in batches.values(): billed[resp['run_id']] = (resp.get('billing') or {}).get('charged_credits') or 0
-    credits = sum(billed.values())
-    led = load_ledger(); day = day_of(now)
-    led['days'].setdefault(day, dict(runs={}))['runs'][run.name] = credits
-    led['days'] = {d: v for d, v in sorted(led['days'].items()) if d >= day_of(now - LEDGER_DAYS * 86400)}
-    led['maxCreditsPerDay'] = JOB['budget']['maxCreditsPerDay']
-    write_json(SPOTTED, out); write_json(LEDGER, led)
+    write_json(SPOTTED, out)
+    credits, led, day = record_run(run)
     by = {s: sum(1 for l in out['leads'] if l['status'] == s) for s in STATUSES}
     print(json.dumps(dict(run=run.name, spotted=rel(SPOTTED), coins=len(coins), leads=by, public=dict(coins=len(coins), leads=by['confirmed'] + by['tracked']),
                           credits=credits, overRunBudget=credits > JOB['budget']['maxCreditsPerRun'], dayCredits=spent_on(led, day),
                           maxCreditsPerDay=JOB['budget']['maxCreditsPerDay'])))
+
+
+def billed_credits(run):
+    """Credits Frames billed for the batches this run saved: one billing block per Frames run id."""
+    billed = {}
+    for b in ('d1', 'd2', 'e1', 'e2'):
+        f = run / f'raw/{b}.json'
+        if f.exists():
+            resp = read(f)
+            billed[resp['run_id']] = (resp.get('billing') or {}).get('charged_credits') or 0
+    return sum(billed.values())
+
+
+def record_run(run):
+    """Adds a run's billed credits to the ledger (idempotent: keyed by run). Published or not, a paid batch counts."""
+    credits, now = billed_credits(run), ts(run.name)
+    led = load_ledger(); day = day_of(now)
+    led['days'].setdefault(day, dict(runs={}))['runs'][run.name] = credits
+    led['days'] = {d: v for d, v in sorted(led['days'].items()) if d >= day_of(now - LEDGER_DAYS * 86400)}
+    led['maxCreditsPerDay'] = JOB['budget']['maxCreditsPerDay']
+    write_json(LEDGER, led)
+    return credits, led, day
+
+
+def record(args):
+    """For a run that stops after a paid call without publishing: count its spend so the day's budget stays true."""
+    run = scout_run(args.run)
+    credits, led, day = record_run(run)
+    print(json.dumps(dict(run=run.name, recordedCredits=credits, ledger=rel(LEDGER), dayCredits=spent_on(led, day), maxCreditsPerDay=JOB['budget']['maxCreditsPerDay'])))
 
 
 def check_output(out):
@@ -444,10 +478,10 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='step', required=True)
     s = sub.add_parser('start'); s.add_argument('--at')
-    for name in ('names', 'check', 'publish'): sub.add_parser(name).add_argument('run')
+    for name in ('names', 'check', 'publish', 'record'): sub.add_parser(name).add_argument('run')
     f = sub.add_parser('followups'); f.add_argument('run'); f.add_argument('queries', nargs='+')
     args = ap.parse_args()
-    dict(start=start, names=names, check=check, followups=followups, publish=publish)[args.step](args)
+    dict(start=start, names=names, check=check, followups=followups, publish=publish, record=record)[args.step](args)
 
 
 if __name__ == '__main__':

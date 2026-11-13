@@ -26,6 +26,9 @@ Settings live in the registry (`discovery.scout`) and budgets in `docs/data/jobs
   and 2 follow-ups at catalog prices, is about 85; a run with nothing new to check costs about 31.
 - **Per day:** at most `maxCreditsPerDay` (2,500), summed across the day's scout runs in
   `data/live/scout-ledger.json`. `scout.py start` refuses to start a run the day's remainder cannot cover.
+- **Every paid batch counts**, published or not: `publish` and `record` both add the run's billed credits to the
+  ledger, and a run that stops after a paid call ships its raw files and the ledger without `spotted.json`. A
+  session that dies before it can commit loses that record; the account floor below still bounds total spend.
 - **Account floor:** the routine prompt checks `frames_get_usage` first, as the daily routine does.
 
 Typical day: 24 runs × 20–32 credits (the sweep and names calls billed 20–32 in the November daily runs) plus a few story checks at about 11 credits each: roughly 600–1,000 credits ($0.60–1.00).
@@ -49,9 +52,12 @@ exactly as in the daily routine: invoke each `raw/<batch>-request.json` with `fr
    Write `$RUN/decisions.json` with one entry per theme `check` listed (rules below).
 5. **Publish.** `python3 scripts/frames-refresh/scout.py publish $RUN`. It validates the decisions against the saved
    posts and writes `data/live/spotted.json` and `data/live/scout-ledger.json`. A refusal names what to fix; fix
-   `decisions.json`, never the script's checks.
+   `decisions.json`, never the script's checks. If it cannot be fixed in this run, do not publish: go to step 6
+   with `record`.
 6. **Ship.** Commit `research/scout/$RUN_NAME/` (raw requests and responses, `escalated.json`, `decisions.json`),
-   `data/live/spotted.json` and `data/live/scout-ledger.json`; `discovery.json` is derived and ignored. Before
+   `data/live/spotted.json` and `data/live/scout-ledger.json`; `discovery.json` is derived and ignored. A run that
+   stopped after any paid call without publishing still ships: `python3 scripts/frames-refresh/scout.py record
+   $RUN`, then commit its `raw/` and `data/live/scout-ledger.json` only, so the day's budget counts the spend. Before
    pushing, `git fetch origin main`; if `main` moved and touched `data/live/`, rebase, re-run step 5 on top (it reads
    the newer `spotted.json` as its memory), and commit again. Open the pull request and merge it once the checks in
    the routine prompt pass.
@@ -102,10 +108,10 @@ the lead into a tracked one linked to its narrative, `rejected` hides it.
 | Symptom | Action |
 |---|---|
 | `start` exits 1 (`scout day budget`) | Stop. Nothing to publish; the next day's budget starts at 00:00 UTC. |
-| A batch fails, is refunded or returns `amount_exceeds_cap` | Do not retry in this run. Without `d1` or `d2`, stop and publish nothing; without `e1`, skip step 4 and publish (themes stay unchecked and are checked next hour). |
-| `publish` refuses | Fix `decisions.json` (missing decision, unsaved post, blocked source). Never edit the checks. |
+| A batch fails, is refunded or returns `amount_exceeds_cap` | Do not retry in this run. Without `d1` or `d2`: publish nothing, run `record` and ship the raw files and the ledger (step 6). Without `e1`: skip step 4 and publish (themes stay unchecked and are checked next hour). |
+| `publish` refuses | Fix `decisions.json` (missing decision, unsaved post, blocked source). Never edit the checks. If it cannot be fixed, run `record` and ship without `spotted.json`. |
 | Merge conflict on `data/live/` | Rebase on `main`, re-run `publish`, commit, push. Never merge over a newer `spotted.json`. |
-| The site shows "The hourly scout has not reported since …" | The latest file is more than 3 hours old: the routine is failing or paused. The daily refresh is unaffected. |
+| The site shows "The hourly scout has not reported since …" | The latest file is more than 3 hours old: the routine is failing or paused. The page checks this against the reader's clock too, so it says so even when no deploy has happened since. The daily refresh is unaffected. |
 
 ## Routine prompt
 
@@ -133,7 +139,9 @@ AUTHORIZATION
 PROCEDURE
 1. Start your designated branch fresh from the latest main (`git fetch origin main && git checkout -B <branch>
    origin/main`). Read docs/prompts/scout.md and follow its Procedure exactly: start, d1, names, d2, check,
-   e1 (and at most one e2 of follow-ups) only for the themes check lists, decisions.json, publish, ship.
+   e1 (and at most one e2 of follow-ups) only for the themes check lists, decisions.json, publish, ship. If the
+   run stops after any paid call without publishing, run `scout.py record` and still ship the raw files and the
+   ledger, so the day's budget counts what was spent.
 2. Decide every listed theme by the rules in "Deciding a theme". A post is a claim, not verification; name the
    story, attribute what posts say, cite only posts you read in this run's saved searches.
 3. Checks (all must pass): `node --experimental-strip-types --no-warnings --test tests/lamble/scout.test.ts`,
