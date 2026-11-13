@@ -312,7 +312,8 @@ test('every discovered theme cluster ends in a recorded decision', () => {
   const discovery = readJson(narrativeRun('discovery.json'));
   const decisions = readJson(narrativeRun('curation.json')).clusterDecisions;
   const ids = new Set(NARRATIVES.map((n) => n.id));
-  assert(discovery.clusters.length > 0);
+  // A day can have no theme cluster (every word- or ticker-sharing group quarantined), but discovery must have run.
+  assert(Array.isArray(discovery.clusters) && discovery.candidates.length > 0);
   for (const k of discovery.clusters) {
     const d = decisions[k.id];
     assert(d?.reason, `${k.id} has no decision`);
