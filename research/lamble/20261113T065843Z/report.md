@@ -78,13 +78,13 @@ Volume caveats now shown (a coin traded over 10x its market cap in 24h):
 
 ## Checks
 - Passed: `npx tsc --noEmit`, `npm run lint`, `npm run build`, `git diff --check` and the credential scan.
-- **Failed: `tests/frames-data.test.mjs`, 1 of 12.** "every discovered theme cluster ends in a recorded decision" asserts `discovery.clusters.length > 0`. Today's discovery has zero clusters, the first such run (earlier runs had 1–13). Changing that assertion would weaken a test, so it was left as is and the PR is not merged.
+- `tests/frames-data.test.mjs`: 12 of 12 pass after the owner-approved change below.
+- The first push failed 1 of 12: "every discovered theme cluster ends in a recorded decision" asserted `discovery.clusters.length > 0`, and today has zero clusters (the first such run; earlier runs had 1–13). With the owner's approval on 2026-11-13 the test now accepts a run with no clusters as long as discovery ran (candidates non-empty). It still checks a decision, decision type, narrative id and the size and volume bar for every reported cluster.
 
 ## Release
 - Published rel-20261113T065843Z-f0c243de. Wrote research/daily-2026-11-13; pinned coin-stonk-solana-6gmafs-2026-w46 and narrative-anthropic-ipo-2026-w46. The W44 and W45 editions were already frozen and are unchanged.
 
 ## For the owner's judgment
-- **Zero-cluster test.** Decide whether a run with no theme cluster is valid. If it is, the test should allow `clusters.length === 0` when discovery.json's suggestions include `find-new-narrative` or no eligible candidates share a word. If you approve that change, today's data can be merged as it is.
 - **Charity coins** (Foodcoin, routing creator fees to Feeding America via donate.gg) could become a narrative if more such coins appear; today there is one.
 - **Hours-old Meteora DBC copies:** two of yesterday's three AudaCity additions already show $0. This supports a minimum pool age for addMember.
 - **Clanker V4 $10.2M pairs** now also appear as "Claude" on Base. They keep showing up daily and keep being rejected.
