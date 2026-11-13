@@ -75,6 +75,7 @@ Node 22.13 or later (built-in `node:sqlite`, `--experimental-strip-types`).
   [editorial policy](docs/runbooks/editorial-policy.md), [payments](docs/runbooks/payments.md),
   [Frames listing](docs/runbooks/frames-listing.md)
 - Daily acquisition routine: [docs/prompts/refresh-market-data.md](docs/prompts/refresh-market-data.md)
+- Hourly scout (new coins and narratives, the home page's Just spotted): [docs/prompts/scout.md](docs/prompts/scout.md)
 
 ## Stack
 
@@ -89,5 +90,5 @@ src/components/launchpads  screener table and detail sheet
 src/lib/lamble            core (identity, time, measures), catalog, adapters, methods, release types,
                          service (the one read path), api, payments, research, notify, frames
 scripts/lamble            CLI: providers, ingest, release, weekly, research, collect, deliver, status
-scripts/frames-refresh   daily acquisition planning and normalization (Python)
+scripts/frames-refresh   daily acquisition planning and normalization, and the hourly scout (Python)
 ```

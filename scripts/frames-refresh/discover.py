@@ -28,6 +28,7 @@ NOW = int(dt.datetime.strptime(P.name, '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timez
 reg = json.loads((ROOT / 'docs/prompts/refresh-market-data.sources.json').read_text())
 NETWORK_CHAIN = {1399811149: 'solana', 56: 'bsc', 4663: 'robinhood', 8453: 'base', 1: 'ethereum', 42161: 'arbitrum', 143: 'monad', 5042: 'arc', 196: 'xlayer', 130: 'unichain'}
 CODEX, XSEARCH = tool('codex.token-metadata'), tool('x.search')  # tool IDs live in docs/data/providers.json
+KEY = f'lamble-scout-{P.name}' if P.parent.name == 'scout' else f'lamble-{P.name}'  # hourly scout runs (research/scout/) get their own key prefix
 
 
 def read(p): return json.loads(pathlib.Path(p).read_text())
@@ -56,7 +57,7 @@ if args.step == 'names':
     q = '{ ' + ' '.join(f't{i}:tokens(ids:[' + ','.join(f'{{address:"{a}",networkId:{n}}}' for a, n in part) +
                         ']){address name symbol networkId info{description} launchpad{launchpadName}}' for i, part in enumerate(parts)) + ' }'
     req = dict(calls=[dict(id=CODEX, args=dict(query=q))], search_ids=search_ids('codex.token-metadata'),
-               idempotency_key=f'lamble-{P.name}-d2', max_usd=0.01)
+               idempotency_key=f'{KEY}-d2', max_usd=0.01)
     (P / 'raw/d2-request.json').write_text(json.dumps(req, separators=(',', ':')) + '\n')
     print(json.dumps(dict(lookups=len(sides), request='raw/d2-request.json')))
     raise SystemExit
@@ -74,7 +75,7 @@ if args.step == 'stories':  # story-first check of today's clusters: theme word 
     n = 2
     while (P / f'raw/e{n}-request.json').exists(): n += 1
     req = dict(calls=[dict(id=XSEARCH, args=dict(words=w)) for w in words_],
-               search_ids=search_ids('x.search'), idempotency_key=f'lamble-{P.name}-e{n}', max_usd=0.1)
+               search_ids=search_ids('x.search'), idempotency_key=f'{KEY}-e{n}', max_usd=0.1)
     (P / f'raw/e{n}-request.json').write_text(json.dumps(req, separators=(',', ':')) + '\n')
     print(json.dumps(dict(stories=len(words_), request=f'raw/e{n}-request.json', words=words_)))
     raise SystemExit

@@ -23,7 +23,7 @@ export interface JobSpec {
   scheduleEvidence: string;
   capabilities: string[];
   scope: string;
-  budget: { maxCreditsPerRun: number; typicalCredits: string; authorization: string; maxDeliveriesPerDestinationPerDay?: number };
+  budget: { maxCreditsPerRun: number; typicalCredits: string; authorization: string; maxDeliveriesPerDestinationPerDay?: number; maxCreditsPerDay?: number };
   pagination: Record<string, unknown>;
   freshness: Record<string, unknown>;
   writerGroup: string;

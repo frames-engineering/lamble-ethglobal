@@ -9,6 +9,7 @@ import { SectionTabs } from "@/components/layout/section-tabs";
 import { overviewData } from "@/components/overview/data";
 import { FeesChart } from "@/components/overview/fees-chart";
 import { Change } from "@/components/overview/format";
+import { JustSpotted } from "@/components/overview/just-spotted";
 import { NarrativeExplorer } from "@/components/overview/narrative-explorer";
 import { TrenchIndexBlock } from "@/components/overview/trench-index";
 import { TrendingTokens } from "@/components/overview/trending-tokens";
@@ -21,9 +22,11 @@ import { InfoTip } from "@/components/ui/info-tip";
 import type { ChainId } from "@/lib/data/types";
 import { compactUsd } from "@/lib/format";
 import { getTrenchIndex, loadRelease } from "@/lib/lamble/service";
+import { loadSpotted } from "@/lib/lamble/site/spotted";
 
 const SECTIONS = [
   ["overview", "Overview"],
+  ["spotted", "Just spotted"],
   ["narratives", "Narratives"],
   ["launchpads", "Launchpads"],
   ["tokens", "Tokens"],
@@ -38,6 +41,10 @@ export default function OverviewPage() {
   const { fees, stats, featured, tokens, research } = overviewData();
   const lastDay = fees.days[fees.days.length - 1];
   const trench = getTrenchIndex();
+  // The hourly scout's file; read at build, so each scout commit that deploys refreshes it. Hidden when absent.
+  const spotted = loadSpotted();
+  const sections = spotted ? SECTIONS : SECTIONS.filter(([id]) => id !== "spotted");
+  const launchpadNames = Object.fromEntries(release.launchpads.map((l) => [l.slug, l.name]));
 
   return (
     <>
@@ -58,7 +65,7 @@ export default function OverviewPage() {
         />
         <p className="mt-4 text-xs text-med lg:hidden">Data through {formatDateTime(release.dataCutoff)}</p>
 
-        <SectionTabs sections={SECTIONS} className="mt-8 rise-3" />
+        <SectionTabs sections={sections} className="mt-8 rise-3" />
 
         <section id="overview" aria-label="Overview" className="pt-8 rise-4">
           <KeyFigures>
@@ -128,6 +135,18 @@ export default function OverviewPage() {
             </KeyFigure>
           </KeyFigures>
         </section>
+
+        {spotted && (
+          <Section
+            id="spotted"
+            title="Just spotted"
+            description="What the hourly scout found on the covered launchpads since the daily refresh: observations, not reviewed and not investment advice."
+            aside={<span className="text-xs text-med">Scanned {formatDateTime(spotted.generatedAt)}</span>}
+            className="rise-5"
+          >
+            <JustSpotted spotted={spotted} launchpadNames={launchpadNames} />
+          </Section>
+        )}
 
         <Section
           id="narratives"

@@ -14,6 +14,7 @@ const RESEARCH_FILES = [
   "./docs/data/providers.json",
   "./docs/data/pricing.json",
   "./docs/data/blocked.json",
+  "./data/live/spotted.json",
 ];
 
 const nextConfig: NextConfig = {
