@@ -1,0 +1,105 @@
+{
+ "run_id": "run_d5b4d7626f19457ea9310f710d6cd866",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 0,
+  "budget_credits": 11,
+  "balance_credits": 71830,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 43,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 1,
+  "delivered": 0,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 290,
+     "stored_chars": 290,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0xda5dfa773e59070dfa93832a38f239aa829e805dcd6000ba3556d2770d1ae11d",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x66e0ba85298fea5b51dc9b351a4c61ad4eca20a20f14a89e993148ab25453494",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned no tweets for the specified query.; class adjudicated seller_error\u2192negative_result: The API successfully processed the search request and explicitly returned a count of zero tweets, indicating no matches were found.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-14T12:20:21.011096909Z",
+     "query": "$GTA$",
+     "type": "top",
+     "tweet_count": 0,
+     "tweets": [],
+     "cursor": "DAACCgACHXFc19wAJxAKAAMdcVzX2__Y8AgABAAAAAILAAUAAAAcRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUFBPQgABgAAAAAIAAcAAAAAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_d5b4d7626f19457ea9310f710d6cd866/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.000423,
+  "tool_cost_usd": 0,
+  "frames_fee_usd": 6.3e-05,
+  "total_cost_usd": 0.000486,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 993,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 50,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.000423,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0xda5dfa773e59070dfa93832a38f239aa829e805dcd6000ba3556d2770d1ae11d",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x66e0ba85298fea5b51dc9b351a4c61ad4eca20a20f14a89e993148ab25453494",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool returned no tweets for the specified query.; class adjudicated seller_error\u2192negative_result: The API successfully processed the search request and explicitly returned a count of zero tweets, indicating no matches were found.",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
