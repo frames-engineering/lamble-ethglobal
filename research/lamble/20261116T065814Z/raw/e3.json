@@ -1,0 +1,578 @@
+{
+ "run_id": "run_fb1739c40a0441379b982874de491943",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 11,
+  "budget_credits": 30,
+  "balance_credits": 64100,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 35,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 2,
+  "delivered": 1,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 433,
+     "stored_chars": 433,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x13ea1c8ebb6b43664ccc607ee1e68aeb1160fcf5b8604aac4db9639eb6f4b0ec",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x8e0ced9625d9472a6d5de8bd9904771e35a427989d1abc000b8dcb43b6522ca7",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool executed the search correctly but returned no results, indicating no content was found for the given query.; class adjudicated seller_error\u2192negative_result: The response explicitly states 'tweet_count':0 and 'tweets':[], indicating that the search was processed but no matching results were found.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-16T07:06:23.028324386Z",
+     "query": "from:elonmusk Marvin",
+     "type": "top",
+     "tweet_count": 0,
+     "tweets": [],
+     "cursor": "DAACCgACHXOoKU5AJxAKAAMdc6gpTj_Y8AgABAAAAAILAAUAAAB8RW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUFrWU4vdEpGUnN3ZWcrVVg4SWNGSEFBRXNwNCtaM1c0QUFQaytkdGFSZWdBQkxLZXJORDEyQUFHRGY4bHB1WHNKTVVGWHVzNnRWUUFSUVE3dnViRlJBRUQ1UjkzMEdVd0FJPQgABgAAAAAIAAcAAAAAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12252,
+     "stored_chars": 12252,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x5e4f3e8a7afbc05c1c63a477a1215befe44066241d6297331dabe8b22cf5e23a",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0xaba1ae9d558847da22329f71cd798cf509f3079c1bc563229dfa73092fd335e6",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-16T07:06:30.887676397Z",
+     "query": "Elon Musk dog Marvin the Martian",
+     "type": "top",
+     "tweet_count": 18,
+     "tweets": [
+      {
+       "id": "2076541467783581780",
+       "text": "Elon Musk has a big dog called Gatsby, a little dog called Marvin the Martian, a Shiba Inu call Folki &amp; a cat named Schr\u00f6dinger. https://t.co/2o15NRxkRz",
+       "created_at": "2026-07-13T05:37:20Z",
+       "lang": "en",
+       "likes": 544,
+       "retweets": 62,
+       "replies": 73,
+       "quotes": 10,
+       "bookmarks": 87,
+       "views": 23466,
+       "conversation_id": "2076541467783581780",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1600295791",
+        "screen_name": "Dogetothemoon",
+        "name": "Doge Tipping",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090278758972571648/3ihoplje_normal.jpg"
+       }
+      },
+      {
+       "id": "2122061191312756779",
+       "text": "Donald Trump can\u2019t save you.\n\nElon Musk can\u2019t save you.\n\nThe Pope can\u2019t save you.\n\nJesus can save you.",
+       "created_at": "2026-11-15T20:16:28Z",
+       "lang": "en",
+       "likes": 2603,
+       "retweets": 171,
+       "replies": 40,
+       "quotes": 2,
+       "bookmarks": 15,
+       "views": 20777,
+       "conversation_id": "2122061191312756779",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1202801396996878338",
+        "screen_name": "UnashamedHQ",
+        "name": "\u271f Unashamed\u1d34\u1d60",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2058013574065221632/5l0zYtC3_normal.jpg"
+       }
+      },
+      {
+       "id": "2114408145455849803",
+       "text": "Elon Musk has brought his dog to SpaceX. The dog's name is Marvin, named after Marvin the Martian from Looney Tunes. The choice of name for a dog that lives in a rocket factory is the kind of detail that makes you realize the boy from Pretoria who read science fiction and watched",
+       "created_at": "2026-10-25T17:26:00Z",
+       "lang": "en",
+       "likes": 765,
+       "retweets": 89,
+       "replies": 73,
+       "quotes": 4,
+       "bookmarks": 60,
+       "views": 20067,
+       "conversation_id": "2114408145455849803",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1958091993428676608",
+        "screen_name": "multiplanet1",
+        "name": "Race \ud83d\udd4a\ufe0f",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2022016188021452802/mq6AXfN5_normal.jpg"
+       }
+      },
+      {
+       "id": "2122197978693632254",
+       "text": "So Marvin is literally Elon Musk dog and it\u2019s still bellow 10M ?? \n\nWe\u2019ve ran Max coin to 15M in 1 hour \n\nMarvin deserves to be treated the same way. \n\nHighorrr \n\nsolana:HkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump https://t.co/QwGMPUMeOi",
+       "created_at": "2026-11-16T05:20:01Z",
+       "lang": "en",
+       "likes": 12,
+       "retweets": 6,
+       "replies": 3,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 288,
+       "conversation_id": "2122197978693632254",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1807741937769697280",
+        "screen_name": "phiixbt",
+        "name": "liberty phi",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2122159419936923648/DkLzZ0Kh_normal.jpg"
+       }
+      },
+      {
+       "id": "2122219561693167759",
+       "text": "$Marvin The Martian hit $1M market cap.\n\nSomeone posted a pic with Elon and his dog and got an interaction from Elon.\n\nThis Marvin coin has been done thousands of times before. We decided to send it now. Already touched $1M MC. What\u2019s the ceiling? Or bottomless?\n\nCA: https://t.co/xQcRRrbSvE",
+       "created_at": "2026-11-16T06:45:47Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 63,
+       "conversation_id": "2122219561693167759",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1909831963600719872",
+        "screen_name": "jjjesti",
+        "name": "jesti",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2077720624747970560/iCnpHVdH_normal.jpg"
+       }
+      },
+      {
+       "id": "2122191341107187932",
+       "text": "OG 2 year old $MARVIN linked with Elon tweet of him naming all his 3 pets! \n\nCrpsTMjnzQ4AQXFf1hts4djcWdamz7ghuDzSsr4pump\n\nRUNNER:\n\nHkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump https://t.co/OTvEFVFHbF",
+       "created_at": "2026-11-16T04:53:38Z",
+       "lang": "en",
+       "likes": 4,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 754,
+       "conversation_id": "2122191341107187932",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2065503362582274048",
+        "screen_name": "ParabolicSOL",
+        "name": "Parabolic",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2065503814061375488/9IQ0SIRZ_normal.jpg"
+       }
+      },
+      {
+       "id": "2122213728997269660",
+       "text": "Martian is the only relevant dog that hasn't sent and relatable to Mars.\n\nIt's OG and not just an abandoned OG that is looking to \"vamp\"\n\nThe Team have been pushing for months \n\n7ahYKWDuxmQjH7S2RFWoPnNT6socVFJ2efn1ALLpkV8o",
+       "created_at": "2026-11-16T06:22:36Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 1040,
+       "conversation_id": "2122213728997269660",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1802170569313398784",
+        "screen_name": "DeltaXtc",
+        "name": "Megztard \ud83d\udea8",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2074267072599609344/oLDR1cYD_normal.jpg"
+       }
+      },
+      {
+       "id": "2122184355363643469",
+       "text": "Everyone knows Marvin the Martian, but not everyone knows his dog K-9.\n\nLiterally been by Marvin\u2019s side since 1948.\n\n$MARVIN already has the attention, and now his original sidekick $K9 is entering the picture.\n\nSame universe. Same nostalgia. Same community.\n\nYou really think https://t.co/VsPwjFd3P0",
+       "created_at": "2026-11-16T04:25:53Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 104,
+       "conversation_id": "2122184355363643469",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2042483934491967488",
+        "screen_name": "eliminateher2",
+        "name": "eli",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2042484080663805956/v9AH8qaQ_normal.jpg"
+       }
+      },
+      {
+       "id": "2122173817678168459",
+       "text": "dvs coin has the wrong image\n\nelon gave us a picture of marvin in his martian outfit https://t.co/MwjgUxIbZ4 https://t.co/0mZPkkRLnr",
+       "created_at": "2026-11-16T03:44:00Z",
+       "lang": "en",
+       "likes": 0,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 214,
+       "conversation_id": "2122173817678168459",
+       "is_quote": true,
+       "urls": [
+        "https://x.com/elonmusk/status/1354040068835569664"
+       ],
+       "author": {
+        "id": "2049928622102757376",
+        "screen_name": "intelligentdog9",
+        "name": "intelligent dog",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2088129621426339841/UmyAbrrg_normal.jpg"
+       }
+      },
+      {
+       "id": "1858323080797384787",
+       "text": "Elon Musk says human could reach Mars in 4 years after uncrewed SpaceX Starship trips\uff01\nLet Marvin the Martian dog fly to Mars!\ud83d\ude80\ud83d\ude80\n#Marvin7055 \n#DOGE\n@elonmusk https://t.co/tTt0uS5BeN",
+       "created_at": "2024-11-18T01:35:23Z",
+       "lang": "en",
+       "likes": 8,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 213,
+       "conversation_id": "1858323080797384787",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1635106765",
+        "screen_name": "Sparrcsxner",
+        "name": "Mandy",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1875727980401422336/MewGBJkX_normal.jpg"
+       }
+      },
+      {
+       "id": "2120102767624880364",
+       "text": "Turns out that the Starlink software, built for managing the movement of vast amounts of data through space and to the ground, is also very well suited to training super intelligence",
+       "created_at": "2026-11-10T10:34:24Z",
+       "lang": "en",
+       "likes": 120647,
+       "retweets": 11007,
+       "replies": 6341,
+       "quotes": 976,
+       "bookmarks": 3926,
+       "views": 8286645,
+       "conversation_id": "2120102767624880364",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "44196397",
+        "screen_name": "elonmusk",
+        "name": "Elon Musk",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103567689515954176/aR-Kjpp4_normal.jpg"
+       }
+      },
+      {
+       "id": "2091417264960512481",
+       "text": "Elon Musk has publicly mentioned several pets over the years, mainly via posts on X (formerly Twitter). The best-documented ones come from his own statements and related coverage\n\nFloki (Shiba Inu)\n\nShrub (hedgehog, female)\n\nGatsby \u2014 described as \u201ca big dog\u201d (some reports suggest https://t.co/Ip53WFyZLI",
+       "created_at": "2026-08-23T06:48:27Z",
+       "lang": "en",
+       "likes": 8,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 1,
+       "bookmarks": 0,
+       "views": 1254,
+       "conversation_id": "2091417264960512481",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1648661857274585088",
+        "screen_name": "jozzzeey",
+        "name": "\ud835\ude09\ud835\ude2a\ud835\ude28 \ud835\ude11\ud835\ude30\ud835\ude26\ud835\ude2d \ud83d\udc9a",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2022224526566633472/am0oubUl_normal.jpg"
+       }
+      },
+      {
+       "id": "2122189241157599698",
+       "text": "\u26a1 \u6708\u5154\u96f7\u9706 - MoonProfile\n\nMarvin The Martian ($Marvin)\nhttps://t.co/hC2Oyyaq47\n\nHkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump\n\nLIQ: $53,718 | MC: $317,648 https://t.co/NqIwnTLTpg",
+       "created_at": "2026-11-16T04:45:18Z",
+       "lang": "tl",
+       "likes": 9,
+       "retweets": 1,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 1978,
+       "conversation_id": "2122189241157599698",
+       "is_quote": false,
+       "urls": [
+        "https://moontok.io/solana/HkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump"
+       ],
+       "author": {
+        "id": "1577135787258306565",
+        "screen_name": "MoontokListing",
+        "name": "Moontok Listing Alert",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1625878319312023554/O0-MosQC_normal.jpg"
+       }
+      },
+      {
+       "id": "2122148745819390245",
+       "text": "2020: Elon Musk with his dog surveying and the wreckage of the SpaceX Starship SN8. \n\n2026: Elon Musk with the first orbital catch Starship S42. https://t.co/njtqHEUXwB",
+       "created_at": "2026-11-16T02:04:23Z",
+       "lang": "en",
+       "likes": 5792,
+       "retweets": 310,
+       "replies": 106,
+       "quotes": 25,
+       "bookmarks": 282,
+       "views": 279979,
+       "conversation_id": "2122148745819390245",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1600295791",
+        "screen_name": "Dogetothemoon",
+        "name": "Doge Tipping",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2090278758972571648/3ihoplje_normal.jpg"
+       }
+      },
+      {
+       "id": "2121763396190179414",
+       "text": "Some phone videos I took from the tower https://t.co/kxiSkIvoHQ",
+       "created_at": "2026-11-15T00:33:08Z",
+       "lang": "en",
+       "likes": 274471,
+       "retweets": 27738,
+       "replies": 12530,
+       "quotes": 2256,
+       "bookmarks": 13961,
+       "views": 7919538,
+       "conversation_id": "2121763396190179414",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "44196397",
+        "screen_name": "elonmusk",
+        "name": "Elon Musk",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2103567689515954176/aR-Kjpp4_normal.jpg"
+       }
+      },
+      {
+       "id": "2122211006239932715",
+       "text": "$Marvin 632K\nHkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump\n\nOKX wallet:https://t.co/Ogqj4EHxg7\n\n@Dogetothemoon posted a set of comparison images: in 2020, Elon appeared with his dog at the Starship SN8 wreckage site; in 2026, Starship's progress looks completely different. https://t.co/Oa5Zt1dDj5",
+       "created_at": "2026-11-16T06:11:47Z",
+       "lang": "en",
+       "likes": 3,
+       "retweets": 2,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 210,
+       "conversation_id": "2122211006239932715",
+       "is_quote": false,
+       "urls": [
+        "https://web3.okx.com/ul/JHt8eYO?ref=MOTIER1"
+       ],
+       "author": {
+        "id": "2887802604",
+        "screen_name": "Motier_crypto",
+        "name": "Azzie",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2079039205418876928/8uxko7ry_normal.jpg"
+       }
+      },
+      {
+       "id": "2092363800636727457",
+       "text": "Elon Musk Dog with named $Marvin the Martian. \n\nThere is no other meme combined musk, dog and mars lore at once. \n\nAnything below 5m is horrible fud\n\n7ahYKWDuxmQjH7S2RFWoPnNT6socVFJ2efn1ALLpkV8o",
+       "created_at": "2026-08-25T21:29:38Z",
+       "lang": "en",
+       "likes": 13,
+       "retweets": 3,
+       "replies": 4,
+       "quotes": 2,
+       "bookmarks": 0,
+       "views": 3521,
+       "conversation_id": "2092363800636727457",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "2057475339530432512",
+        "screen_name": "cwuhn4",
+        "name": "The OG Caller",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2057475921049800704/TnTP7BIr_normal.jpg"
+       }
+      },
+      {
+       "id": "2122198874412782051",
+       "text": "Why not use the same style as \u201cMarvin the Martian\u201d \n\n\u201cFloki the CEO\u201d https://t.co/oo8GWqLYD6",
+       "created_at": "2026-11-16T05:23:34Z",
+       "lang": "en",
+       "likes": 120,
+       "retweets": 21,
+       "replies": 28,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 3411,
+       "conversation_id": "2122198874412782051",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1876211719925583872",
+        "screen_name": "skrootimburg",
+        "name": "Skroot.rh",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2081270898108100609/Oz5ytVYY_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHXOoMM-AJxAKAAMdc6gwz3_Y8AgABAAAAAILAAUAAAEQRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJjZGNpbHVueGZSWHgxekUya0wxdEFySFd3ZU8vK2FnT3dkYzU0a2ZsYmduQjF6ZWRmcVY0R0xHY29XL3dUV2NGTWRjNE50YVZkZ1RSMXprS0hrRzVIakhWZmpBWFFXb1VzYzBWdDJoSnZRVkIxemljZm9HcERjSFhOakNtc2JBU1VkY2dTUk4xZVFWaDF6bzNLR0cwQ1BIWE9QMFZjV0FQNGRjME95MVJieGlSMXpoOTc1V3NIU0hYTGFkclRYRUJZZGJQZ3FJeHBBY2gxem02cU5Xd0VySFFtUnluWFdvS0VkYlUvbk1Gc0IvUjBHTk92ekZ5SGgIAAYAAAAACAAHAAAAAAwACAoAARnKFv8E1nBTAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_fb1739c40a0441379b982874de491943/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.00207,
+  "tool_cost_usd": 0.005,
+  "frames_fee_usd": 0.001061,
+  "total_cost_usd": 0.008131,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 6059,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 101,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.00207,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x13ea1c8ebb6b43664ccc607ee1e68aeb1160fcf5b8604aac4db9639eb6f4b0ec",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x8e0ced9625d9472a6d5de8bd9904771e35a427989d1abc000b8dcb43b6522ca7",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool executed the search correctly but returned no results, indicating no content was found for the given query.; class adjudicated seller_error\u2192negative_result: The response explicitly states 'tweet_count':0 and 'tweets':[], indicating that the search was processed but no matching results were found.",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x5e4f3e8a7afbc05c1c63a477a1215befe44066241d6297331dabe8b22cf5e23a",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0xaba1ae9d558847da22329f71cd798cf509f3079c1bc563229dfa73092fd335e6",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
