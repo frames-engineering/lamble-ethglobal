@@ -2,12 +2,12 @@
 import type { Launchpad, Narrative } from '../types';
 
 export const SNAPSHOT = {
-  "runId": "20261115T065807Z",
-  "collectedAt": "2026-11-15T06:58:07Z",
-  "financialEnd": "2026-11-15T00:00:00Z",
-  "chartEnd": "2026-11-15T05:00:00+00:00",
-  "narrativeRun": "research/lamble/20261115T065807Z",
-  "activityPath": "research/lamble/20261115T065807Z/landing-metrics.json",
+  "runId": "20261116T065814Z",
+  "collectedAt": "2026-11-16T06:58:14Z",
+  "financialEnd": "2026-11-16T00:00:00Z",
+  "chartEnd": "2026-11-16T05:00:00+00:00",
+  "narrativeRun": "research/lamble/20261116T065814Z",
+  "activityPath": "research/lamble/20261116T065814Z/landing-metrics.json",
   "enrichmentPath": "research/lamble/20260926T175634Z/launchpad-enrichment.json"
 };
 export const LAUNCHPADS: Launchpad[] = [
@@ -35,32 +35,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 1046711,
-        "revenue": 752455,
-        "supplySide": 294256,
-        "change": -24.12009009511893
+        "fees": 1127677,
+        "revenue": 794297,
+        "supplySide": 333380,
+        "change": 7.735277454808442
       },
       "d7": {
-        "fees": 8530039,
-        "revenue": 5960277,
-        "supplySide": 2569762,
-        "change": -16.36287638617113
+        "fees": 8634286,
+        "revenue": 6049604,
+        "supplySide": 2584682,
+        "change": -12.601736044121603
       },
       "d30": {
-        "fees": 47218413,
-        "revenue": 33361821,
-        "supplySide": 13856591,
-        "change": -22.289399952460318
+        "fees": 46280367,
+        "revenue": 32655320,
+        "supplySide": 13625046,
+        "change": -24.57860831622133
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 2065723
-        },
         {
           "time": 1792195200,
           "value": 1753285
@@ -176,19 +172,23 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 1046711
+        },
+        {
+          "time": 1794700800,
+          "value": 1127677
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "pump.fun:0",
         "pump-mayhem:0"
       ],
-      "indexedCreated24": 37763,
-      "indexedCompleted24": 786,
-      "indexed7dAvg": 36563.142857142855,
-      "indexed7dCompletionRate": 2.3067726281735705,
+      "indexedCreated24": 36089,
+      "indexedCompleted24": 775,
+      "indexed7dAvg": 37399.71428571428,
+      "indexed7dCompletionRate": 2.2597575229757294,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": true,
@@ -196,7 +196,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -263,10 +263,6 @@ export const LAUNCHPADS: Launchpad[] = [
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 197519
-        },
         {
           "time": 1792195200,
           "value": 114161
@@ -381,19 +377,23 @@ export const LAUNCHPADS: Launchpad[] = [
         },
         {
           "time": 1794614400,
+          "value": 19306
+        },
+        {
+          "time": 1794700800,
           "value": null
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "stonkfun:0"
       ],
-      "indexedCreated24": 60,
-      "indexedCompleted24": 1,
-      "indexed7dAvg": 107.28571428571429,
-      "indexed7dCompletionRate": 1.9973368841544608,
+      "indexedCreated24": 66,
+      "indexedCompleted24": 0,
+      "indexed7dAvg": 109.42857142857143,
+      "indexed7dCompletionRate": 1.6971279373368147,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": null,
@@ -401,7 +401,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -419,7 +419,7 @@ export const LAUNCHPADS: Launchpad[] = [
         "HoldersRevenue": "Quote assets spent buying STONK on Jupiter, identified on-chain as swaps that returned STONK to the operator wallet, at the net amount each swap spent.",
         "ProtocolRevenue": "Fees StonkFun keeps after paying the creator share of standard launches and the flywheel share of reward launches, minus the quote assets spent buying STONK on Jupiter. From 2026-08-28, fees paid in STONK and fees from STONK's own pool are excluded. Buybacks spend income claimed on earlier days, so this is negative when a buyback is larger than the day's retained fees."
       },
-      "deliveryDisputed": false,
+      "deliveryDisputed": true,
       "configurationVariants": []
     }
   },
@@ -447,32 +447,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 105853,
-        "revenue": 15208,
-        "supplySide": 90644,
-        "change": -6.2841409106603745
+        "fees": 89386,
+        "revenue": 12141,
+        "supplySide": 77247,
+        "change": -15.556479268419412
       },
       "d7": {
-        "fees": 959584,
-        "revenue": 141850,
-        "supplySide": 817725,
-        "change": -35.275548912427624
+        "fees": 908409,
+        "revenue": 132735,
+        "supplySide": 775670,
+        "change": -37.84185273783262
       },
       "d30": {
-        "fees": 8111697,
-        "revenue": 1205792,
-        "supplySide": 6905866,
-        "change": -81.01626944480414
+        "fees": 7672213,
+        "revenue": 1143375,
+        "supplySide": 6528801,
+        "change": -81.21898155019343
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 528870
-        },
         {
           "time": 1792195200,
           "value": 464140
@@ -588,18 +584,22 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 105853
+        },
+        {
+          "time": 1794700800,
+          "value": 89386
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "pons:0"
       ],
-      "indexedCreated24": 523,
-      "indexedCompleted24": 2,
-      "indexed7dAvg": 704.4285714285714,
-      "indexed7dCompletionRate": 0.7706347596836342,
+      "indexedCreated24": 608,
+      "indexedCompleted24": 5,
+      "indexed7dAvg": 682.7142857142857,
+      "indexed7dCompletionRate": 0.7951454279137895,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": null,
@@ -607,7 +607,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "robinhood"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "Pons V2 ONLY; Pons V1 separately retained in provider-financials.json",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -658,32 +658,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 356156,
-        "revenue": 94726,
-        "supplySide": 261429,
-        "change": -9.983419940554422
+        "fees": 343257,
+        "revenue": 91512,
+        "supplySide": 251743,
+        "change": -3.621727557587125
       },
       "d7": {
-        "fees": 3275479,
-        "revenue": 878180,
-        "supplySide": 2397304,
-        "change": -7.222526871791501
+        "fees": 3125072,
+        "revenue": 862302,
+        "supplySide": 2262773,
+        "change": -11.29496993039725
       },
       "d30": {
-        "fees": 18245004,
-        "revenue": 4247922,
-        "supplySide": 13997088,
-        "change": -47.1980993750942
+        "fees": 17753272,
+        "revenue": 4125956,
+        "supplySide": 13627325,
+        "change": -48.39259329800607
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 834989
-        },
         {
           "time": 1792195200,
           "value": 703485
@@ -799,18 +795,22 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 356156
+        },
+        {
+          "time": 1794700800,
+          "value": 343257
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "flap:0"
       ],
-      "indexedCreated24": 3627,
-      "indexedCompleted24": 18,
-      "indexed7dAvg": 5193,
-      "indexed7dCompletionRate": 0.5859536188825617,
+      "indexedCreated24": 5946,
+      "indexedCompleted24": 29,
+      "indexed7dAvg": 5279.571428571428,
+      "indexed7dCompletionRate": 0.5411694672186596,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": true,
@@ -821,7 +821,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "robinhood"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -842,7 +842,7 @@ export const LAUNCHPADS: Launchpad[] = [
         "ProtocolRevenue": "Same as Revenue — all quote inflows to the Flap fee Safe.",
         "SupplySideRevenue": "Token tax routed outside the protocol Safe: V1 TaxSplitter beneficiary payouts, plus V2/V3 TaxProcessor market and dividend buckets."
       },
-      "deliveryDisputed": true,
+      "deliveryDisputed": false,
       "configurationVariants": []
     }
   },
@@ -870,32 +870,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 31214,
-        "revenue": 4987,
-        "supplySide": 26227,
-        "change": -33.73667897932323
+        "fees": 37356,
+        "revenue": 5715,
+        "supplySide": 31641,
+        "change": 19.677067982315627
       },
       "d7": {
-        "fees": 980525,
-        "revenue": 185722,
-        "supplySide": 794803,
-        "change": -8.447028549232861
+        "fees": 720617,
+        "revenue": 132432,
+        "supplySide": 588185,
+        "change": -44.022704215986785
       },
       "d30": {
-        "fees": 3565165,
-        "revenue": 606698,
-        "supplySide": 2958465,
-        "change": -63.75272756997535
+        "fees": 3563189,
+        "revenue": 606551,
+        "supplySide": 2956636,
+        "change": -63.168809078081395
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 39332
-        },
         {
           "time": 1792195200,
           "value": 39427
@@ -1011,18 +1007,22 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 31214
+        },
+        {
+          "time": 1794700800,
+          "value": 37356
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "launchlab:0"
       ],
-      "indexedCreated24": 701,
-      "indexedCompleted24": 4,
-      "indexed7dAvg": 1271.7142857142858,
-      "indexed7dCompletionRate": 1.4041788362165806,
+      "indexedCreated24": 624,
+      "indexedCompleted24": 11,
+      "indexed7dAvg": 1035.5714285714287,
+      "indexed7dCompletionRate": 1.2829355773210098,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": true,
@@ -1030,7 +1030,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -1048,7 +1048,7 @@ export const LAUNCHPADS: Launchpad[] = [
         "HoldersRevenue": "25% of the protocol fee is used to buy back and burn RAY.",
         "SupplySideRevenue": "Fees paid out to the launch platform (e.g. StonkFun, LetsBonk) and to the token creator."
       },
-      "deliveryDisputed": true,
+      "deliveryDisputed": false,
       "configurationVariants": []
     }
   },
@@ -1076,32 +1076,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 27379,
-        "revenue": 14394,
-        "supplySide": 12981,
-        "change": -33.291913359159906
+        "fees": 31560,
+        "revenue": 16077,
+        "supplySide": 15482,
+        "change": 15.270828006866576
       },
       "d7": {
-        "fees": 802033,
-        "revenue": 406634,
-        "supplySide": 395389,
-        "change": -9.735655650067864
+        "fees": 592648,
+        "revenue": 301986,
+        "supplySide": 290653,
+        "change": -43.975966255957864
       },
       "d30": {
-        "fees": 2988570,
-        "revenue": 1607518,
-        "supplySide": 1381038,
-        "change": -61.75022077739239
+        "fees": 2986216,
+        "revenue": 1604266,
+        "supplySide": 1381935,
+        "change": -61.264552144376005
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 33914
-        },
         {
           "time": 1792195200,
           "value": 35908
@@ -1217,18 +1213,22 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 27379
+        },
+        {
+          "time": 1794700800,
+          "value": 31560
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "bonk:0"
       ],
       "indexedCreated24": 8,
-      "indexedCompleted24": 1,
-      "indexed7dAvg": 29.571428571428573,
-      "indexed7dCompletionRate": 1.932367149758454,
+      "indexedCompleted24": 0,
+      "indexed7dAvg": 30,
+      "indexed7dCompletionRate": 1.9047619047619047,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": null,
@@ -1236,7 +1236,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "Provider-declared deployment support; official current chain confirmation remains incomplete",
       "additionalSupportedChains": [],
@@ -1281,32 +1281,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 9597,
-        "revenue": 9597,
+        "fees": 10717,
+        "revenue": 10717,
         "supplySide": null,
-        "change": -33.17317735533737
+        "change": 11.670313639679067
       },
       "d7": {
-        "fees": 271033,
-        "revenue": 271033,
+        "fees": 201320,
+        "revenue": 201320,
         "supplySide": null,
-        "change": -11.630431947415097
+        "change": -44.18816119230855
       },
       "d30": {
-        "fees": 1071257,
-        "revenue": 1071257,
+        "fees": 1069070,
+        "revenue": 1069070,
         "supplySide": null,
-        "change": -66.01013105646327
+        "change": -65.52878254922629
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 12904
-        },
         {
           "time": 1792195200,
           "value": 13374
@@ -1422,6 +1418,10 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 9597
+        },
+        {
+          "time": 1794700800,
+          "value": 10717
         }
       ]
     },
@@ -1430,7 +1430,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "Provider-declared deployment support; official current chain confirmation remains incomplete",
       "additionalSupportedChains": [],
@@ -1474,32 +1474,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 1194,
-        "revenue": 303,
-        "supplySide": 890,
-        "change": -28.028933092224232
+        "fees": 489,
+        "revenue": 125,
+        "supplySide": 364,
+        "change": -59.04522613065327
       },
       "d7": {
-        "fees": 20585,
-        "revenue": 5255,
-        "supplySide": 15327,
-        "change": 27.5718889439762
+        "fees": 8208,
+        "revenue": 2092,
+        "supplySide": 6113,
+        "change": -69.86120290812954
       },
       "d30": {
-        "fees": 315704,
-        "revenue": 80744,
-        "supplySide": 234972,
-        "change": -91.73240411097579
+        "fees": 313753,
+        "revenue": 80244,
+        "supplySide": 233521,
+        "change": -91.78870518736883
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 2440
-        },
         {
           "time": 1792195200,
           "value": 1435
@@ -1615,17 +1611,21 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 1194
+        },
+        {
+          "time": 1794700800,
+          "value": 489
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "genius:0"
       ],
-      "indexedCreated24": 4,
+      "indexedCreated24": 3,
       "indexedCompleted24": 0,
-      "indexed7dAvg": 12.285714285714286,
+      "indexed7dAvg": 5.571428571428571,
       "indexed7dCompletionRate": 0,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
@@ -1634,7 +1634,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "bsc"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -1679,32 +1679,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 893,
-        "revenue": 108,
-        "supplySide": 785,
-        "change": -47.83878504672897
+        "fees": 1561,
+        "revenue": 162,
+        "supplySide": 1400,
+        "change": 74.80403135498321
       },
       "d7": {
-        "fees": 19198,
-        "revenue": 2152,
-        "supplySide": 17045,
-        "change": -49.947856919386794
+        "fees": 18104,
+        "revenue": 2004,
+        "supplySide": 16099,
+        "change": -53.2353472993568
       },
       "d30": {
-        "fees": 177182,
-        "revenue": 24539,
-        "supplySide": 152635,
-        "change": -96.34662277769827
+        "fees": 164648,
+        "revenue": 21992,
+        "supplySide": 142653,
+        "change": -93.50188256281129
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 14095
-        },
         {
           "time": 1792195200,
           "value": 10034
@@ -1820,11 +1816,15 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 893
+        },
+        {
+          "time": 1794700800,
+          "value": 1561
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "argus:0"
       ],
@@ -1839,7 +1839,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "arc"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "Provider-declared deployment support; official current chain confirmation remains incomplete",
       "additionalSupportedChains": [],
@@ -1884,32 +1884,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 13603,
-        "revenue": 2612,
-        "supplySide": 10991,
-        "change": -36.6595269137642
+        "fees": 16538,
+        "revenue": 3094,
+        "supplySide": 13444,
+        "change": 21.576122914063074
       },
       "d7": {
-        "fees": 214398,
-        "revenue": 39440,
-        "supplySide": 174957,
-        "change": -34.28796483882931
+        "fees": 198393,
+        "revenue": 36499,
+        "supplySide": 161893,
+        "change": -38.436976354496366
       },
       "d30": {
-        "fees": 1282692,
-        "revenue": 236573,
-        "supplySide": 1046116,
-        "change": -61.12684661510217
+        "fees": 1246811,
+        "revenue": 230088,
+        "supplySide": 1016720,
+        "change": -62.37495017018335
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 52419
-        },
         {
           "time": 1792195200,
           "value": 32707
@@ -2025,18 +2021,22 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 13603
+        },
+        {
+          "time": 1794700800,
+          "value": 16538
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "meteoradbc:0"
       ],
-      "indexedCreated24": 2175,
-      "indexedCompleted24": 1985,
-      "indexed7dAvg": 2055,
-      "indexed7dCompletionRate": 88.48105665623913,
+      "indexedCreated24": 2290,
+      "indexedCompleted24": 2006,
+      "indexed7dAvg": 2132.714285714286,
+      "indexed7dCompletionRate": 88.00321521870185,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": true,
@@ -2044,7 +2044,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -2093,32 +2093,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 24800,
-        "revenue": 24800,
+        "fees": 18268,
+        "revenue": 18268,
         "supplySide": null,
-        "change": -1.1637175195281364
+        "change": -26.338709677419356
       },
       "d7": {
-        "fees": 192593,
-        "revenue": 192593,
+        "fees": 188960,
+        "revenue": 188960,
         "supplySide": null,
-        "change": 17.520029777704554
+        "change": 16.04669872444436
       },
       "d30": {
-        "fees": 803977,
-        "revenue": 803977,
+        "fees": 796673,
+        "revenue": 796673,
         "supplySide": null,
-        "change": -41.82464549283677
+        "change": -40.92421477411849
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 25572
-        },
         {
           "time": 1792195200,
           "value": 20051
@@ -2234,6 +2230,10 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 24800
+        },
+        {
+          "time": 1794700800,
+          "value": 18268
         }
       ]
     },
@@ -2245,7 +2245,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "arbitrum"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "Official 2025-04-25 supported listing chains; verified subset, not all current trading/transfer networks",
       "additionalSupportedChains": [],
@@ -2298,32 +2298,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 1924,
-        "revenue": 1003,
-        "supplySide": 925,
-        "change": -60.23971895019632
+        "fees": 1534,
+        "revenue": 775,
+        "supplySide": 763,
+        "change": -20.27027027027027
       },
       "d7": {
-        "fees": 19366,
-        "revenue": 10210,
-        "supplySide": 9159,
-        "change": -46.75574617837897
+        "fees": 18605,
+        "revenue": 9835,
+        "supplySide": 8776,
+        "change": -47.086260345268904
       },
       "d30": {
-        "fees": 218395,
-        "revenue": 119496,
-        "supplySide": 98915,
-        "change": -77.1985525343178
+        "fees": 212631,
+        "revenue": 116318,
+        "supplySide": 96329,
+        "change": -72.71652937100623
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 7298
-        },
         {
           "time": 1792195200,
           "value": 2315
@@ -2439,15 +2435,19 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 1924
+        },
+        {
+          "time": 1794700800,
+          "value": 1534
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "o1.exchange:0"
       ],
-      "indexedCreated24": 17,
+      "indexedCreated24": 19,
       "indexedCompleted24": null,
       "indexed7dAvg": 48.57142857142857,
       "indexed7dCompletionRate": null,
@@ -2463,7 +2463,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "xlayer"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -2509,32 +2509,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 3473,
-        "revenue": 575,
-        "supplySide": 2890,
-        "change": -77.13928383359664
+        "fees": 14974,
+        "revenue": 2496,
+        "supplySide": 12475,
+        "change": 331.15462136481426
       },
       "d7": {
-        "fees": 131496,
-        "revenue": 22111,
-        "supplySide": 109374,
-        "change": -18.340174751131784
+        "fees": 143520,
+        "revenue": 24116,
+        "supplySide": 119390,
+        "change": -11.696302221128407
       },
       "d30": {
-        "fees": 376553,
-        "revenue": 62956,
-        "supplySide": 313581,
-        "change": -74.01319240091206
+        "fees": 384083,
+        "revenue": 64211,
+        "supplySide": 319850,
+        "change": -73.55645303429208
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 7444
-        },
         {
           "time": 1792195200,
           "value": 4549
@@ -2650,18 +2646,22 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 3473
+        },
+        {
+          "time": 1794700800,
+          "value": 14974
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "clanker:0",
         "clanker-v4:0"
       ],
-      "indexedCreated24": 132,
+      "indexedCreated24": 164,
       "indexedCompleted24": null,
-      "indexed7dAvg": 124.28571428571429,
+      "indexed7dAvg": 138.57142857142858,
       "indexed7dCompletionRate": null,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
@@ -2675,7 +2675,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "robinhood"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -2720,32 +2720,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 0.06,
-        "revenue": 0.03,
-        "supplySide": 0.04,
-        "change": -70
+        "fees": 0.01,
+        "revenue": 0,
+        "supplySide": 0,
+        "change": -83.33333333333334
       },
       "d7": {
-        "fees": 17.22,
-        "revenue": 2.87,
-        "supplySide": 14.36,
-        "change": -91.71717171717171
+        "fees": 12.49,
+        "revenue": 2.09,
+        "supplySide": 10.4,
+        "change": -90.83571795436202
       },
       "d30": {
-        "fees": 5110.15,
-        "revenue": 842.01,
-        "supplySide": 4266.99,
-        "change": -98.5337887081689
+        "fees": 4367.16,
+        "revenue": 722.01,
+        "supplySide": 3644.99,
+        "change": -98.00605903903603
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 743
-        },
         {
           "time": 1792195200,
           "value": 1451
@@ -2861,6 +2857,10 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 0.06
+        },
+        {
+          "time": 1794700800,
+          "value": 0.01
         }
       ]
     },
@@ -2869,7 +2869,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "robinhood"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "Nightshades ONLY; not all StonkBrokers products. Matches baseline 7d fee figure and faction-token description.",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -2915,32 +2915,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 5911,
-        "revenue": 2945,
-        "supplySide": 2967,
-        "change": -47.74113694633542
+        "fees": 5552,
+        "revenue": 2774,
+        "supplySide": 2778,
+        "change": -6.073422432752495
       },
       "d7": {
-        "fees": 114421,
-        "revenue": 57201,
-        "supplySide": 57220,
-        "change": -41.87933031269683
+        "fees": 87226,
+        "revenue": 43598,
+        "supplySide": 43628,
+        "change": -61.427295320473704
       },
       "d30": {
-        "fees": 399050,
-        "revenue": 197624,
-        "supplySide": 201431,
-        "change": 21.36815564808253
+        "fees": 400872,
+        "revenue": 198530,
+        "supplySide": 202346,
+        "change": 21.350232939702067
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 3730
-        },
         {
           "time": 1792195200,
           "value": 8167
@@ -3056,18 +3052,22 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 5911
+        },
+        {
+          "time": 1794700800,
+          "value": 5552
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "bags:0"
       ],
-      "indexedCreated24": 60,
-      "indexedCompleted24": 5,
-      "indexed7dAvg": 126,
-      "indexed7dCompletionRate": 5.328798185941043,
+      "indexedCreated24": 43,
+      "indexedCompleted24": 3,
+      "indexed7dAvg": 106,
+      "indexed7dCompletionRate": 4.716981132075472,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": null,
@@ -3076,7 +3076,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "robinhood"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -3125,32 +3125,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 1636,
-        "revenue": 1407,
-        "supplySide": 229,
-        "change": -23.55140186915888
+        "fees": 2365,
+        "revenue": 2036,
+        "supplySide": 332,
+        "change": 44.559902200489
       },
       "d7": {
-        "fees": 16840,
-        "revenue": 14480,
-        "supplySide": 2358,
-        "change": -26.52384484488852
+        "fees": 16950,
+        "revenue": 14576,
+        "supplySide": 2375,
+        "change": -20.291558899600282
       },
       "d30": {
-        "fees": 101233,
-        "revenue": 87044,
-        "supplySide": 14178,
-        "change": -40.43470841938654
+        "fees": 99919,
+        "revenue": 85918,
+        "supplySide": 13994,
+        "change": -41.347288341541585
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 3679
-        },
         {
           "time": 1792195200,
           "value": 2796
@@ -3266,6 +3262,10 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 1636
+        },
+        {
+          "time": 1794700800,
+          "value": 2365
         }
       ]
     },
@@ -3274,7 +3274,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "solana"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "Nine chains advertised on homepage; seven fit current ChainId, Stable and Ink retained separately",
       "additionalSupportedChains": [
@@ -3323,32 +3323,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 458,
-        "revenue": 364,
-        "supplySide": 101,
-        "change": 94.8936170212766
+        "fees": 143,
+        "revenue": 110,
+        "supplySide": 36.23,
+        "change": -68.77729257641921
       },
       "d7": {
-        "fees": 2344,
-        "revenue": 1682,
-        "supplySide": 697.47,
-        "change": -4.365565075479396
+        "fees": 2263,
+        "revenue": 1593,
+        "supplySide": 700.16,
+        "change": -9.768740031897927
       },
       "d30": {
-        "fees": 11309,
-        "revenue": 8509,
-        "supplySide": 3085.21,
-        "change": -88.08161286582988
+        "fees": 10967,
+        "revenue": 8224,
+        "supplySide": 3017.44,
+        "change": -88.0165650473131
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 485
-        },
         {
           "time": 1792195200,
           "value": 599
@@ -3464,6 +3460,10 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 458
+        },
+        {
+          "time": 1794700800,
+          "value": 143
         }
       ]
     },
@@ -3473,7 +3473,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "robinhood"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -3520,32 +3520,28 @@ export const LAUNCHPADS: Launchpad[] = [
     "routingNotes": [],
     "metrics": {
       "h24": {
-        "fees": 5140,
-        "revenue": 5130,
-        "supplySide": 8.4,
-        "change": -75.54709800190295
+        "fees": 2426,
+        "revenue": 2422,
+        "supplySide": 3.86,
+        "change": -52.80155642023346
       },
       "d7": {
-        "fees": 61274,
-        "revenue": 60201,
-        "supplySide": 1072.63,
-        "change": 66.94548129580689
+        "fees": 61182,
+        "revenue": 60165,
+        "supplySide": 1014.9,
+        "change": 75.79013906447535
       },
       "d30": {
-        "fees": 182690,
-        "revenue": 174533,
-        "supplySide": 8167.25,
-        "change": -47.784507126790274
+        "fees": 179590,
+        "revenue": 171812,
+        "supplySide": 7787.11,
+        "change": -47.41511577517246
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 5526
-        },
         {
           "time": 1792195200,
           "value": 3011
@@ -3661,19 +3657,23 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 5140
+        },
+        {
+          "time": 1794700800,
+          "value": 2426
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "four.meme:0",
         "four.meme-fair:0"
       ],
-      "indexedCreated24": 1223,
+      "indexedCreated24": 1504,
       "indexedCompleted24": 1,
-      "indexed7dAvg": 1675.4285714285713,
-      "indexed7dCompletionRate": 0.12789904502046384,
+      "indexed7dAvg": 1676.7142857142858,
+      "indexed7dCompletionRate": 0.11928090653488967,
       "coverage": "Provider-reported indexed activity, beta. Exact window cutoffs, creation-event completeness and finality are not independently established."
     },
     "hasBondingCurve": null,
@@ -3681,7 +3681,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "bsc"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -3734,23 +3734,19 @@ export const LAUNCHPADS: Launchpad[] = [
         "fees": 9.6,
         "revenue": 9.6,
         "supplySide": 0,
-        "change": -52
+        "change": -4.0000000000000036
       },
       "d30": {
-        "fees": 279.48,
-        "revenue": 268.15,
+        "fees": 269.48,
+        "revenue": 258.15,
         "supplySide": 11.15,
-        "change": -99.45052795361376
+        "change": -99.43271393166421
       },
       "launched24h": null,
       "launched7dAvg": null,
       "graduated24h": null,
       "graduationRate7d": null,
       "history30d": [
-        {
-          "time": 1792108800,
-          "value": 10
-        },
         {
           "time": 1792195200,
           "value": 10
@@ -3866,11 +3862,15 @@ export const LAUNCHPADS: Launchpad[] = [
         {
           "time": 1794614400,
           "value": 0
+        },
+        {
+          "time": 1794700800,
+          "value": 0
         }
       ]
     },
     "activityObservation": {
-      "sourceAsOf": 1794726733,
+      "sourceAsOf": 1794813131,
       "providerIds": [
         "foci:0"
       ],
@@ -3885,7 +3885,7 @@ export const LAUNCHPADS: Launchpad[] = [
       "arc"
     ],
     "provenance": {
-      "financialAnchor": "2026-11-15T00:00:00Z",
+      "financialAnchor": "2026-11-16T00:00:00Z",
       "scope": "all activity captured by mapped DefiLlama adapter",
       "supportedChainCoverage": "verified subset; not an exhaustive live network availability guarantee",
       "additionalSupportedChains": [],
@@ -3914,12 +3914,12 @@ export const NARRATIVES: Narrative[] = [
     "slug": "gta6-launch-coins",
     "title": "GTA 6 launch coins",
     "category": "culture",
-    "summary": "Coins named for Grand Theft Auto VI. Rockstar Games posted on 2025-11-06 that the game will release on Thursday, November 19, 2026, and on 2026-11-12 that it is one week away; a trader's recap of 2026-11-14 says GTA coins are trending, naming $WASTED, $LUCIA, $MACCA and $GTA$. Fourteen coins are measured, each with GTA in its name or description: WASTED (\"the iconic GTA death screen\"), GTA6CAT, GTA Dollars, Ah shit, here we go again. (\"The most iconic GTA meme of all time, with GTA 6 coming out\"), gtacoin (LaunchLab; \"the one coin for all of gta\"), Macca The Gator (\"GTA 6 Mascot\"), State of Leonida (\"The home state of GTA VI\"), Peekhole (\"a parody of OnlyFans inside GTA 6\"), GTA memes, Jason Duval (named for a GTA VI protagonist; it says holders earn $TTWO stock, which is not verified here), Bawsaq (GTA's fictional stock exchange, \"from the world of GTA 6\"), and, from 2026-11-06, Rocco, EEAGLE and Mission Passed. All but gtacoin are on Pump.fun. Dates from Codex: the GTA6CAT and GTA memes pools opened in late August 2026, Macca The Gator, Jason Duval, Peekhole, EEAGLE and WASTED in October, and State of Leonida, Rocco, Mission Passed, Bawsaq, GTA Dollars, Ah shit and gtacoin between 2026-11-05 and 2026-11-14, all ahead of the release. Coins named for the in-game Dacity Coin brand are tracked separately. None of the coins is shown to be connected to Rockstar Games or Take-Two. Measured: fourteen coins across all their pools.",
+    "summary": "Coins named for Grand Theft Auto VI. Rockstar Games posted on 2025-11-06 that the game will release on Thursday, November 19, 2026, and on 2026-11-12 that it is one week away; traders' recaps of 2026-11-14 and 2026-11-15 say GTA coins are trending. Seventeen coins are measured, each with GTA in its name or description: WASTED (\"the iconic GTA death screen\"), GTA6CAT, GTA Dollars, Ah shit, here we go again. (\"The most iconic GTA meme of all time, with GTA 6 coming out\"), gtacoin (LaunchLab; \"the one coin for all of gta\"), Macca The Gator (\"GTA 6 Mascot\"), State of Leonida (\"The home state of GTA VI\"), Peekhole (\"a parody of OnlyFans inside GTA 6\"), GTA memes, Jason Duval (named for a GTA VI protagonist; it says holders earn $TTWO stock, which is not verified here), Bawsaq (GTA's fictional stock exchange, \"from the world of GTA 6\"), Rocco, EEAGLE and Mission Passed (from 2026-11-06), and, from 2026-11-16, GRAND THEFT CRYPTO (\"The first GTA server with real cryptocurrency\"; its account describes a GTA-style role-play server, not verified here), Doug The Frog (\"the frog... from Macca the Gator..., the cartoon inside GTA 6\") and Cyber Dacity Coin (\"GTA-inspired chaos to neon Miami\"). All but gtacoin are on Pump.fun. Dates from Codex: the GTA6CAT and GTA memes pools opened in late August 2026, Macca The Gator, Jason Duval, Peekhole, EEAGLE and WASTED in October, and the other ten between 2026-11-05 and 2026-11-16, all ahead of the release. Coins named only for the in-game Dacity Coin brand are a separate narrative, paused on 2026-11-16. None of the coins is shown to be connected to Rockstar Games or Take-Two. Measured: seventeen coins across all their pools.",
     "status": null,
     "mindshare": null,
     "change24h": null,
-    "volume24hUsd": 13455413.406368546,
-    "volume7dUsd": 37037299.29248526,
+    "volume24hUsd": 7687202.654221275,
+    "volume7dUsd": 42066390.37329324,
     "launches24h": null,
     "launches7d": null,
     "startedAt": null,
@@ -3930,176 +3930,128 @@ export const NARRATIVES: Narrative[] = [
         "color": "#f97316",
         "points": [
           {
-            "time": 1794632400,
-            "value": 296385.060017616
+            "time": 1794718800,
+            "value": 228293.220338545
           },
           {
-            "time": 1794636000,
-            "value": 261005.6823731218
+            "time": 1794722400,
+            "value": 148770.2681285351
           },
           {
-            "time": 1794639600,
-            "value": 404971.6775846425
+            "time": 1794726000,
+            "value": 243400.803314911
           },
           {
-            "time": 1794643200,
-            "value": 515617.52730488114
+            "time": 1794729600,
+            "value": 167388.926851013
           },
           {
-            "time": 1794646800,
-            "value": 250572.45386747402
+            "time": 1794733200,
+            "value": 148224.8263915255
           },
           {
-            "time": 1794650400,
-            "value": 194924.53994794714
+            "time": 1794736800,
+            "value": 157639.501821907
           },
           {
-            "time": 1794654000,
-            "value": 740264.74516523
+            "time": 1794740400,
+            "value": 230847.09645852743
           },
           {
-            "time": 1794657600,
-            "value": 1702155.0469388363
+            "time": 1794744000,
+            "value": 262478.9617319347
           },
           {
-            "time": 1794661200,
-            "value": 1482914.1273586708
+            "time": 1794747600,
+            "value": 266805.8454173497
           },
           {
-            "time": 1794664800,
-            "value": 838628.1116127145
+            "time": 1794751200,
+            "value": 443711.6787864157
           },
           {
-            "time": 1794668400,
-            "value": 415171.3143871502
+            "time": 1794754800,
+            "value": 384445.7877423806
           },
           {
-            "time": 1794672000,
-            "value": 684996.6012240301
+            "time": 1794758400,
+            "value": 277541.4962440329
           },
           {
-            "time": 1794675600,
-            "value": 471688.8522255384
+            "time": 1794762000,
+            "value": 217860.7479841361
           },
           {
-            "time": 1794679200,
-            "value": 352268.90792963974
+            "time": 1794765600,
+            "value": 348353.85470141604
           },
           {
-            "time": 1794682800,
-            "value": 463973.68571490754
+            "time": 1794769200,
+            "value": 354603.0433982413
           },
           {
-            "time": 1794686400,
-            "value": 418753.46868722636
+            "time": 1794772800,
+            "value": 347482.3276880361
           },
           {
-            "time": 1794690000,
-            "value": 628938.8756237881
+            "time": 1794776400,
+            "value": 282572.40668521693
           },
           {
-            "time": 1794693600,
-            "value": 1166751.0235235258
+            "time": 1794780000,
+            "value": 307168.8291933944
           },
           {
-            "time": 1794697200,
-            "value": 394688.5524431791
+            "time": 1794783600,
+            "value": 515600.7633183686
           },
           {
-            "time": 1794700800,
-            "value": 374652.26039304154
+            "time": 1794787200,
+            "value": 809145.5309466281
           },
           {
-            "time": 1794704400,
-            "value": 301598.2158974698
+            "time": 1794790800,
+            "value": 470578.3195203504
           },
           {
-            "time": 1794708000,
-            "value": 297876.34764977853
+            "time": 1794794400,
+            "value": 413580.85972803726
           },
           {
-            "time": 1794711600,
-            "value": 496997.5267148396
+            "time": 1794798000,
+            "value": 339724.4862578767
           },
           {
-            "time": 1794715200,
-            "value": 299618.8017832972
+            "time": 1794801600,
+            "value": 320983.07157249557
           }
         ]
       }
     ],
     "contenders": [
       {
-        "id": "solana:GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
-        "name": "WASTED",
-        "symbol": "WASTED",
-        "share": null,
-        "change24h": null,
-        "color": "#4895ef",
-        "launchpadSlug": "pump.fun",
-        "address": "GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
-        "explorerUrl": "https://solscan.io/token/GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
-        "measuredVolumeShare": 28.160892727672422
-      },
-      {
-        "id": "solana:6Nh9cmDoQvd2FvjNm44VmTwbyiKtxgmM7SCuhREhpump",
-        "name": "GTA Dollars",
-        "symbol": "GTA$",
-        "share": null,
-        "change24h": null,
-        "color": "#7c83ff",
-        "launchpadSlug": "pump.fun",
-        "address": "6Nh9cmDoQvd2FvjNm44VmTwbyiKtxgmM7SCuhREhpump",
-        "explorerUrl": "https://solscan.io/token/6Nh9cmDoQvd2FvjNm44VmTwbyiKtxgmM7SCuhREhpump",
-        "measuredVolumeShare": 23.819384807162013
-      },
-      {
-        "id": "solana:6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump",
-        "name": "Ah shit, here we go again.",
-        "symbol": "SHIT",
-        "share": null,
-        "change24h": null,
-        "color": "#a78bfa",
-        "launchpadSlug": "pump.fun",
-        "address": "6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump",
-        "explorerUrl": "https://solscan.io/token/6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump",
-        "measuredVolumeShare": 15.369801054126416
-      },
-      {
         "id": "solana:HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
         "name": "GTA6CAT",
         "symbol": "GATO",
         "share": null,
         "change24h": null,
-        "color": "#f59e0b",
+        "color": "#4895ef",
         "launchpadSlug": "pump.fun",
         "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
         "explorerUrl": "https://solscan.io/token/HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
-        "measuredVolumeShare": 10.278922423258154
+        "measuredVolumeShare": 20.516452240063476
       },
       {
-        "id": "solana:BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump",
-        "name": "State of Leonida",
-        "symbol": "Leonida",
+        "id": "solana:GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
+        "name": "WASTED",
+        "symbol": "WASTED",
         "share": null,
         "change24h": null,
-        "color": "#22c55e",
+        "color": "#7c83ff",
         "launchpadSlug": "pump.fun",
-        "address": "BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump",
-        "explorerUrl": "https://solscan.io/token/BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump",
-        "measuredVolumeShare": 5.438730331183151
-      },
-      {
-        "id": "solana:AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump",
-        "name": "Macca The Gator",
-        "symbol": "Macca",
-        "share": null,
-        "change24h": null,
-        "color": "#ef6f6c",
-        "launchpadSlug": "pump.fun",
-        "address": "AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump",
-        "explorerUrl": "https://solscan.io/token/AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump",
-        "measuredVolumeShare": 4.886202997048012
+        "address": "GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
+        "explorerUrl": "https://solscan.io/token/GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
+        "measuredVolumeShare": 17.561159388576744
       },
       {
         "id": "solana:DSKM3d518BBaQShSKqaqZcG1XMRf81UFB6a1eavhSTNK",
@@ -4107,11 +4059,11 @@ export const NARRATIVES: Narrative[] = [
         "symbol": "gtacoin",
         "share": null,
         "change24h": null,
-        "color": "#2dd4bf",
+        "color": "#a78bfa",
         "launchpadSlug": "launchlab",
         "address": "DSKM3d518BBaQShSKqaqZcG1XMRf81UFB6a1eavhSTNK",
         "explorerUrl": "https://solscan.io/token/DSKM3d518BBaQShSKqaqZcG1XMRf81UFB6a1eavhSTNK",
-        "measuredVolumeShare": 4.464037413246967
+        "measuredVolumeShare": 8.273563615073686
       },
       {
         "id": "solana:7dzdHo9DKx2dqnXBVXRyMUJUETQhfwFoV4NwcgfVpump",
@@ -4119,47 +4071,35 @@ export const NARRATIVES: Narrative[] = [
         "symbol": "BAWSAQ",
         "share": null,
         "change24h": null,
-        "color": "#e879f9",
+        "color": "#f59e0b",
         "launchpadSlug": "pump.fun",
         "address": "7dzdHo9DKx2dqnXBVXRyMUJUETQhfwFoV4NwcgfVpump",
         "explorerUrl": "https://solscan.io/token/7dzdHo9DKx2dqnXBVXRyMUJUETQhfwFoV4NwcgfVpump",
-        "measuredVolumeShare": 1.7849935844007725
+        "measuredVolumeShare": 6.864224867612046
       },
       {
-        "id": "solana:BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump",
-        "name": "GTA memes",
-        "symbol": "GTA",
+        "id": "solana:2YxbK7V6ZTKSxcavk3V4kFzdtZ4uywhhoyuSxapjpump",
+        "name": "GRAND THEFT CRYPTO",
+        "symbol": "FiveM",
         "share": null,
         "change24h": null,
-        "color": "#4895ef",
+        "color": "#22c55e",
         "launchpadSlug": "pump.fun",
-        "address": "BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump",
-        "explorerUrl": "https://solscan.io/token/BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump",
-        "measuredVolumeShare": 1.6893852836393026
+        "address": "2YxbK7V6ZTKSxcavk3V4kFzdtZ4uywhhoyuSxapjpump",
+        "explorerUrl": "https://solscan.io/token/2YxbK7V6ZTKSxcavk3V4kFzdtZ4uywhhoyuSxapjpump",
+        "measuredVolumeShare": 6.447152697008032
       },
       {
-        "id": "solana:2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump",
-        "name": "Peekhole",
-        "symbol": "Peekhole",
+        "id": "solana:C5X8tVbt8cGw7iaaEuAVGTxFVZ4uSjscmiUbVpVwpump",
+        "name": "Cyber Dacity Coin",
+        "symbol": "CYBERDACITY",
         "share": null,
         "change24h": null,
-        "color": "#7c83ff",
+        "color": "#ef6f6c",
         "launchpadSlug": "pump.fun",
-        "address": "2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump",
-        "explorerUrl": "https://solscan.io/token/2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump",
-        "measuredVolumeShare": 1.596457051455505
-      },
-      {
-        "id": "solana:6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump",
-        "name": "Jason Duval",
-        "symbol": "JASON",
-        "share": null,
-        "change24h": null,
-        "color": "#a78bfa",
-        "launchpadSlug": "pump.fun",
-        "address": "6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump",
-        "explorerUrl": "https://solscan.io/token/6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump",
-        "measuredVolumeShare": 1.4602385974195933
+        "address": "C5X8tVbt8cGw7iaaEuAVGTxFVZ4uSjscmiUbVpVwpump",
+        "explorerUrl": "https://solscan.io/token/C5X8tVbt8cGw7iaaEuAVGTxFVZ4uSjscmiUbVpVwpump",
+        "measuredVolumeShare": 5.993273671900759
       },
       {
         "id": "solana:HZbiEpF2oM658EpjNRRqxharz5L9Ddm8akpSH2R5pump",
@@ -4167,23 +4107,107 @@ export const NARRATIVES: Narrative[] = [
         "symbol": "Rocco",
         "share": null,
         "change24h": null,
-        "color": "#f59e0b",
+        "color": "#2dd4bf",
         "launchpadSlug": "pump.fun",
         "address": "HZbiEpF2oM658EpjNRRqxharz5L9Ddm8akpSH2R5pump",
         "explorerUrl": "https://solscan.io/token/HZbiEpF2oM658EpjNRRqxharz5L9Ddm8akpSH2R5pump",
-        "measuredVolumeShare": 0.9956827725302105
+        "measuredVolumeShare": 5.539675589115177
       },
       {
-        "id": "solana:GrP9Ej7FzDcxHKTfLSywEofwVrWTzUAsnC4TM86Tpump",
-        "name": "EEAGLE",
-        "symbol": "EEGL",
+        "id": "solana:6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump",
+        "name": "Jason Duval",
+        "symbol": "JASON",
+        "share": null,
+        "change24h": null,
+        "color": "#e879f9",
+        "launchpadSlug": "pump.fun",
+        "address": "6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump",
+        "explorerUrl": "https://solscan.io/token/6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump",
+        "measuredVolumeShare": 5.137557410036766
+      },
+      {
+        "id": "solana:6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump",
+        "name": "Ah shit, here we go again.",
+        "symbol": "SHIT",
+        "share": null,
+        "change24h": null,
+        "color": "#4895ef",
+        "launchpadSlug": "pump.fun",
+        "address": "6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump",
+        "explorerUrl": "https://solscan.io/token/6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump",
+        "measuredVolumeShare": 4.670399515838568
+      },
+      {
+        "id": "solana:8UqE9m2rMoxUzrz4kBVWx5ia3PiA2aGD6kiZUoiUpump",
+        "name": "Doug The Frog",
+        "symbol": "DOUG",
+        "share": null,
+        "change24h": null,
+        "color": "#7c83ff",
+        "launchpadSlug": "pump.fun",
+        "address": "8UqE9m2rMoxUzrz4kBVWx5ia3PiA2aGD6kiZUoiUpump",
+        "explorerUrl": "https://solscan.io/token/8UqE9m2rMoxUzrz4kBVWx5ia3PiA2aGD6kiZUoiUpump",
+        "measuredVolumeShare": 4.344835167135584
+      },
+      {
+        "id": "solana:AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump",
+        "name": "Macca The Gator",
+        "symbol": "Macca",
+        "share": null,
+        "change24h": null,
+        "color": "#a78bfa",
+        "launchpadSlug": "pump.fun",
+        "address": "AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump",
+        "explorerUrl": "https://solscan.io/token/AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump",
+        "measuredVolumeShare": 3.949466658772969
+      },
+      {
+        "id": "solana:BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump",
+        "name": "State of Leonida",
+        "symbol": "Leonida",
+        "share": null,
+        "change24h": null,
+        "color": "#f59e0b",
+        "launchpadSlug": "pump.fun",
+        "address": "BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump",
+        "explorerUrl": "https://solscan.io/token/BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump",
+        "measuredVolumeShare": 3.5712868032112586
+      },
+      {
+        "id": "solana:BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump",
+        "name": "GTA memes",
+        "symbol": "GTA",
         "share": null,
         "change24h": null,
         "color": "#22c55e",
         "launchpadSlug": "pump.fun",
-        "address": "GrP9Ej7FzDcxHKTfLSywEofwVrWTzUAsnC4TM86Tpump",
-        "explorerUrl": "https://solscan.io/token/GrP9Ej7FzDcxHKTfLSywEofwVrWTzUAsnC4TM86Tpump",
-        "measuredVolumeShare": 0.052603906452809365
+        "address": "BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump",
+        "explorerUrl": "https://solscan.io/token/BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump",
+        "measuredVolumeShare": 2.573404764682736
+      },
+      {
+        "id": "solana:6Nh9cmDoQvd2FvjNm44VmTwbyiKtxgmM7SCuhREhpump",
+        "name": "GTA Dollars",
+        "symbol": "GTA$",
+        "share": null,
+        "change24h": null,
+        "color": "#ef6f6c",
+        "launchpadSlug": "pump.fun",
+        "address": "6Nh9cmDoQvd2FvjNm44VmTwbyiKtxgmM7SCuhREhpump",
+        "explorerUrl": "https://solscan.io/token/6Nh9cmDoQvd2FvjNm44VmTwbyiKtxgmM7SCuhREhpump",
+        "measuredVolumeShare": 2.542727093457781
+      },
+      {
+        "id": "solana:2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump",
+        "name": "Peekhole",
+        "symbol": "Peekhole",
+        "share": null,
+        "change24h": null,
+        "color": "#2dd4bf",
+        "launchpadSlug": "pump.fun",
+        "address": "2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump",
+        "explorerUrl": "https://solscan.io/token/2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump",
+        "measuredVolumeShare": 1.9408561122191974
       },
       {
         "id": "solana:519AMDtBqCpVk8CTYCg2i9kJQH62ZSkT5Uvfn71Upump",
@@ -4191,11 +4215,23 @@ export const NARRATIVES: Narrative[] = [
         "symbol": "RETIRE",
         "share": null,
         "change24h": null,
-        "color": "#ef6f6c",
+        "color": "#e879f9",
         "launchpadSlug": "pump.fun",
         "address": "519AMDtBqCpVk8CTYCg2i9kJQH62ZSkT5Uvfn71Upump",
         "explorerUrl": "https://solscan.io/token/519AMDtBqCpVk8CTYCg2i9kJQH62ZSkT5Uvfn71Upump",
-        "measuredVolumeShare": 0.002667050404676935
+        "measuredVolumeShare": 0.04546266679557112
+      },
+      {
+        "id": "solana:GrP9Ej7FzDcxHKTfLSywEofwVrWTzUAsnC4TM86Tpump",
+        "name": "EEAGLE",
+        "symbol": "EEGL",
+        "share": null,
+        "change24h": null,
+        "color": "#4895ef",
+        "launchpadSlug": "pump.fun",
+        "address": "GrP9Ej7FzDcxHKTfLSywEofwVrWTzUAsnC4TM86Tpump",
+        "explorerUrl": "https://solscan.io/token/GrP9Ej7FzDcxHKTfLSywEofwVrWTzUAsnC4TM86Tpump",
+        "measuredVolumeShare": 0.02850173849964783
       }
     ],
     "topLaunchpads": null,
@@ -4227,66 +4263,30 @@ export const NARRATIVES: Narrative[] = [
     ],
     "exampleTokens": [
       {
-        "symbol": "WASTED",
-        "name": "WASTED",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 5613906,
-        "change24h": 67.6404609814545,
-        "address": "GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump"
-      },
-      {
-        "symbol": "GTA$",
-        "name": "GTA Dollars",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 117943,
-        "change24h": 132.917629062257,
-        "address": "6Nh9cmDoQvd2FvjNm44VmTwbyiKtxgmM7SCuhREhpump"
-      },
-      {
-        "symbol": "SHIT",
-        "name": "Ah shit, here we go again.",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 148593,
-        "change24h": 209.38004287567557,
-        "address": "6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump"
-      },
-      {
         "symbol": "GATO",
         "name": "GTA6CAT",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 6694797,
-        "change24h": -17.045514562659196,
+        "mcapUsd": 6862241,
+        "change24h": 2.303022984882735,
         "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump"
       },
       {
-        "symbol": "Leonida",
-        "name": "State of Leonida",
+        "symbol": "WASTED",
+        "name": "WASTED",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 494397,
-        "change24h": -12.849499955353858,
-        "address": "BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump"
-      },
-      {
-        "symbol": "Macca",
-        "name": "Macca The Gator",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 2160595,
-        "change24h": -0.4398862144931851,
-        "address": "AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump"
+        "mcapUsd": 3897228,
+        "change24h": -30.551816554420654,
+        "address": "GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump"
       },
       {
         "symbol": "gtacoin",
         "name": "gtacoin",
         "launchpadSlug": "launchlab",
         "chain": "solana",
-        "mcapUsd": 224195,
-        "change24h": 594.3775545901244,
+        "mcapUsd": 413573,
+        "change24h": 83.82875010292929,
         "address": "DSKM3d518BBaQShSKqaqZcG1XMRf81UFB6a1eavhSTNK"
       },
       {
@@ -4294,63 +4294,126 @@ export const NARRATIVES: Narrative[] = [
         "name": "Bawsaq",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 137311,
-        "change24h": 7.7033122774672655,
+        "mcapUsd": 85275,
+        "change24h": -37.8961420485905,
         "address": "7dzdHo9DKx2dqnXBVXRyMUJUETQhfwFoV4NwcgfVpump"
       },
       {
-        "symbol": "GTA",
-        "name": "GTA memes",
+        "symbol": "FiveM",
+        "name": "GRAND THEFT CRYPTO",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 943563,
-        "change24h": 11.184807609922483,
-        "address": "BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump"
+        "mcapUsd": 541099,
+        "change24h": 1045.492526179638,
+        "address": "2YxbK7V6ZTKSxcavk3V4kFzdtZ4uywhhoyuSxapjpump"
       },
       {
-        "symbol": "Peekhole",
-        "name": "Peekhole",
+        "symbol": "CYBERDACITY",
+        "name": "Cyber Dacity Coin",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 684638,
-        "change24h": 35.65468926709832,
-        "address": "2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump"
-      },
-      {
-        "symbol": "JASON",
-        "name": "Jason Duval",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 162675,
-        "change24h": 71.48394077001198,
-        "address": "6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump"
+        "mcapUsd": 265528,
+        "change24h": 543.209388631567,
+        "address": "C5X8tVbt8cGw7iaaEuAVGTxFVZ4uSjscmiUbVpVwpump"
       },
       {
         "symbol": "Rocco",
         "name": "Rocco",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 582939,
-        "change24h": -3.4954125428351626,
+        "mcapUsd": 1194334,
+        "change24h": 104.8815445725649,
         "address": "HZbiEpF2oM658EpjNRRqxharz5L9Ddm8akpSH2R5pump"
       },
       {
-        "symbol": "EEGL",
-        "name": "EEAGLE",
+        "symbol": "JASON",
+        "name": "Jason Duval",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 35670,
-        "change24h": 9.403161739765853,
-        "address": "GrP9Ej7FzDcxHKTfLSywEofwVrWTzUAsnC4TM86Tpump"
+        "mcapUsd": 433668,
+        "change24h": 166.58708577641204,
+        "address": "6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump"
+      },
+      {
+        "symbol": "SHIT",
+        "name": "Ah shit, here we go again.",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 134647,
+        "change24h": -10.487369079256032,
+        "address": "6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump"
+      },
+      {
+        "symbol": "DOUG",
+        "name": "Doug The Frog",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 150994,
+        "change24h": 241.73876199122333,
+        "address": "8UqE9m2rMoxUzrz4kBVWx5ia3PiA2aGD6kiZUoiUpump"
+      },
+      {
+        "symbol": "Macca",
+        "name": "Macca The Gator",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 2233779,
+        "change24h": 3.3875740625553217,
+        "address": "AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump"
+      },
+      {
+        "symbol": "Leonida",
+        "name": "State of Leonida",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 358769,
+        "change24h": -27.433086229813576,
+        "address": "BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump"
+      },
+      {
+        "symbol": "GTA",
+        "name": "GTA memes",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 962703,
+        "change24h": 2.028550912433165,
+        "address": "BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump"
+      },
+      {
+        "symbol": "GTA$",
+        "name": "GTA Dollars",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 106699,
+        "change24h": -9.533155757363005,
+        "address": "6Nh9cmDoQvd2FvjNm44VmTwbyiKtxgmM7SCuhREhpump"
+      },
+      {
+        "symbol": "Peekhole",
+        "name": "Peekhole",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 683968,
+        "change24h": -0.09792256290962209,
+        "address": "2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump"
       },
       {
         "symbol": "RETIRE",
         "name": "Mission Passed",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 3434,
-        "change24h": -17.43099560175906,
+        "mcapUsd": 4540,
+        "change24h": 15.697968938558063,
         "address": "519AMDtBqCpVk8CTYCg2i9kJQH62ZSkT5Uvfn71Upump"
+      },
+      {
+        "symbol": "EEGL",
+        "name": "EEAGLE",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 25805,
+        "change24h": -31.154500767188125,
+        "address": "GrP9Ej7FzDcxHKTfLSywEofwVrWTzUAsnC4TM86Tpump"
       }
     ],
     "suggestedLaunchpads": [],
@@ -4360,102 +4423,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Volume",
         "color": "#f97316",
         "points": [
-          {
-            "time": 1794114000,
-            "value": 89363.81600973419
-          },
-          {
-            "time": 1794117600,
-            "value": 59172.609938599424
-          },
-          {
-            "time": 1794121200,
-            "value": 78007.4070192218
-          },
-          {
-            "time": 1794124800,
-            "value": 64803.460739104295
-          },
-          {
-            "time": 1794128400,
-            "value": 68714.423333006
-          },
-          {
-            "time": 1794132000,
-            "value": 64464.2917903342
-          },
-          {
-            "time": 1794135600,
-            "value": 69610.0766570196
-          },
-          {
-            "time": 1794139200,
-            "value": 92109.3097810419
-          },
-          {
-            "time": 1794142800,
-            "value": 88792.455880558
-          },
-          {
-            "time": 1794146400,
-            "value": 92216.032385197
-          },
-          {
-            "time": 1794150000,
-            "value": 114017.70136706985
-          },
-          {
-            "time": 1794153600,
-            "value": 163061.854074442
-          },
-          {
-            "time": 1794157200,
-            "value": 111120.229720444
-          },
-          {
-            "time": 1794160800,
-            "value": 156307.72708545797
-          },
-          {
-            "time": 1794164400,
-            "value": 149525.5442475923
-          },
-          {
-            "time": 1794168000,
-            "value": 133312.42765398452
-          },
-          {
-            "time": 1794171600,
-            "value": 142398.3960381983
-          },
-          {
-            "time": 1794175200,
-            "value": 192924.0208663203
-          },
-          {
-            "time": 1794178800,
-            "value": 190339.2143767028
-          },
-          {
-            "time": 1794182400,
-            "value": 123315.6023253102
-          },
-          {
-            "time": 1794186000,
-            "value": 97184.012976131
-          },
-          {
-            "time": 1794189600,
-            "value": 115532.33043542299
-          },
-          {
-            "time": 1794193200,
-            "value": 97301.8538846053
-          },
-          {
-            "time": 1794196800,
-            "value": 104516.77482779538
-          },
           {
             "time": 1794200400,
             "value": 141447.9020750493
@@ -5031,6 +4998,102 @@ export const NARRATIVES: Narrative[] = [
           {
             "time": 1794715200,
             "value": 299618.8017832972
+          },
+          {
+            "time": 1794718800,
+            "value": 228293.220338545
+          },
+          {
+            "time": 1794722400,
+            "value": 148770.2681285351
+          },
+          {
+            "time": 1794726000,
+            "value": 243400.803314911
+          },
+          {
+            "time": 1794729600,
+            "value": 167388.926851013
+          },
+          {
+            "time": 1794733200,
+            "value": 148224.8263915255
+          },
+          {
+            "time": 1794736800,
+            "value": 157639.501821907
+          },
+          {
+            "time": 1794740400,
+            "value": 230847.09645852743
+          },
+          {
+            "time": 1794744000,
+            "value": 262478.9617319347
+          },
+          {
+            "time": 1794747600,
+            "value": 266805.8454173497
+          },
+          {
+            "time": 1794751200,
+            "value": 443711.6787864157
+          },
+          {
+            "time": 1794754800,
+            "value": 384445.7877423806
+          },
+          {
+            "time": 1794758400,
+            "value": 277541.4962440329
+          },
+          {
+            "time": 1794762000,
+            "value": 217860.7479841361
+          },
+          {
+            "time": 1794765600,
+            "value": 348353.85470141604
+          },
+          {
+            "time": 1794769200,
+            "value": 354603.0433982413
+          },
+          {
+            "time": 1794772800,
+            "value": 347482.3276880361
+          },
+          {
+            "time": 1794776400,
+            "value": 282572.40668521693
+          },
+          {
+            "time": 1794780000,
+            "value": 307168.8291933944
+          },
+          {
+            "time": 1794783600,
+            "value": 515600.7633183686
+          },
+          {
+            "time": 1794787200,
+            "value": 809145.5309466281
+          },
+          {
+            "time": 1794790800,
+            "value": 470578.3195203504
+          },
+          {
+            "time": 1794794400,
+            "value": 413580.85972803726
+          },
+          {
+            "time": 1794798000,
+            "value": 339724.4862578767
+          },
+          {
+            "time": 1794801600,
+            "value": 320983.07157249557
           }
         ]
       }
@@ -5041,10 +5104,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Daily volume",
         "color": "#f97316",
         "points": [
-          {
-            "time": 1792108800,
-            "value": 703815.83868916
-          },
           {
             "time": 1792195200,
             "value": 457369.540355632
@@ -5160,21 +5219,21 @@ export const NARRATIVES: Narrative[] = [
           {
             "time": 1794614400,
             "value": 12645728.042320335
+          },
+          {
+            "time": 1794700800,
+            "value": 7103933.53900321
           }
         ]
       }
     ],
-    "volume30dUsd": 95311180.78610367,
-    "volumeChange24h": 83.50942837363723,
-    "volumeCaveat": {
-      "text": "GTA Dollars, Ah shit, here we go again. traded over 10× their market cap in 24h (39% of this volume); it may include wash or bot trading.",
-      "flaggedShare": 39.18918586128843,
-      "threshold": 10
-    },
+    "volume30dUsd": 101711298.48641771,
+    "volumeChange24h": -42.86907119046327,
+    "volumeCaveat": null,
     "provenance": {
-      "chartAnchor": "2026-11-15T05:00:00+00:00",
-      "volumeScope": "Sum of 14 identified coins' trading volume across all their indexed pools on Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
-      "dailyEnd": "2026-11-15T00:00:00+00:00",
+      "chartAnchor": "2026-11-16T05:00:00+00:00",
+      "volumeScope": "Sum of 17 identified coins' trading volume across all their indexed pools on Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
+      "dailyEnd": "2026-11-16T00:00:00+00:00",
       "dailyScope": "30 complete UTC days of the current constituents' all-pool volume (Codex daily token bars). Membership is today's, applied to past days.",
       "sources": [
         {
@@ -5205,12 +5264,12 @@ export const NARRATIVES: Narrative[] = [
     "slug": "ni-hao-cat-coins",
     "title": "Ni hao cat coins",
     "category": "culture",
-    "summary": "Coins named for the \"ni hao cat\" meme after the trader Ansem adopted it. On 2026-11-11 at 00:24 UTC Ansem (@blknoiz06) posted \"pfp up\" and at 02:20 UTC \"mihao pfp up.\", with the cat as his profile picture; posts of the same hours say he bought the coin mihao and posted its address, and describe the meme as a cat version of the line \"you met me at a very Chinese time in my life\". Three Pump.fun coins carry the name: ni hao cat (mihao), whose description is that line, 你好猫 (咪好), described as \"the zen master cat who said \\\"ni hao\\\" to Ansem and became his pfp\", and ni hao habibi (HAOBIBI), a spin-off kitten. Dates from Codex: the mihao pool opened on 2026-10-25, 16 days before the posts, so it did not launch on them; 你好猫 opened on 2026-11-11 at 00:26 UTC, two minutes after the first post, and ni hao habibi at 02:41 UTC. Some posts call the move a promotion by Ansem and question the coin's supply; those claims are not verified here, and Ansem's reasons are his own. ni hao habibi is archived (under $1,000 of 24h volume on two consecutive observations; its membership stays open). Measured: two coins across all their pools.",
+    "summary": "Coins named for the \"ni hao cat\" meme after the trader Ansem adopted it. On 2026-11-11 at 00:24 UTC Ansem (@blknoiz06) posted \"pfp up\" and at 02:20 UTC \"mihao pfp up.\", with the cat as his profile picture; posts of the same hours say he bought the coin mihao and posted its address, and describe the meme as a cat version of the line \"you met me at a very Chinese time in my life\". Three Pump.fun coins carry the name: ni hao cat (mihao), whose description is that line, 你好猫 (咪好), described as \"the zen master cat who said \\\"ni hao\\\" to Ansem and became his pfp\", and ni hao habibi (HAOBIBI), a spin-off kitten. Dates from Codex: the mihao pool opened on 2026-10-25, 16 days before the posts, so it did not launch on them; 你好猫 opened on 2026-11-11 at 00:26 UTC, two minutes after the first post, and ni hao habibi at 02:41 UTC. Some posts call the move a promotion by Ansem and question the coin's supply; those claims are not verified here, and Ansem's reasons are his own. ni hao habibi and 你好猫 are archived (under $1,000 of 24h volume on two consecutive observations; their memberships stay open). Measured: one coin across all its pools.",
     "status": null,
     "mindshare": null,
     "change24h": null,
-    "volume24hUsd": 9231239.153224308,
-    "volume7dUsd": 157839049.3607975,
+    "volume24hUsd": 7585741.8611200005,
+    "volume7dUsd": 162115222.79710054,
     "launches24h": null,
     "launches7d": null,
     "startedAt": null,
@@ -5221,100 +5280,100 @@ export const NARRATIVES: Narrative[] = [
         "color": "#ef4444",
         "points": [
           {
-            "time": 1794632400,
-            "value": 319344.95516282046
+            "time": 1794718800,
+            "value": 189990.284722
           },
           {
-            "time": 1794636000,
-            "value": 230166.6814374271
+            "time": 1794722400,
+            "value": 170328.773789
           },
           {
-            "time": 1794639600,
-            "value": 175895.755978
+            "time": 1794726000,
+            "value": 134813.371566
           },
           {
-            "time": 1794643200,
-            "value": 277583.109555
+            "time": 1794729600,
+            "value": 131798.96277
           },
           {
-            "time": 1794646800,
-            "value": 490566.842372
+            "time": 1794733200,
+            "value": 247224.6905
           },
           {
-            "time": 1794650400,
-            "value": 263988.020672
+            "time": 1794736800,
+            "value": 142001.421225
           },
           {
-            "time": 1794654000,
-            "value": 233232.93721554684
+            "time": 1794740400,
+            "value": 377879.522715
           },
           {
-            "time": 1794657600,
-            "value": 397376.5901626529
+            "time": 1794744000,
+            "value": 856199.989229
           },
           {
-            "time": 1794661200,
-            "value": 460685.616545
+            "time": 1794747600,
+            "value": 384284.352156
           },
           {
-            "time": 1794664800,
-            "value": 513380.510947
+            "time": 1794751200,
+            "value": 395227.086111
           },
           {
-            "time": 1794668400,
-            "value": 470117.250298
+            "time": 1794754800,
+            "value": 354792.458401
           },
           {
-            "time": 1794672000,
-            "value": 489879.4690218804
+            "time": 1794758400,
+            "value": 282171.102689
           },
           {
-            "time": 1794675600,
-            "value": 335017.39710699616
+            "time": 1794762000,
+            "value": 278945.732284
           },
           {
-            "time": 1794679200,
-            "value": 494106.8305535261
+            "time": 1794765600,
+            "value": 305533.99865
           },
           {
-            "time": 1794682800,
-            "value": 411915.25638776086
+            "time": 1794769200,
+            "value": 317526.163481
           },
           {
-            "time": 1794686400,
-            "value": 357589.55761225
+            "time": 1794772800,
+            "value": 312240.088772
           },
           {
-            "time": 1794690000,
-            "value": 502588.97841101233
+            "time": 1794776400,
+            "value": 310577.528602
           },
           {
-            "time": 1794693600,
-            "value": 470690.9333415454
+            "time": 1794780000,
+            "value": 352889.065485
           },
           {
-            "time": 1794697200,
-            "value": 361920.5513821418
+            "time": 1794783600,
+            "value": 652646.765537
           },
           {
-            "time": 1794700800,
-            "value": 261167.0437152769
+            "time": 1794787200,
+            "value": 229444.848102
           },
           {
-            "time": 1794704400,
-            "value": 302861.84050975443
+            "time": 1794790800,
+            "value": 460761.010512
           },
           {
-            "time": 1794708000,
-            "value": 537808.0235635869
+            "time": 1794794400,
+            "value": 283337.261659
           },
           {
-            "time": 1794711600,
-            "value": 493637.2099043948
+            "time": 1794798000,
+            "value": 152760.185066
           },
           {
-            "time": 1794715200,
-            "value": 379717.79136873496
+            "time": 1794801600,
+            "value": 262367.197097
           }
         ]
       }
@@ -5330,19 +5389,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "pump.fun",
         "address": "4CxjZyMNoF1p6eXHXHv1TWpS2X47CuUmLwtGe18spump",
         "explorerUrl": "https://solscan.io/token/4CxjZyMNoF1p6eXHXHv1TWpS2X47CuUmLwtGe18spump",
-        "measuredVolumeShare": 99.99986671933091
-      },
-      {
-        "id": "solana:Hg3w7GdPViZ5URuCNnK6EwXLzSTmVwX6UXLeD6Pbpump",
-        "name": "你好猫",
-        "symbol": "咪好",
-        "share": null,
-        "change24h": null,
-        "color": "#7c83ff",
-        "launchpadSlug": "pump.fun",
-        "address": "Hg3w7GdPViZ5URuCNnK6EwXLzSTmVwX6UXLeD6Pbpump",
-        "explorerUrl": "https://solscan.io/token/Hg3w7GdPViZ5URuCNnK6EwXLzSTmVwX6UXLeD6Pbpump",
-        "measuredVolumeShare": 0.00013328066908694204
+        "measuredVolumeShare": 99.99999999999999
       }
     ],
     "topLaunchpads": null,
@@ -5378,18 +5425,9 @@ export const NARRATIVES: Narrative[] = [
         "name": "ni hao cat",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 14984252,
-        "change24h": -3.6766283826446524,
+        "mcapUsd": 15281894,
+        "change24h": 2.0656272740991337,
         "address": "4CxjZyMNoF1p6eXHXHv1TWpS2X47CuUmLwtGe18spump"
-      },
-      {
-        "symbol": "咪好",
-        "name": "你好猫",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 1659,
-        "change24h": -7.5829601571601675,
-        "address": "Hg3w7GdPViZ5URuCNnK6EwXLzSTmVwX6UXLeD6Pbpump"
       }
     ],
     "suggestedLaunchpads": [],
@@ -5399,102 +5437,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Volume",
         "color": "#ef4444",
         "points": [
-          {
-            "time": 1794114000,
-            "value": 10407.4588181
-          },
-          {
-            "time": 1794117600,
-            "value": 6495.84988868
-          },
-          {
-            "time": 1794121200,
-            "value": 7933.88863956
-          },
-          {
-            "time": 1794124800,
-            "value": 27862.5176271
-          },
-          {
-            "time": 1794128400,
-            "value": 18303.925628
-          },
-          {
-            "time": 1794132000,
-            "value": 10545.278157
-          },
-          {
-            "time": 1794135600,
-            "value": 5281.6321656
-          },
-          {
-            "time": 1794139200,
-            "value": 6476.44299267
-          },
-          {
-            "time": 1794142800,
-            "value": 6367.70516738
-          },
-          {
-            "time": 1794146400,
-            "value": 9808.18907026
-          },
-          {
-            "time": 1794150000,
-            "value": 19403.0538455
-          },
-          {
-            "time": 1794153600,
-            "value": 8161.24137387
-          },
-          {
-            "time": 1794157200,
-            "value": 25961.7217887
-          },
-          {
-            "time": 1794160800,
-            "value": 11170.4325422
-          },
-          {
-            "time": 1794164400,
-            "value": 9136.20259624
-          },
-          {
-            "time": 1794168000,
-            "value": 15259.3588565
-          },
-          {
-            "time": 1794171600,
-            "value": 5377.43975545
-          },
-          {
-            "time": 1794175200,
-            "value": 48704.1301834
-          },
-          {
-            "time": 1794178800,
-            "value": 15200.5598046
-          },
-          {
-            "time": 1794182400,
-            "value": 9983.42027838
-          },
-          {
-            "time": 1794186000,
-            "value": 20208.1427202
-          },
-          {
-            "time": 1794189600,
-            "value": 11316.3416336
-          },
-          {
-            "time": 1794193200,
-            "value": 10624.9663388
-          },
-          {
-            "time": 1794196800,
-            "value": 8980.62715384
-          },
           {
             "time": 1794200400,
             "value": 13234.6243636
@@ -5669,223 +5611,223 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794355200,
-            "value": 9761161.58034
+            "value": 9412796.1373
           },
           {
             "time": 1794358800,
-            "value": 5606672.4694152
+            "value": 5511589.36042
           },
           {
             "time": 1794362400,
-            "value": 6535171.758129899
+            "value": 6455270.31578
           },
           {
             "time": 1794366000,
-            "value": 2341118.8330874
+            "value": 2288330.49488
           },
           {
             "time": 1794369600,
-            "value": 1696579.7847069
+            "value": 1634501.77189
           },
           {
             "time": 1794373200,
-            "value": 2695118.7968568
+            "value": 2640933.15181
           },
           {
             "time": 1794376800,
-            "value": 2009290.1144454
+            "value": 1962515.94423
           },
           {
             "time": 1794380400,
-            "value": 1090906.0445202
+            "value": 1014319.42477
           },
           {
             "time": 1794384000,
-            "value": 955431.0674709
+            "value": 902660.278734
           },
           {
             "time": 1794387600,
-            "value": 887919.1349219
+            "value": 829136.29491
           },
           {
             "time": 1794391200,
-            "value": 674218.1052715001
+            "value": 625337.267571
           },
           {
             "time": 1794394800,
-            "value": 853369.9941614999
+            "value": 783503.876874
           },
           {
             "time": 1794398400,
-            "value": 4026656.7826880002
+            "value": 3946094.93714
           },
           {
             "time": 1794402000,
-            "value": 3865766.0661442
+            "value": 3814258.60365
           },
           {
             "time": 1794405600,
-            "value": 3413959.5315261
+            "value": 3354543.17001
           },
           {
             "time": 1794409200,
-            "value": 3029819.9657349
+            "value": 2977198.32712
           },
           {
             "time": 1794412800,
-            "value": 2508129.0327801
+            "value": 2443064.51755
           },
           {
             "time": 1794416400,
-            "value": 1904478.5326585
+            "value": 1852175.33973
           },
           {
             "time": 1794420000,
-            "value": 2724063.3674633
+            "value": 2664624.30638
           },
           {
             "time": 1794423600,
-            "value": 8266622.4090844
+            "value": 8202983.67155
           },
           {
             "time": 1794427200,
-            "value": 3093843.4182857997
+            "value": 3034906.76361
           },
           {
             "time": 1794430800,
-            "value": 5641728.1867617
+            "value": 5624864.85023
           },
           {
             "time": 1794434400,
-            "value": 2211064.6666654
+            "value": 2171321.98384
           },
           {
             "time": 1794438000,
-            "value": 1417513.7952907
+            "value": 1364208.93991
           },
           {
             "time": 1794441600,
-            "value": 1228421.8646052
+            "value": 1161618.98306
           },
           {
             "time": 1794445200,
-            "value": 1229252.578737
+            "value": 1178788.40711
           },
           {
             "time": 1794448800,
-            "value": 1243613.6806425
+            "value": 1182289.42463
           },
           {
             "time": 1794452400,
-            "value": 4467198.7557838
+            "value": 4416585.6298
           },
           {
             "time": 1794456000,
-            "value": 3016782.0497338
+            "value": 2950550.03701
           },
           {
             "time": 1794459600,
-            "value": 1408453.5375084002
+            "value": 1358183.76524
           },
           {
             "time": 1794463200,
-            "value": 1561027.2717754
+            "value": 1506941.38651
           },
           {
             "time": 1794466800,
-            "value": 983964.1521701
+            "value": 938050.588592
           },
           {
             "time": 1794470400,
-            "value": 770585.0429608
+            "value": 725054.325204
           },
           {
             "time": 1794474000,
-            "value": 562940.9030314999
+            "value": 506768.962855
           },
           {
             "time": 1794477600,
-            "value": 495844.3273478
+            "value": 424198.507758
           },
           {
             "time": 1794481200,
-            "value": 723816.7924467999
+            "value": 662125.100104
           },
           {
             "time": 1794484800,
-            "value": 1139467.8907418
+            "value": 1070191.74707
           },
           {
             "time": 1794488400,
-            "value": 2065640.0855061999
+            "value": 1998832.01391
           },
           {
             "time": 1794492000,
-            "value": 2070535.1997774001
+            "value": 2007727.14351
           },
           {
             "time": 1794495600,
-            "value": 1431110.3056307998
+            "value": 1358220.92924
           },
           {
             "time": 1794499200,
-            "value": 1853995.9241574998
+            "value": 1799739.77026
           },
           {
             "time": 1794502800,
-            "value": 1038743.4819353
+            "value": 1018621.10319
           },
           {
             "time": 1794506400,
-            "value": 1106355.6941008
+            "value": 1051613.56789
           },
           {
             "time": 1794510000,
-            "value": 1359329.9939719
+            "value": 1306563.30339
           },
           {
             "time": 1794513600,
-            "value": 929266.7040438
+            "value": 875395.902541
           },
           {
             "time": 1794517200,
-            "value": 667630.4762867
+            "value": 623397.315762
           },
           {
             "time": 1794520800,
-            "value": 674051.0123498
+            "value": 625531.099163
           },
           {
             "time": 1794524400,
-            "value": 882361.2469714062
+            "value": 882358.65928
           },
           {
             "time": 1794528000,
-            "value": 1013488.7650322107
+            "value": 1013444.95636
           },
           {
             "time": 1794531600,
-            "value": 553225.7445148674
+            "value": 553224.801455
           },
           {
             "time": 1794535200,
-            "value": 1242610.320500411
+            "value": 1242595.35401
           },
           {
             "time": 1794538800,
-            "value": 669275.5079065143
+            "value": 669275.316759
           },
           {
             "time": 1794542400,
-            "value": 940930.1249206478
+            "value": 940929.996652
           },
           {
             "time": 1794546000,
-            "value": 718448.7792006236
+            "value": 718448.222237
           },
           {
             "time": 1794549600,
-            "value": 291424.55308194476
+            "value": 291424.549491
           },
           {
             "time": 1794553200,
@@ -5901,7 +5843,7 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794564000,
-            "value": 306774.8858925671
+            "value": 306759.77712
           },
           {
             "time": 1794567600,
@@ -5913,7 +5855,7 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794574800,
-            "value": 987736.6215108344
+            "value": 987735.855644
           },
           {
             "time": 1794578400,
@@ -5925,27 +5867,27 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794585600,
-            "value": 495920.6754271719
+            "value": 495920.457547
           },
           {
             "time": 1794589200,
-            "value": 452533.0202343444
+            "value": 452532.954413
           },
           {
             "time": 1794592800,
-            "value": 1256530.6297839128
+            "value": 1256529.92767
           },
           {
             "time": 1794596400,
-            "value": 1053746.1907015687
+            "value": 1053745.74459
           },
           {
             "time": 1794600000,
-            "value": 750111.9325972339
+            "value": 750111.410944
           },
           {
             "time": 1794603600,
-            "value": 979059.1019345248
+            "value": 979058.67552
           },
           {
             "time": 1794607200,
@@ -5953,23 +5895,23 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794610800,
-            "value": 578638.6462130027
+            "value": 578638.306835
           },
           {
             "time": 1794614400,
-            "value": 668784.5090332438
+            "value": 668784.370367
           },
           {
             "time": 1794618000,
-            "value": 369267.4515158092
+            "value": 369266.583295
           },
           {
             "time": 1794621600,
-            "value": 438118.22466551414
+            "value": 438118.100284
           },
           {
             "time": 1794625200,
-            "value": 874296.4275678784
+            "value": 874296.164367
           },
           {
             "time": 1794628800,
@@ -5977,11 +5919,11 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794632400,
-            "value": 319344.95516282046
+            "value": 319344.932752
           },
           {
             "time": 1794636000,
-            "value": 230166.6814374271
+            "value": 230166.677778
           },
           {
             "time": 1794639600,
@@ -6001,11 +5943,11 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794654000,
-            "value": 233232.93721554684
+            "value": 233232.89948
           },
           {
             "time": 1794657600,
-            "value": 397376.5901626529
+            "value": 397376.39662
           },
           {
             "time": 1794661200,
@@ -6021,55 +5963,151 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794672000,
-            "value": 489879.4690218804
+            "value": 489878.727374
           },
           {
             "time": 1794675600,
-            "value": 335017.39710699616
+            "value": 335016.65675
           },
           {
             "time": 1794679200,
-            "value": 494106.8305535261
+            "value": 494105.142558
           },
           {
             "time": 1794682800,
-            "value": 411915.25638776086
+            "value": 411915.095749
           },
           {
             "time": 1794686400,
-            "value": 357589.55761225
+            "value": 357589.365941
           },
           {
             "time": 1794690000,
-            "value": 502588.97841101233
+            "value": 502587.823429
           },
           {
             "time": 1794693600,
-            "value": 470690.9333415454
+            "value": 470687.468855
           },
           {
             "time": 1794697200,
-            "value": 361920.5513821418
+            "value": 361918.952038
           },
           {
             "time": 1794700800,
-            "value": 261167.0437152769
+            "value": 261166.55867
           },
           {
             "time": 1794704400,
-            "value": 302861.84050975443
+            "value": 302861.515405
           },
           {
             "time": 1794708000,
-            "value": 537808.0235635869
+            "value": 537806.969576
           },
           {
             "time": 1794711600,
-            "value": 493637.2099043948
+            "value": 493636.898361
           },
           {
             "time": 1794715200,
-            "value": 379717.79136873496
+            "value": 379717.662064
+          },
+          {
+            "time": 1794718800,
+            "value": 189990.284722
+          },
+          {
+            "time": 1794722400,
+            "value": 170328.773789
+          },
+          {
+            "time": 1794726000,
+            "value": 134813.371566
+          },
+          {
+            "time": 1794729600,
+            "value": 131798.96277
+          },
+          {
+            "time": 1794733200,
+            "value": 247224.6905
+          },
+          {
+            "time": 1794736800,
+            "value": 142001.421225
+          },
+          {
+            "time": 1794740400,
+            "value": 377879.522715
+          },
+          {
+            "time": 1794744000,
+            "value": 856199.989229
+          },
+          {
+            "time": 1794747600,
+            "value": 384284.352156
+          },
+          {
+            "time": 1794751200,
+            "value": 395227.086111
+          },
+          {
+            "time": 1794754800,
+            "value": 354792.458401
+          },
+          {
+            "time": 1794758400,
+            "value": 282171.102689
+          },
+          {
+            "time": 1794762000,
+            "value": 278945.732284
+          },
+          {
+            "time": 1794765600,
+            "value": 305533.99865
+          },
+          {
+            "time": 1794769200,
+            "value": 317526.163481
+          },
+          {
+            "time": 1794772800,
+            "value": 312240.088772
+          },
+          {
+            "time": 1794776400,
+            "value": 310577.528602
+          },
+          {
+            "time": 1794780000,
+            "value": 352889.065485
+          },
+          {
+            "time": 1794783600,
+            "value": 652646.765537
+          },
+          {
+            "time": 1794787200,
+            "value": 229444.848102
+          },
+          {
+            "time": 1794790800,
+            "value": 460761.010512
+          },
+          {
+            "time": 1794794400,
+            "value": 283337.261659
+          },
+          {
+            "time": 1794798000,
+            "value": 152760.185066
+          },
+          {
+            "time": 1794801600,
+            "value": 262367.197097
           }
         ]
       }
@@ -6080,10 +6118,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Daily volume",
         "color": "#ef4444",
         "points": [
-          {
-            "time": 1792108800,
-            "value": 0
-          },
           {
             "time": 1792195200,
             "value": 0
@@ -6186,30 +6220,34 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794355200,
-            "value": 77210603.41537
+            "value": 75511139.7067
           },
           {
             "time": 1794441600,
-            "value": 32910388.959620003
+            "value": 31629347.6605
           },
           {
             "time": 1794528000,
-            "value": 15807688.57380538
+            "value": 15807609.3816
           },
           {
             "time": 1794614400,
-            "value": 9955276.715321006
+            "value": 9955265.32238
+          },
+          {
+            "time": 1794700800,
+            "value": 8172260.9627
           }
         ]
       }
     ],
-    "volume30dUsd": 158342330.07865998,
-    "volumeChange24h": -34.47160379622995,
+    "volume30dUsd": 163533995.4484236,
+    "volumeChange24h": -17.825203685559217,
     "volumeCaveat": null,
     "provenance": {
-      "chartAnchor": "2026-11-15T05:00:00+00:00",
-      "volumeScope": "Sum of 2 identified coins' trading volume across all their indexed pools on Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
-      "dailyEnd": "2026-11-15T00:00:00+00:00",
+      "chartAnchor": "2026-11-16T05:00:00+00:00",
+      "volumeScope": "Sum of 1 identified coins' trading volume across all their indexed pools on Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
+      "dailyEnd": "2026-11-16T00:00:00+00:00",
       "dailyScope": "30 complete UTC days of the current constituents' all-pool volume (Codex daily token bars). Membership is today's, applied to past days.",
       "sources": [
         {
@@ -6232,6 +6270,1058 @@ export const NARRATIVES: Narrative[] = [
     }
   },
   {
+    "id": "n-marvin-the-martian",
+    "slug": "marvin-the-martian-coins",
+    "title": "Marvin the Martian coins",
+    "category": "culture",
+    "summary": "Coins named Marvin The Martian after posts tie the Looney Tunes character to Elon Musk's dog. On 2021-01-26 Musk posted on X that he \"bought a hand knit wool Marvin the Martian helm for my dog\". On 2026-11-16 at 02:04 UTC the account Doge Tipping posted a 2020 photo of Musk with his dog at the SpaceX Starship SN8 wreckage beside a 2026 Starship photo; fan posts since July 2026 say the dog is named Marvin, which Musk's post does not say, and traders' posts of 2026-11-16 say Musk interacted with the photo, which was not found here. Three coins named Marvin The Martian, all with empty descriptions, are members: one on Pump.fun (paired with SPCX) and two on Meteora DBC; the third Meteora DBC coin fell to a $4 market cap within minutes of its launch. Dates from Codex: their pools opened on 2026-11-16 at 03:43, 03:53 and 06:52 UTC, after the Doge Tipping post; older Marvin coins from 2024 and 2025 are not members. Posts say the name has been launched many times before. None of the coins is shown to be connected to Elon Musk, SpaceX or Warner Bros. Measured: three coins across all their pools.",
+    "status": null,
+    "mindshare": null,
+    "change24h": null,
+    "volume24hUsd": 4097058.604938,
+    "volume7dUsd": 4097058.604938,
+    "launches24h": null,
+    "launches7d": null,
+    "startedAt": null,
+    "series": [
+      {
+        "id": "volume",
+        "label": "All pools: hourly USD volume",
+        "color": "#22c55e",
+        "points": [
+          {
+            "time": 1794718800,
+            "value": 0
+          },
+          {
+            "time": 1794722400,
+            "value": 0
+          },
+          {
+            "time": 1794726000,
+            "value": 0
+          },
+          {
+            "time": 1794729600,
+            "value": 0
+          },
+          {
+            "time": 1794733200,
+            "value": 0
+          },
+          {
+            "time": 1794736800,
+            "value": 0
+          },
+          {
+            "time": 1794740400,
+            "value": 0
+          },
+          {
+            "time": 1794744000,
+            "value": 0
+          },
+          {
+            "time": 1794747600,
+            "value": 0
+          },
+          {
+            "time": 1794751200,
+            "value": 0
+          },
+          {
+            "time": 1794754800,
+            "value": 0
+          },
+          {
+            "time": 1794758400,
+            "value": 0
+          },
+          {
+            "time": 1794762000,
+            "value": 0
+          },
+          {
+            "time": 1794765600,
+            "value": 0
+          },
+          {
+            "time": 1794769200,
+            "value": 0
+          },
+          {
+            "time": 1794772800,
+            "value": 0
+          },
+          {
+            "time": 1794776400,
+            "value": 0
+          },
+          {
+            "time": 1794780000,
+            "value": 0
+          },
+          {
+            "time": 1794783600,
+            "value": 0
+          },
+          {
+            "time": 1794787200,
+            "value": 0
+          },
+          {
+            "time": 1794790800,
+            "value": 0
+          },
+          {
+            "time": 1794794400,
+            "value": 0
+          },
+          {
+            "time": 1794798000,
+            "value": 604519.027458
+          },
+          {
+            "time": 1794801600,
+            "value": 3492539.57748
+          }
+        ]
+      }
+    ],
+    "contenders": [
+      {
+        "id": "solana:HkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump",
+        "name": "Marvin The Martian",
+        "symbol": "Marvin",
+        "share": null,
+        "change24h": null,
+        "color": "#4895ef",
+        "launchpadSlug": "pump.fun",
+        "address": "HkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump",
+        "explorerUrl": "https://solscan.io/token/HkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump",
+        "measuredVolumeShare": 50.431888168567404
+      },
+      {
+        "id": "solana:53QyUPRyUp95f8wagwGzj6rHSZDZVbr1iBPFNRofWAS6",
+        "name": "Marvin The Martian",
+        "symbol": "Marvin",
+        "share": null,
+        "change24h": null,
+        "color": "#7c83ff",
+        "launchpadSlug": "meteora-dbc",
+        "address": "53QyUPRyUp95f8wagwGzj6rHSZDZVbr1iBPFNRofWAS6",
+        "explorerUrl": "https://solscan.io/token/53QyUPRyUp95f8wagwGzj6rHSZDZVbr1iBPFNRofWAS6",
+        "measuredVolumeShare": 49.568111831432596
+      },
+      {
+        "id": "solana:D3uJcKzT4ZiqYGTiEMCoeT6nsiqgx1Ui9WhFu4ydix59",
+        "name": "Marvin The Martian",
+        "symbol": "Marvin",
+        "share": null,
+        "change24h": null,
+        "color": "#a78bfa",
+        "launchpadSlug": "meteora-dbc",
+        "address": "D3uJcKzT4ZiqYGTiEMCoeT6nsiqgx1Ui9WhFu4ydix59",
+        "explorerUrl": "https://solscan.io/token/D3uJcKzT4ZiqYGTiEMCoeT6nsiqgx1Ui9WhFu4ydix59",
+        "measuredVolumeShare": 0
+      }
+    ],
+    "topLaunchpads": null,
+    "signals": [
+      {
+        "id": "x-1354029548334178304",
+        "source": "x",
+        "label": "Official post",
+        "title": "Elon Musk (2021-01-26): \"Bought a hand knit wool Marvin the Martian helm for my dog\"",
+        "at": "2021-01-26T11:32:55Z",
+        "url": "https://x.com/elonmusk/status/1354029548334178304"
+      },
+      {
+        "id": "x-2122148745819390245",
+        "source": "x",
+        "label": "Public post; claim not verification",
+        "title": "Doge Tipping (2026-11-16): Musk with his dog at the Starship SN8 wreckage in 2020, beside a 2026 Starship photo",
+        "at": "2026-11-16T02:04:23Z",
+        "url": "https://x.com/Dogetothemoon/status/2122148745819390245"
+      },
+      {
+        "id": "x-2122219561693167759",
+        "source": "x",
+        "label": "Public post; claim not verification",
+        "title": "jesti (2026-11-16): $Marvin The Martian hit $1M market cap after a photo of Musk and his dog; the coin \"has been done thousands of times before\"",
+        "at": "2026-11-16T06:45:47Z",
+        "url": "https://x.com/jjjesti/status/2122219561693167759"
+      }
+    ],
+    "exampleTokens": [
+      {
+        "symbol": "Marvin",
+        "name": "Marvin The Martian",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 388288,
+        "change24h": 795.7209751979535,
+        "address": "HkRQ6Qcadi5yuoNpZdA1Q7yVF3r7LdEmAw1aKkSxpump"
+      },
+      {
+        "symbol": "Marvin",
+        "name": "Marvin The Martian",
+        "launchpadSlug": "meteora-dbc",
+        "chain": "solana",
+        "mcapUsd": 447344,
+        "change24h": 1368.572948700815,
+        "address": "53QyUPRyUp95f8wagwGzj6rHSZDZVbr1iBPFNRofWAS6"
+      },
+      {
+        "symbol": "Marvin",
+        "name": "Marvin The Martian",
+        "launchpadSlug": "meteora-dbc",
+        "chain": "solana",
+        "mcapUsd": 4,
+        "change24h": -99.99645380407884,
+        "address": "D3uJcKzT4ZiqYGTiEMCoeT6nsiqgx1Ui9WhFu4ydix59"
+      }
+    ],
+    "suggestedLaunchpads": [],
+    "extendedSeries": [
+      {
+        "id": "volume",
+        "label": "Volume",
+        "color": "#22c55e",
+        "points": [
+          {
+            "time": 1794200400,
+            "value": 0
+          },
+          {
+            "time": 1794204000,
+            "value": 0
+          },
+          {
+            "time": 1794207600,
+            "value": 0
+          },
+          {
+            "time": 1794211200,
+            "value": 0
+          },
+          {
+            "time": 1794214800,
+            "value": 0
+          },
+          {
+            "time": 1794218400,
+            "value": 0
+          },
+          {
+            "time": 1794222000,
+            "value": 0
+          },
+          {
+            "time": 1794225600,
+            "value": 0
+          },
+          {
+            "time": 1794229200,
+            "value": 0
+          },
+          {
+            "time": 1794232800,
+            "value": 0
+          },
+          {
+            "time": 1794236400,
+            "value": 0
+          },
+          {
+            "time": 1794240000,
+            "value": 0
+          },
+          {
+            "time": 1794243600,
+            "value": 0
+          },
+          {
+            "time": 1794247200,
+            "value": 0
+          },
+          {
+            "time": 1794250800,
+            "value": 0
+          },
+          {
+            "time": 1794254400,
+            "value": 0
+          },
+          {
+            "time": 1794258000,
+            "value": 0
+          },
+          {
+            "time": 1794261600,
+            "value": 0
+          },
+          {
+            "time": 1794265200,
+            "value": 0
+          },
+          {
+            "time": 1794268800,
+            "value": 0
+          },
+          {
+            "time": 1794272400,
+            "value": 0
+          },
+          {
+            "time": 1794276000,
+            "value": 0
+          },
+          {
+            "time": 1794279600,
+            "value": 0
+          },
+          {
+            "time": 1794283200,
+            "value": 0
+          },
+          {
+            "time": 1794286800,
+            "value": 0
+          },
+          {
+            "time": 1794290400,
+            "value": 0
+          },
+          {
+            "time": 1794294000,
+            "value": 0
+          },
+          {
+            "time": 1794297600,
+            "value": 0
+          },
+          {
+            "time": 1794301200,
+            "value": 0
+          },
+          {
+            "time": 1794304800,
+            "value": 0
+          },
+          {
+            "time": 1794308400,
+            "value": 0
+          },
+          {
+            "time": 1794312000,
+            "value": 0
+          },
+          {
+            "time": 1794315600,
+            "value": 0
+          },
+          {
+            "time": 1794319200,
+            "value": 0
+          },
+          {
+            "time": 1794322800,
+            "value": 0
+          },
+          {
+            "time": 1794326400,
+            "value": 0
+          },
+          {
+            "time": 1794330000,
+            "value": 0
+          },
+          {
+            "time": 1794333600,
+            "value": 0
+          },
+          {
+            "time": 1794337200,
+            "value": 0
+          },
+          {
+            "time": 1794340800,
+            "value": 0
+          },
+          {
+            "time": 1794344400,
+            "value": 0
+          },
+          {
+            "time": 1794348000,
+            "value": 0
+          },
+          {
+            "time": 1794351600,
+            "value": 0
+          },
+          {
+            "time": 1794355200,
+            "value": 0
+          },
+          {
+            "time": 1794358800,
+            "value": 0
+          },
+          {
+            "time": 1794362400,
+            "value": 0
+          },
+          {
+            "time": 1794366000,
+            "value": 0
+          },
+          {
+            "time": 1794369600,
+            "value": 0
+          },
+          {
+            "time": 1794373200,
+            "value": 0
+          },
+          {
+            "time": 1794376800,
+            "value": 0
+          },
+          {
+            "time": 1794380400,
+            "value": 0
+          },
+          {
+            "time": 1794384000,
+            "value": 0
+          },
+          {
+            "time": 1794387600,
+            "value": 0
+          },
+          {
+            "time": 1794391200,
+            "value": 0
+          },
+          {
+            "time": 1794394800,
+            "value": 0
+          },
+          {
+            "time": 1794398400,
+            "value": 0
+          },
+          {
+            "time": 1794402000,
+            "value": 0
+          },
+          {
+            "time": 1794405600,
+            "value": 0
+          },
+          {
+            "time": 1794409200,
+            "value": 0
+          },
+          {
+            "time": 1794412800,
+            "value": 0
+          },
+          {
+            "time": 1794416400,
+            "value": 0
+          },
+          {
+            "time": 1794420000,
+            "value": 0
+          },
+          {
+            "time": 1794423600,
+            "value": 0
+          },
+          {
+            "time": 1794427200,
+            "value": 0
+          },
+          {
+            "time": 1794430800,
+            "value": 0
+          },
+          {
+            "time": 1794434400,
+            "value": 0
+          },
+          {
+            "time": 1794438000,
+            "value": 0
+          },
+          {
+            "time": 1794441600,
+            "value": 0
+          },
+          {
+            "time": 1794445200,
+            "value": 0
+          },
+          {
+            "time": 1794448800,
+            "value": 0
+          },
+          {
+            "time": 1794452400,
+            "value": 0
+          },
+          {
+            "time": 1794456000,
+            "value": 0
+          },
+          {
+            "time": 1794459600,
+            "value": 0
+          },
+          {
+            "time": 1794463200,
+            "value": 0
+          },
+          {
+            "time": 1794466800,
+            "value": 0
+          },
+          {
+            "time": 1794470400,
+            "value": 0
+          },
+          {
+            "time": 1794474000,
+            "value": 0
+          },
+          {
+            "time": 1794477600,
+            "value": 0
+          },
+          {
+            "time": 1794481200,
+            "value": 0
+          },
+          {
+            "time": 1794484800,
+            "value": 0
+          },
+          {
+            "time": 1794488400,
+            "value": 0
+          },
+          {
+            "time": 1794492000,
+            "value": 0
+          },
+          {
+            "time": 1794495600,
+            "value": 0
+          },
+          {
+            "time": 1794499200,
+            "value": 0
+          },
+          {
+            "time": 1794502800,
+            "value": 0
+          },
+          {
+            "time": 1794506400,
+            "value": 0
+          },
+          {
+            "time": 1794510000,
+            "value": 0
+          },
+          {
+            "time": 1794513600,
+            "value": 0
+          },
+          {
+            "time": 1794517200,
+            "value": 0
+          },
+          {
+            "time": 1794520800,
+            "value": 0
+          },
+          {
+            "time": 1794524400,
+            "value": 0
+          },
+          {
+            "time": 1794528000,
+            "value": 0
+          },
+          {
+            "time": 1794531600,
+            "value": 0
+          },
+          {
+            "time": 1794535200,
+            "value": 0
+          },
+          {
+            "time": 1794538800,
+            "value": 0
+          },
+          {
+            "time": 1794542400,
+            "value": 0
+          },
+          {
+            "time": 1794546000,
+            "value": 0
+          },
+          {
+            "time": 1794549600,
+            "value": 0
+          },
+          {
+            "time": 1794553200,
+            "value": 0
+          },
+          {
+            "time": 1794556800,
+            "value": 0
+          },
+          {
+            "time": 1794560400,
+            "value": 0
+          },
+          {
+            "time": 1794564000,
+            "value": 0
+          },
+          {
+            "time": 1794567600,
+            "value": 0
+          },
+          {
+            "time": 1794571200,
+            "value": 0
+          },
+          {
+            "time": 1794574800,
+            "value": 0
+          },
+          {
+            "time": 1794578400,
+            "value": 0
+          },
+          {
+            "time": 1794582000,
+            "value": 0
+          },
+          {
+            "time": 1794585600,
+            "value": 0
+          },
+          {
+            "time": 1794589200,
+            "value": 0
+          },
+          {
+            "time": 1794592800,
+            "value": 0
+          },
+          {
+            "time": 1794596400,
+            "value": 0
+          },
+          {
+            "time": 1794600000,
+            "value": 0
+          },
+          {
+            "time": 1794603600,
+            "value": 0
+          },
+          {
+            "time": 1794607200,
+            "value": 0
+          },
+          {
+            "time": 1794610800,
+            "value": 0
+          },
+          {
+            "time": 1794614400,
+            "value": 0
+          },
+          {
+            "time": 1794618000,
+            "value": 0
+          },
+          {
+            "time": 1794621600,
+            "value": 0
+          },
+          {
+            "time": 1794625200,
+            "value": 0
+          },
+          {
+            "time": 1794628800,
+            "value": 0
+          },
+          {
+            "time": 1794632400,
+            "value": 0
+          },
+          {
+            "time": 1794636000,
+            "value": 0
+          },
+          {
+            "time": 1794639600,
+            "value": 0
+          },
+          {
+            "time": 1794643200,
+            "value": 0
+          },
+          {
+            "time": 1794646800,
+            "value": 0
+          },
+          {
+            "time": 1794650400,
+            "value": 0
+          },
+          {
+            "time": 1794654000,
+            "value": 0
+          },
+          {
+            "time": 1794657600,
+            "value": 0
+          },
+          {
+            "time": 1794661200,
+            "value": 0
+          },
+          {
+            "time": 1794664800,
+            "value": 0
+          },
+          {
+            "time": 1794668400,
+            "value": 0
+          },
+          {
+            "time": 1794672000,
+            "value": 0
+          },
+          {
+            "time": 1794675600,
+            "value": 0
+          },
+          {
+            "time": 1794679200,
+            "value": 0
+          },
+          {
+            "time": 1794682800,
+            "value": 0
+          },
+          {
+            "time": 1794686400,
+            "value": 0
+          },
+          {
+            "time": 1794690000,
+            "value": 0
+          },
+          {
+            "time": 1794693600,
+            "value": 0
+          },
+          {
+            "time": 1794697200,
+            "value": 0
+          },
+          {
+            "time": 1794700800,
+            "value": 0
+          },
+          {
+            "time": 1794704400,
+            "value": 0
+          },
+          {
+            "time": 1794708000,
+            "value": 0
+          },
+          {
+            "time": 1794711600,
+            "value": 0
+          },
+          {
+            "time": 1794715200,
+            "value": 0
+          },
+          {
+            "time": 1794718800,
+            "value": 0
+          },
+          {
+            "time": 1794722400,
+            "value": 0
+          },
+          {
+            "time": 1794726000,
+            "value": 0
+          },
+          {
+            "time": 1794729600,
+            "value": 0
+          },
+          {
+            "time": 1794733200,
+            "value": 0
+          },
+          {
+            "time": 1794736800,
+            "value": 0
+          },
+          {
+            "time": 1794740400,
+            "value": 0
+          },
+          {
+            "time": 1794744000,
+            "value": 0
+          },
+          {
+            "time": 1794747600,
+            "value": 0
+          },
+          {
+            "time": 1794751200,
+            "value": 0
+          },
+          {
+            "time": 1794754800,
+            "value": 0
+          },
+          {
+            "time": 1794758400,
+            "value": 0
+          },
+          {
+            "time": 1794762000,
+            "value": 0
+          },
+          {
+            "time": 1794765600,
+            "value": 0
+          },
+          {
+            "time": 1794769200,
+            "value": 0
+          },
+          {
+            "time": 1794772800,
+            "value": 0
+          },
+          {
+            "time": 1794776400,
+            "value": 0
+          },
+          {
+            "time": 1794780000,
+            "value": 0
+          },
+          {
+            "time": 1794783600,
+            "value": 0
+          },
+          {
+            "time": 1794787200,
+            "value": 0
+          },
+          {
+            "time": 1794790800,
+            "value": 0
+          },
+          {
+            "time": 1794794400,
+            "value": 0
+          },
+          {
+            "time": 1794798000,
+            "value": 604519.027458
+          },
+          {
+            "time": 1794801600,
+            "value": 3492539.57748
+          }
+        ]
+      }
+    ],
+    "dailySeries": [
+      {
+        "id": "volume",
+        "label": "Daily volume",
+        "color": "#22c55e",
+        "points": [
+          {
+            "time": 1792195200,
+            "value": 0
+          },
+          {
+            "time": 1792281600,
+            "value": 0
+          },
+          {
+            "time": 1792368000,
+            "value": 0
+          },
+          {
+            "time": 1792454400,
+            "value": 0
+          },
+          {
+            "time": 1792540800,
+            "value": 0
+          },
+          {
+            "time": 1792627200,
+            "value": 0
+          },
+          {
+            "time": 1792713600,
+            "value": 0
+          },
+          {
+            "time": 1792800000,
+            "value": 0
+          },
+          {
+            "time": 1792886400,
+            "value": 0
+          },
+          {
+            "time": 1792972800,
+            "value": 0
+          },
+          {
+            "time": 1793059200,
+            "value": 0
+          },
+          {
+            "time": 1793145600,
+            "value": 0
+          },
+          {
+            "time": 1793232000,
+            "value": 0
+          },
+          {
+            "time": 1793318400,
+            "value": 0
+          },
+          {
+            "time": 1793404800,
+            "value": 0
+          },
+          {
+            "time": 1793491200,
+            "value": 0
+          },
+          {
+            "time": 1793577600,
+            "value": 0
+          },
+          {
+            "time": 1793664000,
+            "value": 0
+          },
+          {
+            "time": 1793750400,
+            "value": 0
+          },
+          {
+            "time": 1793836800,
+            "value": 0
+          },
+          {
+            "time": 1793923200,
+            "value": 0
+          },
+          {
+            "time": 1794009600,
+            "value": 0
+          },
+          {
+            "time": 1794096000,
+            "value": 0
+          },
+          {
+            "time": 1794182400,
+            "value": 0
+          },
+          {
+            "time": 1794268800,
+            "value": 0
+          },
+          {
+            "time": 1794355200,
+            "value": 0
+          },
+          {
+            "time": 1794441600,
+            "value": 0
+          },
+          {
+            "time": 1794528000,
+            "value": 0
+          },
+          {
+            "time": 1794614400,
+            "value": 0
+          },
+          {
+            "time": 1794700800,
+            "value": 0
+          }
+        ]
+      }
+    ],
+    "volume30dUsd": 0,
+    "volumeChange24h": null,
+    "volumeCaveat": null,
+    "provenance": {
+      "chartAnchor": "2026-11-16T05:00:00+00:00",
+      "volumeScope": "Sum of 3 identified coins' trading volume across all their indexed pools on Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
+      "dailyEnd": "2026-11-16T00:00:00+00:00",
+      "dailyScope": "30 complete UTC days of the current constituents' all-pool volume (Codex daily token bars). Membership is today's, applied to past days.",
+      "sources": [
+        {
+          "label": "Elon Musk on X: \"Bought a hand knit wool Marvin the Martian helm for my dog\" (2021-01-26)",
+          "url": "https://x.com/elonmusk/status/1354029548334178304"
+        },
+        {
+          "label": "Doge Tipping on X: Musk with his dog at the Starship SN8 wreckage, 2020 and 2026 (2026-11-16)",
+          "url": "https://x.com/Dogetothemoon/status/2122148745819390245"
+        },
+        {
+          "label": "Doge Tipping on X: Musk's pets, including a little dog called Marvin the Martian (2026-07-13; fan account)",
+          "url": "https://x.com/Dogetothemoon/status/2076541467783581780"
+        },
+        {
+          "label": "Codex token metadata via Frames",
+          "url": "https://www.codex.io/"
+        }
+      ]
+    }
+  },
+  {
     "id": "n-stock-paired-coins",
     "slug": "stock-paired-coins",
     "title": "Coins paired with tokenized stocks",
@@ -6240,8 +7330,8 @@ export const NARRATIVES: Narrative[] = [
     "status": null,
     "mindshare": null,
     "change24h": null,
-    "volume24hUsd": 5627920.582456049,
-    "volume7dUsd": 70542360.42850561,
+    "volume24hUsd": 3457836.4721450293,
+    "volume7dUsd": 52937145.41539242,
     "launches24h": null,
     "launches7d": null,
     "startedAt": null,
@@ -6252,100 +7342,100 @@ export const NARRATIVES: Narrative[] = [
         "color": "#34d399",
         "points": [
           {
-            "time": 1794632400,
-            "value": 92930.05899664445
+            "time": 1794718800,
+            "value": 63993.0471187385
           },
           {
-            "time": 1794636000,
-            "value": 173414.75464107
+            "time": 1794722400,
+            "value": 63504.5330900533
           },
           {
-            "time": 1794639600,
-            "value": 104105.43979336
+            "time": 1794726000,
+            "value": 79258.07103300141
           },
           {
-            "time": 1794643200,
-            "value": 227690.335963855
+            "time": 1794729600,
+            "value": 96412.95808385
           },
           {
-            "time": 1794646800,
-            "value": 214535.610119132
+            "time": 1794733200,
+            "value": 143967.53173609488
           },
           {
-            "time": 1794650400,
-            "value": 127962.39989713598
+            "time": 1794736800,
+            "value": 63403.51372315335
           },
           {
-            "time": 1794654000,
-            "value": 114417.51940635136
+            "time": 1794740400,
+            "value": 203715.26410767742
           },
           {
-            "time": 1794657600,
-            "value": 127294.465441736
+            "time": 1794744000,
+            "value": 118942.93433931762
           },
           {
-            "time": 1794661200,
-            "value": 485186.3145068481
+            "time": 1794747600,
+            "value": 190687.6556979503
           },
           {
-            "time": 1794664800,
-            "value": 646401.5629513755
+            "time": 1794751200,
+            "value": 155960.88679108
           },
           {
-            "time": 1794668400,
-            "value": 344065.95356985833
+            "time": 1794754800,
+            "value": 655932.6941018073
           },
           {
-            "time": 1794672000,
-            "value": 291896.1986705566
+            "time": 1794758400,
+            "value": 183929.19746772395
           },
           {
-            "time": 1794675600,
-            "value": 216971.103003668
+            "time": 1794762000,
+            "value": 132262.6358407286
           },
           {
-            "time": 1794679200,
-            "value": 265386.1220104516
+            "time": 1794765600,
+            "value": 99714.634991634
           },
           {
-            "time": 1794682800,
-            "value": 162687.20745685793
+            "time": 1794769200,
+            "value": 115663.08144990233
           },
           {
-            "time": 1794686400,
-            "value": 234252.04470196101
+            "time": 1794772800,
+            "value": 157932.8011528287
           },
           {
-            "time": 1794690000,
-            "value": 207256.60873510712
+            "time": 1794776400,
+            "value": 126647.50524834475
           },
           {
-            "time": 1794693600,
-            "value": 233266.98253067528
+            "time": 1794780000,
+            "value": 121643.55946440315
           },
           {
-            "time": 1794697200,
-            "value": 224637.6902393643
+            "time": 1794783600,
+            "value": 101425.07445815309
           },
           {
-            "time": 1794700800,
-            "value": 147122.13996273422
+            "time": 1794787200,
+            "value": 123448.70182967829
           },
           {
-            "time": 1794704400,
-            "value": 168638.2044725976
+            "time": 1794790800,
+            "value": 114834.3031048986
           },
           {
-            "time": 1794708000,
-            "value": 551292.7744280801
+            "time": 1794794400,
+            "value": 95838.2286796595
           },
           {
-            "time": 1794711600,
-            "value": 198750.896118988
+            "time": 1794798000,
+            "value": 80502.8853359919
           },
           {
-            "time": 1794715200,
-            "value": 67758.19483764
+            "time": 1794801600,
+            "value": 168214.7732983586
           }
         ]
       }
@@ -6361,7 +7451,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "stonkfun",
         "address": "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
         "explorerUrl": "https://solscan.io/token/6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
-        "measuredVolumeShare": 68.03441501670662
+        "measuredVolumeShare": 45.06169120411046
       },
       {
         "id": "solana:4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz",
@@ -6373,7 +7463,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "stonkfun",
         "address": "4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz",
         "explorerUrl": "https://solscan.io/token/4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz",
-        "measuredVolumeShare": 29.581097977060896
+        "measuredVolumeShare": 30.725027992895196
       },
       {
         "id": "solana:MukLDtJ8Cx9DxLbeyLRSWPSposTMWuwHANbuaudpump",
@@ -6385,7 +7475,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "pump.fun",
         "address": "MukLDtJ8Cx9DxLbeyLRSWPSposTMWuwHANbuaudpump",
         "explorerUrl": "https://solscan.io/token/MukLDtJ8Cx9DxLbeyLRSWPSposTMWuwHANbuaudpump",
-        "measuredVolumeShare": 2.2508412205526938
+        "measuredVolumeShare": 24.121352040067727
       },
       {
         "id": "solana:ACv7iJ7xVfohvfXp3dt7AfAPcekL2dHsYCbJw8Vp1osr",
@@ -6397,7 +7487,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "stonkfun",
         "address": "ACv7iJ7xVfohvfXp3dt7AfAPcekL2dHsYCbJw8Vp1osr",
         "explorerUrl": "https://solscan.io/token/ACv7iJ7xVfohvfXp3dt7AfAPcekL2dHsYCbJw8Vp1osr",
-        "measuredVolumeShare": 0.11030896416320285
+        "measuredVolumeShare": 0.07932880731150493
       },
       {
         "id": "solana:3jAHcV6ZwmA3pnrR9MrWwNSbN5gDiM7rSM1RJradQ8xK",
@@ -6409,7 +7499,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "launchlab",
         "address": "3jAHcV6ZwmA3pnrR9MrWwNSbN5gDiM7rSM1RJradQ8xK",
         "explorerUrl": "https://solscan.io/token/3jAHcV6ZwmA3pnrR9MrWwNSbN5gDiM7rSM1RJradQ8xK",
-        "measuredVolumeShare": 0.02333682151659512
+        "measuredVolumeShare": 0.012599955615120322
       }
     ],
     "topLaunchpads": null,
@@ -6453,8 +7543,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "STONK",
         "launchpadSlug": "stonkfun",
         "chain": "solana",
-        "mcapUsd": 32361100,
-        "change24h": -6.599501292714825,
+        "mcapUsd": 32382467,
+        "change24h": 0.0661209145033713,
         "address": "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx"
       },
       {
@@ -6462,8 +7552,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "GTA VI",
         "launchpadSlug": "stonkfun",
         "chain": "solana",
-        "mcapUsd": 6045097,
-        "change24h": -20.857393170341027,
+        "mcapUsd": 7618038,
+        "change24h": 25.655540063209397,
         "address": "4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz"
       },
       {
@@ -6471,8 +7561,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "OTC",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 1598790,
-        "change24h": 11.323711648225466,
+        "mcapUsd": 1784972,
+        "change24h": 11.962998151698404,
         "address": "MukLDtJ8Cx9DxLbeyLRSWPSposTMWuwHANbuaudpump"
       },
       {
@@ -6480,8 +7570,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "Retardatide",
         "launchpadSlug": "stonkfun",
         "chain": "solana",
-        "mcapUsd": 18161,
-        "change24h": 7.0450000890884725,
+        "mcapUsd": 14524,
+        "change24h": -20.025288017674423,
         "address": "ACv7iJ7xVfohvfXp3dt7AfAPcekL2dHsYCbJw8Vp1osr"
       },
       {
@@ -6489,8 +7579,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "CHAD",
         "launchpadSlug": "launchlab",
         "chain": "solana",
-        "mcapUsd": 11865,
-        "change24h": -7.772388657250278,
+        "mcapUsd": 12616,
+        "change24h": 6.334085806927854,
         "address": "3jAHcV6ZwmA3pnrR9MrWwNSbN5gDiM7rSM1RJradQ8xK"
       }
     ],
@@ -6501,102 +7591,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Volume",
         "color": "#34d399",
         "points": [
-          {
-            "time": 1794114000,
-            "value": 280431.392104987
-          },
-          {
-            "time": 1794117600,
-            "value": 445927.6512651171
-          },
-          {
-            "time": 1794121200,
-            "value": 379099.227186449
-          },
-          {
-            "time": 1794124800,
-            "value": 229354.2956819878
-          },
-          {
-            "time": 1794128400,
-            "value": 839307.293619307
-          },
-          {
-            "time": 1794132000,
-            "value": 929702.7510880621
-          },
-          {
-            "time": 1794135600,
-            "value": 443371.701793184
-          },
-          {
-            "time": 1794139200,
-            "value": 1036433.4196305501
-          },
-          {
-            "time": 1794142800,
-            "value": 910031.525315871
-          },
-          {
-            "time": 1794146400,
-            "value": 593868.986444267
-          },
-          {
-            "time": 1794150000,
-            "value": 786198.5376908899
-          },
-          {
-            "time": 1794153600,
-            "value": 2195206.1517844577
-          },
-          {
-            "time": 1794157200,
-            "value": 1445407.93912901
-          },
-          {
-            "time": 1794160800,
-            "value": 746111.790854353
-          },
-          {
-            "time": 1794164400,
-            "value": 1979426.549013175
-          },
-          {
-            "time": 1794168000,
-            "value": 1237289.0337193501
-          },
-          {
-            "time": 1794171600,
-            "value": 1755590.44469344
-          },
-          {
-            "time": 1794175200,
-            "value": 1099944.298109857
-          },
-          {
-            "time": 1794178800,
-            "value": 783663.2814082591
-          },
-          {
-            "time": 1794182400,
-            "value": 766642.744486078
-          },
-          {
-            "time": 1794186000,
-            "value": 1029309.635438513
-          },
-          {
-            "time": 1794189600,
-            "value": 522104.2115799351
-          },
-          {
-            "time": 1794193200,
-            "value": 290586.198254797
-          },
-          {
-            "time": 1794196800,
-            "value": 338042.4249663277
-          },
           {
             "time": 1794200400,
             "value": 265749.32901185
@@ -7172,6 +8166,102 @@ export const NARRATIVES: Narrative[] = [
           {
             "time": 1794715200,
             "value": 67758.19483764
+          },
+          {
+            "time": 1794718800,
+            "value": 63993.0471187385
+          },
+          {
+            "time": 1794722400,
+            "value": 63504.5330900533
+          },
+          {
+            "time": 1794726000,
+            "value": 79258.07103300141
+          },
+          {
+            "time": 1794729600,
+            "value": 96412.95808385
+          },
+          {
+            "time": 1794733200,
+            "value": 143967.53173609488
+          },
+          {
+            "time": 1794736800,
+            "value": 63403.51372315335
+          },
+          {
+            "time": 1794740400,
+            "value": 203715.26410767742
+          },
+          {
+            "time": 1794744000,
+            "value": 118942.93433931762
+          },
+          {
+            "time": 1794747600,
+            "value": 190687.6556979503
+          },
+          {
+            "time": 1794751200,
+            "value": 155960.88679108
+          },
+          {
+            "time": 1794754800,
+            "value": 655932.6941018073
+          },
+          {
+            "time": 1794758400,
+            "value": 183929.19746772395
+          },
+          {
+            "time": 1794762000,
+            "value": 132262.6358407286
+          },
+          {
+            "time": 1794765600,
+            "value": 99714.634991634
+          },
+          {
+            "time": 1794769200,
+            "value": 115663.08144990233
+          },
+          {
+            "time": 1794772800,
+            "value": 157932.8011528287
+          },
+          {
+            "time": 1794776400,
+            "value": 126647.50524834475
+          },
+          {
+            "time": 1794780000,
+            "value": 121643.55946440315
+          },
+          {
+            "time": 1794783600,
+            "value": 101425.07445815309
+          },
+          {
+            "time": 1794787200,
+            "value": 123448.70182967829
+          },
+          {
+            "time": 1794790800,
+            "value": 114834.3031048986
+          },
+          {
+            "time": 1794794400,
+            "value": 95838.2286796595
+          },
+          {
+            "time": 1794798000,
+            "value": 80502.8853359919
+          },
+          {
+            "time": 1794801600,
+            "value": 168214.7732983586
           }
         ]
       }
@@ -7182,10 +8272,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Daily volume",
         "color": "#34d399",
         "points": [
-          {
-            "time": 1792108800,
-            "value": 7956330.843152
-          },
           {
             "time": 1792195200,
             "value": 4767840.240709
@@ -7301,17 +8387,21 @@ export const NARRATIVES: Narrative[] = [
           {
             "time": 1794614400,
             "value": 5175915.4899251005
+          },
+          {
+            "time": 1794700800,
+            "value": 4008559.78912673
           }
         ]
       }
     ],
-    "volume30dUsd": 479209086.9069317,
-    "volumeChange24h": -9.189439359370937,
+    "volume30dUsd": 475261315.85290647,
+    "volumeChange24h": -38.55925254304113,
     "volumeCaveat": null,
     "provenance": {
-      "chartAnchor": "2026-11-15T05:00:00+00:00",
+      "chartAnchor": "2026-11-16T05:00:00+00:00",
       "volumeScope": "Sum of 5 identified coins' trading volume across all their indexed pools on Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
-      "dailyEnd": "2026-11-15T00:00:00+00:00",
+      "dailyEnd": "2026-11-16T00:00:00+00:00",
       "dailyScope": "30 complete UTC days of the current constituents' all-pool volume (Codex daily token bars). Membership is today's, applied to past days.",
       "sources": [
         {
@@ -7342,12 +8432,12 @@ export const NARRATIVES: Narrative[] = [
     "slug": "nvidia-ceo-scandal-coins",
     "title": "Nvidia CEO scandal coins",
     "category": "culture",
-    "summary": "Coins named for the Nvidia CEO story. The New York Times posted on X on 2026-11-08 that Nvidia opened an investigation into its CEO Jensen Huang after he acknowledged to the board a relationship with a business executive whom U.S. intelligence determined to be a Chinese spy. On 2026-11-11 The Wall Street Journal posted that Nvidia's board was preparing to oust him. On 2026-11-12 at 13:57 UTC Yahoo Finance posted that Huang had resigned as CEO and that CFO Colette Kress will serve as interim CEO; a Reuters post of 2026-11-13 calls him the former Nvidia CEO and says the Justice Department has not concluded whether the businesswoman, Alice Huang, was a spy. Six coins are measured: two named The Nvidia Spy (Pump.fun and LaunchLab, symbol Alice), Jensen Huang Coin, Jensen Hung, and Next CEO of NVIDIA (symbol Madison), whose description names Huang's daughter as a leading candidate, after a Polymarket post, and Stand With Jensen (SWJ, Flap on BNB Chain), named for the petition to reinstate Huang that Polymarket posted on 2026-11-14 had passed 100,000 signatures. Dates from Codex: the Pump.fun Nvidia Spy pool opened on 2026-11-07, before the Times post; the LaunchLab one on 2026-11-08, nine minutes after it; Jensen Huang Coin and Jensen Hung on 2026-11-09; Next CEO of NVIDIA on 2026-11-12 at 05:58 UTC, before the resignation post; Stand With Jensen on 2026-11-13 at 22:07 UTC, after it. Allegations are as reported in the posts and not verified here. None of the coins is shown to be connected to Nvidia, Jensen Huang, Madison Huang, the petition or anyone in the story. Measured: six coins across all their pools.",
+    "summary": "Coins named for the Nvidia CEO story. The New York Times posted on X on 2026-11-08 that Nvidia opened an investigation into its CEO Jensen Huang after he acknowledged to the board a relationship with a business executive whom U.S. intelligence determined to be a Chinese spy. On 2026-11-11 The Wall Street Journal posted that Nvidia's board was preparing to oust him. On 2026-11-12 at 13:57 UTC Yahoo Finance posted that Huang had resigned as CEO and that CFO Colette Kress will serve as interim CEO; a Reuters post of 2026-11-13 calls him the former Nvidia CEO and says the Justice Department has not concluded whether the businesswoman, Alice Huang, was a spy. On 2026-11-14 Polymarket posted that a petition to reinstate Huang had passed 100,000 signatures. Eight coins are members and seven are measured: The Nvidia Spy (Pump.fun, symbol Alice), Jensen Huang Coin, Jensen Hung, Next CEO of NVIDIA (symbol Madison), whose description names Huang's daughter as a leading candidate, after a Polymarket post, two coins named Stand With Jensen for the petition (SWJ, on Flap on BNB Chain and on Pump.fun) and Bring Jensen Back (BJB, Pump.fun; \"A community meme for everyone calling to Bring Jensen Back\"). Dates from Codex: the Pump.fun Nvidia Spy pool opened on 2026-11-07, before the Times post; the LaunchLab one on 2026-11-08, nine minutes after it; Jensen Huang Coin and Jensen Hung on 2026-11-09; Next CEO of NVIDIA on 2026-11-12 at 05:58 UTC, before the resignation post; the Pump.fun Stand With Jensen on 2026-11-15 at 12:21 UTC, the Flap one on 2026-11-13 at 22:07 UTC, and Bring Jensen Back on 2026-11-15 at 21:10 UTC. The LaunchLab Nvidia Spy is archived (under $1,000 of 24h volume on two consecutive observations; its membership stays open). Allegations are as reported in the posts and not verified here; one post calls Bring Jensen Back a scam. None of the coins is shown to be connected to Nvidia, Jensen Huang, Madison Huang, the petition or anyone in the story. Measured: seven coins across all their pools.",
     "status": null,
     "mindshare": null,
     "change24h": null,
-    "volume24hUsd": 1766498.771736699,
-    "volume7dUsd": 20681575.275106594,
+    "volume24hUsd": 3132568.1181410174,
+    "volume7dUsd": 19910456.52292993,
     "launches24h": null,
     "launches7d": null,
     "startedAt": null,
@@ -7358,116 +8448,140 @@ export const NARRATIVES: Narrative[] = [
         "color": "#a855f7",
         "points": [
           {
-            "time": 1794632400,
-            "value": 123123.679399832
+            "time": 1794718800,
+            "value": 26228.602452583
           },
           {
-            "time": 1794636000,
-            "value": 274356.1250489533
+            "time": 1794722400,
+            "value": 11281.583370774
           },
           {
-            "time": 1794639600,
-            "value": 155882.028289919
+            "time": 1794726000,
+            "value": 10738.610295232651
           },
           {
-            "time": 1794643200,
-            "value": 55423.524697566056
+            "time": 1794729600,
+            "value": 20631.159759384733
           },
           {
-            "time": 1794646800,
-            "value": 47052.637279655995
+            "time": 1794733200,
+            "value": 35083.103328197
           },
           {
-            "time": 1794650400,
-            "value": 80979.076003029
+            "time": 1794736800,
+            "value": 15218.6609579579
           },
           {
-            "time": 1794654000,
-            "value": 69233.365507968
+            "time": 1794740400,
+            "value": 11685.6625669533
           },
           {
-            "time": 1794657600,
-            "value": 59667.3146810965
+            "time": 1794744000,
+            "value": 60540.171962979
           },
           {
-            "time": 1794661200,
-            "value": 80679.73871531199
+            "time": 1794747600,
+            "value": 87127.781506831
           },
           {
-            "time": 1794664800,
-            "value": 192583.272046629
+            "time": 1794751200,
+            "value": 83734.5065074833
           },
           {
-            "time": 1794668400,
-            "value": 56967.6282905684
+            "time": 1794754800,
+            "value": 139290.55626284648
           },
           {
-            "time": 1794672000,
-            "value": 50631.459472512004
+            "time": 1794758400,
+            "value": 196331.843586367
           },
           {
-            "time": 1794675600,
-            "value": 88127.36234277904
+            "time": 1794762000,
+            "value": 103687.96906359
           },
           {
-            "time": 1794679200,
-            "value": 27626.868086329912
+            "time": 1794765600,
+            "value": 100542.64829049616
           },
           {
-            "time": 1794682800,
-            "value": 37590.37088700124
+            "time": 1794769200,
+            "value": 335301.456330034
           },
           {
-            "time": 1794686400,
-            "value": 36038.1201041287
+            "time": 1794772800,
+            "value": 99647.853863316
           },
           {
-            "time": 1794690000,
-            "value": 54347.5672072018
+            "time": 1794776400,
+            "value": 585352.6539713991
           },
           {
-            "time": 1794693600,
-            "value": 55523.817136287005
+            "time": 1794780000,
+            "value": 254629.690966591
           },
           {
-            "time": 1794697200,
-            "value": 27336.491500938024
+            "time": 1794783600,
+            "value": 331884.81743903196
           },
           {
-            "time": 1794700800,
-            "value": 34310.053456945
+            "time": 1794787200,
+            "value": 238444.819034437
           },
           {
-            "time": 1794704400,
-            "value": 41845.368973004
+            "time": 1794790800,
+            "value": 118546.62890898001
           },
           {
-            "time": 1794708000,
-            "value": 32409.58842957
+            "time": 1794794400,
+            "value": 98156.92204926
           },
           {
-            "time": 1794711600,
-            "value": 16243.19143840495
+            "time": 1794798000,
+            "value": 99423.773442945
           },
           {
-            "time": 1794715200,
-            "value": 68520.122741068
+            "time": 1794801600,
+            "value": 69056.642223348
           }
         ]
       }
     ],
     "contenders": [
       {
+        "id": "solana:CHuLmJXz8F3YXUyv984PRxeECfSvqD5MZ3W1FoDmpump",
+        "name": "Bring Jensen Back",
+        "symbol": "BJB",
+        "share": null,
+        "change24h": null,
+        "color": "#4895ef",
+        "launchpadSlug": "pump.fun",
+        "address": "CHuLmJXz8F3YXUyv984PRxeECfSvqD5MZ3W1FoDmpump",
+        "explorerUrl": "https://solscan.io/token/CHuLmJXz8F3YXUyv984PRxeECfSvqD5MZ3W1FoDmpump",
+        "measuredVolumeShare": 49.04984656040387
+      },
+      {
+        "id": "solana:13EAww2eo8g1Xp9U7qrLNg1WoHFHKbs9xy2EQJjfpump",
+        "name": "Stand With Jensen",
+        "symbol": "SWJ",
+        "share": null,
+        "change24h": null,
+        "color": "#7c83ff",
+        "launchpadSlug": "pump.fun",
+        "address": "13EAww2eo8g1Xp9U7qrLNg1WoHFHKbs9xy2EQJjfpump",
+        "explorerUrl": "https://solscan.io/token/13EAww2eo8g1Xp9U7qrLNg1WoHFHKbs9xy2EQJjfpump",
+        "measuredVolumeShare": 21.46218433020918
+      },
+      {
         "id": "bsc:0x26040e441a7369ccc7bd8bfe96f596df4db87777",
         "name": "Stand With Jensen",
         "symbol": "SWJ",
         "share": null,
         "change24h": null,
-        "color": "#4895ef",
+        "color": "#a78bfa",
         "launchpadSlug": "flap-sh",
         "address": "0x26040e441a7369ccc7bd8bfe96f596df4db87777",
         "explorerUrl": "https://bscscan.com/token/0x26040e441a7369ccc7bd8bfe96f596df4db87777",
-        "measuredVolumeShare": 91.00943945100171
+        "measuredVolumeShare": 18.0942525317588
       },
       {
         "id": "solana:4xgqefa5WcdHWKXzqvM9MRJqWYGaHVEUnpUL4Vq5pump",
@@ -7475,23 +8589,11 @@ export const NARRATIVES: Narrative[] = [
         "symbol": "HUNG",
         "share": null,
         "change24h": null,
-        "color": "#7c83ff",
+        "color": "#f59e0b",
         "launchpadSlug": "pump.fun",
         "address": "4xgqefa5WcdHWKXzqvM9MRJqWYGaHVEUnpUL4Vq5pump",
         "explorerUrl": "https://solscan.io/token/4xgqefa5WcdHWKXzqvM9MRJqWYGaHVEUnpUL4Vq5pump",
-        "measuredVolumeShare": 6.79141418541925
-      },
-      {
-        "id": "solana:BdouwEr3mwXkT6S6EmHNCjn9oEtykRKCKiUSTRF9pump",
-        "name": "The Nvidia Spy",
-        "symbol": "Alice",
-        "share": null,
-        "change24h": null,
-        "color": "#a78bfa",
-        "launchpadSlug": "pump.fun",
-        "address": "BdouwEr3mwXkT6S6EmHNCjn9oEtykRKCKiUSTRF9pump",
-        "explorerUrl": "https://solscan.io/token/BdouwEr3mwXkT6S6EmHNCjn9oEtykRKCKiUSTRF9pump",
-        "measuredVolumeShare": 1.105443578649804
+        "measuredVolumeShare": 10.503742964080498
       },
       {
         "id": "solana:GgN3jfbg75SiW4qJKmak4VJrnWQvQdnUmN4NLHW5pump",
@@ -7499,11 +8601,23 @@ export const NARRATIVES: Narrative[] = [
         "symbol": "JENSEN",
         "share": null,
         "change24h": null,
-        "color": "#f59e0b",
+        "color": "#22c55e",
         "launchpadSlug": "pump.fun",
         "address": "GgN3jfbg75SiW4qJKmak4VJrnWQvQdnUmN4NLHW5pump",
         "explorerUrl": "https://solscan.io/token/GgN3jfbg75SiW4qJKmak4VJrnWQvQdnUmN4NLHW5pump",
-        "measuredVolumeShare": 1.0156616396761753
+        "measuredVolumeShare": 0.5721313074209706
+      },
+      {
+        "id": "solana:BdouwEr3mwXkT6S6EmHNCjn9oEtykRKCKiUSTRF9pump",
+        "name": "The Nvidia Spy",
+        "symbol": "Alice",
+        "share": null,
+        "change24h": null,
+        "color": "#ef6f6c",
+        "launchpadSlug": "pump.fun",
+        "address": "BdouwEr3mwXkT6S6EmHNCjn9oEtykRKCKiUSTRF9pump",
+        "explorerUrl": "https://solscan.io/token/BdouwEr3mwXkT6S6EmHNCjn9oEtykRKCKiUSTRF9pump",
+        "measuredVolumeShare": 0.3177891681252775
       },
       {
         "id": "solana:9j3EyQXC4ff2gZDgMWg2RUjujLUKaKkNFY5REgPFpump",
@@ -7511,23 +8625,11 @@ export const NARRATIVES: Narrative[] = [
         "symbol": "Madison",
         "share": null,
         "change24h": null,
-        "color": "#22c55e",
+        "color": "#2dd4bf",
         "launchpadSlug": "pump.fun",
         "address": "9j3EyQXC4ff2gZDgMWg2RUjujLUKaKkNFY5REgPFpump",
         "explorerUrl": "https://solscan.io/token/9j3EyQXC4ff2gZDgMWg2RUjujLUKaKkNFY5REgPFpump",
-        "measuredVolumeShare": 0.07543022593489568
-      },
-      {
-        "id": "solana:792rosbxyZ7tYELnC4HhW1ok4enB8T5tnySSs6Mnikvq",
-        "name": "The Nvidia Spy",
-        "symbol": "Alice",
-        "share": null,
-        "change24h": null,
-        "color": "#ef6f6c",
-        "launchpadSlug": "launchlab",
-        "address": "792rosbxyZ7tYELnC4HhW1ok4enB8T5tnySSs6Mnikvq",
-        "explorerUrl": "https://solscan.io/token/792rosbxyZ7tYELnC4HhW1ok4enB8T5tnySSs6Mnikvq",
-        "measuredVolumeShare": 0.0026109193181583887
+        "measuredVolumeShare": 0.000053138001411730716
       }
     ],
     "topLaunchpads": null,
@@ -7559,12 +8661,30 @@ export const NARRATIVES: Narrative[] = [
     ],
     "exampleTokens": [
       {
+        "symbol": "BJB",
+        "name": "Bring Jensen Back",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 1890474,
+        "change24h": 3528.883734171899,
+        "address": "CHuLmJXz8F3YXUyv984PRxeECfSvqD5MZ3W1FoDmpump"
+      },
+      {
+        "symbol": "SWJ",
+        "name": "Stand With Jensen",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 667602,
+        "change24h": 640.7585521722323,
+        "address": "13EAww2eo8g1Xp9U7qrLNg1WoHFHKbs9xy2EQJjfpump"
+      },
+      {
         "symbol": "SWJ",
         "name": "Stand With Jensen",
         "launchpadSlug": "flap-sh",
         "chain": "bsc",
-        "mcapUsd": 213916,
-        "change24h": -59.74725448149633,
+        "mcapUsd": 139066,
+        "change24h": -35.21296383817788,
         "address": "0x26040e441a7369ccc7bd8bfe96f596df4db87777"
       },
       {
@@ -7572,45 +8692,36 @@ export const NARRATIVES: Narrative[] = [
         "name": "Jensen Hung",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 49341,
-        "change24h": -38.97876424635509,
+        "mcapUsd": 138532,
+        "change24h": 180.76480928677447,
         "address": "4xgqefa5WcdHWKXzqvM9MRJqWYGaHVEUnpUL4Vq5pump"
-      },
-      {
-        "symbol": "Alice",
-        "name": "The Nvidia Spy",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 23986,
-        "change24h": -21.24773851161901,
-        "address": "BdouwEr3mwXkT6S6EmHNCjn9oEtykRKCKiUSTRF9pump"
       },
       {
         "symbol": "JENSEN",
         "name": "Jensen Huang Coin",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 16918,
-        "change24h": -12.704120596133315,
+        "mcapUsd": 15175,
+        "change24h": -10.295837347283744,
         "address": "GgN3jfbg75SiW4qJKmak4VJrnWQvQdnUmN4NLHW5pump"
+      },
+      {
+        "symbol": "Alice",
+        "name": "The Nvidia Spy",
+        "launchpadSlug": "pump.fun",
+        "chain": "solana",
+        "mcapUsd": 14747,
+        "change24h": -38.52080139471016,
+        "address": "BdouwEr3mwXkT6S6EmHNCjn9oEtykRKCKiUSTRF9pump"
       },
       {
         "symbol": "Madison",
         "name": "Next CEO of NVIDIA",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 1364,
-        "change24h": -10.515465578807556,
+        "mcapUsd": 1395,
+        "change24h": 2.2072439334771854,
         "address": "9j3EyQXC4ff2gZDgMWg2RUjujLUKaKkNFY5REgPFpump"
-      },
-      {
-        "symbol": "Alice",
-        "name": "The Nvidia Spy",
-        "launchpadSlug": "launchlab",
-        "chain": "solana",
-        "mcapUsd": 9572,
-        "change24h": -2.0133364253661385,
-        "address": "792rosbxyZ7tYELnC4HhW1ok4enB8T5tnySSs6Mnikvq"
       }
     ],
     "suggestedLaunchpads": [],
@@ -7621,268 +8732,172 @@ export const NARRATIVES: Narrative[] = [
         "color": "#a855f7",
         "points": [
           {
-            "time": 1794114000,
-            "value": 3339.431611446
-          },
-          {
-            "time": 1794117600,
-            "value": 5811.76204177
-          },
-          {
-            "time": 1794121200,
-            "value": 6335.672280292
-          },
-          {
-            "time": 1794124800,
-            "value": 1026.7973260209
-          },
-          {
-            "time": 1794128400,
-            "value": 4872.4134442449995
-          },
-          {
-            "time": 1794132000,
-            "value": 1527.69064571804
-          },
-          {
-            "time": 1794135600,
-            "value": 5806.36310543
-          },
-          {
-            "time": 1794139200,
-            "value": 2966.2874423490002
-          },
-          {
-            "time": 1794142800,
-            "value": 3029.6483857207
-          },
-          {
-            "time": 1794146400,
-            "value": 2055.31919945852
-          },
-          {
-            "time": 1794150000,
-            "value": 3637.9691120340003
-          },
-          {
-            "time": 1794153600,
-            "value": 4472.320096849
-          },
-          {
-            "time": 1794157200,
-            "value": 8032.52939416
-          },
-          {
-            "time": 1794160800,
-            "value": 5255.2186663229995
-          },
-          {
-            "time": 1794164400,
-            "value": 1530.1446801504
-          },
-          {
-            "time": 1794168000,
-            "value": 1223611.763053
-          },
-          {
-            "time": 1794171600,
-            "value": 128004.9914403
-          },
-          {
-            "time": 1794175200,
-            "value": 119978.10839190001
-          },
-          {
-            "time": 1794178800,
-            "value": 70701.6857134
-          },
-          {
-            "time": 1794182400,
-            "value": 49923.60280752
-          },
-          {
-            "time": 1794186000,
-            "value": 23507.77718306
-          },
-          {
-            "time": 1794189600,
-            "value": 581855.3088755
-          },
-          {
-            "time": 1794193200,
-            "value": 888300.06256107
-          },
-          {
-            "time": 1794196800,
-            "value": 725950.37603487
-          },
-          {
             "time": 1794200400,
-            "value": 216340.70383448
+            "value": 215082.5233662
           },
           {
             "time": 1794204000,
-            "value": 113932.922876335
+            "value": 113007.1593531
           },
           {
             "time": 1794207600,
-            "value": 55922.90679011
+            "value": 54815.963511
           },
           {
             "time": 1794211200,
-            "value": 56325.485382375
+            "value": 55584.0502966
           },
           {
             "time": 1794214800,
-            "value": 34493.904739260004
+            "value": 33464.37706659
           },
           {
             "time": 1794218400,
-            "value": 49250.1859169
+            "value": 48566.32906610001
           },
           {
             "time": 1794222000,
-            "value": 39085.129888485
+            "value": 38121.2184994
           },
           {
             "time": 1794225600,
-            "value": 16237.172541451
+            "value": 15314.82894028
           },
           {
             "time": 1794229200,
-            "value": 36774.0867836
+            "value": 34281.17416096
           },
           {
             "time": 1794232800,
-            "value": 30318.35453168
+            "value": 27486.30181528
           },
           {
             "time": 1794236400,
-            "value": 49370.138618820005
+            "value": 46080.979192310006
           },
           {
             "time": 1794240000,
-            "value": 36265.658849278
+            "value": 35425.41729387
           },
           {
             "time": 1794243600,
-            "value": 30693.14074778
+            "value": 29676.34359958
           },
           {
             "time": 1794247200,
-            "value": 23300.3096897
+            "value": 22204.41147627
           },
           {
             "time": 1794250800,
-            "value": 13698.109986185002
+            "value": 12779.241753150001
           },
           {
             "time": 1794254400,
-            "value": 12115.54086749
+            "value": 10494.27806259
           },
           {
             "time": 1794258000,
-            "value": 54147.363672260006
+            "value": 52283.158768960006
           },
           {
             "time": 1794261600,
-            "value": 16061.808103931
+            "value": 14983.225908301001
           },
           {
             "time": 1794265200,
-            "value": 7626.169526677
+            "value": 6689.955570821
           },
           {
             "time": 1794268800,
-            "value": 12765.486910759
+            "value": 12697.53302398
           },
           {
             "time": 1794272400,
-            "value": 11724.918918002
+            "value": 11411.58292553
           },
           {
             "time": 1794276000,
-            "value": 19030.611806923
+            "value": 18797.36332119
           },
           {
             "time": 1794279600,
-            "value": 12057.240187057
+            "value": 11798.051565834
           },
           {
             "time": 1794283200,
-            "value": 5261.2653753546
+            "value": 5220.164481606
           },
           {
             "time": 1794286800,
-            "value": 4301.565827486687
+            "value": 4301.192994651
           },
           {
             "time": 1794290400,
-            "value": 4121.38571502513
+            "value": 4119.029034674
           },
           {
             "time": 1794294000,
-            "value": 3555.5397603789497
+            "value": 3553.318851218
           },
           {
             "time": 1794297600,
-            "value": 5011.137456849679
+            "value": 5003.507279141
           },
           {
             "time": 1794301200,
-            "value": 3852.7553693296204
+            "value": 3847.871953583
           },
           {
             "time": 1794304800,
-            "value": 3899.46343543
+            "value": 3633.169315568
           },
           {
             "time": 1794308400,
-            "value": 2628.1822543658
+            "value": 2548.320555293
           },
           {
             "time": 1794312000,
-            "value": 5824.190414347
+            "value": 5775.370257214
           },
           {
             "time": 1794315600,
-            "value": 6395.824793973001
+            "value": 6116.033361198
           },
           {
             "time": 1794319200,
-            "value": 2629.24204462814
+            "value": 2621.079955438
           },
           {
             "time": 1794322800,
-            "value": 6142.291107077999
+            "value": 5922.868393913999
           },
           {
             "time": 1794326400,
-            "value": 12817.001506119
+            "value": 12713.955435815
           },
           {
             "time": 1794330000,
-            "value": 5329.7263294241
+            "value": 5288.575526841
           },
           {
             "time": 1794333600,
-            "value": 8987.112503280001
+            "value": 8719.38608065
           },
           {
             "time": 1794337200,
-            "value": 53417.891467876005
+            "value": 53296.849139310005
           },
           {
             "time": 1794340800,
-            "value": 12305.08935367
+            "value": 12187.733537443
           },
           {
             "time": 1794344400,
-            "value": 5823.506552618801
+            "value": 5823.506550919
           },
           {
             "time": 1794348000,
-            "value": 3086.9900830867
+            "value": 2958.7414143567
           },
           {
             "time": 1794351600,
@@ -7890,43 +8905,43 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794355200,
-            "value": 4892.709243476999
+            "value": 4766.775878418
           },
           {
             "time": 1794358800,
-            "value": 1437.8146100787098
+            "value": 1428.454931726
           },
           {
             "time": 1794362400,
-            "value": 4671.2802200824
+            "value": 4607.331475924
           },
           {
             "time": 1794366000,
-            "value": 5511.3337643341
+            "value": 5509.575143133
           },
           {
             "time": 1794369600,
-            "value": 2905.317452279531
+            "value": 2905.3172304170002
           },
           {
             "time": 1794373200,
-            "value": 3032.7566370332
+            "value": 2758.5279501832
           },
           {
             "time": 1794376800,
-            "value": 2253.571128844215
+            "value": 2253.5711271118
           },
           {
             "time": 1794380400,
-            "value": 2038.5012224498892
+            "value": 2038.3132475690002
           },
           {
             "time": 1794384000,
-            "value": 1455.003935714604
+            "value": 1455.003913194
           },
           {
             "time": 1794387600,
-            "value": 3343.37052556768
+            "value": 3338.682609042
           },
           {
             "time": 1794391200,
@@ -7938,19 +8953,19 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794398400,
-            "value": 3764.65789618767
+            "value": 3762.3948316198403
           },
           {
             "time": 1794402000,
-            "value": 2301.9260685192503
+            "value": 2297.2077602008003
           },
           {
             "time": 1794405600,
-            "value": 1547.03787980047
+            "value": 1543.89741639077
           },
           {
             "time": 1794409200,
-            "value": 3476.6171481379997
+            "value": 3462.3817419909997
           },
           {
             "time": 1794412800,
@@ -7958,15 +8973,15 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794416400,
-            "value": 9607.1457001951
+            "value": 9316.7504788761
           },
           {
             "time": 1794420000,
-            "value": 4175.41702556
+            "value": 3348.187885746
           },
           {
             "time": 1794423600,
-            "value": 782.640440735
+            "value": 672.035568847
           },
           {
             "time": 1794427200,
@@ -7974,35 +8989,35 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794430800,
-            "value": 17925.057807264002
+            "value": 17817.820840361
           },
           {
             "time": 1794434400,
-            "value": 1811102.402145866
+            "value": 1810584.0262673
           },
           {
             "time": 1794438000,
-            "value": 740907.473717793
+            "value": 740793.88466163
           },
           {
             "time": 1794441600,
-            "value": 720480.824232402
+            "value": 720399.1181503
           },
           {
             "time": 1794445200,
-            "value": 462369.0404100691
+            "value": 462357.65613335
           },
           {
             "time": 1794448800,
-            "value": 217632.20240878
+            "value": 217460.04203580998
           },
           {
             "time": 1794452400,
-            "value": 200002.30125950117
+            "value": 200002.2785121
           },
           {
             "time": 1794456000,
-            "value": 92594.73378817625
+            "value": 92594.73378656
           },
           {
             "time": 1794459600,
@@ -8010,11 +9025,11 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794463200,
-            "value": 722154.6089556108
+            "value": 722074.82083456
           },
           {
             "time": 1794466800,
-            "value": 269859.74634391506
+            "value": 269859.736353554
           },
           {
             "time": 1794470400,
@@ -8042,35 +9057,35 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794492000,
-            "value": 1232682.0534929459
+            "value": 1232250.5770617
           },
           {
             "time": 1794495600,
-            "value": 914126.9599166445
+            "value": 914116.8943139
           },
           {
             "time": 1794499200,
-            "value": 256469.78744735572
+            "value": 256390.76031491
           },
           {
             "time": 1794502800,
-            "value": 128698.15360546799
+            "value": 128414.05138063
           },
           {
             "time": 1794506400,
-            "value": 141529.84849936
+            "value": 141371.69203753
           },
           {
             "time": 1794510000,
-            "value": 1368568.2800039873
+            "value": 1368568.08069766
           },
           {
             "time": 1794513600,
-            "value": 275214.00407503295
+            "value": 275213.88264344
           },
           {
             "time": 1794517200,
-            "value": 200470.06846613478
+            "value": 200470.068452677
           },
           {
             "time": 1794520800,
@@ -8114,15 +9129,15 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794556800,
-            "value": 21349.343195697278
+            "value": 21347.59372198
           },
           {
             "time": 1794560400,
-            "value": 18965.7231564196
+            "value": 18943.186625496
           },
           {
             "time": 1794564000,
-            "value": 57462.94191764628
+            "value": 57462.939094780006
           },
           {
             "time": 1794567600,
@@ -8130,11 +9145,11 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794571200,
-            "value": 26502.821686565
+            "value": 26457.54911422
           },
           {
             "time": 1794574800,
-            "value": 23345.956219223175
+            "value": 23345.95053339
           },
           {
             "time": 1794578400,
@@ -8150,7 +9165,7 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794589200,
-            "value": 20409.3291720567
+            "value": 20386.396811574
           },
           {
             "time": 1794592800,
@@ -8166,15 +9181,15 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794603600,
-            "value": 24111.918112741503
+            "value": 24111.852136907
           },
           {
             "time": 1794607200,
-            "value": 22193.89945324041
+            "value": 22190.444008986
           },
           {
             "time": 1794610800,
-            "value": 173300.65857237304
+            "value": 173300.658141291
           },
           {
             "time": 1794614400,
@@ -8202,7 +9217,7 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794636000,
-            "value": 274356.1250489533
+            "value": 274346.149021523
           },
           {
             "time": 1794639600,
@@ -8210,7 +9225,7 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794643200,
-            "value": 55423.524697566056
+            "value": 55421.859899678464
           },
           {
             "time": 1794646800,
@@ -8234,11 +9249,11 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794664800,
-            "value": 192583.272046629
+            "value": 192554.58934387
           },
           {
             "time": 1794668400,
-            "value": 56967.6282905684
+            "value": 56967.624689574
           },
           {
             "time": 1794672000,
@@ -8250,11 +9265,11 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794679200,
-            "value": 27626.868086329912
+            "value": 27621.746566764003
           },
           {
             "time": 1794682800,
-            "value": 37590.37088700124
+            "value": 37589.6984043235
           },
           {
             "time": 1794686400,
@@ -8270,7 +9285,7 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1794697200,
-            "value": 27336.491500938024
+            "value": 27336.49077456663
           },
           {
             "time": 1794700800,
@@ -8291,6 +9306,102 @@ export const NARRATIVES: Narrative[] = [
           {
             "time": 1794715200,
             "value": 68520.122741068
+          },
+          {
+            "time": 1794718800,
+            "value": 26228.602452583
+          },
+          {
+            "time": 1794722400,
+            "value": 11281.583370774
+          },
+          {
+            "time": 1794726000,
+            "value": 10738.610295232651
+          },
+          {
+            "time": 1794729600,
+            "value": 20631.159759384733
+          },
+          {
+            "time": 1794733200,
+            "value": 35083.103328197
+          },
+          {
+            "time": 1794736800,
+            "value": 15218.6609579579
+          },
+          {
+            "time": 1794740400,
+            "value": 11685.6625669533
+          },
+          {
+            "time": 1794744000,
+            "value": 60540.171962979
+          },
+          {
+            "time": 1794747600,
+            "value": 87127.781506831
+          },
+          {
+            "time": 1794751200,
+            "value": 83734.5065074833
+          },
+          {
+            "time": 1794754800,
+            "value": 139290.55626284648
+          },
+          {
+            "time": 1794758400,
+            "value": 196331.843586367
+          },
+          {
+            "time": 1794762000,
+            "value": 103687.96906359
+          },
+          {
+            "time": 1794765600,
+            "value": 100542.64829049616
+          },
+          {
+            "time": 1794769200,
+            "value": 335301.456330034
+          },
+          {
+            "time": 1794772800,
+            "value": 99647.853863316
+          },
+          {
+            "time": 1794776400,
+            "value": 585352.6539713991
+          },
+          {
+            "time": 1794780000,
+            "value": 254629.690966591
+          },
+          {
+            "time": 1794783600,
+            "value": 331884.81743903196
+          },
+          {
+            "time": 1794787200,
+            "value": 238444.819034437
+          },
+          {
+            "time": 1794790800,
+            "value": 118546.62890898001
+          },
+          {
+            "time": 1794794400,
+            "value": 98156.92204926
+          },
+          {
+            "time": 1794798000,
+            "value": 99423.773442945
+          },
+          {
+            "time": 1794801600,
+            "value": 69056.642223348
           }
         ]
       }
@@ -8301,10 +9412,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Daily volume",
         "color": "#a855f7",
         "points": [
-          {
-            "time": 1792108800,
-            "value": 0
-          },
           {
             "time": 1792195200,
             "value": 0
@@ -8387,50 +9494,54 @@ export const NARRATIVES: Narrative[] = [
           },
           {
             "time": 1793923200,
-            "value": 8390.96640114
+            "value": 0
           },
           {
             "time": 1794009600,
-            "value": 3836876.0433859997
+            "value": 3257914.3282
           },
           {
             "time": 1794096000,
-            "value": 1646626.658426
+            "value": 785369.571433
           },
           {
             "time": 1794182400,
-            "value": 3161496.2208547
+            "value": 3102086.753543
           },
           {
             "time": 1794268800,
-            "value": 214712.77418747
+            "value": 212099.5599698
           },
           {
             "time": 1794355200,
-            "value": 2635238.90522392
+            "value": 2632767.0116137
           },
           {
             "time": 1794441600,
-            "value": 7806421.9304507105
+            "value": 7805113.7102540005
           },
           {
             "time": 1794528000,
-            "value": 1042394.2838223516
+            "value": 1042298.2625250126
           },
           {
             "time": 1794614400,
-            "value": 4025986.7198869362
+            "value": 4025940.5980292503
+          },
+          {
+            "time": 1794700800,
+            "value": 2702267.657353481
           }
         ]
       }
     ],
-    "volume30dUsd": 24378144.502639227,
-    "volumeChange24h": -45.60681765426739,
+    "volume30dUsd": 25565857.452921245,
+    "volumeChange24h": 77.33665934128337,
     "volumeCaveat": null,
     "provenance": {
-      "chartAnchor": "2026-11-15T05:00:00+00:00",
-      "volumeScope": "Sum of 6 identified coins' trading volume across all their indexed pools on BNB Chain, Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
-      "dailyEnd": "2026-11-15T00:00:00+00:00",
+      "chartAnchor": "2026-11-16T05:00:00+00:00",
+      "volumeScope": "Sum of 7 identified coins' trading volume across all their indexed pools on BNB Chain, Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
+      "dailyEnd": "2026-11-16T00:00:00+00:00",
       "dailyScope": "30 complete UTC days of the current constituents' all-pool volume (Codex daily token bars). Membership is today's, applied to past days.",
       "sources": [
         {
@@ -8453,1188 +9564,6 @@ export const NARRATIVES: Narrative[] = [
     }
   },
   {
-    "id": "n-gta6-dacity-coin",
-    "slug": "gta-6-dacity-coin",
-    "title": "GTA 6 Dacity Coin coins",
-    "category": "culture",
-    "summary": "Coins named for Dacity Coin and AudaCity, a fictional coin brand that posts say appears in Grand Theft Auto VI material. On 2026-10-11 the account @robtmb1 posted that a GTA 6 leak shows a meme coin called \"Dacity Coin\"; the first Dacity Coin on Pump.fun was created 35 seconds later. On 2026-11-10 at 13:59 UTC Rockstar posted a pre-load trailer; its post does not name the coin, and posts since then say AudaCity boxes, a billboard and DacityCoin appear in Rockstar's footage and argue over which coin is the \"right\" one. Ten coins are members. Seven are on Pump.fun: Dacity Coin (token created 2026-10-11), DacityCoin and AudaCity (2026-10-15), a second DacityCoin with the symbol DACITY (pool opened 2026-10-15), DacityCoin with the symbol DTC (2026-10-20), DacityCoin with the symbol DAC (2026-10-24) and GTAVI AudaCity (2026-11-10 19:03 UTC, after the trailer), whose description reads \"There's a meme coin in GTA 6 called \\\"Dacity Coin\\\" in the new leak.\" Three are copies named AudaCity that opened on Meteora DBC on 2026-11-12 between 04:18 and 04:40 UTC, hours before this run. Most have empty or unrelated descriptions, so their names carry the claim. What the footage shows was not checked here, and none of the coins is shown to be affiliated with Rockstar or Take-Two. GTAVI AudaCity is archived (under $1,000 of 24h volume on two consecutive observations; its membership stays open). Measured: nine coins across all their pools.",
-    "status": null,
-    "mindshare": null,
-    "change24h": null,
-    "volume24hUsd": 1462163.8367924576,
-    "volume7dUsd": 65765951.60274765,
-    "launches24h": null,
-    "launches7d": null,
-    "startedAt": null,
-    "series": [
-      {
-        "id": "volume",
-        "label": "All pools: hourly USD volume",
-        "color": "#f472b6",
-        "points": [
-          {
-            "time": 1794632400,
-            "value": 48251.024773897
-          },
-          {
-            "time": 1794636000,
-            "value": 62715.622953478
-          },
-          {
-            "time": 1794639600,
-            "value": 21953.1682829199
-          },
-          {
-            "time": 1794643200,
-            "value": 32106.3221420657
-          },
-          {
-            "time": 1794646800,
-            "value": 42669.7543949169
-          },
-          {
-            "time": 1794650400,
-            "value": 30380.151002338458
-          },
-          {
-            "time": 1794654000,
-            "value": 81384.818035381
-          },
-          {
-            "time": 1794657600,
-            "value": 54301.363371412
-          },
-          {
-            "time": 1794661200,
-            "value": 124379.60749431
-          },
-          {
-            "time": 1794664800,
-            "value": 70650.2619021892
-          },
-          {
-            "time": 1794668400,
-            "value": 38939.995269776
-          },
-          {
-            "time": 1794672000,
-            "value": 61381.1869627053
-          },
-          {
-            "time": 1794675600,
-            "value": 47705.810748272
-          },
-          {
-            "time": 1794679200,
-            "value": 44419.188028994
-          },
-          {
-            "time": 1794682800,
-            "value": 35827.2077848345
-          },
-          {
-            "time": 1794686400,
-            "value": 257155.62200515
-          },
-          {
-            "time": 1794690000,
-            "value": 86368.902676991
-          },
-          {
-            "time": 1794693600,
-            "value": 103645.682200433
-          },
-          {
-            "time": 1794697200,
-            "value": 37840.036205846
-          },
-          {
-            "time": 1794700800,
-            "value": 77778.809361911
-          },
-          {
-            "time": 1794704400,
-            "value": 25362.787274591
-          },
-          {
-            "time": 1794708000,
-            "value": 28435.973573663
-          },
-          {
-            "time": 1794711600,
-            "value": 21442.8342105253
-          },
-          {
-            "time": 1794715200,
-            "value": 27067.706135857297
-          }
-        ]
-      }
-    ],
-    "contenders": [
-      {
-        "id": "solana:DKYcjobF7HPtL9RyQBRdeRQ2iWvizpfbgWwPWNXdpump",
-        "name": "AudaCity",
-        "symbol": "DacityCoin",
-        "share": null,
-        "change24h": null,
-        "color": "#4895ef",
-        "launchpadSlug": "pump.fun",
-        "address": "DKYcjobF7HPtL9RyQBRdeRQ2iWvizpfbgWwPWNXdpump",
-        "explorerUrl": "https://solscan.io/token/DKYcjobF7HPtL9RyQBRdeRQ2iWvizpfbgWwPWNXdpump",
-        "measuredVolumeShare": 56.35920035038517
-      },
-      {
-        "id": "solana:nxPqZ4F7ux8Vph5NFu25rEP6Kx9Gr1U6Fmj36Rjpump",
-        "name": "Dacity Coin",
-        "symbol": "Dacity",
-        "share": null,
-        "change24h": null,
-        "color": "#7c83ff",
-        "launchpadSlug": "pump.fun",
-        "address": "nxPqZ4F7ux8Vph5NFu25rEP6Kx9Gr1U6Fmj36Rjpump",
-        "explorerUrl": "https://solscan.io/token/nxPqZ4F7ux8Vph5NFu25rEP6Kx9Gr1U6Fmj36Rjpump",
-        "measuredVolumeShare": 32.69692635273334
-      },
-      {
-        "id": "solana:4rYsDHMfKmt6VuVGcM8cGzBgkZNgQT3w2DhdEmtVpump",
-        "name": "DacityCoin",
-        "symbol": "DacityCoin",
-        "share": null,
-        "change24h": null,
-        "color": "#a78bfa",
-        "launchpadSlug": "pump.fun",
-        "address": "4rYsDHMfKmt6VuVGcM8cGzBgkZNgQT3w2DhdEmtVpump",
-        "explorerUrl": "https://solscan.io/token/4rYsDHMfKmt6VuVGcM8cGzBgkZNgQT3w2DhdEmtVpump",
-        "measuredVolumeShare": 5.995627341430307
-      },
-      {
-        "id": "solana:56S874EPXeXKLQJCkMCsW15z38LW9xBpq4qQLr5qpump",
-        "name": "DacityCoin",
-        "symbol": "DAC",
-        "share": null,
-        "change24h": null,
-        "color": "#f59e0b",
-        "launchpadSlug": "pump.fun",
-        "address": "56S874EPXeXKLQJCkMCsW15z38LW9xBpq4qQLr5qpump",
-        "explorerUrl": "https://solscan.io/token/56S874EPXeXKLQJCkMCsW15z38LW9xBpq4qQLr5qpump",
-        "measuredVolumeShare": 1.8872918655344937
-      },
-      {
-        "id": "solana:39wVWdqCJWmHwpQS4Twx9GYmmhLSSKDPPJE7DM7Zpump",
-        "name": "DacityCoin",
-        "symbol": "DACITY",
-        "share": null,
-        "change24h": null,
-        "color": "#22c55e",
-        "launchpadSlug": "pump.fun",
-        "address": "39wVWdqCJWmHwpQS4Twx9GYmmhLSSKDPPJE7DM7Zpump",
-        "explorerUrl": "https://solscan.io/token/39wVWdqCJWmHwpQS4Twx9GYmmhLSSKDPPJE7DM7Zpump",
-        "measuredVolumeShare": 1.664945945527127
-      },
-      {
-        "id": "solana:6dhKENbCU9M9hsjvsG7GahMmxVXpRKkf3Q7zCXgUpump",
-        "name": "DacityCoin",
-        "symbol": "DTC",
-        "share": null,
-        "change24h": null,
-        "color": "#ef6f6c",
-        "launchpadSlug": "pump.fun",
-        "address": "6dhKENbCU9M9hsjvsG7GahMmxVXpRKkf3Q7zCXgUpump",
-        "explorerUrl": "https://solscan.io/token/6dhKENbCU9M9hsjvsG7GahMmxVXpRKkf3Q7zCXgUpump",
-        "measuredVolumeShare": 1.396005859472669
-      },
-      {
-        "id": "solana:DZp5gYhQqJBiWtm3wSPbCmsRVFrsL7Ajd21xEgf6Cjf",
-        "name": "AudaCity",
-        "symbol": "Dacity",
-        "share": null,
-        "change24h": null,
-        "color": "#2dd4bf",
-        "launchpadSlug": "meteora-dbc",
-        "address": "DZp5gYhQqJBiWtm3wSPbCmsRVFrsL7Ajd21xEgf6Cjf",
-        "explorerUrl": "https://solscan.io/token/DZp5gYhQqJBiWtm3wSPbCmsRVFrsL7Ajd21xEgf6Cjf",
-        "measuredVolumeShare": 0.000001917317036488794
-      },
-      {
-        "id": "solana:4sNpQBrkY1dfYS2poejXECLanmvBxkiwCjwwruGEFcYS",
-        "name": "AudaCity",
-        "symbol": "DacityCoin",
-        "share": null,
-        "change24h": null,
-        "color": "#e879f9",
-        "launchpadSlug": "meteora-dbc",
-        "address": "4sNpQBrkY1dfYS2poejXECLanmvBxkiwCjwwruGEFcYS",
-        "explorerUrl": "https://solscan.io/token/4sNpQBrkY1dfYS2poejXECLanmvBxkiwCjwwruGEFcYS",
-        "measuredVolumeShare": 3.6759985283666445e-7
-      },
-      {
-        "id": "solana:Efe5mznBBUAP12kUE97HwoScAkHHSmNqnYJ9Ro249b2g",
-        "name": "AudaCity",
-        "symbol": "Dacity",
-        "share": null,
-        "change24h": null,
-        "color": "#4895ef",
-        "launchpadSlug": "meteora-dbc",
-        "address": "Efe5mznBBUAP12kUE97HwoScAkHHSmNqnYJ9Ro249b2g",
-        "explorerUrl": "https://solscan.io/token/Efe5mznBBUAP12kUE97HwoScAkHHSmNqnYJ9Ro249b2g",
-        "measuredVolumeShare": 0
-      }
-    ],
-    "topLaunchpads": null,
-    "signals": [
-      {
-        "id": "x-2120154484244381738",
-        "source": "x",
-        "label": "Official post",
-        "title": "Rockstar Games (2026-11-10): Grand Theft Auto VI pre-loading is now available; trailer attached (the post does not name the coin)",
-        "at": "2026-11-10T13:59:54Z",
-        "url": "https://x.com/RockstarGames/status/2120154484244381738"
-      },
-      {
-        "id": "x-2120164880015610164",
-        "source": "x",
-        "label": "Public post",
-        "title": "@notEezzy (2026-11-10): says the trailer released today settles the $Dacity / AudaCity argument over the GTA 6 coin",
-        "at": "2026-11-10T14:41:12Z",
-        "url": "https://x.com/notEezzy/status/2120164880015610164"
-      },
-      {
-        "id": "x-2120216347913113935",
-        "source": "x",
-        "label": "Public post",
-        "title": "@CryptoGorilla (2026-11-10): what's happening with the latest GTA6 trailer, $Dacity vs $DacityCoin",
-        "at": "2026-11-10T18:05:43Z",
-        "url": "https://x.com/CryptoGorilla/status/2120216347913113935"
-      }
-    ],
-    "exampleTokens": [
-      {
-        "symbol": "DacityCoin",
-        "name": "AudaCity",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 3955873,
-        "change24h": -18.7736151939848,
-        "address": "DKYcjobF7HPtL9RyQBRdeRQ2iWvizpfbgWwPWNXdpump"
-      },
-      {
-        "symbol": "Dacity",
-        "name": "Dacity Coin",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 1968172,
-        "change24h": -8.209900258601941,
-        "address": "nxPqZ4F7ux8Vph5NFu25rEP6Kx9Gr1U6Fmj36Rjpump"
-      },
-      {
-        "symbol": "DacityCoin",
-        "name": "DacityCoin",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 293504,
-        "change24h": 4.5550425685971945,
-        "address": "4rYsDHMfKmt6VuVGcM8cGzBgkZNgQT3w2DhdEmtVpump"
-      },
-      {
-        "symbol": "DAC",
-        "name": "DacityCoin",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 445947,
-        "change24h": 7.78626461932894,
-        "address": "56S874EPXeXKLQJCkMCsW15z38LW9xBpq4qQLr5qpump"
-      },
-      {
-        "symbol": "DACITY",
-        "name": "DacityCoin",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 208936,
-        "change24h": 4.473678712732542,
-        "address": "39wVWdqCJWmHwpQS4Twx9GYmmhLSSKDPPJE7DM7Zpump"
-      },
-      {
-        "symbol": "DTC",
-        "name": "DacityCoin",
-        "launchpadSlug": "pump.fun",
-        "chain": "solana",
-        "mcapUsd": 249552,
-        "change24h": 23.118638576130625,
-        "address": "6dhKENbCU9M9hsjvsG7GahMmxVXpRKkf3Q7zCXgUpump"
-      },
-      {
-        "symbol": "Dacity",
-        "name": "AudaCity",
-        "launchpadSlug": "meteora-dbc",
-        "chain": "solana",
-        "mcapUsd": 48684,
-        "change24h": -82.8604704881661,
-        "address": "DZp5gYhQqJBiWtm3wSPbCmsRVFrsL7Ajd21xEgf6Cjf"
-      },
-      {
-        "symbol": "DacityCoin",
-        "name": "AudaCity",
-        "launchpadSlug": "meteora-dbc",
-        "chain": "solana",
-        "mcapUsd": 674734,
-        "change24h": 50.14408791713052,
-        "address": "4sNpQBrkY1dfYS2poejXECLanmvBxkiwCjwwruGEFcYS"
-      },
-      {
-        "symbol": "Dacity",
-        "name": "AudaCity",
-        "launchpadSlug": "meteora-dbc",
-        "chain": "solana",
-        "mcapUsd": 352892,
-        "change24h": 0,
-        "address": "Efe5mznBBUAP12kUE97HwoScAkHHSmNqnYJ9Ro249b2g"
-      }
-    ],
-    "suggestedLaunchpads": [],
-    "extendedSeries": [
-      {
-        "id": "volume",
-        "label": "Volume",
-        "color": "#f472b6",
-        "points": [
-          {
-            "time": 1794114000,
-            "value": 24475.7002816708
-          },
-          {
-            "time": 1794117600,
-            "value": 31027.14870077486
-          },
-          {
-            "time": 1794121200,
-            "value": 32617.5668439
-          },
-          {
-            "time": 1794124800,
-            "value": 7324.60681495679
-          },
-          {
-            "time": 1794128400,
-            "value": 39641.3261589005
-          },
-          {
-            "time": 1794132000,
-            "value": 11305.01087346
-          },
-          {
-            "time": 1794135600,
-            "value": 47798.6885755283
-          },
-          {
-            "time": 1794139200,
-            "value": 40423.2431514
-          },
-          {
-            "time": 1794142800,
-            "value": 30730.57869143647
-          },
-          {
-            "time": 1794146400,
-            "value": 22086.471420049897
-          },
-          {
-            "time": 1794150000,
-            "value": 41066.542695872995
-          },
-          {
-            "time": 1794153600,
-            "value": 33122.0172917992
-          },
-          {
-            "time": 1794157200,
-            "value": 59580.821941063004
-          },
-          {
-            "time": 1794160800,
-            "value": 72151.5634784165
-          },
-          {
-            "time": 1794164400,
-            "value": 35693.2830713419
-          },
-          {
-            "time": 1794168000,
-            "value": 103424.69154530784
-          },
-          {
-            "time": 1794171600,
-            "value": 76257.2016826784
-          },
-          {
-            "time": 1794175200,
-            "value": 54886.329740141104
-          },
-          {
-            "time": 1794178800,
-            "value": 57042.9335136105
-          },
-          {
-            "time": 1794182400,
-            "value": 84958.11794219752
-          },
-          {
-            "time": 1794186000,
-            "value": 56855.4984662
-          },
-          {
-            "time": 1794189600,
-            "value": 27793.286196384997
-          },
-          {
-            "time": 1794193200,
-            "value": 18662.13909328896
-          },
-          {
-            "time": 1794196800,
-            "value": 12735.924587810001
-          },
-          {
-            "time": 1794200400,
-            "value": 72290.776124549
-          },
-          {
-            "time": 1794204000,
-            "value": 32655.887669612803
-          },
-          {
-            "time": 1794207600,
-            "value": 143088.42600454998
-          },
-          {
-            "time": 1794211200,
-            "value": 24897.8180283
-          },
-          {
-            "time": 1794214800,
-            "value": 21653.154117259997
-          },
-          {
-            "time": 1794218400,
-            "value": 8840.949651660001
-          },
-          {
-            "time": 1794222000,
-            "value": 32687.434471498
-          },
-          {
-            "time": 1794225600,
-            "value": 32305.6736210684
-          },
-          {
-            "time": 1794229200,
-            "value": 29177.3750039059
-          },
-          {
-            "time": 1794232800,
-            "value": 57101.833802730005
-          },
-          {
-            "time": 1794236400,
-            "value": 24765.997971926998
-          },
-          {
-            "time": 1794240000,
-            "value": 42624.95677777231
-          },
-          {
-            "time": 1794243600,
-            "value": 28158.240664898003
-          },
-          {
-            "time": 1794247200,
-            "value": 46402.950678785004
-          },
-          {
-            "time": 1794250800,
-            "value": 59160.5980556
-          },
-          {
-            "time": 1794254400,
-            "value": 61891.043814735
-          },
-          {
-            "time": 1794258000,
-            "value": 98676.49259959703
-          },
-          {
-            "time": 1794261600,
-            "value": 46222.43560656781
-          },
-          {
-            "time": 1794265200,
-            "value": 33053.636548132
-          },
-          {
-            "time": 1794268800,
-            "value": 27362.496798909997
-          },
-          {
-            "time": 1794272400,
-            "value": 39357.772126454605
-          },
-          {
-            "time": 1794276000,
-            "value": 39132.70446523164
-          },
-          {
-            "time": 1794279600,
-            "value": 29019.61660559457
-          },
-          {
-            "time": 1794283200,
-            "value": 41195.341640700004
-          },
-          {
-            "time": 1794286800,
-            "value": 13304.573467828
-          },
-          {
-            "time": 1794290400,
-            "value": 31557.411713623966
-          },
-          {
-            "time": 1794294000,
-            "value": 53475.70612124
-          },
-          {
-            "time": 1794297600,
-            "value": 53737.2277930707
-          },
-          {
-            "time": 1794301200,
-            "value": 23704.67331267
-          },
-          {
-            "time": 1794304800,
-            "value": 37472.6354354
-          },
-          {
-            "time": 1794308400,
-            "value": 126607.94635306543
-          },
-          {
-            "time": 1794312000,
-            "value": 62138.0460683644
-          },
-          {
-            "time": 1794315600,
-            "value": 232685.2814402566
-          },
-          {
-            "time": 1794319200,
-            "value": 3399518.75358509
-          },
-          {
-            "time": 1794322800,
-            "value": 1323772.617903416
-          },
-          {
-            "time": 1794326400,
-            "value": 907995.036630993
-          },
-          {
-            "time": 1794330000,
-            "value": 595487.8145269083
-          },
-          {
-            "time": 1794333600,
-            "value": 949531.320273577
-          },
-          {
-            "time": 1794337200,
-            "value": 538848.229065711
-          },
-          {
-            "time": 1794340800,
-            "value": 226619.11180634
-          },
-          {
-            "time": 1794344400,
-            "value": 131950.56732067
-          },
-          {
-            "time": 1794348000,
-            "value": 222333.050327665
-          },
-          {
-            "time": 1794351600,
-            "value": 531457.6237950021
-          },
-          {
-            "time": 1794355200,
-            "value": 179725.5523044106
-          },
-          {
-            "time": 1794358800,
-            "value": 216187.70757337002
-          },
-          {
-            "time": 1794362400,
-            "value": 252346.59901390187
-          },
-          {
-            "time": 1794366000,
-            "value": 235955.4730987885
-          },
-          {
-            "time": 1794369600,
-            "value": 177061.91526988847
-          },
-          {
-            "time": 1794373200,
-            "value": 294002.81481188
-          },
-          {
-            "time": 1794376800,
-            "value": 111502.5138070844
-          },
-          {
-            "time": 1794380400,
-            "value": 44495.892573790494
-          },
-          {
-            "time": 1794384000,
-            "value": 82006.55647061
-          },
-          {
-            "time": 1794387600,
-            "value": 92645.79026425601
-          },
-          {
-            "time": 1794391200,
-            "value": 233777.56255098
-          },
-          {
-            "time": 1794394800,
-            "value": 511669.203742517
-          },
-          {
-            "time": 1794398400,
-            "value": 450412.84996560996
-          },
-          {
-            "time": 1794402000,
-            "value": 2668031.9778884
-          },
-          {
-            "time": 1794405600,
-            "value": 5440916.98340132
-          },
-          {
-            "time": 1794409200,
-            "value": 2435098.79122034
-          },
-          {
-            "time": 1794412800,
-            "value": 2033905.40788084
-          },
-          {
-            "time": 1794416400,
-            "value": 1301583.2830756
-          },
-          {
-            "time": 1794420000,
-            "value": 992850.9417191499
-          },
-          {
-            "time": 1794423600,
-            "value": 470415.84747213003
-          },
-          {
-            "time": 1794427200,
-            "value": 463068.63738575997
-          },
-          {
-            "time": 1794430800,
-            "value": 1018233.07929722
-          },
-          {
-            "time": 1794434400,
-            "value": 472731.26188198
-          },
-          {
-            "time": 1794438000,
-            "value": 671848.549239532
-          },
-          {
-            "time": 1794441600,
-            "value": 175413.398050787
-          },
-          {
-            "time": 1794445200,
-            "value": 246672.74064987
-          },
-          {
-            "time": 1794448800,
-            "value": 296283.61583257
-          },
-          {
-            "time": 1794452400,
-            "value": 1398298.8333803
-          },
-          {
-            "time": 1794456000,
-            "value": 3261078.533774
-          },
-          {
-            "time": 1794459600,
-            "value": 5468661.6713373
-          },
-          {
-            "time": 1794463200,
-            "value": 6333013.79846769
-          },
-          {
-            "time": 1794466800,
-            "value": 4657590.22191567
-          },
-          {
-            "time": 1794470400,
-            "value": 3121986.165059006
-          },
-          {
-            "time": 1794474000,
-            "value": 555885.087884793
-          },
-          {
-            "time": 1794477600,
-            "value": 175063.54213441
-          },
-          {
-            "time": 1794481200,
-            "value": 194884.10950396702
-          },
-          {
-            "time": 1794484800,
-            "value": 163805.59921876
-          },
-          {
-            "time": 1794488400,
-            "value": 158726.08926422
-          },
-          {
-            "time": 1794492000,
-            "value": 348376.76084448455
-          },
-          {
-            "time": 1794495600,
-            "value": 246610.24715787199
-          },
-          {
-            "time": 1794499200,
-            "value": 143272.56219966
-          },
-          {
-            "time": 1794502800,
-            "value": 127681.79540617
-          },
-          {
-            "time": 1794506400,
-            "value": 229878.73655965
-          },
-          {
-            "time": 1794510000,
-            "value": 302680.97622596
-          },
-          {
-            "time": 1794513600,
-            "value": 131600.17911489
-          },
-          {
-            "time": 1794517200,
-            "value": 626540.20350884
-          },
-          {
-            "time": 1794520800,
-            "value": 541332.32917625
-          },
-          {
-            "time": 1794524400,
-            "value": 196935.86550665
-          },
-          {
-            "time": 1794528000,
-            "value": 215140.03727067998
-          },
-          {
-            "time": 1794531600,
-            "value": 183283.950649657
-          },
-          {
-            "time": 1794535200,
-            "value": 104867.32977893
-          },
-          {
-            "time": 1794538800,
-            "value": 124692.79354358099
-          },
-          {
-            "time": 1794542400,
-            "value": 91465.96178705
-          },
-          {
-            "time": 1794546000,
-            "value": 40184.283436169
-          },
-          {
-            "time": 1794549600,
-            "value": 87722.677858751
-          },
-          {
-            "time": 1794553200,
-            "value": 68849.461703926
-          },
-          {
-            "time": 1794556800,
-            "value": 51836.39161828
-          },
-          {
-            "time": 1794560400,
-            "value": 49737.472924408
-          },
-          {
-            "time": 1794564000,
-            "value": 117279.70367308745
-          },
-          {
-            "time": 1794567600,
-            "value": 76008.80884910001
-          },
-          {
-            "time": 1794571200,
-            "value": 82417.101387984
-          },
-          {
-            "time": 1794574800,
-            "value": 142244.80163091
-          },
-          {
-            "time": 1794578400,
-            "value": 89920.55736939401
-          },
-          {
-            "time": 1794582000,
-            "value": 160884.20304796658
-          },
-          {
-            "time": 1794585600,
-            "value": 101853.560372582
-          },
-          {
-            "time": 1794589200,
-            "value": 83174.60278454999
-          },
-          {
-            "time": 1794592800,
-            "value": 147038.39380834
-          },
-          {
-            "time": 1794596400,
-            "value": 100039.52047971
-          },
-          {
-            "time": 1794600000,
-            "value": 45109.809721686004
-          },
-          {
-            "time": 1794603600,
-            "value": 91132.4737793
-          },
-          {
-            "time": 1794607200,
-            "value": 85687.1205604794
-          },
-          {
-            "time": 1794610800,
-            "value": 114130.8460729005
-          },
-          {
-            "time": 1794614400,
-            "value": 104754.60638030771
-          },
-          {
-            "time": 1794618000,
-            "value": 45372.53007294554
-          },
-          {
-            "time": 1794621600,
-            "value": 83198.257468475
-          },
-          {
-            "time": 1794625200,
-            "value": 70661.736902596
-          },
-          {
-            "time": 1794628800,
-            "value": 36768.584389194
-          },
-          {
-            "time": 1794632400,
-            "value": 48251.024773897
-          },
-          {
-            "time": 1794636000,
-            "value": 62715.622953478
-          },
-          {
-            "time": 1794639600,
-            "value": 21953.1682829199
-          },
-          {
-            "time": 1794643200,
-            "value": 32106.3221420657
-          },
-          {
-            "time": 1794646800,
-            "value": 42669.7543949169
-          },
-          {
-            "time": 1794650400,
-            "value": 30380.151002338458
-          },
-          {
-            "time": 1794654000,
-            "value": 81384.818035381
-          },
-          {
-            "time": 1794657600,
-            "value": 54301.363371412
-          },
-          {
-            "time": 1794661200,
-            "value": 124379.60749431
-          },
-          {
-            "time": 1794664800,
-            "value": 70650.2619021892
-          },
-          {
-            "time": 1794668400,
-            "value": 38939.995269776
-          },
-          {
-            "time": 1794672000,
-            "value": 61381.1869627053
-          },
-          {
-            "time": 1794675600,
-            "value": 47705.810748272
-          },
-          {
-            "time": 1794679200,
-            "value": 44419.188028994
-          },
-          {
-            "time": 1794682800,
-            "value": 35827.2077848345
-          },
-          {
-            "time": 1794686400,
-            "value": 257155.62200515
-          },
-          {
-            "time": 1794690000,
-            "value": 86368.902676991
-          },
-          {
-            "time": 1794693600,
-            "value": 103645.682200433
-          },
-          {
-            "time": 1794697200,
-            "value": 37840.036205846
-          },
-          {
-            "time": 1794700800,
-            "value": 77778.809361911
-          },
-          {
-            "time": 1794704400,
-            "value": 25362.787274591
-          },
-          {
-            "time": 1794708000,
-            "value": 28435.973573663
-          },
-          {
-            "time": 1794711600,
-            "value": 21442.8342105253
-          },
-          {
-            "time": 1794715200,
-            "value": 27067.706135857297
-          }
-        ]
-      }
-    ],
-    "dailySeries": [
-      {
-        "id": "volume",
-        "label": "Daily volume",
-        "color": "#f472b6",
-        "points": [
-          {
-            "time": 1792108800,
-            "value": 1917371.1559896138
-          },
-          {
-            "time": 1792195200,
-            "value": 397579.8008865774
-          },
-          {
-            "time": 1792281600,
-            "value": 2881713.2781871697
-          },
-          {
-            "time": 1792368000,
-            "value": 3683991.3560138396
-          },
-          {
-            "time": 1792454400,
-            "value": 11645857.68435074
-          },
-          {
-            "time": 1792540800,
-            "value": 9726238.399721699
-          },
-          {
-            "time": 1792627200,
-            "value": 5186303.90252833
-          },
-          {
-            "time": 1792713600,
-            "value": 4950821.3794405805
-          },
-          {
-            "time": 1792800000,
-            "value": 10595623.77202006
-          },
-          {
-            "time": 1792886400,
-            "value": 3981852.1214582496
-          },
-          {
-            "time": 1792972800,
-            "value": 2547041.3201159
-          },
-          {
-            "time": 1793059200,
-            "value": 1824765.6584086278
-          },
-          {
-            "time": 1793145600,
-            "value": 2191247.9826094997
-          },
-          {
-            "time": 1793232000,
-            "value": 3673320.842762006
-          },
-          {
-            "time": 1793318400,
-            "value": 1259094.6398561855
-          },
-          {
-            "time": 1793404800,
-            "value": 1234499.61123843
-          },
-          {
-            "time": 1793491200,
-            "value": 2767121.887187847
-          },
-          {
-            "time": 1793577600,
-            "value": 3880145.6657117256
-          },
-          {
-            "time": 1793664000,
-            "value": 3142601.95239279
-          },
-          {
-            "time": 1793750400,
-            "value": 3309375.761492466
-          },
-          {
-            "time": 1793836800,
-            "value": 3869804.26677019
-          },
-          {
-            "time": 1793923200,
-            "value": 2076183.2360271849
-          },
-          {
-            "time": 1794009600,
-            "value": 1984929.377209954
-          },
-          {
-            "time": 1794096000,
-            "value": 1036215.88760637
-          },
-          {
-            "time": 1794182400,
-            "value": 1096660.647526143
-          },
-          {
-            "time": 1794268800,
-            "value": 9638265.5583468
-          },
-          {
-            "time": 1794355200,
-            "value": 20850475.191948
-          },
-          {
-            "time": 1794441600,
-            "value": 29102273.060988
-          },
-          {
-            "time": 1794528000,
-            "value": 2454701.8641618
-          },
-          {
-            "time": 1794614400,
-            "value": 1622831.4414662286
-          }
-        ]
-      }
-    ],
-    "volume30dUsd": 154528908.704423,
-    "volumeChange24h": -29.568470616788638,
-    "volumeCaveat": null,
-    "provenance": {
-      "chartAnchor": "2026-11-15T05:00:00+00:00",
-      "volumeScope": "Sum of 9 identified coins' trading volume across all their indexed pools on Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
-      "dailyEnd": "2026-11-15T00:00:00+00:00",
-      "dailyScope": "30 complete UTC days of the current constituents' all-pool volume (Codex daily token bars). Membership is today's, applied to past days.",
-      "sources": [
-        {
-          "label": "Rockstar Games on X: Grand Theft Auto VI pre-loading trailer (2026-11-10); the post does not name the coin",
-          "url": "https://x.com/RockstarGames/status/2120154484244381738"
-        },
-        {
-          "label": "@notEezzy on X: says the trailer released 2026-11-10 settles Dacity vs AudaCity (2026-11-10)",
-          "url": "https://x.com/notEezzy/status/2120164880015610164"
-        },
-        {
-          "label": "@robtmb1 (RobTheMaster) on X: a meme coin called \"Dacity Coin\" in the new GTA 6 leak (2026-10-11)",
-          "url": "https://x.com/robtmb1/status/2109241600002118071"
-        },
-        {
-          "label": "@GTAlphaintel (GTA 6 Intel) on X: DacityCoin on a stunt plane in GTA VI's launch trailer (2026-10-19)",
-          "url": "https://x.com/GTAlphaintel/status/2112196824203432033"
-        },
-        {
-          "label": "Codex token metadata via Frames",
-          "url": "https://www.codex.io/"
-        }
-      ]
-    }
-  },
-  {
     "id": "n-anthropic-ipo",
     "slug": "anthropic-ipo",
     "title": "Anthropic IPO coins",
@@ -9643,8 +9572,8 @@ export const NARRATIVES: Narrative[] = [
     "status": null,
     "mindshare": null,
     "change24h": null,
-    "volume24hUsd": 634958.9375231814,
-    "volume7dUsd": 5648288.533798701,
+    "volume24hUsd": 750388.5399258359,
+    "volume7dUsd": 5772262.92142951,
     "launches24h": null,
     "launches7d": null,
     "startedAt": null,
@@ -9655,100 +9584,100 @@ export const NARRATIVES: Narrative[] = [
         "color": "#f97316",
         "points": [
           {
-            "time": 1794632400,
-            "value": 25475.4449594414
+            "time": 1794718800,
+            "value": 19305.8398117655
           },
           {
-            "time": 1794636000,
-            "value": 22736.883912137102
+            "time": 1794722400,
+            "value": 21059.9736488958
           },
           {
-            "time": 1794639600,
-            "value": 26588.473453578998
+            "time": 1794726000,
+            "value": 28424.876692208098
           },
           {
-            "time": 1794643200,
-            "value": 21432.998914931202
+            "time": 1794729600,
+            "value": 19143.7788933593
           },
           {
-            "time": 1794646800,
-            "value": 26930.904093699
+            "time": 1794733200,
+            "value": 24943.328150606274
           },
           {
-            "time": 1794650400,
-            "value": 24461.6376643402
+            "time": 1794736800,
+            "value": 26778.895999955002
           },
           {
-            "time": 1794654000,
-            "value": 23301.411476354002
+            "time": 1794740400,
+            "value": 60626.0911942948
           },
           {
-            "time": 1794657600,
-            "value": 24754.631291198803
+            "time": 1794744000,
+            "value": 21345.3875473266
           },
           {
-            "time": 1794661200,
-            "value": 35250.111241342
+            "time": 1794747600,
+            "value": 35633.785369041
           },
           {
-            "time": 1794664800,
-            "value": 36077.108461662996
+            "time": 1794751200,
+            "value": 22702.37981946
           },
           {
-            "time": 1794668400,
-            "value": 25708.113492545348
+            "time": 1794754800,
+            "value": 79921.82046132
           },
           {
-            "time": 1794672000,
-            "value": 39882.599083919
+            "time": 1794758400,
+            "value": 34718.279064788
           },
           {
-            "time": 1794675600,
-            "value": 25065.15306833421
+            "time": 1794762000,
+            "value": 28843.439522980003
           },
           {
-            "time": 1794679200,
-            "value": 26057.4106224678
+            "time": 1794765600,
+            "value": 24785.573909730003
           },
           {
-            "time": 1794682800,
-            "value": 23858.0134408578
+            "time": 1794769200,
+            "value": 27872.662558734
           },
           {
-            "time": 1794686400,
-            "value": 27385.12233583746
+            "time": 1794772800,
+            "value": 27961.802262965
           },
           {
-            "time": 1794690000,
-            "value": 24941.40460859
+            "time": 1794776400,
+            "value": 28997.323416504998
           },
           {
-            "time": 1794693600,
-            "value": 24425.159011419
+            "time": 1794780000,
+            "value": 25911.02532046615
           },
           {
-            "time": 1794697200,
-            "value": 24202.5235742363
+            "time": 1794783600,
+            "value": 20857.21708958
           },
           {
-            "time": 1794700800,
-            "value": 19741.919638461
+            "time": 1794787200,
+            "value": 23779.7946752974
           },
           {
-            "time": 1794704400,
-            "value": 28348.7705088972
+            "time": 1794790800,
+            "value": 28801.810186175
           },
           {
-            "time": 1794708000,
-            "value": 23523.8818743366
+            "time": 1794794400,
+            "value": 41051.0511196
           },
           {
-            "time": 1794711600,
-            "value": 32728.495687304
+            "time": 1794798000,
+            "value": 32119.689962233
           },
           {
-            "time": 1794715200,
-            "value": 22080.765107290063
+            "time": 1794801600,
+            "value": 44802.71324855
           }
         ]
       }
@@ -9764,7 +9693,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "pump.fun",
         "address": "ejrz94zR4A2ScS8LdvRaQih2xUxaE2ydreqUNKmpump",
         "explorerUrl": "https://solscan.io/token/ejrz94zR4A2ScS8LdvRaQih2xUxaE2ydreqUNKmpump",
-        "measuredVolumeShare": 87.52181686928554
+        "measuredVolumeShare": 78.34281066385985
       },
       {
         "id": "solana:4Wdn6GGJLdyeMLLfzu3pPQMmf9Kivd8e9xmbLb2bpump",
@@ -9776,7 +9705,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "pump.fun",
         "address": "4Wdn6GGJLdyeMLLfzu3pPQMmf9Kivd8e9xmbLb2bpump",
         "explorerUrl": "https://solscan.io/token/4Wdn6GGJLdyeMLLfzu3pPQMmf9Kivd8e9xmbLb2bpump",
-        "measuredVolumeShare": 6.712091022556564
+        "measuredVolumeShare": 14.342577837893359
       },
       {
         "id": "solana:BTZK1B3pCoBDD1vy5e4bDBM4bwvvhkKUMTuKABkGWwGp",
@@ -9788,7 +9717,7 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "stonkfun",
         "address": "BTZK1B3pCoBDD1vy5e4bDBM4bwvvhkKUMTuKABkGWwGp",
         "explorerUrl": "https://solscan.io/token/BTZK1B3pCoBDD1vy5e4bDBM4bwvvhkKUMTuKABkGWwGp",
-        "measuredVolumeShare": 5.383432652515116
+        "measuredVolumeShare": 5.995514869513002
       },
       {
         "id": "solana:3JPqzDf4wqF8wkVR3yErsQJ9ma1wNFBC8zMR7ctCgVzi",
@@ -9800,34 +9729,34 @@ export const NARRATIVES: Narrative[] = [
         "launchpadSlug": "launchlab",
         "address": "3JPqzDf4wqF8wkVR3yErsQJ9ma1wNFBC8zMR7ctCgVzi",
         "explorerUrl": "https://solscan.io/token/3JPqzDf4wqF8wkVR3yErsQJ9ma1wNFBC8zMR7ctCgVzi",
-        "measuredVolumeShare": 0.38265945564279574
+        "measuredVolumeShare": 1.3190966287337917
       }
     ],
     "topLaunchpads": null,
     "signals": [
       {
-        "id": "x-2120169627343089786",
+        "id": "x-2120841731302154708",
         "source": "x",
-        "label": "Public post",
-        "title": "@coinbureau (2026-11-10): Anthropic sets an IPO price range of $70-$78 a share and plans to offer 825 million shares, aiming to trade on Nasdaq under ANT on Nov. 19, citing CNBC",
-        "at": "2026-11-10T15:00:04Z",
-        "url": "https://x.com/coinbureau/status/2120169627343089786"
+        "label": "Official post",
+        "title": "Anthropic (2026-11-12): \"Our initial public offering\", with a link and legal disclaimer for its SEC-registered offering",
+        "at": "2026-11-12T11:30:46Z",
+        "url": "https://x.com/AnthropicAI/status/2120841731302154708"
       },
       {
-        "id": "x-2120182164952392044",
+        "id": "x-2120127841383702595",
         "source": "x",
-        "label": "Public post",
-        "title": "@meliyahhhh (2026-11-10): quotes an S-1/A filing: Anthropic is selling 801,351,354 Class A shares, with selling stockholders offering the rest of 825M",
-        "at": "2026-11-10T15:49:53Z",
-        "url": "https://x.com/meliyahhhh/status/2120182164952392044"
+        "label": "Public post; claim not verification",
+        "title": "DrivenInvestor (2026-11-10): Anthropic filed a second S-1 update with IPO terms of 825M shares at $70 to $78 on Nasdaq",
+        "at": "2026-11-10T12:14:02Z",
+        "url": "https://x.com/DrivenInvestor/status/2120127841383702595"
       },
       {
-        "id": "x-2120159568336449641",
+        "id": "x-2120960823254495675",
         "source": "x",
-        "label": "Public post",
-        "title": "@sunset_evm (2026-11-10): Anthropic launched its IPO roadshow; the SEC registration is not effective yet, so nothing is final",
-        "at": "2026-11-10T14:20:06Z",
-        "url": "https://x.com/sunset_evm/status/2120159568336449641"
+        "label": "Public post; claim not verification",
+        "title": "MikelEcheve (2026-11-12): price set November 18, trading on Nasdaq as $ANT from November 19",
+        "at": "2026-11-12T19:24:00Z",
+        "url": "https://x.com/MikelEcheve/status/2120960823254495675"
       }
     ],
     "exampleTokens": [
@@ -9836,8 +9765,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "Anthropic",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 3805009,
-        "change24h": 9.788263023753691,
+        "mcapUsd": 6660890,
+        "change24h": 74.6206746309021,
         "address": "ejrz94zR4A2ScS8LdvRaQih2xUxaE2ydreqUNKmpump"
       },
       {
@@ -9845,8 +9774,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "Anthropic",
         "launchpadSlug": "pump.fun",
         "chain": "solana",
-        "mcapUsd": 221157,
-        "change24h": 8.777224318855511,
+        "mcapUsd": 186767,
+        "change24h": -17.968611318406733,
         "address": "4Wdn6GGJLdyeMLLfzu3pPQMmf9Kivd8e9xmbLb2bpump"
       },
       {
@@ -9854,8 +9783,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "Anthropic",
         "launchpadSlug": "stonkfun",
         "chain": "solana",
-        "mcapUsd": 236931,
-        "change24h": -2.9493353583329274,
+        "mcapUsd": 238398,
+        "change24h": 0.619124359999063,
         "address": "BTZK1B3pCoBDD1vy5e4bDBM4bwvvhkKUMTuKABkGWwGp"
       },
       {
@@ -9863,8 +9792,8 @@ export const NARRATIVES: Narrative[] = [
         "name": "Anthropic",
         "launchpadSlug": "launchlab",
         "chain": "solana",
-        "mcapUsd": 27370,
-        "change24h": -7.590912891820681,
+        "mcapUsd": 30834,
+        "change24h": 13.5118989909124,
         "address": "3JPqzDf4wqF8wkVR3yErsQJ9ma1wNFBC8zMR7ctCgVzi"
       }
     ],
@@ -9875,102 +9804,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Volume",
         "color": "#f97316",
         "points": [
-          {
-            "time": 1794114000,
-            "value": 19180.30745741
-          },
-          {
-            "time": 1794117600,
-            "value": 16375.9248860486
-          },
-          {
-            "time": 1794121200,
-            "value": 12805.5063627505
-          },
-          {
-            "time": 1794124800,
-            "value": 18686.46059396651
-          },
-          {
-            "time": 1794128400,
-            "value": 12508.23011535
-          },
-          {
-            "time": 1794132000,
-            "value": 19766.2029096611
-          },
-          {
-            "time": 1794135600,
-            "value": 13816.8972640725
-          },
-          {
-            "time": 1794139200,
-            "value": 15980.993607282
-          },
-          {
-            "time": 1794142800,
-            "value": 16588.34561655
-          },
-          {
-            "time": 1794146400,
-            "value": 26387.901585509997
-          },
-          {
-            "time": 1794150000,
-            "value": 35019.13770237
-          },
-          {
-            "time": 1794153600,
-            "value": 57836.86150673
-          },
-          {
-            "time": 1794157200,
-            "value": 45398.5286394
-          },
-          {
-            "time": 1794160800,
-            "value": 39397.887909289995
-          },
-          {
-            "time": 1794164400,
-            "value": 20526.83614663
-          },
-          {
-            "time": 1794168000,
-            "value": 27203.98565103
-          },
-          {
-            "time": 1794171600,
-            "value": 41955.00635388
-          },
-          {
-            "time": 1794175200,
-            "value": 23162.9049168
-          },
-          {
-            "time": 1794178800,
-            "value": 52447.69545846
-          },
-          {
-            "time": 1794182400,
-            "value": 25872.48095944
-          },
-          {
-            "time": 1794186000,
-            "value": 14953.521390303
-          },
-          {
-            "time": 1794189600,
-            "value": 24177.73558363
-          },
-          {
-            "time": 1794193200,
-            "value": 23916.99482028
-          },
-          {
-            "time": 1794196800,
-            "value": 22447.804858183
-          },
           {
             "time": 1794200400,
             "value": 13113.137349260001
@@ -10546,6 +10379,102 @@ export const NARRATIVES: Narrative[] = [
           {
             "time": 1794715200,
             "value": 22080.765107290063
+          },
+          {
+            "time": 1794718800,
+            "value": 19305.8398117655
+          },
+          {
+            "time": 1794722400,
+            "value": 21059.9736488958
+          },
+          {
+            "time": 1794726000,
+            "value": 28424.876692208098
+          },
+          {
+            "time": 1794729600,
+            "value": 19143.7788933593
+          },
+          {
+            "time": 1794733200,
+            "value": 24943.328150606274
+          },
+          {
+            "time": 1794736800,
+            "value": 26778.895999955002
+          },
+          {
+            "time": 1794740400,
+            "value": 60626.0911942948
+          },
+          {
+            "time": 1794744000,
+            "value": 21345.3875473266
+          },
+          {
+            "time": 1794747600,
+            "value": 35633.785369041
+          },
+          {
+            "time": 1794751200,
+            "value": 22702.37981946
+          },
+          {
+            "time": 1794754800,
+            "value": 79921.82046132
+          },
+          {
+            "time": 1794758400,
+            "value": 34718.279064788
+          },
+          {
+            "time": 1794762000,
+            "value": 28843.439522980003
+          },
+          {
+            "time": 1794765600,
+            "value": 24785.573909730003
+          },
+          {
+            "time": 1794769200,
+            "value": 27872.662558734
+          },
+          {
+            "time": 1794772800,
+            "value": 27961.802262965
+          },
+          {
+            "time": 1794776400,
+            "value": 28997.323416504998
+          },
+          {
+            "time": 1794780000,
+            "value": 25911.02532046615
+          },
+          {
+            "time": 1794783600,
+            "value": 20857.21708958
+          },
+          {
+            "time": 1794787200,
+            "value": 23779.7946752974
+          },
+          {
+            "time": 1794790800,
+            "value": 28801.810186175
+          },
+          {
+            "time": 1794794400,
+            "value": 41051.0511196
+          },
+          {
+            "time": 1794798000,
+            "value": 32119.689962233
+          },
+          {
+            "time": 1794801600,
+            "value": 44802.71324855
           }
         ]
       }
@@ -10556,10 +10485,6 @@ export const NARRATIVES: Narrative[] = [
         "label": "Daily volume",
         "color": "#f97316",
         "points": [
-          {
-            "time": 1792108800,
-            "value": 1852.15543412
-          },
           {
             "time": 1792195200,
             "value": 23351.4806238
@@ -10675,17 +10600,21 @@ export const NARRATIVES: Narrative[] = [
           {
             "time": 1794614400,
             "value": 644070.66784462
+          },
+          {
+            "time": 1794700800,
+            "value": 706257.3135514
           }
         ]
       }
     ],
-    "volume30dUsd": 14487890.092707202,
-    "volumeChange24h": -15.137387818190872,
+    "volume30dUsd": 15192295.250824481,
+    "volumeChange24h": 18.179065697211374,
     "volumeCaveat": null,
     "provenance": {
-      "chartAnchor": "2026-11-15T05:00:00+00:00",
+      "chartAnchor": "2026-11-16T05:00:00+00:00",
       "volumeScope": "Sum of 4 identified coins' trading volume across all their indexed pools on Solana, attributed to launch origin; not all-market coverage. Current membership reconstructed retrospectively.",
-      "dailyEnd": "2026-11-15T00:00:00+00:00",
+      "dailyEnd": "2026-11-16T00:00:00+00:00",
       "dailyScope": "30 complete UTC days of the current constituents' all-pool volume (Codex daily token bars). Membership is today's, applied to past days.",
       "sources": [
         {
