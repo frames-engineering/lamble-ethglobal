@@ -1,0 +1,621 @@
+{
+ "run_id": "run_4f1caafd55fb493fb75a0aba76a31842",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 22,
+  "budget_credits": 22,
+  "balance_credits": 57473,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 27,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 2,
+  "delivered": 2,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 1053,
+     "stored_chars": 1053,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x5f193d60294798653ab14b55b7a155308046dac20e0821fe3346984bd9019152",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x367847b85ea9ef5cdaedd9693126ac20a12d2c9875217314ababf8579f1ad4db",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-17T21:21:26.924600751Z",
+     "query": "long $USAR",
+     "type": "top",
+     "tweet_count": 1,
+     "tweets": [
+      {
+       "id": "2122447989994393778",
+       "text": "What the actual flip is $USAR doing\ud83d\ude02\n\n- One of the few full mine-to-magnet companys in the western world\n- Crucial for independence from China\n- 400-500M$ guidance in 2028\n\nAnd the stock is near ALL TIME LOW\ud83e\udd2f\n\nWhat do you think about this?\n(except dillution) https://t.co/yHulEq3aAa",
+       "created_at": "2026-11-16T21:53:28Z",
+       "lang": "en",
+       "likes": 30,
+       "retweets": 0,
+       "replies": 9,
+       "quotes": 0,
+       "bookmarks": 5,
+       "views": 6672,
+       "conversation_id": "2122447989994393778",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1669792797484785674",
+        "screen_name": "Florian_0707",
+        "name": "Florian",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2063272453879496704/98jTpxmc_normal.png"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHXW1dcpAJxAKAAMddbV1yj_Y8AgABAAAAAILAAUAAAAoRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUFFZGRITXpvZHVRc2c9PQgABgAAAAAIAAcAAAAADAAICgABHXRzM6HbkLIAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 13149,
+     "stored_chars": 13149,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered_with_caveats",
+    "refundable": false,
+    "charged_usd": 0.005,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0xfb082ea0b95eed7c0aef54bc5a0e64bd2fb78256a4b27c17beb65a1143fdc4c6",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x284c6870c03a392115d3fb4c2c7c006c8c697eb0cb2c4faf1b53cacc8a212bea",
+     "delivered": true,
+     "outcome": "delivered_with_caveats",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The results also include tweets that contain only 'city' or only '$GM', or variations like '#GMG' or 'GM CT', which broadens the scope beyond the explicit request for both terms together.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-17T21:21:32.953593688Z",
+     "query": "city $GM",
+     "type": "top",
+     "tweet_count": 19,
+     "tweets": [
+      {
+       "id": "2122761747081863224",
+       "text": "the streets of leonida have a new crew.\n\nmeet $GM, a gta 6-inspired meme project bringing together a pink gator, a manatee, a flamingo and a whole lot of vice city energy.\n\nbuilt around a fun mascot concept, colorful characters and a community that can make the narrative its own. https://t.co/vlJkMbwVeh",
+       "created_at": "2026-11-17T18:40:14Z",
+       "lang": "en",
+       "likes": 172,
+       "retweets": 2,
+       "replies": 9,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 44162,
+       "conversation_id": "2122761747081863224",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1542486331808698369",
+        "screen_name": "MaxelRowan",
+        "name": "Mando Maxel",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2064257240455061504/zgP-oS3o_normal.jpg"
+       }
+      },
+      {
+       "id": "2112343507386200398",
+       "text": "\ud83e\udda9 Vice City has a new address.\n\n$GM \u2014 GTAVI Mascot\nOfficial CA:\n7jz5odotkTt3UUjFyHemTDPQMqzgX3YjMamM3Zx3pump https://t.co/L0m5sj9L44",
+       "created_at": "2026-10-20T00:41:52Z",
+       "lang": "und",
+       "likes": 25,
+       "retweets": 1,
+       "replies": 19,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 362,
+       "conversation_id": "2112343507386200398",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2112290887619526656",
+        "screen_name": "gtavimascot",
+        "name": "GTAVI Mascot",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2112332898275868673/1jXSbb_6_normal.jpg"
+       }
+      },
+      {
+       "id": "2122249998595215389",
+       "text": "Starting with $5 and spending the whole day trying to qualify is one way to enter GG City \ud83d\ude02 Roxo\u2019s story is definitely not the usual route.\n\nGMGN Fish&amp;Dips Ep.1: Roxo \u2764\ufe0f\n@ignRoxo @gmgnai \n#gmgn #GMG https://t.co/EyN91VBNKS",
+       "created_at": "2026-11-16T08:46:43Z",
+       "lang": "en",
+       "likes": 19,
+       "retweets": 0,
+       "replies": 21,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 2252,
+       "conversation_id": "2122249998595215389",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1661659952686026752",
+        "screen_name": "quad_07",
+        "name": "Quad_07",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2061023493379039236/r3AZlydt_normal.jpg"
+       }
+      },
+      {
+       "id": "2121991852890947587",
+       "text": "rabbi yeetus's PnL on $VICECITY on #GMGN: +$462.31 (+20.89%) \n\n#ViceCity #GEM #GTA #SOL #MEMECOIN https://t.co/Eg2SQ5IOQ2",
+       "created_at": "2026-11-15T15:40:57Z",
+       "lang": "fi",
+       "likes": 1,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 82,
+       "conversation_id": "2121991852890947587",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "743511219747725314",
+        "screen_name": "Newlevelskrrt",
+        "name": "Pluglingo \ud83d\udd36\ufe0fBNB || \ud83d\udfe6SOL",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/1967368120533733376/yxINwF5r_normal.jpg"
+       }
+      },
+      {
+       "id": "2122496367163834804",
+       "text": "If the market rebounds, will $GM rise along with it?\n\nThere\u2019s a chance that CZ will reuse this image.\n\nMany people are using this image for humorous satire \u2014 mostly big KOLs in the market.\n\nI also bought a little and am waiting.\n\nNFA. DYOR. https://t.co/CZTa4jgsU5",
+       "created_at": "2026-11-17T01:05:42Z",
+       "lang": "en",
+       "likes": 5,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 649,
+       "conversation_id": "2122496367163834804",
+       "is_quote": true,
+       "urls": [],
+       "author": {
+        "id": "1246461605056925698",
+        "screen_name": "sh47crypto",
+        "name": "sh47",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2095704295257890816/xLFuaNfg_normal.jpg"
+       }
+      },
+      {
+       "id": "2121528934583964019",
+       "text": "GM CT, Giveaway for @Ape_CityRH \n2 GTD 5 FCFS For the COMMUNITY,\n\nMint Details\nSUPPLY : 555\nChain : RobinhoodApp\nPrice : Free Mint\nDate : TBA\nLaunchpad: Opensea\n\nRequirements:\n- Follow @Ape_CityRH  &amp; @BigMoja_\n- Like + RT quote tweet \n\nDrop EVM \ud83d\udcbc\n\n24hrs https://t.co/HRUgzrvOCW",
+       "created_at": "2026-11-14T09:01:28Z",
+       "lang": "en",
+       "likes": 44,
+       "retweets": 28,
+       "replies": 26,
+       "quotes": 1,
+       "bookmarks": 1,
+       "views": 684,
+       "conversation_id": "2121528934583964019",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1243953492169031682",
+        "screen_name": "BigMoja_",
+        "name": "MOJA",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2122313691391504384/sY8gyPKN_normal.jpg"
+       }
+      },
+      {
+       "id": "2122505488529060007",
+       "text": "I am so ready you can\u2019t even imagine. I\u2019m imagining it right now.\" \n\nGG City fans voted Scharo into the arena alongside seven elite Bitcoin traders, and he only has one thing on his mind: driving home in that Aston Martin.\n\n#gmgn #ggc https://t.co/FHukoq777m",
+       "created_at": "2026-11-17T01:41:57Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 1,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 299,
+       "conversation_id": "2122505488529060007",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1919505531875819520",
+        "screen_name": "Gdl_defy",
+        "name": "CIP3R",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2096751011230781441/EwFBGBm1_normal.jpg"
+       }
+      },
+      {
+       "id": "2112338892443750579",
+       "text": "\ud83c\udf34\ud83c\udfae WELCOME TO VICE CITY, DEGENS!\n\n\ud83d\ude97 Fast cars. Neon streets. Maximum chaos.\n\nGTA VI Mascot \u2014 $GM \ud83d\udd25\n\nOne mascot. One city. No speed limits!\n\n\ud83d\udcb8 BUY $GM. OWN THE STREETS! \ud83d\ude80\n\n\ud83c\udf10 https://t.co/rURpb2OY7d\n\n#GM #GTAVI #Solana #Memecoin https://t.co/kuWfxV4324",
+       "created_at": "2026-10-20T00:23:31Z",
+       "lang": "en",
+       "likes": 13,
+       "retweets": 1,
+       "replies": 10,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 253,
+       "conversation_id": "2112338892443750579",
+       "is_quote": false,
+       "urls": [
+        "https://gtavimascot.lol"
+       ],
+       "author": {
+        "id": "2112290887619526656",
+        "screen_name": "gtavimascot",
+        "name": "GTAVI Mascot",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2112332898275868673/1jXSbb_6_normal.jpg"
+       }
+      },
+      {
+       "id": "2120882589649244467",
+       "text": "\u6284\u5e95 $GM \u611f\u89c9\u9a6c\u4e0a\u5c31\u8981\u4e0aAlpha\u4e86\uff0c\u73b0\u57282.5M\u5e02\u503c\n\n0x13920fe6467e9e3c852b8d365a036c995f0f7777",
+       "created_at": "2026-11-12T14:13:08Z",
+       "lang": "zh",
+       "likes": 4,
+       "retweets": 0,
+       "replies": 3,
+       "quotes": 0,
+       "bookmarks": 1,
+       "views": 1599,
+       "conversation_id": "2120882589649244467",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1106861473",
+        "screen_name": "KK_12345q",
+        "name": "0xzz",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2122437155201200128/PNhBq2Ps_normal.jpg"
+       }
+      },
+      {
+       "id": "2120702119606976668",
+       "text": "This ends the $DACITYCOIN vs. $DACITY PvP\n\nGTA 6 ad in Miami: \u201cMove to $Dacity\u201d \n\nI asked Grok if this video is Ai, it said NO. https://t.co/oteCeFwRi0",
+       "created_at": "2026-11-12T02:16:00Z",
+       "lang": "en",
+       "likes": 127,
+       "retweets": 10,
+       "replies": 44,
+       "quotes": 1,
+       "bookmarks": 24,
+       "views": 27123,
+       "conversation_id": "2120702119606976668",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1582939501265027073",
+        "screen_name": "SWEATY333",
+        "name": "Andr\u03b5\u03c9 \u271e",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2110865616001277952/-wM3gZS9_normal.jpg"
+       }
+      },
+      {
+       "id": "2122355123728925086",
+       "text": "GGC London Final \u2022 Fish &amp; Dips Ep.4\n\nWaiter G @waiter1x  tells @Loopier how he went from playing Fortnite to making millions in the memecoin trenches, then lost it all.\n\nStarting over with just 5 SOL, he ran it all back.\n\nNow he\u2019s at the GGC Finals, competing for a one-of-one https://t.co/gH2tZUXauM",
+       "created_at": "2026-11-16T15:44:27Z",
+       "lang": "en",
+       "likes": 273,
+       "retweets": 9,
+       "replies": 32,
+       "quotes": 2,
+       "bookmarks": 63,
+       "views": 34840,
+       "conversation_id": "2122355123728925086",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1656210167816650754",
+        "screen_name": "gmgnai",
+        "name": "GMGN.Ai",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2117166771639865344/wWSHWa1i_normal.jpg"
+       }
+      },
+      {
+       "id": "2120868890570113087",
+       "text": "$GM \u4ece\u6700\u8fd1\u51e0\u4e2a\u70ed\u70b9ca\u7684\u8d70\u52bf\u548c\u60c5\u7eea\u6765\u770b\uff0c \u4ece\u57fa\u672c\u9762\u4e0a\u9762\u8d62\u4e86\u3002\n\u4e00\u4e2a\u597d\u7684IP\uff0c\u8dcc\u5230\u5e95\u5f00\u59cb\u6a2a\u76d8\u4e4b\u540e\uff0c\u5f80\u5f80\u53ef\u4ee5\u9760\u81ea\u5df1\u672c\u8eab\u7684\u5473\u9053\u548c\u6587\u5316\uff0c\u8ba9\u5927\u5bb6\u91cd\u65b0\u8ba4\u8bc6\u5b83\u3002\nGM\u5c31\u662f\u8fd9\u6837\u3002\u4e0d\u7ba1\u662f\u90a3\u4e9b\u6076\u641e\u7684\u8da3\u5473\u56fe\uff0c\u8fd8\u662f\u5e01\u5708\u72ec\u6709\u7684\u6da8\u5e45\u7eff\u8272\uff0c\n\u5982\u679c\u80fd\u4e0aalpha\uff0c\u6211\u611f\u89c9\u8fd9\u4e2a\u6e90\u81ea\u4e8e\u5e01\u5708\u539f\u751f\u7684ip\uff0c\u9ad8\u5ea6\u4e0d\u4f1a\u4f4e\u4e8e\u725b\u6765\u7684\n\n@heyibinance https://t.co/GO3rQMYGAJ",
+       "created_at": "2026-11-12T13:18:42Z",
+       "lang": "zh",
+       "likes": 5,
+       "retweets": 0,
+       "replies": 3,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 157,
+       "conversation_id": "2120868890570113087",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1548151420305932288",
+        "screen_name": "Spacex1314",
+        "name": "\u5c0f\u738b\u5b50kimi",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2062100364208590848/v2GjBkba_normal.jpg"
+       }
+      },
+      {
+       "id": "2122107505534816718",
+       "text": "I\u2019ll be competing in GMGN\u2019s GGC Onchain Trading Competition tomorrow at Solana Breakpoint.\n\nWinner walks away with an Aston Martin. \ud83c\udfce\ufe0f\n\nSuper excited to compete, meet fellow trench warriors, and put my trading skills to the test.\n\nSee you in the trenches.\n\nCan\u2019t wait to drive the https://t.co/ozia2ZTynu",
+       "created_at": "2026-11-15T23:20:30Z",
+       "lang": "en",
+       "likes": 448,
+       "retweets": 59,
+       "replies": 188,
+       "quotes": 3,
+       "bookmarks": 21,
+       "views": 18062,
+       "conversation_id": "2122107505534816718",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "992590209752629249",
+        "screen_name": "notEezzy",
+        "name": "Eezzy \ud83e\uddf8",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2089139025445523456/7aVFKYZC_normal.jpg"
+       }
+      },
+      {
+       "id": "2122135482578673840",
+       "text": "GGC London Final \u2022 Fish &amp; Dips Ep.2\n\n@ignRoxo on what he'd do with the Aston Martin if he wins: nothing. He'll be in the trenches.\n\nHe tells @youngjazzeth how he went from NPC at 16 to a seven-figure trade two years later. https://t.co/Q3zbV2dIN4",
+       "created_at": "2026-11-16T01:11:41Z",
+       "lang": "en",
+       "likes": 118,
+       "retweets": 17,
+       "replies": 23,
+       "quotes": 1,
+       "bookmarks": 17,
+       "views": 12338,
+       "conversation_id": "2122135482578673840",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1656210167816650754",
+        "screen_name": "gmgnai",
+        "name": "GMGN.Ai",
+        "verified": false,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2117166771639865344/wWSHWa1i_normal.jpg"
+       }
+      },
+      {
+       "id": "2121642183694442941",
+       "text": "BUYING TOKENS DIRECTLY THROUGH X JUST WENT LIVE?\n\nHow have we not ran a narrative for this yet,\n\nGM is the most used term on CT, it's time to turn it into a actual ticker\n\nInstead of Good Morning, GM Means Get Money \n\nGMGM\n\n$GM - Get Money https://t.co/RSbpQlTVfE",
+       "created_at": "2026-11-14T16:31:29Z",
+       "lang": "en",
+       "likes": 8,
+       "retweets": 0,
+       "replies": 2,
+       "quotes": 3,
+       "bookmarks": 0,
+       "views": 1120,
+       "conversation_id": "2121642183694442941",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1981100327618097152",
+        "screen_name": "genyrational",
+        "name": "hubz",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2108229254907301890/tziwaKeO_normal.jpg"
+       }
+      },
+      {
+       "id": "2122431732087660884",
+       "text": "this is absolutely insane\n\nduring the GMGN trading competition Roxo bought 55% of a coin called \u201c$CRIME\u201d at floor\n\nhe then put his hands up to signal to chat that he wouldn\u2019t rug\n\ncoin goes to 100% and he immediately full stacks the coin\n\nyou really can\u2019t make this up \ud83d\ude2d",
+       "created_at": "2026-11-16T20:48:52Z",
+       "lang": "en",
+       "likes": 492,
+       "retweets": 11,
+       "replies": 92,
+       "quotes": 28,
+       "bookmarks": 114,
+       "views": 114315,
+       "conversation_id": "2122431732087660884",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "1898389320773550080",
+        "screen_name": "Schoen_xyz",
+        "name": "Schoen",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2021329348180180996/bzN3Gosy_normal.jpg"
+       }
+      },
+      {
+       "id": "2121952503491395680",
+       "text": "From $GM to almost saying \u2018Goodbye\u2019.\n\nThe price seems to have no chance of recovering.\n\nIndeed, most memecoins born from CZ\u2019s tweets are trash.\n\nNFA. DYOR. https://t.co/HK34S1LDd1",
+       "created_at": "2026-11-15T13:04:35Z",
+       "lang": "en",
+       "likes": 2,
+       "retweets": 0,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 380,
+       "conversation_id": "2121952503491395680",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2111469309923106816",
+        "screen_name": "Sixcrypto47",
+        "name": "Six Crypto",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2111474468141084672/Se-JsjUa_normal.jpg"
+       }
+      },
+      {
+       "id": "2122772080777416735",
+       "text": "the streets of leonida have a new crew.\n\nmeet $GM, a gta 6-inspired meme project bringing together a pink gator, a manatee, a flamingo and a whole lot of vice city energy.\n\nbuilt around a fun mascot concept, colorful characters and a community that can make the narrative its own. https://t.co/rnyDdrT8E2",
+       "created_at": "2026-11-17T19:21:17Z",
+       "lang": "en",
+       "likes": 1,
+       "retweets": 1,
+       "replies": 0,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 168,
+       "conversation_id": "2122772080777416735",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2097802784339034112",
+        "screen_name": "CryptooSterling",
+        "name": "Crypto Sterling",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2120013956857450496/cVqa_Zne_normal.jpg"
+       }
+      },
+      {
+       "id": "2122453337098637798",
+       "text": "City wire #001 \ud83d\ude94\n\nNew mission: launch your meme.\nName it. Ticker it. Two clicks.\n+1 \u2605 heat.\n\nSOON https://t.co/69Hh5Pd2HD",
+       "created_at": "2026-11-16T22:14:43Z",
+       "lang": "en",
+       "likes": 16,
+       "retweets": 0,
+       "replies": 10,
+       "quotes": 0,
+       "bookmarks": 0,
+       "views": 93,
+       "conversation_id": "2122453337098637798",
+       "is_quote": false,
+       "urls": [],
+       "author": {
+        "id": "2122392255587643392",
+        "screen_name": "grandpumpfun",
+        "name": "Grand Pump",
+        "verified": true,
+        "followers": 0,
+        "avatar": "https://pbs.twimg.com/profile_images/2122392668877586432/Oea8gp5H_normal.jpg"
+       }
+      }
+     ],
+     "cursor": "DAACCgACHXW1e3eAJxAKAAMddbV7d3_Y8AgABAAAAAILAAUAAADoRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJNZGJ0Y0U1WnZBUHgxUWlRZnhXaEN6SFhLd2p6RGJBR0FkZFpDUDVab2dPQjEwbnpOUjI0RzBIWFFldllVWHdaNGRVSTA2Y1Z0eFRoMTBlQkNhRzFIbUhYRXZVMTZYRVhNZGNaWlRPNWRodlIxMHAzOE5sM0NuSFc3amVuWmFrVE1kY3RSWTc5YUFBeDEwWkdwTEdpRlVIWE8vSVNyWFVCMGRkWm4xNWRyUUh4MXpWdnBVV3FDd0hYTTlpR3FYMGM0ZGJqOVhnWmVBbkE9PQgABgAAAAAIAAcAAAAADAAICgABHVCJB_FaELMAAAA",
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_4f1caafd55fb493fb75a0aba76a31842/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.002035,
+  "tool_cost_usd": 0.01,
+  "frames_fee_usd": 0.001805,
+  "total_cost_usd": 0.01384,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 5900,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 106,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.002035,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x5f193d60294798653ab14b55b7a155308046dac20e0821fe3346984bd9019152",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x367847b85ea9ef5cdaedd9693126ac20a12d2c9875217314ababf8579f1ad4db",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed",
+   "long_tail": true
+  },
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0xfb082ea0b95eed7c0aef54bc5a0e64bd2fb78256a4b27c17beb65a1143fdc4c6",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x284c6870c03a392115d3fb4c2c7c006c8c697eb0cb2c4faf1b53cacc8a212bea",
+   "delivered": true,
+   "outcome": "delivered_with_caveats",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed with caveat: The results also include tweets that contain only 'city' or only '$GM', or variations like '#GMG' or 'GM CT', which broadens the scope beyond the explicit request for both terms together.",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
