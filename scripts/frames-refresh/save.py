@@ -5,7 +5,7 @@ Usage: python3 scripts/frames-refresh/save.py <run_id> <out.json>
 
 Frames bodies are large; never transcribe them by hand. Claude Code stores oversized
 tool results under ~/.claude/projects/*/<session>/tool-results/ and every tool result
-in the session transcript (*.jsonl). This finds the newest completed result for run_id.
+in the session transcript (*.jsonl), including subagent transcripts under <session>/subagents/. This finds the newest completed result for run_id.
 """
 import glob, json, os, sys
 
@@ -30,13 +30,13 @@ def parts(text):  # persisted results are either the raw text or a JSON list of 
 
 
 found = None
-for f in sorted(glob.glob(f'{home}/*/*/tool-results/*.txt') + glob.glob(f'{home}/*/*/tool-results/*.json'), key=os.path.getmtime, reverse=True):
+for f in sorted(glob.glob(f'{home}/**/tool-results/*.txt', recursive=True) + glob.glob(f'{home}/**/tool-results/*.json', recursive=True), key=os.path.getmtime, reverse=True):
     with open(f, errors='replace') as fh:  # unrelated persisted results can hold a truncated multi-byte character
         text = fh.read()
     if run_id in text[:600] and (found := completed(parts(text))):
         break
 if not found:
-    for f in sorted(glob.glob(f'{home}/*/*.jsonl'), key=os.path.getmtime, reverse=True):
+    for f in sorted(glob.glob(f'{home}/**/*.jsonl', recursive=True), key=os.path.getmtime, reverse=True):  # includes <session>/subagents/*.jsonl
         for line in open(f, errors='replace'):
             if run_id not in line:
                 continue
