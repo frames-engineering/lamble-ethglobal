@@ -1,0 +1,106 @@
+{
+ "run_id": "run_213091c61c0b478697dd77123c382788",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 0,
+  "budget_credits": 11,
+  "balance_credits": 45385,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 14,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 1,
+  "delivered": 0,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 235,
+     "stored_chars": 235,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "timed_out",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0",
+     "authorized_amount": "0.005",
+     "settlement": "unconfirmed",
+     "settle_evidence": "timeout",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "valid_before": "2026-11-22T01:25:58.000Z",
+     "auth_nonce": "0xfea08875bb8369cba14895362e76272eaffb3f49dc959229c9ff215fd0281e73",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "",
+     "delivered": false,
+     "outcome": "timed_out",
+     "reason": "payment signed; the seller's gateway timed out (HTTP 504) after 60s \u2014 it may still collect the authorization (unconfirmed liability, not billed)",
+     "long_tail": true
+    },
+    "body": {
+     "error": "payment_timeout",
+     "detail": "the wallet signed a $0.0050 payment and handed it to the seller, whose gateway timed out (HTTP 504) after 60s while the seller still held it \u2014 the seller may still collect it; you were not charged"
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_213091c61c0b478697dd77123c382788/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0,
+  "tool_cost_usd": 0,
+  "frames_fee_usd": 0,
+  "total_cost_usd": 0,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 0,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 0,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0",
+   "authorized_amount": "0.005",
+   "settlement": "unconfirmed",
+   "settle_evidence": "timeout",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "valid_before": "2026-11-22T01:25:58.000Z",
+   "auth_nonce": "0xfea08875bb8369cba14895362e76272eaffb3f49dc959229c9ff215fd0281e73",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "",
+   "delivered": false,
+   "outcome": "timed_out",
+   "reason": "payment signed; the seller's gateway timed out (HTTP 504) after 60s \u2014 it may still collect the authorization (unconfirmed liability, not billed)",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
