@@ -1,0 +1,104 @@
+{
+ "run_id": "run_99610be6ce464e7e86aad4070b8dbd42",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 0,
+  "budget_credits": 11,
+  "balance_credits": 43190,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 12,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 1,
+  "delivered": 0,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "bazaar.twitter-use-x402atlas-com-search",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 176,
+     "stored_chars": 176,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "bazaar.twitter-use-x402atlas-com-search",
+     "amount": "0.005",
+     "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+     "auth_nonce": "0x0b67e14c6d5430ef5610719190e5fa97e7ca95a4e6369e5ccf319776b55f93d5",
+     "currency": "USDC",
+     "network": "base",
+     "tx_hash": "0x4d0d15990adea903eeb1997188640329404777f0ca709197792152214539170f",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool did not return any tweets matching the specified query.; class adjudicated seller_error\u2192negative_result: The seller processed the request, understood the query, and explicitly returned a count of zero tweets, indicating no matching results were found.",
+     "long_tail": true
+    },
+    "body": {
+     "queried_at": "2026-11-22T09:20:55.844237855Z",
+     "query": "greatest $GOAT",
+     "type": "top",
+     "tweet_count": 0,
+     "tweets": [],
+     "_atlas": {
+      "docs": "https://twitter.use.x402atlas.com/llms.txt"
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_99610be6ce464e7e86aad4070b8dbd42/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.000413,
+  "tool_cost_usd": 0,
+  "frames_fee_usd": 6.2e-05,
+  "total_cost_usd": 0.000474,
+  "input_tokens_cached": 0,
+  "input_tokens_uncached": 867,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 61,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.000413,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "bazaar.twitter-use-x402atlas-com-search",
+   "title": "Search Twitter/X with structured filters or raw advanced-search syntax. Returns ",
+   "capability": "twitter",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "bazaar.twitter-use-x402atlas-com-search",
+   "amount": "0.005",
+   "pay_to": "0x51D577C8CBB8b3fB1BA0CE31c7923cC27a07F78B",
+   "auth_nonce": "0x0b67e14c6d5430ef5610719190e5fa97e7ca95a4e6369e5ccf319776b55f93d5",
+   "currency": "USDC",
+   "network": "base",
+   "tx_hash": "0x4d0d15990adea903eeb1997188640329404777f0ca709197792152214539170f",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool did not return any tweets matching the specified query.; class adjudicated seller_error\u2192negative_result: The seller processed the request, understood the query, and explicitly returned a count of zero tweets, indicating no matching results were found.",
+   "long_tail": true
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
