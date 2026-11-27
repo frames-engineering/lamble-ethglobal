@@ -1,6 +1,14 @@
 import { setTimeout as delay } from "node:timers/promises";
 
 const origin = new URL(process.argv[2]);
+const bypass = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+if (process.env.GITHUB_EVENT_NAME === "repository_dispatch" || bypass) {
+  const isLambleDeployment = /^lamble-ethglobal-[a-z0-9]+-inventionshub\.vercel\.app$/.test(origin.hostname);
+  if (!isLambleDeployment || origin.protocol !== "https:" || origin.port || origin.username || origin.password) {
+    throw new Error("Expected the generated Lamble Vercel deployment URL");
+  }
+  if (!bypass) throw new Error("Set VERCEL_AUTOMATION_BYPASS_SECRET for the protected deployment URL");
+}
 const pages = {
   "/": "The Trenches",
   "/coins": "Coins",
@@ -13,6 +21,7 @@ const pages = {
 async function get(path, contentType) {
   const response = await fetch(new URL(path, origin), {
     cache: "no-store",
+    headers: bypass ? { "x-vercel-protection-bypass": bypass } : undefined,
     redirect: "error",
     signal: AbortSignal.timeout(12_000),
   });
