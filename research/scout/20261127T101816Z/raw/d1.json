@@ -1,0 +1,4631 @@
+{
+ "run_id": "run_72510c46e9994fa3b5d8d5446c6db64e",
+ "status": "completed",
+ "billing": {
+  "charged_credits": 7,
+  "budget_credits": 40,
+  "balance_credits": 20759,
+  "monthly_grant_credits": 90000,
+  "percent_remaining": 0,
+  "note": "charged_credits is what the customer was billed for this run, from the ledger, capped at budget_credits. Report these numbers, not usage.*_usd."
+ },
+ "result": {
+  "mode": "direct",
+  "requested": 4,
+  "delivered": 1,
+  "pricing": {
+   "fee_rate": 0.15,
+   "fee_floor_usd_per_call": 0.005,
+   "rule": "Each delivered call bills price_usd \u00d7 1.15 + $0.005. A pending/async ack or an unverifiable charged call (delivered:false, refundable:false) bills price_usd \u00d7 1.15 with no per-call fee; refunded calls, in-batch duplicates and failed runs bill $0. A call runs only when its full delivered amount fits the batch's remaining max_usd, so max_usd must be at least \u03a3(price_usd \u00d7 1.15 + $0.005)."
+  },
+  "calls": [
+   {
+    "seq": 0,
+    "tool_id": "mpp.codex.post.graphql",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 50542,
+     "stored_chars": 50542,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "seller_error",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "mpp.codex.post.graphql",
+     "amount": "0.001",
+     "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0x9cc967c92309f8f069553a8d0c3d93c12c11e1b15fe3fd056d67453ddade8601",
+     "delivered": false,
+     "outcome": "seller_error",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The `solana_recent` and `solana_fresh` sub-queries incorrectly returned empty result sets, despite there being tokens in the `solana_active` results that met their filtering criteria.; class confirmed by adjudicator"
+    },
+    "body": {
+     "data": {
+      "solana_active": {
+       "results": [
+        {
+         "pair": {
+          "address": "FQ86N5mg3XWdJzGsrBRKRYtxD4ftDpvkyPzx53rFhpFP",
+          "token0": "G2ZDG8q3QMYk3KR58JFFYsvaTk4Gy94UzMo7Re7spump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795740257
+         },
+         "priceUSD": "2.19801304366e-3",
+         "circulatingMarketCap": "2190508",
+         "change24": "4.507196996069036",
+         "volume24": "3421809",
+         "liquidity": "57621"
+        },
+        {
+         "pair": {
+          "address": "DDcyemq9bkyqtC93djkwaH6VaMKCjVsoCUVGV29q7teB",
+          "token0": "Fo2HAwr7ZAUM2bSZ7MWSi16e3aWGpbw5MsUDYCttpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795656670
+         },
+         "priceUSD": "0.0106625681234",
+         "circulatingMarketCap": "10553902",
+         "change24": "0.679059548143829",
+         "volume24": "3413558",
+         "liquidity": "126755"
+        },
+        {
+         "pair": {
+          "address": "GqZPPb7GXQU61y2uqFx3UipoULWumAXL5G6P3WPMkJMB",
+          "token0": "YfKJNUMiZMU8ydbKK8x5conxTvkYbFJAA4GM6q7pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795697794
+         },
+         "priceUSD": "0.0123940620526",
+         "circulatingMarketCap": "12394052",
+         "change24": "414.95243764207913",
+         "volume24": "2824936",
+         "liquidity": "126990"
+        },
+        {
+         "pair": {
+          "address": "BJbmxBiGv7sQRZa9soKci4StfrqTxLiWFFBWPoVKSqVQ",
+          "token0": "Ya9PEJA9UZmbT5aim46TA6cPCkTNfsqEn1aEVrnpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795594953
+         },
+         "priceUSD": "0.14701970394",
+         "circulatingMarketCap": "147019566",
+         "change24": "-0.94662056961813",
+         "volume24": "2480514",
+         "liquidity": "437546"
+        },
+        {
+         "pair": {
+          "address": "4d5cjcFpnB7LxEpGcQLRN8gNCq2Yf943G2NES9MJ2nhi",
+          "token0": "7pgCiwcx6N5bb5ESmoh5zuwDDUdsSwWo5Vvq2XhDpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795716116
+         },
+         "priceUSD": "0.0544181355313",
+         "circulatingMarketCap": "54418070",
+         "change24": "1823.9869959744121",
+         "volume24": "2392467",
+         "liquidity": "265924"
+        },
+        {
+         "pair": {
+          "address": "AirCDeU4yL6hjuina65mtWAKzmex7STKZSiNMYZhzKt2",
+          "token0": "9TKbd3VFaMSXsEAicD9JVQWpWwAoLi4fSgWmZL2cpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795630929
+         },
+         "priceUSD": "8.23933427276e-4",
+         "circulatingMarketCap": "798762",
+         "change24": "35.7327687856526",
+         "volume24": "2283114",
+         "liquidity": "104159"
+        },
+        {
+         "pair": {
+          "address": "BENM8jmzaARpnG6ThFJsHDUK9tNjjH3RpYsp21GspXvi",
+          "token0": "cqKmcqN9jHmdk4D6jyKp5rALt85Urazd3vWG7jWpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795762097
+         },
+         "priceUSD": "3.57876457233",
+         "circulatingMarketCap": "3578763280",
+         "change24": "116795.87481826416",
+         "volume24": "2150210",
+         "liquidity": "2151442"
+        },
+        {
+         "pair": {
+          "address": "rDxFmGsvvkuorYBmFgRwMCVHUq8jcruVo5eGvmzQZvX",
+          "token0": "xc9F6cbuPhZPEQSrJRQSkcNYFTTNLifxcHp7vwXpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795537111
+         },
+         "priceUSD": "2.78744572187",
+         "circulatingMarketCap": "2787443072",
+         "change24": "0.3091074037841228",
+         "volume24": "1758778",
+         "liquidity": "1903681"
+        },
+        {
+         "pair": {
+          "address": "Ho1aSG6WGH1FfXdEHrK2f4Ggt1Hoxo9s5jcLMDqeyeBz",
+          "token0": "4CxjZyMNoF1p6eXHXHv1TWpS2X47CuUmLwtGe18spump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1792946594
+         },
+         "priceUSD": "6.09442018098e-3",
+         "circulatingMarketCap": "5733644",
+         "change24": "0.3032365412326496",
+         "volume24": "1640550",
+         "liquidity": "417248"
+        },
+        {
+         "pair": {
+          "address": "BdPNwwytFanyjyuD67cp7oLP77z1ap9oeHx7CTgVaAon",
+          "token0": "1yQeZvoQDFPrAJoU49C6TqkqSMCXcqg8W8E2j2gpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795760650
+         },
+         "priceUSD": "2.03447001256",
+         "circulatingMarketCap": "2034468720",
+         "change24": "66228.62350062489",
+         "volume24": "1623906",
+         "liquidity": "1622247"
+        },
+        {
+         "pair": {
+          "address": "6h2yPTQ4CaXcUjMYr6B6MkDmLqTzuLkZuh25aT4thrbZ",
+          "token0": "63jDWWFwp25ChLvsofbVRMprRbhiXuWoWVxrwFfypump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795728307
+         },
+         "priceUSD": "2.55187724684e-4",
+         "circulatingMarketCap": "234384",
+         "change24": "7.298313992608639",
+         "volume24": "1313343",
+         "liquidity": "22843"
+        },
+        {
+         "pair": {
+          "address": "6rYHxuBn9Hwpnu5i5arBwc48Y8AmgLPvqAEqhepHvYiM",
+          "token0": "4RXMvnG6eHYBqbMhw3qCVE4ifmudMZR7sFaX9SgYpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795675164
+         },
+         "priceUSD": "0.0288501796582",
+         "circulatingMarketCap": "28849987",
+         "change24": "-0.8465874276413087",
+         "volume24": "1310828",
+         "liquidity": "193857"
+        },
+        {
+         "pair": {
+          "address": "EhPzeSdXTyMvWZ1iy5NT3LrNjY1xbC1KGqSpL1kqNYiv",
+          "token0": "PgFtGGquvnv2zEkjG2N2QPvBTBrafuExGYEqahRpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1794025843
+         },
+         "priceUSD": "5.51281091697e-3",
+         "circulatingMarketCap": "5458120",
+         "change24": "-0.43700092278865765",
+         "volume24": "1098927",
+         "liquidity": "94096"
+        },
+        {
+         "pair": {
+          "address": "HMzvsEEmtzHhvZNw9uwbaG85HCTmFnkbhzUx16cy7ca3",
+          "token0": "Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1785083563
+         },
+         "priceUSD": "0.0186282915256",
+         "circulatingMarketCap": "17964686",
+         "change24": "0.07260409046068184",
+         "volume24": "1057879",
+         "liquidity": "947362"
+        },
+        {
+         "pair": {
+          "address": "FnHWfV49ywCtGCDTyf34AVN8BiXxcgXUKqLctkrkP1gQ",
+          "token0": "38M2z4UCfZEkUHFzD48vhKQhFhNyRGto8pZbLjNipump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795468271
+         },
+         "priceUSD": "5.94255151714e-4",
+         "circulatingMarketCap": "554909",
+         "change24": "-0.289479745269901",
+         "volume24": "1018291",
+         "liquidity": "72598"
+        },
+        {
+         "pair": {
+          "address": "TSEFZAFJPRMRoRtJqVsCAgzuQo6MSA6MrehaX5AhW9o",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "6Ccq7hKZTWZZxY1wahZLSeMpYyVbTQd5yjTtew7w7w5Y",
+          "networkId": 1399811149,
+          "createdAt": 1795772315
+         },
+         "priceUSD": "6.34742670383e-4",
+         "circulatingMarketCap": "634743",
+         "change24": "7.436193465376258",
+         "volume24": "957064",
+         "liquidity": "25555"
+        },
+        {
+         "pair": {
+          "address": "4XVReVDHQDFUM6FfvTmo7FdmEq7ZGWxZ1Jhj7qVA68wx",
+          "token0": "DG2EJSEtPBge5F7zBCTZG78p27LTCiq8tUkJ39qupump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795687590
+         },
+         "priceUSD": "8.75665880524e-5",
+         "circulatingMarketCap": "83863",
+         "change24": "1.400317452167186",
+         "volume24": "789130",
+         "liquidity": "15416"
+        },
+        {
+         "pair": {
+          "address": "HJ4AFisW1oo8HVmyXL2QjjnAv4Y25NThse2LcpCreqtu",
+          "token0": "7XSYaJygcuNe6Q3kPvwsJpg4ZrFL1AEUFb8kCuzppump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795757489
+         },
+         "priceUSD": "1.21664520144e-4",
+         "circulatingMarketCap": "118343",
+         "change24": "2.729495309869353",
+         "volume24": "764101",
+         "liquidity": "13772"
+        },
+        {
+         "pair": {
+          "address": "DjbLtX1HRGZZrJgJ7CwTX6SN3D7tBLiytkGwomBUwTVB",
+          "token0": "B34nXKzCgsJb9ChLuSHPRpXLE3WFSWyeT8Cqkzzmpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795121609
+         },
+         "priceUSD": "1.12354290937e-3",
+         "circulatingMarketCap": "1105558",
+         "change24": "-0.45935492122722155",
+         "volume24": "749859",
+         "liquidity": "145038"
+        },
+        {
+         "pair": {
+          "address": "YAuaVEoVUE4y2KPFNQht11c5jgwoyYiDqaZeagVgyG4",
+          "token0": "CvXQ9qEriGgTbMWyF8L1U7oqn9ev8A49N1dzNE8cpump",
+          "token1": "Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+          "networkId": 1399811149,
+          "createdAt": 1795731934
+         },
+         "priceUSD": "1.19618264498e-4",
+         "circulatingMarketCap": "116338",
+         "change24": "1.6196066044147719",
+         "volume24": "734920",
+         "liquidity": "16218"
+        },
+        {
+         "pair": {
+          "address": "8WwcNqdZjCY5Pt7AkhupAFknV2txca9sq6YBkGzLbvdt",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump",
+          "networkId": 1399811149,
+          "createdAt": 1731184061
+         },
+         "priceUSD": "0.0186339685417",
+         "circulatingMarketCap": "18632606",
+         "change24": "0.027959925857133507",
+         "volume24": "723325",
+         "liquidity": "1743424"
+        },
+        {
+         "pair": {
+          "address": "3mxDjdZ1gAe5HziC4dj4UnLdXJ5DBcC9jsSYq55mFyKg",
+          "token0": "9QT8K685Hrae4k11dhGXirdtpfAaimExtyfwt8cPpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793190770
+         },
+         "priceUSD": "2.79482566368e-4",
+         "circulatingMarketCap": "266444",
+         "change24": "0.047214424286341226",
+         "volume24": "687464",
+         "liquidity": "33193"
+        },
+        {
+         "pair": {
+          "address": "B9xKSbD9CjvTdiAQscsTcKzP9e777y64KuWtLiXgaD6c",
+          "token0": "2va3NUJtEcPemDYg2N1RgA79rPKGTGGJKo3gTY5zpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1747555742
+         },
+         "priceUSD": "4.38815392512e-4",
+         "circulatingMarketCap": "438341",
+         "change24": "282.11980461897997",
+         "volume24": "678385",
+         "liquidity": "32126"
+        },
+        {
+         "pair": {
+          "address": "8FnViTH4XHbk7bi3L2Z1v4VsK9GFww3kXnzF2XUhDYtn",
+          "token0": "ejz2TB4Boghn85j9irFSBwakjud4tg9J8KXsmgZpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795759919
+         },
+         "priceUSD": "0.339148866588",
+         "circulatingMarketCap": "339147569",
+         "change24": "11037.42884159456",
+         "volume24": "657439",
+         "liquidity": "663389"
+        },
+        {
+         "pair": {
+          "address": "3HZez3ezzSDTZaT12pqMZwii8Ury9rknjQumsJQYwYt7",
+          "token0": "6B5X3keXJ4J8LLvswa2mbqMhrRDbt85Jo88sbB6apump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795669426
+         },
+         "priceUSD": "1.06586766736e-4",
+         "circulatingMarketCap": "102106",
+         "change24": "-0.5714685431294441",
+         "volume24": "638984",
+         "liquidity": "14098"
+        },
+        {
+         "pair": {
+          "address": "9sBikgSUu5U3q1JbFwdkWJ4Kb3q7kjEujoo4gd5vYumg",
+          "token0": "DTSkmo3sCCKLCh91dJLiWCpwcKtK3yDBZMqZGSV1pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795652002
+         },
+         "priceUSD": "1.5528091608e-4",
+         "circulatingMarketCap": "150738",
+         "change24": "-0.3595479656869771",
+         "volume24": "549933",
+         "liquidity": "17813"
+        },
+        {
+         "pair": {
+          "address": "FnzKY6x7entQ1eR3D225dQyT7ybfka4PskBMQhb8L3CC",
+          "token0": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1781643948
+         },
+         "priceUSD": "0.0188446795496",
+         "circulatingMarketCap": "18843620",
+         "change24": "-0.04596817134743795",
+         "volume24": "520031",
+         "liquidity": "475636"
+        },
+        {
+         "pair": {
+          "address": "EJHur4FVts85xqWskjUAoaUBMAvccEDXUTUpPZe9gUEn",
+          "token0": "VAYMVikuYQpWz5sXCeCsQDeho2QcGqDSNq9rhCspump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1794926475
+         },
+         "priceUSD": "2.24062333097e-3",
+         "circulatingMarketCap": "2208625",
+         "change24": "-0.36386127002814306",
+         "volume24": "479103",
+         "liquidity": "57747"
+        },
+        {
+         "pair": {
+          "address": "CixcofsPwHnYWjsoDxXxvLd6uM5fH7w8MFPL9mpQpqtX",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "3Tg6YnNrfPdFfsY14MaNsDMWLseAyrUDS3myJtbaJN6f",
+          "networkId": 1399811149,
+          "createdAt": 1795581782
+         },
+         "priceUSD": "4.35188725043e-4",
+         "circulatingMarketCap": "420018",
+         "change24": "-0.5138698131008715",
+         "volume24": "477502",
+         "liquidity": "64668"
+        },
+        {
+         "pair": {
+          "address": "3M9sVgL4u6ATKaiExf3XhQqNfMB6ijvzk3meMcQaen1w",
+          "token0": "C5xph2yL6gMdxmuLGxJBkGpmuDFfyi5fqkBNhvL6pump",
+          "token1": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+          "networkId": 1399811149,
+          "createdAt": 1789330218
+         },
+         "priceUSD": "2.1738635359e-3",
+         "circulatingMarketCap": "2154018",
+         "change24": "0.21122420734461733",
+         "volume24": "471107",
+         "liquidity": "124626"
+        },
+        {
+         "pair": {
+          "address": "Fe7bpDYCs74GqiCUF14HwgUMToPKV1d9mDYVX5BTohFr",
+          "token0": "2j5SaS7xy776qCBpyPQbZjyQSAtKiFgrwjfErthnW2ZM",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1791337470
+         },
+         "priceUSD": "8.84731297637e-3",
+         "circulatingMarketCap": "8371442",
+         "change24": "-0.05198672951547511",
+         "volume24": "443694",
+         "liquidity": "483901"
+        },
+        {
+         "pair": {
+          "address": "4tLwgEwxyXsCYWk1bhtDnGZrpibT851eEUo3t2nXBZ6u",
+          "token0": "HUd6mLvt8NUy8JcUj2WmjyMzjJcyez6CSpcwjj2bpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795712125
+         },
+         "priceUSD": "0.114381258893",
+         "circulatingMarketCap": "114379867",
+         "change24": "3838.724919942813",
+         "volume24": "433570",
+         "liquidity": "384702"
+        },
+        {
+         "pair": {
+          "address": "HAUVBmNthCFmG9SRXMvZ1GAXNpU955hkPdSAsC2cx4C8",
+          "token0": "9Pq7aLAbhDG2tTnS22cm6kuysZVcZpLFE368HWuypump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793128408
+         },
+         "priceUSD": "1.72827230049e-3",
+         "circulatingMarketCap": "1683513",
+         "change24": "0.018667199382435384",
+         "volume24": "428173",
+         "liquidity": "71845"
+        },
+        {
+         "pair": {
+          "address": "22WrmyTj8x2TRVQen3fxxi2r4Rn6JDHWoMTpsSmn8RUd",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY",
+          "networkId": 1399811149,
+          "createdAt": 1725994388
+         },
+         "priceUSD": "0.0288122516482",
+         "circulatingMarketCap": "28522291",
+         "change24": "0.018140185151052538",
+         "volume24": "426811",
+         "liquidity": "956603"
+        },
+        {
+         "pair": {
+          "address": "GjvW8JQSpKG5ogjyD3zozfaeJSShTajS5ZFrexT8L12k",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump",
+          "networkId": 1399811149,
+          "createdAt": 1731524626
+         },
+         "priceUSD": "7.06609474991e-3",
+         "circulatingMarketCap": "7060370",
+         "change24": "0.13001498889383273",
+         "volume24": "402109",
+         "liquidity": "484122"
+        },
+        {
+         "pair": {
+          "address": "BzEUNA8u3xK7bBsw7KBggzLhVQXVKTHwA7W98AC26aNd",
+          "token0": "WfvS86dfMBuZSJQQL2PTNQNoPbZD1BC9e7Uuv5rpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795765276
+         },
+         "priceUSD": "0.127991549188",
+         "circulatingMarketCap": "127990252",
+         "change24": "4169.348659530708",
+         "volume24": "400884",
+         "liquidity": "407212"
+        },
+        {
+         "pair": {
+          "address": "Gtg8nBPx5T4HiBZJfJB9FVzYp6WChJaw3BTU21kcV796",
+          "token0": "FTF6S5GJvnBMcKALHZFP5Lbg9DeEEqtdrVBBraUYpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795728126
+         },
+         "priceUSD": "0.116841613909",
+         "circulatingMarketCap": "116840187",
+         "change24": "3893.78688274529",
+         "volume24": "398125",
+         "liquidity": "388775"
+        },
+        {
+         "pair": {
+          "address": "6KQhFBBa5fk9AEZA9WWGkPr2UpUSRa9LwMEJnJUjTAHk",
+          "token0": "cxeNWpH1afsfBbX8j38TVCe7KjnckPBhV9fdTX2pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795763386
+         },
+         "priceUSD": "0.12350928907",
+         "circulatingMarketCap": "123507992",
+         "change24": "4031.6892015558556",
+         "volume24": "392949",
+         "liquidity": "399933"
+        },
+        {
+         "pair": {
+          "address": "8otGWCihCCrmNtL2jLq2WWZYvdPFcZXwgWXVxhDjRg46",
+          "token0": "HQs4Zd8w1jGR72o43iP58U43QtDdTTUE3Dq9Dv4dpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795725717
+         },
+         "priceUSD": "0.104074077355",
+         "circulatingMarketCap": "104072749",
+         "change24": "3469.434393983936",
+         "volume24": "384738",
+         "liquidity": "366916"
+        },
+        {
+         "pair": {
+          "address": "Gkn3NWwF8prNKeS7rqknQsmoZhDfCADKvxGN2a63jrWC",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "AGazYig7A8Co6ZapAPterBRLitdiP6AAaWiPH8jWLend",
+          "networkId": 1399811149,
+          "createdAt": 1795627629
+         },
+         "priceUSD": "6.56123640508e-4",
+         "circulatingMarketCap": "656109",
+         "change24": "0.014626650788663481",
+         "volume24": "380324",
+         "liquidity": "32665"
+        },
+        {
+         "pair": {
+          "address": "Gmn7AiDQFLkZ8PTQhuH7C9ZYqgzbj6BvYnWCTHdocHZ4",
+          "token0": "4jA5ns72KMGDguig4PshLSLdQCzpzCqvJm7LHNxHpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795725892
+         },
+         "priceUSD": "0.111246042715",
+         "circulatingMarketCap": "111244684",
+         "change24": "3708.5033153457207",
+         "volume24": "365177",
+         "liquidity": "379319"
+        },
+        {
+         "pair": {
+          "address": "2zXQoisGWLEhdBg3tAD2RMciAwDXgqT4DKijLr4BvjUx",
+          "token0": "2Lw9FQA1iAwg5Wo1NTh8GTs3zmVQc7XHGBbexqZgqtWJ",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1794834523
+         },
+         "priceUSD": "2.9759893913e-4",
+         "circulatingMarketCap": "285208",
+         "change24": "-0.3197187701534332",
+         "volume24": "361302",
+         "liquidity": "31369"
+        },
+        {
+         "pair": {
+          "address": "3peugE6Fm4fpaVvrV2KBFN3nvLbCGEhGoUXDDxAHuscR",
+          "token0": "zcRvzm7gAfYGde8gRwaSYxNryL47SjLVUQLAf1bdoor",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795293989
+         },
+         "priceUSD": "7.08043933311e-4",
+         "circulatingMarketCap": "647900",
+         "change24": "1.8677772368396341",
+         "volume24": "352985",
+         "liquidity": "71151"
+        },
+        {
+         "pair": {
+          "address": "B4Cp45PGifVM5FAXfh6AeV8QZ3eUNQnqGBw7KuC7MHnB",
+          "token0": "DtcicPCKTKeAh7TDEzTym3hXeoHAoMiBdYJhMYxZpump",
+          "token1": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "networkId": 1399811149,
+          "createdAt": 1791311393
+         },
+         "priceUSD": "7.9121317087e-3",
+         "circulatingMarketCap": "7456387",
+         "change24": "0.21021561030017802",
+         "volume24": "335785",
+         "liquidity": "160293"
+        },
+        {
+         "pair": {
+          "address": "GkHcYZeXDi2SveqNaGSg3qxrkzShDr5Dxrd482kM2hXx",
+          "token0": "CUg7AzWL5p8imZVqqdjEPgRhUsXAkBMW5JxkSJ9fpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1794850114
+         },
+         "priceUSD": "6.77669247983e-4",
+         "circulatingMarketCap": "646556",
+         "change24": "-0.08945041735004888",
+         "volume24": "331354",
+         "liquidity": "90809"
+        },
+        {
+         "pair": {
+          "address": "93CarQ8SqZEQaFK1jQVdvCi749m3s8LAqXGVJv6Rz72t",
+          "token0": "6sXzcNzDk8x4Atcee6vv25iw5bLyg8mLJRtVhwM8Kgan",
+          "token1": "CWZ6BsdnjkDVTGkmL6bGbJXXig6ceef12KvyGQW14cMt",
+          "networkId": 1399811149,
+          "createdAt": 1786878008
+         },
+         "priceUSD": "1.54716309524e-3",
+         "circulatingMarketCap": "1225552",
+         "change24": "0.9990448726721143",
+         "volume24": "321248",
+         "liquidity": "30891"
+        },
+        {
+         "pair": {
+          "address": "TT7DKs9YjJZj1fwMGoPmKBmDreZzyMAMrHoDCGdfwqN",
+          "token0": "GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793383775
+         },
+         "priceUSD": "8.98054761708e-4",
+         "circulatingMarketCap": "881052",
+         "change24": "0.06711472510282307",
+         "volume24": "319642",
+         "liquidity": "65128"
+        },
+        {
+         "pair": {
+          "address": "Q2sPHPdUWFMg7M7wwrQKLrn619cAucfRsmhVJffodSp",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
+          "networkId": 1399811149,
+          "createdAt": 1746886997
+         },
+         "priceUSD": "0.07698640667",
+         "circulatingMarketCap": "76981815",
+         "change24": "0.045198391212987285",
+         "volume24": "313539",
+         "liquidity": "1407287"
+        },
+        {
+         "pair": {
+          "address": "FDU3uATJTZQY2LiowiZt58cUmxjHXRyLzU4RcLdHK9wb",
+          "token0": "91Nahzz8NX1p9dc466RF5me5Q1LGDfY4KjBbyrnmpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795669690
+         },
+         "priceUSD": "0.138173572049",
+         "circulatingMarketCap": "138171885",
+         "change24": "0.3502112365987019",
+         "volume24": "308797",
+         "liquidity": "423070"
+        },
+        {
+         "pair": {
+          "address": "B4VFURUHHzyt8YzBGBV9jiarBvjh1EbMAbRNBnNqaxUD",
+          "token0": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+          "token1": "DEW9dSN6QpWyNthphCpMmAbZP1Q4cEKR9xQXAri98WDP",
+          "networkId": 1399811149,
+          "createdAt": 1790005501
+         },
+         "priceUSD": "7.91405608125e-3",
+         "circulatingMarketCap": "7868765",
+         "change24": "0.08074425933701747",
+         "volume24": "308713",
+         "liquidity": "400497"
+        },
+        {
+         "pair": {
+          "address": "2t4x4gAFLaE5QumWRJp94nNrgmcTSSEEectEYwri9BHR",
+          "token0": "2VeUSgG7uyFdEvvPVn8vhBWDagegU3mZ6pL51r9Bvv2r",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795736508
+         },
+         "priceUSD": "1.68948343018e-4",
+         "circulatingMarketCap": "168274",
+         "change24": "1.3215045322273271",
+         "volume24": "300171",
+         "liquidity": "15009"
+        },
+        {
+         "pair": {
+          "address": "3Y48ozL3LW3Hvc3BGyaS7jjuiEfUf3i4ViMGw9jjWK93",
+          "token0": "52a6B3qpwGN9daQBTu8kvbXQVgThuiGMJE1mmCEgpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795684766
+         },
+         "priceUSD": "8.28090026903e-5",
+         "circulatingMarketCap": "79245",
+         "change24": "2.5737639079503336",
+         "volume24": "291139",
+         "liquidity": "10608"
+        },
+        {
+         "pair": {
+          "address": "Hr9qopJXCuak38rxDpZduUFhdAK2BfjtoXbfQZVn2EwU",
+          "token0": "8s11PkgQt4ZzdZ7oo84hK5t9HG1EvdgAjcg4W7Lpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793460971
+         },
+         "priceUSD": "1.63399290641e-3",
+         "circulatingMarketCap": "1619619",
+         "change24": "-0.6116621907006251",
+         "volume24": "290090",
+         "liquidity": "60197"
+        },
+        {
+         "pair": {
+          "address": "Cb7ZRgPLhji3Th7htXyKEqbXvNjPpeTvckXuWakBUhXu",
+          "token0": "Hg5Ja55T5wESq4vyFoiVCMeHXtGyVA69X2UHq8hgpump",
+          "token1": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
+          "networkId": 1399811149,
+          "createdAt": 1788985934
+         },
+         "priceUSD": "4.50842468245e-3",
+         "circulatingMarketCap": "4502510",
+         "change24": "0.3077820781387256",
+         "volume24": "274960",
+         "liquidity": "299990"
+        },
+        {
+         "pair": {
+          "address": "3sjNoCnkkhWPVXYGDtem8rCciHSGc9jSFZuUAzKbvRVp",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "8x5VqbHA8D7NkD52uNuS5nnt3PwA8pLD34ymskeSo2Wn",
+          "networkId": 1399811149,
+          "createdAt": 1730142507
+         },
+         "priceUSD": "0.0206287760348",
+         "circulatingMarketCap": "20627654",
+         "change24": "0.07058025933382477",
+         "volume24": "271619",
+         "liquidity": "1077127"
+        },
+        {
+         "pair": {
+          "address": "8ymFvPheU5TEyd7bqsDFJQKGVMrZUv4WnHPeTTNTBaSn",
+          "token0": "ANvsL4A6tJKAXJsPg7XVSHQA7KYmFcpW42jPuhVtpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795527164
+         },
+         "priceUSD": "7.14701229809e-5",
+         "circulatingMarketCap": "69525",
+         "change24": "-0.6827302690377312",
+         "volume24": "270057",
+         "liquidity": "11920"
+        },
+        {
+         "pair": {
+          "address": "Bsvc6Nu5XGn2bFCmMmaD5DutPCP3mxCTpBzyrKZhr53A",
+          "token0": "6ZbWPYxFf8XyQ6dncrPAef1yz4W9nRF6rX3CYuE7pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1794930046
+         },
+         "priceUSD": "1.36534250541e-4",
+         "circulatingMarketCap": "130659",
+         "change24": "2.0536657732191035",
+         "volume24": "259332",
+         "liquidity": "14934"
+        },
+        {
+         "pair": {
+          "address": "4w2cysotX6czaUGmmWg13hDpY4QEMG2CzeKYEQyK9Ama",
+          "token0": "5UUH9RTDiSpq6HKS6bp4NdU9PNJpXRXuiw6ShBTBhgH2",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1745173827
+         },
+         "priceUSD": "0.022584926248",
+         "circulatingMarketCap": "22556535",
+         "change24": "0.0058595045472658175",
+         "volume24": "255304",
+         "liquidity": "982119"
+        },
+        {
+         "pair": {
+          "address": "C25mgMDCT5NGTwtywvGjy99gHypa43345x4NW3r4TPvo",
+          "token0": "CajDcXd6rbCCemwX1XXVHyG2UYypFtoFDFo7imahpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795502471
+         },
+         "priceUSD": "4.63291698583",
+         "circulatingMarketCap": "4632915422",
+         "change24": "0.10350610565151927",
+         "volume24": "253461",
+         "liquidity": "2448652"
+        },
+        {
+         "pair": {
+          "address": "8fSUYVnTy4r5fZUksjzKexLq2Tx96K3UPdYRvW5XWJ9t",
+          "token0": "65iH8k736QNhuUHm1tt8X7yJXpJ517HPPq8BrVdwring",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1794337748
+         },
+         "priceUSD": "1.63347935131e-3",
+         "circulatingMarketCap": "1569156",
+         "change24": "-0.28641007168556926",
+         "volume24": "242582",
+         "liquidity": "175430"
+        },
+        {
+         "pair": {
+          "address": "58fzJMbX5PatnfJPqWWsqkVFPRKptkbb5r2vCw4Qq3z9",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "6AJcP7wuLwmRYLBNbi825wgguaPsWzPBEHcHndpRpump",
+          "networkId": 1399811149,
+          "createdAt": 1737591763
+         },
+         "priceUSD": "8.94586994098e-3",
+         "circulatingMarketCap": "8945463",
+         "change24": "-0.03982013133457756",
+         "volume24": "237993",
+         "liquidity": "746410"
+        },
+        {
+         "pair": {
+          "address": "DChXQ4qFPpNPEDfZLNiwvPhrVuuFGfqEDLAAZbiZHUWf",
+          "token0": "9hjBLBrc7WZW2H8UQvBAvG5WiTZotXUv2Bdcn4f4pump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1792465409
+         },
+         "priceUSD": "1.08681963376e-3",
+         "circulatingMarketCap": "1027702",
+         "change24": "-0.13866587852560786",
+         "volume24": "223365",
+         "liquidity": "135567"
+        },
+        {
+         "pair": {
+          "address": "HFWm4YnCKMqGhRaGohZa2cSzVqe7cR1KqifLuHH7VfUs",
+          "token0": "tWgMXuDqMD63Bq1HoDNGPAoFGPPYcMYkd8kGfzKpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795721846
+         },
+         "priceUSD": "0.0293828830339",
+         "circulatingMarketCap": "29380578",
+         "change24": "977.8990664074963",
+         "volume24": "204030",
+         "liquidity": "195011"
+        },
+        {
+         "pair": {
+          "address": "xg71xrhn7MEj5akrZGteuYeiTLbBzyNCpBn69bRYd5a",
+          "token0": "4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1787858310
+         },
+         "priceUSD": "1.85564764148e-3",
+         "circulatingMarketCap": "1831806",
+         "change24": "-0.24078077626042735",
+         "volume24": "201479",
+         "liquidity": "147873"
+        },
+        {
+         "pair": {
+          "address": "955ZnsesCSeu1vAeCSGtX6XXFtiYuPmkqQHA3gTxorQw",
+          "token0": "ampeJnc3Bh4zdWNDe7VJxD7GB4Tzg3v6bcYPVWqpump",
+          "token1": "he1iusmfkpAdwvxLNGV8Y1iSbj4rUy6yMhEA3fotn9A",
+          "networkId": 1399811149,
+          "createdAt": 1795705850
+         },
+         "priceUSD": "4.91619904264e-3",
+         "circulatingMarketCap": "4913907",
+         "change24": "3.15898694158888",
+         "volume24": "199504",
+         "liquidity": "99020"
+        },
+        {
+         "pair": {
+          "address": "4GWh5saKgzoukhhj4Rh3p5FmPU6yPuAexV6FaH5JQYfm",
+          "token0": "A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+          "token1": "HuAXPyDWDaMYFKuwQHpqL1oPnj93zdzWmtvFGzCeCUa7",
+          "networkId": 1399811149,
+          "createdAt": 1790161463
+         },
+         "priceUSD": "0.0133455932719",
+         "circulatingMarketCap": "7497183",
+         "change24": "-0.05251816087635906",
+         "volume24": "196978",
+         "liquidity": "279262"
+        },
+        {
+         "pair": {
+          "address": "6sz2LuVC8iTz77jp4hEjdhe3a7U9Jud3HjeVrdM35ZfB",
+          "token0": "iFSvbHhwod4BJZdrHGNAq4WcP8zijAs1Jp6pMXPpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795747574
+         },
+         "priceUSD": "0.0303968600873",
+         "circulatingMarketCap": "30395566",
+         "change24": "997.278019627485",
+         "volume24": "191476",
+         "liquidity": "198007"
+        },
+        {
+         "pair": {
+          "address": "69bFbXmMi1D24xXPiEyrzY7uLfLLh84azSLnoMcZUmoo",
+          "token0": "WXMRyRZhsa19ety5erZhHg4N3xj3EVN92u94422teJp",
+          "token1": "FVWXgqKp1sD5YtNL2LtYEyN52tPX1RrYSsNugvvfLoat",
+          "networkId": 1399811149,
+          "createdAt": 1795666724
+         },
+         "priceUSD": "6.96036564307e-5",
+         "circulatingMarketCap": "69603",
+         "change24": "-0.18409829062193434",
+         "volume24": "189129",
+         "liquidity": "17288"
+        },
+        {
+         "pair": {
+          "address": "sVVcu9n1FbKwYS39gWw76NAE2jWBckCBdbC6jquaWC6",
+          "token0": "EVbsBwxqdbMqadwAsVZ6KP9SJiaNmLSHAAb4W2mUpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1794948475
+         },
+         "priceUSD": "3.4462899653e-4",
+         "circulatingMarketCap": "343135",
+         "change24": "-0.011926474765127712",
+         "volume24": "187344",
+         "liquidity": "24147"
+        },
+        {
+         "pair": {
+          "address": "3Y7Knabn84dpB6yy5LbCFt574E8ifTMeWkBMTPvGZCwE",
+          "token0": "BiLAn35QaVqQC8f8BGrE92r2n5dcDEJmqJcx1v9Apump",
+          "token1": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "networkId": 1399811149,
+          "createdAt": 1795273923
+         },
+         "priceUSD": "4.46914411653e-5",
+         "circulatingMarketCap": "44532",
+         "change24": "-0.9410105914547067",
+         "volume24": "180078",
+         "liquidity": "10930"
+        },
+        {
+         "pair": {
+          "address": "AUqGAMZwoygpJx9FvtRY1i24VYwUkCxMwRQ3Zp9Symcd",
+          "token0": "G6wuh4ihzeLFtv35r7YX71picr4aga76KphKEMtpump",
+          "token1": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "networkId": 1399811149,
+          "createdAt": 1795313071
+         },
+         "priceUSD": "0.0146525033117",
+         "circulatingMarketCap": "14648962",
+         "change24": "0.038373291442090895",
+         "volume24": "175032",
+         "liquidity": "193144"
+        },
+        {
+         "pair": {
+          "address": "5urqW6MoinQmDN7t9V895QyhCh2ki61UqRQJFjBRAcD3",
+          "token0": "JmBAjhHKp9btzABS5Eudfxbtg2ipqps2JrFzgTupump",
+          "token1": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "networkId": 1399811149,
+          "createdAt": 1795140466
+         },
+         "priceUSD": "0.0124905988134",
+         "circulatingMarketCap": "12485541",
+         "change24": "0.04430348597808184",
+         "volume24": "174742",
+         "liquidity": "178848"
+        },
+        {
+         "pair": {
+          "address": "CH8autjJ5Ewf81XGeDxXpDWZBokSX21u9zJnoR9GnziD",
+          "token0": "W3XFHoNuutw1r79S3AtNX3NzR4XvMpvz4PGerUmpump",
+          "token1": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "networkId": 1399811149,
+          "createdAt": 1795140709
+         },
+         "priceUSD": "0.0129399886079",
+         "circulatingMarketCap": "12934746",
+         "change24": "0.04867171497255984",
+         "volume24": "174528",
+         "liquidity": "182027"
+        },
+        {
+         "pair": {
+          "address": "B4Wmjc6PvjCtU3qSVS3eTT9Mr4M5V5jBkRQctWANTc71",
+          "token0": "7SL2VnfYsChvog5oQY9Nmtqu1wceaMiQzWoqoLQpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1792598306
+         },
+         "priceUSD": "9.22360906689e-4",
+         "circulatingMarketCap": "878803",
+         "change24": "-0.1981157024417321",
+         "volume24": "173339",
+         "liquidity": "112019"
+        },
+        {
+         "pair": {
+          "address": "Bzc9NZfMqkXR6fz1DBph7BDf9BroyEf6pnzESP7v5iiw",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+          "networkId": 1399811149,
+          "createdAt": 1729231787
+         },
+         "priceUSD": "0.083339325894",
+         "circulatingMarketCap": "83332132",
+         "change24": "0.022751055264572533",
+         "volume24": "167474",
+         "liquidity": "2509371"
+        },
+        {
+         "pair": {
+          "address": "FJk9sajdc2Q4heRPPu3yLzkmf2ZByZkpiHQLv9e2bn5A",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "Bv1a7cEj5aRnJQhMw4kRQqAFesMSd5LwcDnUzq52BMmr",
+          "networkId": 1399811149,
+          "createdAt": 1793225743
+         },
+         "priceUSD": "3.09078636712e-3",
+         "circulatingMarketCap": "2575834",
+         "change24": "0.12084770145501773",
+         "volume24": "165853",
+         "liquidity": "267834"
+        },
+        {
+         "pair": {
+          "address": "3unG5b7czBspnmjFRZzzNyQVpk8q3LERr6BAYnFohdfz",
+          "token0": "EJAxERvKU4kEVXn3NarjvRtgaMaJyP9ZuMeKA7JJpump",
+          "token1": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+          "networkId": 1399811149,
+          "createdAt": 1792608585
+         },
+         "priceUSD": "5.7210494469e-4",
+         "circulatingMarketCap": "565572",
+         "change24": "-0.15925378075628954",
+         "volume24": "164214",
+         "liquidity": "43732"
+        },
+        {
+         "pair": {
+          "address": "5DQaDR2gXrU3sPo8dN9KVjKnUMxVszXF6Jf8ixhjSKdm",
+          "token0": "EJEeWpvfviFyz1GQqSFHjXmvvXvUTkbjsRBWh1DLpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795774378
+         },
+         "priceUSD": "6.64372432735e-5",
+         "circulatingMarketCap": "64316",
+         "change24": "1.164376849051875",
+         "volume24": "164211",
+         "liquidity": "10031"
+        },
+        {
+         "pair": {
+          "address": "7CNC9gGegzEfFK8fLXiYUhdtMEeFPQZoND56U1Mxhnor",
+          "token0": "FVzqGqRmr4UH1Fif6dewmwbJ1p4YUZCu8dcw4Efopump",
+          "token1": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "networkId": 1399811149,
+          "createdAt": 1794725770
+         },
+         "priceUSD": "4.26040655002e-4",
+         "circulatingMarketCap": "407016",
+         "change24": "-0.24702502513176258",
+         "volume24": "159492",
+         "liquidity": "53773"
+        },
+        {
+         "pair": {
+          "address": "Ak4wr2ueEAJMqZSEcGPMX9EhCrwWRngP8CskvdEh1e6H",
+          "token0": "DVdWuNK8ncn79B6z8nCiwcNAiwyFcmBPfChgxJGTpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795557652
+         },
+         "priceUSD": "5.65691625624e-5",
+         "circulatingMarketCap": "53687",
+         "change24": "-0.3410621883972932",
+         "volume24": "158758",
+         "liquidity": "11086"
+        },
+        {
+         "pair": {
+          "address": "pJxgZmuDyERjCvi1eTNfKCyHHmnnpGwuTLqTf63p6oa",
+          "token0": "8rjgC1GsBo4fwuXjq7Hy12SAFxgFxbtSJJSFBYkVpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795019181
+         },
+         "priceUSD": "6.573867528e-4",
+         "circulatingMarketCap": "616613",
+         "change24": "0.6636541976140446",
+         "volume24": "158505",
+         "liquidity": "31456"
+        },
+        {
+         "pair": {
+          "address": "H9c2Qz5Uf1nxo6yfsNiPwxnFUr2shhRbpeU2c1b1o5P8",
+          "token0": "DtoLEZjhSkiMWyyYgJYaSJNzedSn4tVnhx4tLoUpump",
+          "token1": "he1iusmfkpAdwvxLNGV8Y1iSbj4rUy6yMhEA3fotn9A",
+          "networkId": 1399811149,
+          "createdAt": 1795392375
+         },
+         "priceUSD": "9.23432379647e-3",
+         "circulatingMarketCap": "9230097",
+         "change24": "0.16979401569560973",
+         "volume24": "155786",
+         "liquidity": "137163"
+        },
+        {
+         "pair": {
+          "address": "BNpzmHBDKBSQB4oXSQw31DtEJm7EdXBvBAv5fKysro4Z",
+          "token0": "S9X15M5DnsKoMowaD17nFnHU4Lu2ZGiBNktgFhcpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795515006
+         },
+         "priceUSD": "0.238055054444",
+         "circulatingMarketCap": "238053227",
+         "change24": "0.1900015134844743",
+         "volume24": "138808",
+         "liquidity": "555277"
+        },
+        {
+         "pair": {
+          "address": "DEXTCER4k9dwbxTMU8zNVVwGevVmvHMB183pF2xxZwvH",
+          "token0": "npz2FhoufQ7pKqhGpaipYWacrAkidyW2yDpVWSvpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793019918
+         },
+         "priceUSD": "5.52867366114e-4",
+         "circulatingMarketCap": "541327",
+         "change24": "-0.20753372016756494",
+         "volume24": "132736",
+         "liquidity": "36431"
+        },
+        {
+         "pair": {
+          "address": "5wNu5QhdpRGrL37ffcd6TMMqZugQgxwafgz477rShtHy",
+          "token0": "Ce2gx9KGXJ6C9Mp5b5x1sn9Mg87JwEbrQby4Zqo3pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1745715491
+         },
+         "priceUSD": "0.0211373534799",
+         "circulatingMarketCap": "21131984",
+         "change24": "0.04841203855192203",
+         "volume24": "132468",
+         "liquidity": "913092"
+        },
+        {
+         "pair": {
+          "address": "3iGr3kuNGVheD9HAdx4hc4y9PhhJuNCi2GawTpT2jra6",
+          "token0": "ngwxpGYdkauMcxLFrNTKp8qBgK7JV53zVvd7F2spump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1794334818
+         },
+         "priceUSD": "3.63444540982e-4",
+         "circulatingMarketCap": "352463",
+         "change24": "-0.10288906236852635",
+         "volume24": "131149",
+         "liquidity": "36086"
+        },
+        {
+         "pair": {
+          "address": "AUYebJeLDN3RM4EYbBiQZK5gnhajpwDg6hfUTxyPQDNJ",
+          "token0": "wHANidkw3SK4Vd6xqgLSAfihAGSSVJo7sHNLoEgpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795578685
+         },
+         "priceUSD": "0.119005087212",
+         "circulatingMarketCap": "119003638",
+         "change24": "0.07880346617833825",
+         "volume24": "130851",
+         "liquidity": "392587"
+        },
+        {
+         "pair": {
+          "address": "5AnhFUWmc1eTNEcKELvNEWbRWudnJJgmUd9Z8tSWoYtG",
+          "token0": "12aK2Xz5n7yaFZNAxoNTSS3nAJy3yuUjX41b2cQSpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795144131
+         },
+         "priceUSD": "0.0238134043021",
+         "circulatingMarketCap": "23810333",
+         "change24": "0.12807808494616887",
+         "volume24": "130576",
+         "liquidity": "176631"
+        },
+        {
+         "pair": {
+          "address": "ZqqQSYQeidtQthmexEgyEGQqpiTQbPYnuPrWGMxAGux",
+          "token0": "aEeCWDMuXpTxKD91tYTKPNUtwoRa5yzqLo8ZRNKpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795487216
+         },
+         "priceUSD": "0.0453507381941",
+         "circulatingMarketCap": "45348659",
+         "change24": "0.13691537195136877",
+         "volume24": "129939",
+         "liquidity": "242723"
+        },
+        {
+         "pair": {
+          "address": "DBBJrfzYtkH872nTkwqGGcFzigAR8oVFZrwKuAK9scEZ",
+          "token0": "eMSpHgPMZruRVEHNtgANgTTpmUefUvNmNeJ1toJpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795764284
+         },
+         "priceUSD": "0.0142714679521",
+         "circulatingMarketCap": "14270168",
+         "change24": "464.03002166472436",
+         "volume24": "129426",
+         "liquidity": "135927"
+        },
+        {
+         "pair": {
+          "address": "42iqkt6Krepz45oMn6gn3KfqczvATpFgXwVxjJ4Dk4hs",
+          "token0": "F7dWZudoT2ChXkccaDFkDrNVuo8mfEKd2jk6fFXpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795312204
+         },
+         "priceUSD": "2.07704066031",
+         "circulatingMarketCap": "2077038024",
+         "change24": "0.0972288628853111",
+         "volume24": "129381",
+         "liquidity": "1640022"
+        },
+        {
+         "pair": {
+          "address": "3bC2e2RxcfvF9oP22LvbaNsVwoS2T98q6ErCRoayQYdq",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "FeR8VBqNRSUD5NtXAj2n3j1dAHkZHfyDktKuLXD4pump",
+          "networkId": 1399811149,
+          "createdAt": 1738193649
+         },
+         "priceUSD": "0.0398631711928",
+         "circulatingMarketCap": "39863135",
+         "change24": "0.007251021101501602",
+         "volume24": "127815",
+         "liquidity": "1823888"
+        },
+        {
+         "pair": {
+          "address": "BnR3kT93PUxNYCCDnNgDtnk56U1V1Lho3MV9C7sUcqpt",
+          "token0": "As3XtYSstuVdrVyb6sJZZ77Tu8JvjTBg6S6hgPv4pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795619304
+         },
+         "priceUSD": "8.91612162188e-5",
+         "circulatingMarketCap": "88689",
+         "change24": "-0.4162445650978338",
+         "volume24": "127108",
+         "liquidity": "11463"
+        },
+        {
+         "pair": {
+          "address": "8tZtcJfb5E8U3Kq6Gh4GHc8BtYmSLuY2ztXgTom8REQk",
+          "token0": "uLFEFPqnVeb5xh8WPbAagvF4sYvNBcCJMqjX7bbpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795709902
+         },
+         "priceUSD": "6.19501220846e-3",
+         "circulatingMarketCap": "6193350",
+         "change24": "206.97829157219692",
+         "volume24": "125867",
+         "liquidity": "89564"
+        },
+        {
+         "pair": {
+          "address": "DjkYZZ9WLjTnm4LJ2N37LtgnJXxJt4D4DNxJ7YcCgnkt",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "2QXbXCXinZtrsEYzG6fEmAPX4fpndiv82oJu59o8pEcu",
+          "networkId": 1399811149,
+          "createdAt": 1795746234
+         },
+         "priceUSD": "6.90855387201e-6",
+         "circulatingMarketCap": "690855",
+         "change24": "1.0321467240453701",
+         "volume24": "125426",
+         "liquidity": "72673"
+        },
+        {
+         "pair": {
+          "address": "HhQf74cjqCYaJDmednRMxn4Vp2deGYRJMZjdNaMZRB2P",
+          "token0": "KLJdVGozvBQ9eCiZaMcRyNm1Vc4F5RsChBjtcJepump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795537582
+         },
+         "priceUSD": "0.215036050327",
+         "circulatingMarketCap": "215033909",
+         "change24": "0.25340874044759576",
+         "volume24": "125241",
+         "liquidity": "527713"
+        },
+        {
+         "pair": {
+          "address": "CvVZhBzJZ4pubGcCi1xHwbot3Q4jdK3w2YywvwnLNiA9",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "DCFiFuRwjwdSKcYKmuz47gcSNsjjtZ6Rh8KkLaVCpump",
+          "networkId": 1399811149,
+          "createdAt": 1795765366
+         },
+         "priceUSD": "8.95478809968e-5",
+         "circulatingMarketCap": "86208",
+         "change24": "1.7312196370474384",
+         "volume24": "118116",
+         "liquidity": "22457"
+        },
+        {
+         "pair": {
+          "address": "6qirp44Q2T8B1CfbGmnqeXCLdQhFqmNCfAFfpKG4N156",
+          "token0": "HXxJdaQbrYRvwTAM8M8mUPyoRPvmyuUbPFBRkiAAMASS",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1790873795
+         },
+         "priceUSD": "3.28483211131e-4",
+         "circulatingMarketCap": "313069",
+         "change24": "0.3070227698182735",
+         "volume24": "116092",
+         "liquidity": "30911"
+        },
+        {
+         "pair": {
+          "address": "DmAsjXoceoL5vTKZbYpTpXPo7MKm16FMfNMm3PJFiUha",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump",
+          "networkId": 1399811149,
+          "createdAt": 1729868394
+         },
+         "priceUSD": "0.0443037882254",
+         "circulatingMarketCap": "44302098",
+         "change24": "0.04040843121370506",
+         "volume24": "115584",
+         "liquidity": "986851"
+        },
+        {
+         "pair": {
+          "address": "FFcYgSSgWHforA9rXXkA48p8YFoz8TSW85Jpo3CQHDyS",
+          "token0": "Cm6fNnMk7NfzStP9CZpsQA2v3jjzbcYGAxdJySmHpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1767965767
+         },
+         "priceUSD": "5.79406296103e-3",
+         "circulatingMarketCap": "5792516",
+         "change24": "0.10470201293594825",
+         "volume24": "109570",
+         "liquidity": "361686"
+        }
+       ]
+      },
+      "solana_recent": {
+       "results": [
+        {
+         "pair": {
+          "address": "FQ86N5mg3XWdJzGsrBRKRYtxD4ftDpvkyPzx53rFhpFP",
+          "token0": "G2ZDG8q3QMYk3KR58JFFYsvaTk4Gy94UzMo7Re7spump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795740257
+         },
+         "priceUSD": "2.19801304366e-3",
+         "circulatingMarketCap": "2190508",
+         "change24": "4.507196996069036",
+         "volume24": "3421809",
+         "liquidity": "57621"
+        },
+        {
+         "pair": {
+          "address": "DDcyemq9bkyqtC93djkwaH6VaMKCjVsoCUVGV29q7teB",
+          "token0": "Fo2HAwr7ZAUM2bSZ7MWSi16e3aWGpbw5MsUDYCttpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795656670
+         },
+         "priceUSD": "0.0106625681234",
+         "circulatingMarketCap": "10553902",
+         "change24": "0.679059548143829",
+         "volume24": "3413558",
+         "liquidity": "126755"
+        },
+        {
+         "pair": {
+          "address": "GqZPPb7GXQU61y2uqFx3UipoULWumAXL5G6P3WPMkJMB",
+          "token0": "YfKJNUMiZMU8ydbKK8x5conxTvkYbFJAA4GM6q7pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795697794
+         },
+         "priceUSD": "0.0123940620526",
+         "circulatingMarketCap": "12394052",
+         "change24": "414.95243764207913",
+         "volume24": "2824936",
+         "liquidity": "126990"
+        },
+        {
+         "pair": {
+          "address": "BJbmxBiGv7sQRZa9soKci4StfrqTxLiWFFBWPoVKSqVQ",
+          "token0": "Ya9PEJA9UZmbT5aim46TA6cPCkTNfsqEn1aEVrnpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795594953
+         },
+         "priceUSD": "0.14701970394",
+         "circulatingMarketCap": "147019566",
+         "change24": "-0.94662056961813",
+         "volume24": "2480514",
+         "liquidity": "437546"
+        },
+        {
+         "pair": {
+          "address": "4d5cjcFpnB7LxEpGcQLRN8gNCq2Yf943G2NES9MJ2nhi",
+          "token0": "7pgCiwcx6N5bb5ESmoh5zuwDDUdsSwWo5Vvq2XhDpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795716116
+         },
+         "priceUSD": "0.0544181355313",
+         "circulatingMarketCap": "54418070",
+         "change24": "1823.9869959744121",
+         "volume24": "2392467",
+         "liquidity": "265924"
+        },
+        {
+         "pair": {
+          "address": "AirCDeU4yL6hjuina65mtWAKzmex7STKZSiNMYZhzKt2",
+          "token0": "9TKbd3VFaMSXsEAicD9JVQWpWwAoLi4fSgWmZL2cpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795630929
+         },
+         "priceUSD": "8.23933427276e-4",
+         "circulatingMarketCap": "798762",
+         "change24": "35.7327687856526",
+         "volume24": "2283114",
+         "liquidity": "104159"
+        },
+        {
+         "pair": {
+          "address": "BENM8jmzaARpnG6ThFJsHDUK9tNjjH3RpYsp21GspXvi",
+          "token0": "cqKmcqN9jHmdk4D6jyKp5rALt85Urazd3vWG7jWpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795762097
+         },
+         "priceUSD": "3.57876457233",
+         "circulatingMarketCap": "3578763280",
+         "change24": "116795.87481826416",
+         "volume24": "2150210",
+         "liquidity": "2151442"
+        },
+        {
+         "pair": {
+          "address": "rDxFmGsvvkuorYBmFgRwMCVHUq8jcruVo5eGvmzQZvX",
+          "token0": "xc9F6cbuPhZPEQSrJRQSkcNYFTTNLifxcHp7vwXpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795537111
+         },
+         "priceUSD": "2.78744572187",
+         "circulatingMarketCap": "2787443072",
+         "change24": "0.3091074037841228",
+         "volume24": "1758778",
+         "liquidity": "1903681"
+        },
+        {
+         "pair": {
+          "address": "BdPNwwytFanyjyuD67cp7oLP77z1ap9oeHx7CTgVaAon",
+          "token0": "1yQeZvoQDFPrAJoU49C6TqkqSMCXcqg8W8E2j2gpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795760650
+         },
+         "priceUSD": "2.03447001256",
+         "circulatingMarketCap": "2034468720",
+         "change24": "66228.62350062489",
+         "volume24": "1623906",
+         "liquidity": "1622247"
+        },
+        {
+         "pair": {
+          "address": "6h2yPTQ4CaXcUjMYr6B6MkDmLqTzuLkZuh25aT4thrbZ",
+          "token0": "63jDWWFwp25ChLvsofbVRMprRbhiXuWoWVxrwFfypump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795728307
+         },
+         "priceUSD": "2.55187724684e-4",
+         "circulatingMarketCap": "234384",
+         "change24": "7.298313992608639",
+         "volume24": "1313343",
+         "liquidity": "22843"
+        },
+        {
+         "pair": {
+          "address": "6rYHxuBn9Hwpnu5i5arBwc48Y8AmgLPvqAEqhepHvYiM",
+          "token0": "4RXMvnG6eHYBqbMhw3qCVE4ifmudMZR7sFaX9SgYpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795675164
+         },
+         "priceUSD": "0.0288501796582",
+         "circulatingMarketCap": "28849987",
+         "change24": "-0.8465874276413087",
+         "volume24": "1310828",
+         "liquidity": "193857"
+        },
+        {
+         "pair": {
+          "address": "TSEFZAFJPRMRoRtJqVsCAgzuQo6MSA6MrehaX5AhW9o",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "6Ccq7hKZTWZZxY1wahZLSeMpYyVbTQd5yjTtew7w7w5Y",
+          "networkId": 1399811149,
+          "createdAt": 1795772315
+         },
+         "priceUSD": "6.34742670383e-4",
+         "circulatingMarketCap": "634743",
+         "change24": "7.436193465376258",
+         "volume24": "957064",
+         "liquidity": "25555"
+        },
+        {
+         "pair": {
+          "address": "4XVReVDHQDFUM6FfvTmo7FdmEq7ZGWxZ1Jhj7qVA68wx",
+          "token0": "DG2EJSEtPBge5F7zBCTZG78p27LTCiq8tUkJ39qupump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795687590
+         },
+         "priceUSD": "8.75665880524e-5",
+         "circulatingMarketCap": "83863",
+         "change24": "1.400317452167186",
+         "volume24": "789130",
+         "liquidity": "15416"
+        },
+        {
+         "pair": {
+          "address": "HJ4AFisW1oo8HVmyXL2QjjnAv4Y25NThse2LcpCreqtu",
+          "token0": "7XSYaJygcuNe6Q3kPvwsJpg4ZrFL1AEUFb8kCuzppump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795757489
+         },
+         "priceUSD": "1.21664520144e-4",
+         "circulatingMarketCap": "118343",
+         "change24": "2.729495309869353",
+         "volume24": "764101",
+         "liquidity": "13772"
+        },
+        {
+         "pair": {
+          "address": "YAuaVEoVUE4y2KPFNQht11c5jgwoyYiDqaZeagVgyG4",
+          "token0": "CvXQ9qEriGgTbMWyF8L1U7oqn9ev8A49N1dzNE8cpump",
+          "token1": "Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+          "networkId": 1399811149,
+          "createdAt": 1795731934
+         },
+         "priceUSD": "1.19618264498e-4",
+         "circulatingMarketCap": "116338",
+         "change24": "1.6196066044147719",
+         "volume24": "734920",
+         "liquidity": "16218"
+        },
+        {
+         "pair": {
+          "address": "8FnViTH4XHbk7bi3L2Z1v4VsK9GFww3kXnzF2XUhDYtn",
+          "token0": "ejz2TB4Boghn85j9irFSBwakjud4tg9J8KXsmgZpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795759919
+         },
+         "priceUSD": "0.339148866588",
+         "circulatingMarketCap": "339147569",
+         "change24": "11037.42884159456",
+         "volume24": "657439",
+         "liquidity": "663389"
+        },
+        {
+         "pair": {
+          "address": "3HZez3ezzSDTZaT12pqMZwii8Ury9rknjQumsJQYwYt7",
+          "token0": "6B5X3keXJ4J8LLvswa2mbqMhrRDbt85Jo88sbB6apump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795669426
+         },
+         "priceUSD": "1.06586766736e-4",
+         "circulatingMarketCap": "102106",
+         "change24": "-0.5714685431294441",
+         "volume24": "638984",
+         "liquidity": "14098"
+        },
+        {
+         "pair": {
+          "address": "9sBikgSUu5U3q1JbFwdkWJ4Kb3q7kjEujoo4gd5vYumg",
+          "token0": "DTSkmo3sCCKLCh91dJLiWCpwcKtK3yDBZMqZGSV1pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795652002
+         },
+         "priceUSD": "1.5528091608e-4",
+         "circulatingMarketCap": "150738",
+         "change24": "-0.3595479656869771",
+         "volume24": "549933",
+         "liquidity": "17813"
+        },
+        {
+         "pair": {
+          "address": "CixcofsPwHnYWjsoDxXxvLd6uM5fH7w8MFPL9mpQpqtX",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "3Tg6YnNrfPdFfsY14MaNsDMWLseAyrUDS3myJtbaJN6f",
+          "networkId": 1399811149,
+          "createdAt": 1795581782
+         },
+         "priceUSD": "4.35188725043e-4",
+         "circulatingMarketCap": "420018",
+         "change24": "-0.5138698131008715",
+         "volume24": "477502",
+         "liquidity": "64668"
+        },
+        {
+         "pair": {
+          "address": "4tLwgEwxyXsCYWk1bhtDnGZrpibT851eEUo3t2nXBZ6u",
+          "token0": "HUd6mLvt8NUy8JcUj2WmjyMzjJcyez6CSpcwjj2bpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795712125
+         },
+         "priceUSD": "0.114381258893",
+         "circulatingMarketCap": "114379867",
+         "change24": "3838.724919942813",
+         "volume24": "433570",
+         "liquidity": "384702"
+        },
+        {
+         "pair": {
+          "address": "BzEUNA8u3xK7bBsw7KBggzLhVQXVKTHwA7W98AC26aNd",
+          "token0": "WfvS86dfMBuZSJQQL2PTNQNoPbZD1BC9e7Uuv5rpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795765276
+         },
+         "priceUSD": "0.127991549188",
+         "circulatingMarketCap": "127990252",
+         "change24": "4169.348659530708",
+         "volume24": "400884",
+         "liquidity": "407212"
+        },
+        {
+         "pair": {
+          "address": "Gtg8nBPx5T4HiBZJfJB9FVzYp6WChJaw3BTU21kcV796",
+          "token0": "FTF6S5GJvnBMcKALHZFP5Lbg9DeEEqtdrVBBraUYpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795728126
+         },
+         "priceUSD": "0.116841613909",
+         "circulatingMarketCap": "116840187",
+         "change24": "3893.78688274529",
+         "volume24": "398125",
+         "liquidity": "388775"
+        },
+        {
+         "pair": {
+          "address": "6KQhFBBa5fk9AEZA9WWGkPr2UpUSRa9LwMEJnJUjTAHk",
+          "token0": "cxeNWpH1afsfBbX8j38TVCe7KjnckPBhV9fdTX2pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795763386
+         },
+         "priceUSD": "0.12350928907",
+         "circulatingMarketCap": "123507992",
+         "change24": "4031.6892015558556",
+         "volume24": "392949",
+         "liquidity": "399933"
+        },
+        {
+         "pair": {
+          "address": "8otGWCihCCrmNtL2jLq2WWZYvdPFcZXwgWXVxhDjRg46",
+          "token0": "HQs4Zd8w1jGR72o43iP58U43QtDdTTUE3Dq9Dv4dpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795725717
+         },
+         "priceUSD": "0.104074077355",
+         "circulatingMarketCap": "104072749",
+         "change24": "3469.434393983936",
+         "volume24": "384738",
+         "liquidity": "366916"
+        },
+        {
+         "pair": {
+          "address": "Gkn3NWwF8prNKeS7rqknQsmoZhDfCADKvxGN2a63jrWC",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "AGazYig7A8Co6ZapAPterBRLitdiP6AAaWiPH8jWLend",
+          "networkId": 1399811149,
+          "createdAt": 1795627629
+         },
+         "priceUSD": "6.56123640508e-4",
+         "circulatingMarketCap": "656109",
+         "change24": "0.014626650788663481",
+         "volume24": "380324",
+         "liquidity": "32665"
+        },
+        {
+         "pair": {
+          "address": "Gmn7AiDQFLkZ8PTQhuH7C9ZYqgzbj6BvYnWCTHdocHZ4",
+          "token0": "4jA5ns72KMGDguig4PshLSLdQCzpzCqvJm7LHNxHpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795725892
+         },
+         "priceUSD": "0.111246042715",
+         "circulatingMarketCap": "111244684",
+         "change24": "3708.5033153457207",
+         "volume24": "365177",
+         "liquidity": "379319"
+        },
+        {
+         "pair": {
+          "address": "FDU3uATJTZQY2LiowiZt58cUmxjHXRyLzU4RcLdHK9wb",
+          "token0": "91Nahzz8NX1p9dc466RF5me5Q1LGDfY4KjBbyrnmpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795669690
+         },
+         "priceUSD": "0.138173572049",
+         "circulatingMarketCap": "138171885",
+         "change24": "0.3502112365987019",
+         "volume24": "308797",
+         "liquidity": "423070"
+        },
+        {
+         "pair": {
+          "address": "2t4x4gAFLaE5QumWRJp94nNrgmcTSSEEectEYwri9BHR",
+          "token0": "2VeUSgG7uyFdEvvPVn8vhBWDagegU3mZ6pL51r9Bvv2r",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795736508
+         },
+         "priceUSD": "1.68948343018e-4",
+         "circulatingMarketCap": "168274",
+         "change24": "1.3215045322273271",
+         "volume24": "300171",
+         "liquidity": "15009"
+        },
+        {
+         "pair": {
+          "address": "3Y48ozL3LW3Hvc3BGyaS7jjuiEfUf3i4ViMGw9jjWK93",
+          "token0": "52a6B3qpwGN9daQBTu8kvbXQVgThuiGMJE1mmCEgpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795684766
+         },
+         "priceUSD": "8.28090026903e-5",
+         "circulatingMarketCap": "79245",
+         "change24": "2.5737639079503336",
+         "volume24": "291139",
+         "liquidity": "10608"
+        },
+        {
+         "pair": {
+          "address": "8ymFvPheU5TEyd7bqsDFJQKGVMrZUv4WnHPeTTNTBaSn",
+          "token0": "ANvsL4A6tJKAXJsPg7XVSHQA7KYmFcpW42jPuhVtpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795527164
+         },
+         "priceUSD": "7.14701229809e-5",
+         "circulatingMarketCap": "69525",
+         "change24": "-0.6827302690377312",
+         "volume24": "270057",
+         "liquidity": "11920"
+        }
+       ]
+      },
+      "solana_fresh": {
+       "results": [
+        {
+         "pair": {
+          "address": "BENM8jmzaARpnG6ThFJsHDUK9tNjjH3RpYsp21GspXvi",
+          "token0": "cqKmcqN9jHmdk4D6jyKp5rALt85Urazd3vWG7jWpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795762097
+         },
+         "priceUSD": "3.57876457233",
+         "circulatingMarketCap": "3578763280",
+         "change24": "116795.87481826416",
+         "volume24": "2150210",
+         "liquidity": "2151442"
+        },
+        {
+         "pair": {
+          "address": "BdPNwwytFanyjyuD67cp7oLP77z1ap9oeHx7CTgVaAon",
+          "token0": "1yQeZvoQDFPrAJoU49C6TqkqSMCXcqg8W8E2j2gpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795760650
+         },
+         "priceUSD": "2.03447001256",
+         "circulatingMarketCap": "2034468720",
+         "change24": "66228.62350062489",
+         "volume24": "1623906",
+         "liquidity": "1622247"
+        },
+        {
+         "pair": {
+          "address": "TSEFZAFJPRMRoRtJqVsCAgzuQo6MSA6MrehaX5AhW9o",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "6Ccq7hKZTWZZxY1wahZLSeMpYyVbTQd5yjTtew7w7w5Y",
+          "networkId": 1399811149,
+          "createdAt": 1795772315
+         },
+         "priceUSD": "6.34742670383e-4",
+         "circulatingMarketCap": "634743",
+         "change24": "7.436193465376258",
+         "volume24": "957064",
+         "liquidity": "25555"
+        },
+        {
+         "pair": {
+          "address": "HJ4AFisW1oo8HVmyXL2QjjnAv4Y25NThse2LcpCreqtu",
+          "token0": "7XSYaJygcuNe6Q3kPvwsJpg4ZrFL1AEUFb8kCuzppump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795757489
+         },
+         "priceUSD": "1.21664520144e-4",
+         "circulatingMarketCap": "118343",
+         "change24": "2.729495309869353",
+         "volume24": "764101",
+         "liquidity": "13772"
+        },
+        {
+         "pair": {
+          "address": "8FnViTH4XHbk7bi3L2Z1v4VsK9GFww3kXnzF2XUhDYtn",
+          "token0": "ejz2TB4Boghn85j9irFSBwakjud4tg9J8KXsmgZpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795759919
+         },
+         "priceUSD": "0.339148866588",
+         "circulatingMarketCap": "339147569",
+         "change24": "11037.42884159456",
+         "volume24": "657439",
+         "liquidity": "663389"
+        },
+        {
+         "pair": {
+          "address": "BzEUNA8u3xK7bBsw7KBggzLhVQXVKTHwA7W98AC26aNd",
+          "token0": "WfvS86dfMBuZSJQQL2PTNQNoPbZD1BC9e7Uuv5rpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795765276
+         },
+         "priceUSD": "0.127991549188",
+         "circulatingMarketCap": "127990252",
+         "change24": "4169.348659530708",
+         "volume24": "400884",
+         "liquidity": "407212"
+        },
+        {
+         "pair": {
+          "address": "6KQhFBBa5fk9AEZA9WWGkPr2UpUSRa9LwMEJnJUjTAHk",
+          "token0": "cxeNWpH1afsfBbX8j38TVCe7KjnckPBhV9fdTX2pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795763386
+         },
+         "priceUSD": "0.12350928907",
+         "circulatingMarketCap": "123507992",
+         "change24": "4031.6892015558556",
+         "volume24": "392949",
+         "liquidity": "399933"
+        },
+        {
+         "pair": {
+          "address": "5DQaDR2gXrU3sPo8dN9KVjKnUMxVszXF6Jf8ixhjSKdm",
+          "token0": "EJEeWpvfviFyz1GQqSFHjXmvvXvUTkbjsRBWh1DLpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795774378
+         },
+         "priceUSD": "6.64372432735e-5",
+         "circulatingMarketCap": "64316",
+         "change24": "1.164376849051875",
+         "volume24": "164211",
+         "liquidity": "10031"
+        },
+        {
+         "pair": {
+          "address": "DBBJrfzYtkH872nTkwqGGcFzigAR8oVFZrwKuAK9scEZ",
+          "token0": "eMSpHgPMZruRVEHNtgANgTTpmUefUvNmNeJ1toJpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795764284
+         },
+         "priceUSD": "0.0142714679521",
+         "circulatingMarketCap": "14270168",
+         "change24": "464.03002166472436",
+         "volume24": "129426",
+         "liquidity": "135927"
+        },
+        {
+         "pair": {
+          "address": "CvVZhBzJZ4pubGcCi1xHwbot3Q4jdK3w2YywvwnLNiA9",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "DCFiFuRwjwdSKcYKmuz47gcSNsjjtZ6Rh8KkLaVCpump",
+          "networkId": 1399811149,
+          "createdAt": 1795765366
+         },
+         "priceUSD": "8.95478809968e-5",
+         "circulatingMarketCap": "86208",
+         "change24": "1.7312196370474384",
+         "volume24": "118116",
+         "liquidity": "22457"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "seq": 1,
+    "tool_id": "mpp.codex.post.graphql",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 39723,
+     "stored_chars": 39723,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "mpp.codex.post.graphql",
+     "amount": "0.001",
+     "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0x4fb28fd8ac129705ab41e9b8c483090dfe24dae39b454f633f1a0426615f3a39",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool failed to apply the requested filters for \"evm_recent\" (volume24 and createdAt) and \"evm_fresh\" (createdAt), returning data that does not meet the specified criteria.; class adjudicated seller_error\u2192negative_result: The request was successfully processed and returned valid data, but the filters (especially the future-dated `createdAt` filter for `evm_fresh`) were highly restrictive, resulting in very few matching"
+    },
+    "body": {
+     "data": {
+      "evm_active": {
+       "results": [
+        {
+         "pair": {
+          "address": "0x9485ff32b6b4444c21d5abe4d9a2283d127075a2",
+          "token0": "0x4fa7c69a7b69f8bc48233024d546bc299d6b03bf",
+          "token1": "0x55d398326f99059ff775485246999027b3197955",
+          "networkId": 56,
+          "createdAt": 1749542880
+         },
+         "priceUSD": "1.79780444463e-3",
+         "circulatingMarketCap": "1797804",
+         "change24": "0.00004920535870040856",
+         "volume24": "101872954",
+         "liquidity": "2503661"
+        },
+        {
+         "pair": {
+          "address": "0x7aedde5c8fe7d178d726f4bdc44e2eaafb7c1006",
+          "token0": "0x7d1a562e81c7d8b7889bcc6ec694432ca1b02b07",
+          "token1": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+          "networkId": 8453,
+          "createdAt": 1795757255
+         },
+         "priceUSD": "1.02033849123e-4",
+         "circulatingMarketCap": "10203385",
+         "change24": "1.0409423049596447",
+         "volume24": "25352197",
+         "liquidity": "190023"
+        },
+        {
+         "pair": {
+          "address": "0xe618c4bad17622b66c5d2d947f5a1efbb84a94a7156b4aa610be9aa3a1f61b40",
+          "token0": "0x2912e3e39e3e26deb64316309a13a09a6f966252",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1795751397
+         },
+         "priceUSD": "5.93724419197e-5",
+         "circulatingMarketCap": "5937244",
+         "change24": "0.18743322247869013",
+         "volume24": "21264142",
+         "liquidity": "170122"
+        },
+        {
+         "pair": {
+          "address": "0x88011d9107c6a8118afb0a1e7ff4f376f988b846",
+          "token0": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+          "token1": "0xdde27483de8c958e4d2657d64eb7551717457777",
+          "networkId": 56,
+          "createdAt": 1795670834
+         },
+         "priceUSD": "1.37765217124e-3",
+         "circulatingMarketCap": "1377652",
+         "change24": "4.2836754060783395",
+         "volume24": "4215313",
+         "liquidity": "105633"
+        },
+        {
+         "pair": {
+          "address": "0xe1cea6a5b9de8061464caf6f007ac70acafdd857",
+          "token0": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "token1": "0xebe0f167b6bbac37f68ab7b9930b30799f487777",
+          "networkId": 56,
+          "createdAt": 1795755357
+         },
+         "priceUSD": "2.92834668007e-4",
+         "circulatingMarketCap": "292835",
+         "change24": "9.003859678461701",
+         "volume24": "1548101",
+         "liquidity": "42509"
+        },
+        {
+         "pair": {
+          "address": "0x5253904a572d5139c30c5708aec9a7f6fe7d86ca",
+          "token0": "0x57198c6afa17988743f82104e9ed96c81f417777",
+          "token1": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "networkId": 56,
+          "createdAt": 1795679836
+         },
+         "priceUSD": "3.04937770324e-4",
+         "circulatingMarketCap": "304938",
+         "change24": "8.88725726912545",
+         "volume24": "1416165",
+         "liquidity": "28947"
+        },
+        {
+         "pair": {
+          "address": "0xcbba822ea5785563c97029c3c55df2eb1f650fb1",
+          "token0": "0x1197d3323a09007be4a01f193b5bdb569f027777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1795768508
+         },
+         "priceUSD": "4.77499071642e-5",
+         "circulatingMarketCap": "47750",
+         "change24": "0.5686025541380778",
+         "volume24": "959799",
+         "liquidity": "14258"
+        },
+        {
+         "pair": {
+          "address": "0x4be9657ec9002e528f4f17a5c43edc525a07f888f7b180c2afbf75e096c4f38a",
+          "token0": "0x39dbed3a2bd333467115de45665cc57f813c4571",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1784338933
+         },
+         "priceUSD": "0.106687640902",
+         "circulatingMarketCap": "72773553",
+         "change24": "0.2208713798378251",
+         "volume24": "700222",
+         "liquidity": "3628279"
+        },
+        {
+         "pair": {
+          "address": "0x9b1788a972dfdcad0a65a165549eb71d223247b1f20298b4040667494711d688",
+          "token0": "0x0ddcab9ae04bda0c87ecc1640636fa11e8e613e8",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1795609304
+         },
+         "priceUSD": "2.03484747605e-3",
+         "circulatingMarketCap": "2034847",
+         "change24": "-0.25943409517532634",
+         "volume24": "626563",
+         "liquidity": "119410"
+        },
+        {
+         "pair": {
+          "address": "0xc84118b31a79cb4120b5a72bb763a89567109210",
+          "token0": "0xba2ae424d960c26247dd6c32edc70b295c744c43",
+          "token1": "0xedb003b498a464900cda3c19432c1d200ed77777",
+          "networkId": 56,
+          "createdAt": 1794258427
+         },
+         "priceUSD": "8.48491775544e-5",
+         "circulatingMarketCap": "84849",
+         "change24": "1.5276603592722016",
+         "volume24": "491548",
+         "liquidity": "12565"
+        },
+        {
+         "pair": {
+          "address": "0x2000049628c28ed6cbddd840bf73ba00be588421",
+          "token0": "0x38dd26788cf2d901e3abf04efe3007d459d0fc53",
+          "token1": "0xa4ca4968126c7fa6227c682d27bff8d8bca87777",
+          "networkId": 56,
+          "createdAt": 1794973504
+         },
+         "priceUSD": "6.10065607819e-4",
+         "circulatingMarketCap": "610066",
+         "change24": "3.500664213049257",
+         "volume24": "485567",
+         "liquidity": "47916"
+        },
+        {
+         "pair": {
+          "address": "0x90a54475d512b8f3852351611c38fad30a513491",
+          "token0": "0x5c85d6c6825ab4032337f11ee92a72df936b46f6",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1741858573
+         },
+         "priceUSD": "0.0233755747804",
+         "circulatingMarketCap": "23375575",
+         "change24": "0.0121082863593883",
+         "volume24": "453670",
+         "liquidity": "938634"
+        },
+        {
+         "pair": {
+          "address": "0x8d6aa5eb54e6fd52b7cbf1ceaffbcaa636d0cfc6",
+          "token0": "0x38dd26788cf2d901e3abf04efe3007d459d0fc53",
+          "token1": "0xb4f9d1b2cad3646d15797de462e5d773194d7777",
+          "networkId": 56,
+          "createdAt": 1795112102
+         },
+         "priceUSD": "2.71846975024e-4",
+         "circulatingMarketCap": "271847",
+         "change24": "-0.4492409622692694",
+         "volume24": "399147",
+         "liquidity": "30077"
+        },
+        {
+         "pair": {
+          "address": "0xa85f02f8e836e92912c8e0588f60b8868eedc154e558c10a1966269e5122b77c",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x51250b135174ca09450ec01c4aff73cf69dbb590",
+          "networkId": 4663,
+          "createdAt": 1787100257
+         },
+         "priceUSD": "0.388093723379",
+         "circulatingMarketCap": "337253072",
+         "change24": "0.013930718429836808",
+         "volume24": "370931",
+         "liquidity": "762795"
+        },
+        {
+         "pair": {
+          "address": "0xbd697c4fe4821a54e5d004a5183fbda1f1ded18d",
+          "token0": "0x2133b903cd4cb46aeece2ab4457e25cff1a87777",
+          "token1": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "networkId": 56,
+          "createdAt": 1795575040
+         },
+         "priceUSD": "6.16407965386e-5",
+         "circulatingMarketCap": "61641",
+         "change24": "-0.7757193359706815",
+         "volume24": "362409",
+         "liquidity": "13905"
+        },
+        {
+         "pair": {
+          "address": "0xc7a398a7f9c4d8181fd847a2062360f9247a5e59",
+          "token0": "0x848e2b1cb00dc439a15b03b8c3194e7d08917777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1782131015
+         },
+         "priceUSD": "0.0228188743145",
+         "circulatingMarketCap": "18667025",
+         "change24": "0.12384065781071035",
+         "volume24": "343684",
+         "liquidity": "494823"
+        },
+        {
+         "pair": {
+          "address": "0x39ec3f57602804004b7b752b78b2c8f21b18d697",
+          "token0": "0x55d398326f99059ff775485246999027b3197955",
+          "token1": "0xe95f9dad6f63fd9f5de50394f409e3dc46db7777",
+          "networkId": 56,
+          "createdAt": 1792912613
+         },
+         "priceUSD": "2.56578009897e-3",
+         "circulatingMarketCap": "2565773",
+         "change24": "-0.4114353797675172",
+         "volume24": "326686",
+         "liquidity": "89431"
+        },
+        {
+         "pair": {
+          "address": "0x203d66ecb7263efe424fcba0898761fc9fc9a8c0",
+          "token0": "0x6bdcce4a559076e37755a78ce0c06214e59e4444",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1743635455
+         },
+         "priceUSD": "0.0984122569397",
+         "circulatingMarketCap": "98412257",
+         "change24": "-0.016007125636206588",
+         "volume24": "320715",
+         "liquidity": "1560544"
+        },
+        {
+         "pair": {
+          "address": "0x29dcd29f4ec9f08485f87e7777bc463f2b1e1ebf",
+          "token0": "0x02fca66c1d1afb4e2a7884261eb00f63598a7436",
+          "token1": "0xb82535e74b03ffe4910efea1c759b6bbbf0a7777",
+          "networkId": 56,
+          "createdAt": 1785334419
+         },
+         "priceUSD": "1.08565594543e-3",
+         "circulatingMarketCap": "1085656",
+         "change24": "-0.22637390339487307",
+         "volume24": "306882",
+         "liquidity": "116203"
+        },
+        {
+         "pair": {
+          "address": "0x753e829f20eb36553ce126e0c2d3841f01eb801a8599dbcf9d46a01666b65cca",
+          "token0": "0x76a58b43f79c47b416567b847475f11a0d7ca601",
+          "token1": "0xacfe6019ed1a7dc6f7b508c02d1b04ec88cc21bf",
+          "networkId": 8453,
+          "createdAt": 1795654814
+         },
+         "priceUSD": "8.63514997926e-5",
+         "circulatingMarketCap": "86351",
+         "change24": "-0.1617559348105989",
+         "volume24": "275687",
+         "liquidity": "14285"
+        },
+        {
+         "pair": {
+          "address": "0xea9f200e13055b82f175f44f592c4c13dd8c9d9320a66487d3c5cd90d68550ef",
+          "token0": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "token1": "0xaa07a0e9209e16ac99708c3ec70159c6ef3128a3",
+          "networkId": 4663,
+          "createdAt": 1789888014
+         },
+         "priceUSD": "0.0197283668981",
+         "circulatingMarketCap": "18741949",
+         "change24": "0.09918286470167426",
+         "volume24": "273752",
+         "liquidity": "1472634"
+        },
+        {
+         "pair": {
+          "address": "0x66f289de31eef70d52186729d2637ac978cfc56b",
+          "token0": "0x924fa68a0fc644485b8df8abfa0a41c2e7744444",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1759590092
+         },
+         "priceUSD": "0.456355459336",
+         "circulatingMarketCap": "456355459",
+         "change24": "0.01642799938213375",
+         "volume24": "206745",
+         "liquidity": "3503718"
+        },
+        {
+         "pair": {
+          "address": "0x3568b85ca64dce06dc08d1d65042aa737276eb41",
+          "token0": "0x4902c5ebc598265ed2212b559b042de8a5eeec3f",
+          "token1": "0xf4d5765e448774ed9482870420da7c3c4c787777",
+          "networkId": 56,
+          "createdAt": 1792070460
+         },
+         "priceUSD": "1.5856039598e-3",
+         "circulatingMarketCap": "1510254",
+         "change24": "0.34069499536235043",
+         "volume24": "201233",
+         "liquidity": "54223"
+        },
+        {
+         "pair": {
+          "address": "0xc33bacff9141da689875e6381c1932348ab4c5cb",
+          "token0": "0x82ec31d69b3c289e541b50e30681fd1acad24444",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1759878542
+         },
+         "priceUSD": "0.0120312604112",
+         "circulatingMarketCap": "12031260",
+         "change24": "0.019314002299900088",
+         "volume24": "195363",
+         "liquidity": "607265"
+        },
+        {
+         "pair": {
+          "address": "0x08a577c64162ff70293b60b7058d991ab5eeeaa8677a3cc8379bff71805e8a4f",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x47b537f7c2c2183967fe5ba883291b8ada490db6",
+          "networkId": 4663,
+          "createdAt": 1791290883
+         },
+         "priceUSD": "2.51828531732e-4",
+         "circulatingMarketCap": "236497",
+         "change24": "3.788428681063424",
+         "volume24": "194487",
+         "liquidity": "21281"
+        },
+        {
+         "pair": {
+          "address": "0x243de50ddbf4762dd13e106790a3cedc3886093e",
+          "token0": "0x38dd26788cf2d901e3abf04efe3007d459d0fc53",
+          "token1": "0x523611ed006ef9b16f3315e36ea427fceb36ffff",
+          "networkId": 56,
+          "createdAt": 1795163231
+         },
+         "priceUSD": "9.8229787389e-5",
+         "circulatingMarketCap": "97457",
+         "change24": "-0.3952989447807072",
+         "volume24": "193104",
+         "liquidity": "17505"
+        },
+        {
+         "pair": {
+          "address": "0xd9ca33d1da25d950d702eb94cf1e7c48ad14a2a2",
+          "token0": "0x205812cdbed920aff76c6580abd681a46d11efc7",
+          "token1": "0xa184d5ad47c9e756117c6590371bee0d0d477777",
+          "networkId": 56,
+          "createdAt": 1786978627
+         },
+         "priceUSD": "1.20723144802e-3",
+         "circulatingMarketCap": "1207231",
+         "change24": "-0.12695852808156063",
+         "volume24": "190900",
+         "liquidity": "59886"
+        },
+        {
+         "pair": {
+          "address": "0x14ca9d552ed2cf0d5dfd1f89bc6793a464e2ed16",
+          "token0": "0x55d398326f99059ff775485246999027b3197955",
+          "token1": "0xfe189e97832da1573e4e4ff034f4ffc3a15c7777",
+          "networkId": 56,
+          "createdAt": 1785397624
+         },
+         "priceUSD": "0.0312262164496",
+         "circulatingMarketCap": "31226216",
+         "change24": "0.07989293808733883",
+         "volume24": "180500",
+         "liquidity": "485932"
+        },
+        {
+         "pair": {
+          "address": "0x5ce11f38a72b874968c6e0bc4e2cb04523487c33d77e066b0b32b1de73b41a3a",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x9f564bbcc8ffac3781dfa0025759e54bd5991698",
+          "networkId": 4663,
+          "createdAt": 1795627991
+         },
+         "priceUSD": "9.53266712802e-5",
+         "circulatingMarketCap": "95041",
+         "change24": "0.9398796813829683",
+         "volume24": "168749",
+         "liquidity": "11907"
+        },
+        {
+         "pair": {
+          "address": "0xfd55be774ea18067bd06a6aed49fb1cc4ad966e9",
+          "token0": "0x13920fe6467e9e3c852b8d365a036c995f0f7777",
+          "token1": "0x4902c5ebc598265ed2212b559b042de8a5eeec3f",
+          "networkId": 56,
+          "createdAt": 1790711844
+         },
+         "priceUSD": "1.47331397539e-3",
+         "circulatingMarketCap": "1473314",
+         "change24": "0.26856612020580983",
+         "volume24": "156772",
+         "liquidity": "98040"
+        },
+        {
+         "pair": {
+          "address": "0xaa667b4b7b59f6849208eeeb24dd93cbab1f0773",
+          "token0": "0x3e10342a181dc243810774b2a481cd75974e7777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1789312232
+         },
+         "priceUSD": "0.0129532301068",
+         "circulatingMarketCap": "4268686",
+         "change24": "0.1186301850760315",
+         "volume24": "135188",
+         "liquidity": "595646"
+        },
+        {
+         "pair": {
+          "address": "0x160d6fb71f89806c7369900cb194341f2d9d75a94531f58d9783aa0ffa29377a",
+          "token0": "0x6db722467b58bc1024a229f0294e6502498a1201",
+          "token1": "0xe92bd1c05e4e308792003c8205127a6fa662b4d4",
+          "networkId": 4663,
+          "createdAt": 1795625953
+         },
+         "priceUSD": "1.25724081823e-4",
+         "circulatingMarketCap": "125724",
+         "change24": "3.7708976592211116",
+         "volume24": "132080",
+         "liquidity": "11925"
+        },
+        {
+         "pair": {
+          "address": "0x8672a5d410c567c1b54703bfeddd7699ffdb1b3f",
+          "token0": "0x198dba421a7db566a90da5de7901abe3443b4444",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1783388167
+         },
+         "priceUSD": "1.36293617342e-4",
+         "circulatingMarketCap": "136294",
+         "change24": "0.42128346901021246",
+         "volume24": "131917",
+         "liquidity": "52051"
+        },
+        {
+         "pair": {
+          "address": "0x22af7297243c4eef12e2d5a4f888b92e56bf127c",
+          "token0": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "token1": "0xeccbb861c0dda7efd964010085488b69317e4444",
+          "networkId": 56,
+          "createdAt": 1772182240
+         },
+         "priceUSD": "0.0146351741797",
+         "circulatingMarketCap": "14635174",
+         "change24": "-0.03329745988193181",
+         "volume24": "128619",
+         "liquidity": "584506"
+        },
+        {
+         "pair": {
+          "address": "0x14b27aaf5d38a4d3abcba7ce4055106cdc74aee52b95e678adf5fdc9cf6fc2f0",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x3b6e95b2ed4976f54cdf551468d9c8f1e132e9a4",
+          "networkId": 4663,
+          "createdAt": 1795372583
+         },
+         "priceUSD": "1.53953130747e-4",
+         "circulatingMarketCap": "149808",
+         "change24": "-0.39825693040564214",
+         "volume24": "125709",
+         "liquidity": "17440"
+        },
+        {
+         "pair": {
+          "address": "0x85135325d0f1932833104a37bbb54b54ecfa7e8c",
+          "token0": "0x55d398326f99059ff775485246999027b3197955",
+          "token1": "0xca7ed6f5a561fed4cc7a57c60137f9d8b51a7777",
+          "networkId": 56,
+          "createdAt": 1793448017
+         },
+         "priceUSD": "6.04254603268e-3",
+         "circulatingMarketCap": "6023750",
+         "change24": "0.23411037589536773",
+         "volume24": "117774",
+         "liquidity": "560038"
+        },
+        {
+         "pair": {
+          "address": "0x5efe59eb422a9d215e6500352059d2d4e223779f",
+          "token0": "0x883aada3aff161b6aa8e033d58b66a1458ed7777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1793168683
+         },
+         "priceUSD": "0.0171042648506",
+         "circulatingMarketCap": "14971038",
+         "change24": "0.35271999168477736",
+         "volume24": "113774",
+         "liquidity": "476336"
+        },
+        {
+         "pair": {
+          "address": "0xb842d65131f21d86141431df2d406ec05dfda97a",
+          "token0": "0x5b1910eaad6450e50f816082aa078c41f10c292f",
+          "token1": "0xa17df9706f3be0ae1bd3c90003f279d124577777",
+          "networkId": 56,
+          "createdAt": 1791653190
+         },
+         "priceUSD": "8.01691121329e-3",
+         "circulatingMarketCap": "5666400",
+         "change24": "0.23210130591276407",
+         "volume24": "111872",
+         "liquidity": "169685"
+        },
+        {
+         "pair": {
+          "address": "0xae1031ab8ddec5930184cc747e5261debd756c4a",
+          "token0": "0x9665f094d862f4d5c221843e019b463d3c607777",
+          "token1": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+          "networkId": 56,
+          "createdAt": 1794193999
+         },
+         "priceUSD": "6.06461735411e-4",
+         "circulatingMarketCap": "606462",
+         "change24": "0.18223308568500213",
+         "volume24": "107624",
+         "liquidity": "54173"
+        },
+        {
+         "pair": {
+          "address": "0x6b3551581021add54492c680b72916d4bf42c59a",
+          "token0": "0x83f0653b69069db15dff55cf2598b08021487777",
+          "token1": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+          "networkId": 56,
+          "createdAt": 1794802194
+         },
+         "priceUSD": "1.28073249736e-4",
+         "circulatingMarketCap": "128073",
+         "change24": "0.24283159269680857",
+         "volume24": "106913",
+         "liquidity": "17105"
+        },
+        {
+         "pair": {
+          "address": "0x434d3b73640a81022adf8529b612cc221010f6bf",
+          "token0": "0x589f84b19933c1a8edac82a37ed329b327f97777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1791028251
+         },
+         "priceUSD": "1.09426293866e-3",
+         "circulatingMarketCap": "1094263",
+         "change24": "0.5440274730945426",
+         "volume24": "103777",
+         "liquidity": "50179"
+        },
+        {
+         "pair": {
+          "address": "0xaec1358ed0f1057b498209f75903c86885a2d046da76d53bfdf372bd11e6bf9d",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x524988ccc8d7a23566e2fffb24b1b07e5aa2f134",
+          "networkId": 4663,
+          "createdAt": 1794972523
+         },
+         "priceUSD": "9.57029460697e-5",
+         "circulatingMarketCap": "90893",
+         "change24": "-0.5482635436079404",
+         "volume24": "101340",
+         "liquidity": "11976"
+        },
+        {
+         "pair": {
+          "address": "0x1f0da4872bea85b2f95064d1c89671a5e578d114c375597d23962a0579771d16",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0xb33eb16782776b4d738c0fd643577cb0284db610",
+          "networkId": 4663,
+          "createdAt": 1788975726
+         },
+         "priceUSD": "9.7963109695e-4",
+         "circulatingMarketCap": "839149",
+         "change24": "0.31673458263211746",
+         "volume24": "99668",
+         "liquidity": "45649"
+        },
+        {
+         "pair": {
+          "address": "0x9be7ab27227e115085b0949a819a73f6963ddc6da0c6204d37757c24297706e8",
+          "token0": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "token1": "0xedbf91223639800bcd5756815caf908df3b890be",
+          "networkId": 4663,
+          "createdAt": 1790310976
+         },
+         "priceUSD": "2.69777520195e-3",
+         "circulatingMarketCap": "2477548",
+         "change24": "0.07405402876828115",
+         "volume24": "97684",
+         "liquidity": "214626"
+        },
+        {
+         "pair": {
+          "address": "0x9793a9cbb04f781433254e4530398107e6a8dcee",
+          "token0": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+          "token1": "0xf40592daacb3e5abf358789f5688c0b4f64d7777",
+          "networkId": 56,
+          "createdAt": 1787951621
+         },
+         "priceUSD": "1.4366555312e-3",
+         "circulatingMarketCap": "1436656",
+         "change24": "0.2125501783482436",
+         "volume24": "96155",
+         "liquidity": "77658"
+        },
+        {
+         "pair": {
+          "address": "0x7a907a283ef913eb25bee3afd110f687a3fb7eed",
+          "token0": "0x55d398326f99059ff775485246999027b3197955",
+          "token1": "0xcafdbce93477261db8250e42bdae6e66733f9e20",
+          "networkId": 56,
+          "createdAt": 1789652824
+         },
+         "priceUSD": "1.3013421518e-3",
+         "circulatingMarketCap": "1285899",
+         "change24": "-0.1171112904947652",
+         "volume24": "95811",
+         "liquidity": "405949"
+        },
+        {
+         "pair": {
+          "address": "0xd4ae7dd719ec71594f13d0e3b17e65e9085f1ca1",
+          "token0": "0x431a3bee82e2ca41e49895cbece5bb0f76a89b7a",
+          "token1": "0x87ae267002cd1ea0ec86bf3601d4a8ad76a47777",
+          "networkId": 56,
+          "createdAt": 1787398950
+         },
+         "priceUSD": "5.68595936646e-3",
+         "circulatingMarketCap": "5294526",
+         "change24": "-0.11071054915257153",
+         "volume24": "95112",
+         "liquidity": "268143"
+        },
+        {
+         "pair": {
+          "address": "0x8d754a9316bf6b3767f07f2c7743ca6891dd89ce",
+          "token0": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "token1": "0xd2843f90393085c550261685de1ce4ae632a7777",
+          "networkId": 56,
+          "createdAt": 1795520871
+         },
+         "priceUSD": "4.71749232205e-4",
+         "circulatingMarketCap": "466414",
+         "change24": "0.40185749559275913",
+         "volume24": "95104",
+         "liquidity": "29595"
+        },
+        {
+         "pair": {
+          "address": "0xed01c79a67eacf157bbe42dbc54821122f05a656",
+          "token0": "0x55d398326f99059ff775485246999027b3197955",
+          "token1": "0xd0b8d56465106c0b5c4b48dbe4dff0573c087777",
+          "networkId": 56,
+          "createdAt": 1794463191
+         },
+         "priceUSD": "0.0116011245229",
+         "circulatingMarketCap": "5710281",
+         "change24": "0.012454491124709095",
+         "volume24": "92301",
+         "liquidity": "169351"
+        },
+        {
+         "pair": {
+          "address": "0xae05c636adef2b0a53a42aacd5dd2f75a4b7242e",
+          "token0": "0x34257736852e866a7bf5b387b424fdec92737777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1793645320
+         },
+         "priceUSD": "0.0115292463579",
+         "circulatingMarketCap": "6820002",
+         "change24": "-0.07621057092453673",
+         "volume24": "89849",
+         "liquidity": "150474"
+        },
+        {
+         "pair": {
+          "address": "0xd55fa2c5e63ecac3a158ca3fed4c8c2185ed45b2",
+          "token0": "0x7a848a5a8169aa6a2f603d056a749f924f504444",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1783100367
+         },
+         "priceUSD": "1.15794077185e-3",
+         "circulatingMarketCap": "1157941",
+         "change24": "0.34152390977822605",
+         "volume24": "86854",
+         "liquidity": "199445"
+        },
+        {
+         "pair": {
+          "address": "0xf6525075ac4df767559224bcc9a9031e7198e4444d3e9b49ab0655c9e9605ea3",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0xb15cd4c4e42cdb25fc939815711ea7875f4aa844",
+          "networkId": 4663,
+          "createdAt": 1795489928
+         },
+         "priceUSD": "8.13808089033e-5",
+         "circulatingMarketCap": "78148",
+         "change24": "-0.4351391921532995",
+         "volume24": "86656",
+         "liquidity": "10648"
+        },
+        {
+         "pair": {
+          "address": "0x3e1b1641ce046c3d39e2715be5d5571c1cb7a0d3",
+          "token0": "0x3dc92d54ba292c6c70b8377dde63bdb6c3537777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1795256688
+         },
+         "priceUSD": "1.64143580432e-4",
+         "circulatingMarketCap": "161016",
+         "change24": "-0.6721479432366558",
+         "volume24": "84803",
+         "liquidity": "17420"
+        },
+        {
+         "pair": {
+          "address": "0xc5f91080bdc7556f8afaeba5b29c5660acf9abb72f2b902ccba070274f20d445",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x1e786d31934fc64f450ee47e3f61b41516312f4e",
+          "networkId": 4663,
+          "createdAt": 1795452729
+         },
+         "priceUSD": "1.27191681523e-4",
+         "circulatingMarketCap": "118067",
+         "change24": "0.7518427957675877",
+         "volume24": "79898",
+         "liquidity": "13719"
+        },
+        {
+         "pair": {
+          "address": "0x5319851a9fa5f5a5227ff0a98ea2bf726d7073433af9df6929e4a13189abfbbc",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x30768b5482e5dd8a2487ce0be61e01fa03af37ff",
+          "networkId": 4663,
+          "createdAt": 1794562618
+         },
+         "priceUSD": "2.36554397753e-4",
+         "circulatingMarketCap": "236539",
+         "change24": "0.3964718393422199",
+         "volume24": "74511",
+         "liquidity": "20573"
+        },
+        {
+         "pair": {
+          "address": "0xf0a949d3d93b833c183a27ee067165b6f2c9625e",
+          "token0": "0x0a43fc31a73013089df59194872ecae4cae14444",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1759291721
+         },
+         "priceUSD": "8.10194983471e-3",
+         "circulatingMarketCap": "8101950",
+         "change24": "0.030231582682748254",
+         "volume24": "74052",
+         "liquidity": "455903"
+        },
+        {
+         "pair": {
+          "address": "0x803acd3bebc7c22ef6bdf985ba2815363a2fbb63",
+          "token0": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+          "token1": "0xd3ba2b6998d7929d85092a43502961dfb86f7777",
+          "networkId": 56,
+          "createdAt": 1795300321
+         },
+         "priceUSD": "4.61444670263e-5",
+         "circulatingMarketCap": "46144",
+         "change24": "-0.2891245931081475",
+         "volume24": "70754",
+         "liquidity": "10266"
+        },
+        {
+         "pair": {
+          "address": "0xf3aea9a2507ca81b7731164264855137914b2fd8",
+          "token0": "0x55d398326f99059ff775485246999027b3197955",
+          "token1": "0xfa4f58fd46fae74490a9d4cd69ed3eaf1b7d7777",
+          "networkId": 56,
+          "createdAt": 1790744704
+         },
+         "priceUSD": "2.1374379706e-3",
+         "circulatingMarketCap": "2137438",
+         "change24": "0.14949937913682498",
+         "volume24": "70226",
+         "liquidity": "77511"
+        },
+        {
+         "pair": {
+          "address": "0x3775416c4a3da7bae54cbbb2549c5d15a31c85a7",
+          "token0": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "token1": "0xb85a9ad1c355384309cf6a390cf13a8896217777",
+          "networkId": 56,
+          "createdAt": 1795410768
+         },
+         "priceUSD": "7.87183527735e-5",
+         "circulatingMarketCap": "78718",
+         "change24": "-0.2360983288004055",
+         "volume24": "69614",
+         "liquidity": "12917"
+        },
+        {
+         "pair": {
+          "address": "0x4c5783ca2c1d6798148120649a0ad7759b778da7",
+          "token0": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "token1": "0xf72265021d5acfea7dfbdef87b9bce2f67d87777",
+          "networkId": 56,
+          "createdAt": 1789711405
+         },
+         "priceUSD": "1.38990284069e-3",
+         "circulatingMarketCap": "1310668",
+         "change24": "-0.16656809036995227",
+         "volume24": "69510",
+         "liquidity": "54330"
+        },
+        {
+         "pair": {
+          "address": "0x35a5dda7164981b4ed5b7d1e4a5e73c401eff3a265a230c8ca07a08745021b4d",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x14c0a77e792f6c9818888630e95c50cf3b48c979",
+          "networkId": 4663,
+          "createdAt": 1794723453
+         },
+         "priceUSD": "9.95592525717e-5",
+         "circulatingMarketCap": "98861",
+         "change24": "0.12646858842654995",
+         "volume24": "68620",
+         "liquidity": "12142"
+        },
+        {
+         "pair": {
+          "address": "0x9ef21232887d692476b33847304b145908947e18",
+          "token0": "0x4af86d5862cf3d2eab658fa03b32d7fda15d7777",
+          "token1": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "networkId": 56,
+          "createdAt": 1795335323
+         },
+         "priceUSD": "6.74298947598e-5",
+         "circulatingMarketCap": "67430",
+         "change24": "-0.28905140311025784",
+         "volume24": "66175",
+         "liquidity": "12874"
+        },
+        {
+         "pair": {
+          "address": "0xd3c254199a1f4c8d8e814b2816a19ab9ce632293",
+          "token0": "0x834bb879ad994a8c1575c95e46c88da034cf7777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1793966392
+         },
+         "priceUSD": "5.15653876815e-3",
+         "circulatingMarketCap": "5103686",
+         "change24": "0.03810081375690931",
+         "volume24": "65605",
+         "liquidity": "127013"
+        },
+        {
+         "pair": {
+          "address": "0xdb324dde34ef01debe23f8f8ab4bb6053154b5dea8646dec9d8ea65e414fad59",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x6511c233790ec10f7d673c64dc82c3f941d57828",
+          "networkId": 4663,
+          "createdAt": 1793595566
+         },
+         "priceUSD": "6.75908809464e-4",
+         "circulatingMarketCap": "592394",
+         "change24": "-0.09143765659099914",
+         "volume24": "64956",
+         "liquidity": "45060"
+        },
+        {
+         "pair": {
+          "address": "0x138c28c95c6b7a702127a731ff7620806a5cc0c8",
+          "token0": "0x26e32dab9f844d7256db4195b3a43750272a51e9",
+          "token1": "0xb86183fa2a6f2fe5274bf41f71023d3797e87777",
+          "networkId": 56,
+          "createdAt": 1795495246
+         },
+         "priceUSD": "5.49294017541e-5",
+         "circulatingMarketCap": "54929",
+         "change24": "1.7952584816118486",
+         "volume24": "62113",
+         "liquidity": "11417"
+        },
+        {
+         "pair": {
+          "address": "0xd64fbda67e1015df43fa5e49f02ca844729e5f94",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0xe8ffd7e24187f72afb08d75b1bb13088a989a791",
+          "networkId": 4663,
+          "createdAt": 1785538771
+         },
+         "priceUSD": "2.46026640324e-3",
+         "circulatingMarketCap": "2214240",
+         "change24": "0.08346373847065196",
+         "volume24": "59347",
+         "liquidity": "250327"
+        },
+        {
+         "pair": {
+          "address": "0x9955ea00dd43747c9b5a49838a300291ad96a837",
+          "token0": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+          "token1": "0xf225e70162837a811c77dc2bb413a5c06e97ffff",
+          "networkId": 56,
+          "createdAt": 1786352724
+         },
+         "priceUSD": "5.38136956892e-5",
+         "circulatingMarketCap": "53814",
+         "change24": "0.02772782487790945",
+         "volume24": "58991",
+         "liquidity": "15703"
+        },
+        {
+         "pair": {
+          "address": "0x6a3bacaa6493734c1ac221ebf42cf530a96c1e02",
+          "token0": "0x3600000000000000000000000000000000000000",
+          "token1": "0xece5ca8bf9220718e5727754026757512212cb3c",
+          "networkId": 5042,
+          "createdAt": 1788373928
+         },
+         "priceUSD": "3.19164018467e-3",
+         "circulatingMarketCap": "2923679",
+         "change24": "0.6528858390956221",
+         "volume24": "58596",
+         "liquidity": "127809"
+        },
+        {
+         "pair": {
+          "address": "0x90e19422d9cbc510bac30f87bd943f57c02e36a8",
+          "token0": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "token1": "0xd6423f99863e13b0a3fa00b5e1e5597792f74f8c",
+          "networkId": 56,
+          "createdAt": 1770021800
+         },
+         "priceUSD": "1.24359101515e-3",
+         "circulatingMarketCap": "634541",
+         "change24": "0.26946993450978834",
+         "volume24": "57219",
+         "liquidity": "66104"
+        },
+        {
+         "pair": {
+          "address": "0x338fce553e60c8b0acccde1956bc378586ef6f2935339ebae5804d429d461e44",
+          "token0": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "token1": "0x94641b97010608c3827fb058074889f19868ff33",
+          "networkId": 4663,
+          "createdAt": 1790724563
+         },
+         "priceUSD": "2.07412585573e-3",
+         "circulatingMarketCap": "1904809",
+         "change24": "0.0014307358263467263",
+         "volume24": "57095",
+         "liquidity": "324517"
+        },
+        {
+         "pair": {
+          "address": "0x595d70977dff3c841df0bc0138ce89f80c7c9423",
+          "token0": "0x205812cdbed920aff76c6580abd681a46d11efc7",
+          "token1": "0xbeea1d618e533a387d941f58a7d4c9b7bd377777",
+          "networkId": 56,
+          "createdAt": 1786694831
+         },
+         "priceUSD": "0.0476500131573",
+         "circulatingMarketCap": "47650013",
+         "change24": "0.07828924342188284",
+         "volume24": "56642",
+         "liquidity": "586067"
+        },
+        {
+         "pair": {
+          "address": "0x5166508edf57c5218b0755acefd0fe25f253c084",
+          "token0": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "token1": "0xd28e716fa02543962b3129f9e4d919c65f434444",
+          "networkId": 56,
+          "createdAt": 1761185151
+         },
+         "priceUSD": "0.0125266045729",
+         "circulatingMarketCap": "12526605",
+         "change24": "0.03201483523039801",
+         "volume24": "55111",
+         "liquidity": "724811"
+        },
+        {
+         "pair": {
+          "address": "0x8b716aedde0855a98ffe7894aa69bae1e33897bd",
+          "token0": "0x10dae197ffa2c8783455ac5ebcac103857f07777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1788341698
+         },
+         "priceUSD": "0.0175936529317",
+         "circulatingMarketCap": "2066437",
+         "change24": "0.21061151645118092",
+         "volume24": "53505",
+         "liquidity": "180603"
+        },
+        {
+         "pair": {
+          "address": "0x13b86fcf85c9c8f5c36593822d216b8893c25450",
+          "token0": "0x4902c5ebc598265ed2212b559b042de8a5eeec3f",
+          "token1": "0xdd806e436dda5588bf54061c11590c77ddc87777",
+          "networkId": 56,
+          "createdAt": 1791658566
+         },
+         "priceUSD": "3.02482276677e-4",
+         "circulatingMarketCap": "302482",
+         "change24": "-0.12408675823215137",
+         "volume24": "52479",
+         "liquidity": "37030"
+        },
+        {
+         "pair": {
+          "address": "0x42acaf8e330b5f686e1e8ec9884bc997e926199f",
+          "token0": "0x55d398326f99059ff775485246999027b3197955",
+          "token1": "0x82741f086b0d87b1430400ea259d703c5dc37777",
+          "networkId": 56,
+          "createdAt": 1791709063
+         },
+         "priceUSD": "4.39989637549e-3",
+         "circulatingMarketCap": "827413",
+         "change24": "-0.3471183391287123",
+         "volume24": "51996",
+         "liquidity": "132421"
+        },
+        {
+         "pair": {
+          "address": "0x322485f8acb839af8513b0644fab6da5a0020f45",
+          "token0": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "token1": "0xd8348b96c8f23e1e24c0f40f495823c98f8e7777",
+          "networkId": 56,
+          "createdAt": 1780728638
+         },
+         "priceUSD": "3.71534406008e-3",
+         "circulatingMarketCap": "3244964",
+         "change24": "-0.04840632102500932",
+         "volume24": "51650",
+         "liquidity": "98462"
+        },
+        {
+         "pair": {
+          "address": "0xa1980bb0413ffbccfc0ac74c512f2cef5c1c570a",
+          "token0": "0x72eff1574f9042adaea5a9832a182735fcd97777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1795085566
+         },
+         "priceUSD": "3.91146139958e-3",
+         "circulatingMarketCap": "1932434",
+         "change24": "-0.07132110544671409",
+         "volume24": "51133",
+         "liquidity": "85474"
+        },
+        {
+         "pair": {
+          "address": "0x0338cb9ceef1823fd8423968d79bbc2b353b3ae1",
+          "token0": "0x7d2186e7e6b32205a838a1ea67bea68729fd7777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1795128003
+         },
+         "priceUSD": "2.39675074437e-3",
+         "circulatingMarketCap": "2366811",
+         "change24": "-0.23311571550582427",
+         "volume24": "51094",
+         "liquidity": "67480"
+        },
+        {
+         "pair": {
+          "address": "0x2b0d0183d017c58b924401ca8ac362f6e01f0e9e",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x7fe995a80075df3dc8ae11a9b82c7fe4202cd87f",
+          "networkId": 4663,
+          "createdAt": 1784447643
+         },
+         "priceUSD": "6.17734042817e-3",
+         "circulatingMarketCap": "6177340",
+         "change24": "0.02354572353284983",
+         "volume24": "49841",
+         "liquidity": "235971"
+        },
+        {
+         "pair": {
+          "address": "0x0785dca2d20352f173f88dd63a0d052ce017a7ba729f5d2a78fdb77a535f7195",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0xe83c85e1ead16fcfe85401e2b337fb4fb5b5cc96",
+          "networkId": 4663,
+          "createdAt": 1793279292
+         },
+         "priceUSD": "2.48815171143e-4",
+         "circulatingMarketCap": "246223",
+         "change24": "-0.2375182134185839",
+         "volume24": "48364",
+         "liquidity": "20154"
+        },
+        {
+         "pair": {
+          "address": "0x8e17ffdd30dba8768a6946a30def9c25dc1d27b3",
+          "token0": "0x26c4829616644144b1dcec6c6c62828c9a717777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1791878338
+         },
+         "priceUSD": "5.64933194909e-4",
+         "circulatingMarketCap": "529166",
+         "change24": "-0.053787400910387834",
+         "volume24": "48307",
+         "liquidity": "34868"
+        },
+        {
+         "pair": {
+          "address": "0xf7d6635c66e7c2aa09ddbdad4a6d88d5d8c42c8f",
+          "token0": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "token1": "0xf9a9b566fa9fa97b8328f5f594c375e13ae17777",
+          "networkId": 56,
+          "createdAt": 1793695409
+         },
+         "priceUSD": "2.59030704023e-3",
+         "circulatingMarketCap": "2314741",
+         "change24": "0.008059538019871467",
+         "volume24": "47740",
+         "liquidity": "73167"
+        },
+        {
+         "pair": {
+          "address": "0x3dde2e2ca95e3b2f1593796482e5871dd64919ddf844d306cd9af6a68b7a2b1f",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0xdafaa1ed0b9f5746a0cfa2be80371cf06a986977",
+          "networkId": 4663,
+          "createdAt": 1793815157
+         },
+         "priceUSD": "2.3851193676e-4",
+         "circulatingMarketCap": "219042",
+         "change24": "0.23355489643734662",
+         "volume24": "45402",
+         "liquidity": "19444"
+        },
+        {
+         "pair": {
+          "address": "0xc06924c9234b39376ea80b21aea49ae692bc5bac",
+          "token0": "0x4dda46c9dd7e794b99eebdcfd3c82bfbd3207777",
+          "token1": "0xa3cfb853339b77f385b994799b015cb04b208fe6",
+          "networkId": 56,
+          "createdAt": 1792239750
+         },
+         "priceUSD": "6.47106455674e-4",
+         "circulatingMarketCap": "431570",
+         "change24": "-0.3677294890878894",
+         "volume24": "45131",
+         "liquidity": "13859"
+        },
+        {
+         "pair": {
+          "address": "0x1a91c86aa4a48673639c01359ec31da472c38ac4",
+          "token0": "0x387c257253ce1acdd88ba712660e30b479437777",
+          "token1": "0x38dd26788cf2d901e3abf04efe3007d459d0fc53",
+          "networkId": 56,
+          "createdAt": 1795272716
+         },
+         "priceUSD": "8.96451150399e-5",
+         "circulatingMarketCap": "88817",
+         "change24": "-0.23980562074198353",
+         "volume24": "43303",
+         "liquidity": "13603"
+        },
+        {
+         "pair": {
+          "address": "0xca61cc9b08e22ad70167e6aa2308e310ff78b666",
+          "token0": "0x1501ee216eed4470ae89d0ae6310954c1e617777",
+          "token1": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "networkId": 56,
+          "createdAt": 1794612753
+         },
+         "priceUSD": "8.71236200729e-5",
+         "circulatingMarketCap": "87124",
+         "change24": "0.3123529549148335",
+         "volume24": "43154",
+         "liquidity": "14649"
+        },
+        {
+         "pair": {
+          "address": "0x0f434b57589599d28555b4ce8ca0332d62b9db0a",
+          "token0": "0x94043565e59e9fbdd1ddde79939b6718d1917777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1794813466
+         },
+         "priceUSD": "1.8950222174e-3",
+         "circulatingMarketCap": "1802269",
+         "change24": "0.10712193174145096",
+         "volume24": "43025",
+         "liquidity": "67617"
+        },
+        {
+         "pair": {
+          "address": "0x5887e9d301e4b8db5a715dfd20a1690625fa5c93",
+          "token0": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+          "token1": "0xeaa7665193efa6a3cd0d10867e0e9ae60e6d7777",
+          "networkId": 56,
+          "createdAt": 1789550763
+         },
+         "priceUSD": "0.015677083469",
+         "circulatingMarketCap": "10562766",
+         "change24": "0.028594787125976122",
+         "volume24": "42266",
+         "liquidity": "216276"
+        },
+        {
+         "pair": {
+          "address": "0x238c2670e3d12451a10cad1d1a9146d83b9fa0fb",
+          "token0": "0x4f66b74a32c4f48abcd6d5053b39105fd22c7777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1784720882
+         },
+         "priceUSD": "1.03047196369e-3",
+         "circulatingMarketCap": "251376",
+         "change24": "0.5241519867281869",
+         "volume24": "42088",
+         "liquidity": "59157"
+        },
+        {
+         "pair": {
+          "address": "0x76c42dda1de814ac60951c2c89c77dbecfb86ffb",
+          "token0": "0x2a846aaaf896ef393ccb76398c1d96ea97374444",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1762274710
+         },
+         "priceUSD": "6.0082353565e-4",
+         "circulatingMarketCap": "585202",
+         "change24": "-0.12472362821748295",
+         "volume24": "41974",
+         "liquidity": "77774"
+        },
+        {
+         "pair": {
+          "address": "0x507f990196168571adc3cfac23d860da6fdd13f9",
+          "token0": "0x2567e74882c92ded24f7df2767184af19b1b7777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1794051813
+         },
+         "priceUSD": "1.25629482192e-3",
+         "circulatingMarketCap": "1035497",
+         "change24": "0.2862503570570059",
+         "volume24": "41718",
+         "liquidity": "50309"
+        },
+        {
+         "pair": {
+          "address": "0x641d15076b4ab1a1a1779d7b8752a5a727794b73",
+          "token0": "0x621913e2869cfd085e46997a51060d3694b07777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1790596626
+         },
+         "priceUSD": "4.91132567224e-3",
+         "circulatingMarketCap": "4857344",
+         "change24": "0.04025598533754525",
+         "volume24": "39703",
+         "liquidity": "100520"
+        },
+        {
+         "pair": {
+          "address": "0xa09a83c6de74491cc00e788bf168c445a72d9b91",
+          "token0": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "token1": "0xc2a7ad8dc904d2bb7630be73f6af92afe4507777",
+          "networkId": 56,
+          "createdAt": 1795705248
+         },
+         "priceUSD": "5.91908955454e-5",
+         "circulatingMarketCap": "59103",
+         "change24": "-0.048106536998876716",
+         "volume24": "39149",
+         "liquidity": "10543"
+        },
+        {
+         "pair": {
+          "address": "0x64d85cf4d2a3d1f73079132edfc7d35875d4a84ad73a729efe07aaecdcabfc79",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0xc84b411cae3b86eec20e9699256be7c43b17bd35",
+          "networkId": 4663,
+          "createdAt": 1795515682
+         },
+         "priceUSD": "7.00430161784e-5",
+         "circulatingMarketCap": "69713",
+         "change24": "0.8169037491205792",
+         "volume24": "37753",
+         "liquidity": "10249"
+        },
+        {
+         "pair": {
+          "address": "0x35f8b07934a1eb33d23dcbd113c4fef6ab257710",
+          "token0": "0x3f15b50f4631ca33ebf06bef7b6f9ad2448d7777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1787656116
+         },
+         "priceUSD": "4.27649413208e-3",
+         "circulatingMarketCap": "4276494",
+         "change24": "0.10055155340389205",
+         "volume24": "37631",
+         "liquidity": "95624"
+        },
+        {
+         "pair": {
+          "address": "0x7b0387269da3492dd2e0d66a0af8fc0ff1b3c01f4a938ddc2f43b02a22d184be",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x6dbe95076584f869dd09a44131e9a3c13f34d7d6",
+          "networkId": 4663,
+          "createdAt": 1794611095
+         },
+         "priceUSD": "2.81580001356e-4",
+         "circulatingMarketCap": "281580",
+         "change24": "-0.10654611788735514",
+         "volume24": "37372",
+         "liquidity": "21493"
+        },
+        {
+         "pair": {
+          "address": "0x2f509c6e2675a1a7945902c64ba4aefaef32b2fbf34245f12078a1d0573db170",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0xaa5751ff3fb61e613993b2eb4eab1fce017081fc",
+          "networkId": 4663,
+          "createdAt": 1790271954
+         },
+         "priceUSD": "4.13777659662e-4",
+         "circulatingMarketCap": "406743",
+         "change24": "0.07843174948759776",
+         "volume24": "35952",
+         "liquidity": "51666"
+        },
+        {
+         "pair": {
+          "address": "0x231764ab2a3150a9b9c21c294cfe3269d7ff6933d7bbe4fc56ede6d246cb2bda",
+          "token0": "0x0bd7d308f8e1639fab988df18a8011f41eacad73",
+          "token1": "0x7163ae1b5aea2f09ebc609c52b4dcac0a7a4bc2d",
+          "networkId": 4663,
+          "createdAt": 1788809153
+         },
+         "priceUSD": "8.39473176873e-4",
+         "circulatingMarketCap": "839473",
+         "change24": "-0.247686707960912",
+         "volume24": "35405",
+         "liquidity": "112375"
+        },
+        {
+         "pair": {
+          "address": "0xc784375e30c1f14e5ba6ba0507186dc7ea6b784e",
+          "token0": "0x1a5f9d77ca46646cd4937fd8d093f460b66f4444",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1767975710
+         },
+         "priceUSD": "2.92911764179e-4",
+         "circulatingMarketCap": "292912",
+         "change24": "0.07037550851840435",
+         "volume24": "33702",
+         "liquidity": "56947"
+        },
+        {
+         "pair": {
+          "address": "0xac866a798864a241355e30763ab94b0a06845e2b",
+          "token0": "0x3cf98f15368cb6335ec33cbb22cd5fcd122f7777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1783125878
+         },
+         "priceUSD": "0.0106814384453",
+         "circulatingMarketCap": "7146925",
+         "change24": "0.07221992995460623",
+         "volume24": "33179",
+         "liquidity": "192270"
+        }
+       ]
+      },
+      "evm_recent": {
+       "results": [
+        {
+         "pair": {
+          "address": "0x7aedde5c8fe7d178d726f4bdc44e2eaafb7c1006",
+          "token0": "0x7d1a562e81c7d8b7889bcc6ec694432ca1b02b07",
+          "token1": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+          "networkId": 8453,
+          "createdAt": 1795757255
+         },
+         "priceUSD": "1.02033849123e-4",
+         "circulatingMarketCap": "10203385",
+         "change24": "1.0409423049596447",
+         "volume24": "25352197",
+         "liquidity": "190023"
+        },
+        {
+         "pair": {
+          "address": "0xe618c4bad17622b66c5d2d947f5a1efbb84a94a7156b4aa610be9aa3a1f61b40",
+          "token0": "0x2912e3e39e3e26deb64316309a13a09a6f966252",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1795751397
+         },
+         "priceUSD": "5.93724419197e-5",
+         "circulatingMarketCap": "5937244",
+         "change24": "0.18743322247869013",
+         "volume24": "21264142",
+         "liquidity": "170122"
+        },
+        {
+         "pair": {
+          "address": "0x88011d9107c6a8118afb0a1e7ff4f376f988b846",
+          "token0": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+          "token1": "0xdde27483de8c958e4d2657d64eb7551717457777",
+          "networkId": 56,
+          "createdAt": 1795670834
+         },
+         "priceUSD": "1.37765217124e-3",
+         "circulatingMarketCap": "1377652",
+         "change24": "4.2836754060783395",
+         "volume24": "4215313",
+         "liquidity": "105633"
+        },
+        {
+         "pair": {
+          "address": "0xe1cea6a5b9de8061464caf6f007ac70acafdd857",
+          "token0": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "token1": "0xebe0f167b6bbac37f68ab7b9930b30799f487777",
+          "networkId": 56,
+          "createdAt": 1795755357
+         },
+         "priceUSD": "2.92834668007e-4",
+         "circulatingMarketCap": "292835",
+         "change24": "9.003859678461701",
+         "volume24": "1548101",
+         "liquidity": "42509"
+        },
+        {
+         "pair": {
+          "address": "0x5253904a572d5139c30c5708aec9a7f6fe7d86ca",
+          "token0": "0x57198c6afa17988743f82104e9ed96c81f417777",
+          "token1": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "networkId": 56,
+          "createdAt": 1795679836
+         },
+         "priceUSD": "3.04937770324e-4",
+         "circulatingMarketCap": "304938",
+         "change24": "8.88725726912545",
+         "volume24": "1416165",
+         "liquidity": "28947"
+        },
+        {
+         "pair": {
+          "address": "0xcbba822ea5785563c97029c3c55df2eb1f650fb1",
+          "token0": "0x1197d3323a09007be4a01f193b5bdb569f027777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1795768508
+         },
+         "priceUSD": "4.77499071642e-5",
+         "circulatingMarketCap": "47750",
+         "change24": "0.5686025541380778",
+         "volume24": "959799",
+         "liquidity": "14258"
+        },
+        {
+         "pair": {
+          "address": "0x9b1788a972dfdcad0a65a165549eb71d223247b1f20298b4040667494711d688",
+          "token0": "0x0ddcab9ae04bda0c87ecc1640636fa11e8e613e8",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1795609304
+         },
+         "priceUSD": "2.03484747605e-3",
+         "circulatingMarketCap": "2034847",
+         "change24": "-0.25943409517532634",
+         "volume24": "626563",
+         "liquidity": "119410"
+        },
+        {
+         "pair": {
+          "address": "0xbd697c4fe4821a54e5d004a5183fbda1f1ded18d",
+          "token0": "0x2133b903cd4cb46aeece2ab4457e25cff1a87777",
+          "token1": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "networkId": 56,
+          "createdAt": 1795575040
+         },
+         "priceUSD": "6.16407965386e-5",
+         "circulatingMarketCap": "61641",
+         "change24": "-0.7757193359706815",
+         "volume24": "362409",
+         "liquidity": "13905"
+        },
+        {
+         "pair": {
+          "address": "0x753e829f20eb36553ce126e0c2d3841f01eb801a8599dbcf9d46a01666b65cca",
+          "token0": "0x76a58b43f79c47b416567b847475f11a0d7ca601",
+          "token1": "0xacfe6019ed1a7dc6f7b508c02d1b04ec88cc21bf",
+          "networkId": 8453,
+          "createdAt": 1795654814
+         },
+         "priceUSD": "8.63514997926e-5",
+         "circulatingMarketCap": "86351",
+         "change24": "-0.1617559348105989",
+         "volume24": "275687",
+         "liquidity": "14285"
+        }
+       ]
+      },
+      "evm_fresh": {
+       "results": [
+        {
+         "pair": {
+          "address": "0x7aedde5c8fe7d178d726f4bdc44e2eaafb7c1006",
+          "token0": "0x7d1a562e81c7d8b7889bcc6ec694432ca1b02b07",
+          "token1": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+          "networkId": 8453,
+          "createdAt": 1795757255
+         },
+         "priceUSD": "1.02033849123e-4",
+         "circulatingMarketCap": "10203385",
+         "change24": "1.0409423049596447",
+         "volume24": "25352197",
+         "liquidity": "190023"
+        },
+        {
+         "pair": {
+          "address": "0xe1cea6a5b9de8061464caf6f007ac70acafdd857",
+          "token0": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "token1": "0xebe0f167b6bbac37f68ab7b9930b30799f487777",
+          "networkId": 56,
+          "createdAt": 1795755357
+         },
+         "priceUSD": "2.92834668007e-4",
+         "circulatingMarketCap": "292835",
+         "change24": "9.003859678461701",
+         "volume24": "1548101",
+         "liquidity": "42509"
+        },
+        {
+         "pair": {
+          "address": "0xcbba822ea5785563c97029c3c55df2eb1f650fb1",
+          "token0": "0x1197d3323a09007be4a01f193b5bdb569f027777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1795768508
+         },
+         "priceUSD": "4.77499071642e-5",
+         "circulatingMarketCap": "47750",
+         "change24": "0.5686025541380778",
+         "volume24": "959799",
+         "liquidity": "14258"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "seq": 2,
+    "tool_id": "mpp.codex.post.graphql",
+    "delivered": false,
+    "storage": {
+     "truncated": false,
+     "original_chars": 9047,
+     "stored_chars": 9047,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "negative_result",
+    "refundable": true,
+    "charged_usd": 0,
+    "receipt": {
+     "tool": "mpp.codex.post.graphql",
+     "amount": "0.001",
+     "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0xcd3fe605792611dd6e1193ce883c0099f27bbc1bf845cdfbe978a6e81b473f45",
+     "delivered": false,
+     "outcome": "negative_result",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: One of the returned entries contains a 'createdAt' timestamp that translates to a future date relative to TODAY (UTC).; class adjudicated seller_error\u2192negative_result: The API successfully processed the GraphQL query and returned a populated 'results' array, indicating the tool worked and provided a valid answer, rather than failing or rejecting the request."
+    },
+    "body": {
+     "data": {
+      "trending": {
+       "results": [
+        {
+         "pair": {
+          "address": "0x4be9657ec9002e528f4f17a5c43edc525a07f888f7b180c2afbf75e096c4f38a",
+          "token0": "0x39dbed3a2bd333467115de45665cc57f813c4571",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1784338933
+         },
+         "priceUSD": "0.10673511583",
+         "circulatingMarketCap": "72805937",
+         "change24": "0.22312873390737076",
+         "volume24": "699827",
+         "liquidity": "3625816"
+        },
+        {
+         "pair": {
+          "address": "B9xKSbD9CjvTdiAQscsTcKzP9e777y64KuWtLiXgaD6c",
+          "token0": "2va3NUJtEcPemDYg2N1RgA79rPKGTGGJKo3gTY5zpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1747555742
+         },
+         "priceUSD": "4.35215865832e-4",
+         "circulatingMarketCap": "434746",
+         "change24": "279.7974218863949",
+         "volume24": "681488",
+         "liquidity": "31996"
+        },
+        {
+         "pair": {
+          "address": "AirCDeU4yL6hjuina65mtWAKzmex7STKZSiNMYZhzKt2",
+          "token0": "9TKbd3VFaMSXsEAicD9JVQWpWwAoLi4fSgWmZL2cpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795630929
+         },
+         "priceUSD": "8.1967547459e-4",
+         "circulatingMarketCap": "794634",
+         "change24": "35.5429398670321",
+         "volume24": "2283296",
+         "liquidity": "104119"
+        },
+        {
+         "pair": {
+          "address": "HJ4AFisW1oo8HVmyXL2QjjnAv4Y25NThse2LcpCreqtu",
+          "token0": "7XSYaJygcuNe6Q3kPvwsJpg4ZrFL1AEUFb8kCuzppump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795757489
+         },
+         "priceUSD": "1.16374538407e-4",
+         "circulatingMarketCap": "113198",
+         "change24": "2.567336596268336",
+         "volume24": "764399",
+         "liquidity": "13480"
+        },
+        {
+         "pair": {
+          "address": "Cb7ZRgPLhji3Th7htXyKEqbXvNjPpeTvckXuWakBUhXu",
+          "token0": "Hg5Ja55T5wESq4vyFoiVCMeHXtGyVA69X2UHq8hgpump",
+          "token1": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
+          "networkId": 1399811149,
+          "createdAt": 1788985934
+         },
+         "priceUSD": "4.50842468245e-3",
+         "circulatingMarketCap": "4502510",
+         "change24": "0.3077820781387256",
+         "volume24": "274960",
+         "liquidity": "299990"
+        },
+        {
+         "pair": {
+          "address": "Ho1aSG6WGH1FfXdEHrK2f4Ggt1Hoxo9s5jcLMDqeyeBz",
+          "token0": "4CxjZyMNoF1p6eXHXHv1TWpS2X47CuUmLwtGe18spump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1792946594
+         },
+         "priceUSD": "6.08578037593e-3",
+         "circulatingMarketCap": "5725516",
+         "change24": "0.3013889971979559",
+         "volume24": "1640710",
+         "liquidity": "417146"
+        },
+        {
+         "pair": {
+          "address": "0x5253904a572d5139c30c5708aec9a7f6fe7d86ca",
+          "token0": "0x57198c6afa17988743f82104e9ed96c81f417777",
+          "token1": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "networkId": 56,
+          "createdAt": 1795679836
+         },
+         "priceUSD": "3.19557428201e-4",
+         "circulatingMarketCap": "319557",
+         "change24": "9.361282898888899",
+         "volume24": "1418859",
+         "liquidity": "29587"
+        },
+        {
+         "pair": {
+          "address": "DjbLtX1HRGZZrJgJ7CwTX6SN3D7tBLiytkGwomBUwTVB",
+          "token0": "B34nXKzCgsJb9ChLuSHPRpXLE3WFSWyeT8Cqkzzmpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795121609
+         },
+         "priceUSD": "1.12354290937e-3",
+         "circulatingMarketCap": "1105558",
+         "change24": "-0.45935492122722155",
+         "volume24": "749859",
+         "liquidity": "145038"
+        },
+        {
+         "pair": {
+          "address": "6h2yPTQ4CaXcUjMYr6B6MkDmLqTzuLkZuh25aT4thrbZ",
+          "token0": "63jDWWFwp25ChLvsofbVRMprRbhiXuWoWVxrwFfypump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795728307
+         },
+         "priceUSD": "2.4870108032e-4",
+         "circulatingMarketCap": "228426",
+         "change24": "7.087378252037603",
+         "volume24": "1313798",
+         "liquidity": "22560"
+        },
+        {
+         "pair": {
+          "address": "B4Cp45PGifVM5FAXfh6AeV8QZ3eUNQnqGBw7KuC7MHnB",
+          "token0": "DtcicPCKTKeAh7TDEzTym3hXeoHAoMiBdYJhMYxZpump",
+          "token1": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "networkId": 1399811149,
+          "createdAt": 1791311393
+         },
+         "priceUSD": "7.9121317087e-3",
+         "circulatingMarketCap": "7456387",
+         "change24": "0.21021561030017802",
+         "volume24": "335785",
+         "liquidity": "160293"
+        },
+        {
+         "pair": {
+          "address": "0x9b1788a972dfdcad0a65a165549eb71d223247b1f20298b4040667494711d688",
+          "token0": "0x0ddcab9ae04bda0c87ecc1640636fa11e8e613e8",
+          "token1": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "networkId": 4663,
+          "createdAt": 1795609304
+         },
+         "priceUSD": "2.01771595644e-3",
+         "circulatingMarketCap": "2017716",
+         "change24": "-0.26566897001008744",
+         "volume24": "627492",
+         "liquidity": "119160"
+        },
+        {
+         "pair": {
+          "address": "0xcbba822ea5785563c97029c3c55df2eb1f650fb1",
+          "token0": "0x1197d3323a09007be4a01f193b5bdb569f027777",
+          "token1": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+          "networkId": 56,
+          "createdAt": 1795768508
+         },
+         "priceUSD": "4.18424454675e-5",
+         "circulatingMarketCap": "41842",
+         "change24": "0.3745401976595312",
+         "volume24": "962781",
+         "liquidity": "12504"
+        },
+        {
+         "pair": {
+          "address": "0xe1cea6a5b9de8061464caf6f007ac70acafdd857",
+          "token0": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "token1": "0xebe0f167b6bbac37f68ab7b9930b30799f487777",
+          "networkId": 56,
+          "createdAt": 1795755357
+         },
+         "priceUSD": "3.04868320528e-4",
+         "circulatingMarketCap": "304868",
+         "change24": "9.414955031545283",
+         "volume24": "1551615",
+         "liquidity": "43047"
+        },
+        {
+         "pair": {
+          "address": "xg71xrhn7MEj5akrZGteuYeiTLbBzyNCpBn69bRYd5a",
+          "token0": "4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1787858310
+         },
+         "priceUSD": "1.85564764148e-3",
+         "circulatingMarketCap": "1831806",
+         "change24": "-0.24078077626042735",
+         "volume24": "201479",
+         "liquidity": "147873"
+        },
+        {
+         "pair": {
+          "address": "FnzKY6x7entQ1eR3D225dQyT7ybfka4PskBMQhb8L3CC",
+          "token0": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1781643948
+         },
+         "priceUSD": "0.0188446795496",
+         "circulatingMarketCap": "18843620",
+         "change24": "-0.04596817134743795",
+         "volume24": "520031",
+         "liquidity": "475636"
+        },
+        {
+         "pair": {
+          "address": "CvVZhBzJZ4pubGcCi1xHwbot3Q4jdK3w2YywvwnLNiA9",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "DCFiFuRwjwdSKcYKmuz47gcSNsjjtZ6Rh8KkLaVCpump",
+          "networkId": 1399811149,
+          "createdAt": 1795765366
+         },
+         "priceUSD": "8.97928487806e-5",
+         "circulatingMarketCap": "86444",
+         "change24": "1.7386911798032347",
+         "volume24": "118361",
+         "liquidity": "22453"
+        },
+        {
+         "pair": {
+          "address": "HMzvsEEmtzHhvZNw9uwbaG85HCTmFnkbhzUx16cy7ca3",
+          "token0": "Ai66LHZG9MCzg1WKdawwqduVAXpNDUuV8M3uyq5ppump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1785083563
+         },
+         "priceUSD": "0.0186253455067",
+         "circulatingMarketCap": "17961845",
+         "change24": "0.07243446073815081",
+         "volume24": "1057915",
+         "liquidity": "947304"
+        },
+        {
+         "pair": {
+          "address": "GjvW8JQSpKG5ogjyD3zozfaeJSShTajS5ZFrexT8L12k",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "DKu9kykSfbN5LBfFXtNNDPaX35o4Fv6vJ9FKk7pZpump",
+          "networkId": 1399811149,
+          "createdAt": 1731524626
+         },
+         "priceUSD": "7.06609474991e-3",
+         "circulatingMarketCap": "7060370",
+         "change24": "0.13001498889383273",
+         "volume24": "402109",
+         "liquidity": "484122"
+        },
+        {
+         "pair": {
+          "address": "Fe7bpDYCs74GqiCUF14HwgUMToPKV1d9mDYVX5BTohFr",
+          "token0": "2j5SaS7xy776qCBpyPQbZjyQSAtKiFgrwjfErthnW2ZM",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1791337470
+         },
+         "priceUSD": "8.84731297637e-3",
+         "circulatingMarketCap": "8371442",
+         "change24": "-0.05198672951547511",
+         "volume24": "443694",
+         "liquidity": "483901"
+        },
+        {
+         "pair": {
+          "address": "Q2sPHPdUWFMg7M7wwrQKLrn619cAucfRsmhVJffodSp",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "Dz9mQ9NzkBcCsuGPFJ3r1bS4wgqKMHBPiVuniW8Mbonk",
+          "networkId": 1399811149,
+          "createdAt": 1746886997
+         },
+         "priceUSD": "0.07698640667",
+         "circulatingMarketCap": "76981815",
+         "change24": "0.045198391212987285",
+         "volume24": "313539",
+         "liquidity": "1407287"
+        },
+        {
+         "pair": {
+          "address": "3peugE6Fm4fpaVvrV2KBFN3nvLbCGEhGoUXDDxAHuscR",
+          "token0": "zcRvzm7gAfYGde8gRwaSYxNryL47SjLVUQLAf1bdoor",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795293989
+         },
+         "priceUSD": "7.08043933311e-4",
+         "circulatingMarketCap": "647900",
+         "change24": "1.8677772368396341",
+         "volume24": "352985",
+         "liquidity": "71042"
+        },
+        {
+         "pair": {
+          "address": "3HZez3ezzSDTZaT12pqMZwii8Ury9rknjQumsJQYwYt7",
+          "token0": "6B5X3keXJ4J8LLvswa2mbqMhrRDbt85Jo88sbB6apump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795669426
+         },
+         "priceUSD": "1.05511866325e-4",
+         "circulatingMarketCap": "101076",
+         "change24": "-0.5757901737898196",
+         "volume24": "639062",
+         "liquidity": "14030"
+        },
+        {
+         "pair": {
+          "address": "FnHWfV49ywCtGCDTyf34AVN8BiXxcgXUKqLctkrkP1gQ",
+          "token0": "38M2z4UCfZEkUHFzD48vhKQhFhNyRGto8pZbLjNipump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795468271
+         },
+         "priceUSD": "5.9742960268e-4",
+         "circulatingMarketCap": "557873",
+         "change24": "-0.2856842178731507",
+         "volume24": "1018400",
+         "liquidity": "72695"
+        },
+        {
+         "pair": {
+          "address": "TT7DKs9YjJZj1fwMGoPmKBmDreZzyMAMrHoDCGdfwqN",
+          "token0": "GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793383775
+         },
+         "priceUSD": "8.98269539668e-4",
+         "circulatingMarketCap": "881262",
+         "change24": "0.06736993528990304",
+         "volume24": "319649",
+         "liquidity": "65133"
+        },
+        {
+         "pair": {
+          "address": "0xea9f200e13055b82f175f44f592c4c13dd8c9d9320a66487d3c5cd90d68550ef",
+          "token0": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+          "token1": "0xaa07a0e9209e16ac99708c3ec70159c6ef3128a3",
+          "networkId": 4663,
+          "createdAt": 1789888014
+         },
+         "priceUSD": "0.0197283668981",
+         "circulatingMarketCap": "18741949",
+         "change24": "0.05405827793481334",
+         "volume24": "260327",
+         "liquidity": "1472634"
+        }
+       ]
+      }
+     }
+    }
+   },
+   {
+    "seq": 3,
+    "tool_id": "mpp.codex.post.graphql",
+    "delivered": true,
+    "storage": {
+     "truncated": false,
+     "original_chars": 12950,
+     "stored_chars": 12950,
+     "limit_chars": 1000000,
+     "encoding": "json"
+    },
+    "outcome": "delivered",
+    "refundable": false,
+    "charged_usd": 0.001,
+    "receipt": {
+     "tool": "mpp.codex.post.graphql",
+     "amount": "0.001",
+     "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+     "currency": "USDC.e",
+     "network": "tempo",
+     "tx_hash": "0x7a1064a71b4c2d330aabf1b04f47311d4ef8be0cfee6198ec0e3290729158f57",
+     "delivered": true,
+     "outcome": "delivered",
+     "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+    },
+    "body": {
+     "data": {
+      "filterTokens": {
+       "results": [
+        {
+         "pair": {
+          "address": "Ho1aSG6WGH1FfXdEHrK2f4Ggt1Hoxo9s5jcLMDqeyeBz",
+          "token0": "4CxjZyMNoF1p6eXHXHv1TWpS2X47CuUmLwtGe18spump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1792946594
+         },
+         "priceUSD": "0.00609459613489",
+         "circulatingMarketCap": "5733810",
+         "change24": "0.3032884664098066",
+         "volume24": "1640825",
+         "liquidity": "417258"
+        },
+        {
+         "pair": {
+          "address": "0xe1cea6a5b9de8061464caf6f007ac70acafdd857",
+          "token0": "0x9b8e987e6fec8cf1380c4dca7071e2c7853aeea1",
+          "token1": "0xebe0f167b6bbac37f68ab7b9930b30799f487777",
+          "networkId": 56,
+          "createdAt": 1795755357
+         },
+         "priceUSD": "0.000296265117684",
+         "circulatingMarketCap": "296265",
+         "change24": "9.121051189413238",
+         "volume24": "1552323",
+         "liquidity": "42673"
+        },
+        {
+         "pair": {
+          "address": "TT7DKs9YjJZj1fwMGoPmKBmDreZzyMAMrHoDCGdfwqN",
+          "token0": "GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793383775
+         },
+         "priceUSD": "0.000898971693253",
+         "circulatingMarketCap": "881951",
+         "change24": "0.06828550445755417",
+         "volume24": "319666",
+         "liquidity": "65153"
+        },
+        {
+         "pair": {
+          "address": "FMJbNP2T4DtMc4vxkzgz2ZigCrqyfXNKaFhkVfKTYQHk",
+          "token0": "6sZUjgnHTdezsZoMdbTcxsi58bXqnsz6mkj49Wgxpump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1794659802
+         },
+         "priceUSD": "0.00000498172647688",
+         "circulatingMarketCap": "4685",
+         "change24": "-0.14934962042356184",
+         "volume24": "470",
+         "liquidity": "3794"
+        },
+        {
+         "pair": {
+          "address": "5E3dXLXGwmTDCokA51WYYaKttjFZBwqCoyUHBUi5gt2m",
+          "token0": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1787660841
+         },
+         "priceUSD": "0.00172734705223",
+         "circulatingMarketCap": "1700321",
+         "change24": "-0.06536850797365021",
+         "volume24": "85018",
+         "liquidity": "78430"
+        },
+        {
+         "pair": {
+          "address": "4FoNNNMMKMa66ppCiA9557cg63s2BNN9UoFcaKxXbmvg",
+          "token0": "AKotzk1dhcNangAJBtvNKtT9bhbSVZc2mMhRFgkFpump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1792071617
+         },
+         "priceUSD": "0.0000973598160207",
+         "circulatingMarketCap": "92805",
+         "change24": "-0.2749687862231517",
+         "volume24": "24628",
+         "liquidity": "20996"
+        },
+        {
+         "pair": {
+          "address": "5GxdoPcK2LJ6QYcJ3uvtC37tgsFHma55ULFkufTYe49R",
+          "token0": "BWJfBNeXpapG7uoqByp5KSwWgCQba8QcDmA2DQiEpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1793907674
+         },
+         "priceUSD": "0.0000135385425214",
+         "circulatingMarketCap": "13141",
+         "change24": "0.2827796972079705",
+         "volume24": "1130",
+         "liquidity": "4904"
+        },
+        {
+         "pair": {
+          "address": "G5t63jxfLoSYapfVYsTQn1WWqm7YX9wbZ7xNFFoUtczF",
+          "token0": "2Nyb2GXVoXM42hVQxJg5RppTbiN5SCZFL4LtZVVDpump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1792781957
+         },
+         "priceUSD": "0.000135932895581",
+         "circulatingMarketCap": "130030",
+         "change24": "0.09333214456410284",
+         "volume24": "33268",
+         "liquidity": "20768"
+        },
+        {
+         "pair": {
+          "address": "5iSVs31h7HMdGGmyUvzmHDsYwV7cydD6CZJTbqzCtLii",
+          "token0": "BsbsB3WLq7vbY5En3MBCAsTrcwaCxNKY2Mp5pGuLpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1787756308
+         },
+         "priceUSD": "0.000124878050994",
+         "circulatingMarketCap": "120978",
+         "change24": "-0.07678222404437317",
+         "volume24": "32944",
+         "liquidity": "19330"
+        },
+        {
+         "pair": {
+          "address": "8ewuBNMADZL8bARPNK5GdW2iS1QDcppz7XTLHNZDmkXN",
+          "token0": "6fJPx1nWz6PvMifsee6AtTi4H3srtis5rHAUs3HYpump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1792608593
+         },
+         "priceUSD": "0.0000179969838888",
+         "circulatingMarketCap": "17280",
+         "change24": "-0.017429268457093174",
+         "volume24": "2291",
+         "liquidity": "6619"
+        },
+        {
+         "pair": {
+          "address": "3jW1ykKqUTNgNUDGbrwXpvZKtMFf4pWytoTP3TeXhKBQ",
+          "token0": "HZbiEpF2oM658EpjNRRqxharz5L9Ddm8akpSH2R5pump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1793891135
+         },
+         "priceUSD": "0.0000476910183639",
+         "circulatingMarketCap": "46492",
+         "change24": "-0.35652314132809054",
+         "volume24": "12674",
+         "liquidity": "12491"
+        },
+        {
+         "pair": {
+          "address": "HM6q9iDBMcsQkBFnxaZtGGjTiJo5ocQTiHGwqnnuTToB",
+          "token0": "D7ZkNHN3ESProTmshXRjAgiNjQU7SkUcXHpe13qCpump",
+          "token1": "GexThZHgaswpAQ7Fi8QrHFubjPimUNSYhJiAA7XZpump",
+          "networkId": 1399811149,
+          "createdAt": 1794890895
+         },
+         "priceUSD": "0.0000026382109911",
+         "circulatingMarketCap": "2568",
+         "change24": "-0.5342625916523721",
+         "volume24": "2171",
+         "liquidity": "1063"
+        },
+        {
+         "pair": {
+          "address": "9YbrZx4ytWsuhsbfM75r4RfPW25MGaos4CVcuXM6qBNY",
+          "token0": "ERiM8NiCanarGEnWMnURAoxTuTvUXZbtJsPTirnHpump",
+          "token1": "GTA6ot7gjnojk8WwAoxKrqDkrLtCPtSfzAikk6zu2koH",
+          "networkId": 1399811149,
+          "createdAt": 1794942834
+         },
+         "priceUSD": "0.0000117467584675",
+         "circulatingMarketCap": "11498",
+         "change24": "-0.10881708659150759",
+         "volume24": "2583",
+         "liquidity": "5996"
+        },
+        {
+         "pair": {
+          "address": "31ZwgJENwbxd2NkNfmhTbaFFEGtMviijVx3niqVb9CN9",
+          "token0": "79rE2ac8JhN3U12QLhymgDmCTiwBN1d4maTcK1fhpump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1795015792
+         },
+         "priceUSD": "0.0000173587890411",
+         "circulatingMarketCap": "16510",
+         "change24": "-0.08687849457894854",
+         "volume24": "1723",
+         "liquidity": "7442"
+        },
+        {
+         "pair": {
+          "address": "FxTLjzkt1fbhCQRTEs3TkEeuvgQHp7wkfPM3dkvihFqU",
+          "token0": "AAb2JkmKSJgvz4bFZoB8432Qj2Gkt7M3o7Rg3vqjpump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1795052257
+         },
+         "priceUSD": "0.00000238718663095",
+         "circulatingMarketCap": "2370",
+         "change24": "-0.9769597249752867",
+         "volume24": "36806",
+         "liquidity": "2280"
+        },
+        {
+         "pair": {
+          "address": "44n9abhJKqpVUXS3rKgNo3YKqiSqu8zdyf9BgUyujRQr",
+          "token0": "Cr8kuNqKwiVVuzqLYKcJhmpSHy767837BwLFr9GDYXUf",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1791459767
+         },
+         "priceUSD": "0.0000213402242613",
+         "circulatingMarketCap": "20733",
+         "change24": "0.08887273502340765",
+         "volume24": "1963",
+         "liquidity": "8537"
+        },
+        {
+         "pair": {
+          "address": "JAngfww1huHpmPTPqRuyR5tbkSrYhWmJCkfPisMXMpib",
+          "token0": "5tAB1DMgrsJKgaKcfCfj1RzumuqovQP1LuxzQ7thpump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1795034054
+         },
+         "priceUSD": "0.00000722667672064",
+         "circulatingMarketCap": "7020",
+         "change24": "-0.07881992084287238",
+         "volume24": "190",
+         "liquidity": "4176"
+        },
+        {
+         "pair": {
+          "address": "8NkmorMxYyJ9X2La7QVAK5q5NA1gTp2qyiscwLTj627q",
+          "token0": "Fpzcd2R1y2MPdezgMRigQuBx7aCPPn5sZBXpvtP3pump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1795003659
+         },
+         "priceUSD": "0.000133913390042",
+         "circulatingMarketCap": "130280",
+         "change24": "-0.15623045437949346",
+         "volume24": "23535",
+         "liquidity": "17706"
+        },
+        {
+         "pair": {
+          "address": "AsVSzvh75VV5MqcQsxr3X4rqzVoUHfzdvpahpw61v2du",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "CyfdugHk3PT44hEUxpnU25CXAJsVQ9EdipKWCHEBKSdS",
+          "networkId": 1399811149,
+          "createdAt": 1795036090
+         },
+         "priceUSD": "0.000340046366858",
+         "circulatingMarketCap": "340045",
+         "change24": "0.08352358596160347",
+         "volume24": "6718",
+         "liquidity": "21538"
+        },
+        {
+         "pair": {
+          "address": "2EgUTKMqkeFQK3922TnSQbXMZZC6GnYUQAZBECmfK4eg",
+          "token0": "6MKD1NkLvWRqdbFtqmgACBwUV5o6GJpZry8HkNgzpump",
+          "token1": "TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo",
+          "networkId": 1399811149,
+          "createdAt": 1795089953
+         },
+         "priceUSD": "0.0000173079544405",
+         "circulatingMarketCap": "16661",
+         "change24": "-0.22061029756920655",
+         "volume24": "3693",
+         "liquidity": "7588"
+        },
+        {
+         "pair": {
+          "address": "H529Gpab6vKQ5ScwypJwmGB9NJhf4UdPmLWx6j6gkGa8",
+          "token0": "DEgAkPNxz3dtMsesD2FDkNA2S6sch5YWfGUDT7R2pump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795061016
+         },
+         "priceUSD": "0.0000838784448331",
+         "circulatingMarketCap": "83603",
+         "change24": "0.17944155870546358",
+         "volume24": "13319",
+         "liquidity": "12086"
+        },
+        {
+         "pair": {
+          "address": "EnLwc5bZEAjCW7RW4LtHoU2FUXvwcPTwDXTeCueoSNpC",
+          "token0": "8T3ztDSKxYK15SUBseqLeviqQwfcG9wUeDGP1wjBpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795319089
+         },
+         "priceUSD": "0.0000171548483647",
+         "circulatingMarketCap": "16270",
+         "change24": "-0.3958981116952045",
+         "volume24": "10256",
+         "liquidity": "5637"
+        },
+        {
+         "pair": {
+          "address": "FnzKY6x7entQ1eR3D225dQyT7ybfka4PskBMQhb8L3CC",
+          "token0": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1781643948
+         },
+         "priceUSD": "0.0188448824935",
+         "circulatingMarketCap": "18843823",
+         "change24": "-0.047859945317545616",
+         "volume24": "519646",
+         "liquidity": "475640"
+        },
+        {
+         "pair": {
+          "address": "CSvKMfrQ2TedEZEDpFSoHbGqxNb1A3w5o2vVM6Y5eoQ5",
+          "token0": "7fmD1p3jzva28EPP9bPqbDoxZGj5j398yJoE3EVypump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795515116
+         },
+         "priceUSD": "0.0000231562115874",
+         "circulatingMarketCap": "21933",
+         "change24": "-0.4171780891928751",
+         "volume24": "27913",
+         "liquidity": "6598"
+        },
+        {
+         "pair": {
+          "address": "DvGuk8anKso7mKxfUun6oGKZP8VW84hLPUTn56mhinUX",
+          "token0": "DD23R2DJFKxUCB2CUvogviVhHA7D9RTsjbrFKWBzpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795511656
+         },
+         "priceUSD": "0.0000267655178044",
+         "circulatingMarketCap": "26630",
+         "change24": "-0.24319215796033844",
+         "volume24": "3106",
+         "liquidity": "6219"
+        },
+        {
+         "pair": {
+          "address": "Ak4wr2ueEAJMqZSEcGPMX9EhCrwWRngP8CskvdEh1e6H",
+          "token0": "DVdWuNK8ncn79B6z8nCiwcNAiwyFcmBPfChgxJGTpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795557652
+         },
+         "priceUSD": "0.0000565310926473",
+         "circulatingMarketCap": "53651",
+         "change24": "-0.3251116418668805",
+         "volume24": "158612",
+         "liquidity": "11083"
+        },
+        {
+         "pair": {
+          "address": "FnHWfV49ywCtGCDTyf34AVN8BiXxcgXUKqLctkrkP1gQ",
+          "token0": "38M2z4UCfZEkUHFzD48vhKQhFhNyRGto8pZbLjNipump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795468271
+         },
+         "priceUSD": "0.00059742960268",
+         "circulatingMarketCap": "557873",
+         "change24": "-0.2856842178731507",
+         "volume24": "1018400",
+         "liquidity": "72695"
+        },
+        {
+         "pair": {
+          "address": "BXrbrMuLSW1qaS4P3R7AUPR6YX2E56Re94WJedoxLiV5",
+          "token0": "GisWWjhwrSud4aFGSHvTMt85Ky14sY7LeBFCpfoFpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795562235
+         },
+         "priceUSD": "0.00000149157317196",
+         "circulatingMarketCap": "1476",
+         "change24": "-0.1041577419541726",
+         "volume24": "281",
+         "liquidity": "1453"
+        },
+        {
+         "pair": {
+          "address": "7a8xxAJBELDo6P9dikSYctdw6ce8F4mWr3ahcAD8Ao49",
+          "token0": "XsoCS1TfEyfFhfvj8EtZ528L3CaKBDBRqRapnBbDF2W",
+          "token1": "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
+          "networkId": 1399811149,
+          "createdAt": 1784833637
+         },
+         "priceUSD": "0.0341727062423",
+         "circulatingMarketCap": "26290027",
+         "change24": "0.09604184295228302",
+         "volume24": "31694",
+         "liquidity": "983710"
+        },
+        {
+         "pair": {
+          "address": "DA4pM4xSDY4M9V4CgAKKBVH1pw1yscTQQa5nEkGHuKpt",
+          "token0": "MukLDtJ8Cx9DxLbeyLRSWPSposTMWuwHANbuaudpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1787923990
+         },
+         "priceUSD": "0.00162853444762",
+         "circulatingMarketCap": "991542",
+         "change24": "-0.009902928622784557",
+         "volume24": "25289",
+         "liquidity": "116801"
+        },
+        {
+         "pair": {
+          "address": "xg71xrhn7MEj5akrZGteuYeiTLbBzyNCpBn69bRYd5a",
+          "token0": "4kjruqGHDsSqkMdFfCjV7Vb62HPFhtXyWc2t6JpQzDnz",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1787858310
+         },
+         "priceUSD": "0.00183829441526",
+         "circulatingMarketCap": "1814675",
+         "change24": "-0.2531005946800927",
+         "volume24": "202191",
+         "liquidity": "147493"
+        },
+        {
+         "pair": {
+          "address": "0x895a8793391d9d33c08b6acd777fae98e5d4542b",
+          "token0": "0x080baeead90789c6f94f01435dd01fc75f517777",
+          "token1": "0x205812cdbed920aff76c6580abd681a46d11efc7",
+          "networkId": 56,
+          "createdAt": 1795263081
+         },
+         "priceUSD": "0.00108123747004",
+         "circulatingMarketCap": "1080101",
+         "change24": "0.16480234784432615",
+         "volume24": "5151",
+         "liquidity": "46212"
+        },
+        {
+         "pair": {
+          "address": "CixcofsPwHnYWjsoDxXxvLd6uM5fH7w8MFPL9mpQpqtX",
+          "token0": "So11111111111111111111111111111111111111112",
+          "token1": "3Tg6YnNrfPdFfsY14MaNsDMWLseAyrUDS3myJtbaJN6f",
+          "networkId": 1399811149,
+          "createdAt": 1795581782
+         },
+         "priceUSD": "0.000432325465056",
+         "circulatingMarketCap": "417255",
+         "change24": "-0.5146280984437949",
+         "volume24": "477490",
+         "liquidity": "64508"
+        },
+        {
+         "pair": {
+          "address": "0x88011d9107c6a8118afb0a1e7ff4f376f988b846",
+          "token0": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
+          "token1": "0xdde27483de8c958e4d2657d64eb7551717457777",
+          "networkId": 56,
+          "createdAt": 1795670834
+         },
+         "priceUSD": "0.00142463896692",
+         "circulatingMarketCap": "1424639",
+         "change24": "4.166469171377418",
+         "volume24": "4214217",
+         "liquidity": "107704"
+        },
+        {
+         "pair": {
+          "address": "HxFLNNDVSZZwtjhWCf94JU4LxnMNDXimXgoSyoRPvpsv",
+          "token0": "G2XqmSc8vJpLLwaLVXUeNkxsrhVT8vQ3Pje8MqeDpump",
+          "token1": "So11111111111111111111111111111111111111112",
+          "networkId": 1399811149,
+          "createdAt": 1795746264
+         },
+         "priceUSD": "0.00000188242489641",
+         "circulatingMarketCap": "1866",
+         "change24": "-0.9479242538004922",
+         "volume24": "1075128",
+         "liquidity": "1642"
+        },
+        {
+         "pair": {
+          "address": "0x7aedde5c8fe7d178d726f4bdc44e2eaafb7c1006",
+          "token0": "0x7d1a562e81c7d8b7889bcc6ec694432ca1b02b07",
+          "token1": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+          "networkId": 8453,
+          "createdAt": 1795757255
+         },
+         "priceUSD": "0.000102034710627",
+         "circulatingMarketCap": "10203471",
+         "change24": "1.0409595372798464",
+         "volume24": "25352198",
+         "liquidity": "190025"
+        }
+       ]
+      }
+     }
+    }
+   }
+  ],
+  "artifact": "/v1/runs/run_72510c46e9994fa3b5d8d5446c6db64e/tool-results"
+ },
+ "usage": {
+  "model_cost_usd": 0.013186,
+  "tool_cost_usd": 0.001,
+  "frames_fee_usd": 0.002128,
+  "total_cost_usd": 0.016313,
+  "input_tokens_cached": 6814,
+  "input_tokens_uncached": 40537,
+  "input_tokens_cache_write": 0,
+  "output_tokens": 328,
+  "output_tokens_reasoning": 0,
+  "model_cost_executor_usd": 0,
+  "model_cost_auxiliary_usd": 0.013186,
+  "executor_input_tokens_cached": 0,
+  "executor_input_tokens_uncached": 0,
+  "executor_input_tokens_cache_write": 0
+ },
+ "tools_used": [
+  {
+   "id": "mpp.codex.post.graphql",
+   "title": "Codex \u2014 POST /graphql",
+   "capability": "graphql",
+   "paid": true
+  }
+ ],
+ "receipts": [
+  {
+   "tool": "mpp.codex.post.graphql",
+   "amount": "0.001",
+   "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0x4fb28fd8ac129705ab41e9b8c483090dfe24dae39b454f633f1a0426615f3a39",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The tool failed to apply the requested filters for \"evm_recent\" (volume24 and createdAt) and \"evm_fresh\" (createdAt), returning data that does not meet the specified criteria.; class adjudicated seller_error\u2192negative_result: The request was successfully processed and returned valid data, but the filters (especially the future-dated `createdAt` filter for `evm_fresh`) were highly restrictive, resulting in very few matching"
+  },
+  {
+   "tool": "mpp.codex.post.graphql",
+   "amount": "0.001",
+   "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0x9cc967c92309f8f069553a8d0c3d93c12c11e1b15fe3fd056d67453ddade8601",
+   "delivered": false,
+   "outcome": "seller_error",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: The `solana_recent` and `solana_fresh` sub-queries incorrectly returned empty result sets, despite there being tokens in the `solana_active` results that met their filtering criteria.; class confirmed by adjudicator"
+  },
+  {
+   "tool": "mpp.codex.post.graphql",
+   "amount": "0.001",
+   "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0xcd3fe605792611dd6e1193ce883c0099f27bbc1bf845cdfbe978a6e81b473f45",
+   "delivered": false,
+   "outcome": "negative_result",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check FAILED: One of the returned entries contains a 'createdAt' timestamp that translates to a future date relative to TODAY (UTC).; class adjudicated seller_error\u2192negative_result: The API successfully processed the GraphQL query and returned a populated 'results' array, indicating the tool worked and provided a valid answer, rather than failing or rejecting the request."
+  },
+  {
+   "tool": "mpp.codex.post.graphql",
+   "amount": "0.001",
+   "pay_to": "0xc12B5D802Da90d14a8b35dEc1cFb6fd5ceeDE60B",
+   "currency": "USDC.e",
+   "network": "tempo",
+   "tx_hash": "0x7a1064a71b4c2d330aabf1b04f47311d4ef8be0cfee6198ec0e3290729158f57",
+   "delivered": true,
+   "outcome": "delivered",
+   "reason": "standard: deterministic ok, LLM cross-check owed (>= threshold); cross-check passed"
+  }
+ ],
+ "confidence": 0,
+ "error": null
+}
