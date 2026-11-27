@@ -1,0 +1,59 @@
+name: Lamble Vercel smoke
+
+on:
+  repository_dispatch:
+    types: [vercel.deployment.ready]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify staged Vercel release
+    if: >-
+      github.event.client_payload.project.name == 'lamble-ethglobal' &&
+      github.event.client_payload.environment == 'production' &&
+      github.event.client_payload.git.ref == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: production
+    permissions:
+      contents: read
+      statuses: write
+    env:
+      DEPLOYED_SHA: ${{ github.event.client_payload.git.sha }}
+    steps:
+      - name: Mark smoke pending on the deployed commit
+        id: pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [[ "$DEPLOYED_SHA" =~ ^[0-9a-f]{40}$ ]]
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$DEPLOYED_SHA" \
+            -f context=smoke -f state=pending \
+            -f target_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >/dev/null
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.client_payload.git.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Smoke test the deployment URL
+        id: smoke
+        run: node scripts/deploy/smoke.mjs "$DEPLOYMENT_URL"
+        env:
+          DEPLOYMENT_URL: ${{ github.event.client_payload.url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+      - name: Report the smoke result on the deployed commit
+        if: always() && steps.pending.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SMOKE_OUTCOME: ${{ steps.smoke.outcome }}
+        run: |
+          state=failure
+          if [[ "$SMOKE_OUTCOME" == success ]]; then state=success; fi
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$DEPLOYED_SHA" \
+            -f context=smoke -f state="$state" \
+            -f target_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >/dev/null
